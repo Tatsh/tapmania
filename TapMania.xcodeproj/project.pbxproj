@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D3623260D0F684500981E51 /* TapManiaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
+		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
+		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
+		2486F1990EC080AC00E5F9EE /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */; };
+		2486F19B0EC0828900E5F9EE /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F19A0EC0828900E5F9EE /* Background.png */; };
+		2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */; };
+		2486F1C40EC08CF300E5F9EE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */; };
+		2486F1C60EC08CFD00E5F9EE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */; };
+		2486F2A90EC0A2D600E5F9EE /* LifeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2A80EC0A2D600E5F9EE /* LifeBar.m */; };
+		2486F2AD0EC0A51100E5F9EE /* TMSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AC0EC0A51100E5F9EE /* TMSong.m */; };
+		2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */; };
+		2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */; };
+		2486F3280EC0B02A00E5F9EE /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3270EC0B02A00E5F9EE /* down.png */; };
+		2486F3F90EC1C6C400E5F9EE /* arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3F50EC1C6C400E5F9EE /* arrow-down.png */; };
+		2486F3FA0EC1C6C400E5F9EE /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3F60EC1C6C400E5F9EE /* arrow-left.png */; };
+		2486F3FB0EC1C6C400E5F9EE /* arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3F70EC1C6C400E5F9EE /* arrow-right.png */; };
+		2486F3FC0EC1C6C400E5F9EE /* arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3F80EC1C6C400E5F9EE /* arrow-up.png */; };
+		2486F4270EC1CD1400E5F9EE /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F4240EC1CD1400E5F9EE /* left.png */; };
+		2486F4280EC1CD1400E5F9EE /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F4250EC1CD1400E5F9EE /* right.png */; };
+		2486F4290EC1CD1400E5F9EE /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F4260EC1CD1400E5F9EE /* up.png */; };
+		2486F4420EC1DF2800E5F9EE /* base.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F4410EC1DF2800E5F9EE /* base.png */; };
+		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
+		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
+		24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15DB30EC2094600755788 /* SoundEffectsHolder.m */; };
+		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
+		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
+		24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E6B0EC211D100755788 /* AbstractRenderer.m */; };
+		24F15EB90EC31E4700755788 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.m */; };
+		24F15FDB0EC3352C00755788 /* AbstractMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FDA0EC3352C00755788 /* AbstractMenuRenderer.m */; };
+		24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */; };
+		24F161150EC348B100755788 /* CreditsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.m */; };
+		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
+		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapManiaAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapManiaAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* TapMania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapMania.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoyPad.h; path = Classes/JoyPad.h; sourceTree = "<group>"; };
+		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JoyPad.m; path = Classes/JoyPad.m; sourceTree = "<group>"; };
+		2486F18D0EC077CA00E5F9EE /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Util/Texture2D.h; sourceTree = "<group>"; };
+		2486F18E0EC077CA00E5F9EE /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Texture2D.m; path = Util/Texture2D.m; sourceTree = "<group>"; };
+		2486F1900EC077E100E5F9EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundEngine.cpp; path = Util/SoundEngine.cpp; sourceTree = "<group>"; };
+		2486F1980EC080AC00E5F9EE /* SoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundEngine.h; path = Util/SoundEngine.h; sourceTree = "<group>"; };
+		2486F19A0EC0828900E5F9EE /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = Images/Background.png; sourceTree = "<group>"; };
+		2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		2486F2A70EC0A2D600E5F9EE /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeBar.h; path = Renderers/UIElements/LifeBar.h; sourceTree = "<group>"; };
+		2486F2A80EC0A2D600E5F9EE /* LifeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LifeBar.m; path = Renderers/UIElements/LifeBar.m; sourceTree = "<group>"; };
+		2486F2AB0EC0A51100E5F9EE /* TMSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSong.h; path = Objects/TMSong.h; sourceTree = "<group>"; };
+		2486F2AC0EC0A51100E5F9EE /* TMSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMSong.m; path = Objects/TMSong.m; sourceTree = "<group>"; };
+		2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSteps.h; path = Objects/TMSteps.h; sourceTree = "<group>"; };
+		2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMSteps.m; path = Objects/TMSteps.m; sourceTree = "<group>"; };
+		2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSongOptions.h; path = Objects/TMSongOptions.h; sourceTree = "<group>"; };
+		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMSongOptions.m; path = Objects/TMSongOptions.m; sourceTree = "<group>"; };
+		2486F3270EC0B02A00E5F9EE /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = down.png; path = Images/down.png; sourceTree = "<group>"; };
+		2486F3F50EC1C6C400E5F9EE /* arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-down.png"; path = "Images/arrow-down.png"; sourceTree = "<group>"; };
+		2486F3F60EC1C6C400E5F9EE /* arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-left.png"; path = "Images/arrow-left.png"; sourceTree = "<group>"; };
+		2486F3F70EC1C6C400E5F9EE /* arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-right.png"; path = "Images/arrow-right.png"; sourceTree = "<group>"; };
+		2486F3F80EC1C6C400E5F9EE /* arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-up.png"; path = "Images/arrow-up.png"; sourceTree = "<group>"; };
+		2486F4240EC1CD1400E5F9EE /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = Images/left.png; sourceTree = "<group>"; };
+		2486F4250EC1CD1400E5F9EE /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right.png; path = Images/right.png; sourceTree = "<group>"; };
+		2486F4260EC1CD1400E5F9EE /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = up.png; path = Images/up.png; sourceTree = "<group>"; };
+		2486F4410EC1DF2800E5F9EE /* base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = base.png; path = Images/base.png; sourceTree = "<group>"; };
+		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
+		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
+		2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturesHolder.h; sourceTree = "<group>"; };
+		2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturesHolder.m; sourceTree = "<group>"; };
+		24F15DB20EC2094600755788 /* SoundEffectsHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEffectsHolder.h; sourceTree = "<group>"; };
+		24F15DB30EC2094600755788 /* SoundEffectsHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundEffectsHolder.m; sourceTree = "<group>"; };
+		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
+		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
+		24F15E470EC2114F00755788 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		24F15E6A0EC211D100755788 /* AbstractRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractRenderer.h; path = Renderers/AbstractRenderer.h; sourceTree = "<group>"; };
+		24F15E6B0EC211D100755788 /* AbstractRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractRenderer.m; path = Renderers/AbstractRenderer.m; sourceTree = "<group>"; };
+		24F15EB70EC31E4700755788 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Renderers/UIElements/MenuItem.h; sourceTree = "<group>"; };
+		24F15EB80EC31E4700755788 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Renderers/UIElements/MenuItem.m; sourceTree = "<group>"; };
+		24F15FD90EC3352C00755788 /* AbstractMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractMenuRenderer.h; path = Renderers/AbstractMenuRenderer.h; sourceTree = "<group>"; };
+		24F15FDA0EC3352C00755788 /* AbstractMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractMenuRenderer.m; path = Renderers/AbstractMenuRenderer.m; sourceTree = "<group>"; };
+		24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionsMenuRenderer.h; path = Renderers/OptionsMenuRenderer.h; sourceTree = "<group>"; };
+		24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionsMenuRenderer.m; path = Renderers/OptionsMenuRenderer.m; sourceTree = "<group>"; };
+		24F161130EC348B100755788 /* CreditsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditsRenderer.h; path = Renderers/CreditsRenderer.h; sourceTree = "<group>"; };
+		24F161140EC348B100755788 /* CreditsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditsRenderer.m; path = Renderers/CreditsRenderer.m; sourceTree = "<group>"; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		28FD14FD0DC6FC130079059D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
+				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
+				2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */,
+				2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */,
+				2486F1C40EC08CF300E5F9EE /* AudioToolbox.framework in Frameworks */,
+				2486F1C60EC08CFD00E5F9EE /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				28FD14FC0DC6FC130079059D /* EAGLView.h */,
+				28FD14FD0DC6FC130079059D /* EAGLView.m */,
+				1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */,
+				1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */,
+				2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */,
+				2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */,
+				24F15DB20EC2094600755788 /* SoundEffectsHolder.h */,
+				24F15DB30EC2094600755788 /* SoundEffectsHolder.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* TapMania.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2486F1880EC0778200E5F9EE /* JoyPad */ = {
+			isa = PBXGroup;
+			children = (
+				2486F1890EC077A300E5F9EE /* JoyPad.h */,
+				2486F18A0EC077A300E5F9EE /* JoyPad.m */,
+			);
+			name = JoyPad;
+			sourceTree = "<group>";
+		};
+		2486F18C0EC077BA00E5F9EE /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */,
+				2486F1980EC080AC00E5F9EE /* SoundEngine.h */,
+				2486F18D0EC077CA00E5F9EE /* Texture2D.h */,
+				2486F18E0EC077CA00E5F9EE /* Texture2D.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		2486F2A60EC0A18C00E5F9EE /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
+				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
+				24F15EB70EC31E4700755788 /* MenuItem.h */,
+				24F15EB80EC31E4700755788 /* MenuItem.m */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		2486F2AA0EC0A4FE00E5F9EE /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2486F2AB0EC0A51100E5F9EE /* TMSong.h */,
+				2486F2AC0EC0A51100E5F9EE /* TMSong.m */,
+				2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */,
+				2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */,
+				2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */,
+				2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		2486F4510EC1E0E600E5F9EE /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				2486F2A60EC0A18C00E5F9EE /* UI Elements */,
+				24F15E6A0EC211D100755788 /* AbstractRenderer.h */,
+				24F15E6B0EC211D100755788 /* AbstractRenderer.m */,
+				2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */,
+				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */,
+				24F161130EC348B100755788 /* CreditsRenderer.h */,
+				24F161140EC348B100755788 /* CreditsRenderer.m */,
+				24F15FD90EC3352C00755788 /* AbstractMenuRenderer.h */,
+				24F15FDA0EC3352C00755788 /* AbstractMenuRenderer.m */,
+				24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */,
+				24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */,
+				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
+				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
+			);
+			name = Renderers;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				2486F4510EC1E0E600E5F9EE /* Renderers */,
+				2486F2AA0EC0A4FE00E5F9EE /* Objects */,
+				2486F18C0EC077BA00E5F9EE /* Util */,
+				2486F1880EC0778200E5F9EE /* JoyPad */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				24F15E470EC2114F00755788 /* Default.png */,
+				2486F4410EC1DF2800E5F9EE /* base.png */,
+				2486F4240EC1CD1400E5F9EE /* left.png */,
+				2486F4250EC1CD1400E5F9EE /* right.png */,
+				2486F4260EC1CD1400E5F9EE /* up.png */,
+				2486F3F50EC1C6C400E5F9EE /* arrow-down.png */,
+				2486F3F60EC1C6C400E5F9EE /* arrow-left.png */,
+				2486F3F70EC1C6C400E5F9EE /* arrow-right.png */,
+				2486F3F80EC1C6C400E5F9EE /* arrow-up.png */,
+				2486F3270EC0B02A00E5F9EE /* down.png */,
+				2486F19A0EC0828900E5F9EE /* Background.png */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */,
+				2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */,
+				2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */,
+				2486F1900EC077E100E5F9EE /* CoreGraphics.framework */,
+				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
+				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* TapMania */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TapMania" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TapMania;
+			productName = TapMania;
+			productReference = 1D6058910D05DD3D006BFB54 /* TapMania.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TapMania" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* TapMania */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2486F19B0EC0828900E5F9EE /* Background.png in Resources */,
+				2486F3280EC0B02A00E5F9EE /* down.png in Resources */,
+				2486F3F90EC1C6C400E5F9EE /* arrow-down.png in Resources */,
+				2486F3FA0EC1C6C400E5F9EE /* arrow-left.png in Resources */,
+				2486F3FB0EC1C6C400E5F9EE /* arrow-right.png in Resources */,
+				2486F3FC0EC1C6C400E5F9EE /* arrow-up.png in Resources */,
+				2486F4270EC1CD1400E5F9EE /* left.png in Resources */,
+				2486F4280EC1CD1400E5F9EE /* right.png in Resources */,
+				2486F4290EC1CD1400E5F9EE /* up.png in Resources */,
+				2486F4420EC1DF2800E5F9EE /* base.png in Resources */,
+				24F15E480EC2114F00755788 /* Default.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* TapManiaAppDelegate.m in Sources */,
+				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
+				2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */,
+				2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */,
+				2486F1990EC080AC00E5F9EE /* SoundEngine.cpp in Sources */,
+				2486F2A90EC0A2D600E5F9EE /* LifeBar.m in Sources */,
+				2486F2AD0EC0A51100E5F9EE /* TMSong.m in Sources */,
+				2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */,
+				2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */,
+				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */,
+				2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */,
+				24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */,
+				24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */,
+				24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */,
+				24F15EB90EC31E4700755788 /* MenuItem.m in Sources */,
+				24F15FDB0EC3352C00755788 /* AbstractMenuRenderer.m in Sources */,
+				24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */,
+				24F161150EC348B100755788 /* CreditsRenderer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = TapMania;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = TapMania;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TapMania" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TapMania" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
