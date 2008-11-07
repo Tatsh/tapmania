@@ -1,30 +1,32 @@
 //
-//  OptionsMenuRenderer.m
+//  SongPickerMenuRenderer.m
 //  TapMania
 //
-//  Created by Alex Kremer on 06.11.08.
+//  Created by Alex Kremer on 07.11.08.
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TapManiaAppDelegate.h"
+#import "SongPickerMenuRenderer.h"
+
 #import "TexturesHolder.h"
+#import "TapManiaAppDelegate.h"
 
-#import "OptionsMenuRenderer.h"
 #import "MainMenuRenderer.h"
+#import "SongPlayRenderer.h"
 
-@implementation OptionsMenuRenderer
+#import "MenuItem.h"
+
+@implementation SongPickerMenuRenderer
 
 - (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:kNumOptionsMenuItems];
+	self = [super initWithView:lGlView andCapacity:10];
 	if(!self)
 		return nil;
-	
-	// TODO: define some menu items
-	
-	// Back button	
+
+	// Add back button
 	[self enableBackButton]; // Handled by 'backPress:'
 	[self publishMenu];
-
+		
 	return self;
 }
 
@@ -41,9 +43,15 @@
 }	
 
 # pragma mark Touch handling
+- (void) playGamePress:(id)sender {
+	NSLog(@"Start song...");
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPlayRenderer alloc] initWithView:glView] looping:YES];
+}
+
 - (void) backPress:(id)sender {
-	NSLog(@"Enter main menu (back from options)...");
+	NSLog(@"Go to main menu from Play menu...");
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
 }
+
 
 @end

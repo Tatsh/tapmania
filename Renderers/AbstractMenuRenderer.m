@@ -16,10 +16,16 @@
 	if(!self)
 		return nil;
 	
+	_backButtonUsed = NO;
+	
 	// Construct the menu
 	_menuElements = [[NSMutableArray arrayWithCapacity:capacity] retain];
 	
 	return self;
+}
+
+- (void) enableBackButton {
+	_backButtonUsed = YES;
 }
 
 - (void) addMenuItemWithTitle:(NSString*) title andHandler:(SEL)sel onTarget:(id)target {
@@ -35,7 +41,7 @@
 - (void) publishMenu {
 	
 	_curPos = [_menuElements count] * 30;	// Height of each item + offset 10px
-	_curPos = (glView.bounds.size.height - _curPos) / 2;
+	_curPos = (glView.bounds.size.height - _curPos) / 2;	
 	
 	for(int i=0; i<[_menuElements count]; i++) {
 		MenuItem* item = [_menuElements objectAtIndex:i];
@@ -44,6 +50,14 @@
 		[glView addSubview:item];	
 		
 		_curPos += 30;
+	}
+	
+	// Add back button if needed
+	if(_backButtonUsed) {
+		backButton = [[MenuItem alloc] initWithTitle:@"Back"];
+		[backButton addTarget:self action:@selector(backPress:) forControlEvents:UIControlEventTouchUpInside];
+		[backButton setFrame:CGRectMake(5, 435, 80, 20)];
+		[glView addSubview:backButton];			
 	}
 }
 
@@ -55,6 +69,12 @@
 	}
 	
 	[_menuElements release];
+	
+	// remove back button
+	if(_backButtonUsed) {
+		[backButton removeFromSuperview];
+		[backButton release];
+	}
 	
 	[super dealloc];
 }

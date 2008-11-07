@@ -11,7 +11,7 @@
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
 
-#import "SongPlayRenderer.h"
+#import "SongPickerMenuRenderer.h"
 #import "OptionsMenuRenderer.h"
 #import "CreditsRenderer.h"
 
@@ -46,8 +46,8 @@
 
 # pragma mark Touch handling
 - (void) playGamePress:(id)sender {
-	NSLog(@"Enter playGame...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPlayRenderer alloc] initWithView:glView] looping:YES];
+	NSLog(@"Enter song pick menu...");
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] looping:NO];
 }
 
 - (void) optionsPress:(id)sender {

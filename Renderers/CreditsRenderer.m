@@ -38,12 +38,8 @@
 	currentPos = ([texturesArray count]*15);
 	currentPos = -currentPos;
 	
-	// Add menu button
-	MenuItem* newItem = [[MenuItem alloc] initWithTitle:@"Back"];
-	[newItem addTarget:self action:@selector(backPress:) forControlEvents:UIControlEventTouchUpInside];
-	[newItem setFrame:CGRectMake(5, 435, 80, 20)];
-	[_menuElements addObject:newItem];
-	[glView addSubview:newItem];	
+	[self enableBackButton]; // Handled by 'backPress:'
+	[self publishMenu];
 	
 	return self;
 }
