@@ -8,6 +8,7 @@
 
 #import "CreditsRenderer.h"
 #import "TexturesHolder.h"
+#import "Texture2D.h"
 
 #import "TapManiaAppDelegate.h"
 #import "MainMenuRenderer.h"
@@ -20,20 +21,22 @@
 	if(!self)
 		return nil;
 	
-	currentPos = (float) -kCreditLines*15;
+	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
+	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
 	
-	NSString* textsArray[] = {
-		@"~~~ TapMania ~~~", @"",
-		@"Created by Alex (godexsoft) Kremer", @"", @"", @"",
-		@"Visit http://code.google.com/p/tapmania", @"", @"",@"",
-		@"This game is based on StepMania", @"Visit http://stepmania.com", @"", @"",
-		@"Human knowledge belongs to the world!"
-	};
+	// Alloc the textures array
+	texturesArray = [[NSMutableArray alloc] initWithCapacity:[textsArray count]];
 	
 	// Cache the textures
-	for(int i=0; i<kCreditLines; i++){
-		texturesArray[i] = [[Texture2D alloc] initWithString:textsArray[i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16];
+	for(int i=0; i<[textsArray count]; i++){
+		[texturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16]];
 	}
+	
+	[textsArray release];
+	
+	// Set starting pos
+	currentPos = ([texturesArray count]*15);
+	currentPos = -currentPos;
 	
 	// Add menu button
 	MenuItem* newItem = [[MenuItem alloc] initWithTitle:@"Back"];
@@ -46,8 +49,8 @@
 }
 
 - (void) dealloc {
-	for(int i=0; i<kCreditLines; i++){
-		[texturesArray[i] release];
+	for(int i=0; i<[texturesArray count]; i++){
+		[[texturesArray objectAtIndex:i] release];
 	}	
 	
 	[super dealloc];
@@ -66,16 +69,18 @@
 	// Draw the texts
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	for(int i=0, j=kCreditLines-1; i<kCreditLines; i++,j--){
-		[texturesArray[j] drawInRect:CGRectMake(0, currentPos+(i*15), 320, 15)];
+	for(int i=0, j=[texturesArray count]-1; i<[texturesArray count]; i++,j--){
+		[[texturesArray objectAtIndex:j] drawInRect:CGRectMake(0, currentPos+(i*15), 320, 15)];
 	}
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	
-	if(currentPos > 460) 
-		currentPos = (float) -kCreditLines*15;
+	if(currentPos > 460) {
+		currentPos = ([texturesArray count]*15);
+		currentPos = -currentPos;
+	}
 	
-	currentPos += 1.3f;
+	currentPos += 1.0f;
 	
 	//Swap the framebuffer
 	[glView swapBuffers];

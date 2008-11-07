@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractMenuRenderer.h"
-#import "Texture2D.h"
-
-#define kCreditLines 14
 
 @interface CreditsRenderer : AbstractMenuRenderer {
-	Texture2D* texturesArray[kCreditLines];
+	NSMutableArray* texturesArray;
 	
-	float currentPos;
+	float currentPos; // Current Y coordinate of the scrolling text
 }
 
 @end
