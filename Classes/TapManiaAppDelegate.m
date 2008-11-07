@@ -85,7 +85,7 @@
 	glEnable(GL_BLEND);
 	
 	// Show menu
-	[self activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] noSceneRendering:YES];
+	[self activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
 		
 	[window addSubview:glView];
 	NSLog(@"Added subview: glView.");
@@ -104,7 +104,7 @@
 }
 
 // Set current renderer and start the renderScene invocation timer
-- (void) activateRenderer:(AbstractRenderer*) renderer noSceneRendering:(BOOL) noSceneRendering {
+- (void) activateRenderer:(AbstractRenderer*) renderer looping:(BOOL) looping {
 	// Deactivate old renderer
 	if([UIApplication sharedApplication].idleTimerDisabled) {
 		[self deactivateRendering];
@@ -116,11 +116,11 @@
 	// Set new
 	self.currentRenderer = renderer;
 
-	if(noSceneRendering) {
-		// Render scene once
+	if(!looping) {
+		// Render scene once only
 		[currentRenderer renderScene];
 	} else {
-		//Start rendering timer
+		// Start rendering timer
 		_timer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / kRenderingFPS) target:currentRenderer selector:@selector(renderScene) userInfo:nil repeats:YES];
 		[UIApplication sharedApplication].idleTimerDisabled = YES;
 	}

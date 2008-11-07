@@ -271,17 +271,17 @@
 								<string>2486F1880EC0778200E5F9EE</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>1C37FABC05509CD000000102</string>
-								<string>1CC0EA4004350EF90041110B</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>44</integer>
+									<integer>38</integer>
+									<integer>34</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 124}, {186, 845}}</string>
+							<string>{{0, 107}, {186, 845}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,7 +318,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CreditsRenderer.m</string>
+								<string>TapManiaAppDelegate.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -326,11 +326,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CreditsRenderer.m</string>
+										<string>TapManiaAppDelegate.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>242946120EC4704100B88828</string>
+										<string>242946360EC4727100B88828</string>
 										<key>history</key>
 										<array>
 											<string>2486F3070EC0AC2D00E5F9EE</string>
@@ -353,22 +353,22 @@
 											<string>24F160AD0EC3421A00755788</string>
 											<string>24F160DD0EC3436500755788</string>
 											<string>24F160E50EC343A100755788</string>
-											<string>24F161090EC3457700755788</string>
 											<string>24F161270EC34CF800755788</string>
 											<string>24F161280EC34CF800755788</string>
-											<string>24F1612A0EC34CF800755788</string>
 											<string>24F1619F0EC357F900755788</string>
 											<string>24F161B90EC358C400755788</string>
 											<string>24F161C10EC358FE00755788</string>
 											<string>24F161C20EC358FE00755788</string>
 											<string>24F161DB0EC35A7100755788</string>
-											<string>24F1621D0EC361C000755788</string>
 											<string>24F1621E0EC361C000755788</string>
 											<string>24F162210EC361C000755788</string>
 											<string>242945A60EC46A5F00B88828</string>
 											<string>242945A70EC46A5F00B88828</string>
 											<string>242945D10EC46C9C00B88828</string>
-											<string>242945D20EC46C9C00B88828</string>
+											<string>2429461E0EC4720900B88828</string>
+											<string>2429461F0EC4720900B88828</string>
+											<string>242946200EC4720900B88828</string>
+											<string>2429462A0EC4725F00B88828</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -412,6 +412,10 @@
 											<string>242945AB0EC46A5F00B88828</string>
 											<string>242945D30EC46C9C00B88828</string>
 											<string>242945D40EC46C9C00B88828</string>
+											<string>242946220EC4720900B88828</string>
+											<string>242946230EC4720900B88828</string>
+											<string>242946240EC4720900B88828</string>
+											<string>242946250EC4720900B88828</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -629,12 +633,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>CreditsRenderer.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>

@@ -47,17 +47,17 @@
 # pragma mark Touch handling
 - (void) playGamePress:(id)sender {
 	NSLog(@"Enter playGame...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPlayRenderer alloc] initWithView:glView] noSceneRendering:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPlayRenderer alloc] initWithView:glView] looping:YES];
 }
 
 - (void) optionsPress:(id)sender {
 	NSLog(@"Enter options...");	
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] noSceneRendering:YES];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] looping:NO];
 }
 
 - (void) creditsPress:(id)sender {
 	NSLog(@"Credits page...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[CreditsRenderer alloc] initWithView:glView] noSceneRendering:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[CreditsRenderer alloc] initWithView:glView] looping:YES];
 }
 
 @end

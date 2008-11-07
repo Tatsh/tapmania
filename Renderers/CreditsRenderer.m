@@ -90,7 +90,7 @@
 #pragma mark Touch handlers
 - (void) backPress:(id) sender {
 	NSLog(@"Enter main menu (back from credits)...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] noSceneRendering:YES];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
 }
 
 @end

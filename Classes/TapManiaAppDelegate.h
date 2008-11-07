@@ -60,7 +60,7 @@ typedef struct
 - (void) showJoyPad;
 - (void) hideJoyPad;	
 
-- (void) activateRenderer:(AbstractRenderer*) renderer noSceneRendering:(BOOL) noSceneRendering;
+- (void) activateRenderer:(AbstractRenderer*) renderer looping:(BOOL) looping;
 - (void) deactivateRendering;
 
 @end

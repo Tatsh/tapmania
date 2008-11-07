@@ -42,7 +42,7 @@
 # pragma mark Touch handling
 - (void) backPress:(id)sender {
 	NSLog(@"Enter main menu (back from options)...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] noSceneRendering:YES];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
 }
 
 @end
