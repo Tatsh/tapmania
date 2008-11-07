@@ -53,6 +53,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	return availableSongs;
 }
 
+- (NSString*) getSongsPath {
+	return songsDir;
+}
 
 - (void) dealloc {
 	[songsDir release];

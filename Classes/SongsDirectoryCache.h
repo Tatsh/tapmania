@@ -14,6 +14,7 @@
 }
 
 - (NSArray*) getSongList;
+- (NSString*) getSongsPath;
 
 + (SongsDirectoryCache *)sharedInstance;
 

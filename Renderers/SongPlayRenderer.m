@@ -9,6 +9,8 @@
 #import "SongPlayRenderer.h"
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
+#import "SoundEngine.h"
+#import "SongsDirectoryCache.h"
 
 #import "TMSong.h"
 #import "TMSongOptions.h"
@@ -34,6 +36,13 @@
 	
 	// Testing
 	arrowPos = 0.0f;
+	
+	NSString* trk = [NSString stringWithFormat:@"%@/%@/%@", [[SongsDirectoryCache sharedInstance] getSongsPath], [[[SongsDirectoryCache sharedInstance] getSongList] objectAtIndex:0], @"/track.mp3"];
+	
+	NSLog(@"play %@", trk);
+	SoundEngine_LoadBackgroundMusicTrack([trk UTF8String], YES, NO);
+	
+	SoundEngine_StartBackgroundMusic();
 	
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
