@@ -10,6 +10,7 @@
 
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
+#import "SongsDirectoryCache.h"
 
 #import "MainMenuRenderer.h"
 #import "SongPlayRenderer.h"
@@ -23,6 +24,12 @@
 	if(!self)
 		return nil;
 
+	// Add all songs as buttons for now
+	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	for(int i=0; i<[songList count]; i++){
+		[self addMenuItemWithTitle:[songList objectAtIndex:i] andHandler:@selector(playGamePress:) onTarget:self];
+	}
+	
 	// Add back button
 	[self enableBackButton]; // Handled by 'backPress:'
 	[self publishMenu];
