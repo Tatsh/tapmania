@@ -15,6 +15,7 @@
 
 #import "TexturesHolder.h"
 #import "SoundEffectsHolder.h"
+#import "SongsDirectoryCache.h"
 
 #import "SongPlayRenderer.h"
 #import "MainMenuRenderer.h"
@@ -52,6 +53,9 @@
 	
 	//Setup the game
 	_state = kState_StandBy;
+	
+	// Cache all songs
+	[SongsDirectoryCache sharedInstance];
 	
 	// Load all textures
 	[TexturesHolder sharedInstance];

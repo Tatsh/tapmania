@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		242945EB0EC46DA700B88828 /* Credits.txt in Resources */ = {isa = PBXBuildFile; fileRef = 242945EA0EC46DA700B88828 /* Credits.txt */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
+		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
 		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
@@ -58,6 +59,8 @@
 		242945EA0EC46DA700B88828 /* Credits.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.txt; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
+		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsDirectoryCache.h; sourceTree = "<group>"; };
+		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsDirectoryCache.m; sourceTree = "<group>"; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoyPad.h; path = Classes/JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JoyPad.m; path = Classes/JoyPad.m; sourceTree = "<group>"; };
 		2486F18D0EC077CA00E5F9EE /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Util/Texture2D.h; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */,
 				24F15DB20EC2094600755788 /* SoundEffectsHolder.h */,
 				24F15DB30EC2094600755788 /* SoundEffectsHolder.m */,
+				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
+				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */,
 				24F161150EC348B100755788 /* CreditsRenderer.m in Sources */,
 				242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */,
+				242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
