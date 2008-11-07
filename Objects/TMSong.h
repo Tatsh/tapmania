@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-	kSongDifficulty_Easy = 0,
+	kSongDifficulty_Beginer = 0,
+	kSongDifficulty_Easy,
 	kSongDifficulty_Standard,
 	kSongDifficulty_Heavy,
 	kSongDifficulty_Challenge,
