@@ -20,6 +20,8 @@
 	if(!self) 
 		return nil;
 	
+	int i;
+
 	// Create and init buttons
 	UIImage* image = nil;
 	
@@ -32,7 +34,7 @@
 	
 	NSString* imgNames[kNumJoyButtons] = {@"arrow-left.png", @"arrow-down.png", @"arrow-up.png", @"arrow-right.png"};
 	
-	for (int i=0; i<kNumJoyButtons; i++){
+	for (i=0; i<kNumJoyButtons; i++){
 		UIButton* but = [[UIButton alloc] initWithFrame:CGRectMake(curXOffset, 6, buttonWidth, buttonHeight)];
 		image = [[UIImage imageNamed:imgNames[i]] retain];
 		
@@ -66,7 +68,9 @@
 }
 
 - (void) gotPress:(id) sender {
-	for(int i=0; i<kNumJoyButtons; i++) {
+	int i;
+
+	for(i=0; i<kNumJoyButtons; i++) {
 		if(sender == _buttons[i]){
 			// Found button id
 			_joyButtonStates[i] = YES;
@@ -80,7 +84,9 @@
 }
 
 - (void) gotRelease:(id) sender {
-	for(int i=0; i<kNumJoyButtons; i++) {
+	int i;
+
+	for(i=0; i<kNumJoyButtons; i++) {
 		if(sender == _buttons[i]){
 			// Found button id
 			_joyButtonStates[i] = NO;

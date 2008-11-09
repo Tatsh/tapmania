@@ -43,7 +43,8 @@
 	_curPos = [_menuElements count] * 30;	// Height of each item + offset 10px
 	_curPos = (glView.bounds.size.height - _curPos) / 2;	
 	
-	for(int i=0; i<[_menuElements count]; i++) {
+	int i;
+	for(i=0; i<[_menuElements count]; i++) {
 		MenuItem* item = [_menuElements objectAtIndex:i];
 		[item setPosition:_curPos];
 		
@@ -62,8 +63,9 @@
 }
 
 - (void) dealloc {
-	
-	for(int i=0; i<[_menuElements count]; i++) {
+	int i;
+
+	for(i=0; i<[_menuElements count]; i++) {
 		[[_menuElements objectAtIndex:i] removeFromSuperview];
 		[[_menuElements objectAtIndex:i] release];
 	}

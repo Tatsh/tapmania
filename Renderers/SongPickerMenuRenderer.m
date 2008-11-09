@@ -24,9 +24,11 @@
 	if(!self)
 		return nil;
 
+	int i;
+
 	// Add all songs as buttons for now
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-	for(int i=0; i<[songList count]; i++){
+	for(i=0; i<[songList count]; i++){
 		[self addMenuItemWithTitle:[songList objectAtIndex:i] andHandler:@selector(playGamePress:) onTarget:self];
 	}
 	

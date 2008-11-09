@@ -21,6 +21,8 @@
 	if(!self)
 		return nil;
 	
+	int i;
+	
 	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
 	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
 	
@@ -28,7 +30,7 @@
 	texturesArray = [[NSMutableArray alloc] initWithCapacity:[textsArray count]];
 	
 	// Cache the textures
-	for(int i=0; i<[textsArray count]; i++){
+	for(i=0; i<[textsArray count]; i++){
 		[texturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16]];
 	}
 	
@@ -45,7 +47,9 @@
 }
 
 - (void) dealloc {
-	for(int i=0; i<[texturesArray count]; i++){
+	int i;
+
+	for(i=0; i<[texturesArray count]; i++){
 		[[texturesArray objectAtIndex:i] release];
 	}	
 	
@@ -56,6 +60,7 @@
 // Renders one scene of the credits screen :P
 - (void)renderScene {
 	CGRect				bounds = [glView bounds];
+	int i, j;
 	
 	//Draw background
 	glDisable(GL_BLEND);
@@ -65,7 +70,7 @@
 	// Draw the texts
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	for(int i=0, j=[texturesArray count]-1; i<[texturesArray count]; i++,j--){
+	for(i=0, j=[texturesArray count]-1; i<[texturesArray count]; i++,j--){
 		[[texturesArray objectAtIndex:j] drawInRect:CGRectMake(0, currentPos+(i*15), 320, 15)];
 	}
 	
