@@ -3,8 +3,8 @@ CC=arm-apple-darwin9-gcc
 LD=$(CC) 
 FRAMEWORKS=-framework CoreFoundation -framework Foundation -framework UIKit -framework CoreAudio -framework OpenAL -framework CoreGraphics -framework OpenGLES -framework AudioToolbox -framework QuartzCore
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
-CFLAGS=-O2 -I. -IUtil -IObjects -IClasses -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
-OBJS=Util/Texture2D.o Classes/SoundEffectsHolder.o Classes/JoyPad.o Classes/SongsDirectoryCache.o Classes/TapManiaAppDelegate.o Classes/TexturesHolder.o Classes/EAGLView.o Renderers/AbstractRenderer.o Renderers/AbstractMenuRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o  Renderers/UIElements/MenuItem.o Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o Objects/TMSong.o Objects/TMSteps.o Objects/TMSongOptions.o Util/SoundEngine.o
+CFLAGS=-O2 -I. -IParsers -IUtil -IObjects -IClasses -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
+OBJS=Util/Texture2D.o Classes/SoundEffectsHolder.o Classes/JoyPad.o Classes/SongsDirectoryCache.o Classes/TapManiaAppDelegate.o Classes/TexturesHolder.o Classes/EAGLView.o Renderers/AbstractRenderer.o Renderers/AbstractMenuRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o  Renderers/UIElements/MenuItem.o Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o Objects/TMSong.o Objects/TMSteps.o Objects/TMSongOptions.o Util/SoundEngine.o Parsers/DWIParser.o
 
 all: app tar deploy 
 

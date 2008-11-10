@@ -11,7 +11,9 @@
 
 @implementation TMSong
 
-@synthesize title, description, artist;
+@synthesize title, artist;
+@synthesize bpm, gap;
+@synthesize bpmChangeArray, freezeArray;
 
 - (id) initWithFile:(NSString*) filename {
 	self = [super init];

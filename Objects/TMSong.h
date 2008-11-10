@@ -24,17 +24,23 @@ typedef enum {
 @interface TMSong : NSObject {
 	
 	// Song information
-	NSString * artist;
-	NSString * title;
-	NSString * description;
+	NSString* 	title;
+	NSString* 	artist;
+	float	  	bpm;
+	unsigned long 	gap;
+	
+	NSMutableArray* bpmChangeArray;
+	NSMutableArray* freezeArray;
 
 	int _availableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
 }
 
 @property (retain, nonatomic) NSString* artist;
 @property (retain, nonatomic) NSString* title;
-@property (retain, nonatomic) NSString* description;
-
+@property (assign) float bpm;
+@property (assign) unsigned long gap;
+@property (retain, nonatomic) NSMutableArray* bpmChangeArray;
+@property (retain, nonatomic) NSMutableArray* freezeArray;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
 - (id) initWithFile:(NSString*) filename;

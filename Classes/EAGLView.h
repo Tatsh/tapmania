@@ -28,7 +28,6 @@
 	CGSize					_size;
 	BOOL					_hasBeenCurrent;
 }
-- (id)initWithCoder:(NSCoder*)coder; 
 
 @property(readonly) GLuint framebuffer;
 @property(readonly) NSString* pixelFormat;

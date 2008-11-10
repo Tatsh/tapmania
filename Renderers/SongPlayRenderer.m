@@ -11,10 +11,12 @@
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
 #import "SongsDirectoryCache.h"
+#import "DWIParser.h"
 
 #import "TMSong.h"
 #import "TMSongOptions.h"
 
+#import <syslog.h>
 
 #define kArrowsBaseX				25
 #define kArrowsBaseY				380
@@ -36,14 +38,21 @@
 	
 	// Testing
 	arrowPos = 0.0f;
-	
-	NSString* trk = [NSString stringWithFormat:@"%@/%@/%@", [[SongsDirectoryCache sharedInstance] getSongsPath], [[[SongsDirectoryCache sharedInstance] getSongList] objectAtIndex:0], @"/track.mp3"];
+
+	/*
 	
 	NSLog(@"play %@", trk);
 	SoundEngine_LoadBackgroundMusicTrack([trk UTF8String], YES, NO);
 	
 	SoundEngine_StartBackgroundMusic();
-	
+	*/
+
+	// Try to parse the dwi file	
+	NSString* dwiFile = [NSString stringWithFormat:@"%@/%@", [[SongsDirectoryCache sharedInstance] getSongsPath], @"a/a.dwi"];
+	TMSong *song = [DWIParser parseFromFile:dwiFile];
+
+	syslog(LOG_DEBUG, "Got song info: %s/%s/%f", [song.title UTF8String], [song.artist UTF8String], song.bpm );
+
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
 	
