@@ -183,7 +183,14 @@ OSStatus  SoundEngine_StartBackgroundMusic();
     @result         An OSStatus indicating success or failure.
 */
 OSStatus  SoundEngine_StopBackgroundMusic(Boolean inStopAtEnd);
-
+	
+/*!
+	 @function       SoundEngine_BackgroundMusicGetCurrentPacket
+	 @abstract       Used to get the currently played packet number
+	 @result         The packet number
+ */
+UInt32	  SoundEngine_BackgroundMusicGetCurrentPacket();	
+	
 /*!
     @function       SoundEngine_SetBackgroundMusicVolume
     @abstract       Sets the volume for the background music player

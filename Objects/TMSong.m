@@ -16,15 +16,16 @@
 @synthesize bpm, gap;
 @synthesize bpmChangeArray, freezeArray;
 
-- (id) initWithFile:(NSString*) filename {
+- (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath {
 	
 	// Note: only title etc is loaded here. No steps.
-	if([filename hasSuffix:@".dwi"]) {
-		self = [DWIParser parseFromFile:filename];
+	if([lStepsFilePath hasSuffix:@".dwi"]) {
+		self = [DWIParser parseFromFile:lStepsFilePath];
 		self.fileType = kSongFileType_DWI;
 	}
 	
-	self.filePath = filename;
+	self.musicFilePath = lMusicFilePath;
+	self.filePath = lStepsFilePath;
 	
 	return self;
 }

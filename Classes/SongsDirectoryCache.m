@@ -43,18 +43,33 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
 			NSString* file;
 		
+			NSString* stepsFilePath = nil;
+			NSString* musicFilePath = nil;			
+			
 			while (file = [dirEnum nextObject]) {
-				if([file hasSuffix:@".dwi"]) {
+				if([file hasSuffix:@".dwi"] || [file hasSuffix:@".DWI"]) {
 					NSLog(@"DWI file found: %@", file);
-					NSString* dwiPath = [curPath stringByAppendingPathComponent:file];
-					
-					// Parse very basic info from this file
-					NSLog(@"Parsing song from %@...", dwiPath);
-					TMSong* song = [[TMSong alloc] initWithFile:dwiPath];
-					NSLog(@"Done.");
-					
-					[availableSongs addObject:song];
+					stepsFilePath = [curPath stringByAppendingPathComponent:file];
 				}
+				
+				if([file hasSuffix:@".mp3"] || [file hasSuffix:@".MP3"]) {
+					NSLog(@"Found music file: %@", file);
+					musicFilePath = [curPath stringByAppendingPathComponent:file];
+				}
+			}
+			
+			// Now try to parse if found everything
+			if(stepsFilePath != nil && musicFilePath != nil){
+				
+				// Parse very basic info from this file
+				NSLog(@"Parsing song from %@...", stepsFilePath);
+				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];
+				NSLog(@"Done.");			
+			
+				[availableSongs addObject:song];
+				
+			} else {
+				NSLog(@"Error: steps file or music file not found for song dir '%@'! abort.", curPath);
 			}
 		}
 	} else {

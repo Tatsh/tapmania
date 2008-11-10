@@ -61,7 +61,7 @@ typedef enum {
 @property (retain, nonatomic) NSMutableArray* freezeArray;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
-- (id) initWithFile:(NSString*) filename;
+- (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath;
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 

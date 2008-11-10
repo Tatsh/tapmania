@@ -9,12 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "AbstractRenderer.h"
 
+#import "TMSong.h"
+#import "TMSongOptions.h"
+
 @interface SongPlayRenderer : AbstractRenderer {
 	unsigned				_combo;  // Current combo
 	unsigned				_score;  // Current score
 	
+	double					playBackStartTime;
+	
 	// JUST FOR TEST!!!
 	float arrowPos;
 }
+
+- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;
 
 @end

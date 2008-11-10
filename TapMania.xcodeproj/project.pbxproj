@@ -39,6 +39,7 @@
 		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
+		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
 		24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15DB30EC2094600755788 /* SoundEffectsHolder.m */; };
 		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
 		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
@@ -99,6 +100,8 @@
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
 		24EBF4110EC8446900533056 /* SongPickerMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuItem.m; path = Renderers/UIElements/SongPickerMenuItem.m; sourceTree = "<group>"; };
+		24EBF4DF0EC8780600533056 /* TimingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingUtil.h; path = Util/TimingUtil.h; sourceTree = "<group>"; };
+		24EBF4E00EC8780600533056 /* TimingUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimingUtil.m; path = Util/TimingUtil.m; sourceTree = "<group>"; };
 		24F15DB20EC2094600755788 /* SoundEffectsHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEffectsHolder.h; sourceTree = "<group>"; };
 		24F15DB30EC2094600755788 /* SoundEffectsHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundEffectsHolder.m; sourceTree = "<group>"; };
 		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				2486F1980EC080AC00E5F9EE /* SoundEngine.h */,
 				2486F18D0EC077CA00E5F9EE /* Texture2D.h */,
 				2486F18E0EC077CA00E5F9EE /* Texture2D.m */,
+				24EBF4DF0EC8780600533056 /* TimingUtil.h */,
+				24EBF4E00EC8780600533056 /* TimingUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */,
 				24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */,
 				24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */,
+				24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

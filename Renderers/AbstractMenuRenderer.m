@@ -9,10 +9,6 @@
 #import "AbstractMenuRenderer.h"
 #import "MenuItem.h"
 
-@interface AbstractMenuRenderer (Private)
-- (void) addMenuItemWithTitle:(NSString*) title andHandler:(SEL)sel onTarget:(id)target;
-@end
-
 
 @implementation AbstractMenuRenderer
 

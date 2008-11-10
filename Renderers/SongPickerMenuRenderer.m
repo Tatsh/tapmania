@@ -78,7 +78,10 @@
 	
 	NSLog(@"Start song... %@", song.filePath);
 	
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPlayRenderer alloc] initWithView:glView] looping:YES];
+	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
+
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:songPlayRenderer looping:YES];	
+	[songPlayRenderer playSong:song withOptions:nil];
 }
 
 - (void) backPress:(id)sender {

@@ -663,6 +663,10 @@ class BackgroundTrackMgr
 			return;
 		}
 		
+		UInt32 GetCurrentPacket() {
+			return this->mCurrentPacket;
+		}
+	
 		OSStatus SetupQueue(BG_FileInfo *inFileInfo)
 		{
 			UInt32 size = 0;
@@ -1497,6 +1501,12 @@ extern "C"
 OSStatus  SoundEngine_SetBackgroundMusicVolume(Float32 inValue)
 {
 	return (sBackgroundTrackMgr) ? sBackgroundTrackMgr->SetVolume(inValue) : kSoundEngineErrUnitialized;
+}
+
+extern "C"
+UInt32  SoundEngine_BackgroundMusicGetCurrentPacket()
+{
+	return (sBackgroundTrackMgr) ? sBackgroundTrackMgr->GetCurrentPacket() : kSoundEngineErrUnitialized;
 }
 
 extern "C"

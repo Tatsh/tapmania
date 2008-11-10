@@ -10,6 +10,7 @@
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
+#import "TimingUtil.h"
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
 
@@ -24,11 +25,6 @@
 #define kArrowsBaseHeight			60
 
 
-@interface SongPlayRenderer (Private)
-- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;
-@end
-
-
 @implementation SongPlayRenderer
 
 - (id) initWithView:(EAGLView*)lGlView {
@@ -39,14 +35,6 @@
 	// Testing
 	arrowPos = 0.0f;
 
-	/*
-	
-	NSLog(@"play %@", trk);
-	SoundEngine_LoadBackgroundMusicTrack([trk UTF8String], YES, NO);
-	
-	SoundEngine_StartBackgroundMusic();
-	*/
-
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
 	
@@ -55,6 +43,13 @@
 
 - (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
 	NSLog(@"Start the song...");
+	
+	NSLog(@"play %@", song.musicFilePath);
+	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], YES, NO);
+	
+	// Save start time of song playback and start the playback
+	playBackStartTime = [TimingUtil getCurrentTime];
+	SoundEngine_StartBackgroundMusic();
 }
 
 // Renders one scene of the gameplay
@@ -72,7 +67,7 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Base] drawInRect:baseRect];
 		
 	// Draw the arrow
-	arrowPos+=10.0f;
+	arrowPos+=1.0f;
 	if(arrowPos > 460.0f) 
 		arrowPos = 0.0f;
 		
@@ -88,16 +83,10 @@
 	arrowRect = CGRectMake(235, arrowPos+122, 60, 60);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];
 		
-	// Create and show the status text
-	/*
-		Texture2D* _statusTexture = [[Texture2D alloc] initWithString:[NSString stringWithFormat:@"[%s %s %s %s]", [joyPad getStateForButton:kJoyButtonLeft]?"#":"_", 
-										[joyPad getStateForButton:kJoyButtonDown]?"#":"_",[joyPad getStateForButton:kJoyButtonUp]?"#":"_",[joyPad getStateForButton:kJoyButtonRight]?"#":"_"] 
-														   dimensions:CGSizeMake(256, 32) alignment:UITextAlignmentCenter fontName:kFontName fontSize:kStatusFontSize];
-		
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		[_statusTexture drawAtPoint:CGPointMake(bounds.size.width / 2, bounds.size.height / 2)];
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	 */
+
+	// Test sound
+	double elapsedTimeNanos = [TimingUtil getCurrentTime] - playBackStartTime;
+//	NSLog(@"Elapsed time since playback start: %f", elapsedTimeNanos);
 	
 	//Swap the framebuffer
 	[glView swapBuffers];
