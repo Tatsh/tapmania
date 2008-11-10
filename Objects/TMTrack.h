@@ -15,5 +15,6 @@
 
 - (void) addNote:(TMNote*) note;
 - (TMNote*) getNote:(int) index;
+- (int) getNotesCount;
 
 @end

@@ -30,6 +30,10 @@
 	return [notesArray objectAtIndex:index];
 }
 
+- (int) getNotesCount {
+	return [notesArray count];
+}
+
 - (void) dealloc {
 	[notesArray release];
 }

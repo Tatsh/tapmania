@@ -45,4 +45,9 @@
 	return [track getNote:index];
 }
 
+- (int) getNotesCountForTrack:(int) trackIndex {
+	TMTrack* track = tracks[trackIndex];
+	return [track getNotesCount];
+}
+
 @end

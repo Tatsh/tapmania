@@ -11,6 +11,8 @@
 
 @implementation TMNote
 
+@synthesize time;
+
 - (id) initWithTime:(double) lTime {
 	self = [super init];
 	if(!self)

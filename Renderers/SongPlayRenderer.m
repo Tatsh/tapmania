@@ -15,6 +15,7 @@
 #import "DWIParser.h"
 
 #import "TMSong.h"
+#import "TMTrack.h"
 #import "TMSongOptions.h"
 
 #import <syslog.h>
@@ -47,6 +48,8 @@
 	steps = [song getStepsForDifficulty:difficulty];
 	
 	bpmSpeed = song.bpm/50.0f;
+	fullScreenTime = 480.0f/bpmSpeed/60.0f;	// Full screen is 480px with rate of 60 frames per second
+	
 	int i;
 	
 	// Drop track positions to first elements
@@ -78,26 +81,60 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Base] drawInRect:baseRect];
 		
 	// Calculate current elapsed time
-	double elapsedTimeNanos = [TimingUtil getCurrentTime] - playBackStartTime;
+	double currentTime = [TimingUtil getCurrentTime];
+	double elapsedTime = currentTime - playBackStartTime;
 	
-	// Get every track it's current
+	/*
+	 Now trackPos[i] for every 'i' contains the first element which is still on screen
+	 Our goal here is to find all the notes from 'i' to whatever it takes with time less than 
+	 currentTime + fullScreenTime.
+	 */
+	double searchTillTime = elapsedTime + fullScreenTime;
+	int i;
 	
-	if(gapDone && elapsedTimeNanos >= song.timePerBeat) {
-		playBackStartTime = [TimingUtil getCurrentTime];
-		CGRect arrowRect = CGRectMake(165, arrowPos, 60, 60);
-		[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
-	}
-	
-	if(!gapDone && elapsedTimeNanos >= song.gap) {
-		gapDone = YES;
-		playBackStartTime = [TimingUtil getCurrentTime];
-	}
-	
-	arrowPos += bpmSpeed;
-	if(arrowPos >= 480) {
-		arrowPos = 0.0f;
-	}
+	for(i=0; i<kNumOfAvailableTracks; i++) {
+		
+		// Search in this track for items starting at index:
+		int startIndex = trackPos[i];
+		int j;
+		
+		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
+			TMNote* note = [steps getNote:j fromTrack:i];
+
+			if(note.time <= elapsedTime) {
+				// Found a note which is out of screen now
+				++trackPos[i];
 				
+				continue; // Skip this note
+			}
+			
+			// Ok, hit a note which is out of scope
+			if(note.time > searchTillTime){			
+				break;
+			}
+			
+			// If the time is inside the search region - calculate the Y position on screen and draw the note
+			double noteOffsetY = 480.0f - ( 480.0f/fullScreenTime * (note.time-elapsedTime) );
+			
+			if( i == kAvailableTrack_Left ) {
+					CGRect arrowRect = CGRectMake(30, noteOffsetY, 60, 60);
+					[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
+			}
+			else if( i == kAvailableTrack_Down ) {
+					CGRect arrowRect = CGRectMake(100, noteOffsetY, 60, 60);
+					[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
+			}
+			else if( i == kAvailableTrack_Up ) {
+					CGRect arrowRect = CGRectMake(165, noteOffsetY, 60, 60);
+					[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
+			}
+			else if( i == kAvailableTrack_Right ) { 
+					CGRect arrowRect = CGRectMake(240, noteOffsetY, 60, 60);
+					[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];					
+			}
+		}
+	}
+		
 	//Swap the framebuffer
 	[glView swapBuffers];
 }

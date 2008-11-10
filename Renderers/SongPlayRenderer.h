@@ -24,6 +24,7 @@
 	
 	double					playBackStartTime;
 	double					bpmSpeed;
+	double					fullScreenTime;
 	
 	// JUST FOR TEST!!!
 	float arrowPos;

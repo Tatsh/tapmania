@@ -33,5 +33,6 @@ typedef enum {
 
 - (void) addNote:(TMNote*) note toTrack:(int) trackIndex;
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
+- (int) getNotesCountForTrack:(int) trackIndex;
 
 @end
