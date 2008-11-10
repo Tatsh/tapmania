@@ -32,7 +32,7 @@
 }
 
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty {
-	if(difficulty < kNumSongDifficulties && _availableDifficultyLevels[difficulty] != -1) 
+	if(difficulty < kNumSongDifficulties && _availableDifficultyLevels[difficulty] != kSongDifficulty_Invalid) 
 		return YES;
 	return NO;
 }
@@ -44,14 +44,19 @@
 	return -1;
 }
 
+- (void) enableDifficulty:(TMSongDifficulty) difficulty withLevel:(int) level {
+	_availableDifficultyLevels[difficulty] = level;
+}
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty {
 	switch (difficulty) {
+		case kSongDifficulty_Beginner:
+			return @"Beginner";
 		case kSongDifficulty_Easy:
 			return @"Easy";
-		case kSongDifficulty_Standard:
+		case kSongDifficulty_Medium:
 			return @"Standard";
-		case kSongDifficulty_Heavy:
+		case kSongDifficulty_Hard:
 			return @"Heavy";
 		case kSongDifficulty_Challenge:
 			return @"Challenge";

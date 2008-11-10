@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-	kSongDifficulty_Beginer = 0,
+	kSongDifficulty_Invalid = 0,
+	kSongDifficulty_Beginner,
 	kSongDifficulty_Easy,
-	kSongDifficulty_Standard,
-	kSongDifficulty_Heavy,
+	kSongDifficulty_Medium,
+	kSongDifficulty_Hard,
 	kSongDifficulty_Challenge,
 	kNumSongDifficulties
 } TMSongDifficulty;
@@ -49,6 +50,7 @@ typedef enum {
 
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty;
 - (int)  getDifficultyLevel:(TMSongDifficulty) difficulty;
+- (void) enableDifficulty:(TMSongDifficulty) difficulty withLevel:(int) level;
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
 

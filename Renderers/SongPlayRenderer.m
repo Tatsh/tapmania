@@ -52,6 +52,14 @@
 	TMSong *song = [DWIParser parseFromFile:dwiFile];
 
 	syslog(LOG_DEBUG, "Got song info: %s/%s/%f", [song.title UTF8String], [song.artist UTF8String], song.bpm );
+	syslog(LOG_DEBUG, "available difficulties:");
+	TMSongDifficulty dif = kSongDifficulty_Invalid;
+
+	for(; dif < kNumSongDifficulties; dif++) {
+		if([song isDifficultyAvailable:dif]) {
+			syslog(LOG_DEBUG, "%s [%d]", [[TMSong difficultyToString:dif] UTF8String], [song getDifficultyLevel:dif]);
+		}
+	}
 
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
