@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TMNote.h"
 
 @interface TMTrack : NSObject {
 	NSMutableArray* notesArray;
 }
+
+- (void) addNote:(TMNote*) note;
+- (TMNote*) getNote:(int) index;
 
 @end

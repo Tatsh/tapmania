@@ -10,21 +10,26 @@
 #import "AbstractRenderer.h"
 
 #import "TMSong.h"
+#import "TMSteps.h"
 #import "TMSongOptions.h"
 
 @interface SongPlayRenderer : AbstractRenderer {
 	TMSong*					song;	// Currently played song
+	TMSteps*				steps;	// Currently played steps
+	
+	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	
 	unsigned				_combo;  // Current combo
 	unsigned				_score;  // Current score
 	
 	double					playBackStartTime;
+	double					bpmSpeed;
 	
 	// JUST FOR TEST!!!
 	float arrowPos;
 	BOOL gapDone;
 }
 
-- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;
+- (void) playSong:(TMSong*) lSong onDifficulty:(TMSongDifficulty)difficulty withOptions:(TMSongOptions*) options;
 
 @end

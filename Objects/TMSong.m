@@ -36,8 +36,16 @@
 }
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty {
-	// TODO impl
-	return nil;
+
+	// TODO: parse real file and get data
+	
+	TMSteps* steps = [[TMSteps alloc] init];
+	[steps addNote:[[TMNote alloc] initWithTime:1.0] toTrack:0];
+	[steps addNote:[[TMNote alloc] initWithTime:2.0] toTrack:1];
+	[steps addNote:[[TMNote alloc] initWithTime:3.0] toTrack:2];
+	[steps addNote:[[TMNote alloc] initWithTime:4.0] toTrack:3];
+	
+	return steps;
 }
 
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty {

@@ -15,4 +15,6 @@
 	int		beatType;	// Type of the note's beat (1/4, 1/8...etc)
 }
 
+- (id) initWithTime:(double) lTime;
+
 @end

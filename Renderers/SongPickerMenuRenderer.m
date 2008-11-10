@@ -80,7 +80,8 @@
 	
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 
-	[songPlayRenderer playSong:song withOptions:nil];
+	// FIXME: hardcode
+	[songPlayRenderer playSong:song onDifficulty:kSongDifficulty_Hard withOptions:nil];
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:songPlayRenderer looping:YES];	
 }
 

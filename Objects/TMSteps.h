@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TMSong.h"
+#import "TMNote.h"
 
 typedef enum {
 	kAvailableTrack_Left = 0,
@@ -30,6 +31,7 @@ typedef enum {
 - (int) getDifficultyLevel;
 - (TMSongDifficulty) getDifficulty;
 
-// TODO: define routines to work with the actual step data in the structures
+- (void) addNote:(TMNote*) note toTrack:(int) trackIndex;
+- (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
 
 @end

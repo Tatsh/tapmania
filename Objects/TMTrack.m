@@ -11,4 +11,27 @@
 
 @implementation TMTrack
 
+- (id) init {
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	// Alloc space for the notes array
+	notesArray = [[NSMutableArray alloc] initWithCapacity:50];
+	
+	return self;
+}
+
+- (void) addNote:(TMNote*) note {
+	[notesArray addObject:note];
+}
+
+- (TMNote*) getNote:(int) index {
+	return [notesArray objectAtIndex:index];
+}
+
+- (void) dealloc {
+	[notesArray release];
+}
+
 @end

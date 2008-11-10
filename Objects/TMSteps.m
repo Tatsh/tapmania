@@ -7,6 +7,7 @@
 //
 
 #import "TMSteps.h"
+#import "TMTrack.h"
 
 
 @implementation TMSteps
@@ -16,7 +17,12 @@
 	if(!self) 
 		return nil;
 	
-	// TODO impl
+	int i;
+	
+	// Alloc space for tracks
+	for(i=0; i<kNumOfAvailableTracks; i++){
+		tracks[i] = [[TMTrack alloc] init];
+	}
 	
 	return self;
 }
@@ -27,6 +33,16 @@
 
 - (TMSongDifficulty) getDifficulty {
 	return difficulty;
+}
+
+- (void) addNote:(TMNote*) note toTrack:(int) trackIndex {
+	TMTrack* track = tracks[trackIndex];
+	[track addNote:note];
+}
+
+- (TMNote*) getNote:(int) index fromTrack:(int) trackIndex {
+	TMTrack* track = tracks[trackIndex];
+	return [track getNote:index];
 }
 
 @end

@@ -11,4 +11,16 @@
 
 @implementation TMNote
 
+- (id) initWithTime:(double) lTime {
+	self = [super init];
+	if(!self)
+		return nil;
+	
+	time = lTime;
+	tillTime = lTime; // FIXME
+	beatType = 0; // FIXME
+	
+	return self;
+}
+
 @end
