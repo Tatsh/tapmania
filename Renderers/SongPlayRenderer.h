@@ -13,6 +13,8 @@
 #import "TMSongOptions.h"
 
 @interface SongPlayRenderer : AbstractRenderer {
+	TMSong*					song;	// Currently played song
+	
 	unsigned				_combo;  // Current combo
 	unsigned				_score;  // Current score
 	
@@ -20,8 +22,9 @@
 	
 	// JUST FOR TEST!!!
 	float arrowPos;
+	BOOL gapDone;
 }
 
-- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;
+- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;
 
 @end

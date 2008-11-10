@@ -83,7 +83,7 @@
 				syslog(LOG_DEBUG, "GAP...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.gap = atoi(data);	
+				song.gap = (double)atoi(data) / 1000.0f;
 			}
 			else if( !strcasecmp(varName, "CHANGEBPM") || !strcasecmp(varName, "BPMCHANGE") ) {
 				syslog(LOG_DEBUG, "BPMCHANGE...");

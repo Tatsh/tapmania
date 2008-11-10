@@ -7,13 +7,15 @@
 //
 
 #import "TMSong.h"
+
 #import "DWIParser.h"
+#import "TimingUtil.h"
 
 @implementation TMSong
 
 @synthesize fileType, filePath, musicFilePath;
 @synthesize title, artist;
-@synthesize bpm, gap;
+@synthesize bpm, timePerBeat, gap;
 @synthesize bpmChangeArray, freezeArray;
 
 - (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath {
@@ -26,6 +28,9 @@
 	
 	self.musicFilePath = lMusicFilePath;
 	self.filePath = lStepsFilePath;
+	self.timePerBeat = [TimingUtil getTimeInBeat:self.bpm];
+	
+	NSLog(@"Time per beat: %f", self.timePerBeat);
 	
 	return self;
 }

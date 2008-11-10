@@ -80,8 +80,8 @@
 	
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:songPlayRenderer looping:YES];	
 	[songPlayRenderer playSong:song withOptions:nil];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:songPlayRenderer looping:YES];	
 }
 
 - (void) backPress:(id)sender {

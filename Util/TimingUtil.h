@@ -13,5 +13,6 @@
 }
 
 + (double) getCurrentTime;
++ (double) getTimeInBeat:(float) bpm;
 
 @end

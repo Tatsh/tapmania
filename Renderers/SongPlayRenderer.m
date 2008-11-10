@@ -41,14 +41,18 @@
 	return self;
 }
 
-- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
+- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
 	NSLog(@"Start the song...");
+	
+	song = lSong;
 	
 	NSLog(@"play %@", song.musicFilePath);
 	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], YES, NO);
 	
 	// Save start time of song playback and start the playback
 	playBackStartTime = [TimingUtil getCurrentTime];
+	gapDone = NO;
+	
 	SoundEngine_StartBackgroundMusic();
 }
 
@@ -66,28 +70,21 @@
 	CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Base] drawInRect:baseRect];
 		
-	// Draw the arrow
-	arrowPos+=1.0f;
-	if(arrowPos > 460.0f) 
-		arrowPos = 0.0f;
-		
-	CGRect arrowRect = CGRectMake(25, arrowPos, 60, 60);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
-		
-	arrowRect = CGRectMake(95, arrowPos+43, 60, 60);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
-		
-	arrowRect = CGRectMake(165, arrowPos-30, 60, 60);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
-		
-	arrowRect = CGRectMake(235, arrowPos+122, 60, 60);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];
-		
-
-	// Test sound
+	// Calculate current elapsed time
 	double elapsedTimeNanos = [TimingUtil getCurrentTime] - playBackStartTime;
-//	NSLog(@"Elapsed time since playback start: %f", elapsedTimeNanos);
 	
+	
+	if(gapDone && elapsedTimeNanos >= song.timePerBeat) {
+		playBackStartTime = [TimingUtil getCurrentTime];
+		CGRect arrowRect = CGRectMake(165, 300, 60, 60);
+		[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
+	}
+	
+	if(!gapDone && elapsedTimeNanos >= song.gap) {
+		gapDone = YES;
+		playBackStartTime = [TimingUtil getCurrentTime];
+	}
+				
 	//Swap the framebuffer
 	[glView swapBuffers];
 }
