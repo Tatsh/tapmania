@@ -21,7 +21,6 @@
 - (id) initWithView:(EAGLView*)lGlView andCapacity:(int)capacity;
 - (void) enableBackButton; // disabled by default
 
-- (void) addMenuItemWithTitle:(NSString*) title andHandler:(SEL)sel onTarget:(id)target;
 - (void) publishMenu;
 
 @end

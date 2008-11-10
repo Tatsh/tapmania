@@ -8,6 +8,8 @@
 
 #import "SongsDirectoryCache.h"
 
+#import "TMSong.h"
+
 // This is a singleton class, see below
 static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
@@ -20,6 +22,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	NSLog(@"Caching songs in 'Songs' dir...");
 	
+	int i;	
 	availableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
 	
 	// Get songs directory
@@ -31,12 +34,28 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSLog(@"Songs dir at: %@", songsDir);		
 		
 		// Read all songs in the dir and cache them
-		NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:songsDir];
-		NSString* file;
+		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:songsDir];
 		
-		while (file = [dirEnum nextObject]) {
-			NSLog(@"Song found: %@", file);
-			[availableSongs addObject:file];
+		
+		for(i = 0; i<[songsDirContents count]; i++) {
+		
+			NSString* curPath = [songsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]];
+			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
+			NSString* file;
+		
+			while (file = [dirEnum nextObject]) {
+				if([file hasSuffix:@".dwi"]) {
+					NSLog(@"DWI file found: %@", file);
+					NSString* dwiPath = [curPath stringByAppendingPathComponent:file];
+					
+					// Parse very basic info from this file
+					NSLog(@"Parsing song from %@...", dwiPath);
+					TMSong* song = [[TMSong alloc] initWithFile:dwiPath];
+					NSLog(@"Done.");
+					
+					[availableSongs addObject:song];
+				}
+			}
 		}
 	} else {
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound" reason:@"Songs directory couldn't be found!" userInfo:nil];

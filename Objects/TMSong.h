@@ -18,11 +18,23 @@ typedef enum {
 	kNumSongDifficulties
 } TMSongDifficulty;
 
+typedef enum {
+	kSongFileType_Invalid = 0,
+	kSongFileType_DWI
+} TMSongFileType;
+
 #import "TMSteps.h"
 
 @class TMSteps;
 
 @interface TMSong : NSObject {
+	
+	// Disk info
+	NSString*		filePath;	// The path on the disk where the file used to get this song resides
+	TMSongFileType	fileType;	// The type of the file
+	
+	// Music file info
+	NSString*		musicFilePath;	// The path on the disk where the music file lives
 	
 	// Song information
 	NSString* 	title;
@@ -35,6 +47,11 @@ typedef enum {
 
 	int _availableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
 }
+
+@property (retain, nonatomic) NSString* filePath;
+@property (assign) TMSongFileType fileType;
+
+@property (retain, nonatomic) NSString* musicFilePath;
 
 @property (retain, nonatomic) NSString* artist;
 @property (retain, nonatomic) NSString* title;

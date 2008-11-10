@@ -7,21 +7,24 @@
 //
 
 #import "TMSong.h"
-
+#import "DWIParser.h"
 
 @implementation TMSong
 
+@synthesize fileType, filePath, musicFilePath;
 @synthesize title, artist;
 @synthesize bpm, gap;
 @synthesize bpmChangeArray, freezeArray;
 
 - (id) initWithFile:(NSString*) filename {
-	self = [super init];
-	if(!self)
-		return nil;
 	
-	// TODO: parse song
 	// Note: only title etc is loaded here. No steps.
+	if([filename hasSuffix:@".dwi"]) {
+		self = [DWIParser parseFromFile:filename];
+		self.fileType = kSongFileType_DWI;
+	}
+	
+	self.filePath = filename;
 	
 	return self;
 }
