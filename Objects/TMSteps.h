@@ -7,14 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "TMSong.h"
 
+typedef enum {
+	kAvailableTrack_Left = 0,
+	kAvailableTrack_Right,
+	kAvailableTrack_Up,
+	kAvailableTrack_Down,
+	kNumOfAvailableTracks
+} TMAvailableTracks;
+
 @interface TMSteps : NSObject {
-	TMSongDifficulty difficulty;	// The difficulty. eg. Easy, Heavy etc.
-	int difficultyLevel;			// The level. eg. 1-15.
+	TMSongDifficulty	difficulty;						// The difficulty. eg. Easy, Heavy etc.
+	int					difficultyLevel;				// The level. eg. 1-15.
 	
-	// TODO: define structures to hold the actual step data
+	NSMutableArray*		tracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
 }
 
 // The constructor which is used. will parse the original stepmania file to determine steps info for the given level.

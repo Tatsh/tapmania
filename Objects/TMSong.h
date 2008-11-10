@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
+	kSongFileType_Invalid = 0,
+	kSongFileType_DWI
+} TMSongFileType;
+
+typedef enum {
 	kSongDifficulty_Invalid = 0,
 	kSongDifficulty_Beginner,
 	kSongDifficulty_Easy,
@@ -18,10 +23,6 @@ typedef enum {
 	kNumSongDifficulties
 } TMSongDifficulty;
 
-typedef enum {
-	kSongFileType_Invalid = 0,
-	kSongFileType_DWI
-} TMSongFileType;
 
 #import "TMSteps.h"
 
