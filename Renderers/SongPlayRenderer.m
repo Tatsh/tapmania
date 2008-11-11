@@ -25,6 +25,11 @@
 #define kArrowsBaseWidth			270
 #define kArrowsBaseHeight			60
 
+#define kArrowLeftX					25
+#define kArrowDownX					96
+#define kArrowUpX					165
+#define kArrowRightX				235	
+
 @implementation SongPlayRenderer
 
 - (id) initWithView:(EAGLView*)lGlView {
@@ -114,22 +119,22 @@
 			}
 			
 			// If the time is inside the search region - calculate the Y position on screen and draw the note
-			double noteOffsetY = 480.0f - ( 480.0f/fullScreenTime * (note.time-elapsedTime) );
+			double noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (note.time-elapsedTime) );
 			
 			if( i == kAvailableTrack_Left ) {
-					CGRect arrowRect = CGRectMake(25, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(kArrowLeftX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Down ) {
-					CGRect arrowRect = CGRectMake(95, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(kArrowDownX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Up ) {
-					CGRect arrowRect = CGRectMake(165, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(kArrowUpX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Right ) { 
-					CGRect arrowRect = CGRectMake(235, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(kArrowRightX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];					
 			}
 		}
