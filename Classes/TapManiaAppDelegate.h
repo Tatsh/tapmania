@@ -57,6 +57,8 @@ typedef struct
 // Points to the current scene renderer
 @property (assign) id <SceneRenderer> currentRenderer;
 
+@property (retain, nonatomic, readonly) JoyPad* joyPad;
+
 - (void) showJoyPad;
 - (void) hideJoyPad;	
 

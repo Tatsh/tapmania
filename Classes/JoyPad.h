@@ -29,8 +29,10 @@ typedef enum {
 @end
 
 @interface JoyPad : UIView {
-	BOOL _joyButtonStates[kNumJoyButtons]; // YES=touched, NO=lifted
-	CGRect _tapZones[kNumJoyButtons];      // Where the button tap zones are on the screen
+	BOOL _joyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
+	double _joyButtonTimeTouch[kNumJoyButtons];	// Last time every button was touched
+	double _joyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
+	
 	UIButton* _buttons[kNumJoyButtons];    // The actual buttons
 	
 	id delegate; // Controller delegate
@@ -43,6 +45,8 @@ typedef enum {
 
 // Get state of particular button
 - (BOOL) getStateForButton:(JPButton) button;
+- (double) getTouchTimeForButton: (JPButton) button;
+- (double) getReleaseTimeForButton: (JPButton) button;
 
 // Press and Release buttons in the joypad
 - (void) gotPress:(id) sender;

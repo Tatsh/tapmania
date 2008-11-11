@@ -39,6 +39,7 @@
 	
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
+	joyPad = [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] joyPad];
 	
 	return self;
 }
@@ -102,6 +103,9 @@
 	 currentTime + fullScreenTime.
 	 */
 	double searchTillTime = elapsedTime + fullScreenTime;
+	double searchHitFromTime = elapsedTime - 0.2f;
+	double searchHitTillTime = elapsedTime + 0.2f;
+	
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; i++) {
@@ -110,12 +114,26 @@
 		int startIndex = trackPos[i];
 		int j;
 		
+		double lastHitTime = 0.0f;
+		BOOL testHit = NO;
+		
+		// Check for hit
+		if([joyPad getStateForButton:i]) {
+			// Button is currently pressed
+			lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
+			testHit = YES;
+		}
+
+
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
 
-			if(note.time <= elapsedTime) {
+			if(note.time <= searchHitFromTime) {
 				// Found a note which is out of screen now
 				++trackPos[i];
+				if(!note.isHit) {
+					syslog(LOG_DEBUG, "Miss!");
+				}
 				
 				continue; // Skip this note
 			}
@@ -125,6 +143,31 @@
 				break;
 			}
 			
+			// Check hit
+			if(testHit && !note.isHit){
+				if(note.time >= searchHitFromTime && note.time <= searchHitTillTime) {
+					// Ok. we take this input
+					double delta = fabs(note.time - elapsedTime);
+					
+					if(delta <= 0.05) {
+						syslog(LOG_DEBUG, "Marvelous!");
+					} else if(delta <= 0.1) {
+						syslog(LOG_DEBUG, "Perfect!");
+					} else if(delta <= 0.15) {
+						syslog(LOG_DEBUG, "Great!");
+					} else if(delta <= 0.17) {
+						syslog(LOG_DEBUG, "Almost!");
+					} else if(delta <= 0.19) {
+						syslog(LOG_DEBUG, "BOO!");
+					} else {
+						syslog(LOG_DEBUG, "Miss!");
+					}
+			
+					// Mark note as hit
+					[note hit:elapsedTime];
+				}
+			}
+
 			// If the time is inside the search region - calculate the Y position on screen and draw the note
 			double noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (note.time-elapsedTime) );
 			

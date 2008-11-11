@@ -12,10 +12,13 @@
 #import "TMSong.h"
 #import "TMSteps.h"
 #import "TMSongOptions.h"
+#import "JoyPad.h"
 
 @interface SongPlayRenderer : AbstractRenderer {
 	TMSong*					song;	// Currently played song
 	TMSteps*				steps;	// Currently played steps
+
+	JoyPad*					joyPad; // A pointer to the AppDelegate's joyPad for easy access
 	
 	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	

@@ -33,6 +33,7 @@
 @implementation TapManiaAppDelegate
 
 @synthesize currentRenderer, window;
+@synthesize joyPad;
 
 + (void) initialize {
 	if(self == [TapManiaAppDelegate class]) {

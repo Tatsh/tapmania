@@ -9,6 +9,7 @@
 #import <syslog.h>
 
 #import "JoyPad.h"
+#import "TimingUtil.h"
 
 @implementation JoyPad
 
@@ -42,6 +43,8 @@
 		[but setImage: image forState:UIControlStateNormal];
 		
 		_joyButtonStates[i] = NO;
+		_joyButtonTimeTouch[i] = 0.0f;
+		_joyButtonTimeRelease[i] = 0.0f;
 		_buttons[i] = but;
 		
 		// Bind button touch/realease stuff
@@ -67,6 +70,14 @@
 	return _joyButtonStates[button];
 }
 
+- (double) getTouchTimeForButton: (JPButton) button {
+	return _joyButtonTimeTouch[button];
+}
+
+- (double) getReleaseTimeForButton: (JPButton) button {
+	return _joyButtonTimeRelease[button];
+}
+
 - (void) gotPress:(id) sender {
 	int i;
 
@@ -74,9 +85,7 @@
 		if(sender == _buttons[i]){
 			// Found button id
 			_joyButtonStates[i] = YES;
-			
-			// Let the delegate know about the status update
-			[delegate joyPadStatusUpdated];		
+			_joyButtonTimeTouch[i] = [TimingUtil getCurrentTime];
 			
 			return;
 		}
@@ -90,9 +99,7 @@
 		if(sender == _buttons[i]){
 			// Found button id
 			_joyButtonStates[i] = NO;
-			
-			// Let the delegate know about the status update
-			[delegate joyPadStatusUpdated];		
+			_joyButtonTimeRelease[i] = [TimingUtil getCurrentTime];
 			
 			return;
 		}
