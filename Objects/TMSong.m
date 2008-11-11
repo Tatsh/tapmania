@@ -37,22 +37,9 @@
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty {
 
-	// TODO: parse real file and get data
-	
-	TMSteps* steps = [[TMSteps alloc] initWithFile:@""];
-	[steps addNote:[[TMNote alloc] initWithTime:1.0] toTrack:0];
-	[steps addNote:[[TMNote alloc] initWithTime:2.0] toTrack:1];
-	[steps addNote:[[TMNote alloc] initWithTime:3.0] toTrack:2];
-	[steps addNote:[[TMNote alloc] initWithTime:4.0] toTrack:3];
-	[steps addNote:[[TMNote alloc] initWithTime:5.0] toTrack:0];
-	[steps addNote:[[TMNote alloc] initWithTime:6.0] toTrack:1];
-	[steps addNote:[[TMNote alloc] initWithTime:10.0] toTrack:2];
-	[steps addNote:[[TMNote alloc] initWithTime:11.0] toTrack:3];
-	[steps addNote:[[TMNote alloc] initWithTime:12.0] toTrack:0];
-	[steps addNote:[[TMNote alloc] initWithTime:20.0] toTrack:1];
-	[steps addNote:[[TMNote alloc] initWithTime:22.0] toTrack:2];
-	[steps addNote:[[TMNote alloc] initWithTime:24.0] toTrack:3];
-	
+	TMSteps* steps = [DWIParser parseStepsFromFile:self.filePath 
+				forDifficulty:difficulty forSong:self];	
+
 	return steps;
 }
 

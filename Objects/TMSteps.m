@@ -12,7 +12,7 @@
 
 @implementation TMSteps
 
-- (id) initWithFile:(NSString*) filename {
+- (id) init {
 	self = [super init];
 	if(!self) 
 		return nil;

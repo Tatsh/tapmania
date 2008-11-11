@@ -17,6 +17,6 @@
 
 @property (assign, readonly) double time;
 
-- (id) initWithTime:(double) lTime;
+- (id) initWithTime:(double) lTime tillTime:(double) lTillTime;
 
 @end

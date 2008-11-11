@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TMSong.h"
+#import "TMSteps.h"
 
 
 enum {
@@ -26,5 +27,6 @@ enum {
 }
 
 + (TMSong*) parseFromFile:(NSString*) filename;
++ (TMSteps*) parseStepsFromFile:(NSString*) filename forDifficulty:(TMSongDifficulty)difficulty forSong:(TMSong*)song;
 
 @end

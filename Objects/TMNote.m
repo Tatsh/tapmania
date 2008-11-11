@@ -13,13 +13,13 @@
 
 @synthesize time;
 
-- (id) initWithTime:(double) lTime {
+- (id) initWithTime:(double) lTime tillTime:(double) lTillTime {
 	self = [super init];
 	if(!self)
 		return nil;
 	
 	time = lTime;
-	tillTime = lTime; // FIXME
+	tillTime = lTillTime;
 	beatType = 0; // FIXME
 	
 	return self;
