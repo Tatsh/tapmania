@@ -101,33 +101,62 @@
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
 	 Our goal here is to find all the notes from 'i' to whatever it takes with time less than 
 	 currentTime + fullScreenTime.
+
+	 TODO: the time delta to search a hit should be calculated dynamically depending on bpm and speed mod (probably)
+
+	 TODO: only one note in a track should be hit by one single touch.
+
+	 		timeline of one track
+	 0	|	|	|	|	|	|	trackend
+	 [--------h-N-r-----N----h--N-N-r-----------------------]
+	 			 |	|
+				 --------
+		two notes are in the way while we hold our tap
+		h = 2.30	r = 2.90	N1 = 2.4	N2 = 2.6
+		
+		check every note whether:
+		1) it was hit already
+		2) the time of the hit is the same as the last tap time
 	 */
 	double searchTillTime = elapsedTime + fullScreenTime;
 	double searchHitFromTime = elapsedTime - 0.2f;
 	double searchHitTillTime = elapsedTime + 0.2f;
-	
 	int i;
 	
+	// For every track
 	for(i=0; i<kNumOfAvailableTracks; i++) {
-		
+	
 		// Search in this track for items starting at index:
 		int startIndex = trackPos[i];
 		int j;
 		
 		double lastHitTime = 0.0f;
 		BOOL testHit = NO;
-		
-		// Check for hit
+	
+		// Check for hit?
 		if([joyPad getStateForButton:i]) {
 			// Button is currently pressed
 			lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
-			testHit = YES;
+
+			if(lastHitTime >= searchHitFromTime && lastHitTime <= searchHitTillTime) {
+				testHit = YES;
+			}
 		}
-
-
+	
+		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
 
+			// Check old hit first
+			if(testHit && note.isHit){
+				// This note was hit already (maybe using the same tap as we still hold)
+				if(note.hitTime == lastHitTime) {
+					// Bingo! prevent further notes in this track from being hit
+					testHit = NO;
+				}
+			}
+
+			// Check whether this note is already out of scope
 			if(note.time <= searchHitFromTime) {
 				// Found a note which is out of screen now
 				++trackPos[i];
@@ -138,7 +167,7 @@
 				continue; // Skip this note
 			}
 			
-			// Ok, hit a note which is out of scope
+			// Ok, hit a note which is out of scope for now
 			if(note.time > searchTillTime){			
 				break;
 			}
@@ -147,7 +176,7 @@
 			if(testHit && !note.isHit){
 				if(note.time >= searchHitFromTime && note.time <= searchHitTillTime) {
 					// Ok. we take this input
-					double delta = fabs(note.time - elapsedTime);
+					double delta = fabs(note.time - lastHitTime);
 					
 					if(delta <= 0.05) {
 						syslog(LOG_DEBUG, "Marvelous!");
@@ -164,28 +193,32 @@
 					}
 			
 					// Mark note as hit
-					[note hit:elapsedTime];
+					[note hit:lastHitTime];
+					testHit = NO; // Don't want to test hit on other notes on the track in this run
 				}
 			}
-
-			// If the time is inside the search region - calculate the Y position on screen and draw the note
-			double noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (note.time-elapsedTime) );
+	
+			// We will draw the note only if it wasn't hit yet
+			if(!note.isHit) {
+				// If the time is inside the search region - calculate the Y position on screen and draw the note
+				double noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (note.time-elapsedTime) );
 			
-			if( i == kAvailableTrack_Left ) {
+				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
-			}
-			else if( i == kAvailableTrack_Down ) {
+				}
+				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(kArrowDownX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
-			}
-			else if( i == kAvailableTrack_Up ) {
+				}
+				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(kArrowUpX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
-			}
-			else if( i == kAvailableTrack_Right ) { 
+				}
+				else if( i == kAvailableTrack_Right ) { 
 					CGRect arrowRect = CGRectMake(kArrowRightX, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];					
+				}
 			}
 		}
 	}
