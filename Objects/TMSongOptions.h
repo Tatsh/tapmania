@@ -27,10 +27,10 @@ typedef enum {
 	TMSpeedModifiers speedMod;
 }
 
+@property (readonly, assign) TMSpeedModifiers speedMod;
+
 // The constructor
 - (id) initWithSpeed:(TMSpeedModifiers)speedMod;
-
-- (TMSpeedModifiers) getSpeedMod;
 
 + (NSString*) speedModAsString:(TMSpeedModifiers) speedMod;
 

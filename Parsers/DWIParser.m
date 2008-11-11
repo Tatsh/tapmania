@@ -394,13 +394,14 @@
 					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];
 					
 					double currentTime, holdStartTime, holdEndTime;
+					int holdChar;
 					BOOL hold = NO;
 		
 					if(col1 != -1 || col2 != -1) {
 						currentTime = song.gap + song.timePerBeat*currentBeat; 
 
 						// Peek at the next note char
-						char nc = getc(fd);
+						int nc = getc(fd);
 						
 						if(nc == '!') {
 							// Oops... looks like a hold!
@@ -409,9 +410,9 @@
 							holdStartTime = currentTime;
 
 							// Find hold end time
-							char searchChar = getc(fd);
+							holdChar = getc(fd);
 
-							while(!feof(fd) && c != searchChar) {
+							while(!feof(fd) && c == '0') {
 								c = getc(fd);
 								currentBeat += currentIncrementer;
 							}

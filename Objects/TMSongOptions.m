@@ -11,6 +11,7 @@
 
 @implementation TMSongOptions
 
+@synthesize speedMod;
 
 - (id) initWithSpeed:(TMSpeedModifiers)lSpeedMod {
 	self = [super init];

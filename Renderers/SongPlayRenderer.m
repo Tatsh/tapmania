@@ -48,7 +48,7 @@
 	steps = [song getStepsForDifficulty:difficulty];
 	
 	bpmSpeed = song.bpm/50.0f;
-	fullScreenTime = 480.0f/bpmSpeed/60.0f;	// Full screen is 480px with rate of 60 frames per second
+	fullScreenTime = 480.0f/bpmSpeed/60.0f / 2.0f;	// Full screen is 480px with rate of 60 frames per second
 	
 	int i;
 	
@@ -117,11 +117,11 @@
 			double noteOffsetY = 480.0f - ( 480.0f/fullScreenTime * (note.time-elapsedTime) );
 			
 			if( i == kAvailableTrack_Left ) {
-					CGRect arrowRect = CGRectMake(30, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(25, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Down ) {
-					CGRect arrowRect = CGRectMake(100, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(95, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Up ) {
@@ -129,7 +129,7 @@
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
 			}
 			else if( i == kAvailableTrack_Right ) { 
-					CGRect arrowRect = CGRectMake(240, noteOffsetY, 60, 60);
+					CGRect arrowRect = CGRectMake(235, noteOffsetY, 60, 60);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];					
 			}
 		}
