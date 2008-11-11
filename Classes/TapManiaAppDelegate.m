@@ -25,9 +25,7 @@
 
 #define kUserNameDefaultKey			@"userName"   // NSString
 
-#define kRenderingFPS				60.0 // Hz
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
-
 
 #define RANDOM_SEED() srandom((unsigned)(mach_absolute_time() & 0xFFFFFFFF))
 #define RANDOM_FLOAT() ((float)random() / (float)INT32_MAX)

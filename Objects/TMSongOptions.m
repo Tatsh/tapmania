@@ -58,4 +58,29 @@
 	}
 }
 
++ (double) speedModToValue:(TMSpeedModifiers) speedMod {
+	switch (speedMod) {
+		case kSpeedMod_1x:
+			return 1.0f;
+		case kSpeedMod_1_5x:
+			return 1.5f;
+		case kSpeedMod_2x:
+			return 2.0f;
+		case kSpeedMod_3x:
+			return 3.0f;
+		case kSpeedMod_5x:
+			return 5.0f;
+		case kSpeedMod_8x:
+			return 8.0f;
+		case kSpeedMod_c200:
+			return -1;
+		case kSpeedMod_c400:
+			return -1;
+		case kSpeedMod_c600:
+			return -1;	
+		default:
+			return -1;
+	}
+}
+
 @end

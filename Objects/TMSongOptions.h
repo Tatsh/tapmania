@@ -33,5 +33,6 @@ typedef enum {
 - (id) initWithSpeed:(TMSpeedModifiers)speedMod;
 
 + (NSString*) speedModAsString:(TMSpeedModifiers) speedMod;
++ (double) speedModToValue:(TMSpeedModifiers) speedMod;
 
 @end

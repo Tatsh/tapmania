@@ -81,8 +81,8 @@
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 
 	// FIXME: hardcode
-	[songPlayRenderer playSong:song onDifficulty:kSongDifficulty_Hard withOptions:nil];
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:songPlayRenderer looping:YES];	
+	TMSongOptions* options = [[TMSongOptions alloc] initWithSpeed:kSpeedMod_3x];
+	[songPlayRenderer playSong:song onDifficulty:kSongDifficulty_Hard withOptions:options];
 }
 
 - (void) backPress:(id)sender {

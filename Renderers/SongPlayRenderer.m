@@ -37,9 +37,6 @@
 	if(!self)
 		return nil;
 	
-	// Testing
-	arrowPos = 0.0f;
-
 	// Show joyPad
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
 	
@@ -52,8 +49,15 @@
 	song = lSong;
 	steps = [song getStepsForDifficulty:difficulty];
 	
-	bpmSpeed = song.bpm/50.0f;
-	fullScreenTime = 480.0f/bpmSpeed/60.0f / 2.0f;	// Full screen is 480px with rate of 60 frames per second
+	double speedModValue = [TMSongOptions speedModToValue:options.speedMod];
+	
+	bpmSpeed = song.bpm/kRenderingFPS;
+	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
+		
+	// Apply speedmod
+	if(speedModValue != -1) {
+		fullScreenTime /= speedModValue;
+	}
 	
 	int i;
 	
@@ -69,6 +73,9 @@
 	playBackStartTime = [TimingUtil getCurrentTime];
 	
 	SoundEngine_StartBackgroundMusic();
+
+	// Start rendering
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:self looping:YES];	
 }
 
 // Renders one scene of the gameplay

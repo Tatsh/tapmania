@@ -276,13 +276,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
+									<integer>25</integer>
 									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {186, 845}}</string>
+							<string>{{0, 108}, {186, 845}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -319,7 +319,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SongPlayRenderer.m</string>
+								<string>SongPickerMenuRenderer.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>SongPlayRenderer.m</string>
+										<string>SongPickerMenuRenderer.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>24EBF64C0EC9D1EC00533056</string>
+										<string>24EBF67F0EC9DE5600533056</string>
 										<key>history</key>
 										<array>
 											<string>2486F3CE0EC1C19800E5F9EE</string>
@@ -339,21 +339,17 @@
 											<string>24F15EBE0EC320B800755788</string>
 											<string>24F15EEF0EC323AB00755788</string>
 											<string>24F15FF20EC3388700755788</string>
-											<string>24F1605F0EC339CB00755788</string>
 											<string>24F1608D0EC3410100755788</string>
 											<string>24F1608E0EC3410100755788</string>
 											<string>24F160DD0EC3436500755788</string>
 											<string>24F160E50EC343A100755788</string>
-											<string>242946200EC4720900B88828</string>
 											<string>242946460EC4763600B88828</string>
 											<string>2429466B0EC4786300B88828</string>
 											<string>2429466E0EC4786300B88828</string>
 											<string>242946700EC4786300B88828</string>
 											<string>242946710EC4786300B88828</string>
-											<string>242946AC0EC4849200B88828</string>
 											<string>242946AD0EC4849200B88828</string>
 											<string>242946AE0EC4849200B88828</string>
-											<string>242946C70EC484F100B88828</string>
 											<string>24EBF3FF0EC8431900533056</string>
 											<string>24EBF4150EC845E500533056</string>
 											<string>24EBF4160EC845E500533056</string>
@@ -367,25 +363,29 @@
 											<string>24EBF4D30EC875BC00533056</string>
 											<string>24EBF5000EC87E0900533056</string>
 											<string>24EBF5010EC87E0900533056</string>
-											<string>24EBF52F0EC884CD00533056</string>
 											<string>24EBF5300EC884CD00533056</string>
 											<string>24EBF5900EC89B7A00533056</string>
-											<string>24EBF5910EC89B7A00533056</string>
 											<string>24EBF5920EC89B7A00533056</string>
 											<string>24EBF5930EC89B7A00533056</string>
 											<string>24EBF5940EC89B7A00533056</string>
 											<string>24EBF5990EC89B7A00533056</string>
-											<string>24EBF5F60EC8A3F700533056</string>
 											<string>24EBF5F70EC8A3F700533056</string>
 											<string>24EBF5F80EC8A3F700533056</string>
-											<string>24EBF6040EC8A4F300533056</string>
 											<string>24EBF6050EC8A4F300533056</string>
 											<string>24EBF6060EC8A4F300533056</string>
 											<string>24EBF6080EC8A4F300533056</string>
 											<string>24EBF61E0EC8A66100533056</string>
 											<string>24EBF6260EC8A73100533056</string>
-											<string>24EBF63E0EC8AED800533056</string>
-											<string>24EBF63F0EC8AED800533056</string>
+											<string>24EBF6580EC9DC4E00533056</string>
+											<string>24EBF65A0EC9DC4E00533056</string>
+											<string>24EBF65B0EC9DC4E00533056</string>
+											<string>24EBF6660EC9DDFB00533056</string>
+											<string>24EBF6670EC9DDFB00533056</string>
+											<string>24EBF6680EC9DDFB00533056</string>
+											<string>24EBF6690EC9DDFB00533056</string>
+											<string>24EBF66A0EC9DDFB00533056</string>
+											<string>24EBF6780EC9DE2F00533056</string>
+											<string>24EBF6790EC9DE2F00533056</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -632,6 +632,22 @@
 											<string>24EBF62F0EC8AA5300533056</string>
 											<string>24EBF6400EC8AED800533056</string>
 											<string>24EBF6410EC8AED800533056</string>
+											<string>24EBF65D0EC9DC4E00533056</string>
+											<string>24EBF65E0EC9DC4E00533056</string>
+											<string>24EBF65F0EC9DC4E00533056</string>
+											<string>24EBF6600EC9DC4E00533056</string>
+											<string>24EBF6610EC9DC4E00533056</string>
+											<string>24EBF6620EC9DC4E00533056</string>
+											<string>24EBF6630EC9DC4E00533056</string>
+											<string>24EBF66D0EC9DDFB00533056</string>
+											<string>24EBF66E0EC9DDFB00533056</string>
+											<string>24EBF66F0EC9DDFB00533056</string>
+											<string>24EBF6700EC9DDFB00533056</string>
+											<string>24EBF6710EC9DDFB00533056</string>
+											<string>24EBF6720EC9DDFB00533056</string>
+											<string>24EBF6730EC9DDFB00533056</string>
+											<string>24EBF6740EC9DDFB00533056</string>
+											<string>24EBF67A0EC9DE2F00533056</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

@@ -3,16 +3,16 @@
 	1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 952}}";
-			sepNavSelRange = "{1410, 0}";
-			sepNavVisRange = "{435, 1029}";
+			sepNavSelRange = "{352, 0}";
+			sepNavVisRange = "{0, 1014}";
 			sepNavWindowFrame = "{{38, 173}, {991, 803}}";
 		};
 	};
 	1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 2170}}";
-			sepNavSelRange = "{398, 0}";
-			sepNavVisRange = "{0, 1102}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 2156}}";
+			sepNavSelRange = "{639, 0}";
+			sepNavVisRange = "{0, 1150}";
 			sepNavWindowFrame = "{{15, 194}, {991, 803}}";
 		};
 	};
@@ -61,9 +61,9 @@
 	};
 	242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1137, 1470}}";
-			sepNavSelRange = "{1994, 0}";
-			sepNavVisRange = "{1481, 1280}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 1470}}";
+			sepNavSelRange = "{2069, 0}";
+			sepNavVisRange = "{1400, 1333}";
 		};
 	};
 	242946440EC4763600B88828 /* PBXTextBookmark */ = {
@@ -441,9 +441,9 @@
 	};
 	2486F2AC0EC0A51100E5F9EE /* TMSong.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 1246}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 1134}}";
 			sepNavSelRange = "{1696, 0}";
-			sepNavVisRange = "{645, 1638}";
+			sepNavVisRange = "{645, 1229}";
 			sepNavWindowFrame = "{{107, 110}, {991, 803}}";
 		};
 	};
@@ -525,15 +525,15 @@
 	2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 653}}";
-			sepNavSelRange = "{481, 84}";
-			sepNavVisRange = "{0, 632}";
+			sepNavSelRange = "{648, 55}";
+			sepNavVisRange = "{0, 710}";
 		};
 	};
 	2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 854}}";
-			sepNavSelRange = "{208, 0}";
-			sepNavVisRange = "{162, 853}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 1218}}";
+			sepNavSelRange = "{1049, 45}";
+			sepNavVisRange = "{640, 842}";
 		};
 	};
 	2486F3070EC0AC2D00E5F9EE /* PBXTextBookmark */ = {
@@ -624,14 +624,14 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 653}}";
 			sepNavSelRange = "{636, 0}";
-			sepNavVisRange = "{0, 815}";
+			sepNavVisRange = "{0, 760}";
 		};
 	};
 	2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 1988}}";
-			sepNavSelRange = "{3474, 0}";
-			sepNavVisRange = "{2439, 1575}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 2310}}";
+			sepNavSelRange = "{2021, 0}";
+			sepNavVisRange = "{958, 1335}";
 		};
 	};
 	2486F4590EC1E57E00E5F9EE /* PBXTextBookmark */ = {
@@ -734,7 +734,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 42";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1121;
 		vrLoc = 39;
@@ -814,7 +814,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 45";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1122;
 		vrLoc = 166;
@@ -889,7 +889,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1091;
 		vrLoc = 638;
@@ -909,7 +909,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 51";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1163;
 		vrLoc = 166;
@@ -999,7 +999,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1091;
 		vrLoc = 638;
@@ -1371,7 +1371,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 88";
 		rLen = 0;
-		rLoc = 2498;
+		rLoc = 2462;
 		rType = 0;
 		vrLen = 1072;
 		vrLoc = 1507;
@@ -1401,7 +1401,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 95";
 		rLen = 0;
-		rLoc = 2762;
+		rLoc = 2726;
 		rType = 0;
 		vrLen = 1195;
 		vrLoc = 309;
@@ -1411,7 +1411,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 95";
 		rLen = 0;
-		rLoc = 2762;
+		rLoc = 2726;
 		rType = 0;
 		vrLen = 1220;
 		vrLoc = 277;
@@ -1598,7 +1598,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 90";
 		rLen = 0;
-		rLoc = 2498;
+		rLoc = 2462;
 		rType = 0;
 		vrLen = 931;
 		vrLoc = 1304;
@@ -1618,7 +1618,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 91";
 		rLen = 0;
-		rLoc = 2498;
+		rLoc = 2462;
 		rType = 0;
 		vrLen = 962;
 		vrLoc = 1304;
@@ -1636,7 +1636,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 91";
 		rLen = 0;
-		rLoc = 2498;
+		rLoc = 2462;
 		rType = 0;
 		vrLen = 962;
 		vrLoc = 1304;
@@ -1984,7 +1984,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 41";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1192;
 		vrLoc = 456;
@@ -2014,7 +2014,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 41";
 		rLen = 0;
-		rLoc = 874;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 1192;
 		vrLoc = 456;
@@ -2034,7 +2034,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2196;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 1301;
@@ -2054,7 +2054,7 @@
 		comments = "error: syntax error before 'TMSong'";
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		rLen = 1;
-		rLoc = 33;
+		rLoc = 29;
 		rType = 1;
 	};
 	24EBF4A90EC85EBA00533056 /* PBXTextBookmark */ = {
@@ -2082,7 +2082,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2196;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1283;
 		vrLoc = 1301;
@@ -2101,7 +2101,7 @@
 		isa = PBXTextBookmark;
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 12";
-		rLen = 552;
+		rLen = 497;
 		rLoc = 257;
 		rType = 0;
 		vrLen = 366;
@@ -2112,7 +2112,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2196;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1283;
 		vrLoc = 1301;
@@ -2132,7 +2132,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 23";
 		rLen = 0;
-		rLoc = 808;
+		rLoc = 753;
 		rType = 0;
 		vrLen = 484;
 		vrLoc = 0;
@@ -2200,7 +2200,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 23";
 		rLen = 0;
-		rLoc = 808;
+		rLoc = 753;
 		rType = 0;
 		vrLen = 484;
 		vrLoc = 0;
@@ -2230,7 +2230,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 85";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1459;
 		vrLoc = 777;
@@ -2240,7 +2240,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 23";
 		rLen = 0;
-		rLoc = 808;
+		rLoc = 753;
 		rType = 0;
 		vrLen = 484;
 		vrLoc = 0;
@@ -2270,7 +2270,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1725;
+		rLoc = 1902;
 		rType = 0;
 		vrLen = 1161;
 		vrLoc = 397;
@@ -2290,7 +2290,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 23";
 		rLen = 0;
-		rLoc = 808;
+		rLoc = 753;
 		rType = 0;
 		vrLen = 484;
 		vrLoc = 0;
@@ -2300,7 +2300,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 85";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1387;
 		vrLoc = 849;
@@ -2330,7 +2330,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 86";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1514;
 		vrLoc = 777;
@@ -2370,7 +2370,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2196;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1454;
 		vrLoc = 1215;
@@ -2390,7 +2390,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1689;
+		rLoc = 1866;
 		rType = 0;
 		vrLen = 1216;
 		vrLoc = 564;
@@ -2400,7 +2400,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 86";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1401;
 		vrLoc = 921;
@@ -2440,7 +2440,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2196;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1454;
 		vrLoc = 1215;
@@ -2450,7 +2450,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1689;
+		rLoc = 1866;
 		rType = 0;
 		vrLen = 1216;
 		vrLoc = 564;
@@ -2470,7 +2470,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1689;
+		rLoc = 1866;
 		rType = 0;
 		vrLen = 1247;
 		vrLoc = 564;
@@ -2562,7 +2562,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1689;
+		rLoc = 1866;
 		rType = 0;
 		vrLen = 1303;
 		vrLoc = 564;
@@ -2572,7 +2572,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1689;
+		rLoc = 1866;
 		rType = 0;
 		vrLen = 1303;
 		vrLoc = 564;
@@ -2642,7 +2642,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1479;
 		vrLoc = 1027;
@@ -2652,7 +2652,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 70";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 1137;
@@ -2662,7 +2662,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 70";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1473;
 		vrLoc = 1027;
@@ -2672,7 +2672,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 70";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1473;
 		vrLoc = 1027;
@@ -2722,7 +2722,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 70";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1473;
 		vrLoc = 1027;
@@ -2802,7 +2802,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 76";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1276;
 		vrLoc = 783;
@@ -2832,7 +2832,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 74";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1120;
 		vrLoc = 304;
@@ -2842,7 +2842,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 22";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 517;
 		vrLoc = 0;
@@ -2852,7 +2852,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 72";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1299;
 		vrLoc = 636;
@@ -2862,7 +2862,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 20";
 		rLen = 0;
-		rLoc = 637;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 517;
 		vrLoc = 0;
@@ -2872,7 +2872,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 75";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1107;
 		vrLoc = 166;
@@ -2892,7 +2892,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 76";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1276;
 		vrLoc = 783;
@@ -2902,7 +2902,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 27";
 		rLen = 0;
-		rLoc = 725;
+		rLoc = 670;
 		rType = 0;
 		vrLen = 564;
 		vrLoc = 0;
@@ -2912,7 +2912,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 27";
 		rLen = 0;
-		rLoc = 725;
+		rLoc = 670;
 		rType = 0;
 		vrLen = 564;
 		vrLoc = 0;
@@ -2922,7 +2922,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 27";
 		rLen = 0;
-		rLoc = 725;
+		rLoc = 670;
 		rType = 0;
 		vrLen = 564;
 		vrLoc = 0;
@@ -2932,7 +2932,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 76";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1360;
 		vrLoc = 699;
@@ -2942,7 +2942,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 27";
 		rLen = 0;
-		rLoc = 725;
+		rLoc = 670;
 		rType = 0;
 		vrLen = 564;
 		vrLoc = 0;
@@ -2952,7 +2952,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 76";
 		rLen = 0;
-		rLoc = 4161;
+		rLoc = 4465;
 		rType = 0;
 		vrLen = 1360;
 		vrLoc = 699;
@@ -2962,7 +2962,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -2972,7 +2972,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 55";
 		rLen = 0;
-		rLoc = 1687;
+		rLoc = 1864;
 		rType = 0;
 		vrLen = 1305;
 		vrLoc = 905;
@@ -2982,7 +2982,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 55";
 		rLen = 0;
-		rLoc = 1687;
+		rLoc = 1864;
 		rType = 0;
 		vrLen = 1068;
 		vrLoc = 372;
@@ -2992,7 +2992,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -3002,7 +3002,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 55";
 		rLen = 0;
-		rLoc = 1687;
+		rLoc = 1864;
 		rType = 0;
 		vrLen = 1305;
 		vrLoc = 905;
@@ -3012,7 +3012,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 84";
 		rLen = 0;
-		rLoc = 2197;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1315;
 		vrLoc = 1400;
@@ -3022,7 +3022,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 84";
 		rLen = 0;
-		rLoc = 2197;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1389;
 		vrLoc = 1326;
@@ -3042,7 +3042,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 84";
 		rLen = 0;
-		rLoc = 2197;
+		rLoc = 2161;
 		rType = 0;
 		vrLen = 1389;
 		vrLoc = 1326;
@@ -3062,7 +3062,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4187;
+		rLoc = 4491;
 		rType = 0;
 		vrLen = 1304;
 		vrLoc = 905;
@@ -3072,7 +3072,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4187;
+		rLoc = 4491;
 		rType = 0;
 		vrLen = 1306;
 		vrLoc = 903;
@@ -3082,7 +3082,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -3122,7 +3122,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4187;
+		rLoc = 4491;
 		rType = 0;
 		vrLen = 1304;
 		vrLoc = 905;
@@ -3132,7 +3132,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -3142,7 +3142,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4187;
+		rLoc = 4491;
 		rType = 0;
 		vrLen = 1306;
 		vrLoc = 903;
@@ -3152,7 +3152,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 636;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -3402,7 +3402,7 @@
 		comments = "warning: 'SongPlayRenderer' may not respond to '-playSong:withOptions:'";
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		rLen = 1;
-		rLoc = 83;
+		rLoc = 84;
 		rType = 1;
 	};
 	24EBF58D0EC8983500533056 /* PBXTextBookmark */ = {
@@ -3420,7 +3420,7 @@
 		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
 		name = "SongPickerMenuRenderer.m: 83";
 		rLen = 0;
-		rLoc = 1994;
+		rLoc = 2072;
 		rType = 0;
 		vrLen = 1280;
 		vrLoc = 1481;
@@ -3580,7 +3580,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 50";
 		rLen = 0;
-		rLoc = 1436;
+		rLoc = 1613;
 		rType = 0;
 		vrLen = 1316;
 		vrLoc = 545;
@@ -4160,7 +4160,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 89";
 		rLen = 0;
-		rLoc = 4187;
+		rLoc = 4491;
 		rType = 0;
 		vrLen = 1090;
 		vrLoc = 393;
@@ -4170,7 +4170,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 30";
 		rLen = 113;
-		rLoc = 695;
+		rLoc = 640;
 		rType = 0;
 		vrLen = 687;
 		vrLoc = 0;
@@ -4180,7 +4180,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1453;
+		rLoc = 1630;
 		rType = 0;
 		vrLen = 1149;
 		vrLoc = 420;
@@ -4190,7 +4190,7 @@
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 30";
 		rLen = 113;
-		rLoc = 695;
+		rLoc = 640;
 		rType = 0;
 		vrLen = 687;
 		vrLoc = 0;
@@ -4200,7 +4200,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 55";
 		rLen = 0;
-		rLoc = 1687;
+		rLoc = 1864;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 546;
@@ -4220,7 +4220,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 50";
 		rLen = 0;
-		rLoc = 1436;
+		rLoc = 1613;
 		rType = 0;
 		vrLen = 1316;
 		vrLoc = 545;
@@ -4240,7 +4240,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 85";
 		rLen = 0;
-		rLoc = 4160;
+		rLoc = 4464;
 		rType = 0;
 		vrLen = 1326;
 		vrLoc = 1188;
@@ -4260,7 +4260,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1232;
+		rLoc = 1285;
 		rType = 0;
 		vrLen = 1120;
 		vrLoc = 225;
@@ -4270,7 +4270,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1232;
+		rLoc = 1285;
 		rType = 0;
 		vrLen = 1120;
 		vrLoc = 225;
@@ -4290,7 +4290,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1232;
+		rLoc = 1285;
 		rType = 0;
 		vrLen = 1257;
 		vrLoc = 1347;
@@ -4300,7 +4300,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1227;
+		rLoc = 1272;
 		rType = 0;
 		vrLen = 1096;
 		vrLoc = 249;
@@ -4310,7 +4310,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 41";
 		rLen = 0;
-		rLoc = 990;
+		rLoc = 959;
 		rType = 0;
 		vrLen = 1095;
 		vrLoc = 249;
@@ -4320,7 +4320,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 41";
 		rLen = 0;
-		rLoc = 990;
+		rLoc = 959;
 		rType = 0;
 		vrLen = 1170;
 		vrLoc = 327;
@@ -4360,7 +4360,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 100";
 		rLen = 0;
-		rLoc = 3059;
+		rLoc = 3363;
 		rType = 0;
 		vrLen = 1323;
 		vrLoc = 1559;
@@ -4370,7 +4370,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 50";
 		rLen = 0;
-		rLoc = 1332;
+		rLoc = 1422;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 573;
@@ -4390,7 +4390,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 100";
 		rLen = 0;
-		rLoc = 3059;
+		rLoc = 3363;
 		rType = 0;
 		vrLen = 1323;
 		vrLoc = 1559;
@@ -4430,7 +4430,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 116";
 		rLen = 0;
-		rLoc = 3320;
+		rLoc = 3624;
 		rType = 0;
 		vrLen = 1298;
 		vrLoc = 2559;
@@ -4490,7 +4490,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 99";
 		rLen = 23;
-		rLoc = 2780;
+		rLoc = 3084;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 2069;
@@ -4500,7 +4500,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 99";
 		rLen = 23;
-		rLoc = 2780;
+		rLoc = 3084;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 2069;
@@ -4560,7 +4560,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 99";
 		rLen = 23;
-		rLoc = 2780;
+		rLoc = 3084;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 2069;
@@ -4610,7 +4610,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 99";
 		rLen = 23;
-		rLoc = 2780;
+		rLoc = 3084;
 		rType = 0;
 		vrLen = 1532;
 		vrLoc = 2069;
@@ -4620,7 +4620,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1205;
+		rLoc = 1250;
 		rType = 0;
 		vrLen = 1243;
 		vrLoc = 413;
@@ -4640,7 +4640,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1205;
+		rLoc = 1250;
 		rType = 0;
 		vrLen = 1243;
 		vrLoc = 413;
@@ -4700,7 +4700,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 105";
 		rLen = 0;
-		rLoc = 2863;
+		rLoc = 3167;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 1467;
@@ -4710,7 +4710,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2750;
+		rLoc = 3054;
 		rType = 0;
 		vrLen = 1536;
 		vrLoc = 1618;
@@ -4720,7 +4720,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2750;
+		rLoc = 3054;
 		rType = 0;
 		vrLen = 1275;
 		vrLoc = 440;
@@ -4750,7 +4750,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2750;
+		rLoc = 3054;
 		rType = 0;
 		vrLen = 1275;
 		vrLoc = 440;
@@ -4800,7 +4800,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2750;
+		rLoc = 3054;
 		rType = 0;
 		vrLen = 1184;
 		vrLoc = 531;
@@ -4820,7 +4820,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 131";
 		rLen = 0;
-		rLoc = 4037;
+		rLoc = 4341;
 		rType = 0;
 		vrLen = 1499;
 		vrLoc = 2507;
@@ -4830,7 +4830,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 116";
 		rLen = 0;
-		rLoc = 3307;
+		rLoc = 3611;
 		rType = 0;
 		vrLen = 1551;
 		vrLoc = 2392;
@@ -4840,7 +4840,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 116";
 		rLen = 0;
-		rLoc = 3279;
+		rLoc = 3583;
 		rType = 0;
 		vrLen = 1565;
 		vrLoc = 2392;
@@ -4850,7 +4850,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3279;
+		rLoc = 3583;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 1872;
@@ -4860,7 +4860,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3279;
+		rLoc = 3583;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 2072;
@@ -4870,7 +4870,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 118";
 		rLen = 0;
-		rLoc = 3309;
+		rLoc = 3613;
 		rType = 0;
 		vrLen = 1594;
 		vrLoc = 2072;
@@ -4880,7 +4880,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3283;
+		rLoc = 3587;
 		rType = 0;
 		vrLen = 1656;
 		vrLoc = 2432;
@@ -4900,7 +4900,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3283;
+		rLoc = 3587;
 		rType = 0;
 		vrLen = 1663;
 		vrLoc = 2432;
@@ -4910,7 +4910,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3283;
+		rLoc = 3587;
 		rType = 0;
 		vrLen = 1663;
 		vrLoc = 2432;
@@ -4930,7 +4930,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3608;
 		rType = 0;
 		vrLen = 1660;
 		vrLoc = 2432;
@@ -4940,7 +4940,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3307;
+		rLoc = 3611;
 		rType = 0;
 		vrLen = 1673;
 		vrLoc = 2432;
@@ -4950,7 +4950,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 118";
 		rLen = 0;
-		rLoc = 3309;
+		rLoc = 3613;
 		rType = 0;
 		vrLen = 1695;
 		vrLoc = 1890;
@@ -4960,7 +4960,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 143";
 		rLen = 0;
-		rLoc = 4223;
+		rLoc = 4527;
 		rType = 0;
 		vrLen = 1520;
 		vrLoc = 2549;
@@ -4970,7 +4970,7 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 117";
 		rLen = 0;
-		rLoc = 3258;
+		rLoc = 3562;
 		rType = 0;
 		vrLen = 1575;
 		vrLoc = 2439;
@@ -4980,10 +4980,370 @@
 		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
 		name = "SongPlayRenderer.m: 124";
 		rLen = 0;
-		rLoc = 3613;
+		rLoc = 3917;
 		rType = 0;
 		vrLen = 1575;
 		vrLoc = 2439;
+	};
+	24EBF6510EC9D9DA00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 55";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 891;
+	};
+	24EBF6550EC9DA6900533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 55";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 1440;
+		vrLoc = 891;
+	};
+	24EBF6580EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */;
+		name = "TexturesHolder.h: 12";
+		rLen = 352;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 541;
+		vrLoc = 0;
+	};
+	24EBF6590EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 54";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 1122;
+		vrLoc = 82;
+	};
+	24EBF65A0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */;
+		name = "TapManiaAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 1014;
+		vrLoc = 0;
+	};
+	24EBF65B0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 24F15E6A0EC211D100755788 /* AbstractRenderer.h */;
+		name = "AbstractRenderer.h: 12";
+		rLen = 0;
+		rLoc = 218;
+		rType = 0;
+		vrLen = 482;
+		vrLoc = 0;
+	};
+	24EBF65C0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 26";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1133;
+		vrLoc = 0;
+	};
+	24EBF65D0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 56";
+		rLen = 0;
+		rLoc = 1272;
+		rType = 0;
+		vrLen = 1435;
+		vrLoc = 891;
+	};
+	24EBF65E0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */;
+		name = "TexturesHolder.h: 12";
+		rLen = 352;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 541;
+		vrLoc = 0;
+	};
+	24EBF65F0EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 28";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1102;
+		vrLoc = 0;
+	};
+	24EBF6600EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 54";
+		rLen = 0;
+		rLoc = 1250;
+		rType = 0;
+		vrLen = 1122;
+		vrLoc = 82;
+	};
+	24EBF6610EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 26";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1133;
+		vrLoc = 0;
+	};
+	24EBF6620EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */;
+		name = "TapManiaAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 1014;
+		vrLoc = 0;
+	};
+	24EBF6630EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 24F15E6A0EC211D100755788 /* AbstractRenderer.h */;
+		name = "AbstractRenderer.h: 12";
+		rLen = 0;
+		rLoc = 218;
+		rType = 0;
+		vrLen = 482;
+		vrLoc = 0;
+	};
+	24EBF6640EC9DC4E00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 28";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1065;
+		vrLoc = 0;
+	};
+	24EBF6660EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 28";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1150;
+		vrLoc = 0;
+	};
+	24EBF6670EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F2AC0EC0A51100E5F9EE /* TMSong.m */;
+		name = "TMSong.m: 67";
+		rLen = 0;
+		rLoc = 1696;
+		rType = 0;
+		vrLen = 1229;
+		vrLoc = 645;
+	};
+	24EBF6680EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */;
+		name = "TMSongOptions.h: 36";
+		rLen = 55;
+		rLoc = 648;
+		rType = 0;
+		vrLen = 710;
+		vrLoc = 0;
+	};
+	24EBF6690EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */;
+		name = "TMSongOptions.m: 61";
+		rLen = 45;
+		rLoc = 1049;
+		rType = 0;
+		vrLen = 842;
+		vrLoc = 640;
+	};
+	24EBF66A0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
+		name = "SongPlayRenderer.h: 27";
+		rLen = 0;
+		rLoc = 636;
+		rType = 0;
+		vrLen = 760;
+		vrLoc = 0;
+	};
+	24EBF66B0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
+		name = "SongPickerMenuRenderer.m: 85";
+		rLen = 0;
+		rLoc = 2161;
+		rType = 0;
+		vrLen = 1330;
+		vrLoc = 1403;
+	};
+	24EBF66C0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 39";
+		rLen = 0;
+		rLoc = 843;
+		rType = 0;
+		vrLen = 1226;
+		vrLoc = 412;
+	};
+	24EBF66D0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */;
+		name = "TapManiaAppDelegate.m: 28";
+		rLen = 0;
+		rLoc = 639;
+		rType = 0;
+		vrLen = 1150;
+		vrLoc = 0;
+	};
+	24EBF66E0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F2AC0EC0A51100E5F9EE /* TMSong.m */;
+		name = "TMSong.m: 67";
+		rLen = 0;
+		rLoc = 1696;
+		rType = 0;
+		vrLen = 1229;
+		vrLoc = 645;
+	};
+	24EBF66F0EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */;
+		name = "TMSongOptions.m: 35";
+		rLen = 0;
+		rLoc = 514;
+		rType = 0;
+		vrLen = 828;
+		vrLoc = 215;
+	};
+	24EBF6700EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */;
+		name = "TMSongOptions.h: 36";
+		rLen = 55;
+		rLoc = 648;
+		rType = 0;
+		vrLen = 710;
+		vrLoc = 0;
+	};
+	24EBF6710EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */;
+		name = "TMSongOptions.m: 61";
+		rLen = 45;
+		rLoc = 1049;
+		rType = 0;
+		vrLen = 842;
+		vrLoc = 640;
+	};
+	24EBF6720EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 39";
+		rLen = 0;
+		rLoc = 843;
+		rType = 0;
+		vrLen = 1226;
+		vrLoc = 412;
+	};
+	24EBF6730EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
+		name = "SongPlayRenderer.h: 27";
+		rLen = 0;
+		rLoc = 636;
+		rType = 0;
+		vrLen = 760;
+		vrLoc = 0;
+	};
+	24EBF6740EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
+		name = "SongPickerMenuRenderer.m: 85";
+		rLen = 0;
+		rLoc = 2161;
+		rType = 0;
+		vrLen = 1330;
+		vrLoc = 1403;
+	};
+	24EBF6750EC9DDFB00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 78";
+		rLen = 0;
+		rLoc = 2021;
+		rType = 0;
+		vrLen = 1332;
+		vrLoc = 958;
+	};
+	24EBF6780EC9DE2F00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 78";
+		rLen = 0;
+		rLoc = 2021;
+		rType = 0;
+		vrLen = 1335;
+		vrLoc = 958;
+	};
+	24EBF6790EC9DE2F00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
+		name = "SongPickerMenuRenderer.m: 85";
+		rLen = 0;
+		rLoc = 2161;
+		rType = 0;
+		vrLen = 1333;
+		vrLoc = 1400;
+	};
+	24EBF67A0EC9DE2F00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */;
+		name = "SongPlayRenderer.m: 78";
+		rLen = 0;
+		rLoc = 2021;
+		rType = 0;
+		vrLen = 1335;
+		vrLoc = 958;
+	};
+	24EBF67B0EC9DE2F00533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
+		name = "SongPickerMenuRenderer.m: 84";
+		rLen = 0;
+		rLoc = 2069;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 1400;
+	};
+	24EBF67F0EC9DE5600533056 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */;
+		name = "SongPickerMenuRenderer.m: 84";
+		rLen = 0;
+		rLoc = 2069;
+		rType = 0;
+		vrLen = 1333;
+		vrLoc = 1400;
 	};
 	24F15DB20EC2094600755788 /* SoundEffectsHolder.h */ = {
 		uiCtxt = {
@@ -5067,8 +5427,8 @@
 	24F15E6A0EC211D100755788 /* AbstractRenderer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 653}}";
-			sepNavSelRange = "{161, 0}";
-			sepNavVisRange = "{0, 445}";
+			sepNavSelRange = "{218, 0}";
+			sepNavVisRange = "{0, 482}";
 		};
 	};
 	24F15E6B0EC211D100755788 /* AbstractRenderer.m */ = {
@@ -5317,7 +5677,7 @@
 		isa = PBXTextBookmark;
 		fRef = 2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */;
 		name = "SongPlayRenderer.h: 12";
-		rLen = 552;
+		rLen = 497;
 		rLoc = 257;
 		rType = 0;
 		vrLen = 366;
@@ -5381,7 +5741,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 2486F17F0EC0774100E5F9EE /* TapMania */;
-		activeSDKPreference = iphonesimulator2.0;
+		activeSDKPreference = iphoneos2.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* TapMania */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* TapMania */,
@@ -5965,6 +6325,42 @@
 			24EBF6480EC99B0C00533056 /* PBXTextBookmark */ = 24EBF6480EC99B0C00533056 /* PBXTextBookmark */;
 			24EBF64A0EC9D16B00533056 /* PBXTextBookmark */ = 24EBF64A0EC9D16B00533056 /* PBXTextBookmark */;
 			24EBF64C0EC9D1EC00533056 /* PBXTextBookmark */ = 24EBF64C0EC9D1EC00533056 /* PBXTextBookmark */;
+			24EBF6510EC9D9DA00533056 /* PBXTextBookmark */ = 24EBF6510EC9D9DA00533056 /* PBXTextBookmark */;
+			24EBF6550EC9DA6900533056 /* PBXTextBookmark */ = 24EBF6550EC9DA6900533056 /* PBXTextBookmark */;
+			24EBF6580EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6580EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6590EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6590EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65A0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65A0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65B0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65B0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65C0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65C0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65D0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65D0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65E0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65E0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF65F0EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF65F0EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6600EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6600EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6610EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6610EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6620EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6620EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6630EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6630EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6640EC9DC4E00533056 /* PBXTextBookmark */ = 24EBF6640EC9DC4E00533056 /* PBXTextBookmark */;
+			24EBF6660EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6660EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6670EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6670EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6680EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6680EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6690EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6690EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66A0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66A0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66B0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66B0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66C0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66C0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66D0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66D0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66E0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66E0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF66F0EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF66F0EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6700EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6700EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6710EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6710EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6720EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6720EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6730EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6730EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6740EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6740EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6750EC9DDFB00533056 /* PBXTextBookmark */ = 24EBF6750EC9DDFB00533056 /* PBXTextBookmark */;
+			24EBF6780EC9DE2F00533056 /* PBXTextBookmark */ = 24EBF6780EC9DE2F00533056 /* PBXTextBookmark */;
+			24EBF6790EC9DE2F00533056 /* PBXTextBookmark */ = 24EBF6790EC9DE2F00533056 /* PBXTextBookmark */;
+			24EBF67A0EC9DE2F00533056 /* PBXTextBookmark */ = 24EBF67A0EC9DE2F00533056 /* PBXTextBookmark */;
+			24EBF67B0EC9DE2F00533056 /* PBXTextBookmark */ = 24EBF67B0EC9DE2F00533056 /* PBXTextBookmark */;
+			24EBF67F0EC9DE5600533056 /* PBXTextBookmark */ = 24EBF67F0EC9DE5600533056 /* PBXTextBookmark */;
 			24F15DD00EC20C0600755788 = 24F15DD00EC20C0600755788 /* PBXTextBookmark */;
 			24F15DDD0EC20C0600755788 = 24F15DDD0EC20C0600755788 /* PBXTextBookmark */;
 			24F15E580EC211AC00755788 = 24F15E580EC211AC00755788 /* PBXTextBookmark */;

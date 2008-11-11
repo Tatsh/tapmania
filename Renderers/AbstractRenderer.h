@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EAGLView.h"
 
+#define kRenderingFPS				60.0 // Hz
+
 // The Scene Renderer protocol
 @protocol SceneRenderer
 

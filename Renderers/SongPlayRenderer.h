@@ -25,10 +25,6 @@
 	double					playBackStartTime;
 	double					bpmSpeed;
 	double					fullScreenTime;
-	
-	// JUST FOR TEST!!!
-	float arrowPos;
-	BOOL gapDone;
 }
 
 - (void) playSong:(TMSong*) lSong onDifficulty:(TMSongDifficulty)difficulty withOptions:(TMSongOptions*) options;
