@@ -11,7 +11,7 @@
 
 @implementation TMNote
 
-@synthesize time;
+@synthesize time, tillTime, beatType, isHit, hitTime;
 
 - (id) initWithTime:(double) lTime tillTime:(double) lTillTime {
 	self = [super init];
@@ -22,7 +22,17 @@
 	tillTime = lTillTime;
 	beatType = 0; // FIXME
 	
+	isHit = NO;
+	hitTime = 0.0f;
+	
 	return self;
+}
+
+- (void) hit:(double)lHitTime {
+	if(!isHit){
+		isHit = YES;
+		hitTime = lHitTime;
+	}
 }
 
 @end

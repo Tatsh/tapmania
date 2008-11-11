@@ -36,6 +36,7 @@
 
 - (void) dealloc {
 	[notesArray release];
+	[super dealloc];
 }
 
 @end
