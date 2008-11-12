@@ -81,7 +81,7 @@
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 
 	// FIXME: hardcode
-	TMSongOptions* options = [[TMSongOptions alloc] initWithSpeed:kSpeedMod_3x];
+	TMSongOptions* options = [[TMSongOptions alloc] initWithSpeed:kSpeedMod_2x];
 	[songPlayRenderer playSong:song onDifficulty:kSongDifficulty_Hard withOptions:options];
 }
 
