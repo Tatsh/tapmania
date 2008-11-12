@@ -79,7 +79,7 @@
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	
 	// Initialize the JoyPad
-	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleSpread andFrame:CGRectMake(0, 400, 320, 80)];	
+	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];	
 	[joyPad setDelegate:self];
 	
 	//Render the Title frame 

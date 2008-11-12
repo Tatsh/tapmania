@@ -41,7 +41,7 @@ typedef enum {
 @property (assign) id <JoyPadControllerDelegate> delegate;
 
 // The constructor
-- (id) initWithStyle:(JPStyle)style andFrame:(CGRect)frame;
+- (id) initWithStyle:(JPStyle)style;
 
 // Get state of particular button
 - (BOOL) getStateForButton:(JPButton) button;
