@@ -37,6 +37,8 @@
 		2486F4420EC1DF2800E5F9EE /* base.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F4410EC1DF2800E5F9EE /* base.png */; };
 		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
 		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
+		24966C5B0ECB365000D367E3 /* SongOptionsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */; };
+		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -98,6 +100,10 @@
 		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
 		2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturesHolder.h; sourceTree = "<group>"; };
 		2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturesHolder.m; sourceTree = "<group>"; };
+		24966C590ECB365000D367E3 /* SongOptionsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongOptionsRenderer.h; path = Renderers/SongOptionsRenderer.h; sourceTree = "<group>"; };
+		24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongOptionsRenderer.m; path = Renderers/SongOptionsRenderer.m; sourceTree = "<group>"; };
+		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
+		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
 				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
+				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
+				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -246,6 +254,8 @@
 				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
 				242946370EC474D900B88828 /* SongPickerMenuRenderer.h */,
 				242946380EC474D900B88828 /* SongPickerMenuRenderer.m */,
+				24966C590ECB365000D367E3 /* SongOptionsRenderer.h */,
+				24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -410,6 +420,8 @@
 				24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */,
 				24EBF5580EC889AD00533056 /* TMTrack.m in Sources */,
 				24EBF55B0EC88B4400533056 /* TMNote.m in Sources */,
+				24966C5B0ECB365000D367E3 /* SongOptionsRenderer.m in Sources */,
+				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@
 #import "SongsDirectoryCache.h"
 
 #import "MainMenuRenderer.h"
-#import "SongPlayRenderer.h"
+#import "SongOptionsRenderer.h"
 
 #import "SongPickerMenuItem.h"
 
@@ -75,14 +75,9 @@
 - (void) playGamePress:(id)sender {
 	SongPickerMenuItem* menuItem = (SongPickerMenuItem*)sender;
 	TMSong* song = menuItem.song;
-	
-	NSLog(@"Start song... %@", song.filePath);
-	
-	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 
-	// FIXME: hardcode
-	TMSongOptions* options = [[TMSongOptions alloc] initWithSpeed:kSpeedMod_2x];
-	[songPlayRenderer playSong:song onDifficulty:kSongDifficulty_Hard withOptions:options];
+	NSLog(@"Go to song options from Play menu...");
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] looping:NO];
 }
 
 - (void) backPress:(id)sender {
