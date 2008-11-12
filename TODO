@@ -1,0 +1,12 @@
+todo file. written on 12 nov 2008
+
+1) handle bpm change array and freeze array (in dwi parser)
+2.1) support for hold notes (time/tillTime support in dwi parser + in songPlayRenderer)
+2.2) must add images for hold notes (head/body/feet)
+3) calculate accurate hit times and values
+4) add support for different beat types (with color images for different beats)
+5) add screen with difficulty selection before songPlayRenderer activation
+6) add some time like 3 seconds before the actual song starts.. with some graphics like ready/steady/GO
+7) possibility to get back to menu after song ended
+8) calculate score into TMScore (total score and counters for marv/perf/great etc.)
+9) add screen to show scores after song ends. tap screen (or back button?) to continue
