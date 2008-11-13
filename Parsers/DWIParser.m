@@ -9,6 +9,8 @@
 #import "DWIParser.h"
 
 #import "TMSteps.h"
+#import "TMTimeBasedChange.h"
+#import "TimingUtil.h"
 
 #import <stdio.h>
 #import <syslog.h>
@@ -27,6 +29,8 @@
 + (int) beatToNoteRow:(float) beat;
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out;
 + (void) dwiCharToNoteCol:(int)c colOut1:(int*) colOut1 colOut2:(int*) colOut2;
++ (BOOL) handleBpmChange:(double*)currentTimePerBeat nextBpmChangeIndex:(int*)nextBpmChangeIndex 
+	  nextBpmChangeBeat:(double*)nextBpmChangeBeat withSong:(TMSong*)song;
 @end
 
 @implementation DWIParser
@@ -332,12 +336,45 @@
 	} else { *colOut2 = -1; }
 }
 
++ (BOOL) handleBpmChange:(double*)currentTimePerBeat 
+	  nextBpmChangeIndex:(int*)nextBpmChangeIndex 
+	  nextBpmChangeBeat:(double*)nextBpmChangeBeat 
+	  withSong:(TMSong*)song 
+{
+	syslog(LOG_DEBUG,"got values: %f %d %f", *currentTimePerBeat, *nextBpmChangeIndex, *nextBpmChangeBeat);
+	double changeValue = [[song.bpmChangeArray objectAtIndex:*nextBpmChangeIndex] changeValue];
+	*currentTimePerBeat = [TimingUtil getTimeInBeat:changeValue];
+		
+	if([song.bpmChangeArray count] > (*nextBpmChangeIndex)+1) {
+		(*nextBpmChangeIndex)++;
+		*nextBpmChangeBeat = [[song.bpmChangeArray objectAtIndex:*nextBpmChangeIndex] time];
+	} else {
+		syslog(LOG_DEBUG, "return NO in handleBpmChange!");
+		return NO;
+	}
+
+	return YES;
+}
+
 // Parse the whole step data line using the file descriptor
 + (TMSteps*) parseStepDataWithFD:(FILE*) fd forSong:(TMSong*) song{
 	TMSteps* steps = [[TMSteps alloc] init];
 
-	double currentBeat = 0;
-	double currentIncrementer = 1.0/8*kBeatsPerMeasure;
+	double currentTime = song.gap;
+	double currentBeat = 0.0f;
+	double currentIncrementer = 1.0/8*kBeatsPerMeasure; 
+	double currentTimePerBeat = song.timePerBeat;	// This might change when we hit a bpm change on some beat
+	syslog(LOG_DEBUG, "! cur time per beat: %f", currentTimePerBeat);
+
+	BOOL testBpmChange = NO;
+	double nextBpmChangeBeat = 0;
+	int nextBpmChangeIndex = 0;
+
+	if([song.bpmChangeArray count] > 0) {
+		syslog(LOG_DEBUG, "ENABLE search for bpmChanges...");
+		testBpmChange = YES;
+		nextBpmChangeBeat = [[song.bpmChangeArray objectAtIndex:0] time]; 
+	}
 
 	int c = getc(fd);
 					
@@ -346,6 +383,13 @@
 		if(c == ' ' || c == '\t' || c == '\n' || c == '\r'){
 			c = getc(fd);
 			continue; // Skip this char
+		}
+
+		// Check bpm change
+		if(testBpmChange && currentBeat == nextBpmChangeBeat) {
+			syslog(LOG_DEBUG, "bpm change time!");
+			testBpmChange = [DWIParser handleBpmChange:&currentTimePerBeat nextBpmChangeIndex:&nextBpmChangeIndex 
+			  nextBpmChangeBeat:&nextBpmChangeBeat withSong:song];
 		}
 
 		switch(c) {
@@ -384,8 +428,6 @@
 					jump = YES;
 				}
 
-				// int index = [DWIParser beatToRowNum:currentBeat];
-
 				do {
 					if(jump && c == '>')
 						break;
@@ -393,13 +435,11 @@
 					int col1, col2;
 					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];
 					
-					double currentTime, holdStartTime, holdEndTime;
+					double holdStartTime, holdEndTime;
 					int holdChar;
 					BOOL hold = NO;
 		
 					if(col1 != -1 || col2 != -1) {
-						currentTime = song.gap + song.timePerBeat*currentBeat; 
-
 						// Peek at the next note char
 						int nc = getc(fd);
 						
@@ -415,6 +455,15 @@
 							while(!feof(fd) && c == '0') {
 								c = getc(fd);
 								currentBeat += currentIncrementer;
+								currentTime += currentTimePerBeat; 
+					
+								// Check bpm change
+								if(testBpmChange && currentBeat == nextBpmChangeBeat) {
+									syslog(LOG_DEBUG, "bpm change time in hold note!");
+									testBpmChange = [DWIParser handleBpmChange:&currentTimePerBeat 
+									nextBpmChangeIndex:&nextBpmChangeIndex 
+									nextBpmChangeBeat:&nextBpmChangeBeat withSong:song];
+								}
 							}
 							
 							if(feof(fd)){
@@ -423,7 +472,7 @@
 							}
 	
 							// Calculate the end time for the hold
-							holdEndTime = song.gap + song.timePerBeat*currentBeat;
+							holdEndTime = song.gap + currentTimePerBeat*currentBeat;
 
 						} else {
 							ungetc(nc, fd);
@@ -469,6 +518,7 @@
 				} while (jump);
 
 				currentBeat += currentIncrementer;
+				currentTime += currentTimePerBeat * currentIncrementer; 
 			}
 		}
 					
@@ -534,8 +584,12 @@
 
 // This one is used to parse the BPMCHANGE and the FREEZE variable into the array
 + (NSMutableArray*) getChangesArray:(char*) data {
-	char *token;
+	char *token, *value;
+	int i;
+
+	TMTimeBasedChange* changer = nil;
 	NSMutableArray* arr = [[NSMutableArray arrayWithCapacity:10] retain];
+	NSMutableArray* resArr = nil;
 	
 	// 1288=666,1312=333,1316=166.5,1320=83.25,1356=333
 	token = strtok( data, "," );
@@ -546,8 +600,27 @@
 		token = strtok( nil, "," );
 	}
 
-	syslog(LOG_DEBUG, "Total count of found tokens: %d", [arr count]);
-	return arr;
+	// Now for every saved change pair - split by '='
+	resArr = [[NSMutableArray arrayWithCapacity:[arr count]] retain];
+
+	for(i = 0; i<[arr count]; i++){
+		token = strtok ( (char*)[[arr objectAtIndex:i] UTF8String], "=" );
+		value = strtok(nil, "=");
+
+		if(!token || !value) {
+			syslog(LOG_DEBUG, "Fatal: changes array broken.");
+			return nil;
+		}
+
+		// Got '$token=$value'
+		double timeIndex = atof(token)/4.0f;
+		changer = [[TMTimeBasedChange alloc] initWithTime:timeIndex andValue:atof(value)];
+		[resArr addObject:changer];	
+	}
+
+	[arr release];
+	syslog(LOG_DEBUG, "Total count of found tokens: %d", [resArr count]);
+	return resArr;
 }
 
 // Get the difficulty number from a string representation
