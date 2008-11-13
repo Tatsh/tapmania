@@ -44,13 +44,17 @@
 	return self;
 }
 
-- (void) playSong:(TMSong*) lSong onDifficulty:(TMSongDifficulty)difficulty withOptions:(TMSongOptions*) options {
+- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
 	NSLog(@"Start the song...");
 	
 	song = lSong;
-	steps = [song getStepsForDifficulty:difficulty];
+	steps = [song getStepsForDifficulty:options.difficulty];
+
+	syslog(LOG_DEBUG, "Well.. steps retrieved.");
 	
 	double speedModValue = [TMSongOptions speedModToValue:options.speedMod];
+	
+	syslog(LOG_DEBUG, "SpeedMod value = %f", speedModValue);
 	
 	bpmSpeed = song.bpm/kRenderingFPS;
 	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
@@ -67,13 +71,15 @@
 		trackPos[i] = 0;
 	}
 	
-	NSLog(@"play %@", song.musicFilePath);
+	syslog(LOG_DEBUG, "play %s", [song.musicFilePath UTF8String]);
 	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], YES, NO);
 	
 	// Save start time of song playback and start the playback
 	playBackStartTime = [TimingUtil getCurrentTime];
 	
 	SoundEngine_StartBackgroundMusic();
+
+	syslog(LOG_DEBUG, "going to start the renderer...");
 
 	// Start rendering
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:self looping:YES];	

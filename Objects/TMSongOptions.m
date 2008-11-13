@@ -11,26 +11,26 @@
 
 @implementation TMSongOptions
 
-@synthesize speedMod;
+@synthesize speedMod, difficulty;
 
-- (id) initWithSpeed:(TMSpeedModifiers)lSpeedMod {
+- (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	if(lSpeedMod != -1 && lSpeedMod < kNumSpeedMods){
-		speedMod = lSpeedMod;
-	} else {
-		speedMod = kSpeedMod_1x;
-	}
-	
+	speedMod = kSpeedMod_1x;
+	difficulty = kSongDifficulty_Invalid;
+
 	return self;
 }
 
-- (TMSpeedModifiers) getSpeedMod {
-	return speedMod;
+- (void) setSpeedMod:(TMSpeedModifiers)speed {
+	speedMod = speed;
 }
 
+- (void) setDifficulty:(TMSongDifficulty)lDifficulty {
+	difficulty = lDifficulty;
+}
 
 // Get string representation of the speed modifier
 + (NSString*) speedModAsString:(TMSpeedModifiers) speedMod {
@@ -72,14 +72,15 @@
 			return 5.0f;
 		case kSpeedMod_8x:
 			return 8.0f;
+		// Constant speed mods are TBD
 		case kSpeedMod_c200:
-			return -1;
+			return 1.0f;
 		case kSpeedMod_c400:
-			return -1;
+			return 1.0f;
 		case kSpeedMod_c600:
-			return -1;	
+			return 1.0f;	
 		default:
-			return -1;
+			return 1.0f;
 	}
 }
 

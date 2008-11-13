@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TMSong.h"
 
 // Define available speed modifiers
 typedef enum {
@@ -25,12 +26,17 @@ typedef enum {
 
 @interface TMSongOptions: NSObject {
 	TMSpeedModifiers speedMod;
+	TMSongDifficulty difficulty;
 }
 
 @property (readonly, assign) TMSpeedModifiers speedMod;
+@property (readonly, assign) TMSongDifficulty difficulty;
 
 // The constructor
-- (id) initWithSpeed:(TMSpeedModifiers)speedMod;
+- (id) init;
+
+- (void) setSpeedMod:(TMSpeedModifiers)speed;
+- (void) setDifficulty:(TMSongDifficulty)lDifficulty;
 
 + (NSString*) speedModAsString:(TMSpeedModifiers) speedMod;
 + (double) speedModToValue:(TMSpeedModifiers) speedMod;

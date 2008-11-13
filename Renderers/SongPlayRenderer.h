@@ -30,6 +30,6 @@
 	double					fullScreenTime;
 }
 
-- (void) playSong:(TMSong*) lSong onDifficulty:(TMSongDifficulty)difficulty withOptions:(TMSongOptions*) options;
+- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;
 
 @end

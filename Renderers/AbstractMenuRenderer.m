@@ -18,6 +18,7 @@
 		return nil;
 	
 	_backButtonUsed = NO;
+	_goButtonUsed = NO;
 	
 	// Construct the menu
 	_menuElements = [[NSMutableArray arrayWithCapacity:capacity] retain];
@@ -29,13 +30,27 @@
 	_backButtonUsed = YES;
 }
 
+- (void) enableGoButton {
+	_goButtonUsed = YES;
+}
+
 - (void) addMenuItemWithTitle:(NSString*) title andHandler:(SEL)sel onTarget:(id)target {
 	MenuItem* newItem = [[MenuItem alloc] initWithTitle:title];
 	
-	// Register callback
-	[newItem addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+	// Register callback if needed
+	if(sel != nil){
+		[newItem addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+	}
 	
 	[_menuElements addObject:newItem];
+}
+
+- (void) addMenuItem:(MenuItem*) item andHandler:(SEL)sel onTarget:(id)target {
+	// Register callback if needed
+	if(sel != nil){
+		[item addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+	}
+	[_menuElements addObject:item];
 }
 
 // Call this to publish the whole menu
@@ -61,6 +76,14 @@
 		[backButton setFrame:CGRectMake(5, 435, 80, 20)];
 		[glView addSubview:backButton];			
 	}
+
+	// Add go button if needed
+	if(_goButtonUsed) {
+		goButton = [[MenuItem alloc] initWithTitle:@"Go!"];
+		[goButton addTarget:self action:@selector(goPress:) forControlEvents:UIControlEventTouchUpInside];
+		[goButton setFrame:CGRectMake(235, 435, 80, 20)];
+		[glView addSubview:goButton];			
+	}
 }
 
 - (void) dealloc {
@@ -77,6 +100,12 @@
 	if(_backButtonUsed) {
 		[backButton removeFromSuperview];
 		[backButton release];
+	}
+
+	// remove go button
+	if(_goButtonUsed) {
+		[goButton removeFromSuperview];
+		[goButton release];
 	}
 	
 	[super dealloc];
