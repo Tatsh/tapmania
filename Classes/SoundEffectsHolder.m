@@ -19,6 +19,8 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	if(!self)
 		return nil;
 	
+	NSBundle* bundle = [NSBundle mainBundle];
+	
 	//Setup sound engine. Run it at 44Khz to match the sound files
 	SoundEngine_Initialize(44100);	
 	
@@ -27,7 +29,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	// Assume the listener is in the center at the start. The sound will pan as the position of the rocket changes.
 	// SoundEngine_SetListenerPosition(0.0, 0.0, kListenerDistance);
 	
-	//SoundEngine_LoadEffect([[bundle pathForResource:@"Start" ofType:@"caf"] UTF8String], &_sounds[kSound_Start]);
+	SoundEngine_LoadEffect([[bundle pathForResource:@"tick" ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
 	//SoundEngine_LoadLoopingEffect([[bundle pathForResource:@"Thrust" ofType:@"caf"] UTF8String], NULL, NULL, &_sounds[kSound_Thrust]);
 	
 	NSLog(@"Done.");
@@ -39,6 +41,10 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	SoundEngine_Teardown();	
 	
 	[super dealloc];
+}
+
+- (void) playEffect:(int) effectId {
+	SoundEngine_StartEffect(_sounds[effectId]);
 }
 
 #pragma mark Singleton stuff

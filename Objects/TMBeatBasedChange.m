@@ -1,24 +1,24 @@
 //
-//  TMTimeBasedChange.m
+//  TMBeatBasedChange.m
 //  TapMania
 //
 //  Created by Alex Kremer on 13.11.08.
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TMTimeBasedChange.h"
+#import "TMBeatBasedChange.h"
 
 
-@implementation TMTimeBasedChange
+@implementation TMBeatBasedChange
 
-@synthesize time, changeValue; 
+@synthesize beat, changeValue; 
 
-- (id) initWithTime:(double) lTime andValue:(double) lValue {
+- (id) initWithBeat:(float) lBeat andValue:(float) lValue {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	time = lTime;
+	beat = lBeat;
 	changeValue = lValue;
 
 	return self;

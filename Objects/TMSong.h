@@ -41,7 +41,6 @@ typedef enum {
 	NSString* 	title;
 	NSString* 	artist;
 	float	  	bpm;
-	double		timePerBeat;		// Timing per beat (nanos)
 	double		gap;
 	
 	NSMutableArray* bpmChangeArray;
@@ -58,7 +57,6 @@ typedef enum {
 @property (retain, nonatomic) NSString* artist;
 @property (retain, nonatomic) NSString* title;
 @property (assign) float bpm;
-@property (assign) double timePerBeat;
 @property (assign) double gap;
 @property (retain, nonatomic) NSMutableArray* bpmChangeArray;
 @property (retain, nonatomic) NSMutableArray* freezeArray;

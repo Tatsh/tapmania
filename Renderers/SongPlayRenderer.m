@@ -10,6 +10,7 @@
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
+#import "SoundEffectsHolder.h"
 #import "TimingUtil.h"
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
@@ -47,7 +48,7 @@
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
 	NSLog(@"Start the song...");
 	
-	song = lSong;
+	song = [lSong retain];
 	steps = [song getStepsForDifficulty:options.difficulty];
 
 	syslog(LOG_DEBUG, "Well.. steps retrieved.");
@@ -58,7 +59,9 @@
 	
 	bpmSpeed = song.bpm/kRenderingFPS;
 	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
-		
+	timePerBeat = [TimingUtil getTimeInBeat:song.bpm];	
+	gapIsDone = NO;
+	
 	// Apply speedmod
 	if(speedModValue != -1) {
 		fullScreenTime /= speedModValue;
@@ -72,15 +75,12 @@
 	}
 	
 	syslog(LOG_DEBUG, "play %s", [song.musicFilePath UTF8String]);
-	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], YES, NO);
+	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, NO);
 	
 	// Save start time of song playback and start the playback
 	playBackStartTime = [TimingUtil getCurrentTime];
-	
 	SoundEngine_StartBackgroundMusic();
-
-	syslog(LOG_DEBUG, "going to start the renderer...");
-
+	
 	// Start rendering
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:self looping:YES];	
 }
@@ -102,6 +102,25 @@
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
 	double elapsedTime = currentTime - playBackStartTime;
+
+	// Handle the gap
+	if(!gapIsDone && elapsedTime >= song.gap) {
+		// Start counting for real now
+		playBackStartTime = [TimingUtil getCurrentTime];
+		gapIsDone = YES;
+
+		[glView swapBuffers];
+		
+		return;
+	} else if(!gapIsDone) {
+		// Still doing the gap
+		[glView swapBuffers];
+		
+		return;
+	}
+	
+	float currentBeat = elapsedTime / timePerBeat;
+	float outOfScopeBeat = currentBeat - 1.0f; // One full beat. FIXME: calculate?
 	
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
@@ -124,7 +143,9 @@
 		1) it was hit already
 		2) the time of the hit is the same as the last tap time
 	 */
-	double searchTillTime = elapsedTime + fullScreenTime;
+	float searchTillTime = elapsedTime + fullScreenTime;
+	float searchTillBeat = searchTillTime / timePerBeat;
+	
 	double searchHitFromTime = elapsedTime - 0.2f;
 	double searchHitTillTime = elapsedTime + 0.2f;
 	int i;
@@ -161,9 +182,9 @@
 					testHit = NO;
 				}
 			}
-
+			
 			// Check whether this note is already out of scope
-			if(note.time <= searchHitFromTime) {
+			if(note.beat < outOfScopeBeat) {
 				// Found a note which is out of screen now
 				++trackPos[i];
 				if(!note.isHit) {
@@ -174,15 +195,22 @@
 			}
 			
 			// Ok, hit a note which is out of scope for now
-			if(note.time > searchTillTime){			
+			if(note.beat > searchTillBeat){			
 				break;
+			}
+			
+			// Play sound if time
+			if(note.beat == currentBeat) {
+				[[SoundEffectsHolder sharedInstance] playEffect:kSound_Clap];
 			}
 			
 			// Check hit
 			if(testHit && !note.isHit){
-				if(note.time >= searchHitFromTime && note.time <= searchHitTillTime) {
+				float noteTime = note.beat * timePerBeat;
+				
+				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
-					double delta = fabs(note.time - lastHitTime);
+					double delta = fabs(noteTime - lastHitTime);
 					
 					if(delta <= 0.05) {
 						syslog(LOG_DEBUG, "Marvelous!");
@@ -203,11 +231,12 @@
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 				}
 			}
-	
+			 
 			// We will draw the note only if it wasn't hit yet
 			if(!note.isHit) {
 				// If the time is inside the search region - calculate the Y position on screen and draw the note
-				double noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (note.time-elapsedTime) );
+				float noteTime = note.beat * timePerBeat;
+				float noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (noteTime-elapsedTime) );
 			
 				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, noteOffsetY, 60, 60);

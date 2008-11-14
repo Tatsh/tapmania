@@ -11,15 +11,15 @@
 
 @implementation TMNote
 
-@synthesize time, tillTime, beatType, isHit, hitTime;
+@synthesize beat, tillBeat, beatType, isHit, hitTime;
 
-- (id) initWithTime:(double) lTime tillTime:(double) lTillTime {
+- (id) initWithBeat:(float) lBeat tillBeat:(float) lTillBeat {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	time = lTime;
-	tillTime = lTillTime;
+	beat = lBeat;
+	tillBeat = lTillBeat;
 	beatType = 0; // FIXME
 	
 	isHit = NO;

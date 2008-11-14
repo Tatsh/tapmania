@@ -10,33 +10,33 @@
 
 typedef enum {
 	kBeatType_1 = 0,
-	kBeatType_2,
-	kBeatType_4,
-	kBeatType_8,
-	kBeatType_16,
-	kBeatType_24,
-	kBeatType_64,
-	kBeatType_192
+	kBeatType_1_2,
+	kBeatType_1_4,
+	kBeatType_1_8,
+	kBeatType_1_16,
+	kBeatType_1_24,
+	kBeatType_1_64,
+	kBeatType_1_192
 } TMBeatType;
 
 
 @interface TMNote : NSObject {
-	double		time;		// The time when this note should fire
-	double		tillTime;	// If the note is a hold note - this var points to the end time of the note
-	TMBeatType	beatType;	// Type of the note's beat (1/4, 1/8...etc)
+	float				beat;		// The beat on which this note should fire
+	float				tillBeat;	// If the note is a hold note - this var points to the end beat of the hold
+	TMBeatType			beatType;	// Type of the note's beat (1/4, 1/8...etc)
 	
 	BOOL		isHit;		// True if the note was hit during gameplay
 	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
 }
 
-@property (assign, readonly) double time;
-@property (assign, readonly) double tillTime;
+@property (assign, readonly) float beat;
+@property (assign, readonly) float tillBeat;
 @property (assign, readonly) TMBeatType beatType;
 
 @property (assign, readonly) BOOL isHit;
 @property (assign, readonly) double hitTime;
 
-- (id) initWithTime:(double) lTime tillTime:(double) lTillTime;
+- (id) initWithBeat:(float) lBeat tillBeat:(float) lTillBeat;
 
 - (void) hit:(double)lHitTime;
 

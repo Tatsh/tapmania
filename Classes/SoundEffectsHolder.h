@@ -19,6 +19,8 @@ enum {
 	UInt32					_sounds[kNumSounds];
 }
 
+- (void) playEffect:(int) effectId;
+
 + (SoundEffectsHolder *)sharedInstance;
 
 @end

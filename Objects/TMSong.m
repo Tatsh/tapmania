@@ -15,7 +15,7 @@
 
 @synthesize fileType, filePath, musicFilePath;
 @synthesize title, artist;
-@synthesize bpm, timePerBeat, gap;
+@synthesize bpm, gap;
 @synthesize bpmChangeArray, freezeArray;
 
 - (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath {
@@ -28,9 +28,6 @@
 	
 	self.musicFilePath = lMusicFilePath;
 	self.filePath = lStepsFilePath;
-	self.timePerBeat = [TimingUtil getTimeInBeat:self.bpm];
-	
-	NSLog(@"Time per beat: %f", self.timePerBeat);
 	
 	return self;
 }

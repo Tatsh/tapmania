@@ -22,12 +22,12 @@
 	
 	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	
-	unsigned				_combo;  // Current combo
-	unsigned				_score;  // Current score
-	
 	double					playBackStartTime;
 	double					bpmSpeed;
 	double					fullScreenTime;
+	double					timePerBeat;	//Current time per beat value (bpm change will change this)
+	
+	BOOL					gapIsDone;	// Specifies whether the gap offset is handled already or not
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;
