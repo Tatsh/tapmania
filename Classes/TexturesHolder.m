@@ -7,6 +7,7 @@
 //
 
 #import "TexturesHolder.h"
+#import "TMNote.h"
 
 // This is a singleton class, see below
 static TexturesHolder *sharedTexturesDelegate = nil;
@@ -20,15 +21,32 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	
 	NSLog(@"Loading textures...");
 	
+	char *arrowNames[9] = {
+		"4th", "8th", "12th", "16th", "24th"
+		"32nd", "48th", "64th", "192nd"
+	};
+	
 	//Load the background texture and configure it
 	_textures[kTexture_Title] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
 	
 	//Load other textures
 	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
-	_textures[kTexture_LeftArrow] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"left.png"]];
-	_textures[kTexture_RightArrow] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"right.png"]];
-	_textures[kTexture_DownArrow] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"down.png"]];
-	_textures[kTexture_UpArrow] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"up.png"]];
+	
+	// FIXME: not hardcoded!
+	NSString* skin = @"itg";
+	
+	int arrowIdx = kNoteType_4th;
+	int totalNotes = kNumNoteTypes*4;
+	int nameIdx = 0;
+	
+	for(; arrowIdx < totalNotes; arrowIdx+=4, nameIdx++){ 
+	
+		_textures[arrowIdx] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/left_%s.png", skin, arrowNames[nameIdx]]]];
+		_textures[arrowIdx+1] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/right_%s.png", skin, arrowNames[nameIdx]]]];
+		_textures[arrowIdx+2] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/down_%s.png", skin, arrowNames[nameIdx]]]];
+		_textures[arrowIdx+3] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/up_%s.png", skin, arrowNames[nameIdx]]]];
+	}
+	
 	_textures[kTexture_Base] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"base.png"]];
 	
 	NSLog(@"Done.");
@@ -44,6 +62,11 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	}
 	
 	[super dealloc];
+}
+
+- (Texture2D*) getArrowTextureForType:(TMNoteType)type andDir:(TMNoteDirection) dir {
+	TMTexture idx = kTexture_LeftArrow_4 + (type * 4) + dir;
+	return [self getTexture:idx];
 }
 
 - (Texture2D*) getTexture:(TMTexture) textureId {

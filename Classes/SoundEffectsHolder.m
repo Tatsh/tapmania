@@ -19,18 +19,16 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	if(!self)
 		return nil;
 	
-	NSBundle* bundle = [NSBundle mainBundle];
-	
 	//Setup sound engine. Run it at 44Khz to match the sound files
 	SoundEngine_Initialize(44100);	
 	
 	NSLog(@"Loading sound effects...");
 	
-	// Assume the listener is in the center at the start. The sound will pan as the position of the rocket changes.
-	// SoundEngine_SetListenerPosition(0.0, 0.0, kListenerDistance);
+	SoundEngine_SetListenerPosition(0.0, 0.0, 1.0);
+	SoundEngine_SetEffectsVolume(1.0);
+	SoundEngine_SetBackgroundMusicVolume(0.6);
 	
-	SoundEngine_LoadEffect([[bundle pathForResource:@"tick" ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
-	//SoundEngine_LoadLoopingEffect([[bundle pathForResource:@"Thrust" ofType:@"caf"] UTF8String], NULL, NULL, &_sounds[kSound_Thrust]);
+	SoundEngine_LoadEffect([[[NSBundle mainBundle] pathForResource:@"tick" ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
 	
 	NSLog(@"Done.");
 	

@@ -18,6 +18,7 @@
 #import "TMSong.h"
 #import "TMTrack.h"
 #import "TMSongOptions.h"
+#import "TMBeatBasedChange.h"
 
 #import <syslog.h>
 
@@ -46,20 +47,30 @@
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
-	NSLog(@"Start the song...");
 	
 	song = [lSong retain];
 	steps = [song getStepsForDifficulty:options.difficulty];
 
-	syslog(LOG_DEBUG, "Well.. steps retrieved.");
-	
-	double speedModValue = [TMSongOptions speedModToValue:options.speedMod];
-	
-	syslog(LOG_DEBUG, "SpeedMod value = %f", speedModValue);
+	speedModValue = [TMSongOptions speedModToValue:options.speedMod];
 	
 	bpmSpeed = song.bpm/kRenderingFPS;
 	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
 	timePerBeat = [TimingUtil getTimeInBeat:song.bpm];	
+	origTimePerBeat = timePerBeat;
+	
+	nextBpmChangeBeat = -1.0f;
+	nextBpmChangeValue = -1.0f;
+	nextBpmChangeIndex = -1;
+	
+	if([song.bpmChangeArray count] > 0){
+		nextBpmChangeBeat = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:0] beat];
+		nextBpmChangeValue = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:0] changeValue];
+
+		if([song.bpmChangeArray count] > 1){
+			nextBpmChangeIndex = 1;
+		}
+	}
+	
 	gapIsDone = NO;
 	
 	// Apply speedmod
@@ -74,7 +85,6 @@
 		trackPos[i] = 0;
 	}
 	
-	syslog(LOG_DEBUG, "play %s", [song.musicFilePath UTF8String]);
 	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, NO);
 	
 	// Save start time of song playback and start the playback
@@ -93,7 +103,6 @@
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
-		
 		
 	// Draw the base
 	CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
@@ -119,9 +128,35 @@
 		return;
 	}
 	
-	float currentBeat = elapsedTime / timePerBeat;
+	float currentBeat = lrintf((elapsedTime / origTimePerBeat) * 4.0) / 4.0;
 	float outOfScopeBeat = currentBeat - 1.0f; // One full beat. FIXME: calculate?
 	
+	/* Check bpm change */
+	if (nextBpmChangeBeat != -1.0f && nextBpmChangeBeat == currentBeat) {
+		NSLog(@"Bpm change to %f!!!", nextBpmChangeValue);
+		
+		bpmSpeed = nextBpmChangeValue / kRenderingFPS;
+		fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;
+		timePerBeat = [TimingUtil getTimeInBeat:nextBpmChangeValue];	
+		
+		// Apply speedmod
+		if(speedModValue != -1) {
+			fullScreenTime /= speedModValue;
+		}
+		
+		if(nextBpmChangeIndex != -1) {
+			nextBpmChangeBeat = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:nextBpmChangeIndex] beat];
+			nextBpmChangeValue = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:nextBpmChangeIndex] changeValue];
+			
+			if([song.bpmChangeArray count] > nextBpmChangeBeat){
+				nextBpmChangeIndex++;
+			} else {
+				nextBpmChangeIndex = -1;
+			}
+		}
+	}
+	
+		
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
 	 Our goal here is to find all the notes from 'i' to whatever it takes with time less than 
@@ -144,7 +179,7 @@
 		2) the time of the hit is the same as the last tap time
 	 */
 	float searchTillTime = elapsedTime + fullScreenTime;
-	float searchTillBeat = searchTillTime / timePerBeat;
+	float searchTillBeat = lrintf((searchTillTime / timePerBeat) * 4.0) / 4.0;
 	
 	double searchHitFromTime = elapsedTime - 0.2f;
 	double searchHitTillTime = elapsedTime + 0.2f;
@@ -188,7 +223,7 @@
 				// Found a note which is out of screen now
 				++trackPos[i];
 				if(!note.isHit) {
-					syslog(LOG_DEBUG, "Miss!");
+					// syslog(LOG_DEBUG, "Miss!");
 				}
 				
 				continue; // Skip this note
@@ -213,17 +248,17 @@
 					double delta = fabs(noteTime - lastHitTime);
 					
 					if(delta <= 0.05) {
-						syslog(LOG_DEBUG, "Marvelous!");
+						// syslog(LOG_DEBUG, "Marvelous!");
 					} else if(delta <= 0.1) {
-						syslog(LOG_DEBUG, "Perfect!");
+						// syslog(LOG_DEBUG, "Perfect!");
 					} else if(delta <= 0.15) {
-						syslog(LOG_DEBUG, "Great!");
+						// syslog(LOG_DEBUG, "Great!");
 					} else if(delta <= 0.17) {
-						syslog(LOG_DEBUG, "Almost!");
+						// syslog(LOG_DEBUG, "Almost!");
 					} else if(delta <= 0.19) {
-						syslog(LOG_DEBUG, "BOO!");
+						// syslog(LOG_DEBUG, "BOO!");
 					} else {
-						syslog(LOG_DEBUG, "Miss!");
+						// syslog(LOG_DEBUG, "Miss!");
 					}
 			
 					// Mark note as hit
@@ -240,19 +275,19 @@
 			
 				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getTexture:kTexture_LeftArrow] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Left] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(kArrowDownX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getTexture:kTexture_DownArrow] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Down] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(kArrowUpX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getTexture:kTexture_UpArrow] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Up] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Right ) { 
 					CGRect arrowRect = CGRectMake(kArrowRightX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getTexture:kTexture_RightArrow] drawInRect:arrowRect];					
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Right] drawInRect:arrowRect];					
 				}
 			}
 		}

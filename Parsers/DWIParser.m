@@ -9,6 +9,7 @@
 #import "DWIParser.h"
 
 #import "TMSteps.h"
+#import "TMNote.h"
 #import "TMBeatBasedChange.h"
 #import "TimingUtil.h"
 
@@ -16,8 +17,6 @@
 #import <syslog.h>
 #import <strings.h>
 
-#define kBeatsPerMeasure 	4
-#define kRowsPerBeat 		48
 
 @interface DWIParser (Private)
 + (TMSteps*) parseStepDataWithFD:(FILE*) fd forSong:(TMSong*) song;
@@ -26,7 +25,6 @@
 + (NSMutableArray*) getChangesArray:(char*) data;
 + (TMSongDifficulty) getDifficultyWithName:(char*) difficulty;
 
-+ (int) beatToNoteRow:(float) beat;
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out;
 + (void) dwiCharToNoteCol:(int)c colOut1:(int*) colOut1 colOut2:(int*) colOut2;
 @end
@@ -437,13 +435,15 @@
 							// Find hold's end beat now
 							holdChar = stepData[holdSearchIndex++];
 							
+							// FIXME: contains. not equals
 							while(stepData[holdSearchIndex] != holdChar) {
 								holdEndBeat += currentIncrementer;
+								holdEndBeat = lrintf(holdEndBeat * 4.0f) / 4.0f;
 								holdSearchIndex++;
 							}
 							
-							// Ok. found hold's start/end beats. must skip the '!' char now.
-							currentNote++;
+							// Ok. found hold's start/end beats. must skip the '!' and the holdChar now.
+							currentNote+=2;
 						}	
 					}
 
@@ -483,15 +483,12 @@
 				} while (multiPanelJump);
 
 				currentBeat += currentIncrementer;
+				currentBeat = lrintf(currentBeat * 4.0f) / 4.0f;
 			}
 		}
 	}
 
 	return steps;
-}
-
-+ (int) beatToNoteRow:(float) beat {
-	return lrintf( beat * kRowsPerBeat );	
 }
 
 // This one is used to parse simple variables with little data. such as title and artist.
