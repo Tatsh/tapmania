@@ -25,6 +25,7 @@
 + (NSMutableArray*) getChangesArray:(char*) data;
 + (TMSongDifficulty) getDifficultyWithName:(char*) difficulty;
 
++ (BOOL) dwiCharHasNote:(int)c searchNote:(int)note;
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out;
 + (void) dwiCharToNoteCol:(int)c colOut1:(int*) colOut1 colOut2:(int*) colOut2;
 @end
@@ -207,25 +208,48 @@
 
 // Private methods
 
++ (BOOL) dwiCharHasNote:(int)c searchNote:(int)note {
+	int col1, col2, sCol1, sCol2;
+	
+	[DWIParser dwiCharToNote:c noteOut1:&col1 noteOut2:&col2];
+	[DWIParser dwiCharToNote:note noteOut1:&sCol1 noteOut2:&sCol2];
+	
+	if(sCol1 != DANCE_NOTE_NONE) {
+		if(col1 != DANCE_NOTE_NONE && col1 == sCol1) {
+					
+			// if we need to search in col2 - test it too
+			if(sCol2 != DANCE_NOTE_NONE) { 
+				if(col2 != DANCE_NOTE_NONE && col2 != sCol2) {
+					return NO;
+				}
+			}
+			
+			return YES;
+		}
+	}
+	
+	return NO;	
+}
+
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out {
 
 	switch( c ) {
-	        case '0':       
+	    case '0':       
 			*note1Out = DANCE_NOTE_NONE;             *note2Out = DANCE_NOTE_NONE;     
 			break;
-	        case '1':
+	    case '1':
 			*note1Out = DANCE_NOTE_PAD1_DOWN;        *note2Out = DANCE_NOTE_PAD1_LEFT;
 			break;
-	        case '2':
+	    case '2':
 			*note1Out = DANCE_NOTE_PAD1_DOWN;        *note2Out = DANCE_NOTE_NONE;     
 			break;
-	        case '3':
+	    case '3':
 			*note1Out = DANCE_NOTE_PAD1_DOWN;        *note2Out = DANCE_NOTE_PAD1_RIGHT;
 			break;
-	        case '4':
+	    case '4':
 			*note1Out = DANCE_NOTE_PAD1_LEFT;        *note2Out = DANCE_NOTE_NONE;     
 			break;
-	        case '5':
+		case '5':
 			*note1Out = DANCE_NOTE_NONE;             *note2Out = DANCE_NOTE_NONE;     
 			break;
 		case '6':
@@ -365,10 +389,10 @@
 	int currentNote = 0;
 	
 	// Go through the whole file
-	for (currentNote = 0; currentNote < totalElements; currentNote++) {
+	for (currentNote = 0; currentNote < totalElements ;) {
 	
 		// Get current note contents
-		c = stepData[currentNote];
+		c = stepData[currentNote++];
 		
 		if(c == ' ' || c == '\t' || c == '\n' || c == '\r')
 			continue; // Skip this char
@@ -406,80 +430,40 @@
 				// This '<' is actually used to group more than two panel jumps at same time
 				if(c == '<') {
 					multiPanelJump = YES;
+					currentNote++;
 				}
-
+				
+				const int iIndex = [TMNote beatToNoteRow:currentBeat];
+				currentNote--;
+				
 				do {
+					c = stepData[currentNote++];
+					
 					if(multiPanelJump && c == '>')
 						break;
 
 					int col1, col2;
-					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];
+					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];					
+										
+					if(col1 != -1)
+						[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_Original] toTrack:col1 onIndex:iIndex];
+					if(col2 != -1)
+						[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_Original] toTrack:col2 onIndex:iIndex];
 					
-					double holdStartBeat, holdEndBeat;
-					char holdChar;
-					
-					BOOL hold = NO;
-		
-					if(col1 != -1 || col2 != -1) {
-						// Peek at the next note char
-						char nc = stepData[currentNote+1];
-						
-						if(nc == '!') {
-							// Oops... looks like a hold!
-							hold = YES;
-							int holdSearchIndex = currentNote+2;
 
-							holdStartBeat = currentBeat;
-							holdEndBeat = holdStartBeat;
-
-							// Find hold's end beat now
-							holdChar = stepData[holdSearchIndex++];
-							
-							// FIXME: contains. not equals
-							while(stepData[holdSearchIndex] != holdChar) {
-								holdEndBeat += currentIncrementer;
-								holdEndBeat = lrintf(holdEndBeat * 4.0f) / 4.0f;
-								holdSearchIndex++;
-							}
-							
-							// Ok. found hold's start/end beats. must skip the '!' and the holdChar now.
-							currentNote+=2;
-						}	
-					}
-
-					if(col1 != -1) {
-						TMNote* note = nil;
-						
-						// Setup the note
-						if(!hold) {
-							note = [[TMNote alloc] initWithBeat:currentBeat tillBeat:-1];
-						} else {
-							note = [[TMNote alloc] initWithBeat:holdStartBeat tillBeat:holdEndBeat];
-						}
-
-						// Add note to steps
-						[steps addNote:note toTrack:col1]; 
-					} 
-
-					if(col2 != -1) {
-						// Setup the note
-						TMNote* note = nil;
-						
-						// Setup the note
-						if(!hold) {
-							note = [[TMNote alloc] initWithBeat:currentBeat tillBeat:-1];
-						} else {
-							note = [[TMNote alloc] initWithBeat:holdStartBeat tillBeat:holdEndBeat];
-						}
-						
-						// Add note to steps
-						[steps addNote:note toTrack:col2]; 
-					}
-
-					// Skip the closing '>' character if required
-					if(multiPanelJump)
+					if(stepData[currentNote] == '!') {
 						currentNote++;
-
+						const char holdChar = stepData[currentNote++];
+						
+						[DWIParser dwiCharToNoteCol:holdChar colOut1:&col1 colOut2:&col2];						
+						
+						// Every note here represents a hold head
+						if(col1 != -1)
+							[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_HoldHead] toTrack:col1 onIndex:iIndex];
+						if(col2 != -1)
+							[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_HoldHead] toTrack:col2 onIndex:iIndex];						
+					}
+					
 				} while (multiPanelJump);
 
 				currentBeat += currentIncrementer;
@@ -488,6 +472,35 @@
 		}
 	}
 
+	/* Now when we have all steps filled we must fill in right duration for hold notes and remove notes which represent hold ends */
+	int trackNum = 0;
+	
+	for(; trackNum < kNumOfAvailableTracks; trackNum++){
+		int noteIdx = 0;
+		
+		// Iterate over all the notes
+		for(; noteIdx < [steps getNotesCountForTrack:trackNum]; noteIdx++) {
+			
+			TMNote* note = [steps getNote:noteIdx fromTrack:trackNum];
+			
+			if(note.type != kNoteType_HoldHead) 
+				continue;
+			
+			// Hold note head detected. in our case the next note in this track is the place to end the hold
+			TMNote* closingNote = [steps getNote:++noteIdx fromTrack:trackNum];
+			
+			if(!closingNote) {
+				NSLog(@"Failed to close a hold. bad DWI?");
+				break;
+			}		
+			
+			note.tillBeat = closingNote.beat;
+			
+			// Set note as empty so that it's not in the way anymore
+			closingNote.type = kNoteType_Empty;
+		}
+	}
+	
 	return steps;
 }
 

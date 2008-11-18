@@ -17,17 +17,24 @@ typedef enum {
 } TMNoteDirection;
 
 typedef enum {
-	kNoteType_4th = 0,
-	kNoteType_8th,
-	kNoteType_12th,
-	kNoteType_16th,
-	kNoteType_24th,	
-	kNoteType_32nd,	
-	kNoteType_48th,	
-	kNoteType_64th,	
-	kNoteType_192nd,
-	kNumNoteTypes,
-	kNoteType_Invalid
+	kBeatType_4th = 0,
+	kBeatType_8th,
+	kBeatType_12th,
+	kBeatType_16th,
+	kBeatType_24th,	
+	kBeatType_32nd,	
+	kBeatType_48th,	
+	kBeatType_64th,	
+	kBeatType_192nd,
+	kNumBeatTypes,
+	kBeatType_Invalid
+} TMBeatType;
+
+typedef enum {
+	kNoteType_Empty = 0,
+	kNoteType_Original,
+	kNoteType_HoldHead,
+	kNumNoteTypes
 } TMNoteType;
 
 // Do constants instead?
@@ -38,25 +45,30 @@ typedef enum {
 @interface TMNote : NSObject {
 	float				beat;		// The beat on which this note should fire
 	float				tillBeat;	// If the note is a hold note - this var points to the end beat of the hold
-	TMNoteType			type;		// Type of the note (1/4, 1/8...etc)
+	TMBeatType			beatType;	// Type of the beat (1/4, 1/8...etc)
+	TMNoteType			type;		// Type of the note
+	
+	int					index;		// Index of this note in the track
 	
 	BOOL		isHit;		// True if the note was hit during gameplay
 	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
 }
 
+@property (assign) int index;
 @property (assign, readonly) float beat;
-@property (assign, readonly) float tillBeat;
-@property (assign, readonly) TMNoteType type;
+@property (assign) float tillBeat;
+@property (assign, readonly) TMBeatType beatType;
+@property (assign) TMNoteType type;
 
 @property (assign, readonly) BOOL isHit;
 @property (assign, readonly) double hitTime;
 
-- (id) initWithBeat:(float) lBeat tillBeat:(float) lTillBeat;
+- (id) initWithBeat:(float) lBeat andType:(TMNoteType)lType;
 
 - (void) hit:(double)lHitTime;
 
-+ (TMNoteType) getNoteType:(int) row;
-+ (TMNoteType) beatToNoteType:(float) fBeat;
++ (TMBeatType) getBeatType:(int) row;
++ (TMBeatType) beatToBeatType:(float) fBeat;
 + (int) beatToNoteRow:(float) fBeat;
 
 @end

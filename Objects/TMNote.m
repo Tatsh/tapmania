@@ -11,16 +11,17 @@
 
 @implementation TMNote
 
-@synthesize beat, tillBeat, type, isHit, hitTime;
+@synthesize beat, tillBeat, type, beatType, isHit, hitTime, index;
 
-- (id) initWithBeat:(float) lBeat tillBeat:(float) lTillBeat {
+- (id) initWithBeat:(float) lBeat andType:(TMNoteType)lType {
 	self = [super init];
 	if(!self)
 		return nil;
 	
 	beat = lBeat;
-	tillBeat = lTillBeat;
-	type = [TMNote getNoteType:[TMNote beatToNoteRow:lBeat]];
+	tillBeat = -1.0f;
+	beatType = [TMNote getBeatType:[TMNote beatToNoteRow:lBeat]];
+	type = lType;
 	
 	isHit = NO;
 	hitTime = 0.0f;
@@ -35,20 +36,20 @@
 	}
 }
 
-+ (TMNoteType) getNoteType:(int) row {
-	if(row % (kRowsPerMeasure/4) == 0)	return kNoteType_4th;
-	if(row % (kRowsPerMeasure/8) == 0)	return kNoteType_8th;
-	if(row % (kRowsPerMeasure/12) == 0)	return kNoteType_12th;
-	if(row % (kRowsPerMeasure/16) == 0)	return kNoteType_16th;
-	if(row % (kRowsPerMeasure/24) == 0)	return kNoteType_24th;
-	if(row % (kRowsPerMeasure/32) == 0)	return kNoteType_32nd;
-	if(row % (kRowsPerMeasure/48) == 0)	return kNoteType_48th;
-	if(row % (kRowsPerMeasure/64) == 0)	return kNoteType_64th;
-	return kNoteType_192nd;
++ (TMBeatType) getBeatType:(int) row {
+	if(row % (kRowsPerMeasure/4) == 0)	return kBeatType_4th;
+	if(row % (kRowsPerMeasure/8) == 0)	return kBeatType_8th;
+	if(row % (kRowsPerMeasure/12) == 0)	return kBeatType_12th;
+	if(row % (kRowsPerMeasure/16) == 0)	return kBeatType_16th;
+	if(row % (kRowsPerMeasure/24) == 0)	return kBeatType_24th;
+	if(row % (kRowsPerMeasure/32) == 0)	return kBeatType_32nd;
+	if(row % (kRowsPerMeasure/48) == 0)	return kBeatType_48th;
+	if(row % (kRowsPerMeasure/64) == 0)	return kBeatType_64th;
+	return kBeatType_192nd;
 }
 
-+ (TMNoteType) beatToNoteType:(float) fBeat {
-	return [TMNote getNoteType:[TMNote beatToNoteRow:fBeat]];
++ (TMBeatType) beatToBeatType:(float) fBeat {
+	return [TMNote getBeatType:[TMNote beatToNoteRow:fBeat]];
 }
 
 + (int) beatToNoteRow:(float) fBeat {

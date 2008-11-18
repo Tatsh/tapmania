@@ -21,6 +21,7 @@
 #import "TMBeatBasedChange.h"
 
 #import <syslog.h>
+#import <math.h>
 
 #define kArrowsBaseX				25
 #define kArrowsBaseY				380	// This is the place where the arrows will match with the base
@@ -132,6 +133,7 @@
 	float outOfScopeBeat = currentBeat - 1.0f; // One full beat. FIXME: calculate?
 	
 	/* Check bpm change */
+	/*
 	if (nextBpmChangeBeat != -1.0f && nextBpmChangeBeat == currentBeat) {
 		NSLog(@"Bpm change to %f!!!", nextBpmChangeValue);
 		
@@ -155,7 +157,7 @@
 			}
 		}
 	}
-	
+	*/
 		
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
@@ -209,6 +211,10 @@
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
 
+			// We are not handling empty notes though
+			if(note.type == kNoteType_Empty)
+				continue;
+			
 			// Check old hit first
 			if(testHit && note.isHit){
 				// This note was hit already (maybe using the same tap as we still hold)
@@ -219,8 +225,8 @@
 			}
 			
 			// Check whether this note is already out of scope
-			if(note.beat < outOfScopeBeat) {
-				// Found a note which is out of screen now
+			if((note.tillBeat == -1 && note.beat < outOfScopeBeat) || (note.tillBeat != -1 && note.tillBeat < outOfScopeBeat)) {
+				// Found a note/hold which is out of screen now
 				++trackPos[i];
 				if(!note.isHit) {
 					// syslog(LOG_DEBUG, "Miss!");
@@ -235,9 +241,11 @@
 			}
 			
 			// Play sound if time
+			/*
 			if(note.beat == currentBeat) {
 				[[SoundEffectsHolder sharedInstance] playEffect:kSound_Clap];
 			}
+			*/
 			
 			// Check hit
 			if(testHit && !note.isHit){
@@ -268,26 +276,68 @@
 			}
 			 
 			// We will draw the note only if it wasn't hit yet
-			if(!note.isHit) {
+			if(note.type == kNoteType_HoldHead || !note.isHit) {
 				// If the time is inside the search region - calculate the Y position on screen and draw the note
 				float noteTime = note.beat * timePerBeat;
 				float noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (noteTime-elapsedTime) );
 			
+				// If note is a holdnote
+				if(note.type == kNoteType_HoldHead) {
+					// Calculate body length
+					float holdEndTime = note.tillBeat * timePerBeat;
+					float bodyTopY = noteOffsetY + 30; // Plus half of the tap note so that it will be overlapping
+					float bodyBottomY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (holdEndTime-elapsedTime) ) + 25;
+					
+					// Bottom Y can be out of the screen bounds and if so must be set to 0 - bottom of screen
+					if(bodyBottomY < 0.0f) 
+						bodyBottomY = 0.0f;
+					
+					// Top Y can be out of screen as well
+					if(bodyTopY > glView.bounds.size.height){
+						bodyTopY = glView.bounds.size.height;
+					}
+					
+					// Determine the track X position now
+					float holdX = 0.0f;
+					
+					if( i == kAvailableTrack_Left )
+						holdX = kArrowLeftX;
+					if( i == kAvailableTrack_Down )
+						holdX = kArrowDownX;
+					if( i == kAvailableTrack_Up )
+						holdX = kArrowUpX;
+					if( i == kAvailableTrack_Right )
+						holdX = kArrowRightX;
+											
+					// Calculate the height of the hold's body
+					float sizeOfHold = bodyTopY - bodyBottomY;
+					
+					CGRect bodyRect = CGRectMake(holdX, bodyBottomY, 60, sizeOfHold);
+					[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBody] drawInRect:bodyRect];
+					
+					// Now if bottom of the hold is visible on the screen - draw the cap
+					if(bodyBottomY > 0.0f) {
+						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY-20, 60, 20);
+						[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottom] drawInRect:bodyCapRect];					
+					}
+				}
+				
+				
 				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Left] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Left] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(kArrowDownX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Down] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Down] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(kArrowUpX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Up] drawInRect:arrowRect];
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Up] drawInRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Right ) { 
 					CGRect arrowRect = CGRectMake(kArrowRightX, noteOffsetY, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.type andDir:kNoteDirection_Right] drawInRect:arrowRect];					
+					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Right] drawInRect:arrowRect];					
 				}
 			}
 		}

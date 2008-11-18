@@ -35,9 +35,9 @@
 	return difficulty;
 }
 
-- (void) addNote:(TMNote*) note toTrack:(int) trackIndex {
+- (void) setNote:(TMNote*) note toTrack:(int) trackIndex onIndex:(int) idx{
 	TMTrack* track = tracks[trackIndex];
-	[track addNote:note];
+	[track setNote:note onIndex:idx];
 }
 
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex {

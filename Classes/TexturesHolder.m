@@ -22,7 +22,7 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	NSLog(@"Loading textures...");
 	
 	char *arrowNames[9] = {
-		"4th", "8th", "12th", "16th", "24th"
+		"4th", "8th", "12th", "16th", "24th",
 		"32nd", "48th", "64th", "192nd"
 	};
 	
@@ -35,19 +35,23 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	// FIXME: not hardcoded!
 	NSString* skin = @"itg";
 	
-	int arrowIdx = kNoteType_4th;
-	int totalNotes = kNumNoteTypes*4;
+	int arrowIdx = kBeatType_4th;
+	int totalNotes = kNumBeatTypes*4;
 	int nameIdx = 0;
 	
 	for(; arrowIdx < totalNotes; arrowIdx+=4, nameIdx++){ 
 	
+		NSLog(@"load arrows for %@ with idx: %d and name: '%s'", skin, arrowIdx, arrowNames[nameIdx]);
 		_textures[arrowIdx] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/left_%s.png", skin, arrowNames[nameIdx]]]];
 		_textures[arrowIdx+1] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/right_%s.png", skin, arrowNames[nameIdx]]]];
 		_textures[arrowIdx+2] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/down_%s.png", skin, arrowNames[nameIdx]]]];
 		_textures[arrowIdx+3] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/up_%s.png", skin, arrowNames[nameIdx]]]];
 	}
 	
-	_textures[kTexture_Base] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"base.png"]];
+	_textures[kTexture_Base] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/base.png", skin]]];
+	_textures[kTexture_HoldBody] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_body.png", skin]]];
+	_textures[kTexture_HoldBottom] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_bottom.png", skin]]];
+
 	
 	NSLog(@"Done.");
 	
@@ -64,7 +68,7 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	[super dealloc];
 }
 
-- (Texture2D*) getArrowTextureForType:(TMNoteType)type andDir:(TMNoteDirection) dir {
+- (Texture2D*) getArrowTextureForType:(TMBeatType)type andDir:(TMNoteDirection) dir {
 	TMTexture idx = kTexture_LeftArrow_4 + (type * 4) + dir;
 	return [self getTexture:idx];
 }

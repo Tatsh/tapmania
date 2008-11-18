@@ -22,7 +22,17 @@
 	return self;
 }
 
-- (void) addNote:(TMNote*) note {
+- (void) setNote:(TMNote*) note onIndex:(int)idx {
+	
+	int i = 0;
+	for(; i<[notesArray count]; i++){
+		if( [(TMNote*)[ notesArray objectAtIndex:i] index] == idx ) {
+			[notesArray replaceObjectAtIndex:i withObject:note];		
+			return;
+		}
+	}
+	
+	note.index = idx;
 	[notesArray addObject:note];
 }
 

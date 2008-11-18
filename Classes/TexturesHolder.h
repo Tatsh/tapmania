@@ -71,7 +71,7 @@ typedef enum {
 	Texture2D*				_textures[kNumTextures];
 }
 
-- (Texture2D*) getArrowTextureForType:(TMNoteType)type andDir:(TMNoteDirection) dir;
+- (Texture2D*) getArrowTextureForType:(TMBeatType)type andDir:(TMNoteDirection) dir;
 - (Texture2D*) getTexture:(TMTexture) textureId;
 
 + (TexturesHolder *)sharedInstance;
