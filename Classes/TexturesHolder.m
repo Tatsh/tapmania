@@ -49,6 +49,7 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	}
 	
 	_textures[kTexture_Base] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/base.png", skin]]];
+	_textures[kTexture_BaseDark] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/base_dark.png", skin]]];
 	_textures[kTexture_HoldBody] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_body.png", skin]]];
 	_textures[kTexture_HoldBottom] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_bottom.png", skin]]];
 

@@ -60,6 +60,7 @@ typedef enum {
 	kTexture_HoldBottom,
 	
 	kTexture_Base,
+	kTexture_BaseDark,
 	
 	kTexture_Title,
 	kTexture_Background,

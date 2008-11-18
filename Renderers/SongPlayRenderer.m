@@ -107,7 +107,7 @@
 		
 	// Draw the base
 	CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Base] drawInRect:baseRect];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_BaseDark] drawInRect:baseRect];
 		
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
@@ -131,33 +131,6 @@
 	
 	float currentBeat = lrintf((elapsedTime / origTimePerBeat) * 4.0) / 4.0;
 	float outOfScopeBeat = currentBeat - 1.0f; // One full beat. FIXME: calculate?
-	
-	/* Check bpm change */
-	/*
-	if (nextBpmChangeBeat != -1.0f && nextBpmChangeBeat == currentBeat) {
-		NSLog(@"Bpm change to %f!!!", nextBpmChangeValue);
-		
-		bpmSpeed = nextBpmChangeValue / kRenderingFPS;
-		fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;
-		timePerBeat = [TimingUtil getTimeInBeat:nextBpmChangeValue];	
-		
-		// Apply speedmod
-		if(speedModValue != -1) {
-			fullScreenTime /= speedModValue;
-		}
-		
-		if(nextBpmChangeIndex != -1) {
-			nextBpmChangeBeat = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:nextBpmChangeIndex] beat];
-			nextBpmChangeValue = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:nextBpmChangeIndex] changeValue];
-			
-			if([song.bpmChangeArray count] > nextBpmChangeBeat){
-				nextBpmChangeIndex++;
-			} else {
-				nextBpmChangeIndex = -1;
-			}
-		}
-	}
-	*/
 		
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
