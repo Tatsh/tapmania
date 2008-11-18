@@ -20,7 +20,7 @@
 	
 	beat = lBeat;
 	tillBeat = lTillBeat;
-	type = [TMNote getNoteType:lBeat];
+	type = [TMNote getNoteType:[TMNote beatToNoteRow:lBeat]];
 	
 	isHit = NO;
 	hitTime = 0.0f;
