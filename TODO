@@ -1,5 +1,9 @@
 todo file. written on 12 nov 2008
 
+most important:
+actually i have to move everything to noteColumns as it's done in stepmania.. 
+i'm really forced to do this because float point beats are not precise enough after 24th notes :(
+
 1) handle bpm change array and freeze array (in dwi parser and in songPlayRenderer)
 3) calculate accurate hit times and values
 6) add some time like 3 seconds before the actual song starts.. with some graphics like ready/steady/GO

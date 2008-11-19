@@ -158,7 +158,7 @@
 		2) the time of the hit is the same as the last tap time
 	 */
 	float searchTillTime = elapsedTime + fullScreenTime;
-	float searchTillBeat = lrintf((searchTillTime / timePerBeat) * 4.0) / 4.0;
+	float searchTillBeat = searchTillTime / timePerBeat;
 	
 	double searchHitFromTime = elapsedTime - 0.2f;
 	double searchHitTillTime = elapsedTime + 0.2f;

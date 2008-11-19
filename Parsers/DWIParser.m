@@ -467,40 +467,39 @@
 				} while (multiPanelJump);
 
 				currentBeat += currentIncrementer;
-				currentBeat = lrintf(currentBeat * 4.0f) / 4.0f;
 			}
 		}
 	}
 
 	/* Now when we have all steps filled we must fill in right duration for hold notes and remove notes which represent hold ends */
 	int trackNum = 0;
-	
+
 	for(; trackNum < kNumOfAvailableTracks; trackNum++){
 		int noteIdx = 0;
-		
+
 		// Iterate over all the notes
 		for(; noteIdx < [steps getNotesCountForTrack:trackNum]; noteIdx++) {
-			
+
 			TMNote* note = [steps getNote:noteIdx fromTrack:trackNum];
-			
+
 			if(note.type != kNoteType_HoldHead) 
 				continue;
-			
+
 			// Hold note head detected. in our case the next note in this track is the place to end the hold
 			TMNote* closingNote = [steps getNote:++noteIdx fromTrack:trackNum];
-			
+
 			if(!closingNote) {
 				NSLog(@"Failed to close a hold. bad DWI?");
 				break;
 			}		
-			
+
 			note.tillBeat = closingNote.beat;
-			
+
 			// Set note as empty so that it's not in the way anymore
 			closingNote.type = kNoteType_Empty;
 		}
 	}
-	
+
 	return steps;
 }
 
@@ -517,12 +516,12 @@
 		data[i] = c;
 		c = getc(fd);	
 	}
-	
+
 	if(feof(fd) || c != ';'){ 
 		syslog(LOG_DEBUG, "Fatal: dwi file broken.");
 		return nil; 
 	}
-	
+
 	data[i] = 0;
 
 	return strdup(data);

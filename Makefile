@@ -25,6 +25,7 @@ bin:
 	cp Default.png TapMania.app/
 	cp Images/*.png TapMania.app/
 	cp Images/noteskins/itg/*.png TapMania.app/noteskins/itg/
+	cp Sound/*.wav TapMania.app/
 	cp *.plist TapMania.app/
 	cp Credits.txt TapMania.app/
 	cp TapMania TapMania.app/

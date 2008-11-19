@@ -109,7 +109,7 @@
 		
 		if( isLastBpmChange || elapsedTime <= secondsInThisChangeSegment ){
 			// Is the current change segment
-			*beatOut = lrintf(startBeatThisChange + elapsedTime * bps * 4.0f) / 4.0f;
+			*beatOut = startBeatThisChange + elapsedTime * bps;
 			*bpsOut = bps;
 			*freezeOut = NO;
 			
