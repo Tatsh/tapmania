@@ -21,8 +21,10 @@ bin:
 	$(LD) $(LDFLAGS) -v -o TapMania $(OBJS) main.o
 	rm -rf TapMania.app
 	mkdir TapMania.app
-	cp *.png TapMania.app/
-	cp -R Images/* TapMania.app/
+	mkdir -p TapMania.app/noteskins/itg
+	cp Default.png TapMania.app/
+	cp Images/*.png TapMania.app/
+	cp Images/noteskins/itg/*.png TapMania.app/noteskins/itg/
 	cp *.plist TapMania.app/
 	cp Credits.txt TapMania.app/
 	cp TapMania TapMania.app/
@@ -36,4 +38,5 @@ soundengine:
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) Util/SoundEngine.cpp -o Util/SoundEngine.o
 
 clean:
-	rm -f $(OBJS) TapMania
+	rm -f $(OBJS) main.o TapMania
+	rm -rf TapMania.app
