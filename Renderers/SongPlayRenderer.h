@@ -28,11 +28,6 @@
 	double					bpmSpeed;
 	double					fullScreenTime;
 	double					timePerBeat;	//Current time per beat value (bpm change will change this)
-	double					origTimePerBeat;	//Original time per beat value (bpm change will NOT change this)
-	
-	float					nextBpmChangeBeat;	// The beat on which a bpm change must be fired
-	float					nextBpmChangeValue;	// The bpm which will be set next time
-	int						nextBpmChangeIndex;
 	
 	BOOL					gapIsDone;	// Specifies whether the gap offset is handled already or not
 }

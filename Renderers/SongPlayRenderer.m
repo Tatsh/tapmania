@@ -56,21 +56,7 @@
 	
 	bpmSpeed = song.bpm/kRenderingFPS;
 	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
-	timePerBeat = [TimingUtil getTimeInBeat:song.bpm];	
-	origTimePerBeat = timePerBeat;
-	
-	nextBpmChangeBeat = -1.0f;
-	nextBpmChangeValue = -1.0f;
-	nextBpmChangeIndex = -1;
-	
-	if([song.bpmChangeArray count] > 0){
-		nextBpmChangeBeat = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:0] beat];
-		nextBpmChangeValue = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:0] changeValue];
-
-		if([song.bpmChangeArray count] > 1){
-			nextBpmChangeIndex = 1;
-		}
-	}
+	timePerBeat = [TimingUtil getTimeInBeatForBPS:song.bpm/60.0f];	
 	
 	gapIsDone = NO;
 	
@@ -113,6 +99,7 @@
 	double currentTime = [TimingUtil getCurrentTime];
 	double elapsedTime = currentTime - playBackStartTime;
 
+	/*
 	// Handle the gap
 	if(!gapIsDone && elapsedTime >= song.gap) {
 		// Start counting for real now
@@ -128,9 +115,26 @@
 		
 		return;
 	}
+	*/
 	
-	float currentBeat = lrintf((elapsedTime / origTimePerBeat) * 4.0) / 4.0;
-	float outOfScopeBeat = currentBeat - 1.0f; // One full beat. FIXME: calculate?
+	float currentBeat, currentBps;
+	BOOL hasFreeze;
+	
+	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
+
+	/* 
+		Ok. Now we have to get the count of beats we actually can see from currentBeat till end of screen.
+	*/
+	
+	fullScreenTime = kArrowsBaseY/currentBps/60.0f;
+	timePerBeat = [TimingUtil getTimeInBeatForBPS:currentBps];	
+	
+	// Apply speedmod
+	if(speedModValue != -1) {
+		fullScreenTime /= speedModValue;
+	}
+	
+	float outOfScopeBeat = currentBeat; // - 1.0f; // One full beat. FIXME: calculate?
 		
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen

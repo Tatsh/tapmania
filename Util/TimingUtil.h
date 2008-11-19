@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TMSong.h"
+#import "TMBeatBasedChange.h"
 
 @interface TimingUtil : NSObject {
 }
 
 + (double) getCurrentTime;
-+ (double) getTimeInBeat:(float) bpm;
++ (double) getTimeInBeatForBPS:(float) bps;
++ (float) getBpmAtBeat:(float) beat inSong:(TMSong*) song;
++ (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song;
 
 @end

@@ -28,6 +28,13 @@
 	
 	self.musicFilePath = lMusicFilePath;
 	self.filePath = lStepsFilePath;
+
+	// Set the bpm for song start
+	NSMutableArray* songBpmChangeArray = self.bpmChangeArray;
+	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMBeatBasedChange alloc] initWithBeat:0.0f andValue:self.bpm] ,nil];
+
+	[self.bpmChangeArray addObjectsFromArray:songBpmChangeArray];
+	[songBpmChangeArray release];
 	
 	return self;
 }

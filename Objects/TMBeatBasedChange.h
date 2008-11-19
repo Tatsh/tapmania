@@ -14,7 +14,7 @@
 }
 
 @property (assign, readonly) float beat;
-@property (assign, readonly) float changeValue;
+@property (assign) float changeValue;
 
 - (id) initWithBeat:(float) lBeat andValue:(float) lValue;
 
