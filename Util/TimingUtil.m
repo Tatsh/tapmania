@@ -55,7 +55,8 @@
 	double timeDelta = 0.0f;
 	
 	// Lookup the closest bpm change
-	for( unsigned i=0; i<[song.bpmChangeArray count]-1; i++) { // Foreach bpm change in the song
+	unsigned i;
+	for( i=0; i<[song.bpmChangeArray count]-1; i++) { // Foreach bpm change in the song
 		if ([(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i+1] beat] >= currentBeat) 
 			break;
 	}
@@ -67,15 +68,17 @@
 
 	elapsedTime += song.gap;
 	
-	for( unsigned i=0; i<[song.bpmChangeArray count]; i++) { // Foreach bpm change in the song
+	unsigned i;
+	for( i=0; i<[song.bpmChangeArray count]; i++) { // Foreach bpm change in the song
 		
 		const float startBeatThisChange = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i] beat]; 
 		const BOOL isFirstBpmChange = i==0;
 		const BOOL isLastBpmChange = i==[song.bpmChangeArray count]-1;
 		const float startBeatNextChange = isLastBpmChange ? MAXFLOAT : [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i+1] beat];
 		const float bps = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f;
-		
-		for( unsigned j=0; j<[song.freezeArray count]; j++) { // Foreach freeze
+	
+		unsigned j;
+		for( j=0; j<[song.freezeArray count]; j++) { // Foreach freeze
 			TMBeatBasedChange* freeze = [song.freezeArray objectAtIndex:j];
 			
 			if(!isFirstBpmChange && startBeatThisChange >= [freeze beat] )
