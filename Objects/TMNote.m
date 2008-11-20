@@ -11,16 +11,16 @@
 
 @implementation TMNote
 
-@synthesize beat, tillBeat, type, beatType, isHit, hitTime, index;
+@synthesize type, beatType, isHit, isHeld, hitTime, lastHoldReleaseTime, startNoteRow, stopNoteRow;
 
-- (id) initWithBeat:(float) lBeat andType:(TMNoteType)lType {
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	beat = lBeat;
-	tillBeat = -1.0f;
-	beatType = [TMNote getBeatType:[TMNote beatToNoteRow:lBeat]];
+	startNoteRow = noteRow;
+	stopNoteRow = -1;
+	beatType = [TMNote getBeatType:noteRow];
 	type = lType;
 	
 	isHit = NO;
@@ -48,8 +48,8 @@
 	return kBeatType_192nd;
 }
 
-+ (TMBeatType) beatToBeatType:(float) fBeat {
-	return [TMNote getBeatType:[TMNote beatToNoteRow:fBeat]];
++ (float) noteRowToBeat:(int) noteRow {
+	return (float) noteRow / kRowsPerBeat;
 }
 
 + (int) beatToNoteRow:(float) fBeat {

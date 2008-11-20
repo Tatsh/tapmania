@@ -43,32 +43,36 @@ typedef enum {
 #define kRowsPerMeasure		kRowsPerBeat*kBeatsPerMeasure
 
 @interface TMNote : NSObject {
-	float				beat;		// The beat on which this note should fire
-	float				tillBeat;	// If the note is a hold note - this var points to the end beat of the hold
+
 	TMBeatType			beatType;	// Type of the beat (1/4, 1/8...etc)
 	TMNoteType			type;		// Type of the note
 	
-	int					index;		// Index of this note in the track
+	int					startNoteRow;	// Start note row in the track
+	int					stopNoteRow;	// For hold notes
 	
 	BOOL		isHit;		// True if the note was hit during gameplay
+	BOOL		isHeld;		// True if the note is hit and held till end
 	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
+	double		lastHoldReleaseTime;	// Last time when the player raised his finger from the hold
 }
 
-@property (assign) int index;
-@property (assign, readonly) float beat;
-@property (assign) float tillBeat;
+@property (assign) int startNoteRow;
+@property (assign) int stopNoteRow;
 @property (assign, readonly) TMBeatType beatType;
 @property (assign) TMNoteType type;
 
 @property (assign, readonly) BOOL isHit;
-@property (assign, readonly) double hitTime;
+@property (assign, readonly) BOOL isHeld;
 
-- (id) initWithBeat:(float) lBeat andType:(TMNoteType)lType;
+@property (assign, readonly) double hitTime;
+@property (assign, readonly) double lastHoldReleaseTime;
+
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
 
 - (void) hit:(double)lHitTime;
 
 + (TMBeatType) getBeatType:(int) row;
-+ (TMBeatType) beatToBeatType:(float) fBeat;
 + (int) beatToNoteRow:(float) fBeat;
++ (float) noteRowToBeat:(int) noteRow;
 
 @end

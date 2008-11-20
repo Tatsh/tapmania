@@ -25,7 +25,6 @@
 + (NSMutableArray*) getChangesArray:(char*) data;
 + (TMSongDifficulty) getDifficultyWithName:(char*) difficulty;
 
-+ (BOOL) dwiCharHasNote:(int)c searchNote:(int)note;
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out;
 + (void) dwiCharToNoteCol:(int)c colOut1:(int*) colOut1 colOut2:(int*) colOut2;
 @end
@@ -207,30 +206,6 @@
 
 
 // Private methods
-
-+ (BOOL) dwiCharHasNote:(int)c searchNote:(int)note {
-	int col1, col2, sCol1, sCol2;
-	
-	[DWIParser dwiCharToNote:c noteOut1:&col1 noteOut2:&col2];
-	[DWIParser dwiCharToNote:note noteOut1:&sCol1 noteOut2:&sCol2];
-	
-	if(sCol1 != DANCE_NOTE_NONE) {
-		if(col1 != DANCE_NOTE_NONE && col1 == sCol1) {
-					
-			// if we need to search in col2 - test it too
-			if(sCol2 != DANCE_NOTE_NONE) { 
-				if(col2 != DANCE_NOTE_NONE && col2 != sCol2) {
-					return NO;
-				}
-			}
-			
-			return YES;
-		}
-	}
-	
-	return NO;	
-}
-
 + (void) dwiCharToNote:(int)c noteOut1:(int*) note1Out noteOut2:(int*) note2Out {
 
 	switch( c ) {
@@ -446,9 +421,9 @@
 					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];					
 										
 					if(col1 != -1)
-						[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_Original] toTrack:col1 onIndex:iIndex];
+						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col1 onNoteRow:iIndex];
 					if(col2 != -1)
-						[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_Original] toTrack:col2 onIndex:iIndex];
+						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col2 onNoteRow:iIndex];
 					
 
 					if(stepData[currentNote] == '!') {
@@ -459,9 +434,9 @@
 						
 						// Every note here represents a hold head
 						if(col1 != -1)
-							[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_HoldHead] toTrack:col1 onIndex:iIndex];
+							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col1 onNoteRow:iIndex];
 						if(col2 != -1)
-							[steps setNote:[[TMNote alloc] initWithBeat:currentBeat andType:kNoteType_HoldHead] toTrack:col2 onIndex:iIndex];						
+							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col2 onNoteRow:iIndex];						
 					}
 					
 				} while (multiPanelJump);
@@ -493,7 +468,7 @@
 				break;
 			}		
 
-			note.tillBeat = closingNote.beat;
+			note.stopNoteRow = closingNote.startNoteRow;
 
 			// Set note as empty so that it's not in the way anymore
 			closingNote.type = kNoteType_Empty;

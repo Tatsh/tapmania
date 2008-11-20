@@ -187,6 +187,9 @@
 		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
+			
+			float beat = [TMNote noteRowToBeat: note.startNoteRow];
+			float tillBeat = note.stopNoteRow == -1 ? -1.0f : [TMNote noteRowToBeat: note.stopNoteRow];
 
 			// We are not handling empty notes though
 			if(note.type == kNoteType_Empty)
@@ -202,7 +205,7 @@
 			}
 			
 			// Check whether this note is already out of scope
-			if((note.tillBeat == -1 && note.beat < outOfScopeBeat) || (note.tillBeat != -1 && note.tillBeat < outOfScopeBeat)) {
+			if((tillBeat == -1 && beat < outOfScopeBeat) || (tillBeat != -1 && tillBeat < outOfScopeBeat)) {
 				// Found a note/hold which is out of screen now
 				++trackPos[i];
 				if(!note.isHit) {
@@ -213,20 +216,13 @@
 			}
 			
 			// Ok, hit a note which is out of scope for now
-			if(note.beat > searchTillBeat){			
+			if(beat > searchTillBeat){			
 				break;
 			}
-			
-			// Play sound if time
-			/*
-			if(note.beat == currentBeat) {
-				[[SoundEffectsHolder sharedInstance] playEffect:kSound_Clap];
-			}
-			*/
-			
+						
 			// Check hit
 			if(testHit && !note.isHit){
-				float noteTime = note.beat * timePerBeat;
+				float noteTime = beat * timePerBeat;
 				
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
@@ -255,13 +251,13 @@
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
 				// If the time is inside the search region - calculate the Y position on screen and draw the note
-				float noteTime = note.beat * timePerBeat;
+				float noteTime = beat * timePerBeat;
 				float noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (noteTime-elapsedTime) );
 			
 				// If note is a holdnote
 				if(note.type == kNoteType_HoldHead) {
 					// Calculate body length
-					float holdEndTime = note.tillBeat * timePerBeat;
+					float holdEndTime = tillBeat * timePerBeat;
 					float bodyTopY = noteOffsetY + 30; // Plus half of the tap note so that it will be overlapping
 					float bodyBottomY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (holdEndTime-elapsedTime) ) + 25;
 					

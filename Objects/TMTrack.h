@@ -13,7 +13,7 @@
 	NSMutableArray* notesArray;
 }
 
-- (void) setNote:(TMNote*) note onIndex:(int)idx;
+- (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;
 - (TMNote*) getNote:(int) index;
 - (int) getNotesCount;
 

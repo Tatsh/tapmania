@@ -28,7 +28,7 @@ typedef enum {
 - (int) getDifficultyLevel;
 - (TMSongDifficulty) getDifficulty;
 
-- (void) setNote:(TMNote*) note toTrack:(int) trackIndex onIndex:(int) idx;
+- (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) idx;
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
 
