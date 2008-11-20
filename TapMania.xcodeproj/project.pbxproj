@@ -16,6 +16,7 @@
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.m */; };
 		247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 247E86EE0ECDCFC600B21A77 /* tick.wav */; };
+		248689800ED5C69D00A9170C /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 248689540ED5C69D00A9170C /* noteskins */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
 		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
@@ -36,7 +37,6 @@
 		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
 		24966C5B0ECB365000D367E3 /* SongOptionsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
-		249BEEA20ED3174D00CFBF19 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 249BEE7A0ED3174D00CFBF19 /* noteskins */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -69,6 +69,7 @@
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMChangeSegment.h; path = Objects/TMChangeSegment.h; sourceTree = "<group>"; };
 		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMChangeSegment.m; path = Objects/TMChangeSegment.m; sourceTree = "<group>"; };
 		247E86EE0ECDCFC600B21A77 /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tick.wav; path = Sound/tick.wav; sourceTree = "<group>"; };
+		248689540ED5C69D00A9170C /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Images/noteskins; sourceTree = SOURCE_ROOT; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoyPad.h; path = Classes/JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JoyPad.m; path = Classes/JoyPad.m; sourceTree = "<group>"; };
 		2486F18D0EC077CA00E5F9EE /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Util/Texture2D.h; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongOptionsRenderer.m; path = Renderers/SongOptionsRenderer.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
-		249BEE7A0ED3174D00CFBF19 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Images/noteskins; sourceTree = SOURCE_ROOT; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				249BEE7A0ED3174D00CFBF19 /* noteskins */,
+				248689540ED5C69D00A9170C /* noteskins */,
 				2421316C0ED315FF000936F6 /* noteskins */,
 				247E88010ED1C37200B21A77 /* noteskins */,
 				247E86EE0ECDCFC600B21A77 /* tick.wav */,
@@ -410,7 +410,7 @@
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				242945EB0EC46DA700B88828 /* Credits.txt in Resources */,
 				247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */,
-				249BEEA20ED3174D00CFBF19 /* noteskins in Resources */,
+				248689800ED5C69D00A9170C /* noteskins in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
