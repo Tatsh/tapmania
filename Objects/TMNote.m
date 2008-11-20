@@ -49,7 +49,7 @@
 }
 
 + (float) noteRowToBeat:(int) noteRow {
-	return (float) noteRow / kRowsPerBeat;
+	return noteRow / (float)kRowsPerBeat;
 }
 
 + (int) beatToNoteRow:(float) fBeat {

@@ -18,7 +18,7 @@
 #import "TMSong.h"
 #import "TMTrack.h"
 #import "TMSongOptions.h"
-#import "TMBeatBasedChange.h"
+#import "TMChangeSegment.h"
 
 #import <syslog.h>
 #import <math.h>
@@ -54,17 +54,6 @@
 
 	speedModValue = [TMSongOptions speedModToValue:options.speedMod];
 	
-	bpmSpeed = song.bpm/kRenderingFPS;
-	fullScreenTime = kArrowsBaseY/bpmSpeed/60.0f;	// Full screen is 380px coz we are going till the arrows base with rate of 60 frames per second
-	timePerBeat = [TimingUtil getTimeInBeatForBPS:song.bpm/60.0f];	
-	
-	gapIsDone = NO;
-	
-	// Apply speedmod
-	if(speedModValue != -1) {
-		fullScreenTime /= speedModValue;
-	}
-	
 	int i;
 	
 	// Drop track positions to first elements
@@ -98,44 +87,15 @@
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
 	double elapsedTime = currentTime - playBackStartTime;
-
-	/*
-	// Handle the gap
-	if(!gapIsDone && elapsedTime >= song.gap) {
-		// Start counting for real now
-		playBackStartTime = [TimingUtil getCurrentTime];
-		gapIsDone = YES;
-
-		[glView swapBuffers];
-		
-		return;
-	} else if(!gapIsDone) {
-		// Still doing the gap
-		[glView swapBuffers];
-		
-		return;
-	}
-	*/
 	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;
 	
 	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
-
-	/* 
-		Ok. Now we have to get the count of beats we actually can see from currentBeat till end of screen.
-	*/
 	
-	fullScreenTime = kArrowsBaseY/currentBps/60.0f;
-	timePerBeat = [TimingUtil getTimeInBeatForBPS:currentBps];	
+	// If freeze - leave for now
+	if(hasFreeze) return;
 	
-	// Apply speedmod
-	if(speedModValue != -1) {
-		fullScreenTime /= speedModValue;
-	}
-	
-	float outOfScopeBeat = currentBeat; // - 1.0f; // One full beat. FIXME: calculate?
-		
 	/*
 	 Now trackPos[i] for every 'i' contains the first element which is still on screen
 	 Our goal here is to find all the notes from 'i' to whatever it takes with time less than 
@@ -157,9 +117,6 @@
 		1) it was hit already
 		2) the time of the hit is the same as the last tap time
 	 */
-	float searchTillTime = elapsedTime + fullScreenTime;
-	float searchTillBeat = searchTillTime / timePerBeat;
-	
 	double searchHitFromTime = elapsedTime - 0.2f;
 	double searchHitTillTime = elapsedTime + 0.2f;
 	int i;
@@ -187,14 +144,39 @@
 		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
-			
-			float beat = [TMNote noteRowToBeat: note.startNoteRow];
-			float tillBeat = note.stopNoteRow == -1 ? -1.0f : [TMNote noteRowToBeat: note.stopNoteRow];
 
 			// We are not handling empty notes though
 			if(note.type == kNoteType_Empty)
 				continue;
 			
+			// Get beats out of noteRows
+			float beat = [TMNote noteRowToBeat: note.startNoteRow];
+			float tillBeat = note.stopNoteRow == -1 ? -1.0f : [TMNote noteRowToBeat: note.stopNoteRow];
+			
+			float noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
+			float noteTillTime = tillBeat == -1.0f ? -1.0f : [TimingUtil getElapsedTimeFromBeat:tillBeat inSong:song];
+	
+			// Check whether this note is already out of scope
+			if((note.type == kNoteType_HoldHead && noteTillTime < elapsedTime) || (note.type != kNoteType_HoldHead && noteTime < elapsedTime)) {
+				++trackPos[i];
+				if(!note.isHit) {
+					// syslog(LOG_DEBUG, "Miss!");
+				}
+				
+				continue; // Skip this note
+			}
+			
+			currentBps = [TimingUtil getBpmAtBeat:beat inSong:song]/60.0f;
+						
+			// Get times at that beat
+			double fullScreenTime = kArrowsBaseY/currentBps/60.0f;
+			double timePerBeat = [TimingUtil getTimeInBeatForBPS:currentBps];	
+			
+			// Apply speedmod
+			if(speedModValue != -1) {
+				fullScreenTime /= speedModValue;
+			}			
+						
 			// Check old hit first
 			if(testHit && note.isHit){
 				// This note was hit already (maybe using the same tap as we still hold)
@@ -204,25 +186,9 @@
 				}
 			}
 			
-			// Check whether this note is already out of scope
-			if((tillBeat == -1 && beat < outOfScopeBeat) || (tillBeat != -1 && tillBeat < outOfScopeBeat)) {
-				// Found a note/hold which is out of screen now
-				++trackPos[i];
-				if(!note.isHit) {
-					// syslog(LOG_DEBUG, "Miss!");
-				}
-				
-				continue; // Skip this note
-			}
-			
-			// Ok, hit a note which is out of scope for now
-			if(beat > searchTillBeat){			
-				break;
-			}
-						
+					
 			// Check hit
 			if(testHit && !note.isHit){
-				float noteTime = beat * timePerBeat;
 				
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
@@ -251,15 +217,17 @@
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
 				// If the time is inside the search region - calculate the Y position on screen and draw the note
-				float noteTime = beat * timePerBeat;
 				float noteOffsetY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (noteTime-elapsedTime) );
 			
+				if(noteOffsetY <= 0 && note.type != kNoteType_HoldHead){
+					break; // Start another track coz this note is out of screen
+				}
+				
 				// If note is a holdnote
 				if(note.type == kNoteType_HoldHead) {
 					// Calculate body length
-					float holdEndTime = tillBeat * timePerBeat;
 					float bodyTopY = noteOffsetY + 30; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (holdEndTime-elapsedTime) ) + 25;
+					float bodyBottomY = kArrowsBaseY- ( kArrowsBaseY/fullScreenTime * (noteTillTime-elapsedTime) ) + 25;
 					
 					// Bottom Y can be out of the screen bounds and if so must be set to 0 - bottom of screen
 					if(bodyBottomY < 0.0f) 

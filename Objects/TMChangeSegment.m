@@ -1,24 +1,24 @@
 //
-//  TMBeatBasedChange.m
+//  TMChangeSegment.m
 //  TapMania
 //
 //  Created by Alex Kremer on 13.11.08.
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TMBeatBasedChange.h"
+#import "TMChangeSegment.h"
 
 
-@implementation TMBeatBasedChange
+@implementation TMChangeSegment
 
-@synthesize beat, changeValue; 
+@synthesize noteRow, changeValue; 
 
-- (id) initWithBeat:(float) lBeat andValue:(float) lValue {
+- (id) initWithNoteRow:(int) lNoteRow andValue:(float) lValue {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	beat = lBeat;
+	noteRow = lNoteRow;
 	changeValue = lValue;
 
 	return self;

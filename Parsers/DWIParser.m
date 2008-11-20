@@ -10,7 +10,7 @@
 
 #import "TMSteps.h"
 #import "TMNote.h"
-#import "TMBeatBasedChange.h"
+#import "TMChangeSegment.h"
 #import "TimingUtil.h"
 
 #import <stdio.h>
@@ -532,7 +532,7 @@
 	char *token, *value;
 	int i;
 
-	TMBeatBasedChange* changer = nil;
+	TMChangeSegment* changer = nil;
 	NSMutableArray* arr = [[NSMutableArray arrayWithCapacity:10] retain];
 	NSMutableArray* resArr = nil;
 	
@@ -558,8 +558,8 @@
 		}
 
 		// Got '$token=$value'
-		double beatIndex = atof(token)/4.0f;
-		changer = [[TMBeatBasedChange alloc] initWithBeat:beatIndex andValue:atof(value)];
+		int beatIndex = [TMNote beatToNoteRow:atof(token)/4.0f];
+		changer = [[TMChangeSegment alloc] initWithNoteRow:beatIndex andValue:atof(value)];
 		[resArr addObject:changer];	
 	}
 

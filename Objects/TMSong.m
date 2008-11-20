@@ -31,7 +31,7 @@
 
 	// Set the bpm for song start
 	NSMutableArray* songBpmChangeArray = self.bpmChangeArray;
-	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMBeatBasedChange alloc] initWithBeat:0.0f andValue:self.bpm] ,nil];
+	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.bpm] ,nil];
 
 	[self.bpmChangeArray addObjectsFromArray:songBpmChangeArray];
 	[songBpmChangeArray release];

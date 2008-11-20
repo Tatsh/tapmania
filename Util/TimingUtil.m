@@ -38,30 +38,48 @@
 + (float) getBpmAtBeat:(float) beat inSong:(TMSong*) song{
 	int i;	
 	for(i=0; i<[song.bpmChangeArray count]-1; i++){
-		if( [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i+1] beat] > beat){
+		if( [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow] > beat){
 			break;
 		}
 	}
 	
-	return [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i] changeValue];
+	return [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue];
 }
 
-/*
-	TODO: Search for the last beat which is still visible on the current screen frame
-*/
-+ (float) findLastBeatOnScreenFromElapsedTime:(double) elapsedTime currentBeat:(float) currentBeat currentBps:(float) currentBps inSong:(TMSong*) song {
++ (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song {
+	float elapsedTime = 0.0f;
+	elapsedTime -= song.gap;
 	
-	// timeDelta will hold the time for the last beat visible on screen
-	double timeDelta = 0.0f;
-	
-	// Lookup the closest bpm change
+	int noteRow = [TMNote beatToNoteRow:beat];
 	unsigned i;
-	for( i=0; i<[song.bpmChangeArray count]-1; i++) { // Foreach bpm change in the song
-		if ([(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i+1] beat] >= currentBeat) 
+	
+	for(i=0; i<[song.freezeArray count]; i++){
+		if([(TMChangeSegment*)[song.freezeArray objectAtIndex:i] noteRow] >= noteRow) {
 			break;
+		}
+		
+		elapsedTime += [(TMChangeSegment*)[song.freezeArray objectAtIndex:i] changeValue]/1000.0f;		
 	}
 	
-	return 0.0f;
+	for(i=0; i<[song.bpmChangeArray count]; i++){
+		const BOOL isLastBpmChange = i == [song.bpmChangeArray count]-1;
+		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f; 
+		
+		if(isLastBpmChange){
+			elapsedTime += [TMNote noteRowToBeat:noteRow]/bps;
+		} else {
+			const int startRowThisChange = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow]; 
+			const int startRowNextChange = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow];
+			const int rowsInSegment = fminl( startRowNextChange - startRowThisChange, noteRow );
+			elapsedTime += [TMNote noteRowToBeat:rowsInSegment]/bps;
+			noteRow -= rowsInSegment;
+		}
+		
+		if( noteRow <= 0 )
+			return elapsedTime;
+	}
+	
+	return elapsedTime;
 }
 
 + (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song {
@@ -71,22 +89,25 @@
 	unsigned i;
 	for( i=0; i<[song.bpmChangeArray count]; i++) { // Foreach bpm change in the song
 		
-		const float startBeatThisChange = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i] beat]; 
+		const int startRowThisChange = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow]; 
+		const float startBeatThisChange = [TMNote noteRowToBeat:startRowThisChange]; 
 		const BOOL isFirstBpmChange = i==0;
 		const BOOL isLastBpmChange = i==[song.bpmChangeArray count]-1;
-		const float startBeatNextChange = isLastBpmChange ? MAXFLOAT : [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i+1] beat];
-		const float bps = [(TMBeatBasedChange*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f;
+		const int startRowNextChange = isLastBpmChange ? -1 : [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow];
+		const float startBeatNextChange = isLastBpmChange ? MAXFLOAT : [TMNote noteRowToBeat:startRowNextChange];
+		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f;
 	
 		unsigned j;
 		for( j=0; j<[song.freezeArray count]; j++) { // Foreach freeze
-			TMBeatBasedChange* freeze = [song.freezeArray objectAtIndex:j];
+			TMChangeSegment* freeze = [song.freezeArray objectAtIndex:j];
+			float freezeBeat = [TMNote noteRowToBeat:[freeze noteRow]];
 			
-			if(!isFirstBpmChange && startBeatThisChange >= [freeze beat] )
+			if(!isFirstBpmChange && startBeatThisChange >= freezeBeat)
 				continue;
-			if(!isLastBpmChange && [freeze beat] > startBeatNextChange )
+			if(!isLastBpmChange && freezeBeat > startBeatNextChange )
 				continue;
 			
-			const float beatsSinceStartOfChange = [freeze beat] - startBeatThisChange;
+			const float beatsSinceStartOfChange = freezeBeat - startBeatThisChange;
 			const float freezeStartSecond = beatsSinceStartOfChange / bps;
 			
 			if( freezeStartSecond >= elapsedTime )
@@ -97,7 +118,7 @@
 			
 			if( freezeStartSecond >= elapsedTime ){
 				// Lies within the stop
-				*beatOut = [freeze beat];
+				*beatOut = freezeBeat;
 				*bpsOut = bps;
 				*freezeOut = YES;	// In freeze
 				return;

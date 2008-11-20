@@ -14,7 +14,7 @@
 		242945EB0EC46DA700B88828 /* Credits.txt in Resources */ = {isa = PBXBuildFile; fileRef = 242945EA0EC46DA700B88828 /* Credits.txt */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
-		247E857A0ECC5AE500B21A77 /* TMBeatBasedChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMBeatBasedChange.m */; };
+		247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.m */; };
 		247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 247E86EE0ECDCFC600B21A77 /* tick.wav */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
@@ -66,8 +66,8 @@
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
 		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsDirectoryCache.h; sourceTree = "<group>"; };
 		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsDirectoryCache.m; sourceTree = "<group>"; };
-		247E85780ECC5AE500B21A77 /* TMBeatBasedChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMBeatBasedChange.h; path = Objects/TMBeatBasedChange.h; sourceTree = "<group>"; };
-		247E85790ECC5AE500B21A77 /* TMBeatBasedChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMBeatBasedChange.m; path = Objects/TMBeatBasedChange.m; sourceTree = "<group>"; };
+		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMChangeSegment.h; path = Objects/TMChangeSegment.h; sourceTree = "<group>"; };
+		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMChangeSegment.m; path = Objects/TMChangeSegment.m; sourceTree = "<group>"; };
 		247E86EE0ECDCFC600B21A77 /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tick.wav; path = Sound/tick.wav; sourceTree = "<group>"; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoyPad.h; path = Classes/JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JoyPad.m; path = Classes/JoyPad.m; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 		2486F2AA0EC0A4FE00E5F9EE /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				247E85780ECC5AE500B21A77 /* TMBeatBasedChange.h */,
-				247E85790ECC5AE500B21A77 /* TMBeatBasedChange.m */,
+				247E85780ECC5AE500B21A77 /* TMChangeSegment.h */,
+				247E85790ECC5AE500B21A77 /* TMChangeSegment.m */,
 				2486F2AB0EC0A51100E5F9EE /* TMSong.h */,
 				2486F2AC0EC0A51100E5F9EE /* TMSong.m */,
 				2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */,
@@ -449,7 +449,7 @@
 				24EBF55B0EC88B4400533056 /* TMNote.m in Sources */,
 				24966C5B0ECB365000D367E3 /* SongOptionsRenderer.m in Sources */,
 				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
-				247E857A0ECC5AE500B21A77 /* TMBeatBasedChange.m in Sources */,
+				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

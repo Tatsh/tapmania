@@ -1,5 +1,5 @@
 //
-//  TMTimeBasedChange.h
+//  TMChangeSegment.h
 //  TapMania
 //
 //  Created by Alex Kremer on 13.11.08.
@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMBeatBasedChange : NSObject {
-	float	beat;			// The beat when this change should fire
+@interface TMChangeSegment : NSObject {
+	float	noteRow;		// The noteRow when this change should fire
 	float	changeValue;	// The value to change to
 }
 
-@property (assign, readonly) float beat;
+@property (assign, readonly) float noteRow;
 @property (assign) float changeValue;
 
-- (id) initWithBeat:(float) lBeat andValue:(float) lValue;
+- (id) initWithNoteRow:(int) lNoteRow andValue:(float) lValue;
 
 @end
