@@ -36,9 +36,11 @@
 }
 
 + (float) getBpmAtBeat:(float) beat inSong:(TMSong*) song{
+	int noteRow = [TMNote beatToNoteRow:beat];
+	
 	int i;	
 	for(i=0; i<[song.bpmChangeArray count]-1; i++){
-		if( [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow] > beat){
+		if( [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow] > noteRow){
 			break;
 		}
 	}

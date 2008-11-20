@@ -128,9 +128,13 @@
 		int startIndex = trackPos[i];
 		int j;
 		
+		// This will hold the Y coordinate of the previous note in this track
+		float lastNoteYPosition = MAXFLOAT;
+		
 		double lastHitTime = 0.0f;
 		BOOL testHit = NO;
 	
+		/*
 		// Check for hit?
 		if([joyPad getStateForButton:i]) {
 			// Button is currently pressed
@@ -140,6 +144,7 @@
 				testHit = YES;
 			}
 		}
+		*/
 	
 		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
@@ -166,17 +171,18 @@
 				continue; // Skip this note
 			}
 			
-			currentBps = [TimingUtil getBpmAtBeat:beat inSong:song]/60.0f;
+			float noteBps = [TimingUtil getBpmAtBeat:beat inSong:song]/60.0f;
 						
 			// Get times at that beat
-			double fullScreenTime = kArrowsBaseY/currentBps/60.0f;
-			double timePerBeat = [TimingUtil getTimeInBeatForBPS:currentBps];	
+			double fullScreenTime = kArrowsBaseY/noteBps/60.0f;
+			// double timePerBeat = [TimingUtil getTimeInBeatForBPS:currentBps];	
 			
 			// Apply speedmod
 			if(speedModValue != -1) {
 				fullScreenTime /= speedModValue;
 			}			
-						
+				
+			/*
 			// Check old hit first
 			if(testHit && note.isHit){
 				// This note was hit already (maybe using the same tap as we still hold)
@@ -213,6 +219,7 @@
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 				}
 			}
+			*/
 			 
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
