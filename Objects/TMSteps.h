@@ -31,5 +31,6 @@ typedef enum {
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) idx;
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
+- (int) getFirstNoteRow;
 
 @end

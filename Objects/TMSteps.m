@@ -50,4 +50,21 @@
 	return [track getNotesCount];
 }
 
+- (int) getFirstNoteRow {
+	int i;
+	int minNoteRow = INT_MAX;
+
+	for(i=0; i<kNumOfAvailableTracks; i++){
+		int j = 0;
+
+		// Skip all empty notes
+		while([(TMNote*)[(TMTrack*)tracks[i] getNote:j++] type] == kNoteType_Empty);
+
+		// Get the smallest
+		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[(TMTrack*)tracks[i] getNote:j] startNoteRow]);
+	}
+
+	return minNoteRow;
+}
+
 @end

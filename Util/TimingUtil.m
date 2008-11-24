@@ -145,4 +145,21 @@
 	}
 }
 
++ (int) getNextBpmChangeFromBeat:(float) beat inSong:(TMSong*) song {
+	int noteRow = [TMNote beatToNoteRow:beat];
+	
+	int i;	
+	for(i=0; i<[song.bpmChangeArray count]; i++){
+		if( [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow] > noteRow){
+			break;
+		}
+	}
+	
+	return [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow];
+}
+
++ (double) getTimePerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod {
+	return (1.0f/bps)/kRowsPerBeat;
+}
+
 @end
