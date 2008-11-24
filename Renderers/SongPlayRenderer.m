@@ -117,8 +117,8 @@
 		1) it was hit already
 		2) the time of the hit is the same as the last tap time
 	 */
-	double searchHitFromTime = elapsedTime - 0.2f;
-	double searchHitTillTime = elapsedTime + 0.2f;
+	double searchHitFromTime = elapsedTime - 0.1f;
+	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
 	
 	// For every track
@@ -136,7 +136,6 @@
 		double lastHitTime = 0.0f;
 		BOOL testHit = NO;
 	
-		/*
 		// Check for hit?
 		if([joyPad getStateForButton:i]) {
 			// Button is currently pressed
@@ -146,8 +145,7 @@
 				testHit = YES;
 			}
 		}
-		*/
-	
+		
 		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
 			TMNote* note = [steps getNote:j fromTrack:i];
@@ -223,7 +221,6 @@
 				holdBottomCapYPosition -= (note.stopNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:capBps andSpeedMod:speedModValue];			
 			}
 				
-			/*
 			// Check old hit first
 			if(testHit && note.isHit){
 				// This note was hit already (maybe using the same tap as we still hold)
@@ -232,7 +229,6 @@
 					testHit = NO;
 				} 
 			}
-			
 					
 			// Check hit
 			if(testHit && !note.isHit){
@@ -241,15 +237,15 @@
 					// Ok. we take this input
 					double delta = fabs(noteTime - lastHitTime);
 					
-					if(delta <= 0.05) {
+					if(delta <= 0.01) {
 						// syslog(LOG_DEBUG, "Marvelous!");
-					} else if(delta <= 0.1) {
+					} else if(delta <= 0.05) {
 						// syslog(LOG_DEBUG, "Perfect!");
-					} else if(delta <= 0.15) {
+					} else if(delta <= 0.1) {
 						// syslog(LOG_DEBUG, "Great!");
-					} else if(delta <= 0.17) {
+					} else if(delta <= 0.13) {
 						// syslog(LOG_DEBUG, "Almost!");
-					} else if(delta <= 0.19) {
+					} else if(delta <= 0.18) {
 						// syslog(LOG_DEBUG, "BOO!");
 					} else {
 						// syslog(LOG_DEBUG, "Miss!");
@@ -260,7 +256,6 @@
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 				}
 			}
-			*/
 			 
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
@@ -272,7 +267,7 @@
 				if(note.type == kNoteType_HoldHead) {
 					// Calculate body length
 					float bodyTopY = noteYPosition + 30; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = holdBottomCapYPosition + 25;
+					float bodyBottomY = holdBottomCapYPosition;
 					
 					// Bottom Y can be out of the screen bounds and if so must be set to 0 - bottom of screen
 					if(bodyBottomY < 0.0f) 
@@ -296,14 +291,14 @@
 						holdX = kArrowRightX;
 											
 					// Calculate the height of the hold's body
-					float sizeOfHold = bodyTopY - bodyBottomY;
+					float sizeOfHold = bodyTopY - bodyBottomY-30;
 					
-					CGRect bodyRect = CGRectMake(holdX, bodyBottomY, 60, sizeOfHold);
+					CGRect bodyRect = CGRectMake(holdX, bodyBottomY+30, 60, sizeOfHold);
 					[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBody] drawInRect:bodyRect];
 					
 					// Now if bottom of the hold is visible on the screen - draw the cap
 					if(bodyBottomY > 0.0f) {
-						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY-20, 60, 20);
+						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY, 60, 30);
 						[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottom] drawInRect:bodyCapRect];					
 					}
 				}

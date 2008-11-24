@@ -52,7 +52,7 @@
 
 + (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song {
 	float elapsedTime = 0.0f;
-	elapsedTime -= song.gap;
+	elapsedTime += song.gap;
 	
 	int noteRow = [TMNote beatToNoteRow:beat];
 	unsigned i;
@@ -88,7 +88,7 @@
 
 + (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song {
 
-	elapsedTime += song.gap;
+	elapsedTime -= song.gap;
 	
 	unsigned i;
 	for( i=0; i<[song.bpmChangeArray count]; i++) { // Foreach bpm change in the song
