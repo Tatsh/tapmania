@@ -96,27 +96,6 @@
 	// If freeze - leave for now
 	if(hasFreeze) return;
 	
-	/*
-	 Now trackPos[i] for every 'i' contains the first element which is still on screen
-	 Our goal here is to find all the notes from 'i' to whatever it takes with time less than 
-	 currentTime + fullScreenTime.
-
-	 TODO: the time delta to search a hit should be calculated dynamically depending on bpm and speed mod (probably)
-
-	 TODO: only one note in a track should be hit by one single touch.
-
-	 		timeline of one track
-	 0	|	|	|	|	|	|	trackend
-	 [--------h-N-r-----N----h--N-N-r-----------------------]
-	 			 |	|
-				 --------
-		two notes are in the way while we hold our tap
-		h = 2.30	r = 2.90	N1 = 2.4	N2 = 2.6
-		
-		check every note whether:
-		1) it was hit already
-		2) the time of the hit is the same as the last tap time
-	 */
 	double searchHitFromTime = elapsedTime - 0.1f;
 	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
@@ -162,7 +141,7 @@
 			float noteTillTime = tillBeat == -1.0f ? -1.0f : [TimingUtil getElapsedTimeFromBeat:tillBeat inSong:song];
 	
 			// Check whether this note is already out of scope
-			if((note.type == kNoteType_HoldHead && noteTillTime < elapsedTime) || (note.type != kNoteType_HoldHead && noteTime < elapsedTime)) {
+			if((note.type == kNoteType_HoldHead && noteTillTime < searchHitFromTime) || (note.type != kNoteType_HoldHead && noteTime < searchHitFromTime)) {
 				++trackPos[i];
 				if(!note.isHit) {
 					// syslog(LOG_DEBUG, "Miss!");
@@ -172,15 +151,7 @@
 			}
 	
 			float noteBps = [TimingUtil getBpmAtBeat:beat inSong:song]/60.0f;
-						
-			// Get times at that beat
-			double fullScreenTime = kArrowsBaseY/noteBps/60.0f;
-			
-			// Apply speedmod
-			if(speedModValue != -1) {
-				fullScreenTime /= speedModValue;
-			}
-			
+						 
 			float noteYPosition = lastNoteYPosition;
 			float holdBottomCapYPosition = 0.0f;
 			

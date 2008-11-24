@@ -165,7 +165,7 @@
 	double tFullScreenTime = kFullScreenSize/bps/60.0f;
 		
 	// Apply speedmod
-	if(sMod != -1) {
+	if(sMod != 1) {
 		tFullScreenTime /= sMod;
 	}				
 		
