@@ -11,6 +11,8 @@
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 
+#define kFullScreenSize 380.0f
+
 @implementation TimingUtil
 
 + (double) getCurrentTime {
@@ -151,15 +153,27 @@
 	int i;	
 	for(i=0; i<[song.bpmChangeArray count]; i++){
 		if( [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow] > noteRow){
-			break;
+			return [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow];
 		}
 	}
 	
-	return [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] noteRow];
+	return -1;
 }
 
-+ (double) getTimePerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod {
-	return (1.0f/bps)/kRowsPerBeat;
++ (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod {
+	
+	double tFullScreenTime = kFullScreenSize/bps/60.0f;
+		
+	// Apply speedmod
+	if(sMod != -1) {
+		tFullScreenTime /= sMod;
+	}				
+		
+	double tTimePerBeat = [TimingUtil getTimeInBeatForBPS:bps];	
+	float tNoteRowsOnScr = (tFullScreenTime/tTimePerBeat)*kRowsPerBeat;
+	float tPxDistBetweenRows = kFullScreenSize/tNoteRowsOnScr;				
+	
+	return tPxDistBetweenRows;
 }
 
 @end

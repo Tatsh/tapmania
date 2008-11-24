@@ -276,12 +276,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>65</integer>
+									<integer>17</integer>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 464}, {186, 845}}</string>
+							<string>{{0, 46}, {186, 845}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -330,7 +331,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>248689830ED5C72400A9170C</string>
+										<string>248689DE0EDAEA6300A9170C</string>
 										<key>history</key>
 										<array>
 											<string>24F15EBE0EC320B800755788</string>
@@ -387,12 +388,12 @@
 											<string>2486886C0ED583C700A9170C</string>
 											<string>2486886D0ED583C700A9170C</string>
 											<string>2486887E0ED5897800A9170C</string>
-											<string>248688800ED5897800A9170C</string>
 											<string>248688DF0ED595F500A9170C</string>
 											<string>248689090ED59C1300A9170C</string>
-											<string>248689320ED5B1D900A9170C</string>
 											<string>248689330ED5B1D900A9170C</string>
-											<string>248689340ED5B1D900A9170C</string>
+											<string>248689BE0EDAE3E300A9170C</string>
+											<string>248689D40EDAE6F700A9170C</string>
+											<string>248689D50EDAE6F700A9170C</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -528,6 +529,20 @@
 											<string>248689350ED5B1D900A9170C</string>
 											<string>248689360ED5B1D900A9170C</string>
 											<string>248689370ED5B1D900A9170C</string>
+											<string>248689980EDAD7EC00A9170C</string>
+											<string>248689990EDAD7EC00A9170C</string>
+											<string>2486899A0EDAD7EC00A9170C</string>
+											<string>248689A40EDADD7300A9170C</string>
+											<string>248689A80EDADED000A9170C</string>
+											<string>248689C10EDAE3E300A9170C</string>
+											<string>248689C20EDAE3E300A9170C</string>
+											<string>248689C30EDAE3E300A9170C</string>
+											<string>248689C40EDAE3E300A9170C</string>
+											<string>248689C50EDAE3E300A9170C</string>
+											<string>248689C60EDAE3E300A9170C</string>
+											<string>248689CC0EDAE45C00A9170C</string>
+											<string>248689D60EDAE6F700A9170C</string>
+											<string>248689D70EDAE6F700A9170C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -723,10 +738,10 @@
 	<array>
 		<string>248688B00ED58D5E00A9170C</string>
 		<string>248688A90ED58CDA00A9170C</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>2486F1BB0EC08C1600E5F9EE</string>
 		<string>247E898E0ED2FA2800B21A77</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/godexsoft/Documents/TapMania/TapMania.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -746,12 +761,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SongPlayRenderer.m</string>
+								<string>TimingUtil.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -768,8 +785,6 @@
 							<string>527pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -1076,7 +1091,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {923, 222}}</string>
 								<key>RubberWindowFrame</key>
-								<string>70 82 923 263 0 0 1280 1002 </string>
+								<string>65 222 923 263 0 0 1280 1002 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -1105,11 +1120,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>70 82 923 263 0 0 1280 1002 </string>
+			<string>65 222 923 263 0 0 1280 1002 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
