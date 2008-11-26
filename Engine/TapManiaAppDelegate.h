@@ -12,6 +12,7 @@
 #import "JoyPad.h"
 #import "LifeBar.h"
 #import "AbstractRenderer.h"
+#import "TMRunLoop.h"
 
 @class EAGLView;
 @class AbstractRenderer;
@@ -40,6 +41,9 @@ typedef struct
 	UIWindow		*window;
 	EAGLView		*glView;
 	
+	TMRunLoop		* logicLoop;
+	TMRunLoop		* renderLoop;
+	
 	NSTimer*				_timer;
 	State					_state;
 	CFTimeInterval			_lastTime;
@@ -54,15 +58,12 @@ typedef struct
 // Window
 @property (retain, nonatomic) UIWindow* window;
 
-// Points to the current scene renderer
-@property (assign) id <SceneRenderer> currentRenderer;
-
 @property (retain, nonatomic, readonly) JoyPad* joyPad;
 
 - (void) showJoyPad;
 - (void) hideJoyPad;	
 
-- (void) activateRenderer:(AbstractRenderer*) renderer looping:(BOOL) looping;
+- (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority;
 - (void) deactivateRendering;
 
 @end

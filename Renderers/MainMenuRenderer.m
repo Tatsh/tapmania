@@ -15,6 +15,13 @@
 #import "OptionsMenuRenderer.h"
 #import "CreditsRenderer.h"
 
+
+
+#import "TMRunLoop.h"
+#import "TMRenderable.h"
+#import "TMLogicUpdater.h"
+
+
 @implementation MainMenuRenderer
 
 - (id) initWithView:(EAGLView*)lGlView {
@@ -32,7 +39,9 @@
 	return self;
 }
 
-- (void)renderScene {
+
+/* TMRenderable method */
+- (void) render:(float)fDelta {
 	CGRect				bounds = [glView bounds];
 	
 	//Draw background
@@ -42,22 +51,21 @@
 	
 	//Swap the framebuffer
 	[glView swapBuffers];
-}	
+}
 
 # pragma mark Touch handling
 - (void) playGamePress:(id)sender {
 	NSLog(@"Enter song pick menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 - (void) optionsPress:(id)sender {
 	NSLog(@"Enter options...");	
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 - (void) creditsPress:(id)sender {
 	NSLog(@"Credits page...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[CreditsRenderer alloc] initWithView:glView] looping:YES];
 }
 
 @end

@@ -56,9 +56,8 @@
 	[super dealloc];
 }
 
-
-// Renders one scene of the credits screen :P
-- (void)renderScene {
+/* TMRenderable method */
+- (void) render:(float)fDelta {
 	CGRect				bounds = [glView bounds];
 	int i, j;
 	
@@ -69,13 +68,19 @@
 	
 	// Draw the texts
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	
 	for(i=0, j=[texturesArray count]-1; i<[texturesArray count]; i++,j--){
 		[[texturesArray objectAtIndex:j] drawInRect:CGRectMake(0, currentPos+(i*15), 320, 15)];
 	}
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	
+	//Swap the framebuffer
+	[glView swapBuffers];	
+}
+
+/* TMLogicUpdater method */
+- (void) update:(float)fDelta {
 	if(currentPos > 460) {
 		currentPos = ([texturesArray count]*15);
 		currentPos = -currentPos;
@@ -83,15 +88,15 @@
 	
 	currentPos += 1.0f;
 	
-	//Swap the framebuffer
-	[glView swapBuffers];
-}	
+	// Do some timeout
+	[NSThread sleepForTimeInterval:0.2f];
+}
 
 
 #pragma mark Touch handlers
 - (void) backPress:(id) sender {
 	NSLog(@"Enter main menu (back from credits)...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

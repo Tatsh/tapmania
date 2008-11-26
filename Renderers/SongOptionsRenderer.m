@@ -113,7 +113,7 @@
 - (void) backPress:(id)sender {
 	NSLog(@"Go to song picker from song options menu...");
 	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] 
-		activateRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] looping:NO];
+		registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

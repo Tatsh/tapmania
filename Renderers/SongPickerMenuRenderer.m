@@ -77,12 +77,12 @@
 	TMSong* song = menuItem.song;
 
 	NSLog(@"Go to song options from Play menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] withPriority:NO];
 }
 
 - (void) backPress:(id)sender {
 	NSLog(@"Go to main menu from Play menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 

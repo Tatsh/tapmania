@@ -68,7 +68,7 @@
 	SoundEngine_StartBackgroundMusic();
 	
 	// Start rendering
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:self looping:YES];	
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:self withPriority:YES];	
 }
 
 // Renders one scene of the gameplay

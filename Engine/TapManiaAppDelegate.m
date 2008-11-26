@@ -13,6 +13,10 @@
 #import "TapManiaAppDelegate.h"
 #import "EAGLView.h"
 
+#import "TMRunLoop.h"
+#import "TMRenderable.h"
+#import "TMLogicUpdater.h"
+
 #import "TexturesHolder.h"
 #import "SoundEffectsHolder.h"
 #import "SongsDirectoryCache.h"
@@ -32,7 +36,7 @@
 
 @implementation TapManiaAppDelegate
 
-@synthesize currentRenderer, window;
+@synthesize window;
 @synthesize joyPad;
 
 + (void) initialize {
@@ -86,13 +90,26 @@
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Title] drawInRect:[glView bounds]];
 	glEnable(GL_BLEND);
-	
-	// Show menu
-	[self activateRenderer:[[MainMenuRenderer alloc] initWithView:glView] looping:NO];
 		
 	[window addSubview:glView];
 	NSLog(@"Added subview: glView.");
+		
+	// [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] activateRenderer:cRenderer looping:NO];
+	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] deactivateRendering];
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
+	NSLock* lock = [[NSLock alloc] init];
+	logicLoop = [[TMRunLoop alloc] initWithName:@"Logic" type:@protocol(TMLogicUpdater) andLock:lock];
+	renderLoop = [[TMRunLoop alloc] initWithName:@"Render" type:@protocol(TMRenderable) andLock:lock];
+	
+	// Initially we start with the main menu
+	MainMenuRenderer* mmRenderer = [[MainMenuRenderer alloc] initWithView:glView];
+	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];
+	
+	// Run both loops	
+	[logicLoop run];
+	[renderLoop run];
+		
 	//Swap the framebuffer
 	[glView swapBuffers];
 	NSLog(@"Should draw already!");
@@ -106,27 +123,13 @@
 	[joyPad removeFromSuperview];
 }
 
-// Set current renderer and start the renderScene invocation timer
-- (void) activateRenderer:(AbstractRenderer*) renderer looping:(BOOL) looping {
-	// Deactivate old renderer
-	if([UIApplication sharedApplication].idleTimerDisabled) {
-		[self deactivateRendering];
-	}
-	
-	// Release old one
-	[currentRenderer release];
-	
-	// Set new
-	self.currentRenderer = renderer;
+// Add a renderer to the render loop
+- (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority {
+	[renderLoop registerObject:renderer withPriority:priority];
+}
 
-	if(!looping) {
-		// Render scene once only
-		[currentRenderer renderScene];
-	} else {
-		// Start rendering timer
-		_timer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / kRenderingFPS) target:currentRenderer selector:@selector(renderScene) userInfo:nil repeats:YES];
-		[UIApplication sharedApplication].idleTimerDisabled = YES;
-	}
+- (void) clearRenderers {
+	[renderLoop deregisterAllObjects];
 }
 
 // Stop calling the renderScene method constantly

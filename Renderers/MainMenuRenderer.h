@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractMenuRenderer.h"
+#import "TMLogicUpdater.h"
 
 enum {
 	kMainMenuItem_Play = 0,

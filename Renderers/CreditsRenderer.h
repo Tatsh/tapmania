@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractMenuRenderer.h"
+#import "TMLogicUpdater.h"
+#import "TMRunLoop.h"
 
-@interface CreditsRenderer : AbstractMenuRenderer {
+@interface CreditsRenderer : AbstractMenuRenderer <TMLogicUpdater, TMRunLoopDelegate> {
 	NSMutableArray* texturesArray;
 	
 	float currentPos; // Current Y coordinate of the scrolling text
