@@ -14,13 +14,33 @@
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
 
+#define kCreditsVelocity	20.0f;
+
 @implementation CreditsRenderer
 
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:1];
+- (id) init {
+	self = [super initWithCapacity:1];
 	if(!self)
 		return nil;
+		
+//	[self enableBackButton]; // Handled by 'backPress:'
+//	[self publishMenu];
 	
+	return self;
+}
+
+- (void) dealloc {
+	int i;
+
+	for(i=0; i<[texturesArray count]; i++){
+		[[texturesArray objectAtIndex:i] release];
+	}	
+	
+	[super dealloc];
+}
+
+/* TMRenderable methods */
+- (void) initForRendering:(NSObject*)data {
 	int i;
 	
 	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
@@ -38,28 +58,14 @@
 	
 	// Set starting pos
 	currentPos = ([texturesArray count]*15);
-	currentPos = -currentPos;
-	
-	[self enableBackButton]; // Handled by 'backPress:'
-	[self publishMenu];
-	
-	return self;
+	currentPos = -currentPos;	
 }
 
-- (void) dealloc {
-	int i;
-
-	for(i=0; i<[texturesArray count]; i++){
-		[[texturesArray objectAtIndex:i] release];
-	}	
-	
-	[super dealloc];
-}
-
-/* TMRenderable method */
-- (void) render:(float)fDelta {
-	CGRect				bounds = [glView bounds];
+- (void) render:(NSNumber*) fDelta {
+	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	int i, j;
+	
+	[self update:fDelta];
 	
 	//Draw background
 	glDisable(GL_BLEND);
@@ -74,29 +80,23 @@
 	}
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	
-	//Swap the framebuffer
-	[glView swapBuffers];	
 }
 
 /* TMLogicUpdater method */
-- (void) update:(float)fDelta {
+- (void) update:(NSNumber*)fDelta {
 	if(currentPos > 460) {
 		currentPos = ([texturesArray count]*15);
 		currentPos = -currentPos;
 	}
 	
-	currentPos += 1.0f;
-	
-	// Do some timeout
-	[NSThread sleepForTimeInterval:0.2f];
+	currentPos += [fDelta floatValue]*kCreditsVelocity;
 }
 
 
 #pragma mark Touch handlers
 - (void) backPress:(id) sender {
 	NSLog(@"Enter main menu (back from credits)...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

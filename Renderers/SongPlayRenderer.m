@@ -7,6 +7,7 @@
 //
 
 #import "SongPlayRenderer.h"
+#import "RenderEngine.h"
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
@@ -35,8 +36,8 @@
 
 @implementation SongPlayRenderer
 
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView];
+- (id) init {
+	self = [super init];
 	if(!self)
 		return nil;
 	
@@ -72,8 +73,8 @@
 }
 
 // Renders one scene of the gameplay
-- (void)renderScene {
-	CGRect				bounds = [glView bounds];
+- (void)render:(NSNumber*)fDelta {
+	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw background
 	glDisable(GL_BLEND);
@@ -245,8 +246,8 @@
 						bodyBottomY = 0.0f;
 					
 					// Top Y can be out of screen as well
-					if(bodyTopY > glView.bounds.size.height){
-						bodyTopY = glView.bounds.size.height;
+					if(bodyTopY > bounds.size.height){
+						bodyTopY = bounds.size.height;
 					}
 					
 					// Determine the track X position now
@@ -297,8 +298,5 @@
 		}
 	}
 		
-	//Swap the framebuffer
-	[glView swapBuffers];
 }
-
 @end

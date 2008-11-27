@@ -20,9 +20,9 @@
 
 @implementation TMRunLoop
 
-@synthesize delegate;
+@synthesize delegate, thread;
 
-- (id) initWithName:(NSString*)lName type:(id)lType andLock:(NSLock*)lLock {
+- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock {
 	self = [super init];
 	if(!self)
 		return nil;
@@ -33,8 +33,9 @@
 	_actualStopState = YES; // Initially stopped
 
 	name = lName;
-	protocolType = lType;
 	lock = lLock;
+	
+	thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
 	
 	return self;
 }
@@ -48,8 +49,6 @@
 - (void) run {
 	
 	NSLog(@"Run the %@ RunLoop thread.", name);
-	
-	thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
 	
 	[thread start];
 	_actualStopState = NO; // Running
@@ -102,12 +101,16 @@
 	int framesCounter = 0;
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
 	float totalTime = 0.0f;
-	
+
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
 		[delegate performSelector:@selector(runLoopInitHook) withObject:nil];
+		
+		if([delegate respondsToSelector:@selector(runLoopInitializedNotification)]){
+			[delegate performSelectorOnMainThread:@selector(runLoopInitializedNotification) withObject:nil waitUntilDone:YES];
+		}
 	}
 	
 	// TODO: pereodic pool releases must be added

@@ -14,10 +14,12 @@
 @interface RenderEngine : NSObject <TMRunLoopDelegate> {
 	UIWindow		*window;
 	EAGLView		*glView;
+	UIView          *rootView;
 	
 	NSLock			*renderLock;
 	
-	TMRunLoop * renderRunLoop;
+	TMRunLoop		*renderRunLoop;
+	TMRunLoop		*logicRunLoop;
 }
 
 @property (retain, nonatomic) EAGLView* glView;

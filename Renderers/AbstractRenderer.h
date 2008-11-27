@@ -7,24 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EAGLView.h"
 #import "TMRenderable.h"
 
-#define kRenderingFPS				60.0 // Hz
-
-// The Scene Renderer protocol
-// FIXME: To be removed
-@protocol SceneRenderer
-
-- (id) initWithView:(EAGLView*) lGlView;
-- (void) renderScene;
-
-@end
-
-@interface AbstractRenderer : NSObject <SceneRenderer, TMRenderable> {
-	EAGLView*				glView;
+@interface AbstractRenderer : NSObject <TMRenderable> {
 }
-
-@property (retain, nonatomic) EAGLView* glView;
 
 @end

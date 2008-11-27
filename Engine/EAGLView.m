@@ -179,6 +179,25 @@
 		printf("Failed to present renderbuffer in %s\n", __FUNCTION__);
 }
 
+- (void) swapBuffers
+{
+	EAGLContext *oldContext = [EAGLContext currentContext];
+	GLuint oldRenderbuffer;
+	
+	if(oldContext != _context)
+		[EAGLContext setCurrentContext:_context];
+	
+	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
+	
+	if(![_context presentRenderbuffer:GL_RENDERBUFFER_OES]) {
+		printf("Failed to swap renderbuffer in %s\n", __FUNCTION__);
+	}
+	
+	if(oldContext != _context)
+		[EAGLContext setCurrentContext:oldContext];
+}
+
 - (CGPoint) convertPointFromViewToSurface:(CGPoint)point
 {
 	CGRect				bounds = [self bounds];

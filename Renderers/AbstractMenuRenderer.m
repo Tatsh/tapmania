@@ -8,12 +8,12 @@
 
 #import "AbstractMenuRenderer.h"
 #import "MenuItem.h"
-
+#import "RenderEngine.h"
 
 @implementation AbstractMenuRenderer
 
-- (id) initWithView:(EAGLView*)lGlView andCapacity:(int)capacity {
-	self = [super initWithView:lGlView];
+- (id) initWithCapacity:(int)capacity {
+	self = [super init];
 	if(!self)
 		return nil;
 	
@@ -57,14 +57,14 @@
 - (void) publishMenu {
 	
 	_curPos = [_menuElements count] * 30;	// Height of each item + offset 10px
-	_curPos = (glView.bounds.size.height - _curPos) / 2;	
+	_curPos = ([RenderEngine sharedInstance].glView.bounds.size.height - _curPos) / 2;	
 	
 	int i;
 	for(i=0; i<[_menuElements count]; i++) {
 		MenuItem* item = [_menuElements objectAtIndex:i];
 		[item setPosition:_curPos];
 		
-		[glView addSubview:item];	
+		[[RenderEngine sharedInstance].glView addSubview:item];	
 		
 		_curPos += 30;
 	}
@@ -74,7 +74,7 @@
 		backButton = [[MenuItem alloc] initWithTitle:@"Back"];
 		[backButton addTarget:self action:@selector(backPress:) forControlEvents:UIControlEventTouchUpInside];
 		[backButton setFrame:CGRectMake(5, 435, 80, 20)];
-		[glView addSubview:backButton];			
+		[[RenderEngine sharedInstance].glView addSubview:backButton];			
 	}
 
 	// Add go button if needed
@@ -82,7 +82,7 @@
 		goButton = [[MenuItem alloc] initWithTitle:@"Go!"];
 		[goButton addTarget:self action:@selector(goPress:) forControlEvents:UIControlEventTouchUpInside];
 		[goButton setFrame:CGRectMake(235, 435, 80, 20)];
-		[glView addSubview:goButton];			
+		[[RenderEngine sharedInstance].glView addSubview:goButton];			
 	}
 }
 

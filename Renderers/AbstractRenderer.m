@@ -11,22 +11,8 @@
 
 @implementation AbstractRenderer
 
-@synthesize glView;
-
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super init];
-	if(!self)
-		return nil;
-	
-	glView = lGlView;
-	
-	return self;
-}
-
-- (void) renderScene {
-	NSException *ex = [NSException exceptionWithName:@"AbstractClass" 
-									reason:@"You may not call renderScene on the abstract renderer class." userInfo:nil];
-	@throw ex;
+- (void) initForRendering:(NSObject*)data {
+	// Override if you need something specific with glView
 }
 
 - (void) render:(NSNumber*)fDelta {

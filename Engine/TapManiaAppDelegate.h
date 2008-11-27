@@ -17,7 +17,6 @@
 
 @class EAGLView;
 @class AbstractRenderer;
-@protocol SceneRenderer;
 
 // CONSTANTS
 #define kFontName					@"Arial"
@@ -37,10 +36,9 @@ typedef struct
 } Vector2D;
 
 
-@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate>
+@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate, TMRunLoopDelegate>
 {
 	TMRunLoop		* logicLoop;
-	RenderEngine	* renderEngine;	// This is the manager of all rendering in the game
 	
 	State					_state;
 	CFTimeInterval			_lastTime;

@@ -9,6 +9,8 @@
 #import "RenderEngine.h"
 #import "TexturesHolder.h"
 #import "MainMenuRenderer.h"
+#import "CreditsRenderer.h"
+#import "TapManiaAppDelegate.h"
 
 // This is a singleton class, see below
 static RenderEngine *sharedRenderEngineDelegate = nil;
@@ -21,7 +23,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	self = [super init];
 	if(!self)
 		return nil;
-
+	
 	CGRect rect = [[UIScreen mainScreen] bounds];	
 	
 	// Setup window
@@ -29,26 +31,29 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	
 	// Show window
 	[self.window makeKeyAndVisible];
-	
+		
 	// Render loop initialization 	
 	renderLock = [[NSLock alloc] init];
-	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" type:@protocol(TMRenderable) andLock:renderLock];
-	
-	// Initially we start with the main menu
-	MainMenuRenderer* mmRenderer = [[MainMenuRenderer alloc] initWithView:nil];
-	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];
-		
+	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock];
+			
 	// Set the delegate
 	renderRunLoop.delegate = self;
 	
 	// Ready to start rendering.
 	[renderRunLoop run];
 	
+	// Create the logic updater loop
+	logicRunLoop = [[TMRunLoop alloc] initWithName:@"Logic" andLock:renderLock];
+	logicRunLoop.delegate = (TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate];
+	
+	[logicRunLoop run];
+	
 	return self;
 }
 
 // Add a renderer to the render loop
 - (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority {
+	[renderer performSelector:@selector(initForRendering:) onThread:renderRunLoop.thread withObject:@"" waitUntilDone:YES];
 	[renderRunLoop registerObject:renderer withPriority:priority];
 }
 
@@ -60,11 +65,9 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init OpenGLES in a separate rendering thread...");
-
-	CGRect rect = [self.window bounds];
 	
-	NSLog(@"Bounds %f/%f", rect.size.width, rect.size.height);
-	self.glView = [[EAGLView alloc] initWithFrame:[self.window bounds]];
+	CGRect rect = [window bounds];
+	glView = [[EAGLView alloc] initWithFrame:rect];	
 	
 	// Load all textures
 	[TexturesHolder sharedInstance];
@@ -80,9 +83,21 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		
+	[glView swapBuffers];
 
-	// Add glView to the window
-	[self.window addSubview:self.glView];	
+	NSLog(@"Looks like inited!");
+}
+
+- (void) runLoopInitializedNotification {
+	[self.window addSubview:glView];		
+	NSLog(@"Added glView as subview!");
+	
+	// Initially we start with the main menu
+	CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
+
+	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
+	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
 }
 
 - (void) runLoopActionHook:(NSObject*)obj andDelta:(NSNumber*)fDelta {
@@ -107,6 +122,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {
 	[self.glView postRender];
+	// [glView swapBuffers];
 }
 
 // Release resources when they are no longer needed

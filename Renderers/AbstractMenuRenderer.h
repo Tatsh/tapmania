@@ -20,7 +20,7 @@
 	int			_curPos;		// Starting Y coordinate of the menu items
 }
 
-- (id) initWithView:(EAGLView*)lGlView andCapacity:(int)capacity;
+- (id) initWithCapacity:(int)capacity;
 - (void) enableBackButton; // disabled by default
 - (void) enableGoButton; // disabled by default
 

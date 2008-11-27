@@ -30,6 +30,8 @@ typedef enum {
 - (void) runLoopBeforeHook:(NSNumber*)fDelta;
 - (void) runLoopAfterHook:(NSNumber*)fDelta;
 
+- (void) runLoopInitializedNotification;
+
 @end
 
 
@@ -46,9 +48,6 @@ typedef enum {
 	@private 
 	BOOL _stopRequested;
 	BOOL _actualStopState;
-
-	// Type of objects to look for (protocol)
-	id protocolType;
 		
 	// Every run loop has a name
 	NSString* name;
@@ -61,9 +60,10 @@ typedef enum {
 }
 
 @property (assign) id <TMRunLoopDelegate> delegate;
+@property (retain, readonly, nonatomic) NSThread* thread;
 
 // Constructor
-- (id) initWithName:(NSString*)lName type:(id)lType andLock:(NSLock*)lLock;
+- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock;
 
 // Call this method to run the runloop
 - (void) run;

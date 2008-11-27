@@ -17,8 +17,8 @@
 @implementation SongOptionsRenderer
 
 // Real constructor
-- (id) initWithView:(EAGLView*)lGlView andSong:(TMSong*)lSong {
-	self = [self initWithView:lGlView];
+- (id) initWithSong:(TMSong*)lSong {
+	self = [self init];
 	
 	song = lSong;	
 	TMSongDifficulty dif = kSongDifficulty_Invalid;
@@ -64,15 +64,6 @@
 	return self;
 }
 
-// Legacy constructor
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:10];
-	if(!self)
-		return nil;
-		
-	return self;
-}
-
 - (void)dealloc {
 	[song release];
 	[options release];
@@ -82,16 +73,13 @@
 	[super dealloc];
 }
 
-- (void)renderScene {
-	CGRect				bounds = [glView bounds];
+- (void)render:(NSNumber*) fDelta {
+	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw background
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
-	
-	//Swap the framebuffer
-	[glView swapBuffers];
 }	
 
 # pragma mark Touch handling
@@ -106,14 +94,16 @@
 
 	syslog(LOG_DEBUG, "Going to play with speedMod: %d and difficulty %d", options.speedMod, options.difficulty);
 
+	/*
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] initWithView:glView];
 	[songPlayRenderer playSong:song withOptions:options];
+	 */
 }
 
 - (void) backPress:(id)sender {
 	NSLog(@"Go to song picker from song options menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] 
-		registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
+	// [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] 
+	//	registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

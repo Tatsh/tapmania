@@ -23,6 +23,6 @@
 	TogglerItem*		speedModsToggler;	// Select your speed modifier
 }
 
-- (id) initWithView:(EAGLView*)lGlView andSong:(TMSong*)lSong;
+- (id) initWithSong:(TMSong*)lSong;
 
 @end

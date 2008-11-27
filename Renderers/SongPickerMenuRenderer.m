@@ -27,8 +27,8 @@
 
 @implementation SongPickerMenuRenderer
 
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:10];
+- (id) init {
+	self = [super initWithCapacity:10];
 	if(!self)
 		return nil;
 
@@ -59,16 +59,13 @@
 	return self;
 }
 
-- (void)renderScene {
-	CGRect				bounds = [glView bounds];
+- (void)render:(NSNumber*)fDelta {
+	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw background
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
-	
-	//Swap the framebuffer
-	[glView swapBuffers];
 }	
 
 # pragma mark Touch handling
@@ -77,12 +74,12 @@
 	TMSong* song = menuItem.song;
 
 	NSLog(@"Go to song options from Play menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] withPriority:NO];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] withPriority:NO];
 }
 
 - (void) backPress:(id)sender {
 	NSLog(@"Go to main menu from Play menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 

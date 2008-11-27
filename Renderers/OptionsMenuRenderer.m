@@ -14,8 +14,8 @@
 
 @implementation OptionsMenuRenderer
 
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:kNumOptionsMenuItems];
+- (id) init {
+	self = [super initWithCapacity:kNumOptionsMenuItems];
 	if(!self)
 		return nil;
 	
@@ -28,22 +28,19 @@
 	return self;
 }
 
-- (void)renderScene {
-	CGRect				bounds = [glView bounds];
+- (void)render:(NSNumber*) fDelta {
+	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw background
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
-	
-	//Swap the framebuffer
-	[glView swapBuffers];
 }	
 
 # pragma mark Touch handling
 - (void) backPress:(id)sender {
 	NSLog(@"Enter main menu (back from options)...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
+	// [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

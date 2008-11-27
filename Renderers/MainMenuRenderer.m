@@ -24,8 +24,8 @@
 
 @implementation MainMenuRenderer
 
-- (id) initWithView:(EAGLView*)lGlView {
-	self = [super initWithView:lGlView andCapacity:kNumMainMenuItems];
+- (id) init {
+	self = [super initWithCapacity:kNumMainMenuItems];
 	if(!self)
 		return nil;
 	
@@ -47,9 +47,11 @@
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw menu background
+/*
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
+ */
 }
 
 # pragma mark Touch handling
