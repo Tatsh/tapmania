@@ -13,6 +13,7 @@
 #import "LifeBar.h"
 #import "AbstractRenderer.h"
 #import "TMRunLoop.h"
+#import "RenderEngine.h"
 
 @class EAGLView;
 @class AbstractRenderer;
@@ -38,33 +39,20 @@ typedef struct
 
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate>
 {
-	UIWindow		*window;
-	EAGLView		*glView;
-	
 	TMRunLoop		* logicLoop;
-	TMRunLoop		* renderLoop;
+	RenderEngine	* renderEngine;	// This is the manager of all rendering in the game
 	
-	NSTimer*				_timer;
 	State					_state;
 	CFTimeInterval			_lastTime;
-	GLfloat					_basePosition;   // Where the arrows match the base
 	
-	LifeBar*				lifeBar; // The lifebar
 	JoyPad*					joyPad;  // The joypad
-	
-	id						currentRenderer;  // The current scene renderer
 }
 
 // Window
-@property (retain, nonatomic) UIWindow* window;
-
 @property (retain, nonatomic, readonly) JoyPad* joyPad;
 
 - (void) showJoyPad;
 - (void) hideJoyPad;	
-
-- (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority;
-- (void) deactivateRendering;
 
 @end
 

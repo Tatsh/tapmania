@@ -168,24 +168,15 @@
 		printf("Failed to clear current context in %s\n", __FUNCTION__);
 }
 
-- (void) swapBuffers
-{
-	EAGLContext *oldContext = [EAGLContext currentContext];
-	GLuint oldRenderbuffer;
-	
-	if(oldContext != _context)
-		[EAGLContext setCurrentContext:_context];
-	
-	
-	
-	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
+- (void) preRender {
+	[self setCurrentContext];
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);	
+}
+
+- (void) postRender {
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
-	
 	if(![_context presentRenderbuffer:GL_RENDERBUFFER_OES])
-		printf("Failed to swap renderbuffer in %s\n", __FUNCTION__);
-	
-	if(oldContext != _context)
-		[EAGLContext setCurrentContext:oldContext];
+		printf("Failed to present renderbuffer in %s\n", __FUNCTION__);
 }
 
 - (CGPoint) convertPointFromViewToSurface:(CGPoint)point

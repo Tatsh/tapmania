@@ -29,7 +29,7 @@
 	@throw ex;
 }
 
-- (void) render:(float)fDelta {
+- (void) render:(NSNumber*)fDelta {
 	NSException *ex = [NSException exceptionWithName:@"AbstractClass" 
 											  reason:@"You may not call render on the abstract renderer class." userInfo:nil];
 	@throw ex;

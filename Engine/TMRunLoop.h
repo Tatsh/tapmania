@@ -22,9 +22,13 @@ typedef enum {
 
 @protocol TMRunLoopDelegate
 
+// Must have this method
+- (void) runLoopActionHook:(NSObject*)obj andDelta:(NSNumber*)fDelta;
+
+@optional
 - (void) runLoopInitHook;
-- (void) runLoopBeforeHook:(float)fDelta;
-- (void) runLoopAfterHook:(float)fDelta;
+- (void) runLoopBeforeHook:(NSNumber*)fDelta;
+- (void) runLoopAfterHook:(NSNumber*)fDelta;
 
 @end
 

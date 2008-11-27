@@ -10,6 +10,7 @@
 
 #import "TMObjectWithPriority.h"
 #import "TMRenderable.h"
+#import "RenderEngine.h"
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
 
@@ -106,14 +107,17 @@
 	
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[delegate runLoopInitHook];
+		[delegate performSelector:@selector(runLoopInitHook) withObject:nil];
 	}
 	
 	// TODO: pereodic pool releases must be added
 	
 	while (!_stopRequested) {
 		float currentTime = [TimingUtil getCurrentTime];
+		
 		float delta = currentTime-prevTime;
+		NSNumber* nDelta = [NSNumber numberWithFloat:delta];
+		
 		prevTime = currentTime;
 		totalTime += delta;
 		
@@ -126,10 +130,12 @@
 		}
 		
 		framesCounter ++;
+
+		[lock lock];
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
-		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook)]) { 
-			[delegate runLoopBeforeHook:delta]; 
+		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
+			[delegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
 		}
 		
 		/* Do the actual work */
@@ -137,44 +143,19 @@
 		for(i=0; i<[objects count]; i++){
 			TMObjectWithPriority* wrapper = [objects objectAtIndex:i];
 			NSObject* obj = [wrapper obj];
-			BOOL actionCompleted = NO;
 			
-			// TODO: fix warnings below
-			// TODO: isEqual: doesn't work for some reason.
-			
-			if(!strcmp([protocolType name], [@protocol(TMLogicUpdater) name]) && [obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
-				// Call the update method
-				[lock lock];
-				[obj update:delta];
-				[lock unlock];
-				
-				actionCompleted = YES;
-			}
-			
-			if(!strcmp([protocolType name], [@protocol(TMRenderable) name]) && [obj conformsToProtocol:@protocol(TMRenderable)]){
-				// Call the render method
-				[lock lock];
-				[obj render:delta];
-				[lock unlock];
-				
-				actionCompleted = YES;
-			} 
-			
-			// Handle situation with odd objects which are neither renderable nor logic updaters
-			if(!actionCompleted) {
-				NSException* ex = [NSException exceptionWithName:@"UnknownObjType" 
-										reason:[NSString stringWithFormat:
-												@"The object you have passed [%@] into the runLoop is not of type [%s].", [obj className], [protocolType name]] 
-										userInfo:nil];
-				@throw(ex);
+			if(delegate) {
+				/* We must call the action method on the delegate now */
+				[delegate performSelector:@selector(runLoopActionHook:andDelta:) withObject:obj withObject:nDelta];
 			}
 		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */
-		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook)]) { 
-			[delegate runLoopAfterHook:delta]; 
-		}		
+		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
+			[delegate performSelector:@selector(runLoopAfterHook:) withObject:nDelta];
+		}
 		
+		[lock unlock];
 	}
 	
 	[pool drain];

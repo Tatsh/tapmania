@@ -8,6 +8,6 @@
 
 @protocol TMRenderable
 
-- (void) render:(float) fDelta;
+- (void) render:(NSNumber*) fDelta;
 
 @end

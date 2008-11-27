@@ -16,6 +16,7 @@
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
+		244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 244956F80EDEBCC500D462F0 /* RenderEngine.m */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.m */; };
 		247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 247E86EE0ECDCFC600B21A77 /* tick.wav */; };
 		24868A590EDB140C00A9170C /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24868A2D0EDB140C00A9170C /* noteskins */; };
@@ -74,6 +75,8 @@
 		244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRunLoop.m; sourceTree = "<group>"; };
 		244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMObjectWithPriority.h; sourceTree = "<group>"; };
 		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
+		244956F70EDEBCC500D462F0 /* RenderEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderEngine.h; sourceTree = "<group>"; };
+		244956F80EDEBCC500D462F0 /* RenderEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderEngine.m; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
 		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMChangeSegment.m; sourceTree = "<group>"; };
 		247E86EE0ECDCFC600B21A77 /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tick.wav; path = Sound/tick.wav; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 				244954D10EDD5AC200D462F0 /* TMRunLoop.h */,
 				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
+				244956F70EDEBCC500D462F0 /* RenderEngine.h */,
+				244956F80EDEBCC500D462F0 /* RenderEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
 				244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */,
 				244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */,
+				244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

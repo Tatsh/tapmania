@@ -41,7 +41,9 @@
 - (BOOL) isCurrentContext;
 - (void) clearCurrentContext;
 
-- (void) swapBuffers; //This also checks the current OpenGL error and logs an error if needed
+// - (void) swapBuffers; //This also checks the current OpenGL error and logs an error if needed
+- (void) preRender;
+- (void) postRender;
 
 - (CGPoint) convertPointFromViewToSurface:(CGPoint)point;
 - (CGRect) convertRectFromViewToSurface:(CGRect)rect;

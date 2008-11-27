@@ -30,38 +30,37 @@
 		return nil;
 	
 	// Register menu items
+	/*
 	[self addMenuItemWithTitle:@"Play TapMania" andHandler:@selector(playGamePress:) onTarget:self];
 	[self addMenuItemWithTitle:@"Options" andHandler:@selector(optionsPress:) onTarget:self];
 	[self addMenuItemWithTitle:@"Credits" andHandler:@selector(creditsPress:) onTarget:self];
 	
 	[self publishMenu];
-	
+	*/
+	 
 	return self;
 }
 
 
 /* TMRenderable method */
-- (void) render:(float)fDelta {
-	CGRect				bounds = [glView bounds];
+- (void) render:(NSNumber*)fDelta {
+	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
-	//Draw background
+	//Draw menu background
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
-	
-	//Swap the framebuffer
-	[glView swapBuffers];
 }
 
 # pragma mark Touch handling
 - (void) playGamePress:(id)sender {
 	NSLog(@"Enter song pick menu...");
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 - (void) optionsPress:(id)sender {
 	NSLog(@"Enter options...");	
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] withPriority:NO];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 - (void) creditsPress:(id)sender {
