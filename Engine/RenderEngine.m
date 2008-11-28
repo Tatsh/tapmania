@@ -8,8 +8,10 @@
 
 #import "RenderEngine.h"
 #import "TexturesHolder.h"
-#import "MainMenuRenderer.h"
-#import "CreditsRenderer.h"
+#import "SongPlayRenderer.h"
+#import "TMSong.h"
+#import "TMSteps.h"
+#import "SongsDirectoryCache.h"
 #import "TapManiaAppDelegate.h"
 
 // This is a singleton class, see below
@@ -34,7 +36,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 		
 	// Render loop initialization 	
 	renderLock = [[NSLock alloc] init];
-	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock];
+	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock inMainThread:YES];
 			
 	// Set the delegate
 	renderRunLoop.delegate = self;
@@ -53,7 +55,6 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 
 // Add a renderer to the render loop
 - (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority {
-	[renderer performSelector:@selector(initForRendering:) onThread:renderRunLoop.thread withObject:@"" waitUntilDone:YES];
 	[renderRunLoop registerObject:renderer withPriority:priority];
 }
 
@@ -94,13 +95,28 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	NSLog(@"Added glView as subview!");
 	
 	// Initially we start with the main menu
-	CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
-
+	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
+	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	
 	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
 	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
+	
+	int i;
+	for(i=0; i<[songList count]; i++){
+		TMSong *song = [songList objectAtIndex:i];
+		TMSongOptions* opts = [[TMSongOptions alloc] init];
+		opts.speedMod = kSpeedMod_2x;
+		opts.difficulty = kSongDifficulty_Hard;
+		
+		[mmRenderer playSong:song withOptions:opts];
+		break;		
+	}
 }
 
-- (void) runLoopActionHook:(NSObject*)obj andDelta:(NSNumber*)fDelta {
+- (void) runLoopActionHook:(NSArray*)args {
+	NSObject* obj = [args objectAtIndex:0];
+	NSNumber* fDelta = [args objectAtIndex:1];
+	
 	if([obj conformsToProtocol:@protocol(TMRenderable)]){
 
 		// Call the render method on the object

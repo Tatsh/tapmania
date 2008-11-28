@@ -74,7 +74,10 @@
 	[NSThread sleepForTimeInterval:0.01f];
 }
 
-- (void) runLoopActionHook:(NSObject*)obj andDelta:(NSNumber*)fDelta {
+- (void) runLoopActionHook:(NSArray*)args {
+	NSObject* obj = [args objectAtIndex:0];
+	NSNumber* fDelta = [args objectAtIndex:1];
+	
 	if([obj conformsToProtocol:@protocol(TMLogicUpdater)]){
 		
 		// Call the update method on the object

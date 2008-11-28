@@ -12,9 +12,10 @@
 #import "TMSong.h"
 #import "TMSteps.h"
 #import "TMSongOptions.h"
+#import "TMLogicUpdater.h"
 #import "JoyPad.h"
 
-@interface SongPlayRenderer : AbstractRenderer {
+@interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					song;	// Currently played song
 	TMSteps*				steps;	// Currently played steps
 
@@ -24,6 +25,8 @@
 	
 	double					speedModValue;	
 	double					playBackStartTime;
+	
+	BOOL					playing;
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;

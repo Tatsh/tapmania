@@ -42,8 +42,10 @@
 		return nil;
 	
 	// Show joyPad
-	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
-	joyPad = [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] joyPad];
+//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
+//	joyPad = [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] joyPad];
+
+	playing = NO;
 	
 	return self;
 }
@@ -67,9 +69,13 @@
 	// Save start time of song playback and start the playback
 	playBackStartTime = [TimingUtil getCurrentTime];
 	SoundEngine_StartBackgroundMusic();
+
+	playing = YES;	
+}
+
+// Updates one frame of the gameplay
+- (void)update:(NSNumber*)fDelta {
 	
-	// Start rendering
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:self withPriority:YES];	
 }
 
 // Renders one scene of the gameplay
@@ -81,6 +87,8 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
+	if(!playing) return;
+	
 	// Draw the base
 	CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_BaseDark] drawInRect:baseRect];

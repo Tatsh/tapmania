@@ -22,25 +22,7 @@
 	self = [super initWithCapacity:1];
 	if(!self)
 		return nil;
-		
-//	[self enableBackButton]; // Handled by 'backPress:'
-//	[self publishMenu];
-	
-	return self;
-}
 
-- (void) dealloc {
-	int i;
-
-	for(i=0; i<[texturesArray count]; i++){
-		[[texturesArray objectAtIndex:i] release];
-	}	
-	
-	[super dealloc];
-}
-
-/* TMRenderable methods */
-- (void) initForRendering:(NSObject*)data {
 	int i;
 	
 	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
@@ -58,9 +40,25 @@
 	
 	// Set starting pos
 	currentPos = ([texturesArray count]*15);
-	currentPos = -currentPos;	
+	currentPos = -currentPos;		
+	
+//	[self enableBackButton]; // Handled by 'backPress:'
+//	[self publishMenu];
+	
+	return self;
 }
 
+- (void) dealloc {
+	int i;
+
+	for(i=0; i<[texturesArray count]; i++){
+		[[texturesArray objectAtIndex:i] release];
+	}	
+	
+	[super dealloc];
+}
+
+/* TMRenderable methods */
 - (void) render:(NSNumber*) fDelta {
 	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	int i, j;

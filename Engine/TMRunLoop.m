@@ -23,19 +23,24 @@
 @synthesize delegate, thread;
 
 - (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock {
+	return [self initWithName:lName andLock:lLock inMainThread:NO];
+}
+
+- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock inMainThread:(BOOL)lUseMainThread {
 	self = [super init];
 	if(!self)
 		return nil;
-	
+
 	objects = [[NSMutableArray arrayWithCapacity:1] retain];
 	
 	_stopRequested = NO;
 	_actualStopState = YES; // Initially stopped
-
+	
 	name = lName;
 	lock = lLock;
 	
 	thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
+	_useMainThread = lUseMainThread;
 	
 	return self;
 }
@@ -102,14 +107,15 @@
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
 	float totalTime = 0.0f;
 
+	NSThread* threadForDelegate = _useMainThread ? [NSThread mainThread] : self.thread;	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[delegate performSelector:@selector(runLoopInitHook) withObject:nil];
+		[delegate performSelector:@selector(runLoopInitHook) onThread:threadForDelegate withObject:nil waitUntilDone:YES];
 		
 		if([delegate respondsToSelector:@selector(runLoopInitializedNotification)]){
-			[delegate performSelectorOnMainThread:@selector(runLoopInitializedNotification) withObject:nil waitUntilDone:YES];
+			[delegate performSelector:@selector(runLoopInitializedNotification) onThread:threadForDelegate withObject:nil waitUntilDone:YES];
 		}
 	}
 	
@@ -122,6 +128,8 @@
 		NSNumber* nDelta = [NSNumber numberWithFloat:delta];
 		
 		prevTime = currentTime;
+		
+		/*
 		totalTime += delta;
 		
 		if(totalTime > 1.0f) {
@@ -133,12 +141,11 @@
 		}
 		
 		framesCounter ++;
-
-		[lock lock];
+		*/
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
-			[delegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
+			[delegate performSelector:@selector(runLoopBeforeHook:) onThread:threadForDelegate withObject:nDelta waitUntilDone:YES];
 		}
 		
 		/* Do the actual work */
@@ -149,16 +156,20 @@
 			
 			if(delegate) {
 				/* We must call the action method on the delegate now */
-				[delegate performSelector:@selector(runLoopActionHook:andDelta:) withObject:obj withObject:nDelta];
+				NSArray* pack = [[NSArray arrayWithObjects:obj, nDelta, nil] retain];
+				
+				[lock lock];
+				[delegate performSelector:@selector(runLoopActionHook:) onThread:threadForDelegate withObject:pack waitUntilDone:YES];
+				[lock unlock];
+				
+				[pack release];
 			}
 		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
-			[delegate performSelector:@selector(runLoopAfterHook:) withObject:nDelta];
+			[delegate performSelector:@selector(runLoopAfterHook:) onThread:threadForDelegate withObject:nDelta waitUntilDone:YES];
 		}
-		
-		[lock unlock];
 	}
 	
 	[pool drain];

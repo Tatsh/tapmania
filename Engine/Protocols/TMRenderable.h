@@ -8,7 +8,6 @@
 
 @protocol TMRenderable
 
-- (void) initForRendering:(NSObject*)data;
 - (void) render:(NSNumber*) fDelta;
 
 @end
