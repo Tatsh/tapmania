@@ -53,8 +53,8 @@
 	[SoundEffectsHolder sharedInstance];
 			
 	// Initialize the JoyPad
-	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];	
-	[joyPad setDelegate:self];
+	// joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];	
+	// [joyPad setDelegate:self];
 		
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
@@ -65,13 +65,14 @@
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init separate logic thread...");
+	[NSThread setThreadPriority:0.1];
 }
 
 - (void) runLoopInitializedNotification {
 }
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {
-	[NSThread sleepForTimeInterval:0.01f];
+	[NSThread sleepForTimeInterval:0.0001f];
 }
 
 - (void) runLoopActionHook:(NSArray*)args {
@@ -87,7 +88,7 @@
 		NSException* ex = [NSException exceptionWithName:@"UnknownObjType" 
 												  reason:[NSString stringWithFormat:
 														  @"The object you have passed [%@] into the runLoop doesn't conform to protocol [%s].", 
-														  [obj className], [@protocol(TMLogicUpdater) name]] 
+														  [obj class], [@protocol(TMLogicUpdater) name]] 
 												userInfo:nil];
 		@throw(ex);
 	}	

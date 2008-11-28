@@ -40,7 +40,7 @@ typedef enum {
 // Do constants instead?
 #define kBeatsPerMeasure 	4
 #define kRowsPerBeat 		48
-#define kRowsPerMeasure		kRowsPerBeat*kBeatsPerMeasure
+#define kRowsPerMeasure		192 // 4x48
 
 @interface TMNote : NSObject {
 
@@ -54,6 +54,10 @@ typedef enum {
 	BOOL		isHeld;		// True if the note is hit and held till end
 	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
 	double		lastHoldReleaseTime;	// Last time when the player raised his finger from the hold
+	
+	// The TMNote object is aware of current Y position on screen
+	float		startYPosition;
+	float		stopYPosition;
 }
 
 @property (assign) int startNoteRow;
@@ -66,6 +70,9 @@ typedef enum {
 
 @property (assign, readonly) double hitTime;
 @property (assign, readonly) double lastHoldReleaseTime;
+
+@property (assign) float startYPosition;
+@property (assign) float stopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
 

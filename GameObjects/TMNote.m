@@ -11,7 +11,7 @@
 
 @implementation TMNote
 
-@synthesize type, beatType, isHit, isHeld, hitTime, lastHoldReleaseTime, startNoteRow, stopNoteRow;
+@synthesize type, beatType, isHit, isHeld, hitTime, lastHoldReleaseTime, startNoteRow, stopNoteRow, startYPosition, stopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType {
 	self = [super init];
@@ -25,6 +25,9 @@
 	
 	isHit = NO;
 	hitTime = 0.0f;
+	
+	startYPosition = 0.0f;
+	stopYPosition = 0.0f;
 	
 	return self;
 }

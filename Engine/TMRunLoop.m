@@ -14,6 +14,8 @@
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
 
+#import <syslog.h>
+
 @interface TMRunLoop (Private)
 - (void) worker; // The real thread's working routine
 @end
@@ -110,6 +112,9 @@
 	NSThread* threadForDelegate = _useMainThread ? [NSThread mainThread] : self.thread;	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	/* Set max priority to the thread by default. can override with the initialization method if not ran in mainThread */
+	[NSThread setThreadPriority:1.0];
+	
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
 		[delegate performSelector:@selector(runLoopInitHook) onThread:threadForDelegate withObject:nil waitUntilDone:YES];
@@ -129,20 +134,21 @@
 		
 		prevTime = currentTime;
 		
-		/*
 		totalTime += delta;
 		
 		if(totalTime > 1.0f) {
 			// Show fps
+			framesCounter/=totalTime;
 			NSLog(@"[RunLoop %@] FPS: %d", name, framesCounter);			
+			syslog(LOG_DEBUG, "RunLoop %s: fps: %d", [name UTF8String], framesCounter);
 			
 			totalTime = 0.0f;
 			framesCounter = 0;
 		}
 		
 		framesCounter ++;
-		*/
 		
+		 
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
 			[delegate performSelector:@selector(runLoopBeforeHook:) onThread:threadForDelegate withObject:nDelta waitUntilDone:YES];
@@ -158,9 +164,16 @@
 				/* We must call the action method on the delegate now */
 				NSArray* pack = [[NSArray arrayWithObjects:obj, nDelta, nil] retain];
 				
-				[lock lock];
-				[delegate performSelector:@selector(runLoopActionHook:) onThread:threadForDelegate withObject:pack waitUntilDone:YES];
-				[lock unlock];
+				if([name isEqualToString:@"Logic"]) {
+					if([lock tryLock]) {
+						[delegate performSelector:@selector(runLoopActionHook:) onThread:threadForDelegate withObject:pack waitUntilDone:YES];
+						[lock unlock];
+					}
+				} else {
+					[lock lock];
+					[delegate performSelector:@selector(runLoopActionHook:) onThread:threadForDelegate withObject:pack waitUntilDone:YES];
+					[lock unlock];
+				}
 				
 				[pack release];
 			}

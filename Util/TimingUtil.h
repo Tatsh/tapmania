@@ -16,7 +16,7 @@
 
 + (double) getCurrentTime;
 + (double) getTimeInBeatForBPS:(float) bps;
-+ (float) getBpmAtBeat:(float) beat inSong:(TMSong*) song;
++ (float) getBpsAtBeat:(float) beat inSong:(TMSong*) song;
 + (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song;
 + (int) getNextBpmChangeFromBeat:(float) beat inSong:(TMSong*) song;
 + (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song;

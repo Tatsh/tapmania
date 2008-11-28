@@ -9,6 +9,7 @@
 #import "RenderEngine.h"
 #import "TexturesHolder.h"
 #import "SongPlayRenderer.h"
+#import "CreditsRenderer.h"
 #import "TMSong.h"
 #import "TMSteps.h"
 #import "SongsDirectoryCache.h"
@@ -37,7 +38,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	// Render loop initialization 	
 	renderLock = [[NSLock alloc] init];
 	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock inMainThread:YES];
-			
+
 	// Set the delegate
 	renderRunLoop.delegate = self;
 	
@@ -46,6 +47,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	
 	// Create the logic updater loop
 	logicRunLoop = [[TMRunLoop alloc] initWithName:@"Logic" andLock:renderLock];
+	
 	logicRunLoop.delegate = (TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate];
 	
 	[logicRunLoop run];
@@ -87,6 +89,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 		
 	[glView swapBuffers];
 
+	[NSThread setThreadPriority:1.0];	
 	NSLog(@"Looks like inited!");
 }
 
@@ -97,6 +100,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	// Initially we start with the main menu
 	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
 	
 	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
 	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
@@ -111,6 +115,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 		[mmRenderer playSong:song withOptions:opts];
 		break;		
 	}
+	
 }
 
 - (void) runLoopActionHook:(NSArray*)args {
@@ -126,7 +131,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 		NSException* ex = [NSException exceptionWithName:@"UnknownObjType" 
 							  reason:[NSString stringWithFormat:
 									  @"The object you have passed [%@] into the runLoop doesn't conform to protocol [%s].", 
-									  [obj className], [@protocol(TMRenderable) name]] 
+									  [obj class], [@protocol(TMRenderable) name]] 
 							userInfo:nil];
 		@throw(ex);
 	}	

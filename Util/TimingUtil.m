@@ -37,7 +37,7 @@
 	return 1.0/bps;
 }
 
-+ (float) getBpmAtBeat:(float) beat inSong:(TMSong*) song{
++ (float) getBpsAtBeat:(float) beat inSong:(TMSong*) song{
 	int noteRow = [TMNote beatToNoteRow:beat];
 	
 	int i;	
@@ -67,7 +67,7 @@
 	
 	for(i=0; i<[song.bpmChangeArray count]; i++){
 		const BOOL isLastBpmChange = i == [song.bpmChangeArray count]-1;
-		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f; 
+		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue]; 
 		
 		if(isLastBpmChange){
 			elapsedTime += [TMNote noteRowToBeat:noteRow]/bps;
@@ -99,7 +99,7 @@
 		const BOOL isLastBpmChange = i==[song.bpmChangeArray count]-1;
 		const int startRowNextChange = isLastBpmChange ? -1 : [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i+1] noteRow];
 		const float startBeatNextChange = isLastBpmChange ? MAXFLOAT : [TMNote noteRowToBeat:startRowNextChange];
-		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue] / 60.0f;
+		const float bps = [(TMChangeSegment*)[song.bpmChangeArray objectAtIndex:i] changeValue];
 	
 		unsigned j;
 		for( j=0; j<[song.freezeArray count]; j++) { // Foreach freeze

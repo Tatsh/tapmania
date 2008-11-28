@@ -31,9 +31,16 @@
 
 	// Set the bpm for song start
 	NSMutableArray* songBpmChangeArray = self.bpmChangeArray;
-	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.bpm] ,nil];
+	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.bpm/60.0f] ,nil];
 
-	[self.bpmChangeArray addObjectsFromArray:songBpmChangeArray];
+	int i;
+	for(i=0; i<[songBpmChangeArray count]; i++){
+		TMChangeSegment* segment = [songBpmChangeArray objectAtIndex:i];
+		segment.changeValue = segment.changeValue/60.0f;
+		
+		[self.bpmChangeArray addObject:segment];
+	}
+	
 	[songBpmChangeArray release];
 	
 	return self;
