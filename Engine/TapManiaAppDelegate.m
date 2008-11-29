@@ -65,7 +65,7 @@
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init separate logic thread...");
-	[NSThread setThreadPriority:0.1];
+	[NSThread setThreadPriority:0.5];
 }
 
 - (void) runLoopInitializedNotification {

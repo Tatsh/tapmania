@@ -89,7 +89,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 		
 	[glView swapBuffers];
 
-	[NSThread setThreadPriority:1.0];	
+	[NSThread setThreadPriority:0.5];	
 	NSLog(@"Looks like inited!");
 }
 

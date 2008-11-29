@@ -14,6 +14,8 @@
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
 
+#import "BenchmarkUtil.h"
+
 #import <syslog.h>
 
 @interface TMRunLoop (Private)
@@ -129,6 +131,9 @@
 	while (!_stopRequested) {
 		float currentTime = [TimingUtil getCurrentTime];
 		
+		// BenchmarkUtil *bm = [BenchmarkUtil instanceWithName:name];
+		
+		
 		float delta = currentTime-prevTime;
 		NSNumber* nDelta = [NSNumber numberWithFloat:delta];
 		
@@ -140,7 +145,7 @@
 			// Show fps
 			framesCounter/=totalTime;
 			NSLog(@"[RunLoop %@] FPS: %d", name, framesCounter);			
-			syslog(LOG_DEBUG, "RunLoop %s: fps: %d", [name UTF8String], framesCounter);
+			syslog(LOG_DEBUG, "[RunLoop %s] FPS: %d", [name UTF8String], framesCounter);
 			
 			totalTime = 0.0f;
 			framesCounter = 0;
@@ -171,6 +176,7 @@
 					}
 				} else {
 					[lock lock];
+					
 					[delegate performSelector:@selector(runLoopActionHook:) onThread:threadForDelegate withObject:pack waitUntilDone:YES];
 					[lock unlock];
 				}
@@ -183,6 +189,8 @@
 		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
 			[delegate performSelector:@selector(runLoopAfterHook:) onThread:threadForDelegate withObject:nDelta waitUntilDone:YES];
 		}
+		
+	//	[bm finish];
 	}
 	
 	[pool drain];
