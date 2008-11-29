@@ -34,10 +34,47 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	
 	// Show window
 	[self.window makeKeyAndVisible];
+	
+	// Init opengl
+	glView = [[EAGLView alloc] initWithFrame:rect];	
+	
+	// Load all textures
+	[TexturesHolder sharedInstance];
+	
+	// Set up OpenGL projection matrix
+	glMatrixMode(GL_PROJECTION);
+	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	
+	// Initialize OpenGL states
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			
+	[self.window addSubview:glView];		
+	NSLog(@"Added glView as subview!");
+	
+	// Initially we start with the main menu
+	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
+	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
+	
+	int i;
+	for(i=0; i<[songList count]; i++){
+		TMSong *song = [songList objectAtIndex:i];
+		TMSongOptions* opts = [[TMSongOptions alloc] init];
+		opts.speedMod = kSpeedMod_2x;
+		opts.difficulty = kSongDifficulty_Hard;
 		
+		[mmRenderer playSong:song withOptions:opts];
+		break;		
+	}
+
 	// Render loop initialization 	
 	renderLock = [[NSLock alloc] init];
-	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock inMainThread:YES];
+	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock];
 
 	// Set the delegate
 	renderRunLoop.delegate = self;
@@ -50,8 +87,11 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	
 	logicRunLoop.delegate = (TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate];
 	
-	[logicRunLoop run];
+	[logicRunLoop run];	
 	
+	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
+	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
+
 	return self;
 }
 
@@ -69,53 +109,15 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 - (void) runLoopInitHook {
 	NSLog(@"Init OpenGLES in a separate rendering thread...");
 	
-	CGRect rect = [window bounds];
-	glView = [[EAGLView alloc] initWithFrame:rect];	
-	
-	// Load all textures
-	[TexturesHolder sharedInstance];
-	
-	// Set up OpenGL projection matrix
-	glMatrixMode(GL_PROJECTION);
-	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
-	
-	// Initialize OpenGL states
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		
-	[glView swapBuffers];
+	[NSThread setThreadPriority:1.0];
 
-	[NSThread setThreadPriority:0.5];	
+	// Set context to the new thread
+	[glView setCurrentContext];
+	
 	NSLog(@"Looks like inited!");
 }
 
-- (void) runLoopInitializedNotification {
-	[self.window addSubview:glView];		
-	NSLog(@"Added glView as subview!");
-	
-	// Initially we start with the main menu
-	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
-	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
-	
-	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
-	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
-	
-	int i;
-	for(i=0; i<[songList count]; i++){
-		TMSong *song = [songList objectAtIndex:i];
-		TMSongOptions* opts = [[TMSongOptions alloc] init];
-		opts.speedMod = kSpeedMod_2x;
-		opts.difficulty = kSongDifficulty_Hard;
-		
-		[mmRenderer playSong:song withOptions:opts];
-		break;		
-	}
-	
+- (void) runLoopInitializedNotification {	
 }
 
 - (void) runLoopActionHook:(NSArray*)args {
@@ -143,7 +145,6 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {
 	[self.glView postRender];
-	// [glView swapBuffers];
 }
 
 // Release resources when they are no longer needed

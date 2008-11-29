@@ -46,7 +46,6 @@ typedef enum {
 	
 	// Run loop can be stopped using this flag
 	@private 
-	BOOL _useMainThread;	// A flag which will perform delegate selectors on mainThread if set to true. can be set upon initialization of the run loop.
 	BOOL _stopRequested;
 	BOOL _actualStopState;
 		
@@ -65,7 +64,6 @@ typedef enum {
 
 // Constructors
 - (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock;
-- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock inMainThread:(BOOL)lUseMainThread;
 
 // Call this method to run the runloop
 - (void) run;

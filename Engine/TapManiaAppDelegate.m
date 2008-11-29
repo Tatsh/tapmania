@@ -56,8 +56,9 @@
 	// joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];	
 	// [joyPad setDelegate:self];
 		
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	
+	[UIApplication sharedApplication].idleTimerDisabled = YES;	
+	[NSThread setThreadPriority:0.9];
+
 	[RenderEngine sharedInstance];
 }
 
@@ -65,13 +66,14 @@
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init separate logic thread...");
-	[NSThread setThreadPriority:0.5];
+	[NSThread setThreadPriority:1.0];
 }
 
 - (void) runLoopInitializedNotification {
 }
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {
+	// Give other threads some more time to focus on their job
 	[NSThread sleepForTimeInterval:0.0001f];
 }
 
