@@ -38,6 +38,8 @@
 		2486F3FC0EC1C6C400E5F9EE /* arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2486F3F80EC1C6C400E5F9EE /* arrow-up.png */; };
 		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
 		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
+		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
+		248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* LogicEngine.m */; };
 		24966C5B0ECB365000D367E3 /* SongOptionsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
@@ -108,6 +110,10 @@
 		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
 		2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturesHolder.h; sourceTree = "<group>"; };
 		2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturesHolder.m; sourceTree = "<group>"; };
+		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
+		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
+		248EE4560EE4002000FF1D43 /* LogicEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicEngine.h; sourceTree = "<group>"; };
+		248EE4570EE4002000FF1D43 /* LogicEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicEngine.m; sourceTree = "<group>"; };
 		24966C590ECB365000D367E3 /* SongOptionsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongOptionsRenderer.h; path = Renderers/SongOptionsRenderer.h; sourceTree = "<group>"; };
 		24966C5A0ECB365000D367E3 /* SongOptionsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongOptionsRenderer.m; path = Renderers/SongOptionsRenderer.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
@@ -187,6 +193,8 @@
 				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
 				244956F70EDEBCC500D462F0 /* RenderEngine.h */,
 				244956F80EDEBCC500D462F0 /* RenderEngine.m */,
+				248EE4560EE4002000FF1D43 /* LogicEngine.h */,
+				248EE4570EE4002000FF1D43 /* LogicEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -261,6 +269,8 @@
 		2486F18C0EC077BA00E5F9EE /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */,
+				248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */,
 				2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */,
 				2486F1980EC080AC00E5F9EE /* SoundEngine.h */,
 				2486F18D0EC077CA00E5F9EE /* Texture2D.h */,
@@ -490,6 +500,8 @@
 				244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */,
 				244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */,
 				244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */,
+				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */,
+				248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

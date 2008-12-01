@@ -21,11 +21,10 @@
 #import "SoundEffectsHolder.h"
 #import "SongsDirectoryCache.h"
 
-#import "SongPlayRenderer.h"
-#import "CreditsRenderer.h"
-
 #import "TMSong.h"
 #import "TMSongOptions.h"
+
+#import "SongPlayRenderer.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
 
@@ -59,43 +58,29 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 	[NSThread setThreadPriority:0.9];
 
+	// Start engines
 	[RenderEngine sharedInstance];
-}
-
-
-/* Run loop delegate work */
-- (void) runLoopInitHook {
-	NSLog(@"Init separate logic thread...");
-	[NSThread setThreadPriority:1.0];
-}
-
-- (void) runLoopInitializedNotification {
-}
-
-- (void) runLoopAfterHook:(NSNumber*)fDelta {
-	// Give other threads some more time to focus on their job
-	[NSThread sleepForTimeInterval:0.0001f];
-}
-
-- (void) runLoopActionHook:(NSArray*)args {
-	NSObject* obj = [args objectAtIndex:0];
-	NSNumber* fDelta = [args objectAtIndex:1];
+	[LogicEngine sharedInstance];
 	
-	if([obj conformsToProtocol:@protocol(TMLogicUpdater)]){
+	// Start with main menu
+	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
+	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
+	
+	int i;
+	for(i=0; i<[songList count]; i++){
+		TMSong *song = [songList objectAtIndex:i];
+		TMSongOptions* opts = [[TMSongOptions alloc] init];
+		opts.speedMod = kSpeedMod_2x;
+		opts.difficulty = kSongDifficulty_Hard;
 		
-		// Call the update method on the object
-		[obj performSelector:@selector(update:) withObject:fDelta];
-		
-	} else {
-		NSException* ex = [NSException exceptionWithName:@"UnknownObjType" 
-												  reason:[NSString stringWithFormat:
-														  @"The object you have passed [%@] into the runLoop doesn't conform to protocol [%s].", 
-														  [obj class], [@protocol(TMLogicUpdater) name]] 
-												userInfo:nil];
-		@throw(ex);
+		[mmRenderer playSong:song withOptions:opts];
+		break;		
 	}	
+	
+	[[RenderEngine sharedInstance] registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
+	[[LogicEngine sharedInstance] registerLogicUpdater:mmRenderer withPriority:kRunLoopPriority_Highest];	
 }
-
 
 - (void) showJoyPad {
 	// [window addSubview:joyPad];

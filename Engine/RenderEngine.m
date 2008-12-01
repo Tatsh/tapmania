@@ -20,7 +20,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 
 @implementation RenderEngine
 
-@synthesize glView, window;
+@synthesize glView, window, renderLock;
 
 - (id) init {
 	self = [super init];
@@ -56,22 +56,6 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	[self.window addSubview:glView];		
 	NSLog(@"Added glView as subview!");
 	
-	// Initially we start with the main menu
-	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
-	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
-	
-	int i;
-	for(i=0; i<[songList count]; i++){
-		TMSong *song = [songList objectAtIndex:i];
-		TMSongOptions* opts = [[TMSongOptions alloc] init];
-		opts.speedMod = kSpeedMod_2x;
-		opts.difficulty = kSongDifficulty_Hard;
-		
-		[mmRenderer playSong:song withOptions:opts];
-		break;		
-	}
-
 	// Render loop initialization 	
 	renderLock = [[NSLock alloc] init];
 	renderRunLoop = [[TMRunLoop alloc] initWithName:@"Render" andLock:renderLock];
@@ -82,16 +66,6 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	// Ready to start rendering.
 	[renderRunLoop run];
 	
-	// Create the logic updater loop
-	logicRunLoop = [[TMRunLoop alloc] initWithName:@"Logic" andLock:renderLock];
-	
-	logicRunLoop.delegate = (TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate];
-	
-	[logicRunLoop run];	
-	
-	[self registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
-	[logicRunLoop registerObject:mmRenderer withPriority:kRunLoopPriority_Highest];	
-
 	return self;
 }
 

@@ -18,7 +18,7 @@
 	self = [super initWithCapacity:kNumOptionsMenuItems];
 	if(!self)
 		return nil;
-	
+
 	// TODO: define some menu items
 	
 	// Back button	

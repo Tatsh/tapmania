@@ -14,16 +14,16 @@
 @interface RenderEngine : NSObject <TMRunLoopDelegate> {
 	UIWindow		*window;
 	EAGLView		*glView;
-	UIView          *rootView;
 	
 	NSLock			*renderLock;
 	
 	TMRunLoop		*renderRunLoop;
-	TMRunLoop		*logicRunLoop;
 }
 
 @property (retain, nonatomic) EAGLView* glView;
 @property (retain, nonatomic) UIWindow* window;
+
+@property (retain, nonatomic, readonly) NSLock *renderLock;
 
 - (void) registerRenderer:(AbstractRenderer*) renderer withPriority:(TMRunLoopPriority) priority;
 - (void) clearRenderers;

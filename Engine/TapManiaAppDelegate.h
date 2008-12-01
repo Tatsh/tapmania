@@ -14,6 +14,7 @@
 #import "AbstractRenderer.h"
 #import "TMRunLoop.h"
 #import "RenderEngine.h"
+#import "LogicEngine.h"
 
 @class EAGLView;
 @class AbstractRenderer;
@@ -29,17 +30,8 @@ typedef enum {
 	kState_Failure			// When you failed a song
 } State;
 
-typedef struct
+@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate>
 {
-	GLfloat			x;
-	GLfloat			y;
-} Vector2D;
-
-
-@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate, TMRunLoopDelegate>
-{
-	TMRunLoop		* logicLoop;
-	
 	State					_state;
 	CFTimeInterval			_lastTime;
 	
