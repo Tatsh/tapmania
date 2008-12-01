@@ -93,7 +93,6 @@
 	int i;
 	for(i=0; i<[objects count]; i++){
 		TMObjectWithPriority* obj = [objects objectAtIndex:i];
-		[[obj obj] release];
 		[obj release];
 	}	
 	
@@ -107,10 +106,7 @@
 	float totalTime = 0.0f;
 
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	/* Set max priority to the thread by default. can override with the initialization method if not ran in mainThread */
-	// [NSThread setThreadPriority:1.0];
-	
+		
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
 		[delegate performSelector:@selector(runLoopInitHook) onThread:thread withObject:nil waitUntilDone:YES];

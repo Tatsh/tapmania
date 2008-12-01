@@ -42,8 +42,8 @@
 	currentPos = ([texturesArray count]*15);
 	currentPos = -currentPos;		
 	
-//	[self enableBackButton]; // Handled by 'backPress:'
-//	[self publishMenu];
+	[self enableBackButton]; // Handled by 'backPress:'
+	[self publishMenu];
 	
 	return self;
 }
@@ -94,7 +94,6 @@
 #pragma mark Touch handlers
 - (void) backPress:(id) sender {
 	NSLog(@"Enter main menu (back from credits)...");
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

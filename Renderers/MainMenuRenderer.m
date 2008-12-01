@@ -29,14 +29,15 @@
 	if(!self)
 		return nil;
 	
+	// No item selected by default
+	selectedMenu = -1;
+	
 	// Register menu items
-	/*
 	[self addMenuItemWithTitle:@"Play TapMania" andHandler:@selector(playGamePress:) onTarget:self];
 	[self addMenuItemWithTitle:@"Options" andHandler:@selector(optionsPress:) onTarget:self];
 	[self addMenuItemWithTitle:@"Credits" andHandler:@selector(creditsPress:) onTarget:self];
 	
 	[self publishMenu];
-	*/
 	 
 	return self;
 }
@@ -47,26 +48,48 @@
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw menu background
-/*
 	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
- */
+}
+
+/* TMLogicUpdater stuff */
+- (void) update:(NSNumber*)fDelta {
+	if(selectedMenu == -1) 
+		return;
+	
+	if(selectedMenu == kMainMenuItem_Play) {
+		NSLog(@"Enter song pick menu...");		
+	} else if(selectedMenu == kMainMenuItem_Options) {
+		NSLog(@"Enter options menu...");
+	} else if(selectedMenu == kMainMenuItem_Credits) {
+		NSLog(@"Enter credits screen...");
+	/*	
+		[[RenderEngine sharedInstance].glView setCurrentContext];
+		CreditsRenderer* cRenderer = [[CreditsRenderer alloc] init];
+		
+		[[RenderEngine sharedInstance] clearRenderers];
+		[[LogicEngine sharedInstance] clearLogicUpdaters];
+		
+		[[RenderEngine sharedInstance] registerRenderer:cRenderer withPriority:kRunLoopPriority_Highest];	
+		[[LogicEngine sharedInstance] registerLogicUpdater:cRenderer withPriority:kRunLoopPriority_Highest];	
+		*/
+	}
+	
+	selectedMenu = -1;
 }
 
 # pragma mark Touch handling
 - (void) playGamePress:(id)sender {
-	NSLog(@"Enter song pick menu...");
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongPickerMenuRenderer alloc] initWithView:glView] withPriority:NO];
+	selectedMenu = kMainMenuItem_Play;
 }
 
 - (void) optionsPress:(id)sender {
-	NSLog(@"Enter options...");	
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[OptionsMenuRenderer alloc] initWithView:glView] withPriority:NO];
+	selectedMenu = kMainMenuItem_Options;
 }
 
 - (void) creditsPress:(id)sender {
-	NSLog(@"Credits page...");
+	selectedMenu = kMainMenuItem_Credits;
 }
 
 @end

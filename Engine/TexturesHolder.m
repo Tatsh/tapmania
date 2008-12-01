@@ -26,11 +26,11 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 		"32nd", "48th", "64th", "192nd"
 	};
 	
-	//Load the background texture and configure it
-	_textures[kTexture_Title] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
+	// Load background
+	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
 	
 	//Load other textures
-	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
+	_textures[kTexture_MainMenuItem] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"mainMenuItem.png"]];
 	
 	// FIXME: not hardcoded!
 	NSString* skin = @"itg";

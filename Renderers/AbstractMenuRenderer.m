@@ -56,7 +56,7 @@
 // Call this to publish the whole menu
 - (void) publishMenu {
 	
-	_curPos = [_menuElements count] * 30;	// Height of each item + offset 10px
+	_curPos = [_menuElements count] * 50;	// Height of each item + offset 10px
 	_curPos = ([RenderEngine sharedInstance].glView.bounds.size.height - _curPos) / 2;	
 	
 	int i;
@@ -66,14 +66,14 @@
 		
 		[[RenderEngine sharedInstance].glView addSubview:item];	
 		
-		_curPos += 30;
+		_curPos += 50;
 	}
 	
 	// Add back button if needed
 	if(_backButtonUsed) {
 		backButton = [[MenuItem alloc] initWithTitle:@"Back"];
 		[backButton addTarget:self action:@selector(backPress:) forControlEvents:UIControlEventTouchUpInside];
-		[backButton setFrame:CGRectMake(5, 435, 80, 20)];
+		[backButton setFrame:CGRectMake(5, 435, 80, 40)];
 		[[RenderEngine sharedInstance].glView addSubview:backButton];			
 	}
 
@@ -81,7 +81,7 @@
 	if(_goButtonUsed) {
 		goButton = [[MenuItem alloc] initWithTitle:@"Go!"];
 		[goButton addTarget:self action:@selector(goPress:) forControlEvents:UIControlEventTouchUpInside];
-		[goButton setFrame:CGRectMake(235, 435, 80, 20)];
+		[goButton setFrame:CGRectMake(235, 435, 80, 40)];
 		[[RenderEngine sharedInstance].glView addSubview:goButton];			
 	}
 }

@@ -24,7 +24,7 @@
 #import "TMSong.h"
 #import "TMSongOptions.h"
 
-#import "SongPlayRenderer.h"
+#import "MainMenuRenderer.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
 
@@ -63,10 +63,12 @@
 	[LogicEngine sharedInstance];
 	
 	// Start with main menu
-	SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
-	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
+	MainMenuRenderer* mmRenderer = [[MainMenuRenderer alloc] init];
+	// SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
+	// NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
 	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
 	
+	/*
 	int i;
 	for(i=0; i<[songList count]; i++){
 		TMSong *song = [songList objectAtIndex:i];
@@ -76,7 +78,8 @@
 		
 		[mmRenderer playSong:song withOptions:opts];
 		break;		
-	}	
+	}
+	*/
 	
 	[[RenderEngine sharedInstance] registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
 	[[LogicEngine sharedInstance] registerLogicUpdater:mmRenderer withPriority:kRunLoopPriority_Highest];	

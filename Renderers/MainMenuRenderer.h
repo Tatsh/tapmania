@@ -17,7 +17,8 @@ enum {
 	kNumMainMenuItems
 };
 
-@interface MainMenuRenderer : AbstractMenuRenderer {
+@interface MainMenuRenderer : AbstractMenuRenderer <TMLogicUpdater> {
+	int selectedMenu;
 }
 
 @end
