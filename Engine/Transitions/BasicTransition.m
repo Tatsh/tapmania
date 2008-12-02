@@ -27,8 +27,8 @@
 	NSLog(@"Transition requested...");
 	
 	// Remove the current screen from rendering/logic runloops.
-	[[RenderEngine sharedInstance] clearRenderers];
 	[[LogicEngine sharedInstance] clearLogicUpdaters];	
+	[[RenderEngine sharedInstance] clearRenderers];
 	 
 	// Drop current screen (might add some fadeout or so here)
 	[[LogicEngine sharedInstance] releaseCurrentScreen];

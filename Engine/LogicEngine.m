@@ -91,7 +91,7 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 
 - (void) runLoopSingleTimeTaskActionHook:(NSObject*)task withDelta:(NSNumber*)fDelta {
 	if([task conformsToProtocol:@protocol(TMSingleTimeTask)]){
-		[task performSelector:@selector(action:) withObject:fDelta];
+		[task performSelectorInBackground:@selector(action:) withObject:fDelta];
 	} 	
 }
 

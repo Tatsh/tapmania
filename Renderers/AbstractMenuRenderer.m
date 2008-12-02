@@ -73,7 +73,7 @@
 	if(_backButtonUsed) {
 		backButton = [[MenuItem alloc] initWithTitle:@"Back"];
 		[backButton addTarget:self action:@selector(backPress:) forControlEvents:UIControlEventTouchUpInside];
-		[backButton setFrame:CGRectMake(5, 435, 80, 40)];
+		[backButton setFrame:CGRectMake(5, 425, 80, 40)];
 		[[RenderEngine sharedInstance].glView addSubview:backButton];			
 	}
 
@@ -81,7 +81,7 @@
 	if(_goButtonUsed) {
 		goButton = [[MenuItem alloc] initWithTitle:@"Go!"];
 		[goButton addTarget:self action:@selector(goPress:) forControlEvents:UIControlEventTouchUpInside];
-		[goButton setFrame:CGRectMake(235, 435, 80, 40)];
+		[goButton setFrame:CGRectMake(235, 425, 80, 40)];
 		[[RenderEngine sharedInstance].glView addSubview:goButton];			
 	}
 }
