@@ -31,6 +31,9 @@
 	// Alloc the textures array
 	texturesArray = [[NSMutableArray alloc] initWithCapacity:[textsArray count]];
 	
+	// Switch gl to this thread
+	[[RenderEngine sharedInstance].glView setCurrentContext];
+	
 	// Cache the textures
 	for(i=0; i<[textsArray count]; i++){
 		[texturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16]];
@@ -62,8 +65,6 @@
 - (void) render:(NSNumber*) fDelta {
 	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	int i, j;
-	
-	[self update:fDelta];
 	
 	//Draw background
 	glDisable(GL_BLEND);

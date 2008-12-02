@@ -32,12 +32,15 @@
 		return nil;
 
 	objects = [[NSMutableArray arrayWithCapacity:1] retain];
+	singleTimeTasks = [[NSMutableArray arrayWithCapacity:1] retain];
 	
 	_stopRequested = NO;
 	_actualStopState = YES; // Initially stopped
 	
 	name = lName;
 	lock = lLock;
+	objectsLock = [[NSLock alloc] init];
+	tasksLock = [[NSLock alloc] init];
 	
 	thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
 	
@@ -46,6 +49,7 @@
 
 - (void) dealloc {
 	[objects release];
+	[singleTimeTasks release];
 	
 	[super dealloc];
 }
@@ -77,6 +81,8 @@
 		priority = kRunLoopPriority_Highest;
 	}
 	
+	[objectsLock lock];
+	
 	int i;
 	for(i=0; i<[objects count]; i++){
 		if([(TMObjectWithPriority*)[objects objectAtIndex:i+1] priority] < priority) {
@@ -87,9 +93,13 @@
 	// Add new object at 'i' and shift others if required
 	TMObjectWithPriority* wrapper = [[TMObjectWithPriority alloc] initWithObj:obj andPriority:priority];
 	[objects insertObject:wrapper atIndex:i];	
+	
+	[objectsLock unlock];
 }
 
 - (void) deregisterAllObjects {
+	[objectsLock lock];
+	
 	int i;
 	for(i=0; i<[objects count]; i++){
 		TMObjectWithPriority* obj = [objects objectAtIndex:i];
@@ -97,6 +107,14 @@
 	}	
 	
 	[objects removeAllObjects];
+	
+	[objectsLock unlock];
+}
+
+- (void) registerSingleTimeTask:(NSObject*) task {
+	[tasksLock lock];
+	[singleTimeTasks addObject:task]; // Add to the end
+	[tasksLock unlock];
 }
 
 /* Private worker */
@@ -149,23 +167,40 @@
 			[delegate performSelector:@selector(runLoopBeforeHook:) onThread:thread withObject:nDelta waitUntilDone:YES];
 		}
 		
-		/* Do the actual work */
+		[tasksLock lock];
+		
+		/* Perform all pending single time tasks first */
 		unsigned i;
+		for(i=0; i<[singleTimeTasks count]; i++){
+			if(delegate){
+				NSObject* task = [singleTimeTasks objectAtIndex:i];
+				
+				[lock lock];
+				[delegate performSelector:@selector(runLoopSingleTimeTaskActionHook:withDelta:) withObject:task withObject:nDelta];
+				[lock unlock];	
+			}
+		}
+		
+		// Remove all tasks from the list now
+		[singleTimeTasks removeAllObjects];
+		
+		[tasksLock unlock];
+		[objectsLock lock];
+		
+		/* Do the actual work */
 		for(i=0; i<[objects count]; i++){
 			TMObjectWithPriority* wrapper = [objects objectAtIndex:i];
 			NSObject* obj = [wrapper obj];
 			
 			if(delegate) {
 				/* We must call the action method on the delegate now */
-				NSArray* pack = [[NSArray arrayWithObjects:obj, nDelta, nil] retain];
-
 				[lock lock];
-				[delegate performSelector:@selector(runLoopActionHook:) onThread:thread withObject:pack waitUntilDone:YES];
+				[delegate performSelector:@selector(runLoopActionHook:withDelta:) withObject:obj withObject:nDelta];
 				[lock unlock];
-
-				[pack release];
 			}
 		}
+
+		[objectsLock unlock];
 		
 		/* Now call the runLoopAfterHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook:)]) { 

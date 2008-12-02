@@ -52,7 +52,14 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			
+	
+	// Draw background first to avoid some odd effects with old graphics on the gpu
+	glDisable(GL_BLEND);
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:self.window.bounds];
+	glEnable(GL_BLEND);
+	
+	[glView swapBuffers];
+	
 	[self.window addSubview:glView];		
 	NSLog(@"Added glView as subview!");
 	
@@ -94,10 +101,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 - (void) runLoopInitializedNotification {	
 }
 
-- (void) runLoopActionHook:(NSArray*)args {
-	NSObject* obj = [args objectAtIndex:0];
-	NSNumber* fDelta = [args objectAtIndex:1];
-	
+- (void) runLoopActionHook:(NSObject*)obj withDelta:(NSNumber*)fDelta {
 	if([obj conformsToProtocol:@protocol(TMRenderable)]){
 
 		// Call the render method on the object
@@ -111,6 +115,12 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 							userInfo:nil];
 		@throw(ex);
 	}	
+}
+
+- (void) runLoopSingleTimeTaskActionHook:(NSObject*)task withDelta:(NSNumber*)fDelta {
+	if([task conformsToProtocol:@protocol(TMSingleTimeTask)]){
+		[task performSelector:@selector(action:) withObject:fDelta];
+	} 	
 }
 
  - (void) runLoopBeforeHook:(NSNumber*)fDelta {

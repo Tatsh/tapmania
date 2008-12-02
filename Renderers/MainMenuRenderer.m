@@ -64,16 +64,8 @@
 		NSLog(@"Enter options menu...");
 	} else if(selectedMenu == kMainMenuItem_Credits) {
 		NSLog(@"Enter credits screen...");
-	/*	
-		[[RenderEngine sharedInstance].glView setCurrentContext];
-		CreditsRenderer* cRenderer = [[CreditsRenderer alloc] init];
 		
-		[[RenderEngine sharedInstance] clearRenderers];
-		[[LogicEngine sharedInstance] clearLogicUpdaters];
-		
-		[[RenderEngine sharedInstance] registerRenderer:cRenderer withPriority:kRunLoopPriority_Highest];	
-		[[LogicEngine sharedInstance] registerLogicUpdater:cRenderer withPriority:kRunLoopPriority_Highest];	
-		*/
+		[[LogicEngine sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
 	}
 	
 	selectedMenu = -1;

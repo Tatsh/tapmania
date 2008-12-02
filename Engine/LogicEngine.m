@@ -9,6 +9,7 @@
 #import "LogicEngine.h"
 
 #import "RenderEngine.h"
+#import "BasicTransition.h"
 
 // This is a singleton class, see below
 static LogicEngine *sharedLogicEngineDelegate = nil;
@@ -21,6 +22,11 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 	if(!self)
 		return nil;
 	
+	// Defaults
+	currentSong = nil;
+	currentSongOptions = nil;
+	currentScreen = nil;
+	
 	// Create the logic updater loop
 	logicRunLoop = [[TMRunLoop alloc] initWithName:@"Logic" andLock:[RenderEngine sharedInstance].renderLock];
 	
@@ -30,6 +36,9 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 	return self;
 }
 
+- (void) switchToScreen:(AbstractRenderer*)screenRenderer {
+	[logicRunLoop registerSingleTimeTask:[[BasicTransition alloc] initFromScreen:currentScreen toScreen:screenRenderer]];
+}
 
 - (void) registerLogicUpdater:(NSObject*) logicUpdater withPriority:(TMRunLoopPriority) priority {
 	[logicRunLoop registerObject:logicUpdater withPriority:priority];
@@ -38,6 +47,17 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 - (void) clearLogicUpdaters {
 	[logicRunLoop deregisterAllObjects];
 }
+
+- (void) setCurrentScreen:(AbstractRenderer*)screenRenderer {
+	currentScreen = screenRenderer;
+}
+
+- (void) releaseCurrentScreen {
+	if(currentScreen != nil){
+		[currentScreen release];
+	}
+}
+   
 
 /* Run loop delegate work */
 - (void) runLoopInitHook {
@@ -53,10 +73,7 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 	[NSThread sleepForTimeInterval:0.0001f];
 }
 
-- (void) runLoopActionHook:(NSArray*)args {
-	NSObject* obj = [args objectAtIndex:0];
-	NSNumber* fDelta = [args objectAtIndex:1];
-	
+- (void) runLoopActionHook:(NSObject*)obj withDelta:(NSNumber*)fDelta {	
 	if([obj conformsToProtocol:@protocol(TMLogicUpdater)]){
 		
 		// Call the update method on the object
@@ -70,6 +87,12 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 											userInfo:nil];
 		@throw(ex);
 	}	
+}
+
+- (void) runLoopSingleTimeTaskActionHook:(NSObject*)task withDelta:(NSNumber*)fDelta {
+	if([task conformsToProtocol:@protocol(TMSingleTimeTask)]){
+		[task performSelector:@selector(action:) withObject:fDelta];
+	} 	
 }
 
 

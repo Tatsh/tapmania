@@ -62,27 +62,8 @@
 	[RenderEngine sharedInstance];
 	[LogicEngine sharedInstance];
 	
-	// Start with main menu
-	MainMenuRenderer* mmRenderer = [[MainMenuRenderer alloc] init];
-	// SongPlayRenderer* mmRenderer = [[SongPlayRenderer alloc] init];
-	// NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-	// CreditsRenderer* mmRenderer = [[CreditsRenderer alloc] init];
-	
-	/*
-	int i;
-	for(i=0; i<[songList count]; i++){
-		TMSong *song = [songList objectAtIndex:i];
-		TMSongOptions* opts = [[TMSongOptions alloc] init];
-		opts.speedMod = kSpeedMod_2x;
-		opts.difficulty = kSongDifficulty_Hard;
-		
-		[mmRenderer playSong:song withOptions:opts];
-		break;		
-	}
-	*/
-	
-	[[RenderEngine sharedInstance] registerRenderer:mmRenderer withPriority:kRunLoopPriority_Highest];	
-	[[LogicEngine sharedInstance] registerLogicUpdater:mmRenderer withPriority:kRunLoopPriority_Highest];	
+	// Start with main menu	
+	[[LogicEngine sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
 }
 
 - (void) showJoyPad {
