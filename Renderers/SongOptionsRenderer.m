@@ -55,11 +55,6 @@
 	[self addMenuItem:speedModsToggler andHandler:nil onTarget:nil];
 	
 	[arr release];
-
-	// Add back and go buttons
-	[self enableBackButton]; // Handled by 'backPress:'
-	[self enableGoButton]; // Handled by 'goPress:'
-	[self publishMenu];	
 	
 	return self;
 }

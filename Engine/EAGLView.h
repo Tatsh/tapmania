@@ -46,6 +46,7 @@
 - (void) postRender;
 
 - (CGPoint) convertPointFromViewToSurface:(CGPoint)point;
+- (CGPoint) convertPointFromViewToOpenGL:(CGPoint)point;
 - (CGRect) convertRectFromViewToSurface:(CGRect)rect;
 
 @end

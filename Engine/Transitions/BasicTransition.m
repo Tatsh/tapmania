@@ -9,6 +9,7 @@
 #import "BasicTransition.h"
 #import "RenderEngine.h"
 #import "LogicEngine.h"
+#import "TMTransitionSupport.h"
 
 @implementation BasicTransition
 
@@ -29,9 +30,19 @@
 	// Remove the current screen from rendering/logic runloops.
 	[[LogicEngine sharedInstance] clearLogicUpdaters];	
 	[[RenderEngine sharedInstance] clearRenderers];
-	 
+
+	// Do custom deinitialization for transition if the object supports it
+	if([from conformsToProtocol:@protocol(TMTransitionSupport)]){
+		[from performSelector:@selector(deinitOnTransition)];
+	}	
+	
 	// Drop current screen (might add some fadeout or so here)
 	[[LogicEngine sharedInstance] releaseCurrentScreen];
+	
+	// Do custom initialization for transition if the object supports it
+	if([to conformsToProtocol:@protocol(TMTransitionSupport)]){
+		[to performSelector:@selector(setupForTransition)];
+	}
 	
 	// Set new one and show it
 	[[LogicEngine sharedInstance] setCurrentScreen:to];

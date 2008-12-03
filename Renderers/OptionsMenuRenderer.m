@@ -15,15 +15,11 @@
 @implementation OptionsMenuRenderer
 
 - (id) init {
-	self = [super initWithCapacity:kNumOptionsMenuItems];
+	self = [super init];
 	if(!self)
 		return nil;
 
 	// TODO: define some menu items
-	
-	// Back button	
-	[self enableBackButton]; // Handled by 'backPress:'
-	[self publishMenu];
 
 	return self;
 }
@@ -40,7 +36,6 @@
 # pragma mark Touch handling
 - (void) backPress:(id)sender {
 	NSLog(@"Enter main menu (back from options)...");
-	// [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
 }
 
 @end

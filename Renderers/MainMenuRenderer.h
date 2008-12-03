@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractMenuRenderer.h"
+#import "InputEngine.h"
 #import "TMLogicUpdater.h"
+#import "TMRenderable.h"
+#import "TMTransitionSupport.h"
+#import "TMGameUIResponder.h"
+
+#import "MenuItem.h"
 
 enum {
 	kMainMenuItem_Play = 0,
@@ -17,8 +22,9 @@ enum {
 	kNumMainMenuItems
 };
 
-@interface MainMenuRenderer : AbstractMenuRenderer <TMLogicUpdater> {
+@interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	int selectedMenu;
+	MenuItem* mainMenuItems[kNumMainMenuItems];
 }
 
 @end

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractRenderer.h"
 
-
-@interface MenuItem : UIButton {
+@interface MenuItem : AbstractRenderer {
+	int textureId;	// The id of the texture for the menu button
+	CGRect shape;	// The points where the button is drawn
 }
 
-- (id) initWithTitle:(NSString*) title;
-- (void) setPosition:(int) yPos;
+- (id) initWithTexture:(int) lTextureId andShape:(CGRect) lShape;
+
+- (BOOL) containsPoint:(CGPoint)point;
 
 @end

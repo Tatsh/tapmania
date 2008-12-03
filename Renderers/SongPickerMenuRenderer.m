@@ -28,7 +28,7 @@
 @implementation SongPickerMenuRenderer
 
 - (id) init {
-	self = [super initWithCapacity:10];
+	self = [super init];
 	if(!self)
 		return nil;
 
@@ -49,12 +49,8 @@
 			}
 		}		
 		
-		[self addMenuItemWithSong:song andHandler:@selector(playGamePress:) onTarget:self];
+//		[self addMenuItemWithSong:song andHandler:@selector(playGamePress:) onTarget:self];
 	}
-	
-	// Add back button
-	[self enableBackButton]; // Handled by 'backPress:'
-	[self publishMenu];
 		
 	return self;
 }
@@ -88,9 +84,9 @@
 	MenuItem* newItem = [[SongPickerMenuItem alloc] initWithSong:lSong];
 	
 	// Register callback
-	[newItem addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+	// [newItem addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
 	
-	[_menuElements addObject:newItem];
+	// [_menuElements addObject:newItem];
 }
 
 @end

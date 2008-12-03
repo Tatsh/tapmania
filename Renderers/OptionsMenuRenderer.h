@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractMenuRenderer.h"
 
 enum {
 	kOptionsMenuItem_Back = 0,
@@ -15,7 +14,7 @@ enum {
 };
 
 
-@interface OptionsMenuRenderer : AbstractMenuRenderer {
+@interface OptionsMenuRenderer : NSObject {
 }
 
 @end

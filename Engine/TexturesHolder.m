@@ -26,19 +26,23 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 		"32nd", "48th", "64th", "192nd"
 	};
 	
-	// Load background
-	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"Background.png"]];
-	
-	//Load other textures
-	_textures[kTexture_MainMenuItem] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:@"mainMenuItem.png"]];
-	
 	// FIXME: not hardcoded!
+	NSString* themeDir = @"default";
 	NSString* skin = @"itg";
 	
+	// Load main background
+	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"Background.png"]]];
+	
+	//Load other textures
+	_textures[kTexture_MainMenuButtonPlay] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonPlay.png"]]];
+	_textures[kTexture_MainMenuButtonOptions] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonOptions.png"]]];
+	_textures[kTexture_MainMenuButtonCredits] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonCredits.png"]]];
+
 	int arrowIdx = kBeatType_4th;
 	int totalNotes = kNumBeatTypes*4;
 	int nameIdx = 0;
-	
+
+	// Now load all arrow images which depend on the noteskin
 	for(; arrowIdx < totalNotes; arrowIdx+=4, nameIdx++){ 
 	
 		NSLog(@"load arrows for %@ with idx: %d and name: '%s'", skin, arrowIdx, arrowNames[nameIdx]);

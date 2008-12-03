@@ -12,6 +12,7 @@
 
 #import "EAGLView.h"
 #import "TapManiaAppDelegate.h"
+#import "InputEngine.h"
 
 @implementation EAGLView
 
@@ -205,11 +206,29 @@
 	return CGPointMake((point.x - bounds.origin.x) / bounds.size.width * _size.width, (point.y - bounds.origin.y) / bounds.size.height * _size.height);
 }
 
+- (CGPoint) convertPointFromViewToOpenGL:(CGPoint)point {
+	return CGPointMake(point.x, self.bounds.size.height - point.y);
+}
+
 - (CGRect) convertRectFromViewToSurface:(CGRect)rect
 {
 	CGRect				bounds = [self bounds];
 	
 	return CGRectMake((rect.origin.x - bounds.origin.x) / bounds.size.width * _size.width, (rect.origin.y - bounds.origin.y) / bounds.size.height * _size.height, rect.size.width / bounds.size.width * _size.width, rect.size.height / bounds.size.height * _size.height);
 }
+
+# pragma mark Touch events dispatch
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	[[InputEngine sharedInstance] dispatchTouchesBegan:touches withEvent:event];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	[[InputEngine sharedInstance] dispatchTouchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[[InputEngine sharedInstance] dispatchTouchesEnded:touches withEvent:event];
+}
+
 
 @end

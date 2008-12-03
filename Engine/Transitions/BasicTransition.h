@@ -10,6 +10,7 @@
 #import "AbstractRenderer.h"
 #import "TMSingleTimeTask.h"
 
+
 @interface BasicTransition : NSObject <TMSingleTimeTask> {
 	AbstractRenderer *from, *to;
 }

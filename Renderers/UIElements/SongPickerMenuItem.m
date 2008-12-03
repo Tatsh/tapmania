@@ -19,7 +19,7 @@
 	if(!self)
 		return nil;
 	
-	song = lSong;
+	song = lSong;	
 	
 	return self;
 }

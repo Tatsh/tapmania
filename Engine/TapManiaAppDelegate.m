@@ -61,6 +61,7 @@
 	// Start engines
 	[RenderEngine sharedInstance];
 	[LogicEngine sharedInstance];
+	[InputEngine sharedInstance];
 	
 	// Start with main menu	
 	[[LogicEngine sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];

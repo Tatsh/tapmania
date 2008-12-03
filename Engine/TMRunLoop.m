@@ -83,10 +83,12 @@
 	
 	[objectsLock lock];
 	
-	int i;
-	for(i=0; i<[objects count]; i++){
-		if([(TMObjectWithPriority*)[objects objectAtIndex:i+1] priority] < priority) {
-			break;
+	int i = 0;
+	if([objects count] > 0) {
+		for(i=0; i<([objects count])-1; i++){
+			if([(TMObjectWithPriority*)[objects objectAtIndex:i+1] priority] < priority) {
+				break;
+			}
 		}
 	}
 	

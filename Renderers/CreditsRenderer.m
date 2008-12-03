@@ -19,11 +19,14 @@
 @implementation CreditsRenderer
 
 - (id) init {
-	self = [super initWithCapacity:1];
+	self = [super init];
 	if(!self)
 		return nil;
 
 	int i;
+	
+	// We will show the credits until this set to YES
+	shouldReturn = NO;
 	
 	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
 	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
@@ -45,9 +48,6 @@
 	currentPos = ([texturesArray count]*15);
 	currentPos = -currentPos;		
 	
-	[self enableBackButton]; // Handled by 'backPress:'
-	[self publishMenu];
-	
 	return self;
 }
 
@@ -59,6 +59,17 @@
 	}	
 	
 	[super dealloc];
+}
+
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
+	// Subscribe for input events
+	[[InputEngine sharedInstance] subscribe:self];
+}
+
+- (void) deinitOnTransition {
+	// Unsubscribe from input events
+	[[InputEngine sharedInstance] unsubscribe:self];
 }
 
 /* TMRenderable methods */
@@ -89,12 +100,18 @@
 	}
 	
 	currentPos += [fDelta floatValue]*kCreditsVelocity;
+	
+	/* Check whether we should leave the credits screen already */
+	if(shouldReturn){
+		// Back to main menu
+		[[LogicEngine sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
+		shouldReturn = NO; // To be sure we not do the transition more than once
+	}
 }
 
-
-#pragma mark Touch handlers
-- (void) backPress:(id) sender {
-	NSLog(@"Enter main menu (back from credits)...");
+/* TMGameUIResponder methods */
+- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	shouldReturn = YES;
 }
 
 @end

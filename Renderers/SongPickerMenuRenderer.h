@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractMenuRenderer.h"
 
-@interface SongPickerMenuRenderer : AbstractMenuRenderer {
+@interface SongPickerMenuRenderer : NSObject {
 }
 
 @end

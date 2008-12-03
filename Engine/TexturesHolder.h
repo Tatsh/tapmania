@@ -63,7 +63,9 @@ typedef enum {
 	kTexture_BaseDark,
 	
 	kTexture_Background,
-	kTexture_MainMenuItem,
+	kTexture_MainMenuButtonPlay,
+	kTexture_MainMenuButtonOptions,
+	kTexture_MainMenuButtonCredits,
 	
 	kNumTextures
 } TMTexture;

@@ -15,13 +15,10 @@
 #import "TMRunLoop.h"
 #import "RenderEngine.h"
 #import "LogicEngine.h"
+#import "InputEngine.h"
 
 @class EAGLView;
 @class AbstractRenderer;
-
-// CONSTANTS
-#define kFontName					@"Arial"
-#define kStatusFontSize				24
 
 typedef enum {
 	kState_StandBy = 0,		// Menu or entrance screen
@@ -33,8 +30,6 @@ typedef enum {
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate>
 {
 	State					_state;
-	CFTimeInterval			_lastTime;
-	
 	JoyPad*					joyPad;  // The joypad
 }
 

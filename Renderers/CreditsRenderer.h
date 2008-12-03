@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractMenuRenderer.h"
 #import "TMLogicUpdater.h"
+#import "TMRenderable.h"
+#import "TMGameUIResponder.h"
+#import "TMTransitionSupport.h"
 #import "TMRunLoop.h"
 
-@interface CreditsRenderer : AbstractMenuRenderer <TMLogicUpdater> {
+@interface CreditsRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	NSMutableArray* texturesArray;
 	
+	BOOL shouldReturn;
 	float currentPos; // Current Y coordinate of the scrolling text
 }
 
