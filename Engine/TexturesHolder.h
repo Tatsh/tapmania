@@ -72,6 +72,7 @@ typedef enum {
 	kTexture_SongSelectionBackground,
 	kTexture_SongSelectionWheelItem,
 	kTexture_SongSelectionWheelItemSelected,
+	kTexture_SongSelectionWheelLoadingAvatar,
 	
 	kNumTextures
 } TMTexture;
