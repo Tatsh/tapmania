@@ -13,6 +13,7 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
+#import "TMAnimatable.h"
 #import "MenuItem.h"
 
 enum {
@@ -25,6 +26,8 @@ enum {
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	int selectedMenu;
 	MenuItem* mainMenuItems[kNumMainMenuItems];
+	
+	TMAnimatable* anim;
 }
 
 @end

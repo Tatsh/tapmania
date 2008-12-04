@@ -67,6 +67,8 @@ typedef enum {
 	kTexture_MainMenuButtonOptions,
 	kTexture_MainMenuButtonCredits,
 	
+	kTexture_SampleAnimation, // For test
+	
 	kNumTextures
 } TMTexture;
 

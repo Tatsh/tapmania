@@ -21,7 +21,8 @@
 		247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 247E86EE0ECDCFC600B21A77 /* tick.wav */; };
 		2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */; };
 		248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248547F20EE6BCD300AD4FAB /* InputEngine.m */; };
-		248548000EE6CDD200AD4FAB /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 248547F80EE6CDD200AD4FAB /* themes */; };
+		2485499B0EE7C6F600AD4FAB /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 248549920EE7C6F600AD4FAB /* themes */; };
+		2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485499D0EE7C75800AD4FAB /* TMAnimatable.m */; };
 		24868A590EDB140C00A9170C /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24868A2D0EDB140C00A9170C /* noteskins */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
@@ -84,9 +85,11 @@
 		2485475A0EE56C1700AD4FAB /* BasicTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTransition.m; sourceTree = "<group>"; };
 		248547F10EE6BCD300AD4FAB /* InputEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputEngine.h; sourceTree = "<group>"; };
 		248547F20EE6BCD300AD4FAB /* InputEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputEngine.m; sourceTree = "<group>"; };
-		248547F80EE6CDD200AD4FAB /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
 		248548B30EE6D80000AD4FAB /* TMTransitionSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransitionSupport.h; sourceTree = "<group>"; };
 		248548E20EE6D9E600AD4FAB /* TMGameUIResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGameUIResponder.h; sourceTree = "<group>"; };
+		248549920EE7C6F600AD4FAB /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
+		2485499C0EE7C75800AD4FAB /* TMAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAnimatable.h; sourceTree = "<group>"; };
+		2485499D0EE7C75800AD4FAB /* TMAnimatable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAnimatable.m; sourceTree = "<group>"; };
 		24868A2D0EDB140C00A9170C /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Images/noteskins; sourceTree = SOURCE_ROOT; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoyPad.m; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 			children = (
 				244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */,
 				244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */,
+				2485499C0EE7C75800AD4FAB /* TMAnimatable.h */,
+				2485499D0EE7C75800AD4FAB /* TMAnimatable.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -387,7 +392,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				248547F80EE6CDD200AD4FAB /* themes */,
+				248549920EE7C6F600AD4FAB /* themes */,
 				24868A2D0EDB140C00A9170C /* noteskins */,
 				2421316C0ED315FF000936F6 /* noteskins */,
 				247E88010ED1C37200B21A77 /* noteskins */,
@@ -460,7 +465,7 @@
 				242945EB0EC46DA700B88828 /* Credits.txt in Resources */,
 				247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */,
 				24868A590EDB140C00A9170C /* noteskins in Resources */,
-				248548000EE6CDD200AD4FAB /* themes in Resources */,
+				2485499B0EE7C6F600AD4FAB /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +511,7 @@
 				248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */,
 				2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */,
 				248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */,
+				2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

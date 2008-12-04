@@ -35,6 +35,13 @@
 	mainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
 	mainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
 	
+	anim = [[TMAnimatable alloc] initWithTexture:kTexture_SampleAnimation row:0 andFrameRect:CGRectMake(60.0f, 300.0f, 60.0f, 60.0f)];
+	[anim setFrameTime:0.10f];
+	[anim setTotalFrames:4];
+	[anim setLooping:YES];
+	
+	[anim startAnimation];
+	
 	return self;
 }
 
@@ -43,6 +50,8 @@
 	[mainMenuItems[kMainMenuItem_Play] release];
 	[mainMenuItems[kMainMenuItem_Options] release];
 	[mainMenuItems[kMainMenuItem_Credits] release];
+	
+	[anim release];
 	
 	[super dealloc];
 }
@@ -73,11 +82,15 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
+	[anim render:fDelta];
+	
 	// NOTE: Items will be rendered by it self
 }
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
+	[anim update:fDelta];
+	
 	if(selectedMenu == -1) 
 		return;
 	

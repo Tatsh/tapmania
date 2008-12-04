@@ -38,6 +38,8 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_MainMenuButtonOptions] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonOptions.png"]]];
 	_textures[kTexture_MainMenuButtonCredits] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonCredits.png"]]];
 
+	_textures[kTexture_SampleAnimation] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"sampleAnimation_1x4.png"]]];
+	
 	int arrowIdx = kBeatType_4th;
 	int totalNotes = kNumBeatTypes*4;
 	int nameIdx = 0;
