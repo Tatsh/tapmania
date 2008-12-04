@@ -13,12 +13,12 @@
 
 @synthesize song;
 
-- (id) initWithSong:(TMSong*) lSong {
-	NSString* title = [NSString stringWithFormat:@"%@ - %@", lSong.artist, lSong.title];
-	self = [super initWithTitle:title];
-	if(!self)
+- (id) initWithSong:(TMSong*) lSong andShape:(CGRect)lShape {
+	self = [super init];
+	if(!self) 
 		return nil;
 	
+	shape = lShape;
 	song = lSong;	
 	
 	return self;
@@ -27,6 +27,14 @@
 - (void) dealloc {
 	[song release];
 	[super dealloc];
+}
+
+
+/* TMRenderable stuff */
+- (void) render:(NSNumber*)fDelta {
+	CGRect capRect = CGRectMake(shape.origin.x, shape.origin.y, 12.0f, 40.0f);
+	CGRect bodyRect = CGRectMake(shape.origin.x+12.0f, shape.origin.y, shape.size.width-12.0f, 40.0f); 
+//	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionWheelItem] drawFrame: inRect:capRect];
 }
 
 @end

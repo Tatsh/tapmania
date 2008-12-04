@@ -96,6 +96,8 @@
 	
 	if(selectedMenu == kMainMenuItem_Play) {
 		NSLog(@"Enter song pick menu...");		
+		
+		[[LogicEngine sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
 	} else if(selectedMenu == kMainMenuItem_Options) {
 		NSLog(@"Enter options menu...");
 	} else if(selectedMenu == kMainMenuItem_Credits) {

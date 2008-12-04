@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SongPickerMenuRenderer : NSObject {
+#import "InputEngine.h"
+#import "TMLogicUpdater.h"
+#import "TMRenderable.h"
+#import "TMTransitionSupport.h"
+#import "TMGameUIResponder.h"
+
+#import "TMAnimatable.h"
+#import "MenuItem.h"
+
+@interface SongPickerMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 }
 
 @end

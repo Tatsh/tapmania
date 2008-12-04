@@ -67,7 +67,7 @@ Be aware that the content of the generated textures will be upside-down!
 */
 @interface Texture2D : NSObject
 {
-@private
+@protected
 	GLuint						_name;
 	CGSize						_size;
 	NSUInteger					_width,

@@ -69,6 +69,10 @@ typedef enum {
 	
 	kTexture_SampleAnimation, // For test
 	
+	kTexture_SongSelectionBackground,
+	kTexture_SongSelectionWheelItem,
+	kTexture_SongSelectionWheelItemSelected,
+	
 	kNumTextures
 } TMTexture;
 

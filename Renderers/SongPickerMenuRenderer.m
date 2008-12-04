@@ -20,11 +20,6 @@
 
 #import "SongPickerMenuItem.h"
 
-@interface SongPickerMenuRenderer (Private)
-- (void) addMenuItemWithSong:(TMSong*) song andHandler:(SEL)sel onTarget:(id)target;
-@end
-
-
 @implementation SongPickerMenuRenderer
 
 - (id) init {
@@ -45,48 +40,62 @@
 		
 		for(; dif < kNumSongDifficulties; dif++) {
 			if([song isDifficultyAvailable:dif]) {
-				syslog(LOG_DEBUG, "%s [%d]", [[TMSong difficultyToString:dif] UTF8String], [song getDifficultyLevel:dif]);
+	//			syslog(LOG_DEBUG, "%s [%d]", [[TMSong difficultyToString:dif] UTF8String], [song getDifficultyLevel:dif]);
 			}
 		}		
-		
-//		[self addMenuItemWithSong:song andHandler:@selector(playGamePress:) onTarget:self];
 	}
-		
+	
 	return self;
 }
 
-- (void)render:(NSNumber*)fDelta {
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
+	// Subscribe for input events
+	[[InputEngine sharedInstance] subscribe:self];
+}
+
+- (void) deinitOnTransition {
+	// Unsubscribe from input events
+	[[InputEngine sharedInstance] unsubscribe:self];
+}
+
+/* TMRenderable method */
+- (void) render:(NSNumber*)fDelta {
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	
-	//Draw background
+	// Draw menu background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionBackground] drawInRect:bounds];
 	glEnable(GL_BLEND);
-}	
-
-# pragma mark Touch handling
-- (void) playGamePress:(id)sender {
-	SongPickerMenuItem* menuItem = (SongPickerMenuItem*)sender;
-	TMSong* song = menuItem.song;
-
-	NSLog(@"Go to song options from Play menu...");
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[SongOptionsRenderer alloc] initWithView:glView andSong:song] withPriority:NO];
-}
-
-- (void) backPress:(id)sender {
-	NSLog(@"Go to main menu from Play menu...");
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] registerRenderer:[[MainMenuRenderer alloc] initWithView:glView] withPriority:NO];
-}
-
-
-# pragma mark Private stuff
-- (void) addMenuItemWithSong:(TMSong*) lSong andHandler:(SEL)sel onTarget:(id)target {
-	MenuItem* newItem = [[SongPickerMenuItem alloc] initWithSong:lSong];
 	
-	// Register callback
-	// [newItem addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
-	
-	// [_menuElements addObject:newItem];
+	// Positions of the wheel items are fixed
+
 }
+
+/* TMLogicUpdater stuff */
+- (void) update:(NSNumber*)fDelta {
+	
+}
+
+/* TMGameUIResponder methods */
+- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	NSLog(@"mhmhmh");
+/*
+	if([touches count] == 1) {
+		UITouch * touch = [touches anyObject];
+		CGPoint point = [[RenderEngine sharedInstance].glView convertPointFromViewToOpenGL:
+						 [touch locationInView:[RenderEngine sharedInstance].glView]];
+		
+		if([mainMenuItems[kMainMenuItem_Play] containsPoint:point]){
+			selectedMenu = kMainMenuItem_Play;
+		} else if([mainMenuItems[kMainMenuItem_Options] containsPoint:point]){
+			selectedMenu = kMainMenuItem_Options;
+		} else if([mainMenuItems[kMainMenuItem_Credits] containsPoint:point]){
+			selectedMenu = kMainMenuItem_Credits;
+		}
+	}
+*/
+}
+
 
 @end
