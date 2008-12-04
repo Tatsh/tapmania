@@ -323,35 +323,4 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-
-- (void) drawFrame:(int)frameId fromRow:(int)textureRow inRect:(CGRect)rect {
-	int numRows = _height/rect.size.height;
-	int totalFrames = _width/rect.size.width;
-	
-	float textureMaxT = _maxT/numRows;
-	float textureMaxS = _maxS/totalFrames;
-	
-	float yOffset = textureRow*textureMaxT;
-	float xOffset = frameId*textureMaxS;
-	float widthOffset = xOffset + textureMaxS;
-	float heightOffset = yOffset + textureMaxT;
-	
-	GLfloat	 coordinates[] = {  
-		xOffset,		heightOffset,
-		widthOffset,	heightOffset,
-		xOffset,		yOffset,
-		widthOffset,	yOffset  
-	};
-	
-	GLfloat	vertices[] = {	rect.origin.x,							rect.origin.y,							0.0,
-		rect.origin.x + rect.size.width,		rect.origin.y,							0.0,
-		rect.origin.x,							rect.origin.y + rect.size.height,		0.0,
-		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 };
-	
-	glBindTexture(GL_TEXTURE_2D, _name);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-}
-
 @end

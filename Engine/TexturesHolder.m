@@ -9,6 +9,7 @@
 #import "TexturesHolder.h"
 #import "TMNote.h"
 #import "TMFramedTexture.h"
+#import "TMAnimatable.h"
 
 // This is a singleton class, see below
 static TexturesHolder *sharedTexturesDelegate = nil;
@@ -39,10 +40,10 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_MainMenuButtonOptions] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonOptions.png"]]];
 	_textures[kTexture_MainMenuButtonCredits] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonCredits.png"]]];
 
-	_textures[kTexture_SampleAnimation] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"sampleAnimation_1x4.png"]]];
+	_textures[kTexture_SampleAnimation] = [[TMAnimatable alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"sampleAnimation_1x4.png"]] columns:4 andRows:1];
 	_textures[kTexture_SongSelectionBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionBackground.png"]]];
-	_textures[kTexture_SongSelectionWheelItem] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItem_1x2.png"]] columns:2 rows:1];
-	_textures[kTexture_SongSelectionWheelItemSelected] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItemSelected_1x2.png"]] columns:2 rows:1];
+	_textures[kTexture_SongSelectionWheelItem] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItem_1x2.png"]] columns:2 andRows:1];
+	_textures[kTexture_SongSelectionWheelItemSelected] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItemSelected_1x2.png"]] columns:2 andRows:1];
 	
 	int arrowIdx = kBeatType_4th;
 	int totalNotes = kNumBeatTypes*4;

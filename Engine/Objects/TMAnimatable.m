@@ -9,23 +9,29 @@
 #import "TMAnimatable.h"
 #import "TexturesHolder.h"
 
+@interface TMAnimatable (Private)
+- (void) drawCurrentFrameInRect:(CGRect)rect;
+@end
+
 @implementation TMAnimatable
 
-@synthesize totalFrames, frameTime, currentFrame, looping;
+@synthesize startFrame, endFrame, frameTime, currentFrame, looping, frameRect;
 
-- (id) initWithTexture:(int)lTextureId row:(int)lTextureRow andFrameRect:(CGRect)lRect {
-	self = [super init];
+// Override TMFramedTexture constructor
+- (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
+	self = [super initWithImage:uiImage columns:columns andRows:rows];
 	if(!self)
 		return nil;
+
+	startFrame = 0;
+	endFrame = 0;
 	
-	totalFrames = 1;
 	frameTime = 1.0f;
-	currentFrame = 0;
+	currentFrame = startFrame;
 	looping = NO;
 	
-	textureId = lTextureId;
-	textureRow = lTextureRow;
-	frameRect = lRect;
+	// NOTE: Don't forget to set this before calling render
+	frameRect = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	// Stop animation (show only currentFrame all the time)
 	animating = NO;
@@ -56,10 +62,9 @@
 	animating = NO;
 }
 
-
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
-	[[[TexturesHolder sharedInstance] getTexture:textureId] drawFrame:currentFrame fromRow:textureRow inRect:frameRect];
+	[self drawFrame:currentFrame inRect:frameRect];
 }
 
 /* TMLogicUpdater method */
@@ -69,10 +74,10 @@
 		if(elapsedTime > frameTime) {
 			// Time to switch the frame
 			// If not looping but hit first frame again - stop
-			if(currentFrame+1 == totalFrames && !looping) {
+			if(currentFrame == endFrame && !looping) {
 				animating = NO;
 			} else {
-				currentFrame = currentFrame+1==totalFrames ? 0 : currentFrame+1;
+				currentFrame = currentFrame+1==endFrame ? startFrame : currentFrame+1;
 			}
 			
 			elapsedTime = 0.0f;
