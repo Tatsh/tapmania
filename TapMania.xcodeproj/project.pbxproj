@@ -24,11 +24,11 @@
 		2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485499D0EE7C75800AD4FAB /* TMAnimatable.m */; };
 		24854A740EE7FCF300AD4FAB /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24854A670EE7FCF300AD4FAB /* themes */; };
 		24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854A840EE8015500AD4FAB /* TMFramedTexture.m */; };
+		24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD40EE8065000AD4FAB /* SoundEngine.cpp */; };
+		24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD80EE8066800AD4FAB /* Texture2D.m */; };
 		24868A590EDB140C00A9170C /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24868A2D0EDB140C00A9170C /* noteskins */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
-		2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18E0EC077CA00E5F9EE /* Texture2D.m */; };
 		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
-		2486F1990EC080AC00E5F9EE /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */; };
 		2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */; };
 		2486F1C40EC08CF300E5F9EE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */; };
 		2486F1C60EC08CFD00E5F9EE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */; };
@@ -93,14 +93,14 @@
 		24854A670EE7FCF300AD4FAB /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
 		24854A830EE8015500AD4FAB /* TMFramedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFramedTexture.h; sourceTree = "<group>"; };
 		24854A840EE8015500AD4FAB /* TMFramedTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFramedTexture.m; sourceTree = "<group>"; };
+		24854AD40EE8065000AD4FAB /* SoundEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundEngine.cpp; sourceTree = "<group>"; };
+		24854AD50EE8065000AD4FAB /* SoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEngine.h; sourceTree = "<group>"; };
+		24854AD70EE8066800AD4FAB /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
+		24854AD80EE8066800AD4FAB /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
 		24868A2D0EDB140C00A9170C /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Images/noteskins; sourceTree = SOURCE_ROOT; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoyPad.m; sourceTree = "<group>"; };
-		2486F18D0EC077CA00E5F9EE /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture2D.h; path = Util/Texture2D.h; sourceTree = "<group>"; };
-		2486F18E0EC077CA00E5F9EE /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Texture2D.m; path = Util/Texture2D.m; sourceTree = "<group>"; };
 		2486F1900EC077E100E5F9EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundEngine.cpp; path = Util/SoundEngine.cpp; sourceTree = "<group>"; };
-		2486F1980EC080AC00E5F9EE /* SoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundEngine.h; path = Util/SoundEngine.h; sourceTree = "<group>"; };
 		2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -196,6 +196,8 @@
 				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 				244954D10EDD5AC200D462F0 /* TMRunLoop.h */,
 				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
+				24854AD40EE8065000AD4FAB /* SoundEngine.cpp */,
+				24854AD50EE8065000AD4FAB /* SoundEngine.h */,
 				244956F70EDEBCC500D462F0 /* RenderEngine.h */,
 				244956F80EDEBCC500D462F0 /* RenderEngine.m */,
 				248EE4560EE4002000FF1D43 /* LogicEngine.h */,
@@ -245,6 +247,8 @@
 		244954D70EDD612800D462F0 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				24854AD70EE8066800AD4FAB /* Texture2D.h */,
+				24854AD80EE8066800AD4FAB /* Texture2D.m */,
 				244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */,
 				244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */,
 				2485499C0EE7C75800AD4FAB /* TMAnimatable.h */,
@@ -294,10 +298,6 @@
 			children = (
 				248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */,
 				248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */,
-				2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */,
-				2486F1980EC080AC00E5F9EE /* SoundEngine.h */,
-				2486F18D0EC077CA00E5F9EE /* Texture2D.h */,
-				2486F18E0EC077CA00E5F9EE /* Texture2D.m */,
 				24EBF4DF0EC8780600533056 /* TimingUtil.h */,
 				24EBF4E00EC8780600533056 /* TimingUtil.m */,
 			);
@@ -485,8 +485,6 @@
 				1D3623260D0F684500981E51 /* TapManiaAppDelegate.m in Sources */,
 				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
 				2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */,
-				2486F18F0EC077CA00E5F9EE /* Texture2D.m in Sources */,
-				2486F1990EC080AC00E5F9EE /* SoundEngine.cpp in Sources */,
 				2486F2A90EC0A2D600E5F9EE /* LifeBar.m in Sources */,
 				2486F2AD0EC0A51100E5F9EE /* TMSong.m in Sources */,
 				2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */,
@@ -518,6 +516,8 @@
 				248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */,
 				2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */,
 				24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */,
+				24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */,
+				24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

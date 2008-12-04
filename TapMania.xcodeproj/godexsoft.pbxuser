@@ -16017,6 +16017,13 @@
 		vrLen = 1061;
 		vrLoc = 0;
 	};
+	24854AD40EE8065000AD4FAB /* SoundEngine.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 22120}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 2510}";
+		};
+	};
 	248688320ED57C5F00A9170C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 24EBF5570EC889AD00533056 /* TMTrack.m */;
@@ -16273,6 +16280,12 @@
 		};
 	};
 	2486F18D0EC077CA00E5F9EE /* Texture2D.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = Texture2D.h;
+		path = /Users/godexsoft/Documents/TapMania/Util/Texture2D.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1272, 1638}}";
 			sepNavSelRange = "{3176, 0}";
@@ -16280,6 +16293,12 @@
 		};
 	};
 	2486F18E0EC077CA00E5F9EE /* Texture2D.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = Texture2D.m;
+		path = /Users/godexsoft/Documents/TapMania/Util/Texture2D.m;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 4746}}";
 			sepNavSelRange = "{10636, 998}";
@@ -16287,6 +16306,12 @@
 		};
 	};
 	2486F1970EC080AC00E5F9EE /* SoundEngine.cpp */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = SoundEngine.cpp;
+		path = /Users/godexsoft/Documents/TapMania/Util/SoundEngine.cpp;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1137, 21938}}";
 			sepNavSelRange = "{23968, 0}";
@@ -16294,6 +16319,12 @@
 		};
 	};
 	2486F1980EC080AC00E5F9EE /* SoundEngine.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = SoundEngine.h;
+		path = /Users/godexsoft/Documents/TapMania/Util/SoundEngine.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 4760}}";
 			sepNavSelRange = "{8540, 0}";
