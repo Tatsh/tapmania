@@ -26,6 +26,10 @@
 	float moveRows;
 	
 	CGPoint startTouchPos;
+	float startTouchTime;
+	float lastMoveTime;
+	
+	BOOL startSongPlay;
 }
 
 @end

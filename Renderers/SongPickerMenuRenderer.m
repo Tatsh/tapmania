@@ -11,9 +11,12 @@
 #import "SongPickerMenuRenderer.h"
 
 #import "TMSong.h"
+#import "TMSongOptions.h"
+
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SongsDirectoryCache.h"
+#import "TimingUtil.h"
 
 #import "MainMenuRenderer.h"
 #import "SongOptionsRenderer.h"
@@ -21,9 +24,16 @@
 #import "SongPickerMenuItem.h"
 #import "SongPickerMenuSelectedItem.h"
 
+#import "SongPlayRenderer.h"
+
+#define kMinSwipeDelta 50.0f
+#define	kMinSwipeTime 0.1f
+#define kSelectedWheelItemId 2
+
 @interface SongPickerMenuRenderer (Private)
 
 - (void) shiftWheelBy:(float)items;
+- (void) playSong;
 
 @end
 
@@ -52,8 +62,9 @@
 	}
 	*/
 	
-	scrollVelocity = 0.5f;
+	scrollVelocity = 0.0f;
 	moveRows = 0;
+	startSongPlay = NO;
 	
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
@@ -77,14 +88,14 @@
 		
 		float curHeight = 40.0f;
 		
-		if(i<2){
+		if(i<kSelectedWheelItemId){
 			curIncrementer -= 0.01;
 			curWidth += curIncrementer;
 			curYOffset += curHeight+2;
 			curXOffset = bounds.size.width - curWidth*bounds.size.width;
 			wheelItems[i] = [[SongPickerMenuItem alloc] initWithSong:song andShape:CGRectMake(curXOffset, curYOffset, curWidth*bounds.size.width, curHeight)];
 
-		} else if (i==2){
+		} else if (i==kSelectedWheelItemId){
 			
 			// Save current song id
 			currentSongId = j;
@@ -139,6 +150,27 @@
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
+	
+	// Check whether we should start playing
+	if(startSongPlay){
+		
+		TMSongOptions* options = [[TMSongOptions alloc] init];
+		
+		// Assign speed modifier
+		[options setSpeedMod:kSpeedMod_2x]; 
+		
+		// Assign difficulty
+		[options setDifficulty:kSongDifficulty_Hard];
+		
+		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
+		[songPlayRenderer playSong:wheelItems[kSelectedWheelItemId].song withOptions:options];
+		
+		[[LogicEngine sharedInstance] switchToScreen:songPlayRenderer];
+		
+		startSongPlay = NO;	// Ensure we are doing this only once
+	}
+	
+	// Do all scroll related stuff
 	if(fabsf(scrollVelocity) > 0.05f){
 		scrollVelocity -= [fDelta floatValue]*scrollVelocity;
 	} else {
@@ -164,6 +196,8 @@
 		{
 			UITouch* touch = [touches anyObject];
 			startTouchPos = [touch locationInView:[RenderEngine sharedInstance].glView];
+			startTouchTime = [TimingUtil getCurrentTime];
+			lastMoveTime = startTouchTime;
 			scrollVelocity = 0.0f;	// Stop scrollin if touching the screen
 			
 			break;
@@ -178,7 +212,14 @@
 		{
 			UITouch* touch = [touches anyObject];
 			CGPoint pos = [touch locationInView:[RenderEngine sharedInstance].glView];
-			scrollVelocity = (pos.y-startTouchPos.y)/400.0f; // 400.0f is about one full wheel drag actually
+	
+			moveRows = (pos.y-startTouchPos.y)/40.0f; // 40.0f is about the size of the wheel item
+			if(fabsf(moveRows) >= 1.0f) {
+				startTouchPos = pos;
+				startTouchTime = [TimingUtil getCurrentTime];
+			}
+			
+			lastMoveTime = [TimingUtil getCurrentTime];
 			
 			break;
 		}
@@ -186,6 +227,30 @@
 }
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	UITouch *t1 = [[touches allObjects] objectAtIndex:0];
+	
+	if([touches count] == 1){
+		
+		CGPoint pos = [t1 locationInView:[RenderEngine sharedInstance].glView];
+		CGPoint pointGl = [[RenderEngine sharedInstance].glView convertPointFromViewToOpenGL:pos];
+		
+		// Should start a song?
+		if([t1 tapCount] > 1 && [wheelItems[kSelectedWheelItemId] containsPoint:pointGl]){
+			[self playSong];
+			return;
+		}
+		
+		// Now the fun part - swipes
+		float deltaX = fabsf(startTouchPos.x - pos.x);
+		
+		float curTime = [TimingUtil getCurrentTime];
+		
+		// Check vertical swipes only
+		if(deltaX <= kMinSwipeDelta && curTime-lastMoveTime <= kMinSwipeTime) {
+			float timeDelta = [TimingUtil getCurrentTime] - startTouchTime;
+			scrollVelocity = (pos.y-startTouchPos.y)/(400.0f*timeDelta); // 400.0f is about one full wheel drag actually
+		}
+	}
 }
 
 
@@ -194,17 +259,26 @@
 	int i, j;
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
 
-	j = currentSongId-2+items;
+	j = currentSongId-kSelectedWheelItemId+items;
 	if(j < 0) j = [songList count]+j;
 	
 	for(i=0; i<kNumWheelItems; i++){
 		
-		if(j == [songList count]) {
+		if(j >= [songList count]) {
 			j = 0;
 		}
 		
-		if(i == 2) currentSongId = j;		
+		if(i == kSelectedWheelItemId) currentSongId = j;		
 		[wheelItems[i] switchToSong:[songList objectAtIndex:j++]];
+	}
+}
+
+- (void) playSong {
+	if(wheelItems[kSelectedWheelItemId] != nil) {
+		TMSong* song = wheelItems[kSelectedWheelItemId].song;
+		if(song != nil) {
+			startSongPlay = YES;
+		}
 	}
 }
 
