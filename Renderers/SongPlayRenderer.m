@@ -24,15 +24,15 @@
 #import <syslog.h>
 #import <math.h>
 
-#define kArrowsBaseX				25
+#define kArrowsBaseX				23
 #define kArrowsBaseY				380	// This is the place where the arrows will match with the base
-#define kArrowsBaseWidth			270
-#define kArrowsBaseHeight			60
+#define kArrowsBaseWidth			274 // 6px spacing between arrows
+#define kArrowsBaseHeight			64
 
-#define kArrowLeftX					25
-#define kArrowDownX					96
-#define kArrowUpX					165
-#define kArrowRightX				235	
+#define kArrowLeftX					23
+#define kArrowDownX					93
+#define kArrowUpX					163
+#define kArrowRightX				233	
 
 @implementation SongPlayRenderer
 
@@ -51,6 +51,8 @@
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
+
+	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];	
 	
 	song = [lSong retain];
 	steps = [song getStepsForDifficulty:options.difficulty];
@@ -70,12 +72,15 @@
 	playBackStartTime = [TimingUtil getCurrentTime];
 	SoundEngine_StartBackgroundMusic();
 
+	[tapNote startAnimation];
 	playing = YES;	
 }
 
 // Updates one frame of the gameplay
 - (void)update:(NSNumber*)fDelta {
 	if(!playing) return;
+	
+	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
@@ -86,8 +91,17 @@
 	
 	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
 	
+	// Calculate animation of the tap notes
+	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]/8];
+	[tapNote update:fDelta];
+	
 	// If freeze - leave for now
-	if(hasFreeze) return;
+	if(hasFreeze) {
+		[tapNote pauseAnimation];
+		return;
+	} 
+	
+	[tapNote continueAnimation];
 	
 	// double searchHitFromTime = elapsedTime - 0.1f;
 	// double searchHitTillTime = elapsedTime + 0.1f;
@@ -242,6 +256,7 @@
 // Renders one scene of the gameplay
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
+	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	
 	//Draw background
 	glDisable(GL_BLEND);
@@ -251,8 +266,8 @@
 	if(!playing) return;
 	
 	// Draw the base
-	CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_BaseDark] drawInRect:baseRect];
+	// CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
+	// [[[TexturesHolder sharedInstance] getTexture:kTexture_BaseDark] drawInRect:baseRect];
 		
 	int i;
 	
@@ -280,7 +295,7 @@
 				// If note is a holdnote
 				if(note.type == kNoteType_HoldHead) {
 					// Calculate body length
-					float bodyTopY = note.startYPosition + 30; // Plus half of the tap note so that it will be overlapping
+					float bodyTopY = note.startYPosition + 32; // Plus half of the tap note so that it will be overlapping
 					float bodyBottomY = note.stopYPosition;
 					
 					// Bottom Y can be out of the screen bounds and if so must be set to 0 - bottom of screen
@@ -307,31 +322,31 @@
 					// Calculate the height of the hold's body
 					float sizeOfHold = bodyTopY-bodyBottomY-30;
 					
-					CGRect bodyRect = CGRectMake(holdX, bodyBottomY+30, 60, sizeOfHold);
-					[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBody] drawInRect:bodyRect];
+					CGRect bodyRect = CGRectMake(holdX, bodyBottomY+30, 64, sizeOfHold);
+					// [[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBody] drawInRect:bodyRect];
 					
 					// Now if bottom of the hold is visible on the screen - draw the cap
 					if(bodyBottomY > 0.0f) {
-						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY, 60, 30);
-						[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottom] drawInRect:bodyCapRect];					
+						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY, 64, 30);
+						// [[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottom] drawInRect:bodyCapRect];					
 					}
 				}
 				
 				if( i == kAvailableTrack_Left ) {
-					CGRect arrowRect = CGRectMake(kArrowLeftX, note.startYPosition , 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Left] drawInRect:arrowRect];
+					CGRect arrowRect = CGRectMake(kArrowLeftX, note.startYPosition , 64, 64);
+					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Down ) {
-					CGRect arrowRect = CGRectMake(kArrowDownX, note.startYPosition, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Down] drawInRect:arrowRect];
+					CGRect arrowRect = CGRectMake(kArrowDownX, note.startYPosition, 64, 64);
+					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Up ) {
-					CGRect arrowRect = CGRectMake(kArrowUpX, note.startYPosition, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Up] drawInRect:arrowRect];
+					CGRect arrowRect = CGRectMake(kArrowUpX, note.startYPosition, 64, 64);
+					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
 				}
 				else if( i == kAvailableTrack_Right ) {
-					CGRect arrowRect = CGRectMake(kArrowRightX, note.startYPosition, 60, 60);
-					[[[TexturesHolder sharedInstance] getArrowTextureForType:note.beatType andDir:kNoteDirection_Right] drawInRect:arrowRect];					
+					CGRect arrowRect = CGRectMake(kArrowRightX, note.startYPosition, 64, 64);
+					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
 				}
 			}
 		}

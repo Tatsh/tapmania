@@ -70,7 +70,7 @@ static LogicEngine *sharedLogicEngineDelegate = nil;
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {
 	// Give other threads some extra more time to focus on their job
-	[NSThread sleepForTimeInterval:0.0001f];
+	// [NSThread sleepForTimeInterval:0.0001f];
 }
 
 - (void) runLoopActionHook:(NSObject*)obj withDelta:(NSNumber*)fDelta {	

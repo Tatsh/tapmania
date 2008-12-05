@@ -17,6 +17,9 @@
 		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
 		244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 244956F80EDEBCC500D462F0 /* RenderEngine.m */; };
+		2472663D0EE949A500D501AF /* TapNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.m */; };
+		247266540EE94D3B00D501AF /* Receptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.m */; };
+		2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.m */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.m */; };
 		247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 247E86EE0ECDCFC600B21A77 /* tick.wav */; };
 		2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */; };
@@ -79,6 +82,12 @@
 		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
 		244956F70EDEBCC500D462F0 /* RenderEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderEngine.h; sourceTree = "<group>"; };
 		244956F80EDEBCC500D462F0 /* RenderEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderEngine.m; sourceTree = "<group>"; };
+		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
+		2472663C0EE949A500D501AF /* TapNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapNote.m; path = Renderers/UIElements/TapNote.m; sourceTree = "<group>"; };
+		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
+		247266530EE94D3B00D501AF /* Receptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Receptor.m; path = Renderers/UIElements/Receptor.m; sourceTree = "<group>"; };
+		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
+		2472672C0EE97DDC00D501AF /* ReceptorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReceptorRow.m; path = Renderers/UIElements/ReceptorRow.m; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
 		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMChangeSegment.m; sourceTree = "<group>"; };
 		247E86EE0ECDCFC600B21A77 /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tick.wav; path = Sound/tick.wav; sourceTree = "<group>"; };
@@ -311,8 +320,6 @@
 		2486F2A60EC0A18C00E5F9EE /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
-				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
 				24F15EB70EC31E4700755788 /* MenuItem.h */,
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
@@ -321,6 +328,14 @@
 				24854B930EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
 				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
+				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
+				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
+				2472663B0EE949A500D501AF /* TapNote.h */,
+				2472663C0EE949A500D501AF /* TapNote.m */,
+				247266520EE94D3B00D501AF /* Receptor.h */,
+				247266530EE94D3B00D501AF /* Receptor.m */,
+				2472672B0EE97DDC00D501AF /* ReceptorRow.h */,
+				2472672C0EE97DDC00D501AF /* ReceptorRow.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -524,6 +539,9 @@
 				24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */,
 				24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */,
 				24854B940EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m in Sources */,
+				2472663D0EE949A500D501AF /* TapNote.m in Sources */,
+				247266540EE94D3B00D501AF /* Receptor.m in Sources */,
+				2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

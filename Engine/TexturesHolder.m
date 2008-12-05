@@ -7,9 +7,6 @@
 //
 
 #import "TexturesHolder.h"
-#import "TMNote.h"
-#import "TMFramedTexture.h"
-#import "TMAnimatable.h"
 
 // This is a singleton class, see below
 static TexturesHolder *sharedTexturesDelegate = nil;
@@ -23,14 +20,9 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	
 	NSLog(@"Loading textures...");
 	
-	char *arrowNames[9] = {
-		"4th", "8th", "12th", "16th", "24th",
-		"32nd", "48th", "64th", "192nd"
-	};
-	
 	// FIXME: not hardcoded!
 	NSString* themeDir = @"default";
-	NSString* skin = @"itg";
+	NSString* skin = @"default";
 	
 	// Load main background
 	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"Background.png"]]];
@@ -40,31 +32,19 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_MainMenuButtonOptions] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonOptions.png"]]];
 	_textures[kTexture_MainMenuButtonCredits] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonCredits.png"]]];
 
-	_textures[kTexture_SampleAnimation] = [[TMAnimatable alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"sampleAnimation_1x4.png"]] columns:4 andRows:1];
 	_textures[kTexture_SongSelectionBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionBackground.png"]]];
 	_textures[kTexture_SongSelectionWheelItem] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItem_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelItemSelected] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItemSelected_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelLoadingAvatar] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelLoadingAvatar.png"]]];
 	
-	int arrowIdx = kBeatType_4th;
-	int totalNotes = kNumBeatTypes*4;
-	int nameIdx = 0;
-
-	// Now load all arrow images which depend on the noteskin
-	for(; arrowIdx < totalNotes; arrowIdx+=4, nameIdx++){ 
+	// Load 8x8 texture for tap notes
+	_textures[kTexture_TapNote] = [[TapNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapNote_8x8.png", skin]] columns:8 andRows:8];
 	
-		NSLog(@"load arrows for %@ with idx: %d and name: '%s'", skin, arrowIdx, arrowNames[nameIdx]);
-		_textures[arrowIdx] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/left_%s.png", skin, arrowNames[nameIdx]]]];
-		_textures[arrowIdx+1] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/right_%s.png", skin, arrowNames[nameIdx]]]];
-		_textures[arrowIdx+2] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/down_%s.png", skin, arrowNames[nameIdx]]]];
-		_textures[arrowIdx+3] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/up_%s.png", skin, arrowNames[nameIdx]]]];
-	}
-	
-	_textures[kTexture_Base] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/base.png", skin]]];
-	_textures[kTexture_BaseDark] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/base_dark.png", skin]]];
-	_textures[kTexture_HoldBody] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_body.png", skin]]];
-	_textures[kTexture_HoldBottom] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/hold_bottom.png", skin]]];
-
+	_textures[kTexture_GoReceptor] = [[Receptor alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downGoReceptor.png", skin]]];
+	_textures[kTexture_HoldBodyActive] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBodyActive.png", skin]]];
+	_textures[kTexture_HoldBottomCapActive] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBottomCapActive.png", skin]]];
+	_textures[kTexture_HoldBodyInactive] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBodyInactive.png", skin]]];
+	_textures[kTexture_HoldBottomCapInactive] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBottomCapInactive.png", skin]]];
 	
 	NSLog(@"Done.");
 	
@@ -79,11 +59,6 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	}
 	
 	[super dealloc];
-}
-
-- (Texture2D*) getArrowTextureForType:(TMBeatType)type andDir:(TMNoteDirection) dir {
-	TMTexture idx = kTexture_LeftArrow_4 + (type * 4) + dir;
-	return [self getTexture:idx];
 }
 
 - (Texture2D*) getTexture:(TMTexture) textureId {

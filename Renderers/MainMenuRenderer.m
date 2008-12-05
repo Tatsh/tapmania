@@ -35,14 +35,6 @@
 	mainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
 	mainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
 	
-	anim = (TMAnimatable*)[[TexturesHolder sharedInstance] getTexture:kTexture_SampleAnimation];
-	[anim setFrameRect:CGRectMake(60.0f, 300.0f, 60.0f, 60.0f)];
-	[anim setFrameTime:0.07f];
-	[anim setEndFrame:4];
-	[anim setLooping:YES];
-	
-	[anim startAnimation];
-	
 	return self;
 }
 
@@ -81,15 +73,11 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
-	[anim render:fDelta];
-	
 	// NOTE: Items will be rendered by it self
 }
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
-	[anim update:fDelta];
-	
 	if(selectedMenu == -1) 
 		return;
 	

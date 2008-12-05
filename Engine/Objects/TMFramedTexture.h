@@ -19,5 +19,8 @@
 
 // Drawing routines
 - (void) drawFrame:(int)frameId inRect:(CGRect)rect;
+- (void) drawFrame:(int)frameId rotation:(float)rotation inRect:(CGRect)rect;
+
+- (void) drawFrame:(int)frameId atPoint:(CGPoint)point;
 
 @end

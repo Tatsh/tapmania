@@ -8,72 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import "Texture2D.h"
-#import "TMNote.h"
+#import "TMAnimatable.h"
+#import "TMFramedTexture.h"
+#import "TapNote.h"
+#import "Receptor.h"
 
 typedef enum {
-	kTexture_LeftArrow_4 = 0,
-	kTexture_RightArrow_4,
-	kTexture_UpArrow_4,
-	kTexture_DownArrow_4,
+	// Gameplay stuff
+	kTexture_TapNote = 0,
+	kTexture_GoReceptor,
 	
-	kTexture_LeftArrow_8,
-	kTexture_RightArrow_8,
-	kTexture_UpArrow_8,
-	kTexture_DownArrow_8,
+	kTexture_HoldBodyActive,
+	kTexture_HoldBottomCapActive,
+	kTexture_HoldBodyInactive,
+	kTexture_HoldBottomCapInactive,
 
-	kTexture_LeftArrow_12,
-	kTexture_RightArrow_12,
-	kTexture_UpArrow_12,
-	kTexture_DownArrow_12,	
-	
-	kTexture_LeftArrow_16,
-	kTexture_RightArrow_16,
-	kTexture_UpArrow_16,
-	kTexture_DownArrow_16,
-	
-	kTexture_LeftArrow_24,
-	kTexture_RightArrow_24,
-	kTexture_UpArrow_24,
-	kTexture_DownArrow_24,
-	
-	kTexture_LeftArrow_32,
-	kTexture_RightArrow_32,
-	kTexture_UpArrow_32,
-	kTexture_DownArrow_32,	
-	
-	kTexture_LeftArrow_48,
-	kTexture_RightArrow_48,
-	kTexture_UpArrow_48,
-	kTexture_DownArrow_48,	
-	
-	kTexture_LeftArrow_64,
-	kTexture_RightArrow_64,
-	kTexture_UpArrow_64,
-	kTexture_DownArrow_64,
-	
-	kTexture_LeftArrow_192,
-	kTexture_RightArrow_192,
-	kTexture_UpArrow_192,
-	kTexture_DownArrow_192,
-	
-	kTexture_HoldBody,
-	kTexture_HoldBottom,
-	
-	kTexture_Base,
-	kTexture_BaseDark,
-	
+	// Main menu stuff
 	kTexture_Background,
 	kTexture_MainMenuButtonPlay,
 	kTexture_MainMenuButtonOptions,
 	kTexture_MainMenuButtonCredits,
 	
-	kTexture_SampleAnimation, // For test
-	
+	// Song selection (wheel) screen
 	kTexture_SongSelectionBackground,
 	kTexture_SongSelectionWheelItem,
 	kTexture_SongSelectionWheelItemSelected,
 	kTexture_SongSelectionWheelLoadingAvatar,
 	
+	// O.o
 	kNumTextures
 } TMTexture;
 
@@ -81,7 +43,6 @@ typedef enum {
 	Texture2D*				_textures[kNumTextures];
 }
 
-- (Texture2D*) getArrowTextureForType:(TMBeatType)type andDir:(TMNoteDirection) dir;
 - (Texture2D*) getTexture:(TMTexture) textureId;
 
 + (TexturesHolder *)sharedInstance;
