@@ -89,8 +89,6 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init OpenGLES in a separate rendering thread...");
-	
-	//[NSThread setThreadPriority:1.0];
 
 	// Set context to the new thread
 	[glView setCurrentContext];

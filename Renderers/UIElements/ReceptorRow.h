@@ -15,7 +15,11 @@
  * Uses the Receptor class which holds the receptor arrow texture
 */
 @interface ReceptorRow : TMAnimatable {
-
+	CGPoint position;	// Where the left-bottom of the receptor row is relative to the screen
+	float receptorXPositions[4];	// Final positions on the X axis of the receptor arrows
+	float receptorRotations[4];
 }
+
+- (id) initOnPosition:(CGPoint)lPosition;
 
 @end

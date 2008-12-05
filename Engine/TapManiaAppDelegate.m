@@ -27,6 +27,7 @@
 #import "MainMenuRenderer.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
+#define kAccelerometerFrequency		INT32_MAX
 
 #define RANDOM_SEED() srandom((unsigned)(mach_absolute_time() & 0xFFFFFFFF))
 #define RANDOM_FLOAT() ((float)random() / (float)INT32_MAX)
@@ -65,6 +66,10 @@
 	
 	// Start with main menu	
 	[[LogicEngine sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
+}
+
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+	syslog(LOG_DEBUG, "Accelerometer event. ignore.");
 }
 
 - (void) showJoyPad {

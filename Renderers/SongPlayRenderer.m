@@ -45,13 +45,15 @@
 //	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
 //	joyPad = [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] joyPad];
 
+	// Init the receptor row
+	receptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(kArrowsBaseX, kArrowsBaseY)];
+	
 	playing = NO;
 	
 	return self;
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
-
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];	
 	
 	song = [lSong retain];
@@ -92,7 +94,7 @@
 	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
 	
 	// Calculate animation of the tap notes
-	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]/8];
+	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]/4];
 	[tapNote update:fDelta];
 	
 	// If freeze - leave for now
@@ -265,9 +267,8 @@
 		
 	if(!playing) return;
 	
-	// Draw the base
-	// CGRect baseRect = CGRectMake(kArrowsBaseX, kArrowsBaseY, kArrowsBaseWidth, kArrowsBaseHeight);
-	// [[[TexturesHolder sharedInstance] getTexture:kTexture_BaseDark] drawInRect:baseRect];
+	// Draw the receptor row
+	[receptorRow render:fDelta];
 		
 	int i;
 	

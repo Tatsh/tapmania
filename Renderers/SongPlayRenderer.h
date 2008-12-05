@@ -14,12 +14,14 @@
 #import "TMSongOptions.h"
 #import "TMLogicUpdater.h"
 #import "JoyPad.h"
+#import "ReceptorRow.h"
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					song;	// Currently played song
 	TMSteps*				steps;	// Currently played steps
 
 	JoyPad*					joyPad; // A pointer to the AppDelegate's joyPad for easy access
+	ReceptorRow*			receptorRow;
 	
 	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	

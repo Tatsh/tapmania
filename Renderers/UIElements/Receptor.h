@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Texture2D.h"
+#import "TMFramedTexture.h"
 
-@interface Receptor : Texture2D {
+@interface Receptor : TMFramedTexture {
 
 }
 
