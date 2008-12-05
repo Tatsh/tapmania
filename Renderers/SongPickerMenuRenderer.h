@@ -27,6 +27,8 @@
 	
 	CGPoint startTouchPos;
 	float startTouchTime;
+	
+	CGPoint lastTouchPos;
 	float lastMoveTime;
 	
 	BOOL startSongPlay;

@@ -19,7 +19,6 @@
 #import "TimingUtil.h"
 
 #import "MainMenuRenderer.h"
-#import "SongOptionsRenderer.h"
 
 #import "SongPickerMenuItem.h"
 #import "SongPickerMenuSelectedItem.h"
@@ -197,7 +196,10 @@
 			UITouch* touch = [touches anyObject];
 			startTouchPos = [touch locationInView:[RenderEngine sharedInstance].glView];
 			startTouchTime = [TimingUtil getCurrentTime];
+			
+			lastTouchPos = startTouchPos;
 			lastMoveTime = startTouchTime;
+			
 			scrollVelocity = 0.0f;	// Stop scrollin if touching the screen
 			
 			break;
@@ -213,10 +215,9 @@
 			UITouch* touch = [touches anyObject];
 			CGPoint pos = [touch locationInView:[RenderEngine sharedInstance].glView];
 	
-			moveRows = (pos.y-startTouchPos.y)/40.0f; // 40.0f is about the size of the wheel item
+			moveRows = (pos.y-lastTouchPos.y)/40.0f; // 40.0f is about the size of the wheel item
 			if(fabsf(moveRows) >= 1.0f) {
-				startTouchPos = pos;
-				startTouchTime = [TimingUtil getCurrentTime];
+				lastTouchPos = pos;
 			}
 			
 			lastMoveTime = [TimingUtil getCurrentTime];
@@ -248,7 +249,7 @@
 		// Check vertical swipes only
 		if(deltaX <= kMinSwipeDelta && curTime-lastMoveTime <= kMinSwipeTime) {
 			float timeDelta = [TimingUtil getCurrentTime] - startTouchTime;
-			scrollVelocity = (pos.y-startTouchPos.y)/(400.0f*timeDelta); // 400.0f is about one full wheel drag actually
+			scrollVelocity = (pos.y-startTouchPos.y)/400.0f/timeDelta; // 400.0f is about one full wheel drag actually
 		}
 	}
 }
