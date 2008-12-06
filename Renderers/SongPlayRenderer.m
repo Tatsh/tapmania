@@ -93,8 +93,8 @@
 	
 	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
 	
-	// Calculate animation of the tap notes
-	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]/4];
+	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
+	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
 	[tapNote update:fDelta];
 	
 	// If freeze - leave for now
@@ -205,7 +205,7 @@
 			}
 			
 			// If the Y position is at the floor - jump to next track
-			if(note.startYPosition <= 0){
+			if(note.startYPosition <= -64.0f){
 				break; // Start another track coz this note is out of screen
 			}				
 			
@@ -289,7 +289,7 @@
 		
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
-				if(note.startYPosition <= 0 && note.type != kNoteType_HoldHead){
+				if(note.startYPosition <= -64.0f && note.type != kNoteType_HoldHead){
 					break; // Start another track coz this note is out of screen
 				}
 				

@@ -1,24 +1,21 @@
-todo file. written on 12 nov 2008 / last update on 25 nov 2008
+todo file. written on 12 nov 2008 / last update on 6 dec 2008
 
-most important:
-1) need to make rendering and logic calculation apart of each other. 
-most likely rendering must be done as a for(;;) loop in a separate thread and same thing must be done for
-both input handling routines and game logic calculations.
-
-clarification for myself:
-Renderable - Protocol which should be implemented by objects which wish to be rendered 
-LogicUpdater - Protocol which should be implemented by objects which wish to update game logic
-*Renderer - A screen which is capable to hold and render renderables
-TMRunLoop - A class which is running in a separate thread and can have registered renderables and LogicUpdaters 
-the registered things will be invoked with regard of priorities which are set while one adds the stuff into the runloop. 
-one should run a runloop for both renderers and logic updaters.
-
-
+1) write code to handle hold arrow update/render in song play
+2) rewrite joyPad so that it works even while you slide your finger from one section to another
 3) calculate accurate hit times and values
-6) add some time like 3 seconds before the actual song starts.. with some graphics like ready/steady/GO
-7) possibility to get back to menu after song ended
-8) calculate score into TMScore (total score and counters for marv/perf/great etc.)
-9) add screen to show scores after song ends. tap screen (or back button?) to continue
-10) rewrite joyPad so that it works even while you slide your finger from one section to another
+4) add joyPad functionality to the song play renderer so that we can already hit notes
+5) support for hold arrows in joyPad handling
+6) all explosion effects for receptor arrows (while hitting on time)
+7) add some time like 3 seconds before the actual song starts.. with some graphics like ready/steady/GO
+8) possibility to get back to menu after song ended
+9) calculate score into TMScore (total score and counters for marv/perf/great etc.)
+10) add screen to show scores after song ends. tap screen (or back button?) to continue
 11) support for spread/index joyPad. this is not what currently is implemented. must be done differently to get the most space for fingers.
 12) selectable setting for spread/index in Options
+13) animation of receptor row (beat)
+14) animate hit accuracy (eg. great/perfect/marv. etc.) on screen realtime
+15) animate OK/NG for held/lost hold arrows
+
+future:
+50) fonts support
+51) add lua. use lua in noteskins/themes/fonts
