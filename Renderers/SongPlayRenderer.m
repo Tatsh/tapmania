@@ -29,6 +29,8 @@
 #define kArrowsBaseWidth			274 // 6px spacing between arrows
 #define kArrowsBaseHeight			64
 
+#define kLifeBarY					kArrowsBaseY+kArrowsBaseHeight+3
+
 #define kArrowLeftX					23
 #define kArrowDownX					93
 #define kArrowUpX					163
@@ -47,6 +49,9 @@
 
 	// Init the receptor row
 	receptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(kArrowsBaseX, kArrowsBaseY)];
+
+	// Init the lifebar
+	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(10.0f, kLifeBarY, 270.0f, 32.0f)];
 	
 	playing = NO;
 	
@@ -266,7 +271,7 @@
 	glEnable(GL_BLEND);
 		
 	if(!playing) return;
-	
+
 	// Draw the receptor row
 	[receptorRow render:fDelta];
 		
@@ -351,6 +356,9 @@
 				}
 			}
 		}
+
+		// Draw the lifebar above all notes
+		[lifeBar render:fDelta];
 	}
 	
 }

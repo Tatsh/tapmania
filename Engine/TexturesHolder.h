@@ -23,6 +23,10 @@ typedef enum {
 	kTexture_HoldBodyInactive,
 	kTexture_HoldBottomCapInactive,
 
+	kTexture_LifeBarFrame,
+	kTexture_LifeBarNormal,
+	kTexture_LifeBarHot,
+
 	// Main menu stuff
 	kTexture_Background,
 	kTexture_MainMenuButtonPlay,

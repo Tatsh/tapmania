@@ -15,6 +15,7 @@
 #import "TMLogicUpdater.h"
 #import "JoyPad.h"
 #import "ReceptorRow.h"
+#import "LifeBar.h"
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					song;	// Currently played song
@@ -22,6 +23,7 @@
 
 	JoyPad*					joyPad; // A pointer to the AppDelegate's joyPad for easy access
 	ReceptorRow*			receptorRow;
+	LifeBar*				lifeBar;
 	
 	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	
