@@ -19,7 +19,7 @@
 	
 	// We will animate every arrow at same time
 	startFrame = 0;
-	endFrame = columns;
+	endFrame = 4;
 	
 	currentFrame = startFrame;
 	looping = YES;
