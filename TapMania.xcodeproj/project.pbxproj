@@ -25,7 +25,6 @@
 		2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */; };
 		248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248547F20EE6BCD300AD4FAB /* InputEngine.m */; };
 		2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485499D0EE7C75800AD4FAB /* TMAnimatable.m */; };
-		24854A740EE7FCF300AD4FAB /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24854A670EE7FCF300AD4FAB /* themes */; };
 		24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854A840EE8015500AD4FAB /* TMFramedTexture.m */; };
 		24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD40EE8065000AD4FAB /* SoundEngine.cpp */; };
 		24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD80EE8066800AD4FAB /* Texture2D.m */; };
@@ -45,6 +44,7 @@
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* LogicEngine.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
+		24AFB3120EED763700D0BF31 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AFB3110EED763700D0BF31 /* themes */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -99,7 +99,6 @@
 		248548E20EE6D9E600AD4FAB /* TMGameUIResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGameUIResponder.h; sourceTree = "<group>"; };
 		2485499C0EE7C75800AD4FAB /* TMAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAnimatable.h; sourceTree = "<group>"; };
 		2485499D0EE7C75800AD4FAB /* TMAnimatable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAnimatable.m; sourceTree = "<group>"; };
-		24854A670EE7FCF300AD4FAB /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
 		24854A830EE8015500AD4FAB /* TMFramedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFramedTexture.h; sourceTree = "<group>"; };
 		24854A840EE8015500AD4FAB /* TMFramedTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFramedTexture.m; sourceTree = "<group>"; };
 		24854AD40EE8065000AD4FAB /* SoundEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundEngine.cpp; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		248EE4570EE4002000FF1D43 /* LogicEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicEngine.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
+		24AFB3110EED763700D0BF31 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24854A670EE7FCF300AD4FAB /* themes */,
+				24AFB3110EED763700D0BF31 /* themes */,
 				24868A2D0EDB140C00A9170C /* noteskins */,
 				2421316C0ED315FF000936F6 /* noteskins */,
 				247E88010ED1C37200B21A77 /* noteskins */,
@@ -485,7 +485,7 @@
 				242945EB0EC46DA700B88828 /* Credits.txt in Resources */,
 				247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */,
 				24868A590EDB140C00A9170C /* noteskins in Resources */,
-				24854A740EE7FCF300AD4FAB /* themes in Resources */,
+				24AFB3120EED763700D0BF31 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

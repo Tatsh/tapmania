@@ -73,7 +73,7 @@
 		trackPos[i] = 0;
 	}
 	
-	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, NO);
+	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, YES);
 	
 	// Save start time of song playback and start the playback
 	playBackStartTime = [TimingUtil getCurrentTime];
