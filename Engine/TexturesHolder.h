@@ -26,9 +26,11 @@ typedef enum {
 	kTexture_LifeBarFrame,
 	kTexture_LifeBarNormal,
 	kTexture_LifeBarHot,
-
-	// Main menu stuff
+	
 	kTexture_Background,
+	
+	// Main menu stuff
+	kTexture_MainMenuBackground,
 	kTexture_MainMenuButtonPlay,
 	kTexture_MainMenuButtonOptions,
 	kTexture_MainMenuButtonCredits,

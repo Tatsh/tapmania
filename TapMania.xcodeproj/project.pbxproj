@@ -44,7 +44,7 @@
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* LogicEngine.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
-		24AFB3120EED763700D0BF31 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AFB3110EED763700D0BF31 /* themes */; };
+		24AFB3E10EEECB4E00D0BF31 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AFB3E00EEECB4E00D0BF31 /* themes */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -132,7 +132,7 @@
 		248EE4570EE4002000FF1D43 /* LogicEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicEngine.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
-		24AFB3110EED763700D0BF31 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
+		24AFB3E00EEECB4E00D0BF31 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Images/themes; sourceTree = SOURCE_ROOT; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -225,22 +225,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2421316C0ED315FF000936F6 /* noteskins */ = {
-			isa = PBXGroup;
-			children = (
-				2421316D0ED315FF000936F6 /* itg */,
-			);
-			name = noteskins;
-			path = Images/noteskins;
-			sourceTree = "<group>";
-		};
-		2421316D0ED315FF000936F6 /* itg */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = itg;
-			sourceTree = "<group>";
-		};
 		244954B30EDD549000D462F0 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,22 +250,6 @@
 				24854A840EE8015500AD4FAB /* TMFramedTexture.m */,
 			);
 			path = Objects;
-			sourceTree = "<group>";
-		};
-		247E88010ED1C37200B21A77 /* noteskins */ = {
-			isa = PBXGroup;
-			children = (
-				247E88020ED1C37200B21A77 /* itg */,
-			);
-			name = noteskins;
-			path = Images/noteskins;
-			sourceTree = "<group>";
-		};
-		247E88020ED1C37200B21A77 /* itg */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = itg;
 			sourceTree = "<group>";
 		};
 		248547290EE56BEB00AD4FAB /* Transitions */ = {
@@ -412,10 +380,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24AFB3110EED763700D0BF31 /* themes */,
+				24AFB3E00EEECB4E00D0BF31 /* themes */,
 				24868A2D0EDB140C00A9170C /* noteskins */,
-				2421316C0ED315FF000936F6 /* noteskins */,
-				247E88010ED1C37200B21A77 /* noteskins */,
 				247E86EE0ECDCFC600B21A77 /* tick.wav */,
 				242945EA0EC46DA700B88828 /* Credits.txt */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -485,7 +451,7 @@
 				242945EB0EC46DA700B88828 /* Credits.txt in Resources */,
 				247E86EF0ECDCFC600B21A77 /* tick.wav in Resources */,
 				24868A590EDB140C00A9170C /* noteskins in Resources */,
-				24AFB3120EED763700D0BF31 /* themes in Resources */,
+				24AFB3E10EEECB4E00D0BF31 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

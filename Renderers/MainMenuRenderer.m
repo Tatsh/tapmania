@@ -70,7 +70,7 @@
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// NOTE: Items will be rendered by it self
