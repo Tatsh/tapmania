@@ -17,6 +17,8 @@
 #import "ReceptorRow.h"
 #import "LifeBar.h"
 
+#define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
+
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					song;	// Currently played song
 	TMSteps*				steps;	// Currently played steps
@@ -31,6 +33,7 @@
 	double					playBackStartTime;
 	
 	BOOL					playing;
+	BOOL					musicPlaying;
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;

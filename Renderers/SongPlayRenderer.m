@@ -75,23 +75,40 @@
 	
 	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, YES);
 	
-	// Save start time of song playback and start the playback
-	playBackStartTime = [TimingUtil getCurrentTime];
-	SoundEngine_StartBackgroundMusic();
+	// Calculate starting offset for music playback
+	double now = [TimingUtil getCurrentTime];
+	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[steps getFirstNoteRow]] inSong:song];
 
+	if(timeOfFirstBeat <= kMinTimeTillStart){
+		playBackStartTime = now + kMinTimeTillStart;
+		musicPlaying = NO;
+	} else {	
+		playBackStartTime = now;
+		musicPlaying = YES;
+		SoundEngine_StartBackgroundMusic();
+	}
+	
 	[tapNote startAnimation];
 	playing = YES;	
 }
 
 // Updates one frame of the gameplay
-- (void)update:(NSNumber*)fDelta {
+- (void)update:(NSNumber*)fDelta {	
 	if(!playing) return;
-	
+		
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
 	double elapsedTime = currentTime - playBackStartTime;
+	
+	// Start music with delay if required
+	if(!musicPlaying) {
+		if(playBackStartTime <= currentTime){
+			musicPlaying = YES;
+			SoundEngine_StartBackgroundMusic();
+		}
+	}			
 	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;
