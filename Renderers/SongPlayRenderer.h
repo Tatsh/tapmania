@@ -18,6 +18,7 @@
 #import "LifeBar.h"
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
+#define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					song;	// Currently played song
@@ -30,10 +31,11 @@
 	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
 	
 	double					speedModValue;	
-	double					playBackStartTime;
+	double					playBackStartTime;			// The time to start music
+	double					playBackScheduledEndTime;	// The time to stop music and stop gameplay
 	
-	BOOL					playing;
-	BOOL					musicPlaying;
+	BOOL					playingGame;
+	BOOL					musicPlaybackStarted;
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;

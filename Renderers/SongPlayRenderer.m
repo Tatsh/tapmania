@@ -16,6 +16,8 @@
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
 
+#import "SongPickerMenuRenderer.h"
+
 #import "TMSong.h"
 #import "TMTrack.h"
 #import "TMSongOptions.h"
@@ -53,9 +55,22 @@
 	// Init the lifebar
 	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(10.0f, kLifeBarY, 270.0f, 32.0f)];
 	
-	playing = NO;
+	playingGame = NO;
 	
 	return self;
+}
+
+
+- (void) dealloc {
+	// Unload bg music track
+	SoundEngine_UnloadBackgroundMusicTrack();
+	
+	[lifeBar release];
+	[receptorRow release];
+	[song release];
+	[steps release];
+		
+	[super dealloc];
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
@@ -78,23 +93,26 @@
 	// Calculate starting offset for music playback
 	double now = [TimingUtil getCurrentTime];
 	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[steps getFirstNoteRow]] inSong:song];
-
+	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[steps getLastNoteRow]] inSong:song];
+	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
 		playBackStartTime = now + kMinTimeTillStart;
-		musicPlaying = NO;
+		musicPlaybackStarted = NO;
 	} else {	
 		playBackStartTime = now;
-		musicPlaying = YES;
+		musicPlaybackStarted = YES;
 		SoundEngine_StartBackgroundMusic();
 	}
+
+	playBackScheduledEndTime = playBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	
 	[tapNote startAnimation];
-	playing = YES;	
+	playingGame = YES;	
 }
 
 // Updates one frame of the gameplay
 - (void)update:(NSNumber*)fDelta {	
-	if(!playing) return;
+	if(!playingGame) return;
 		
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	
@@ -103,12 +121,24 @@
 	double elapsedTime = currentTime - playBackStartTime;
 	
 	// Start music with delay if required
-	if(!musicPlaying) {
+	if(!musicPlaybackStarted) {
 		if(playBackStartTime <= currentTime){
-			musicPlaying = YES;
+			musicPlaybackStarted = YES;
 			SoundEngine_StartBackgroundMusic();
 		}
-	}			
+	} else if(currentTime >= playBackScheduledEndTime) {
+		// Should stop music and stop gameplay now
+		// TODO: some fadeout would be better
+		SoundEngine_StopBackgroundMusic(NO);
+		
+		// Stop animating the arrows
+		[tapNote stopAnimation];
+		
+		// request transition
+		SongPickerMenuRenderer *spScreen = [[SongPickerMenuRenderer alloc] init];
+		[[LogicEngine sharedInstance] switchToScreen:spScreen];
+		playingGame = NO;
+	}	
 	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;
@@ -287,7 +317,7 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
-	if(!playing) return;
+	if(!playingGame) return;
 
 	// Draw the receptor row
 	[receptorRow render:fDelta];

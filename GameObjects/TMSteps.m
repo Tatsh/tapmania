@@ -36,18 +36,15 @@
 }
 
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) noteRow{
-	TMTrack* track = tracks[trackIndex];
-	[track setNote:note onNoteRow:noteRow];
+	[tracks[trackIndex] setNote:note onNoteRow:noteRow];
 }
 
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex {
-	TMTrack* track = tracks[trackIndex];
-	return [track getNote:index];
+	return [tracks[trackIndex] getNote:index];
 }
 
 - (int) getNotesCountForTrack:(int) trackIndex {
-	TMTrack* track = tracks[trackIndex];
-	return [track getNotesCount];
+	return [tracks[trackIndex] getNotesCount];
 }
 
 - (int) getFirstNoteRow {
@@ -58,13 +55,26 @@
 		int j = 0;
 
 		// Skip all empty notes
-		while([(TMNote*)[(TMTrack*)tracks[i] getNote:j++] type] == kNoteType_Empty);
+		while([(TMNote*)[tracks[i] getNote:j++] type] == kNoteType_Empty);
 
 		// Get the smallest
-		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[(TMTrack*)tracks[i] getNote:j] startNoteRow]);
+		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[tracks[i] getNote:j] startNoteRow]);
 	}
 
 	return minNoteRow;
 }
+
+- (int) getLastNoteRow {
+	int i;
+	int maxNoteRow = 0;
+	
+	for(i=0; i<kNumOfAvailableTracks; i++){
+		TMNote* lastNote = [tracks[i] getNote:[tracks[i] getNotesCount]-1];
+		maxNoteRow = (int) fmaxf( (float)maxNoteRow, lastNote.type == kNoteType_HoldHead ? (float)[lastNote stopNoteRow] : (float)[lastNote startNoteRow]);
+	}
+	
+	return maxNoteRow;
+}
+
 
 @end

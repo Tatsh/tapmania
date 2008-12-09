@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TMSong.h"
 #import "TMNote.h"
+#import "TMTrack.h"
 
 typedef enum {
 	kAvailableTrack_Left = 0,
@@ -22,7 +23,7 @@ typedef enum {
 	TMSongDifficulty	difficulty;						// The difficulty. eg. Easy, Heavy etc.
 	int					difficultyLevel;				// The level. eg. 1-15.
 	
-	NSMutableArray*		tracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
+	TMTrack*			tracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
 }
 
 - (int) getDifficultyLevel;
@@ -31,6 +32,8 @@ typedef enum {
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) idx;
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
+
 - (int) getFirstNoteRow;
+- (int) getLastNoteRow;
 
 @end
