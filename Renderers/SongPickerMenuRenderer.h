@@ -10,15 +10,15 @@
 
 #import "InputEngine.h"
 #import "TMLogicUpdater.h"
-#import "TMRenderable.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
 #import "SongPickerMenuItem.h"
+#import "AbstractRenderer.h"
 
 #define kNumWheelItems 7
 
-@interface SongPickerMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	SongPickerMenuItem* wheelItems[kNumWheelItems]; // Always 7 wheel items are visible on screen
 	int currentSongId;	// Selected song index
 	

@@ -16,6 +16,7 @@
 #import "JoyPad.h"
 #import "ReceptorRow.h"
 #import "LifeBar.h"
+#import "HoldNote.h"
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row

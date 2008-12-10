@@ -11,6 +11,7 @@
 #import "TMAnimatable.h"
 #import "TMFramedTexture.h"
 #import "TapNote.h"
+#import "HoldNote.h"
 #import "Receptor.h"
 
 typedef enum {

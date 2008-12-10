@@ -38,6 +38,8 @@
 #define kArrowUpX					163
 #define kArrowRightX				233	
 
+#define kHoldBodyPieceHeight		128.0f
+
 @implementation SongPlayRenderer
 
 - (id) init {
@@ -311,6 +313,7 @@
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
+	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
 	
 	//Draw background
 	glDisable(GL_BLEND);
@@ -341,24 +344,15 @@
 		
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
-				if(note.startYPosition <= -64.0f && note.type != kNoteType_HoldHead){
+				if(note.startYPosition <= -64.0f) {
 					break; // Start another track coz this note is out of screen
 				}
 				
 				// If note is a holdnote
-				if(note.type == kNoteType_HoldHead) {
+				if(note.type == kNoteType_HoldHead) {			
 					// Calculate body length
-					float bodyTopY = note.startYPosition + 32; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = note.stopYPosition;
-					
-					// Bottom Y can be out of the screen bounds and if so must be set to 0 - bottom of screen
-					if(bodyBottomY < 0.0f) 
-						bodyBottomY = 0.0f;
-					
-					// Top Y can be out of screen as well
-					if(bodyTopY > bounds.size.height){
-						bodyTopY = bounds.size.height;
-					}
+					float bodyTopY = note.startYPosition + 32.0f; // Plus half of the tap note so that it will be overlapping
+					float bodyBottomY = note.stopYPosition + 32.0f; // Make space for bottom cap
 					
 					// Determine the track X position now
 					float holdX = 0.0f;
@@ -373,15 +367,26 @@
 						holdX = kArrowRightX;
 					
 					// Calculate the height of the hold's body
-					float sizeOfHold = bodyTopY-bodyBottomY-30;
+					float totalBodyHeight = bodyTopY - bodyBottomY;
+					float offset = bodyBottomY;
 					
-					CGRect bodyRect = CGRectMake(holdX, bodyBottomY+30, 64, sizeOfHold);
-					// [[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBody] drawInRect:bodyRect];
+					// Draw every piece separately
+					do{
+						float sizeOfPiece = totalBodyHeight > kHoldBodyPieceHeight ? kHoldBodyPieceHeight : totalBodyHeight;
+						
+						// Don't draw if we are out of screen
+						if(offset+sizeOfPiece > 0.0f) {					
+							[holdNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+						}
+						
+						totalBodyHeight -= kHoldBodyPieceHeight;
+						offset += kHoldBodyPieceHeight;
+					} while(totalBodyHeight > 0.0f);					
 					
-					// Now if bottom of the hold is visible on the screen - draw the cap
+					// determine the position of the cap and draw it if needed
 					if(bodyBottomY > 0.0f) {
-						CGRect bodyCapRect = CGRectMake(holdX, bodyBottomY, 64, 30);
-						// [[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottom] drawInRect:bodyCapRect];					
+						// Ok. must draw the cap
+						[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
 					}
 				}
 				
