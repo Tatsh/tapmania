@@ -11,7 +11,7 @@ OBJS=Engine/Transitions/BasicTransition.o Util/Texture2D.o Engine/Objects/TMObje
 	Renderers/AbstractRenderer.o Renderers/AbstractMenuRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
 	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \
 	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o \
-	Renderers/UIElements/TogglerItem.o Renderers/UIElements/TapNote.o Renderers/UIElements/Receptor.o \
+	Renderers/UIElements/TogglerItem.o Renderers/UIElements/TapNote.o Renderers/UIElements/HoldNote.o Renderers/UIElements/Receptor.o \
 	Renderers/UIElements/ReceptorRow.o GameObjects/TMSong.o GameObjects/TMSteps.o \
 	GameObjects/TMSongOptions.o GameObjects/TMNote.o GameObjects/TMTrack.o GameObjects/TMChangeSegment.o \
 	Engine/SoundEngine.o Parsers/DWIParser.o Util/TimingUtil.o Util/BenchmarkUtil.o
