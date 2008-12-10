@@ -24,8 +24,11 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	NSString* themeDir = @"default";
 	NSString* skin = @"default";
 	
-	// Load main background
-	_textures[kTexture_Background] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"Background.png"]]];
+	// Load backgrounds
+	_textures[kTexture_SongPlayBackgroundIndex] = [[Texture2D alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songPlayBackground_index.png"]]];
+	_textures[kTexture_SongPlayBackgroundSpread] = [[Texture2D alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songPlayBackground_spread.png"]]];
+	_textures[kTexture_CreditsBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"creditsBackground.png"]]];
+	_textures[kTexture_SongSelectionBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionBackground.png"]]];	
 	
 	//Load other textures
 	_textures[kTexture_MainMenuBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"mainMenuBackground.png"]]];
@@ -33,7 +36,6 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_MainMenuButtonOptions] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonOptions.png"]]];
 	_textures[kTexture_MainMenuButtonCredits] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"buttonCredits.png"]]];
 
-	_textures[kTexture_SongSelectionBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionBackground.png"]]];
 	_textures[kTexture_SongSelectionWheelItem] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItem_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelItemSelected] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelItemSelected_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelLoadingAvatar] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"songSelectionWheelLoadingAvatar.png"]]];

@@ -79,7 +79,7 @@
 	
 	//Draw background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_CreditsBackground] drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// Draw the texts

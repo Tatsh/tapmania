@@ -28,9 +28,11 @@
 	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
 	
 	//Draw background
+	/*
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_] drawInRect:bounds];
 	glEnable(GL_BLEND);
+	 */
 }	
 
 # pragma mark Touch handling

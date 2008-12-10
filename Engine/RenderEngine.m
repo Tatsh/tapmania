@@ -55,7 +55,7 @@ static RenderEngine *sharedRenderEngineDelegate = nil;
 	
 	// Draw background first to avoid some odd effects with old graphics on the gpu
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:self.window.bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:self.window.bounds];
 	glEnable(GL_BLEND);
 	
 	[glView swapBuffers];

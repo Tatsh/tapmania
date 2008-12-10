@@ -28,7 +28,8 @@ typedef enum {
 	kTexture_LifeBarNormal,
 	kTexture_LifeBarHot,
 	
-	kTexture_Background,
+	kTexture_SongPlayBackgroundIndex,
+	kTexture_SongPlayBackgroundSpread,
 	
 	// Main menu stuff
 	kTexture_MainMenuBackground,
@@ -41,6 +42,9 @@ typedef enum {
 	kTexture_SongSelectionWheelItem,
 	kTexture_SongSelectionWheelItemSelected,
 	kTexture_SongSelectionWheelLoadingAvatar,
+	
+	// Credits
+	kTexture_CreditsBackground,
 	
 	// O.o
 	kNumTextures

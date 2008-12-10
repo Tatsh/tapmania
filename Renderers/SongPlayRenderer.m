@@ -315,9 +315,9 @@
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
 	
-	//Draw background
+	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_Background] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundIndex] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
 	if(!playingGame) return;
