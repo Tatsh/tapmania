@@ -25,7 +25,7 @@
 }
 
 - (void)render:(NSNumber*) fDelta {
-	CGRect	bounds = [RenderEngine sharedInstance].glView.bounds;
+	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
 	
 	//Draw background
 	/*

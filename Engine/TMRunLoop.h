@@ -21,18 +21,12 @@ typedef enum {
 } TMRunLoopPriority;
 
 @protocol TMRunLoopDelegate
-
-// Must have this methods
-- (void) runLoopActionHook:(NSObject*)obj withDelta:(NSNumber*)nDelta;
-- (void) runLoopSingleTimeTaskActionHook:(NSObject*) task withDelta:(NSNumber*)nDelta;
-
 @optional
 - (void) runLoopInitHook;
 - (void) runLoopBeforeHook:(NSNumber*)fDelta;
 - (void) runLoopAfterHook:(NSNumber*)fDelta;
 
 - (void) runLoopInitializedNotification;
-
 @end
 
 
@@ -52,26 +46,10 @@ typedef enum {
 	@private 
 	BOOL _stopRequested;
 	BOOL _actualStopState;
-		
-	// Every run loop has a name
-	NSString* name;
-	
-	// The lock used to synchronize threads
-	NSLock* lock;
-	
-	// The other locks which are used to synchronize internal stuff
-	NSLock* objectsLock; 
-	NSLock* tasksLock;
-	
-	// The thread object
-	NSThread* thread;
 }
 
 @property (assign) id <TMRunLoopDelegate> delegate;
-@property (retain, readonly, nonatomic) NSThread* thread;
 
-// Constructors
-- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock;
 
 // Call this method to run the runloop
 - (void) run;

@@ -10,23 +10,21 @@
 
 #import "TMObjectWithPriority.h"
 #import "TMRenderable.h"
-#import "RenderEngine.h"
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
-
-#import "BenchmarkUtil.h"
-
+#import "TMSingleTimeTask.h"
+#import "TapMania.h"
 #import <syslog.h>
 
 @interface TMRunLoop (Private)
-- (void) worker; // The real thread's working routine
+- (void) worker; 
 @end
 
 @implementation TMRunLoop
 
-@synthesize delegate, thread;
+@synthesize delegate;
 
-- (id) initWithName:(NSString*)lName andLock:(NSLock*)lLock {
+- (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
@@ -36,14 +34,7 @@
 	
 	_stopRequested = NO;
 	_actualStopState = YES; // Initially stopped
-	
-	name = lName;
-	lock = lLock;
-	objectsLock = [[NSLock alloc] init];
-	tasksLock = [[NSLock alloc] init];
-	
-	thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
-	
+		
 	return self;
 }
 
@@ -55,13 +46,8 @@
 }
 
 - (void) run {
-	
-	NSLog(@"Run the %@ RunLoop thread.", name);
-	
-	[thread start];
 	_actualStopState = NO; // Running
-	
-	NSLog(@"Thread is now running.");
+	[self worker];
 }
 
 - (void) stop {
@@ -81,8 +67,6 @@
 		priority = kRunLoopPriority_Highest;
 	}
 	
-	[objectsLock lock];
-	
 	int i = 0;
 	if([objects count] > 0) {
 		for(i=0; i<([objects count])-1; i++){
@@ -95,13 +79,9 @@
 	// Add new object at 'i' and shift others if required
 	TMObjectWithPriority* wrapper = [[TMObjectWithPriority alloc] initWithObj:obj andPriority:priority];
 	[objects insertObject:wrapper atIndex:i];	
-	
-	[objectsLock unlock];
 }
 
 - (void) deregisterAllObjects {
-	[objectsLock lock];
-	
 	int i;
 	for(i=0; i<[objects count]; i++){
 		TMObjectWithPriority* obj = [objects objectAtIndex:i];
@@ -109,14 +89,10 @@
 	}	
 	
 	[objects removeAllObjects];
-	
-	[objectsLock unlock];
 }
 
 - (void) registerSingleTimeTask:(NSObject*) task {
-	[tasksLock lock];
 	[singleTimeTasks addObject:task]; // Add to the end
-	[tasksLock unlock];
 }
 
 /* Private worker */
@@ -125,24 +101,17 @@
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
 	float totalTime = 0.0f;
 
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[delegate performSelector:@selector(runLoopInitHook) onThread:thread withObject:nil waitUntilDone:YES];
+		[delegate performSelector:@selector(runLoopInitHook) withObject:nil];
 		
 		if([delegate respondsToSelector:@selector(runLoopInitializedNotification)]){
-			[delegate performSelector:@selector(runLoopInitializedNotification) onThread:thread withObject:nil waitUntilDone:YES];
+			[delegate performSelector:@selector(runLoopInitializedNotification) withObject:nil];
 		}
 	}
 	
-	// TODO: pereodic pool releases must be added
-	
 	while (!_stopRequested) {
 		float currentTime = [TimingUtil getCurrentTime];
-		
-		// BenchmarkUtil *bm = [BenchmarkUtil instanceWithName:name];
-		
 		
 		float delta = currentTime-prevTime;
 		NSNumber* nDelta = [NSNumber numberWithFloat:delta];
@@ -154,8 +123,8 @@
 		if(totalTime > 1.0f) {
 			// Show fps
 			framesCounter/=totalTime;
-			// NSLog(@"[RunLoop %@] FPS: %d", name, framesCounter);			
-			// syslog(LOG_DEBUG, "[RunLoop %s] FPS: %d", [name UTF8String], framesCounter);
+			// NSLog(@"[RunLoop] FPS: %d", framesCounter);			
+			// syslog(LOG_DEBUG, "[RunLoop] FPS: %d", framesCounter);
 			
 			totalTime = 0.0f;
 			framesCounter = 0;
@@ -163,56 +132,49 @@
 		
 		framesCounter ++;
 		
-		 
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
-			[delegate performSelector:@selector(runLoopBeforeHook:) onThread:thread withObject:nDelta waitUntilDone:YES];
+			[delegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
 		}
-		
-		[tasksLock lock];
 		
 		/* Perform all pending single time tasks first */
 		unsigned i;
-		for(i=0; i<[singleTimeTasks count]; i++){
-			if(delegate){
-				NSObject* task = [singleTimeTasks objectAtIndex:i];
-				
-				[lock lock];
-				[delegate performSelector:@selector(runLoopSingleTimeTaskActionHook:withDelta:) withObject:task withObject:nDelta];
-				[lock unlock];	
-			}
+		for(i=0; i<[singleTimeTasks count]; i++){		
+			NSObject* task = [singleTimeTasks objectAtIndex:i];
+			if([task conformsToProtocol:@protocol(TMSingleTimeTask)]){
+				[task performSelector:@selector(action:) withObject:nDelta];
+			} 				
 		}
 		
 		// Remove all tasks from the list now
 		[singleTimeTasks removeAllObjects];
 		
-		[tasksLock unlock];
-		[objectsLock lock];
-		
 		/* Do the actual work */
+		/* First update all objects */
 		for(i=0; i<[objects count]; i++){
 			TMObjectWithPriority* wrapper = [objects objectAtIndex:i];
 			NSObject* obj = [wrapper obj];
 			
-			if(delegate) {
-				/* We must call the action method on the delegate now */
-				[lock lock];
-				[delegate performSelector:@selector(runLoopActionHook:withDelta:) withObject:obj withObject:nDelta];
-				[lock unlock];
+			if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
+				[obj performSelector:@selector(update:) withObject:nDelta];
 			}
 		}
 
-		[objectsLock unlock];
+		/* Now draw all objects */
+		for(i=0; i<[objects count]; i++){
+			TMObjectWithPriority* wrapper = [objects objectAtIndex:i];
+			NSObject* obj = [wrapper obj];
+			
+			if([obj conformsToProtocol:@protocol(TMRenderable)]) {
+				[obj performSelector:@selector(render:) withObject:nDelta];
+			}
+		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
-			[delegate performSelector:@selector(runLoopAfterHook:) onThread:thread withObject:nDelta waitUntilDone:YES];
-		}
-		
-	//	[bm finish];
+			[delegate performSelector:@selector(runLoopAfterHook:) withObject:nDelta];
+		}		
 	}
-	
-	[pool drain];
 	
 	// Mark as stopped
 	_actualStopState = YES;

@@ -7,7 +7,6 @@
 //
 
 #import "SongPlayRenderer.h"
-#import "RenderEngine.h"
 #import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
@@ -138,7 +137,7 @@
 		
 		// request transition
 		SongPickerMenuRenderer *spScreen = [[SongPickerMenuRenderer alloc] init];
-		[[LogicEngine sharedInstance] switchToScreen:spScreen];
+		[[TapMania sharedInstance] switchToScreen:spScreen];
 		playingGame = NO;
 	}	
 	
@@ -311,7 +310,7 @@
 
 // Renders one scene of the gameplay
 - (void)render:(NSNumber*)fDelta {
-	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
 	

@@ -8,17 +8,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Texture2D.h"
-#import "JoyPad.h"
-#import "LifeBar.h"
-#import "AbstractRenderer.h"
-#import "TMRunLoop.h"
-#import "RenderEngine.h"
-#import "LogicEngine.h"
-#import "InputEngine.h"
-
-@class EAGLView;
-@class AbstractRenderer;
+#import "TapMania.h"
 
 typedef enum {
 	kState_StandBy = 0,		// Menu or entrance screen
@@ -27,17 +17,10 @@ typedef enum {
 	kState_Failure			// When you failed a song
 } State;
 
-@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, JoyPadControllerDelegate>
+@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
 {
 	State					_state;
-	JoyPad*					joyPad;  // The joypad
 }
-
-// Window
-@property (retain, nonatomic, readonly) JoyPad* joyPad;
-
-- (void) showJoyPad;
-- (void) hideJoyPad;	
 
 @end
 

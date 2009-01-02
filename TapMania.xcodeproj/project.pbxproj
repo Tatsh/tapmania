@@ -16,7 +16,6 @@
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
-		244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 244956F80EDEBCC500D462F0 /* RenderEngine.m */; };
 		2472663D0EE949A500D501AF /* TapNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.m */; };
 		247266540EE94D3B00D501AF /* Receptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.m */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.m */; };
@@ -42,7 +41,7 @@
 		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
 		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
-		248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* LogicEngine.m */; };
+		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
 		24AFB47D0EEFF5AC00D0BF31 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AFB47C0EEFF5AC00D0BF31 /* themes */; };
@@ -80,8 +79,6 @@
 		244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRunLoop.m; sourceTree = "<group>"; };
 		244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMObjectWithPriority.h; sourceTree = "<group>"; };
 		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
-		244956F70EDEBCC500D462F0 /* RenderEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderEngine.h; sourceTree = "<group>"; };
-		244956F80EDEBCC500D462F0 /* RenderEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderEngine.m; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
 		2472663C0EE949A500D501AF /* TapNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapNote.m; path = Renderers/UIElements/TapNote.m; sourceTree = "<group>"; };
 		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
@@ -129,8 +126,8 @@
 		2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturesHolder.m; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
-		248EE4560EE4002000FF1D43 /* LogicEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicEngine.h; sourceTree = "<group>"; };
-		248EE4570EE4002000FF1D43 /* LogicEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogicEngine.m; sourceTree = "<group>"; };
+		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
+		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapMania.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
@@ -210,10 +207,8 @@
 				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
 				24854AD40EE8065000AD4FAB /* SoundEngine.cpp */,
 				24854AD50EE8065000AD4FAB /* SoundEngine.h */,
-				244956F70EDEBCC500D462F0 /* RenderEngine.h */,
-				244956F80EDEBCC500D462F0 /* RenderEngine.m */,
-				248EE4560EE4002000FF1D43 /* LogicEngine.h */,
-				248EE4570EE4002000FF1D43 /* LogicEngine.m */,
+				248EE4560EE4002000FF1D43 /* TapMania.h */,
+				248EE4570EE4002000FF1D43 /* TapMania.m */,
 				248547F10EE6BCD300AD4FAB /* InputEngine.h */,
 				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
 			);
@@ -494,9 +489,8 @@
 				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
 				244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */,
 				244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */,
-				244956F90EDEBCC500D462F0 /* RenderEngine.m in Sources */,
 				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */,
-				248EE4580EE4002000FF1D43 /* LogicEngine.m in Sources */,
+				248EE4580EE4002000FF1D43 /* TapMania.m in Sources */,
 				2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */,
 				248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */,
 				2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */,

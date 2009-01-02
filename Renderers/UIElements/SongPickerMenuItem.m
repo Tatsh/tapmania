@@ -9,7 +9,7 @@
 #import "SongPickerMenuItem.h"
 #import "TMFramedTexture.h"
 #import "TexturesHolder.h"
-#import "RenderEngine.h"
+#import "TapMania.h"
 
 @implementation SongPickerMenuItem
 
@@ -26,7 +26,6 @@
 	// The title must be taken from the song file
 	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", song.artist, song.title];
 	
-	[[RenderEngine sharedInstance].glView setCurrentContext];
 	title = [[Texture2D alloc] initWithString:titleStr dimensions:shape.size alignment:UITextAlignmentLeft fontName:@"Arial" fontSize:24.0f];
 	
 	return self;

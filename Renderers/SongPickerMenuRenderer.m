@@ -65,7 +65,7 @@
 	moveRows = 0;
 	startSongPlay = NO;
 	
-	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
 	
 	float curWidth = 0.85f;	// 95% - 2*5% = 85% = 0.85
@@ -133,7 +133,7 @@
 
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
-	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
@@ -164,7 +164,7 @@
 		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
 		[songPlayRenderer playSong:wheelItems[kSelectedWheelItemId].song withOptions:options];
 		
-		[[LogicEngine sharedInstance] switchToScreen:songPlayRenderer];
+		[[TapMania sharedInstance] switchToScreen:songPlayRenderer];
 		
 		startSongPlay = NO;	// Ensure we are doing this only once
 	}
@@ -194,7 +194,7 @@
 		case 1:
 		{
 			UITouch* touch = [touches anyObject];
-			startTouchPos = [touch locationInView:[RenderEngine sharedInstance].glView];
+			startTouchPos = [touch locationInView:[TapMania sharedInstance].glView];
 			startTouchTime = [TimingUtil getCurrentTime];
 			
 			lastTouchPos = startTouchPos;
@@ -213,7 +213,7 @@
 		case 1:
 		{
 			UITouch* touch = [touches anyObject];
-			CGPoint pos = [touch locationInView:[RenderEngine sharedInstance].glView];
+			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
 	
 			moveRows = (pos.y-lastTouchPos.y)/40.0f; // 40.0f is about the size of the wheel item
 			if(fabsf(moveRows) >= 1.0f) {
@@ -232,8 +232,8 @@
 	
 	if([touches count] == 1){
 		
-		CGPoint pos = [t1 locationInView:[RenderEngine sharedInstance].glView];
-		CGPoint pointGl = [[RenderEngine sharedInstance].glView convertPointFromViewToOpenGL:pos];
+		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
+		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 		
 		// Should start a song?
 		if([t1 tapCount] > 1 && [wheelItems[kSelectedWheelItemId] containsPoint:pointGl]){

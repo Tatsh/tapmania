@@ -51,9 +51,9 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Add the menu items to the render loop with lower priority
-	[[RenderEngine sharedInstance] registerRenderer:mainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
-	[[RenderEngine sharedInstance] registerRenderer:mainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
-	[[RenderEngine sharedInstance] registerRenderer:mainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
+	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
+	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
@@ -66,7 +66,7 @@
 
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
-	CGRect bounds = [RenderEngine sharedInstance].glView.bounds;
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
@@ -84,13 +84,13 @@
 	if(selectedMenu == kMainMenuItem_Play) {
 		NSLog(@"Enter song pick menu...");		
 		
-		[[LogicEngine sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
 	} else if(selectedMenu == kMainMenuItem_Options) {
 		NSLog(@"Enter options menu...");
 	} else if(selectedMenu == kMainMenuItem_Credits) {
 		NSLog(@"Enter credits screen...");
 		
-		[[LogicEngine sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
 	}
 	
 	selectedMenu = -1; // To ensure we are not doing the transition more than once
@@ -100,8 +100,8 @@
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1) {
 		UITouch * touch = [touches anyObject];
-		CGPoint point = [[RenderEngine sharedInstance].glView convertPointFromViewToOpenGL:
-							[touch locationInView:[RenderEngine sharedInstance].glView]];
+		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
+							[touch locationInView:[TapMania sharedInstance].glView]];
 	
 		if([mainMenuItems[kMainMenuItem_Play] containsPoint:point]){
 			selectedMenu = kMainMenuItem_Play;
