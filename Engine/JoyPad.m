@@ -9,6 +9,7 @@
 #import <syslog.h>
 
 #import "JoyPad.h"
+#import "TapMania.h"
 #import "TimingUtil.h"
 
 @interface JoyPad (Private)
@@ -19,9 +20,8 @@
 
 @implementation JoyPad
 
-@synthesize delegate;
-
 - (id) initWithStyle:(JPStyle)style {
+	/*
 	switch (style) {
 		case kJoyStyleIndex:
 			self = [super initWithFrame:CGRectMake(60, 280, 200, 200)];			
@@ -35,12 +35,13 @@
 	}
 	
 	[self setBackgroundColor:[UIColor clearColor]]; // Make the view background transparent	
-	
+	*/
 	return self;
 }
 
 /* Private constructor helpers */
 - (void) createSpreadJoy {
+	/*
 	int i;
 	
 	// Create and init buttons
@@ -77,10 +78,12 @@
 		
 		[image release];
 		curXOffset += (buttonWidth+spacingBetweenButtons);
-	}	
+	}
+	 */
 }
 
 - (void) createIndexJoy {
+	/*
 	int i;
 	
 	// Create and init buttons
@@ -116,6 +119,7 @@
 		
 		[image release];
 	}	
+	 */
 }
 
 /* Public methods */
@@ -131,33 +135,17 @@
 	return _joyButtonTimeRelease[button];
 }
 
-- (void) gotPress:(id) sender {
-	int i;
+/* TMGameUIResponder methods */
+- (void) tmTouchesStarted:(NSSet*)touches withEvent:(UIEvent*)event {
+}
 
-	for(i=0; i<kNumJoyButtons; i++) {
-		if(sender == _buttons[i]){
-			// Found button id
-			_joyButtonStates[i] = YES;
-			_joyButtonTimeTouch[i] = [TimingUtil getCurrentTime];
-			
-			return;
-		}
+- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	if([touches count] == 1) {
+		UITouch * touch = [touches anyObject];
+		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
+						 [touch locationInView:[TapMania sharedInstance].glView]];
+		
 	}
 }
-
-- (void) gotRelease:(id) sender {
-	int i;
-
-	for(i=0; i<kNumJoyButtons; i++) {
-		if(sender == _buttons[i]){
-			// Found button id
-			_joyButtonStates[i] = NO;
-			_joyButtonTimeRelease[i] = [TimingUtil getCurrentTime];
-			
-			return;
-		}
-	}	
-}
-
 
 @end

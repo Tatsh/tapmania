@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TMGameUIResponder.h"
 
 typedef enum {
 	kJoyButtonLeft = 0,
@@ -21,24 +22,11 @@ typedef enum {
 	kJoyStyleIndex
 } JPStyle;
 
-/*
- This delegate can be used to notify your controller about changes in the joypad (button press/release)
- */
-@protocol JoyPadControllerDelegate <NSObject>
-- (void) joyPadStatusUpdated;
-@end
-
-@interface JoyPad : UIView {
+@interface JoyPad : NSObject <TMGameUIResponder> {
 	BOOL _joyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
 	double _joyButtonTimeTouch[kNumJoyButtons];	// Last time every button was touched
 	double _joyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
-	
-	UIButton* _buttons[kNumJoyButtons];    // The actual buttons
-	
-	id delegate; // Controller delegate
 }
-
-@property (assign) id <JoyPadControllerDelegate> delegate;
 
 // The constructor
 - (id) initWithStyle:(JPStyle)style;
@@ -47,9 +35,5 @@ typedef enum {
 - (BOOL) getStateForButton:(JPButton) button;
 - (double) getTouchTimeForButton: (JPButton) button;
 - (double) getReleaseTimeForButton: (JPButton) button;
-
-// Press and Release buttons in the joypad
-- (void) gotPress:(id) sender;
-- (void) gotRelease:(id) sender;
 
 @end

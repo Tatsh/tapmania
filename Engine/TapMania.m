@@ -76,6 +76,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	[self.window addSubview:glView];		
 	
+	// FIXME: hardcoded index style here
+	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
+	
 	// Init main run loop
 	gameRunLoop = [[TMRunLoop alloc] init];
 	gameRunLoop.delegate = self;

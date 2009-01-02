@@ -25,7 +25,6 @@
 	TMSong*					song;	// Currently played song
 	TMSteps*				steps;	// Currently played steps
 
-	JoyPad*					joyPad; // A pointer to the AppDelegate's joyPad for easy access
 	ReceptorRow*			receptorRow;
 	LifeBar*				lifeBar;
 	

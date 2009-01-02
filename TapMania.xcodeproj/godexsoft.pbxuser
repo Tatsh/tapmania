@@ -176,7 +176,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 966}}";
 			sepNavSelRange = "{591, 45}";
-			sepNavVisRange = "{481, 1181}";
+			sepNavVisRange = "{480, 1182}";
 		};
 	};
 	244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {
@@ -1011,7 +1011,7 @@
 	};
 	24854AD40EE8065000AD4FAB /* SoundEngine.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 22484}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 22134}}";
 			sepNavSelRange = "{29916, 14}";
 			sepNavVisRange = "{29403, 1166}";
 		};
@@ -1292,7 +1292,7 @@
 	};
 	2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 2380}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 2436}}";
 			sepNavSelRange = "{450, 0}";
 			sepNavVisRange = "{0, 874}";
 		};
@@ -1509,15 +1509,15 @@
 	2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 653}}";
-			sepNavSelRange = "{366, 0}";
-			sepNavVisRange = "{0, 1192}";
+			sepNavSelRange = "{894, 0}";
+			sepNavVisRange = "{0, 1114}";
 		};
 	};
 	2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1137, 6258}}";
-			sepNavSelRange = "{9762, 0}";
-			sepNavVisRange = "{9194, 1075}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 5838}}";
+			sepNavSelRange = "{12291, 0}";
+			sepNavVisRange = "{552, 1137}";
 			sepNavWindowFrame = "{{15, 194}, {991, 803}}";
 		};
 	};
@@ -1609,15 +1609,15 @@
 	248EE4560EE4002000FF1D43 /* TapMania.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 742}}";
-			sepNavSelRange = "{854, 19}";
-			sepNavVisRange = "{74, 1254}";
+			sepNavSelRange = "{646, 0}";
+			sepNavVisRange = "{130, 1198}";
 		};
 	};
 	248EE4570EE4002000FF1D43 /* TapMania.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1011, 2352}}";
-			sepNavSelRange = "{2958, 0}";
-			sepNavVisRange = "{2208, 1089}";
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 2450}}";
+			sepNavSelRange = "{2364, 0}";
+			sepNavVisRange = "{1544, 1153}";
 		};
 	};
 	248EE4800EE4056300FF1D43 /* PBXTextBookmark */ = {
@@ -2146,7 +2146,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "LogicEngine.m: 72";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 1183;
@@ -2236,7 +2236,7 @@
 		comments = "warning: class 'TapMania' does not fully implement the 'TMRunLoopDelegate' protocol";
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		rLen = 1;
-		rLoc = 174;
+		rLoc = 177;
 		rType = 1;
 	};
 	24D4BFD00F0E360800643CC2 /* PBXTextBookmark */ = {
@@ -2374,7 +2374,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 5;
-		rLoc = 3842;
+		rLoc = 3939;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -2384,7 +2384,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 5;
-		rLoc = 3842;
+		rLoc = 3939;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -2402,7 +2402,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 5;
-		rLoc = 3842;
+		rLoc = 3939;
 		rType = 0;
 		vrLen = 644;
 		vrLoc = 0;
@@ -2668,7 +2668,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "LogicEngine.m: 92";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 1334;
 		vrLoc = 1278;
@@ -2738,7 +2738,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "LogicEngine.m: 92";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 1080;
 		vrLoc = 0;
@@ -2778,7 +2778,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 92";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 1080;
 		vrLoc = 0;
@@ -2858,7 +2858,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 113";
 		rLen = 0;
-		rLoc = 3847;
+		rLoc = 3944;
 		rType = 0;
 		vrLen = 737;
 		vrLoc = 1340;
@@ -2898,7 +2898,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 113";
 		rLen = 0;
-		rLoc = 3847;
+		rLoc = 3944;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 0;
@@ -3158,7 +3158,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 83";
 		rLen = 0;
-		rLoc = 1999;
+		rLoc = 2096;
 		rType = 0;
 		vrLen = 1418;
 		vrLoc = 967;
@@ -3208,7 +3208,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 83";
 		rLen = 0;
-		rLoc = 1999;
+		rLoc = 2096;
 		rType = 0;
 		vrLen = 1418;
 		vrLoc = 967;
@@ -3268,7 +3268,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 114";
 		rLen = 0;
-		rLoc = 2814;
+		rLoc = 2911;
 		rType = 0;
 		vrLen = 901;
 		vrLoc = 0;
@@ -3318,7 +3318,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 77";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 1888;
 		rType = 0;
 		vrLen = 901;
 		vrLoc = 0;
@@ -3338,7 +3338,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 114";
 		rLen = 0;
-		rLoc = 2814;
+		rLoc = 2911;
 		rType = 0;
 		vrLen = 901;
 		vrLoc = 0;
@@ -3598,7 +3598,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 121";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 982;
 		vrLoc = 1854;
@@ -3658,7 +3658,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 121";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 1013;
 		vrLoc = 1823;
@@ -3688,7 +3688,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 123";
 		rLen = 0;
-		rLoc = 3161;
+		rLoc = 3258;
 		rType = 0;
 		vrLen = 1040;
 		vrLoc = 1854;
@@ -3755,7 +3755,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 123";
 		rLen = 0;
-		rLoc = 3161;
+		rLoc = 3258;
 		rType = 0;
 		vrLen = 1449;
 		vrLoc = 810;
@@ -3765,7 +3765,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 123";
 		rLen = 0;
-		rLoc = 3161;
+		rLoc = 3258;
 		rType = 0;
 		vrLen = 1449;
 		vrLoc = 810;
@@ -3785,7 +3785,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 127";
 		rLen = 0;
-		rLoc = 3147;
+		rLoc = 3244;
 		rType = 0;
 		vrLen = 1125;
 		vrLoc = 1893;
@@ -3865,7 +3865,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 177";
 		rLen = 0;
-		rLoc = 3847;
+		rLoc = 3944;
 		rType = 0;
 		vrLen = 1274;
 		vrLoc = 1243;
@@ -3875,7 +3875,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 122";
 		rLen = 0;
-		rLoc = 2959;
+		rLoc = 3056;
 		rType = 0;
 		vrLen = 801;
 		vrLoc = 2255;
@@ -3895,7 +3895,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 128";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 946;
 		vrLoc = 2652;
@@ -3915,7 +3915,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 122";
 		rLen = 0;
-		rLoc = 2959;
+		rLoc = 3056;
 		rType = 0;
 		vrLen = 1296;
 		vrLoc = 594;
@@ -3945,7 +3945,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 128";
 		rLen = 0;
-		rLoc = 3163;
+		rLoc = 3260;
 		rType = 0;
 		vrLen = 946;
 		vrLoc = 2652;
@@ -3995,7 +3995,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 110";
 		rLen = 0;
-		rLoc = 2548;
+		rLoc = 2645;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 1903;
@@ -4035,7 +4035,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 113";
 		rLen = 0;
-		rLoc = 2660;
+		rLoc = 2757;
 		rType = 0;
 		vrLen = 1074;
 		vrLoc = 1963;
@@ -4055,7 +4055,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 109";
 		rLen = 0;
-		rLoc = 2570;
+		rLoc = 2667;
 		rType = 0;
 		vrLen = 1134;
 		vrLoc = 1903;
@@ -4075,7 +4075,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 110";
 		rLen = 0;
-		rLoc = 2548;
+		rLoc = 2645;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 1903;
@@ -4163,7 +4163,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 131";
 		rLen = 0;
-		rLoc = 3141;
+		rLoc = 3238;
 		rType = 0;
 		vrLen = 971;
 		vrLoc = 2430;
@@ -4193,7 +4193,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 131";
 		rLen = 0;
-		rLoc = 3141;
+		rLoc = 3238;
 		rType = 0;
 		vrLen = 971;
 		vrLoc = 2430;
@@ -4233,7 +4233,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 131";
 		rLen = 0;
-		rLoc = 3141;
+		rLoc = 3238;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 2858;
@@ -4253,7 +4253,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 131";
 		rLen = 0;
-		rLoc = 3141;
+		rLoc = 3238;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 2858;
@@ -4273,7 +4273,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 131";
 		rLen = 0;
-		rLoc = 3141;
+		rLoc = 3238;
 		rType = 0;
 		vrLen = 982;
 		vrLoc = 2522;
@@ -4323,7 +4323,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 135";
 		rLen = 0;
-		rLoc = 3194;
+		rLoc = 3291;
 		rType = 0;
 		vrLen = 876;
 		vrLoc = 2813;
@@ -4333,7 +4333,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 135";
 		rLen = 0;
-		rLoc = 3194;
+		rLoc = 3291;
 		rType = 0;
 		vrLen = 876;
 		vrLoc = 2813;
@@ -4363,7 +4363,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 126";
 		rLen = 0;
-		rLoc = 3047;
+		rLoc = 3144;
 		rType = 0;
 		vrLen = 991;
 		vrLoc = 2208;
@@ -4373,7 +4373,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 126";
 		rLen = 0;
-		rLoc = 2958;
+		rLoc = 3055;
 		rType = 0;
 		vrLen = 1089;
 		vrLoc = 2208;
@@ -4393,7 +4393,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 126";
 		rLen = 0;
-		rLoc = 2958;
+		rLoc = 3055;
 		rType = 0;
 		vrLen = 1089;
 		vrLoc = 2208;
@@ -4654,8 +4654,8 @@
 	24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1011, 1638}}";
-			sepNavSelRange = "{2384, 0}";
-			sepNavVisRange = "{1661, 1524}";
+			sepNavSelRange = "{2934, 655}";
+			sepNavVisRange = "{0, 1284}";
 		};
 	};
 	24F15E580EC211AC00755788 /* PBXTextBookmark */ = {
@@ -4852,16 +4852,16 @@
 	};
 	28FD14FD0DC6FC130079059D /* EAGLView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1614, 3290}}";
-			sepNavSelRange = "{5590, 57}";
-			sepNavVisRange = "{4845, 1710}";
+			sepNavIntBoundsRect = "{{0, 0}, {1614, 3318}}";
+			sepNavSelRange = "{5655, 0}";
+			sepNavVisRange = "{4553, 1626}";
 			sepNavWindowFrame = "{{176, 47}, {991, 803}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 2486F17F0EC0774100E5F9EE /* TapMania */;
-		activeSDKPreference = iphoneos2.0;
+		activeSDKPreference = iphonesimulator2.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* TapMania */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* TapMania */,
