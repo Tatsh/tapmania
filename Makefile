@@ -4,11 +4,11 @@ LD=$(CC)
 FRAMEWORKS=-framework CoreFoundation -framework Foundation -framework UIKit -framework CoreAudio -framework OpenAL -framework CoreGraphics -framework OpenGLES -framework AudioToolbox -framework QuartzCore
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
 CFLAGS=-O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects -IEngine/Transitions -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
-OBJS=Engine/Transitions/BasicTransition.o Util/Texture2D.o Engine/Objects/TMObjectWithPriority.o \
+OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Objects/TMObjectWithPriority.o \
 	Engine/Objects/TMFramedTexture.o Engine/Objects/TMAnimatable.o \
-	Engine/RenderEngine.o Engine/LogicEngine.o Engine/InputEngine.o Engine/TMRunLoop.o Engine/SoundEffectsHolder.o \
+	Engine/TapMania.o Engine/InputEngine.o Engine/TMRunLoop.o Engine/SoundEffectsHolder.o \
 	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/TexturesHolder.o Engine/EAGLView.o \
-	Renderers/AbstractRenderer.o Renderers/AbstractMenuRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
+	Renderers/AbstractRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
 	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \
 	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o \
 	Renderers/UIElements/TogglerItem.o Renderers/UIElements/TapNote.o Renderers/UIElements/HoldNote.o Renderers/UIElements/Receptor.o \
