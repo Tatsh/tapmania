@@ -47,6 +47,9 @@
 - (void) setCurrentScreen:(AbstractRenderer*) screenRenderer;
 - (void) releaseCurrentScreen;
 
+- (JoyPad*) enableJoyPad;
+- (void) disableJoyPad;
+
 + (TapMania *)sharedInstance;
 
 @end

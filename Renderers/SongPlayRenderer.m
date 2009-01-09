@@ -46,10 +46,6 @@
 	if(!self)
 		return nil;
 	
-	// Show joyPad
-//	[(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] showJoyPad];
-//	joyPad = [(TapManiaAppDelegate*)[[UIApplication sharedApplication] delegate] joyPad];
-
 	// Init the receptor row
 	receptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(kArrowsBaseX, kArrowsBaseY)];
 
@@ -108,6 +104,10 @@
 	playBackScheduledEndTime = playBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	
 	[tapNote startAnimation];
+	
+	// Enable joypad
+	joyPad = [[TapMania sharedInstance] enableJoyPad];
+
 	playingGame = YES;	
 }
 
@@ -134,7 +134,10 @@
 		
 		// Stop animating the arrows
 		[tapNote stopAnimation];
-		
+	
+		// Disable the joypad
+		[[TapMania sharedInstance] disableJoyPad];
+	
 		// request transition
 		SongPickerMenuRenderer *spScreen = [[SongPickerMenuRenderer alloc] init];
 		[[TapMania sharedInstance] switchToScreen:spScreen];
@@ -158,8 +161,8 @@
 	
 	[tapNote continueAnimation];
 	
-	// double searchHitFromTime = elapsedTime - 0.1f;
-	// double searchHitTillTime = elapsedTime + 0.1f;
+	double searchHitFromTime = elapsedTime - 0.1f;
+	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
 	
 	// For every track
@@ -174,12 +177,11 @@
 		
 		TMNote* prevNote = nil;
 		
-		// double lastHitTime = 0.0f;
-		// BOOL testHit = NO;
-		
+		double lastHitTime = 0.0f;
+		BOOL testHit = NO;
+
 		// Check for hit?
-		/*
-		if([joyPad getStateForButton:i]) {
+		if(YES == [joyPad getStateForButton:i]) {
 			// Button is currently pressed
 			lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
 			
@@ -187,7 +189,6 @@
 				testHit = YES;
 			}
 		}
-		*/
 		 
 		// For all interesting notes in the track
 		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
@@ -247,7 +248,9 @@
 			}
 			
 			// Check whether this note is already out of scope
-			if((note.type == kNoteType_HoldHead && holdBottomCapYPosition >= 480.0f) || (note.type != kNoteType_HoldHead && noteYPosition >= 480.0f)) {
+			if((note.type == kNoteType_HoldHead && holdBottomCapYPosition >= 480.0f) || 
+			   (note.type != kNoteType_HoldHead && noteYPosition >= 480.0f)) 
+			{
 				++trackPos[i];
 				/*
 				if(!note.isHit) {
@@ -263,7 +266,6 @@
 			}				
 			
 			// Check old hit first
-			/*
 			if(testHit && note.isHit){
 				// This note was hit already (maybe using the same tap as we still hold)
 				if(note.hitTime == lastHitTime) {
@@ -271,28 +273,28 @@
 					testHit = NO;
 				} 
 			}
-			*/
 			 
 			// Check hit
-			/*
 			if(testHit && !note.isHit){
-				
+				syslog(LOG_DEBUG, "Can check for hit!");
+				double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
+
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
 					double delta = fabs(noteTime - lastHitTime);
 					
 					if(delta <= 0.01) {
-						// syslog(LOG_DEBUG, "Marvelous!");
+						syslog(LOG_DEBUG, "Marvelous!");
 					} else if(delta <= 0.05) {
-						// syslog(LOG_DEBUG, "Perfect!");
+						syslog(LOG_DEBUG, "Perfect!");
 					} else if(delta <= 0.1) {
-						// syslog(LOG_DEBUG, "Great!");
+						syslog(LOG_DEBUG, "Great!");
 					} else if(delta <= 0.13) {
-						// syslog(LOG_DEBUG, "Almost!");
+						syslog(LOG_DEBUG, "Almost!");
 					} else if(delta <= 0.18) {
-						// syslog(LOG_DEBUG, "BOO!");
+						syslog(LOG_DEBUG, "BOO!");
 					} else {
-						// syslog(LOG_DEBUG, "Miss!");
+						syslog(LOG_DEBUG, "Miss!");
 					}
 					
 					// Mark note as hit
@@ -300,7 +302,6 @@
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 				}
 			}
-			*/
 				
 			prevNote = note;
 			lastNoteYPosition = noteYPosition;

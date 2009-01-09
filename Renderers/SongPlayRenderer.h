@@ -36,6 +36,8 @@
 	
 	BOOL					playingGame;
 	BOOL					musicPlaybackStarted;
+
+	JoyPad* 				joyPad; // Local pointer for easy access
 }
 
 - (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;

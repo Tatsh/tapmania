@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TMGameUIResponder.h"
+#import "PhysicsUtil.h"
 
 typedef enum {
 	kJoyButtonLeft = 0,
@@ -26,6 +27,8 @@ typedef enum {
 	BOOL _joyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
 	double _joyButtonTimeTouch[kNumJoyButtons];	// Last time every button was touched
 	double _joyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
+
+	Triangle* _joyButtons[kNumJoyButtons];
 }
 
 // The constructor

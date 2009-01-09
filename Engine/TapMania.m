@@ -113,6 +113,15 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[gameRunLoop run];	
 }
 
+- (JoyPad*) enableJoyPad {
+	[[InputEngine sharedInstance] subscribe:joyPad];
+	return joyPad;
+}
+
+- (void) disableJoyPad {
+	[[InputEngine sharedInstance] unsubscribe:joyPad];
+}
+
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	NSLog(@"Init game run loop...");
