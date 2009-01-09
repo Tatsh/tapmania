@@ -276,13 +276,13 @@
 			 
 			// Check hit
 			if(testHit && !note.isHit){
-				syslog(LOG_DEBUG, "Can check for hit!");
 				double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
 
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
 					double delta = fabs(noteTime - lastHitTime);
-					
+				
+					/*
 					if(delta <= 0.01) {
 						syslog(LOG_DEBUG, "Marvelous!");
 					} else if(delta <= 0.05) {
@@ -296,6 +296,7 @@
 					} else {
 						syslog(LOG_DEBUG, "Miss!");
 					}
+					*/
 					
 					// Mark note as hit
 					[note hit:lastHitTime];

@@ -50,7 +50,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Init opengl
 	glView = [[EAGLView alloc] initWithFrame:rect];	
-	
+	glView.multipleTouchEnabled = YES;
+
 	// Load all textures
 	[TexturesHolder sharedInstance];
 	
