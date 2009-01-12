@@ -281,22 +281,27 @@
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 					// Ok. we take this input
 					double delta = fabs(noteTime - lastHitTime);
-				
-					/*
-					if(delta <= 0.01) {
+					
+					// All the timing data should go to a separate class
+					if(delta <= 0.022500) {
 						syslog(LOG_DEBUG, "Marvelous!");
-					} else if(delta <= 0.05) {
+						NSLog(@"Marv");
+					} else if(delta <= 0.045000) {
 						syslog(LOG_DEBUG, "Perfect!");
-					} else if(delta <= 0.1) {
+						NSLog(@"Perf");
+					} else if(delta <= 0.090000) {
 						syslog(LOG_DEBUG, "Great!");
-					} else if(delta <= 0.13) {
+						NSLog(@"Great");
+					} else if(delta <= 0.135000) {
 						syslog(LOG_DEBUG, "Almost!");
-					} else if(delta <= 0.18) {
+						NSLog(@"Almost");
+					} else if(delta <= 0.180000) {
 						syslog(LOG_DEBUG, "BOO!");
+						NSLog(@"Boo");
 					} else {
 						syslog(LOG_DEBUG, "Miss!");
+						NSLog(@"Miss");
 					}
-					*/
 					
 					// Mark note as hit
 					[note hit:lastHitTime];

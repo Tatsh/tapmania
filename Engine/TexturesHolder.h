@@ -28,6 +28,8 @@ typedef enum {
 	kTexture_LifeBarNormal,
 	kTexture_LifeBarHot,
 	
+	kTexture_Judgement,
+	
 	kTexture_SongPlayBackgroundIndex,
 	kTexture_SongPlayBackgroundSpread,
 	

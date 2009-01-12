@@ -44,6 +44,9 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_LifeBarNormal] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"lifeBarNormal.png"]]];
 	_textures[kTexture_LifeBarHot] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/%@", themeDir, @"lifeBarHot.png"]]];
 
+	
+	// _textures[kTexture_Judgement] = 
+	
 	// Load 8x8 texture for tap notes
 	_textures[kTexture_TapNote] = [[TapNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapNote_8x8.png", skin]] columns:8 andRows:8];
 	
