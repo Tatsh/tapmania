@@ -51,7 +51,7 @@
 
 	// Init the lifebar
 	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(10.0f, kLifeBarY, 270.0f, 32.0f)];
-	
+
 	playingGame = NO;
 	
 	return self;
@@ -116,6 +116,7 @@
 	if(!playingGame) return;
 		
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
+	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
@@ -152,6 +153,9 @@
 	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
 	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
 	[tapNote update:fDelta];
+	
+	// Update judgement state
+	[judgement update:fDelta];
 	
 	// If freeze - leave for now
 	if(hasFreeze) {
@@ -252,11 +256,11 @@
 			   (note.type != kNoteType_HoldHead && noteYPosition >= 480.0f)) 
 			{
 				++trackPos[i];
-				/*
+				
 				if(!note.isHit) {
-					// syslog(LOG_DEBUG, "Miss!");
+					[judgement setCurrentJudgement:kJudgementMiss];
 				}
-				*/
+				
 				continue; // Skip this note
 			}
 			
@@ -284,23 +288,17 @@
 					
 					// All the timing data should go to a separate class
 					if(delta <= 0.022500) {
-						syslog(LOG_DEBUG, "Marvelous!");
-						NSLog(@"Marv");
+						[judgement setCurrentJudgement:kJudgementW1];
 					} else if(delta <= 0.045000) {
-						syslog(LOG_DEBUG, "Perfect!");
-						NSLog(@"Perf");
+						[judgement setCurrentJudgement:kJudgementW2];
 					} else if(delta <= 0.090000) {
-						syslog(LOG_DEBUG, "Great!");
-						NSLog(@"Great");
+						[judgement setCurrentJudgement:kJudgementW3];
 					} else if(delta <= 0.135000) {
-						syslog(LOG_DEBUG, "Almost!");
-						NSLog(@"Almost");
+						[judgement setCurrentJudgement:kJudgementW4];
 					} else if(delta <= 0.180000) {
-						syslog(LOG_DEBUG, "BOO!");
-						NSLog(@"Boo");
+						[judgement setCurrentJudgement:kJudgementW5];
 					} else {
-						syslog(LOG_DEBUG, "Miss!");
-						NSLog(@"Miss");
+						[judgement setCurrentJudgement:kJudgementMiss];
 					}
 					
 					// Mark note as hit
@@ -320,6 +318,7 @@
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
+	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
 	
 	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
@@ -417,6 +416,9 @@
 
 		// Draw the lifebar above all notes
 		[lifeBar render:fDelta];
+
+		// Draw the judgement
+		[judgement render:fDelta];
 	}
 	
 }

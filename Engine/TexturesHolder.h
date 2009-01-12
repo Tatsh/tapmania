@@ -13,6 +13,7 @@
 #import "TapNote.h"
 #import "HoldNote.h"
 #import "Receptor.h"
+#import "Judgement.h"
 
 typedef enum {
 	// Gameplay stuff

@@ -20,6 +20,7 @@ typedef enum {
 	kJudgementW3,
 	kJudgementW4,
 	kJudgementW5,
+	kJudgementMiss,
 	kNumJudgementValues
 } JudgementValues;
 
@@ -28,7 +29,6 @@ typedef enum {
 	double _elapsedTime;	// Time elapsed since last renew of the judgement
 }
 
-// Drawing routine. This routine will replace currently shown judgement sprite
-- (void) drawJudgement:(JudgementValues) judgement;
+- (void) setCurrentJudgement:(JudgementValues) judgement;
 
 @end
