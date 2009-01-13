@@ -10,7 +10,6 @@
 #import "TapManiaAppDelegate.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
-#define kAccelerometerFrequency		0.0
 
 @implementation TapManiaAppDelegate
 
@@ -20,6 +19,10 @@
 					
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 
+	// Get rid of the accelerometer
+	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];                                                                                                                                                               
+	
 	// Start the game.
 	[[TapMania sharedInstance] startGame];
 }

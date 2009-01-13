@@ -26,6 +26,7 @@ typedef enum {
 	kTexture_HoldBottomCapInactive,
 
 	kTexture_LifeBarFrame,
+	kTexture_LifeBarBackground,
 	kTexture_LifeBarNormal,
 	kTexture_LifeBarHot,
 	

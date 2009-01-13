@@ -29,15 +29,27 @@
 
 - (void) updateBy:(float)value {
 	_currentValue += value;
+	if(_currentValue > 1.0) {
+		_currentValue = 1.0f;
+	} else if(_currentValue < 0.0) {
+		_currentValue = 0.0f;
+	}
 }
 
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
 	CGRect fillRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width*_currentValue, rect.size.height);
+
+	// Background first
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarBackground] drawInRect:rect];
 	
 	// TODO calculate stream from N springs and animate these
 	
-	if(_currentValue < 1.0f) {
+	if(_currentValue < 0.3) {
+		// Show passing bar
+		// TODO: get the image
+		[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarNormal] drawInRect:fillRect];
+	} else if(_currentValue < 1.0f) {
 		// Show normal bar
 		[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarNormal] drawInRect:fillRect];
 	} else {

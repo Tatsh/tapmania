@@ -30,7 +30,7 @@
 #define kArrowsBaseWidth			274 // 6px spacing between arrows
 #define kArrowsBaseHeight			64
 
-#define kLifeBarY					kArrowsBaseY+kArrowsBaseHeight+3
+#define kLifeBarY					kArrowsBaseY+kArrowsBaseHeight+4
 
 #define kArrowLeftX					23
 #define kArrowDownX					93
@@ -50,7 +50,7 @@
 	receptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(kArrowsBaseX, kArrowsBaseY)];
 
 	// Init the lifebar
-	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(10.0f, kLifeBarY, 270.0f, 32.0f)];
+	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(0.0f, kLifeBarY, 320.0f, 32.0f)];
 
 	playingGame = NO;
 	
@@ -259,6 +259,7 @@
 				
 				if(!note.isHit) {
 					[judgement setCurrentJudgement:kJudgementMiss];
+					[lifeBar updateBy:-0.1];
 				}
 				
 				continue; // Skip this note
@@ -289,16 +290,21 @@
 					// All the timing data should go to a separate class
 					if(delta <= 0.022500) {
 						[judgement setCurrentJudgement:kJudgementW1];
+						[lifeBar updateBy:0.1];
 					} else if(delta <= 0.045000) {
 						[judgement setCurrentJudgement:kJudgementW2];
+						[lifeBar updateBy:0.05];
 					} else if(delta <= 0.090000) {
 						[judgement setCurrentJudgement:kJudgementW3];
+						[lifeBar updateBy:0.02];
 					} else if(delta <= 0.135000) {
 						[judgement setCurrentJudgement:kJudgementW4];
-					} else if(delta <= 0.180000) {
+						[lifeBar updateBy:0.01];
+					} else if(delta <= 0.180000) {						
 						[judgement setCurrentJudgement:kJudgementW5];
 					} else {
 						[judgement setCurrentJudgement:kJudgementMiss];
+						[lifeBar updateBy:-0.1];
 					}
 					
 					// Mark note as hit
