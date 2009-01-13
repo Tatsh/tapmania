@@ -279,6 +279,27 @@
 				} 
 			}
 			 
+			// If we are at a hold arrow we must check it anyway
+			if(note.type == kNoteType_HoldHead) {
+				double lastReleaseTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
+				
+				if(note.isHit && !note.isHoldLost && !note.isHolding) {
+					// This means we released the hold but we still can catch it again
+					if(elapsedTime - note.lastHoldReleaseTime >= 0.8f) {
+						[note markHoldLost];
+					}
+					
+					// But maybe we have touched it again?
+					if(!note.isHoldLost && note.lastHoldReleaseTime < lastHitTime) {
+						[note startHolding:lastHitTime];
+					}
+				} else if(note.isHit && !note.isHoldLost && note.isHolding) {				
+					if(lastReleaseTime > lastHitTime) {						
+						[note stopHolding:lastReleaseTime];
+					}
+				} 
+			}
+			
 			// Check hit
 			if(testHit && !note.isHit){
 				double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
@@ -310,6 +331,10 @@
 					// Mark note as hit
 					[note hit:lastHitTime];
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
+					
+					if(note.type == kNoteType_HoldHead) {
+						[note startHolding:lastHitTime];
+					}
 				}
 			}
 				
@@ -323,7 +348,10 @@
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
+	
 	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
+	HoldNote* holdNoteActive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyActive];
+	
 	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
 	
 	//Draw background TODO: spread/index
@@ -387,7 +415,11 @@
 						
 						// Don't draw if we are out of screen
 						if(offset+sizeOfPiece > 0.0f) {					
-							[holdNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+							if(note.isHolding) {
+								[holdNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+							} else {
+								[holdNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+							}
 						}
 						
 						totalBodyHeight -= kHoldBodyPieceHeight;
@@ -397,7 +429,11 @@
 					// determine the position of the cap and draw it if needed
 					if(bodyBottomY > 0.0f) {
 						// Ok. must draw the cap
-						[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
+						if(note.isHolding) {
+							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapActive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
+						} else {
+							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
+						}
 					}
 				}
 				

@@ -51,8 +51,12 @@ typedef enum {
 	int					stopNoteRow;	// For hold notes
 	
 	BOOL		isHit;		// True if the note was hit during gameplay
+	BOOL		isHolding;
 	BOOL		isHeld;		// True if the note is hit and held till end
+	BOOL		isHoldLost;	// True if the hold is lost
+	
 	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
+	double		lastHoldTouchTime;		// Last time when the player layed his finger on the hold arrow
 	double		lastHoldReleaseTime;	// Last time when the player raised his finger from the hold
 	
 	// The TMNote object is aware of current Y position on screen
@@ -66,9 +70,12 @@ typedef enum {
 @property (assign) TMNoteType type;
 
 @property (assign, readonly) BOOL isHit;
+@property (assign, readonly) BOOL isHolding;
 @property (assign, readonly) BOOL isHeld;
+@property (assign, readonly) BOOL isHoldLost;
 
 @property (assign, readonly) double hitTime;
+@property (assign, readonly) double lastHoldTouchTime;
 @property (assign, readonly) double lastHoldReleaseTime;
 
 @property (assign) float startYPosition;
@@ -77,6 +84,11 @@ typedef enum {
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
 
 - (void) hit:(double)lHitTime;
+
+- (void) startHolding:(double)lTouchTime;
+- (void) stopHolding:(double)lReleaseTime;
+
+- (void) markHoldLost;
 
 + (TMBeatType) getBeatType:(int) row;
 + (int) beatToNoteRow:(float) fBeat;
