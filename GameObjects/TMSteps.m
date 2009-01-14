@@ -43,9 +43,40 @@
 	return [tracks[trackIndex] getNote:index];
 }
 
+- (TMNote*) getNoteFromRow:(int) noteRow forTrack:(int) trackIndex {
+	return [tracks[trackIndex] getNoteFromRow:noteRow];
+}
+
+- (BOOL) hasNoteAtRow:(int) noteRow forTrack:(int) trackIndex {
+	return [tracks[trackIndex] hasNoteAtRow:noteRow];
+}
+
 - (int) getNotesCountForTrack:(int) trackIndex {
 	return [tracks[trackIndex] getNotesCount];
 }
+
+
+- (BOOL) checkAllNotesHitFromRow:(int) noteRow ignoreTrack:(int) trackIndex {
+	// Check whether other tracks has any notes which are not hit yet and are on the same noterow
+	BOOL allNotesHit = YES;
+	int tr = 0;
+
+	for(; tr<kNumOfAvailableTracks; ++tr) {
+	
+		// Don't test the ignored track of course
+		if(tr != trackIndex) {
+			TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
+		
+			// If found - check
+			if(n != nil && !n.isHit) {
+				allNotesHit = NO;
+			}
+		}						
+	}
+	
+	return allNotesHit;
+}
+
 
 - (int) getFirstNoteRow {
 	int i;

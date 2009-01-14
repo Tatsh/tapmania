@@ -168,7 +168,7 @@
 	double searchHitFromTime = elapsedTime - 0.1f;
 	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
-		
+	
 	// For every track
 	for(i=0; i<kNumOfAvailableTracks; i++) {
 		// Search in this track for items starting at index:
@@ -246,17 +246,31 @@
 			}
 			
 			// Check whether this note is already out of scope
-			if((note.type == kNoteType_HoldHead && holdBottomCapYPosition >= 480.0f) || 
-			   (note.type != kNoteType_HoldHead && noteYPosition >= 480.0f)) 
-			{
+			if(note.type != kNoteType_HoldHead && noteYPosition >= 480.0f) {
 				++trackPos[i];
 				
-				if(!note.isHit) {
+				// Check whether other tracks has any notes which are not hit yet and are on the same noterow
+				BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow ignoreTrack:i];				
+				
+				if(!allNotesHit) {
 					[judgement setCurrentJudgement:kJudgementMiss];
 					[lifeBar updateBy:-0.1];
 				}
 				
 				continue; // Skip this note
+			}
+
+			// Now the same for hold notes
+			if(note.type == kNoteType_HoldHead && holdBottomCapYPosition >= 480.0f) {
+				++trackPos[i];
+				
+				if( note.isHeld ) {
+					NSLog(@"OK!");
+					[lifeBar updateBy:0.05];
+				} else {
+					NSLog(@"NG!");
+					[lifeBar updateBy:-0.05];
+				}
 			}
 			
 			// If the Y position is at the floor - jump to next track
@@ -302,32 +316,39 @@
 					// Ok. we take this input
 					double delta = fabs(noteTime - lastHitTime);
 					
-					// All the timing data should go to a separate class
-					if(delta <= 0.022500) {
-						[judgement setCurrentJudgement:kJudgementW1];
-						[lifeBar updateBy:0.1];
-					} else if(delta <= 0.045000) {
-						[judgement setCurrentJudgement:kJudgementW2];
-						[lifeBar updateBy:0.05];
-					} else if(delta <= 0.090000) {
-						[judgement setCurrentJudgement:kJudgementW3];
-						[lifeBar updateBy:0.02];
-					} else if(delta <= 0.135000) {
-						[judgement setCurrentJudgement:kJudgementW4];
-						[lifeBar updateBy:0.01];
-					} else if(delta <= 0.180000) {						
-						[judgement setCurrentJudgement:kJudgementW5];
-					} else {
-						[judgement setCurrentJudgement:kJudgementMiss];
-						[lifeBar updateBy:-0.1];
-					}
-					
 					// Mark note as hit
 					[note hit:lastHitTime];
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 					
 					if(note.type == kNoteType_HoldHead) {
 						[note startHolding:lastHitTime];
+					}
+					
+					// Check whether other tracks has any notes which are not hit yet and are on the same noterow
+					BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow ignoreTrack:i];
+					
+					// After the previous check we should know whether all the notes on the noterow are already hit
+					if(allNotesHit == YES) {					
+					
+						// All the timing data should go to a separate class
+						if(delta <= 0.022500) {
+							[judgement setCurrentJudgement:kJudgementW1];
+							[lifeBar updateBy:0.1];
+						} else if(delta <= 0.045000) {
+							[judgement setCurrentJudgement:kJudgementW2];
+							[lifeBar updateBy:0.05];
+						} else if(delta <= 0.090000) {
+							[judgement setCurrentJudgement:kJudgementW3];
+							[lifeBar updateBy:0.02];
+						} else if(delta <= 0.135000) {
+							[judgement setCurrentJudgement:kJudgementW4];
+							[lifeBar updateBy:0.01];
+						} else if(delta <= 0.180000) {						
+							[judgement setCurrentJudgement:kJudgementW5];
+						} else {
+							[judgement setCurrentJudgement:kJudgementMiss];
+							[lifeBar updateBy:-0.1];
+						}
 					}
 				}
 			}
@@ -374,7 +395,7 @@
 			// We are not handling empty notes though
 			if(note.type == kNoteType_Empty)
 				continue;
-		
+			
 			// We will draw the note only if it wasn't hit yet
 			if(note.type == kNoteType_HoldHead || !note.isHit) {
 				if(note.startYPosition <= -64.0f) {

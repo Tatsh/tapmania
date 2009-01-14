@@ -15,6 +15,9 @@
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;
 - (TMNote*) getNote:(int) index;
+- (TMNote*) getNoteFromRow:(int)noteRow;
+- (BOOL) hasNoteAtRow:(int)noteRow;
+
 - (int) getNotesCount;
 
 @end

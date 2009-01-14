@@ -11,7 +11,7 @@
 
 @implementation TMNote
 
-@synthesize type, beatType, isHit, isHeld, hitTime, isHolding, isHoldLost;
+@synthesize type, beatType, isHit, multiHitFlag, isHeld, hitTime, isHolding, isHoldLost;
 @synthesize lastHoldTouchTime, lastHoldReleaseTime, startNoteRow, stopNoteRow, startYPosition, stopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType {
@@ -25,6 +25,7 @@
 	type = lType;
 	
 	isHit = NO;
+	multiHitFlag = NO;
 	isHolding = NO;
 	isHeld = NO;
 	isHoldLost = NO;
@@ -34,6 +35,10 @@
 	stopYPosition = 0.0f;
 	
 	return self;
+}
+
+- (void) multiHit {
+	multiHitFlag = YES;
 }
 
 - (void) hit:(double)lHitTime {
@@ -46,11 +51,13 @@
 - (void) startHolding:(double)lTouchTime {
 	lastHoldTouchTime = lTouchTime;
 	isHolding = YES;
+	isHeld = YES; // Will be set to NO if released
 }
 
 - (void) stopHolding:(double)lReleaseTime {
 	lastHoldReleaseTime = lReleaseTime;
 	isHolding = NO;
+	isHeld = NO;
 }
 
 - (void) markHoldLost {

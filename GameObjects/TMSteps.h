@@ -31,7 +31,11 @@ typedef enum {
 
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) idx;
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex;
+- (TMNote*) getNoteFromRow:(int) noteRow forTrack:(int) trackIndex;
+- (BOOL) hasNoteAtRow:(int) noteRow forTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
+
+- (BOOL) checkAllNotesHitFromRow:(int) noteRow ignoreTrack:(int) trackIndex;
 
 - (int) getFirstNoteRow;
 - (int) getLastNoteRow;

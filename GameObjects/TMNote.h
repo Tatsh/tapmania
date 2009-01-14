@@ -50,7 +50,8 @@ typedef enum {
 	int					startNoteRow;	// Start note row in the track
 	int					stopNoteRow;	// For hold notes
 	
-	BOOL		isHit;		// True if the note was hit during gameplay
+	BOOL		isHit;			// True if the note was hit during gameplay
+	BOOL		multiHitFlag;	// True if the note was hit but there are other notes to be hit on other tracks for the same noterow
 	BOOL		isHolding;
 	BOOL		isHeld;		// True if the note is hit and held till end
 	BOOL		isHoldLost;	// True if the hold is lost
@@ -70,6 +71,7 @@ typedef enum {
 @property (assign) TMNoteType type;
 
 @property (assign, readonly) BOOL isHit;
+@property (assign, readonly) BOOL multiHitFlag;
 @property (assign, readonly) BOOL isHolding;
 @property (assign, readonly) BOOL isHeld;
 @property (assign, readonly) BOOL isHoldLost;
@@ -83,6 +85,7 @@ typedef enum {
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
 
+- (void) multiHit;
 - (void) hit:(double)lHitTime;
 
 - (void) startHolding:(double)lTouchTime;
