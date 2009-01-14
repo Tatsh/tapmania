@@ -168,10 +168,9 @@
 	double searchHitFromTime = elapsedTime - 0.1f;
 	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
-	
+		
 	// For every track
 	for(i=0; i<kNumOfAvailableTracks; i++) {
-		
 		// Search in this track for items starting at index:
 		int startIndex = trackPos[i];
 		int j;
@@ -181,17 +180,12 @@
 		
 		TMNote* prevNote = nil;
 		
-		double lastHitTime = 0.0f;
+		double lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
 		BOOL testHit = NO;
 
 		// Check for hit?
-		if(YES == [joyPad getStateForButton:i]) {
-			// Button is currently pressed
-			lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
-			
-			if(lastHitTime >= searchHitFromTime && lastHitTime <= searchHitTillTime) {
-				testHit = YES;
-			}
+		if(lastHitTime >= searchHitFromTime && lastHitTime <= searchHitTillTime) {
+			testHit = YES;
 		}
 		 
 		// For all interesting notes in the track
@@ -281,7 +275,7 @@
 			 
 			// If we are at a hold arrow we must check it anyway
 			if(note.type == kNoteType_HoldHead) {
-				double lastReleaseTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
+				double lastReleaseTime = [joyPad getReleaseTimeForButton:i] - playBackStartTime;
 				
 				if(note.isHit && !note.isHoldLost && !note.isHolding) {
 					// This means we released the hold but we still can catch it again

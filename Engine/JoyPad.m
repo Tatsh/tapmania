@@ -87,6 +87,7 @@
 /* TMGameUIResponder methods */
 - (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	int touchIdx;
+	double curTime = [TimingUtil getCurrentTime];
 
 	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
 		UITouch * touch = [[touches allObjects] objectAtIndex:touchIdx];
@@ -100,7 +101,7 @@
 			for(i=0; i<kNumJoyButtons; ++i){
 				if([_joyButtons[i] containsPoint:point]){
 					_joyButtonStates[i] = YES;
-					_joyButtonTimeTouch[i] = [TimingUtil getCurrentTime];
+					_joyButtonTimeTouch[i] = curTime; 
 				}
 			}
 		}
@@ -109,6 +110,7 @@
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	int touchIdx;
+	double curTime = [TimingUtil getCurrentTime];
 
 	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
 		UITouch * touch = [[touches allObjects] objectAtIndex:touchIdx];
@@ -122,7 +124,7 @@
 			for(i=0; i<kNumJoyButtons; ++i){
 				if([_joyButtons[i] containsPoint:point]){
 					_joyButtonStates[i] = NO;
-					_joyButtonTimeRelease[i] = [TimingUtil getCurrentTime];
+					_joyButtonTimeRelease[i] = curTime;
 				}
 			}
 		}
