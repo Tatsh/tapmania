@@ -19,6 +19,8 @@ typedef enum {
 	// Gameplay stuff
 	kTexture_TapNote = 0,
 	kTexture_GoReceptor,
+	kTexture_TapExplosionDim,
+	kTexture_TapExplosionBright,	
 	
 	kTexture_HoldBodyActive,
 	kTexture_HoldBottomCapActive,

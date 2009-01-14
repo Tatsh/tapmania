@@ -43,6 +43,7 @@
 - (void) stats {
 	float delta = finishTime==0.0f ? [TimingUtil getCurrentTime] : finishTime - startTime;
 	syslog(LOG_DEBUG, "Benchmark [%s] elapsed time: %lf", [name UTF8String], delta);
+	NSLog(@"Benchmark [%s] elapsed time: %lf", [name UTF8String], delta);
 }
 
 @end

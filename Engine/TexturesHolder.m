@@ -52,6 +52,9 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_TapNote] = [[TapNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapNote_8x8.png", skin]] columns:8 andRows:8];
 	
 	_textures[kTexture_GoReceptor] = [[Receptor alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downGoReceptor.png", skin]] columns:1 andRows:1];
+	_textures[kTexture_TapExplosionDim] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapExplosionDim.png", skin]] columns:1 andRows:1];
+	_textures[kTexture_TapExplosionBright] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapExplosionBright.png", skin]] columns:1 andRows:1];
+	
 	_textures[kTexture_HoldBodyActive] = [[HoldNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBodyActive.png", skin]] columns:1 andRows:1];
 	_textures[kTexture_HoldBottomCapActive] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBottomCapActive.png", skin]]];
 	_textures[kTexture_HoldBodyInactive] = [[HoldNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downHoldBodyInactive.png", skin]] columns:1 andRows:1];

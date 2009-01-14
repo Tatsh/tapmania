@@ -153,6 +153,9 @@
 	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
 	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
 	[tapNote update:fDelta];
+
+	// Update receptor row animations
+	[receptorRow update:fDelta];
 	
 	// Update judgement state
 	[judgement update:fDelta];
@@ -265,10 +268,10 @@
 				++trackPos[i];
 				
 				if( note.isHeld ) {
-					NSLog(@"OK!");
+					// NSLog(@"OK!");
 					[lifeBar updateBy:0.05];
 				} else {
-					NSLog(@"NG!");
+					// NSLog(@"NG!");
 					[lifeBar updateBy:-0.05];
 				}
 			}
@@ -349,6 +352,8 @@
 							[judgement setCurrentJudgement:kJudgementMiss];
 							[lifeBar updateBy:-0.1];
 						}
+						
+						[receptorRow explodeBright:i];
 					}
 				}
 			}
@@ -476,6 +481,25 @@
 
 		// Draw the judgement
 		[judgement render:fDelta];
+		
+		// TEST ONLY
+		/*
+		if([joyPad getStateForButton:kAvailableTrack_Left]) {
+			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(20, 10)];
+		}
+		
+		if([joyPad getStateForButton:kAvailableTrack_Down]) {
+			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(90, 10)];
+		}
+		
+		if([joyPad getStateForButton:kAvailableTrack_Up]) {
+			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(160, 10)];
+		}
+		
+		if([joyPad getStateForButton:kAvailableTrack_Right]) {
+			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(230, 10)];
+		}
+		*/
 	}
 	
 }

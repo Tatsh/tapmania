@@ -10,7 +10,6 @@
 #import "TMFramedTexture.h"
 
 @interface Receptor : TMFramedTexture {
-
 }
 
 @end
