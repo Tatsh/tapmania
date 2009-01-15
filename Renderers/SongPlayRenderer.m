@@ -168,8 +168,8 @@
 	
 	[tapNote continueAnimation];
 	
-	double searchHitFromTime = elapsedTime - 0.1f;
-	double searchHitTillTime = elapsedTime + 0.1f;
+	double searchHitFromTime = elapsedTime - 0.12f;
+	double searchHitTillTime = elapsedTime + 0.12f;
 	int i;
 	
 	// For every track
@@ -499,7 +499,8 @@
 		if([joyPad getStateForButton:kAvailableTrack_Right]) {
 			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(230, 10)];
 		}
-		*/
+		 */
+		
 	}
 	
 }
