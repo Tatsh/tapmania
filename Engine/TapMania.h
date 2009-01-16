@@ -23,8 +23,6 @@
 	TMSong* currentSong;	// Points to currently selected song which can be played
 	TMSongOptions* currentSongOptions;	// Holds current song options which are applied to the currentSong
 	
-	NSLock * inputLock;
-	
 	AbstractRenderer* currentScreen;	// This is set to currently rendering screen
 	
 	UIWindow		*window;
@@ -36,7 +34,6 @@
 
 @property (retain, nonatomic) EAGLView* glView;
 @property (retain, nonatomic) UIWindow* window;
-@property (retain, nonatomic, readonly) NSLock* inputLock;
 
 - (void) startGame;
 

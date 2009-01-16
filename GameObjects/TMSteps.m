@@ -55,23 +55,26 @@
 	return [tracks[trackIndex] getNotesCount];
 }
 
-
-- (BOOL) checkAllNotesHitFromRow:(int) noteRow ignoreTrack:(int) trackIndex {
+// Time out stuff should be a pointer to array of kNumOfAvailableTracks elements but obj-c doesn't like the C syntax. FIXME
+- (BOOL) checkAllNotesHitFromRow:(int) noteRow time1Out:(double*)time1Out time2Out:(double*)time2Out time3Out:(double*)time3Out time4Out:(double*)time4Out {
 	// Check whether other tracks has any notes which are not hit yet and are on the same noterow
 	BOOL allNotesHit = YES;
 	int tr = 0;
-
+	double* arrp[kNumOfAvailableTracks] = { time1Out, time2Out, time3Out, time4Out };
+	
 	for(; tr<kNumOfAvailableTracks; ++tr) {
 	
-		// Don't test the ignored track of course
-		if(tr != trackIndex) {
-			TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
+		*(arrp[tr]) = 0.0f;
+		TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
 		
-			// If found - check
-			if(n != nil && !n.isHit) {
+		// If found - check
+		if(n != nil) {
+			if(!n.isHit) {
 				allNotesHit = NO;
+			} else {
+				*(arrp[tr]) = n.hitTime;
 			}
-		}						
+		}
 	}
 	
 	return allNotesHit;

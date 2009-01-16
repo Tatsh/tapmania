@@ -253,7 +253,8 @@
 				++trackPos[i];
 				
 				// Check whether other tracks has any notes which are not hit yet and are on the same noterow
-				BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow ignoreTrack:i];				
+				double timesOfHit[kNumOfAvailableTracks];
+				BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow time1Out:&timesOfHit[0] time2Out:&timesOfHit[1] time3Out:&timesOfHit[2] time4Out:&timesOfHit[3]];
 				
 				if(!allNotesHit) {
 					[judgement setCurrentJudgement:kJudgementMiss];
@@ -316,9 +317,7 @@
 				double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
 
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
-					// Ok. we take this input
-					double delta = fabs(noteTime - lastHitTime);
-					
+				
 					// Mark note as hit
 					[note hit:lastHitTime];
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
@@ -328,32 +327,51 @@
 					}
 					
 					// Check whether other tracks has any notes which are not hit yet and are on the same noterow
-					BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow ignoreTrack:i];
+					double timesOfHit[kNumOfAvailableTracks];
+					BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow time1Out:&timesOfHit[0] time2Out:&timesOfHit[1] time3Out:&timesOfHit[2] time4Out:&timesOfHit[3]];
 					
 					// After the previous check we should know whether all the notes on the noterow are already hit
 					if(allNotesHit == YES) {					
 					
+						// Get the worse scoring of all hit notes
+						double worseDelta = 0.0f;
+						
+						int tr = 0;
+						for(; tr<kNumOfAvailableTracks; ++tr){
+							if(timesOfHit[tr] != 0.0f) {
+								double thisDelta = fabs(noteTime-timesOfHit[tr]);
+
+								if(thisDelta > worseDelta) 
+									worseDelta = thisDelta;
+							}
+						}
+						
 						// All the timing data should go to a separate class
-						if(delta <= 0.022500) {
+						if(worseDelta <= 0.022500) {
 							[judgement setCurrentJudgement:kJudgementW1];
 							[lifeBar updateBy:0.1];
-						} else if(delta <= 0.045000) {
+						} else if(worseDelta <= 0.045000) {
 							[judgement setCurrentJudgement:kJudgementW2];
 							[lifeBar updateBy:0.05];
-						} else if(delta <= 0.090000) {
+						} else if(worseDelta <= 0.090000) {
 							[judgement setCurrentJudgement:kJudgementW3];
 							[lifeBar updateBy:0.02];
-						} else if(delta <= 0.135000) {
+						} else if(worseDelta <= 0.135000) {
 							[judgement setCurrentJudgement:kJudgementW4];
 							[lifeBar updateBy:0.01];
-						} else if(delta <= 0.180000) {						
+						} else if(worseDelta <= 0.180000) {						
 							[judgement setCurrentJudgement:kJudgementW5];
 						} else {
 							[judgement setCurrentJudgement:kJudgementMiss];
 							[lifeBar updateBy:-0.1];
 						}
 						
-						[receptorRow explodeBright:i];
+						// Explode all hit tracks
+						for(tr=0; tr<kNumOfAvailableTracks; ++tr){
+							if(timesOfHit[tr] != 0.0f) {								
+								[receptorRow explodeBright:tr];
+							}
+						}
 					}
 				}
 			}

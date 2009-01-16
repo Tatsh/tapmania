@@ -8,7 +8,6 @@
 
 #import "InputEngine.h"
 #import "TMGameUIResponder.h"
-#import "BenchmarkUtil.h"
 
 // This is a singleton class, see below
 static InputEngine *sharedInputEngineDelegate = nil;
@@ -49,9 +48,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	for(i=0; i<[subscribers count]; i++){
 		NSObject* handler = [subscribers objectAtIndex:i];
 		if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
-			// BenchmarkUtil* bm = [BenchmarkUtil instanceWithName:@"Touches began"];
 			[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
-			// [bm finish];
 		}
 	}
 }
