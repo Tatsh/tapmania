@@ -87,9 +87,13 @@
 /* TMGameUIResponder methods */
 - (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	int touchIdx;
+	double curtime = [TimingUtil getCurrentTime];
 	
 	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
 		UITouch * touch = [[touches allObjects] objectAtIndex:touchIdx];
+		
+		syslog(LOG_DEBUG, "Touch delivered at %f but now is %f which makes %f diff.", touch.timestamp, curtime, curtime-touch.timestamp);
+		
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		

@@ -19,6 +19,7 @@
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 
+#import <syslog.h>
 
 @implementation MainMenuRenderer
 
@@ -34,6 +35,9 @@
 	mainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(60.0f, 200.0f, 200.0f, 40.0f)];
 	mainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
 	mainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
+	
+	// Enable joypad
+	joyPad = [[TapMania sharedInstance] enableJoyPad];
 	
 	return self;
 }
@@ -62,6 +66,10 @@
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
+	
+	// Disable joypad
+	[[TapMania sharedInstance] disableJoyPad];
+	
 }
 
 /* TMRenderable method */

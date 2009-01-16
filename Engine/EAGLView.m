@@ -14,6 +14,8 @@
 #import "TapManiaAppDelegate.h"
 #import "InputEngine.h"
 
+#import "TimingUtil.h"
+
 @implementation EAGLView
 
 @synthesize autoresizesSurface=_autoresize, surfaceSize=_size, framebuffer = _framebuffer, pixelFormat = _format, depthFormat = _depthFormat, context = _context;
@@ -219,6 +221,16 @@
 
 # pragma mark Touch events dispatch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+/*
+	int touchIdx;
+	double curtime = [TimingUtil getCurrentTime];
+	
+	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
+		UITouch * touch = [[touches allObjects] objectAtIndex:touchIdx];
+		syslog(LOG_DEBUG, "IN EAGLVIEW: Touch delivered at %f but now is %f which makes %f diff.", touch.timestamp, curtime, curtime-touch.timestamp);
+//		NSLog(@"IN EAGLVIEW: Touch delivered at %f but now is %f which makes %f diff.", touch.timestamp, curtime, curtime-touch.timestamp);
+	}
+*/	
 	[[InputEngine sharedInstance] dispatchTouchesBegan:touches withEvent:event];
 }
 

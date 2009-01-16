@@ -15,6 +15,9 @@
 
 #import "MenuItem.h"
 
+
+#import "JoyPad.h"
+
 enum {
 	kMainMenuItem_Play = 0,
 	kMainMenuItem_Options,
@@ -25,6 +28,7 @@ enum {
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	int selectedMenu;
 	MenuItem* mainMenuItems[kNumMainMenuItems];
+	JoyPad * joyPad;
 }
 
 @end

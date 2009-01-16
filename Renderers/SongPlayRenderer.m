@@ -168,8 +168,8 @@
 	
 	[tapNote continueAnimation];
 	
-	double searchHitFromTime = elapsedTime - 0.12f;
-	double searchHitTillTime = elapsedTime + 0.12f;
+	double searchHitFromTime = elapsedTime - 0.1f;
+	double searchHitTillTime = elapsedTime + 0.1f;
 	int i;
 	
 	// For every track
