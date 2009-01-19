@@ -8,6 +8,9 @@
 
 #import "TapNote.h"
 
+@interface TapNote (Private)
+- (float) calculateRotation:(TMNoteDirection)dir;
+@end
 
 @implementation TapNote
 
@@ -36,19 +39,28 @@
 	*/
 }
 
+- (float) calculateRotation:(TMNoteDirection)dir {
+	if(dir == kNoteDirection_Up) 
+		return 180.0f;
+	else if(dir == kNoteDirection_Left) 
+		return -90.0f;
+	else if(dir == kNoteDirection_Right) 
+		return 90.0f;
+	
+	return 0.0f;
+}
+
 /* Main drawing routine */
 - (void) drawTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
-	// TODO calculate rotation and row offset
-	float rotation = 0.0f;
-	
-	if(dir == kNoteDirection_Up) 
-		rotation = 180.0f;
-	else if(dir == kNoteDirection_Left) 
-		rotation = -90.0f;
-	else if(dir == kNoteDirection_Right) 
-		rotation = 90.0f;
-	
+	float rotation = [self calculateRotation:dir];
 	int frameToRender = currentFrame + type*framesToLoad[0]; // Columns
+	
+	[self drawFrame:frameToRender rotation:rotation inRect:rect];
+}
+
+- (void) drawHoldTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
+	float rotation = [self calculateRotation:dir];
+	int frameToRender = (currentFrame+4) + type*framesToLoad[0]; // Columns
 	
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
 }

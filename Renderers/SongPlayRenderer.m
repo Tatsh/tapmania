@@ -226,6 +226,11 @@
 			
 			/* We must also calculate the Y position of the bottom cap of the hold if we handle a hold note */
 			if(note.type == kNoteType_HoldHead) {
+				// If we hold the note now we must fix it on the receptor base
+				if(note.isHolding) {
+					note.startYPosition = kArrowsBaseY;
+				}
+				
 				// Start from the calculated note head position
 				holdBottomCapYPosition = noteYPosition;
 				lastNoteRow = note.startNoteRow;
@@ -265,7 +270,7 @@
 			}
 
 			// Now the same for hold notes
-			if(note.type == kNoteType_HoldHead && holdBottomCapYPosition >= 480.0f) {
+			if(note.type == kNoteType_HoldHead && holdBottomCapYPosition >= kArrowsBaseY) {
 				++trackPos[i];
 				
 				if( note.isHeld ) {
@@ -477,19 +482,35 @@
 				
 				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, note.startYPosition , 64, 64);
-					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+					if(note.isHolding) {
+						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+					} else {
+						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+					}
 				}
 				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(kArrowDownX, note.startYPosition, 64, 64);
-					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+					if(note.isHolding) {
+						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+					} else {
+						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+					}
 				}
 				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(kArrowUpX, note.startYPosition, 64, 64);
-					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+					if(note.isHolding) {
+						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+					} else {
+						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+					}
 				}
 				else if( i == kAvailableTrack_Right ) {
 					CGRect arrowRect = CGRectMake(kArrowRightX, note.startYPosition, 64, 64);
-					[tapNote drawTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+					if(note.isHolding) {
+						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+					} else {						
+						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+					}
 				}
 			}
 		}
@@ -499,26 +520,6 @@
 
 		// Draw the judgement
 		[judgement render:fDelta];
-		
-		// TEST ONLY
-		/*
-		if([joyPad getStateForButton:kAvailableTrack_Left]) {
-			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(20, 10)];
-		}
-		
-		if([joyPad getStateForButton:kAvailableTrack_Down]) {
-			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(90, 10)];
-		}
-		
-		if([joyPad getStateForButton:kAvailableTrack_Up]) {
-			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(160, 10)];
-		}
-		
-		if([joyPad getStateForButton:kAvailableTrack_Right]) {
-			[[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor] drawAtPoint:CGPointMake(230, 10)];
-		}
-		 */
-		
 	}
 	
 }

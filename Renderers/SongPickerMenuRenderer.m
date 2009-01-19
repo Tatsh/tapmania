@@ -156,7 +156,7 @@
 		TMSongOptions* options = [[TMSongOptions alloc] init];
 		
 		// Assign speed modifier
-		[options setSpeedMod:kSpeedMod_2x]; 
+		[options setSpeedMod:kSpeedMod_3x]; 
 		
 		// Assign difficulty
 		[options setDifficulty:kSongDifficulty_Hard];

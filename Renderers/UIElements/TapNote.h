@@ -22,5 +22,6 @@
 
 // Drawing routines
 - (void) drawTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect;
+- (void) drawHoldTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect;
 
 @end
