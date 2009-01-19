@@ -97,9 +97,9 @@
 
 /* Private worker */
 - (void) worker {
-	int framesCounter = 0;
+	// int framesCounter = 0;
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
-	float totalTime = 0.0f;
+	// float totalTime = 0.0f;
 
 	/* Call initialization routine on delegate */
 	if(delegate && [delegate respondsToSelector:@selector(runLoopInitHook)]) {
@@ -118,6 +118,7 @@
 		
 		prevTime = currentTime;
 		
+		/*
 		totalTime += delta;
 		
 		if(totalTime > 1.0f) {
@@ -131,6 +132,7 @@
 		}
 		
 		framesCounter ++;
+		*/
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(delegate && [delegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
