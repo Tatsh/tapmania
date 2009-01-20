@@ -399,7 +399,7 @@
 	
 	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundIndex] drawInRect:bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundSpread] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
 	if(!playingGame) return;
