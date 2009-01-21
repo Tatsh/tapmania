@@ -10,6 +10,8 @@
 
 #import "TMSong.h"
 #import "TMChangeSegment.h"
+#import "TMNote.h"
+#import "Judgement.h"
 
 @interface TimingUtil : NSObject {
 }
@@ -21,5 +23,9 @@
 + (int) getNextBpmChangeFromBeat:(float) beat inSong:(TMSong*) song;
 + (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song;
 + (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod;
+
++ (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore;
++ (TMNoteScore) getNoteScoreByDelta:(float)delta;	
++ (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore;
 
 @end

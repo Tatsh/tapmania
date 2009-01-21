@@ -43,22 +43,22 @@
 	_joyButtons[kJoyButtonLeft] = [[Triangle alloc] 
 								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 								   V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 		// Top-left
-								   andV2:[[Vector alloc] initWithX:0.0 andY:55.0 ]];	// Bottom-left
+								   andV2:[[Vector alloc] initWithX:0.0 andY:100.0 ]];	// Bottom-left
 	
 	_joyButtons[kJoyButtonRight] = [[Triangle alloc] 
 									initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 									V1:[[Vector alloc] initWithX:320.0 andY:320.0 ] 		// Top-right
-									andV2:[[Vector alloc] initWithX:320.0 andY:55.0 ]];		// Bottom-right
+									andV2:[[Vector alloc] initWithX:320.0 andY:100.0 ]];		// Bottom-right
 	
 	_joyButtons[kJoyButtonUp] = [[Triangle alloc] 
 								 initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
-								 V1:[[Vector alloc] initWithX:160.0 andY:0.0 ] 			// Center-bottom
-								 andV2:[[Vector alloc] initWithX:320.0 andY:55.0 ]];	// Right
+								 V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 			// Center-bottom
+								 andV2:[[Vector alloc] initWithX:416.0 andY:64.0 ]];	// Right
 	
 	_joyButtons[kJoyButtonDown] = [[Triangle alloc] 
 								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
-								   V1:[[Vector alloc] initWithX:160.0 andY:0.0 ] 		// Center-bottom
-								   andV2:[[Vector alloc] initWithX:0.0 andY:55.0 ]];	// Left
+								   V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 		// Center-bottom
+								   andV2:[[Vector alloc] initWithX:-96.0 andY:64.0 ]];	// Left
 }
 
 - (void) createIndexJoy {

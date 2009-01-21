@@ -36,6 +36,7 @@ typedef enum {
 - (int) getNotesCountForTrack:(int) trackIndex;
 
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow time1Out:(double*)time1Out time2Out:(double*)time2Out time3Out:(double*)time3Out time4Out:(double*)time4Out;
+- (void) markAllNotesLostFromRow:(int) noteRow;
 
 - (int) getFirstNoteRow;
 - (int) getLastNoteRow;

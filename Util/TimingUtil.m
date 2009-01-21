@@ -176,4 +176,53 @@
 	return tPxDistBetweenRows;
 }
 
++ (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore {
+	if(noteScore == kNoteScore_W1) {
+		return kJudgementW1;
+	} else if(noteScore == kNoteScore_W2) {
+		return kJudgementW2;
+	} else if(noteScore == kNoteScore_W3) {
+		return kJudgementW3;
+	} else if(noteScore == kNoteScore_W4) {
+		return kJudgementW4;
+	} else if(noteScore == kNoteScore_W5) {						
+		return kJudgementW5;
+	} else {
+		return kJudgementMiss;
+	}	
+}
+
++ (TMNoteScore) getNoteScoreByDelta:(float)delta {
+	if(delta <= 0.022500) {
+		return kNoteScore_W1;
+	} else if(delta <= 0.045000) {
+		return kNoteScore_W2;
+	} else if(delta <= 0.090000) {
+		return kNoteScore_W3;
+	} else if(delta <= 0.135000) {
+		return kNoteScore_W4;
+	} else if(delta <= 0.180000) {						
+		return kNoteScore_W5;
+	} else {
+		return kNoteScore_Miss;
+	}		
+}
+
++ (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore {
+	if(noteScore == kNoteScore_W1) {
+		return 0.1f;
+	} else if(noteScore == kNoteScore_W2) {
+		return 0.05f;
+	} else if(noteScore == kNoteScore_W3) {
+		return 0.02f;
+	} else if(noteScore == kNoteScore_W4) {
+		return 0.01f;
+	} else if(noteScore == kNoteScore_W5) {						
+		return 0.0f;
+	} else {
+		// Miss
+		return -0.1f;
+	}
+}
+
 @end

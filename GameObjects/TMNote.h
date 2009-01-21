@@ -37,6 +37,23 @@ typedef enum {
 	kNumNoteTypes
 } TMNoteType;
 
+typedef enum {
+	kNoteScore_None = 0,
+	kNoteScore_W1,
+	kNoteScore_W2,
+	kNoteScore_W3,
+	kNoteScore_W4,
+	kNoteScore_W5,
+	kNoteScore_Miss,
+	kNumNoteScores
+} TMNoteScore;
+
+typedef enum {
+	kHoldScore_OK = 0,
+	kHoldScore_NG,
+	kNumHoldScores
+} TMHoldScore;
+
 // Do constants instead?
 #define kBeatsPerMeasure 	4
 #define kRowsPerBeat 		48
@@ -51,7 +68,7 @@ typedef enum {
 	int					stopNoteRow;	// For hold notes
 	
 	BOOL		isHit;			// True if the note was hit during gameplay
-	BOOL		multiHitFlag;	// True if the note was hit but there are other notes to be hit on other tracks for the same noterow
+	BOOL		isLost;			// True if the note was not hit in the timing window
 	BOOL		isHolding;
 	BOOL		isHeld;		// True if the note is hit and held till end
 	BOOL		isHoldLost;	// True if the hold is lost
@@ -63,6 +80,10 @@ typedef enum {
 	// The TMNote object is aware of current Y position on screen
 	float		startYPosition;
 	float		stopYPosition;
+	
+	// Scoring info
+	TMNoteScore score;
+	TMHoldScore holdScore;
 }
 
 @property (assign) int startNoteRow;
@@ -71,7 +92,7 @@ typedef enum {
 @property (assign) TMNoteType type;
 
 @property (assign, readonly) BOOL isHit;
-@property (assign, readonly) BOOL multiHitFlag;
+@property (assign, readonly) BOOL isLost;
 @property (assign, readonly) BOOL isHolding;
 @property (assign, readonly) BOOL isHeld;
 @property (assign, readonly) BOOL isHoldLost;
@@ -80,17 +101,23 @@ typedef enum {
 @property (assign, readonly) double lastHoldTouchTime;
 @property (assign, readonly) double lastHoldReleaseTime;
 
+// System info for drawing
 @property (assign) float startYPosition;
 @property (assign) float stopYPosition;
 
+// Scoring info
+@property (assign, readonly) TMNoteScore score;
+@property (assign, readonly) TMHoldScore holdScore;
+
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
 
-- (void) multiHit;
 - (void) hit:(double)lHitTime;
+- (void) score:(TMNoteScore)lScore;
 
 - (void) startHolding:(double)lTouchTime;
 - (void) stopHolding:(double)lReleaseTime;
 
+- (void) markLost;
 - (void) markHoldLost;
 
 + (TMBeatType) getBeatType:(int) row;

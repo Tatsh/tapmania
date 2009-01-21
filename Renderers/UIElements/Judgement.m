@@ -9,12 +9,12 @@
 #import "Judgement.h"
 
 @interface Judgement (Private) 
-- (void) drawJudgement:(JudgementValues) judgement;
+- (void) drawJudgement:(TMJudgement) judgement;
 @end
 
 @implementation Judgement
 
-- (void) drawJudgement:(JudgementValues) judgement {
+- (void) drawJudgement:(TMJudgement) judgement {
 	[self drawFrame:judgement-1 atPoint:CGPointMake( 160, 240 )];
 }
 
@@ -29,7 +29,7 @@
 	return self;
 }
 
-- (void) setCurrentJudgement:(JudgementValues) judgement {
+- (void) setCurrentJudgement:(TMJudgement) judgement {
 	_elapsedTime = 0.0f;
 	_currentJudgement = judgement;
 }

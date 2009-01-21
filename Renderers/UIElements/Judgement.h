@@ -22,13 +22,13 @@ typedef enum {
 	kJudgementW5,
 	kJudgementMiss,
 	kNumJudgementValues
-} JudgementValues;
+} TMJudgement;
 
 @interface Judgement : TMFramedTexture <TMLogicUpdater, TMRenderable> {
-	JudgementValues _currentJudgement;	// Currently displayed judgement
+	TMJudgement _currentJudgement;	// Currently displayed judgement
 	double _elapsedTime;	// Time elapsed since last renew of the judgement
 }
 
-- (void) setCurrentJudgement:(JudgementValues) judgement;
+- (void) setCurrentJudgement:(TMJudgement) judgement;
 
 @end

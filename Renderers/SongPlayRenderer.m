@@ -15,7 +15,7 @@
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
 
-#import "SongPickerMenuRenderer.h"
+#import "SongResultsRenderer.h"
 
 #import "TMSong.h"
 #import "TMTrack.h"
@@ -64,8 +64,6 @@
 	
 	[lifeBar release];
 	[receptorRow release];
-	[song release];
-	[steps release];
 		
 	[super dealloc];
 }
@@ -140,8 +138,9 @@
 		[[TapMania sharedInstance] disableJoyPad];
 	
 		// request transition
-		SongPickerMenuRenderer *spScreen = [[SongPickerMenuRenderer alloc] init];
-		[[TapMania sharedInstance] switchToScreen:spScreen];
+		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] initWithSong:song withSteps:steps];
+		
+		[[TapMania sharedInstance] switchToScreen:srScreen];
 		playingGame = NO;
 	}	
 	
@@ -211,6 +210,8 @@
 			int lastNoteRow = prevNote ? prevNote.startNoteRow : [TMNote beatToNoteRow:currentBeat];
 			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:song];
 			
+			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
+			
 			// Now for every bpmchange we must apply all bpmchange related offsets
 			while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.startNoteRow) {
 				float tBps = [TimingUtil getBpsAtBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow-1] inSong:song];
@@ -253,33 +254,31 @@
 				note.stopYPosition = holdBottomCapYPosition;
 			}
 			
+			// Check whether we already missed a note (hold head too)
+			if(!note.isLost && !note.isHit && (elapsedTime-noteTime)>=0.1f) {
+				[steps markAllNotesLostFromRow:note.startNoteRow];		
+				[note score:kNoteScore_Miss];	// Only one of the notes get the scoring set
+
+				[judgement setCurrentJudgement:kJudgementMiss];
+				[lifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
+			}
+			
 			// Check whether this note is already out of scope
 			if(note.type != kNoteType_HoldHead && noteYPosition >= 480.0f) {
-				++trackPos[i];
-				
-				// Check whether other tracks has any notes which are not hit yet and are on the same noterow
-				double timesOfHit[kNumOfAvailableTracks];
-				BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow time1Out:&timesOfHit[0] time2Out:&timesOfHit[1] time3Out:&timesOfHit[2] time4Out:&timesOfHit[3]];
-				
-				if(!allNotesHit) {
-					[judgement setCurrentJudgement:kJudgementMiss];
-					[lifeBar updateBy:-0.1];
-				}
-				
+				++trackPos[i];				
 				continue; // Skip this note
 			}
 
 			// Now the same for hold notes
-			if(note.type == kNoteType_HoldHead && holdBottomCapYPosition >= kArrowsBaseY) {
-				++trackPos[i];
-				
-				if( note.isHeld ) {
-					// NSLog(@"OK!");
+			if(note.type == kNoteType_HoldHead) {
+				if(note.isHeld && holdBottomCapYPosition >= kArrowsBaseY) {
+					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.
 					[lifeBar updateBy:0.05];
-				} else {
-					// NSLog(@"NG!");
-					[lifeBar updateBy:-0.05];
-				}
+					++trackPos[i];
+				} else if (note.isHoldLost && holdBottomCapYPosition >= 480.0f) {
+					// Let the hold go till the end of the screen. The lifebar and the NG graphic is done already when the hold was lost
+					++trackPos[i];
+				}				
 			}
 			
 			// If the Y position is at the floor - jump to next track
@@ -302,11 +301,12 @@
 				
 				if(note.isHit && !note.isHoldLost && !note.isHolding) {
 					// This means we released the hold but we still can catch it again
-					if(elapsedTime - note.lastHoldReleaseTime >= 0.8f) {
+					if(fabsf(elapsedTime - note.lastHoldReleaseTime) >= 0.8f) {
 						[note markHoldLost];
+						[lifeBar updateBy:-0.05];	// NG judgement
 					}
 					
-					// But maybe we have touched it again?
+					// But maybe we have touched it again before it was marked as lost totally?
 					if(!note.isHoldLost && note.lastHoldReleaseTime < lastHitTime) {
 						[note startHolding:lastHitTime];
 					}
@@ -318,9 +318,7 @@
 			}
 			
 			// Check hit
-			if(testHit && !note.isHit){
-				double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
-
+			if(testHit && !note.isLost && !note.isHit){
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 				
 					// Mark note as hit
@@ -351,25 +349,14 @@
 							}
 						}
 						
-						// All the timing data should go to a separate class
-						if(worseDelta <= 0.022500) {
-							[judgement setCurrentJudgement:kJudgementW1];
-							[lifeBar updateBy:0.1];
-						} else if(worseDelta <= 0.045000) {
-							[judgement setCurrentJudgement:kJudgementW2];
-							[lifeBar updateBy:0.05];
-						} else if(worseDelta <= 0.090000) {
-							[judgement setCurrentJudgement:kJudgementW3];
-							[lifeBar updateBy:0.02];
-						} else if(worseDelta <= 0.135000) {
-							[judgement setCurrentJudgement:kJudgementW4];
-							[lifeBar updateBy:0.01];
-						} else if(worseDelta <= 0.180000) {						
-							[judgement setCurrentJudgement:kJudgementW5];
-						} else {
-							[judgement setCurrentJudgement:kJudgementMiss];
-							[lifeBar updateBy:-0.1];
-						}
+						TMNoteScore noteScore = [TimingUtil getNoteScoreByDelta:worseDelta];
+						TMJudgement noteJudgement = [TimingUtil getJudgementByScore:noteScore];
+						
+						// Set the score to the note (group of notes. only one will count anyway)
+						[note score:noteScore];
+						
+						[judgement setCurrentJudgement:noteJudgement];
+						[lifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:noteScore]];
 						
 						// Explode all hit tracks
 						for(tr=0; tr<kNumOfAvailableTracks; ++tr){

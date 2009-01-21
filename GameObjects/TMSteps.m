@@ -80,6 +80,19 @@
 	return allNotesHit;
 }
 
+- (void) markAllNotesLostFromRow:(int) noteRow {
+	int tr = 0;
+	for(; tr<kNumOfAvailableTracks; ++tr) {
+		
+		TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
+		
+		// If found - check
+		if(n != nil) {
+			[n markLost];
+		}
+	}
+}
+
 
 - (int) getFirstNoteRow {
 	int i;

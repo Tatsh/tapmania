@@ -11,7 +11,7 @@
 
 @implementation TMNote
 
-@synthesize type, beatType, isHit, multiHitFlag, isHeld, hitTime, isHolding, isHoldLost;
+@synthesize type, beatType, isHit, isLost, isHeld, hitTime, isHolding, isHoldLost, score, holdScore;
 @synthesize lastHoldTouchTime, lastHoldReleaseTime, startNoteRow, stopNoteRow, startYPosition, stopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType {
@@ -24,8 +24,8 @@
 	beatType = [TMNote getBeatType:noteRow];
 	type = lType;
 	
+	isLost = NO;
 	isHit = NO;
-	multiHitFlag = NO;
 	isHolding = NO;
 	isHeld = NO;
 	isHoldLost = NO;
@@ -34,11 +34,10 @@
 	startYPosition = 0.0f;
 	stopYPosition = 0.0f;
 	
+	score = kNoteScore_None;	// No scoring info by default
+	holdScore = kHoldScore_NG;	// NG by default
+	
 	return self;
-}
-
-- (void) multiHit {
-	multiHitFlag = YES;
 }
 
 - (void) hit:(double)lHitTime {
@@ -48,10 +47,20 @@
 	}
 }
 
+- (void) markLost {
+	isLost = YES;
+}
+
+- (void) score:(TMNoteScore)lScore { 
+	score = lScore;
+}
+
 - (void) startHolding:(double)lTouchTime {
 	lastHoldTouchTime = lTouchTime;
 	isHolding = YES;
 	isHeld = YES; // Will be set to NO if released
+
+	holdScore = kHoldScore_OK;
 }
 
 - (void) stopHolding:(double)lReleaseTime {
@@ -64,6 +73,8 @@
 	isHolding = NO;
 	isHeld = NO;
 	isHoldLost = YES;
+	
+	holdScore = kHoldScore_NG;
 }
 
 + (TMBeatType) getBeatType:(int) row {
