@@ -32,11 +32,8 @@ bin:
 	rm -rf TapMania.app
 	mkdir TapMania.app
 	cp Default.png TapMania.app/
-	cp -R Images/themes TapMania.app/
-	cp -R Images/noteskins TapMania.app/
-	cp Sound/*.wav TapMania.app/
+	cp -R Data TapMania.app/
 	cp *.plist TapMania.app/
-	cp Credits.txt TapMania.app/
 	cp TapMania TapMania.app/
 
 tapmania: $(OBJS) main.o 
