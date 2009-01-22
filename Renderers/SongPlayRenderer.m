@@ -115,6 +115,7 @@
 		
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
+	HoldJudgement* holdJudgement = (HoldJudgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldJudgement];	
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
@@ -158,6 +159,7 @@
 	
 	// Update judgement state
 	[judgement update:fDelta];
+	[holdJudgement update:fDelta];
 	
 	// If freeze - leave for now
 	if(hasFreeze) {
@@ -261,6 +263,13 @@
 
 				[judgement setCurrentJudgement:kJudgementMiss];
 				[lifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
+				
+				// Extra judgement for hold notes..
+				// TODO: all hold notes which are not held now should show NG. not only one.
+				if(note.type == kNoteType_HoldHead) {
+					[lifeBar updateBy:-0.05];	// NG judgement
+					[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
+				}
 			}
 			
 			// Check whether this note is already out of scope
@@ -272,8 +281,10 @@
 			// Now the same for hold notes
 			if(note.type == kNoteType_HoldHead) {
 				if(note.isHeld && holdBottomCapYPosition >= kArrowsBaseY) {
-					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.
+					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
 					[lifeBar updateBy:0.05];
+					[holdJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
+					
 					++trackPos[i];
 				} else if (note.isHoldLost && holdBottomCapYPosition >= 480.0f) {
 					// Let the hold go till the end of the screen. The lifebar and the NG graphic is done already when the hold was lost
@@ -304,6 +315,7 @@
 					if(fabsf(elapsedTime - note.lastHoldReleaseTime) >= 0.8f) {
 						[note markHoldLost];
 						[lifeBar updateBy:-0.05];	// NG judgement
+						[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];					
 					}
 					
 					// But maybe we have touched it again before it was marked as lost totally?
@@ -383,6 +395,7 @@
 	HoldNote* holdNoteActive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyActive];
 	
 	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
+	HoldJudgement* holdJudgement = (HoldJudgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldJudgement];	
 	
 	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
@@ -507,6 +520,7 @@
 
 		// Draw the judgement
 		[judgement render:fDelta];
+		[holdJudgement render:fDelta];
 	}
 	
 }

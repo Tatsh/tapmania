@@ -47,6 +47,7 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 
 	// Load judgement sprites
 	_textures[kTexture_Judgement] = [[Judgement alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"judgement_6x1.png"]] columns:1 andRows:6];
+	_textures[kTexture_HoldJudgement] = [[HoldJudgement alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"holdJudgement_2x1.png"]] columns:1 andRows:2];
 	
 	// Load 8x8 texture for tap notes
 	_textures[kTexture_TapNote] = [[TapNote alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"noteskins/%@/downTapNote_8x8.png", skin]] columns:8 andRows:8];

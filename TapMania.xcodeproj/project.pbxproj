@@ -20,6 +20,7 @@
 		246FB0D50F28A96300B3F641 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 246FB0BA0F28A96300B3F641 /* themes */; };
 		246FB0E20F28A97500B3F641 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 246FB0D60F28A97500B3F641 /* noteskins */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */; };
+		246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */; };
 		2472663D0EE949A500D501AF /* TapNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.m */; };
 		247266540EE94D3B00D501AF /* Receptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.m */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.m */; };
@@ -89,6 +90,8 @@
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
+		246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldJudgement.h; path = Renderers/UIElements/HoldJudgement.h; sourceTree = "<group>"; };
+		246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldJudgement.m; path = Renderers/UIElements/HoldJudgement.m; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
 		2472663C0EE949A500D501AF /* TapNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapNote.m; path = Renderers/UIElements/TapNote.m; sourceTree = "<group>"; };
 		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 				24AFB4010EEFBC6800D0BF31 /* HoldNote.m */,
 				24D4C1460F1B3C1100643CC2 /* Judgement.h */,
 				24D4C1470F1B3C1100643CC2 /* Judgement.m */,
+				246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */,
+				246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */,
 				242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */,
 				246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */,
+				246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 #import "HoldNote.h"
 #import "Receptor.h"
 #import "Judgement.h"
+#import "HoldJudgement.h"
 
 typedef enum {
 	// Gameplay stuff
@@ -33,6 +34,10 @@ typedef enum {
 	kTexture_LifeBarHot,
 	
 	kTexture_Judgement,
+	kTexture_HoldJudgement,
+	
+	kTexture_Combo,
+	kTexture_Misses,
 	
 	kTexture_SongPlayBackgroundIndex,
 	kTexture_SongPlayBackgroundSpread,
