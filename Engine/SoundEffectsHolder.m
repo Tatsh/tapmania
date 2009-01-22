@@ -24,11 +24,14 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	
 	NSLog(@"Loading sound effects...");
 	
+	// FIXME: hardcode
+	NSString* themeDir = @"default";
+	
 	SoundEngine_SetListenerPosition(0.0, 0.0, 1.0);
 	SoundEngine_SetEffectsVolume(1.0);
-	SoundEngine_SetBackgroundMusicVolume(0.6);
+	SoundEngine_SetBackgroundMusicVolume(1.0);
 	
-	SoundEngine_LoadEffect([[[NSBundle mainBundle] pathForResource:@"tick" ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
+	SoundEngine_LoadEffect([[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Resources/themes/%@/Sounds/%@", themeDir, @"tick"] ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
 	
 	NSLog(@"Done.");
 	
