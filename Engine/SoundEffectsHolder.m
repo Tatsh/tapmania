@@ -31,7 +31,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	SoundEngine_SetEffectsVolume(1.0);
 	SoundEngine_SetBackgroundMusicVolume(1.0);
 	
-	SoundEngine_LoadEffect([[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Resources/themes/%@/Sounds/%@", themeDir, @"tick"] ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
+	SoundEngine_LoadEffect([[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"Data/themes/%@/Sounds/%@", themeDir, @"tick"] ofType:@"wav"] UTF8String], &_sounds[kSound_Clap]);
 	
 	NSLog(@"Done.");
 	
