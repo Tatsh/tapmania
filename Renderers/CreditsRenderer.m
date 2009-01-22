@@ -28,7 +28,7 @@
 	// We will show the credits until this set to YES
 	shouldReturn = NO;
 	
-	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Data/Credits" ofType:@"txt"];	
+	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"txt"];	
 	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
 	
 	// Alloc the textures array

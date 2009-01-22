@@ -15,15 +15,24 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 @implementation SongsDirectoryCache
 
+@synthesize delegate;
+
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 	
+	availableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
+	
+	return self;
+}
+
+
+- (void) cacheSongs {
 	NSLog(@"Caching songs in 'Songs' dir...");
 	
 	int i;	
-	availableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
+	[availableSongs removeAllObjects];	// Clear the list if we had filled it before
 	
 	// Get songs directory
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
@@ -31,18 +40,32 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSString * dir = [paths objectAtIndex:0]; 
 		songsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
 		
+		// Create the songs dir if missing
+		if(! [[NSFileManager defaultManager] isReadableFileAtPath:songsDir]){
+			[[NSFileManager defaultManager] createDirectoryAtPath:songsDir attributes:nil];
+		}
+		
 		NSLog(@"Songs dir at: %@", songsDir);		
 		
 		// Read all songs in the dir and cache them
 		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:songsDir];
 		
+		// Raise error if empty songs dir
+		if([songsDirContents count] == 0) {
+			if(delegate != nil) {
+				[delegate songLoaderError:@"Songs directory is empty"];
+			}
+			
+			return;
+		}
 		
 		for(i = 0; i<[songsDirContents count]; i++) {
-		
-			NSString* curPath = [songsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]];
+			
+			NSString* songDirName = [songsDirContents objectAtIndex:i];
+			NSString* curPath = [songsDir stringByAppendingPathComponent:songDirName];
 			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
 			NSString* file;
-		
+			
 			NSString* stepsFilePath = nil;
 			NSString* musicFilePath = nil;			
 			
@@ -62,26 +85,34 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			if(stepsFilePath != nil && musicFilePath != nil){
 				
 				// Parse very basic info from this file
-				NSLog(@"Parsing song from %@...", stepsFilePath);
-				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];
-				NSLog(@"Done.");			
-			
+				if(delegate != nil) {
+					[delegate startLoadingSong:songDirName];
+				}
+
+				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];				
 				[availableSongs addObject:song];
 				
+				if(delegate != nil) {
+					[delegate doneLoadingSong:songDirName];
+				}								
 			} else {
-				NSLog(@"Error: steps file or music file not found for song dir '%@'! abort.", curPath);
+				if(delegate != nil) {
+					[delegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
+				}			
 			}
 		}
 	} else {
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound" reason:@"Songs directory couldn't be found!" userInfo:nil];
 		@throw ex;
 	}
-		
-	NSLog(@"Done.");
 	
-	return self;
+	// Tell the user that we are done
+	if(delegate != nil) {
+		[delegate songLoaderFinished];
+	}
+	
+	NSLog(@"Done.");	
 }
-
 
 - (NSArray*) getSongList {
 	return availableSongs;

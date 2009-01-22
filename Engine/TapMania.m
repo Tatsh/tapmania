@@ -12,8 +12,9 @@
 #import "SongsDirectoryCache.h"
 #import "SoundEffectsHolder.h"
 #import "TexturesHolder.h"
+#import "InputEngine.h"
 
-#import "MainMenuRenderer.h"
+#import "SongsCacheLoaderRenderer.h"
 
 
 // This is a singleton class, see below
@@ -32,10 +33,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	currentSong = nil;
 	currentSongOptions = nil;
 	currentScreen = nil;
-	
-	// Cache all songs
-	[SongsDirectoryCache sharedInstance];
-	
+		
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];
 	
@@ -130,7 +128,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void) runLoopInitializedNotification {
 	// Will start with main menu
-	[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
+	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init]];
 	
 	NSLog(@"Game run loop initialized...");
 }

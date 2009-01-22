@@ -67,7 +67,7 @@
 	
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-	
+		
 	float curWidth = 0.85f;	// 95% - 2*5% = 85% = 0.85
 	float curYOffset = -39.0f;
 	float curXOffset;
@@ -77,7 +77,7 @@
 	int i;
 	int j = 0;
 	
-	for(i=0; i<kNumWheelItems; i++){
+	for(i=0; i<kNumWheelItems; i++) {
 		
 		if(j == [songList count]) {
 			j = 0;
