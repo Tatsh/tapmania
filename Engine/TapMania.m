@@ -113,6 +113,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (JoyPad*) enableJoyPad {
+	[joyPad reset];
 	[[InputEngine sharedInstance] subscribe:joyPad];
 	return joyPad;
 }

@@ -34,7 +34,10 @@
 			[self createSpreadJoy];
 			break;
 	}
-	
+
+	// Reset states
+	[self reset];
+
 	return self;
 }
 
@@ -90,6 +93,16 @@
 }
 
 /* Public methods */
+- (void) reset {	
+	int i;
+	for(i=0; i<kNumJoyButtons; ++i) {
+		_joyCurrentButtonLocation[i] = nil;
+		_joyButtonStates[i] = NO;
+		_joyButtonTimeTouch[i] = 0.0f;
+		_joyButtonTimeRelease[i] = 0.0f;
+	}
+}
+
 - (BOOL) getStateForButton: (JPButton) button {
 	return _joyButtonStates[button];
 }
@@ -114,13 +127,40 @@
 		// Check general touch position
 		if(point.y <= 320.0) {
 			int i;
+			int closestButton = -1;
+			float minDist = MAXFLOAT;
+
+			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
 			for(i=0; i<kNumJoyButtons; ++i){
-				if([_joyButtons[i] containsPoint:point]){
-					_joyButtonStates[i] = YES;
-					_joyButtonTimeTouch[i] = touch.timestamp; 
+				
+				if(_joyCurrentButtonLocation[i] != nil) {
+					
+					float d = [Vector distSquared:v1 and:_joyCurrentButtonLocation[i]];
+					
+					if(d < minDist) {
+						minDist = d;
+						closestButton = i;
+					}
+
+				} else {
+					if([_joyButtons[i] containsPoint:point]){
+
+						// Setup button location system
+						_joyCurrentButtonLocation[i] = v1;
+						closestButton = i;
+
+						goto doneTouch;
+					}
 				}
 			}
+
+			[_joyCurrentButtonLocation[closestButton] release];
+			_joyCurrentButtonLocation[closestButton] = v1;
+
+			doneTouch:;	// HACK
+			_joyButtonStates[closestButton] = YES;
+			_joyButtonTimeTouch[closestButton] = touch.timestamp;
 		}
 	}
 }
@@ -142,13 +182,40 @@
 		// Check general touch position
 		if(point.y <= 320.0) {
 			int i;
+			int closestButton = -1;
+			float minDist = MAXFLOAT;
+
+			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
 			for(i=0; i<kNumJoyButtons; ++i){
-				if([_joyButtons[i] containsPoint:point]){
-					_joyButtonStates[i] = NO;
-					_joyButtonTimeRelease[i] = touch.timestamp;
+				
+				if(_joyCurrentButtonLocation[i] != nil) {
+					
+					float d = [Vector distSquared:v1 and:_joyCurrentButtonLocation[i]];
+					
+					if(d < minDist) {
+						minDist = d;
+						closestButton = i;
+					}
+
+				} else {
+					if([_joyButtons[i] containsPoint:point]){
+
+						// Setup button location system
+						_joyCurrentButtonLocation[i] = v1;
+						closestButton = i;
+						
+						goto doneRelease;
+					}
 				}
 			}
+
+			[_joyCurrentButtonLocation[closestButton] release];
+			_joyCurrentButtonLocation[closestButton] = v1;
+
+			doneRelease:;	// HACK
+			_joyButtonStates[closestButton] = NO;
+			_joyButtonTimeRelease[closestButton] = touch.timestamp;			
 		}
 	}
 }

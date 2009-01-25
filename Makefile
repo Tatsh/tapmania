@@ -10,9 +10,11 @@ OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Obje
 	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/TexturesHolder.o Engine/EAGLView.o \
 	Renderers/AbstractRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
 	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \
-	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o \
+	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/SongResultsRenderer.o \
+	Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o Renderers/SongsCacheLoaderRenderer.o \
 	Renderers/UIElements/TogglerItem.o Renderers/UIElements/TapNote.o Renderers/UIElements/HoldNote.o Renderers/UIElements/Receptor.o \
-	Renderers/UIElements/Judgement.o Renderers/UIElements/ReceptorRow.o GameObjects/TMSong.o GameObjects/TMSteps.o \
+	Renderers/UIElements/Judgement.o Renderers/UIElements/HoldJudgement.o \
+	Renderers/UIElements/ReceptorRow.o GameObjects/TMSong.o GameObjects/TMSteps.o \
 	GameObjects/TMSongOptions.o GameObjects/TMNote.o GameObjects/TMTrack.o GameObjects/TMChangeSegment.o \
 	Engine/SoundEngine.o Parsers/DWIParser.o Util/TimingUtil.o Util/PhysicsUtil.o Util/BenchmarkUtil.o
 
@@ -32,7 +34,7 @@ bin:
 	rm -rf TapMania.app
 	mkdir TapMania.app
 	cp Default.png TapMania.app/
-	cp -R Data TapMania.app/
+	cp -R Data/* TapMania.app/
 	cp *.plist TapMania.app/
 	cp TapMania TapMania.app/
 

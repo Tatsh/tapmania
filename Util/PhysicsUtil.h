@@ -24,6 +24,8 @@
 + (float) normSquared:(Vector*)v0;
 + (Vector*) normalize:(Vector*)v0 withTolerance:(float)tolerance;
 
++ (float) dist:(Vector*)v0 and:(Vector*)v1;
++ (float) distSquared:(Vector*)v0 and:(Vector*)v1;
 + (Vector*) sum:(Vector*)v0 and:(Vector*)v1;
 + (Vector*) sub:(Vector*)v0 and:(Vector*)v1;
 + (float) dot:(Vector*)v0 and:(Vector*)v1;

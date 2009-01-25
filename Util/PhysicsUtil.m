@@ -65,6 +65,13 @@
 	return result;
 }
 
++ (float) dist:(Vector*)v0 and:(Vector*)v1 {
+	return sqrt( [Vector distSquared:v0 and:v1]);
+}
+
++ (float) distSquared:(Vector*)v0 and:(Vector*)v1 {
+	return (v0.x-v1.x)*(v0.x-v1.x) + (v0.y-v1.y)*(v0.y-v1.y);
+}
 
 + (Vector*) sum:(Vector*)v0 and:(Vector*)v1 {
 	return [[Vector alloc] initWithX:v0.x+v1.x andY:v0.y+v1.y];

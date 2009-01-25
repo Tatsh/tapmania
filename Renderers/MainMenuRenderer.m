@@ -37,7 +37,7 @@
 	mainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
 	
 	// Enable joypad
-	joyPad = [[TapMania sharedInstance] enableJoyPad];
+	// joyPad = [[TapMania sharedInstance] enableJoyPad];
 	
 	return self;
 }
@@ -68,7 +68,7 @@
 	[[InputEngine sharedInstance] unsubscribe:self];
 	
 	// Disable joypad
-	[[TapMania sharedInstance] disableJoyPad];
+	// [[TapMania sharedInstance] disableJoyPad];
 	
 }
 

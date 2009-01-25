@@ -28,11 +28,15 @@ typedef enum {
 	double _joyButtonTimeTouch[kNumJoyButtons];	// Last time every button was touched
 	double _joyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
 
+	Vector* _joyCurrentButtonLocation[kNumJoyButtons];	// Last touch location for every button
 	Triangle* _joyButtons[kNumJoyButtons];
 }
 
 // The constructor
 - (id) initWithStyle:(JPStyle)style;
+
+// Reset method must be called on song start
+- (void) reset;
 
 // Get state of particular button
 - (BOOL) getStateForButton:(JPButton) button;
