@@ -229,8 +229,8 @@
 			
 			/* We must also calculate the Y position of the bottom cap of the hold if we handle a hold note */
 			if(note.type == kNoteType_HoldHead) {
-				// If we hold the note now we must fix it on the receptor base
-				if(note.isHolding) {
+				// If we hit (was ever holding) the note now we must fix it on the receptor base
+				if(note.isHit) {
 					note.startYPosition = kArrowsBaseY;
 				}
 				
@@ -280,15 +280,17 @@
 
 			// Now the same for hold notes
 			if(note.type == kNoteType_HoldHead) {
-				if(note.isHeld && holdBottomCapYPosition >= kArrowsBaseY) {
+				if(note.isHit && holdBottomCapYPosition >= kArrowsBaseY) {
 					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
 					[lifeBar updateBy:0.05];
 					[holdJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
 					
 					++trackPos[i];
-				} else if (note.isHoldLost && holdBottomCapYPosition >= 480.0f) {
+					continue; // Skip this hold already
+				} else if (!note.isHit && holdBottomCapYPosition >= 480.0f) {
 					// Let the hold go till the end of the screen. The lifebar and the NG graphic is done already when the hold was lost
 					++trackPos[i];
+					continue; // Skip
 				}				
 			}
 			
@@ -482,32 +484,48 @@
 				
 				if( i == kAvailableTrack_Left ) {
 					CGRect arrowRect = CGRectMake(kArrowLeftX, note.startYPosition , 64, 64);
-					if(note.isHolding) {
-						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+					if(note.type == kNoteType_HoldHead) {
+						if(note.isHolding) {
+							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+						} else { // if(note.isHoldLost == YES) {
+							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Left inRect:arrowRect];	
+						}
 					} else {
 						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(kArrowDownX, note.startYPosition, 64, 64);
-					if(note.isHolding) {
-						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+					if(note.type == kNoteType_HoldHead) {
+						if(note.isHolding) {
+							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+						} else { // if(note.isHoldLost == YES) {
+							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Down inRect:arrowRect];	
+						}
 					} else {
 						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(kArrowUpX, note.startYPosition, 64, 64);
-					if(note.isHolding) {
-						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+					if(note.type == kNoteType_HoldHead) {
+						if(note.isHolding) {
+							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+						} else { // if(note.isHoldLost == YES) {
+							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Up inRect:arrowRect];	
+						}
 					} else {
 						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Right ) {
 					CGRect arrowRect = CGRectMake(kArrowRightX, note.startYPosition, 64, 64);
-					if(note.isHolding) {
-						[tapNote drawHoldTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+					if(note.type == kNoteType_HoldHead) {
+						if(note.isHolding) {
+							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+						} else { // if(note.isHoldLost == YES) {
+							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Right inRect:arrowRect];	
+						}
 					} else {						
 						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
 					}

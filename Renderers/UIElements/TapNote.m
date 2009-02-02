@@ -58,11 +58,17 @@
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
 }
 
-- (void) drawHoldTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
+- (void) drawHoldTapNoteHolding:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
 	float rotation = [self calculateRotation:dir];
 	int frameToRender = (currentFrame+4) + type*framesToLoad[0]; // Columns
 	
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
 }
+
+- (void) drawHoldTapNoteReleased:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
+	// Will use the regular tap note for this
+	[self drawTapNote:type direction:dir inRect:rect];
+}
+
 
 @end
