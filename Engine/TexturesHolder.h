@@ -54,6 +54,8 @@ typedef enum {
 	kTexture_SongSelectionWheelItemSelected,
 	kTexture_SongSelectionWheelLoadingAvatar,
 	
+	kTexture_SongSelectionSpeedToggler,
+	
 	// Credits
 	kTexture_CreditsBackground,
 	

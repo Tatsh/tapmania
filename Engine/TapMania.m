@@ -136,7 +136,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void) runLoopBeforeHook:(NSNumber*)fDelta {
 	// We must let the system handle all the events too
-	while( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.012, FALSE) == kCFRunLoopRunHandledSource);
+	while( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.009, FALSE) == kCFRunLoopRunHandledSource);
 }
 
 - (void) runLoopAfterHook:(NSNumber*)fDelta {

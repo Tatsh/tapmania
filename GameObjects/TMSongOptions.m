@@ -47,12 +47,6 @@
 			return @"5x";
 		case kSpeedMod_8x:
 			return @"8x";
-		case kSpeedMod_c200:
-			return @"C200";
-		case kSpeedMod_c400:
-			return @"C400";
-		case kSpeedMod_c600:
-			return @"C600";	
 		default:
 			return @"UNKNOWN";
 	}
@@ -72,13 +66,6 @@
 			return 5.0f;
 		case kSpeedMod_8x:
 			return 8.0f;
-		// Constant speed mods are TBD
-		case kSpeedMod_c200:
-			return 1.0f;
-		case kSpeedMod_c400:
-			return 1.0f;
-		case kSpeedMod_c600:
-			return 1.0f;	
 		default:
 			return 1.0f;
 	}

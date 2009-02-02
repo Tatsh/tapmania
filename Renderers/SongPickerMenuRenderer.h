@@ -15,10 +15,13 @@
 
 #import "SongPickerMenuItem.h"
 #import "AbstractRenderer.h"
+#import "TogglerItem.h"
 
 #define kNumWheelItems 7
 
 @interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
+	TogglerItem* speedToggler;
+	
 	SongPickerMenuItem* wheelItems[kNumWheelItems]; // Always 7 wheel items are visible on screen
 	int currentSongId;	// Selected song index
 	

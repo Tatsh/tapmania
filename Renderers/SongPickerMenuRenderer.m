@@ -22,6 +22,7 @@
 
 #import "SongPickerMenuItem.h"
 #import "SongPickerMenuSelectedItem.h"
+#import "TogglerItem.h"
 
 #import "SongPlayRenderer.h"
 
@@ -117,6 +118,15 @@
 		}
 	}
 	
+	NSArray* arr = [NSArray arrayWithObjects:
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1x] andValue:[NSNumber numberWithInt:kSpeedMod_1x]],
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1_5x] andValue:[NSNumber numberWithInt:kSpeedMod_1_5x]], 
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_2x] andValue:[NSNumber numberWithInt:kSpeedMod_2x]],
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_3x] andValue:[NSNumber numberWithInt:kSpeedMod_3x]],
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_5x] andValue:[NSNumber numberWithInt:kSpeedMod_5x]],
+					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_8x] andValue:[NSNumber numberWithInt:kSpeedMod_8x]], nil];
+	speedToggler = [[TogglerItem alloc] initWithElements:arr andShape:CGRectMake(255, 375, 60, 40)];
+	
 	return self;
 }
 
@@ -124,11 +134,13 @@
 - (void) setupForTransition {
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
+	[[InputEngine sharedInstance] subscribe:speedToggler];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
+	[[InputEngine sharedInstance] unsubscribe:speedToggler];
 }
 
 /* TMRenderable method */
@@ -145,6 +157,8 @@
 	for(i=0; i<kNumWheelItems; i++){
 		[wheelItems[i] render:fDelta];
 	}
+	
+	[speedToggler render:fDelta];
 }
 
 /* TMLogicUpdater stuff */
@@ -156,7 +170,7 @@
 		TMSongOptions* options = [[TMSongOptions alloc] init];
 		
 		// Assign speed modifier
-		[options setSpeedMod:kSpeedMod_3x]; 
+		[options setSpeedMod:[(NSNumber*)[speedToggler getCurrent].value intValue]]; 
 		
 		// Assign difficulty
 		[options setDifficulty:kSongDifficulty_Hard];

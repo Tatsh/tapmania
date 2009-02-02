@@ -17,9 +17,6 @@ typedef enum {
 	kSpeedMod_3x,
 	kSpeedMod_5x,
 	kSpeedMod_8x,
-	kSpeedMod_c200,
-	kSpeedMod_c400,
-	kSpeedMod_c600,
 	kNumSpeedMods
 } TMSpeedModifiers;
 

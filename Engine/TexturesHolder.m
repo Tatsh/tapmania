@@ -39,6 +39,7 @@ static TexturesHolder *sharedTexturesDelegate = nil;
 	_textures[kTexture_SongSelectionWheelItem] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"songSelectionWheelItem_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelItemSelected] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"songSelectionWheelItemSelected_1x2.png"]] columns:2 andRows:1];
 	_textures[kTexture_SongSelectionWheelLoadingAvatar] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"songSelectionWheelLoadingAvatar.png"]]];
+	_textures[kTexture_SongSelectionSpeedToggler] = [[TMFramedTexture alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"songSelectionSpeedToggler_1x3.png"]] columns:3 andRows:1];
 	
 	_textures[kTexture_LifeBarFrame] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"lifeBarFrame.png"]]];
 	_textures[kTexture_LifeBarBackground] = [[Texture2D alloc] initWithImage: [UIImage imageNamed:[NSString stringWithFormat:@"themes/%@/Graphics/%@", themeDir, @"lifeBarBackground.png"]]];
