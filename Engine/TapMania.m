@@ -13,6 +13,7 @@
 #import "SoundEffectsHolder.h"
 #import "TexturesHolder.h"
 #import "InputEngine.h"
+#import "ThemeManager.h"
 
 #import "SongsCacheLoaderRenderer.h"
 
@@ -76,7 +77,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[self.window addSubview:glView];		
 	
 	// FIXME: hardcoded style here
-	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleSpread];
+	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
+	
+	// Load theme. FIXME: hardcoded default theme here!
+	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
 	
 	// Init main run loop
 	gameRunLoop = [[TMRunLoop alloc] init];

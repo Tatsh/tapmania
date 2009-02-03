@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TMSong.h"
-#import "TMSongOptions.h"
-
 #import "TMRunLoop.h"
 #import "AbstractRenderer.h"
 #import "JoyPad.h"
@@ -18,6 +15,8 @@
 #import "EAGLView.h"
 
 #import "TMSingleTimeTask.h"
+
+@class TMSong, TMSongOptions;
 
 @interface TapMania : NSObject <TMRunLoopDelegate> {	
 	TMSong* currentSong;	// Points to currently selected song which can be played
