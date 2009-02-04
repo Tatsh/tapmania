@@ -14,10 +14,10 @@
 #import "TMRunLoop.h"
 
 @interface CreditsRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
-	NSMutableArray* texturesArray;
+	NSMutableArray* m_aTexturesArray;
 	
-	BOOL shouldReturn;
-	float currentPos; // Current Y coordinate of the scrolling text
+	BOOL			m_bShouldReturn;
+	float			m_fCurrentPos; // Current Y coordinate of the scrolling text
 }
 
 @end

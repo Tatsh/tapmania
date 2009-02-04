@@ -16,17 +16,17 @@
 #import "TMGameUIResponder.h"
 
 @interface SongResultsRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
-	TMSong*					song;	// The song we are calculating for
-	TMSteps*				steps;	// The steps we played
+	TMSong*					m_pSong;	// The song we are calculating for
+	TMSteps*				m_pSteps;	// The steps we played
 	
-	int						counters[kNumNoteScores];
-	int						okNgCounters[kNumHoldScores];
+	int						m_nCounters[kNumNoteScores];
+	int						m_nOkNgCounters[kNumHoldScores];
 	
-	BOOL					returnToSongSelection;
+	BOOL					m_bReturnToSongSelection;
 	
 	NSMutableArray* texturesArray;
 }
 
-- (id) initWithSong:(TMSong*)lSong withSteps:(TMSteps*)lSteps;
+- (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps;
 
 @end

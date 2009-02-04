@@ -43,22 +43,22 @@
 
 /* Private constructor helpers */
 - (void) createSpreadJoy {
-	_joyButtons[kJoyButtonLeft] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonLeft] = [[Triangle alloc] 
 								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 								   V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 		// Top-left
 								   andV2:[[Vector alloc] initWithX:0.0 andY:100.0 ]];	// Bottom-left
 	
-	_joyButtons[kJoyButtonRight] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonRight] = [[Triangle alloc] 
 									initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 									V1:[[Vector alloc] initWithX:320.0 andY:320.0 ] 		// Top-right
 									andV2:[[Vector alloc] initWithX:320.0 andY:100.0 ]];		// Bottom-right
 	
-	_joyButtons[kJoyButtonUp] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonUp] = [[Triangle alloc] 
 								 initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
 								 V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 			// Center-bottom
 								 andV2:[[Vector alloc] initWithX:416.0 andY:64.0 ]];	// Right
 	
-	_joyButtons[kJoyButtonDown] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonDown] = [[Triangle alloc] 
 								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
 								   V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 		// Center-bottom
 								   andV2:[[Vector alloc] initWithX:-96.0 andY:64.0 ]];	// Left
@@ -71,22 +71,22 @@
 	//     *
 	//  *     *
 	
-	_joyButtons[kJoyButtonLeft] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonLeft] = [[Triangle alloc] 
 		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 		V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 		// Top-left
 		andV2:[[Vector alloc] initWithX:0.0 andY:0.0 ]];	// Bottom-left
 
-	_joyButtons[kJoyButtonRight] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonRight] = [[Triangle alloc] 
 		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 		V1:[[Vector alloc] initWithX:320.0 andY:320.0 ] 		// Top-right
 		andV2:[[Vector alloc] initWithX:320.0 andY:0.0 ]];		// Bottom-right
 
-	_joyButtons[kJoyButtonUp] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonUp] = [[Triangle alloc] 
 		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 		V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 			// Top-left
 		andV2:[[Vector alloc] initWithX:320.0 andY:320.0 ]];	// Top-Right
 
-	_joyButtons[kJoyButtonDown] = [[Triangle alloc] 
+	m_pJoyButtons[kJoyButtonDown] = [[Triangle alloc] 
 		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
 		V1:[[Vector alloc] initWithX:0.0 andY:0.0 ] 		// Bottom-left
 		andV2:[[Vector alloc] initWithX:320.0 andY:0.0 ]];	// Bottom-right
@@ -96,23 +96,23 @@
 - (void) reset {	
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
-		_joyCurrentButtonLocation[i] = nil;
-		_joyButtonStates[i] = NO;
-		_joyButtonTimeTouch[i] = 0.0f;
-		_joyButtonTimeRelease[i] = 0.0f;
+		m_pJoyCurrentButtonLocation[i] = nil;
+		m_bJoyButtonStates[i] = NO;
+		m_dJoyButtonTimeTouch[i] = 0.0f;
+		m_dJoyButtonTimeRelease[i] = 0.0f;
 	}
 }
 
 - (BOOL) getStateForButton: (JPButton) button {
-	return _joyButtonStates[button];
+	return m_bJoyButtonStates[button];
 }
 
 - (double) getTouchTimeForButton: (JPButton) button {
-	return _joyButtonTimeTouch[button];
+	return m_dJoyButtonTimeTouch[button];
 }
 
 - (double) getReleaseTimeForButton: (JPButton) button {
-	return _joyButtonTimeRelease[button];
+	return m_dJoyButtonTimeRelease[button];
 }
 
 /* TMGameUIResponder methods */
@@ -134,9 +134,9 @@
 			
 			for(i=0; i<kNumJoyButtons; ++i){
 				
-				if(_joyCurrentButtonLocation[i] != nil) {
+				if(m_pJoyCurrentButtonLocation[i] != nil) {
 					
-					float d = [Vector distSquared:v1 and:_joyCurrentButtonLocation[i]];
+					float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
 					if(d < minDist) {
 						minDist = d;
@@ -144,10 +144,10 @@
 					}
 
 				} else {
-					if([_joyButtons[i] containsPoint:point]){
+					if([m_pJoyButtons[i] containsPoint:point]){
 
 						// Setup button location system
-						_joyCurrentButtonLocation[i] = v1;
+						m_pJoyCurrentButtonLocation[i] = v1;
 						closestButton = i;
 
 						goto doneTouch;
@@ -155,12 +155,12 @@
 				}
 			}
 
-			[_joyCurrentButtonLocation[closestButton] release];
-			_joyCurrentButtonLocation[closestButton] = v1;
+			[m_pJoyCurrentButtonLocation[closestButton] release];
+			m_pJoyCurrentButtonLocation[closestButton] = v1;
 
 			doneTouch:;	// HACK
-			_joyButtonStates[closestButton] = YES;
-			_joyButtonTimeTouch[closestButton] = touch.timestamp;
+			m_bJoyButtonStates[closestButton] = YES;
+			m_dJoyButtonTimeTouch[closestButton] = touch.timestamp;
 		}
 	}
 }
@@ -189,9 +189,9 @@
 			
 			for(i=0; i<kNumJoyButtons; ++i){
 				
-				if(_joyCurrentButtonLocation[i] != nil) {
+				if(m_pJoyCurrentButtonLocation[i] != nil) {
 					
-					float d = [Vector distSquared:v1 and:_joyCurrentButtonLocation[i]];
+					float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
 					if(d < minDist) {
 						minDist = d;
@@ -199,10 +199,10 @@
 					}
 
 				} else {
-					if([_joyButtons[i] containsPoint:point]){
+					if([m_pJoyButtons[i] containsPoint:point]){
 
 						// Setup button location system
-						_joyCurrentButtonLocation[i] = v1;
+						m_pJoyCurrentButtonLocation[i] = v1;
 						closestButton = i;
 						
 						goto doneRelease;
@@ -210,12 +210,12 @@
 				}
 			}
 
-			[_joyCurrentButtonLocation[closestButton] release];
-			_joyCurrentButtonLocation[closestButton] = v1;
+			[m_pJoyCurrentButtonLocation[closestButton] release];
+			m_pJoyCurrentButtonLocation[closestButton] = v1;
 
 			doneRelease:;	// HACK
-			_joyButtonStates[closestButton] = NO;
-			_joyButtonTimeRelease[closestButton] = touch.timestamp;			
+			m_bJoyButtonStates[closestButton] = NO;
+			m_dJoyButtonTimeRelease[closestButton] = touch.timestamp;			
 		}
 	}
 }

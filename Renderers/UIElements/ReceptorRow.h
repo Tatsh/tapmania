@@ -25,19 +25,19 @@ typedef enum {
  * Uses the Receptor class which holds the receptor arrow texture
 */
 @interface ReceptorRow : TMAnimatable {
-	float _positionY;	// Where the bottom of the receptor row is relative to the screen
-	float _explosionYPosition;
+	float m_fPositionY;	// Where the bottom of the receptor row is relative to the screen
+	float m_fExplosionYPosition;
 
-	float _explosionXPositions[kNumOfAvailableTracks];
-	float _receptorXPositions[kNumOfAvailableTracks];	// Final positions on the X axis of the receptor arrows
+	float m_fExplosionXPositions[kNumOfAvailableTracks];
+	float m_fReceptorXPositions[kNumOfAvailableTracks];	// Final positions on the X axis of the receptor arrows
 	
-	float _receptorRotations[kNumOfAvailableTracks];
+	float m_fReceptorRotations[kNumOfAvailableTracks];
 	
-	double _explosionTime[kNumOfAvailableTracks];	// Time of explosion start
-	TMExplosionType _explosion[kNumOfAvailableTracks];	// Which explosion is active
+	double m_dExplosionTime[kNumOfAvailableTracks];	// Time of explosion start
+	TMExplosionType m_nExplosion[kNumOfAvailableTracks];	// Which explosion is active
 }
 
-- (id) initOnPosition:(CGPoint)lPosition;
+- (id) initOnPosition:(CGPoint)position;
 
 - (void) explodeDim:(TMAvailableTracks)receptor;		// Use this to start the explosion (dim)
 - (void) explodeBright:(TMAvailableTracks)receptor;		// Same (bright)

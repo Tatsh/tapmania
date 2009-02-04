@@ -31,7 +31,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	SoundEngine_SetEffectsVolume(1.0);
 	SoundEngine_SetBackgroundMusicVolume(1.0);
 	
-	SoundEngine_LoadEffect([[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"] UTF8String], &_sounds[kSound_Clap]);
+	SoundEngine_LoadEffect([[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"] UTF8String], &m_uiSounds[kSound_Clap]);
 	
 	NSLog(@"Done.");
 	
@@ -45,7 +45,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 }
 
 - (void) playEffect:(int) effectId {
-	SoundEngine_StartEffect(_sounds[effectId]);
+	SoundEngine_StartEffect(m_uiSounds[effectId]);
 }
 
 #pragma mark Singleton stuff

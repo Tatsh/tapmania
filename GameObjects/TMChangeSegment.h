@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface TMChangeSegment : NSObject {
-	float	noteRow;		// The noteRow when this change should fire
-	float	changeValue;	// The value to change to
+	float	m_fNoteRow;		// The noteRow when this change should fire
+	float	m_fChangeValue;	// The value to change to
 }
 
-@property (assign, readonly) float noteRow;
-@property (assign) float changeValue;
+@property (assign, readonly) float m_fNoteRow;
+@property (assign) float m_fChangeValue;
 
-- (id) initWithNoteRow:(int) lNoteRow andValue:(float) lValue;
+- (id) initWithNoteRow:(int) noteRow andValue:(float) value;
 
 @end

@@ -16,7 +16,7 @@ enum {
 };
 
 @interface SoundEffectsHolder : NSObject {
-	UInt32					_sounds[kNumSounds];
+	UInt32					m_uiSounds[kNumSounds];
 }
 
 - (void) playEffect:(int) effectId;

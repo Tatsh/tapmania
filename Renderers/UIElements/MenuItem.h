@@ -10,12 +10,11 @@
 #import "AbstractRenderer.h"
 
 @interface MenuItem : AbstractRenderer {
-	int textureId;	// The id of the texture for the menu button
-	CGRect shape;	// The points where the button is drawn
+	int m_nTextureId;	// The id of the texture for the menu button
+	CGRect m_rShape;	// The points where the button is drawn
 }
 
-- (id) initWithTexture:(int) lTextureId andShape:(CGRect) lShape;
-
+- (id) initWithTexture:(int) textureId andShape:(CGRect) shape;
 - (BOOL) containsPoint:(CGPoint)point;
 
 @end

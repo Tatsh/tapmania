@@ -21,38 +21,38 @@
 	
 	// Alloc space for tracks
 	for(i=0; i<kNumOfAvailableTracks; i++){
-		tracks[i] = [[TMTrack alloc] init];
+		m_pTracks[i] = [[TMTrack alloc] init];
 	}
 	
 	return self;
 }
 
 - (int) getDifficultyLevel {
-	return difficultyLevel;
+	return m_nDifficultyLevel;
 }
 
 - (TMSongDifficulty) getDifficulty {
-	return difficulty;
+	return m_nDifficulty;
 }
 
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) noteRow{
-	[tracks[trackIndex] setNote:note onNoteRow:noteRow];
+	[m_pTracks[trackIndex] setNote:note onNoteRow:noteRow];
 }
 
 - (TMNote*) getNote:(int) index fromTrack:(int) trackIndex {
-	return [tracks[trackIndex] getNote:index];
+	return [m_pTracks[trackIndex] getNote:index];
 }
 
 - (TMNote*) getNoteFromRow:(int) noteRow forTrack:(int) trackIndex {
-	return [tracks[trackIndex] getNoteFromRow:noteRow];
+	return [m_pTracks[trackIndex] getNoteFromRow:noteRow];
 }
 
 - (BOOL) hasNoteAtRow:(int) noteRow forTrack:(int) trackIndex {
-	return [tracks[trackIndex] hasNoteAtRow:noteRow];
+	return [m_pTracks[trackIndex] hasNoteAtRow:noteRow];
 }
 
 - (int) getNotesCountForTrack:(int) trackIndex {
-	return [tracks[trackIndex] getNotesCount];
+	return [m_pTracks[trackIndex] getNotesCount];
 }
 
 // Time out stuff should be a pointer to array of kNumOfAvailableTracks elements but obj-c doesn't like the C syntax. FIXME
@@ -69,10 +69,10 @@
 		
 		// If found - check
 		if(n != nil) {
-			if(!n.isHit) {
+			if(!n.m_bIsHit) {
 				allNotesHit = NO;
 			} else {
-				*(arrp[tr]) = n.hitTime;
+				*(arrp[tr]) = n.m_dHitTime;
 			}
 		}
 	}
@@ -102,10 +102,10 @@
 		int j = 0;
 
 		// Skip all empty notes
-		while([(TMNote*)[tracks[i] getNote:j++] type] == kNoteType_Empty);
+		while([(TMNote*)[m_pTracks[i] getNote:j++] m_nType] == kNoteType_Empty);
 
 		// Get the smallest
-		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[tracks[i] getNote:j] startNoteRow]);
+		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow]);
 	}
 
 	return minNoteRow;
@@ -116,8 +116,8 @@
 	int maxNoteRow = 0;
 	
 	for(i=0; i<kNumOfAvailableTracks; i++){
-		TMNote* lastNote = [tracks[i] getNote:[tracks[i] getNotesCount]-1];
-		maxNoteRow = (int) fmaxf( (float)maxNoteRow, lastNote.type == kNoteType_HoldHead ? (float)[lastNote stopNoteRow] : (float)[lastNote startNoteRow]);
+		TMNote* lastNote = [m_pTracks[i] getNote:[m_pTracks[i] getNotesCount]-1];
+		maxNoteRow = (int) fmaxf( (float)maxNoteRow, lastNote.m_nType == kNoteType_HoldHead ? (float)[lastNote m_nStopNoteRow] : (float)[lastNote m_nStartNoteRow]);
 	}
 	
 	return maxNoteRow;

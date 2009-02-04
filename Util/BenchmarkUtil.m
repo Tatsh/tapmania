@@ -12,38 +12,38 @@
 
 @implementation BenchmarkUtil
 
-+ (id) instanceWithName:(NSString*)lName {
-	BenchmarkUtil* bm = [[BenchmarkUtil alloc] initWithName:lName];
++ (id) instanceWithName:(NSString*)name {
+	BenchmarkUtil* bm = [[BenchmarkUtil alloc] initWithName:name];
 	[bm start];
 	return [bm autorelease];
 }
 
-- (id) initWithName:(NSString*)lName {
+- (id) initWithName:(NSString*)name {
 	self = [super init];
 	if(!self)
 		return nil;
 
-	name = lName;
+	m_sName = name;
 
-	startTime = 0.0f;
-	finishTime = 0.0f;
+	m_fStartTime = 0.0f;
+	m_fFinishTime = 0.0f;
 
 	return self;
 }
 
 - (void) start {
-	startTime = [TimingUtil getCurrentTime];
+	m_fStartTime = [TimingUtil getCurrentTime];
 }
 
 - (void) finish {
-	finishTime = [TimingUtil getCurrentTime];
+	m_fFinishTime = [TimingUtil getCurrentTime];
 	[self stats];
 }
 
 - (void) stats {
-	float delta = finishTime==0.0f ? [TimingUtil getCurrentTime] : finishTime - startTime;
-	syslog(LOG_DEBUG, "Benchmark [%s] elapsed time: %lf", [name UTF8String], delta);
-	NSLog(@"Benchmark [%s] elapsed time: %lf", [name UTF8String], delta);
+	float delta = m_fFinishTime==0.0f ? [TimingUtil getCurrentTime] : m_fFinishTime - m_fStartTime;
+	syslog(LOG_DEBUG, "Benchmark [%s] elapsed time: %lf", [m_sName UTF8String], delta);
+	NSLog(@"Benchmark [%s] elapsed time: %lf", [m_sName UTF8String], delta);
 }
 
 @end

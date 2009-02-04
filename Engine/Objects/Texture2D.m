@@ -58,15 +58,15 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 @implementation Texture2D
 
-@synthesize contentSize=_size, pixelFormat=_format, pixelsWide=_width, pixelsHigh=_height, name=_name, maxS=_maxS, maxT=_maxT;
+@synthesize contentSize=m_oSize, pixelFormat=m_nFormat, pixelsWide=m_unWidth, pixelsHigh=m_unHeight, name=m_unName, maxS=m_fMaxS, maxT=m_fMaxT;
 
 - (id) initWithData:(const void*)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size
 {
 	GLint					saveName;
 	if((self = [super init])) {
-		glGenTextures(1, &_name);
+		glGenTextures(1, &m_unName);
 		glGetIntegerv(GL_TEXTURE_BINDING_2D, &saveName);
-		glBindTexture(GL_TEXTURE_2D, _name);
+		glBindTexture(GL_TEXTURE_2D, m_unName);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		switch(pixelFormat) {
 			
@@ -85,27 +85,27 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		}
 		glBindTexture(GL_TEXTURE_2D, saveName);
 	
-		_size = size;
-		_width = width;
-		_height = height;
-		_format = pixelFormat;
-		_maxS = size.width / (float)width;
-		_maxT = size.height / (float)height;
+		m_oSize = size;
+		m_unWidth = width;
+		m_unHeight = height;
+		m_nFormat = pixelFormat;
+		m_fMaxS = size.width / (float)width;
+		m_fMaxT = size.height / (float)height;
 	}					
 	return self;
 }
 
 - (void) dealloc
 {
-	if(_name)
-	 glDeleteTextures(1, &_name);
+	if(m_unName)
+	 glDeleteTextures(1, &m_unName);
 	
 	[super dealloc];
 }
 
 - (NSString*) description
 {
-	return [NSString stringWithFormat:@"<%@ = %08X | Name = %i | Dimensions = %ix%i | Coordinates = (%.2f, %.2f)>", [self class], self, _name, _width, _height, _maxS, _maxT];
+	return [NSString stringWithFormat:@"<%@ = %08X | Name = %i | Dimensions = %ix%i | Coordinates = (%.2f, %.2f)>", [self class], self, m_unName, m_unWidth, m_unHeight, m_fMaxS, m_fMaxT];
 }
 
 @end
@@ -288,18 +288,18 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void) drawAtPoint:(CGPoint)point 
 {
-	GLfloat		coordinates[] = { 0,	_maxT,
-								_maxS,	_maxT,
+	GLfloat		coordinates[] = { 0,	m_fMaxT,
+								m_fMaxS,	m_fMaxT,
 								0,		0,
-								_maxS,	0 };
-	GLfloat		width = (GLfloat)_width * _maxS,
-				height = (GLfloat)_height * _maxT;
+								m_fMaxS,	0 };
+	GLfloat		width = (GLfloat)m_unWidth * m_fMaxS,
+				height = (GLfloat)m_unHeight * m_fMaxT;
 	GLfloat		vertices[] = {	-width / 2 + point.x,	-height / 2 + point.y,	0.0,
 								width / 2 + point.x,	-height / 2 + point.y,	0.0,
 								-width / 2 + point.x,	height / 2 + point.y,	0.0,
 								width / 2 + point.x,	height / 2 + point.y,	0.0 };
 	
-	glBindTexture(GL_TEXTURE_2D, _name);
+	glBindTexture(GL_TEXTURE_2D, m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -308,16 +308,16 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void) drawInRect:(CGRect)rect
 {
-	GLfloat	 coordinates[] = {  0,		_maxT,
-								_maxS,	_maxT,
+	GLfloat	 coordinates[] = {  0,		m_fMaxT,
+								m_fMaxS,	m_fMaxT,
 								0,		0,
-								_maxS,	0  };
+								m_fMaxS,	0  };
 	GLfloat	vertices[] = {	rect.origin.x,							rect.origin.y,							0.0,
 							rect.origin.x + rect.size.width,		rect.origin.y,							0.0,
 							rect.origin.x,							rect.origin.y + rect.size.height,		0.0,
 							rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 };
 	
-	glBindTexture(GL_TEXTURE_2D, _name);
+	glBindTexture(GL_TEXTURE_2D, m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

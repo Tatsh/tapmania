@@ -10,7 +10,7 @@
 #import "TMNote.h"
 
 @interface TMTrack : NSObject {
-	NSMutableArray* notesArray;
+	NSMutableArray* m_aNotesArray;
 }
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;

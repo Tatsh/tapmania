@@ -15,7 +15,7 @@
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application {
 	//Setup the game
-	_state = kState_StandBy;
+	m_nState = kState_StandBy;
 					
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 

@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface Vector : NSObject {
-	float x,y;
+	float m_fX, m_fY;
 }
 
-@property(assign,nonatomic) float x;
-@property(assign,nonatomic) float y;
+@property(assign,nonatomic, getter=x) float m_fX;
+@property(assign,nonatomic, getter=y) float m_fY;
 
 - (id) initWithX:(float)lx andY:(float)ly;
 - (float) norm;

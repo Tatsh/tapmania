@@ -61,67 +61,67 @@ typedef enum {
 
 @interface TMNote : NSObject {
 
-	TMBeatType			beatType;	// Type of the beat (1/4, 1/8...etc)
-	TMNoteType			type;		// Type of the note
+	TMBeatType			m_nBeatType;	// Type of the beat (1/4, 1/8...etc)
+	TMNoteType			m_nType;		// Type of the note
 	
-	int					startNoteRow;	// Start note row in the track
-	int					stopNoteRow;	// For hold notes
+	int					m_nStartNoteRow;	// Start note row in the track
+	int					m_nStopNoteRow;	// For hold notes
 	
-	BOOL		isHit;			// True if the note was hit during gameplay
-	BOOL		isLost;			// True if the note was not hit in the timing window
-	BOOL		isHolding;
-	BOOL		isHeld;		// True if the note is hit and held till end
-	BOOL		isHoldLost;	// True if the hold is lost
+	BOOL		m_bIsHit;			// True if the note was hit during gameplay
+	BOOL		m_bIsLost;			// True if the note was not hit in the timing window
+	BOOL		m_bIsHolding;
+	BOOL		m_bIsHeld;		// True if the note is hit and held till end
+	BOOL		m_bIsHoldLost;	// True if the hold is lost
 	
-	double		hitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
-	double		lastHoldTouchTime;		// Last time when the player layed his finger on the hold arrow
-	double		lastHoldReleaseTime;	// Last time when the player raised his finger from the hold
+	double		m_dHitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
+	double		m_dLastHoldTouchTime;		// Last time when the player layed his finger on the hold arrow
+	double		m_dLastHoldReleaseTime;	// Last time when the player raised his finger from the hold
 	
 	// The TMNote object is aware of current Y position on screen
-	float		startYPosition;
-	float		stopYPosition;
+	float		m_fStartYPosition;
+	float		m_fStopYPosition;
 	
 	// Scoring info
-	TMNoteScore score;
-	TMHoldScore holdScore;
+	TMNoteScore m_nScore;
+	TMHoldScore m_nHoldScore;
 }
 
-@property (assign) int startNoteRow;
-@property (assign) int stopNoteRow;
-@property (assign, readonly) TMBeatType beatType;
-@property (assign) TMNoteType type;
+@property (assign) int m_nStartNoteRow;
+@property (assign) int m_nStopNoteRow;
+@property (assign, readonly) TMBeatType m_nBeatType;
+@property (assign) TMNoteType m_nType;
 
-@property (assign, readonly) BOOL isHit;
-@property (assign, readonly) BOOL isLost;
-@property (assign, readonly) BOOL isHolding;
-@property (assign, readonly) BOOL isHeld;
-@property (assign, readonly) BOOL isHoldLost;
+@property (assign, readonly) BOOL m_bIsHit;
+@property (assign, readonly) BOOL m_bIsLost;
+@property (assign, readonly) BOOL m_bIsHolding;
+@property (assign, readonly) BOOL m_bIsHeld;
+@property (assign, readonly) BOOL m_bIsHoldLost;
 
-@property (assign, readonly) double hitTime;
-@property (assign, readonly) double lastHoldTouchTime;
-@property (assign, readonly) double lastHoldReleaseTime;
+@property (assign, readonly) double m_dHitTime;
+@property (assign, readonly) double m_dLastHoldTouchTime;
+@property (assign, readonly) double m_dLastHoldReleaseTime;
 
 // System info for drawing
-@property (assign) float startYPosition;
-@property (assign) float stopYPosition;
+@property (assign) float m_fStartYPosition;
+@property (assign) float m_fStopYPosition;
 
 // Scoring info
-@property (assign, readonly) TMNoteScore score;
-@property (assign, readonly) TMHoldScore holdScore;
+@property (assign, readonly) TMNoteScore m_nScore;
+@property (assign, readonly) TMHoldScore m_nHoldScore;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType;
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type;
 
-- (void) hit:(double)lHitTime;
-- (void) score:(TMNoteScore)lScore;
+- (void) hit:(double)hitTime;
+- (void) score:(TMNoteScore)score;
 
-- (void) startHolding:(double)lTouchTime;
-- (void) stopHolding:(double)lReleaseTime;
+- (void) startHolding:(double)touchTime;
+- (void) stopHolding:(double)releaseTime;
 
 - (void) markLost;
 - (void) markHoldLost;
 
 + (TMBeatType) getBeatType:(int) row;
-+ (int) beatToNoteRow:(float) fBeat;
++ (int) beatToNoteRow:(float) beat;
 + (float) noteRowToBeat:(int) noteRow;
 
 @end

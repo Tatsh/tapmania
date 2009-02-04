@@ -15,7 +15,7 @@
 
 @implementation TMAnimatable
 
-@synthesize startFrame, endFrame, frameTime, currentFrame, looping, frameRect;
+@synthesize m_nStartFrame, m_nEndFrame, m_fFrameTime, m_nCurrentFrame, m_bIsLooping, m_oFrameRect;
 
 // Override TMFramedTexture constructor
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -23,18 +23,18 @@
 	if(!self)
 		return nil;
 
-	startFrame = 0;
-	endFrame = 0;
+	m_nStartFrame = 0;
+	m_nEndFrame = 0;
 	
-	frameTime = 1.0f;
-	currentFrame = startFrame;
-	looping = NO;
+	m_fFrameTime = 1.0f;
+	m_nCurrentFrame = m_nStartFrame;
+	m_bIsLooping = NO;
 	
 	// NOTE: Don't forget to set this before calling render
-	frameRect = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
+	m_oFrameRect = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	// Stop animation (show only currentFrame all the time)
-	animating = NO;
+	m_bIsAnimating = NO;
 	
 	return self;
 }
@@ -44,43 +44,43 @@
 }
 
 - (void) startAnimationFromFrame:(int)frameId {
-	elapsedTime = 0.0f;
-	currentFrame = frameId;
+	m_fElapsedTime = 0.0f;
+	m_nCurrentFrame = frameId;
 	
-	animating = YES;
+	m_bIsAnimating = YES;
 }
 
 - (void) pauseAnimation {
-	animating = NO;
+	m_bIsAnimating = NO;
 }
 
 - (void) continueAnimation {
-	animating = YES;
+	m_bIsAnimating = YES;
 }
 
 - (void) stopAnimation {
-	animating = NO;
+	m_bIsAnimating = NO;
 }
 
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
-	[self drawFrame:currentFrame inRect:frameRect];
+	[self drawFrame:m_nCurrentFrame inRect:m_oFrameRect];
 }
 
 /* TMLogicUpdater method */
 - (void) update:(NSNumber*)fDelta {
-	if(animating) {
-		elapsedTime += [fDelta floatValue];
-		if(elapsedTime > frameTime) {
+	if(m_bIsAnimating) {
+		m_fElapsedTime += [fDelta floatValue];
+		if(m_fElapsedTime > m_fFrameTime) {
 			// Time to switch the frame
 			// If not looping but hit first frame again - stop
-			if(currentFrame == endFrame && !looping) {
-				animating = NO;
+			if(m_nCurrentFrame == m_nEndFrame && !m_bIsLooping) {
+				m_bIsAnimating = NO;
 			} else {
-				currentFrame = currentFrame+1==endFrame ? startFrame : currentFrame+1;
+				m_nCurrentFrame = m_nCurrentFrame+1==m_nEndFrame ? m_nStartFrame : m_nCurrentFrame+1;
 			}
 			
-			elapsedTime = 0.0f;
+			m_fElapsedTime = 0.0f;
 		}
 	}
 }

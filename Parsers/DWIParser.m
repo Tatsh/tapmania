@@ -77,37 +77,37 @@
 				syslog(LOG_DEBUG, "Title...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.title = [[NSString stringWithCString:data] retain];
+				song.m_sTitle = [[NSString stringWithCString:data] retain];
 			} 
 			else if( !strcasecmp(varName, "ARTIST") ) {
 				syslog(LOG_DEBUG, "Artist...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.artist = [[NSString stringWithCString:data] retain];
+				song.m_sArtist = [[NSString stringWithCString:data] retain];
 			}
 			else if( !strcasecmp(varName, "BPM") ) {
 				syslog(LOG_DEBUG, "BPM...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.bpm = atof(data);	
+				song.m_fBpm = atof(data);	
 			}
 			else if( !strcasecmp(varName, "GAP") ) {
 				syslog(LOG_DEBUG, "GAP...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.gap = (double)atoi(data) / 1000.0f;
+				song.m_dGap = (double)atoi(data) / 1000.0f;
 			}
 			else if( !strcasecmp(varName, "CHANGEBPM") || !strcasecmp(varName, "BPMCHANGE") ) {
 				syslog(LOG_DEBUG, "BPMCHANGE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.bpmChangeArray = [DWIParser getChangesArray:data];
+				song.m_aBpmChangeArray = [DWIParser getChangesArray:data];
 			}
 			else if( !strcasecmp(varName, "FREEZE") ){
 				syslog(LOG_DEBUG, "FREEZE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				syslog(LOG_DEBUG, "is '%s'", data);
-				song.freezeArray = [DWIParser getChangesArray:data];
+				song.m_aFreezeArray = [DWIParser getChangesArray:data];
 			}
 			else if( !strcasecmp(varName, "SINGLE") ){ 
 				// This is interesting! Some single mode stepchart here..
@@ -457,7 +457,7 @@
 
 			TMNote* note = [steps getNote:noteIdx fromTrack:trackNum];
 
-			if(note.type != kNoteType_HoldHead) 
+			if(note.m_nType != kNoteType_HoldHead) 
 				continue;
 
 			// Hold note head detected. in our case the next note in this track is the place to end the hold
@@ -468,10 +468,10 @@
 				break;
 			}		
 
-			note.stopNoteRow = closingNote.startNoteRow;
+			note.m_nStopNoteRow = closingNote.m_nStartNoteRow;
 
 			// Set note as empty so that it's not in the way anymore
-			closingNote.type = kNoteType_Empty;
+			closingNote.m_nType = kNoteType_Empty;
 		}
 	}
 

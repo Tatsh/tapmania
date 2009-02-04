@@ -12,7 +12,8 @@
 
 
 @interface BasicTransition : NSObject <TMSingleTimeTask> {
-	AbstractRenderer *from, *to;
+	AbstractRenderer *m_pFrom, 
+					 *m_pTo;
 }
 
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen;

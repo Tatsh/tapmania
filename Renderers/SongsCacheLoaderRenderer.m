@@ -24,15 +24,15 @@
 	if(!self)
 		return nil;
 	
-	_allSongsLoaded = NO;
-	_globalError = NO;
+	m_bAllSongsLoaded = NO;
+	m_bGlobalError = NO;
 	
-	_thread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
-	_lock = [[NSLock alloc] init];
+	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
+	m_pLock = [[NSLock alloc] init];
 	
-	_currentTexture = nil;
-	_currentMessage = @"Start loading songs...";
-	_textureShouldChange = YES;
+	m_pCurrentTexture = nil;
+	m_sCurrentMessage = @"Start loading songs...";
+	m_bTextureShouldChange = YES;
 	
 	// Make sure we have the instance initialized on the main pool
 	[SongsDirectoryCache sharedInstance];
@@ -51,20 +51,20 @@
 }
 
 - (void) generateTexture {
-	if(	_textureShouldChange ) { 
-		if( _currentTexture != nil ) {
-			[_currentTexture release];
+	if(	m_bTextureShouldChange ) { 
+		if( m_pCurrentTexture != nil ) {
+			[m_pCurrentTexture release];
 		}
 		
-		_currentTexture = [[Texture2D alloc] initWithString:_currentMessage dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16];
+		m_pCurrentTexture = [[Texture2D alloc] initWithString:m_sCurrentMessage dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16];
 	}
 }
 
 - (void) dealloc {
-	[_thread release];
-	[_lock release];
+	[m_pThread release];
+	[m_pLock release];
 	
-	[_currentTexture release];
+	[m_pCurrentTexture release];
 	
 	[super dealloc];
 }
@@ -72,7 +72,7 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Start the song cache thread
-	[_thread start];
+	[m_pThread start];
 }
 
 - (void) deinitOnTransition {
@@ -87,24 +87,24 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
 	glEnable(GL_BLEND);
 
-	[_lock lock];
-	if(_currentTexture != nil) {
+	[m_pLock lock];
+	if(m_pCurrentTexture != nil) {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		[_currentTexture drawInRect:CGRectMake(0, 50, 320, 15)];		
+		[m_pCurrentTexture drawInRect:CGRectMake(0, 50, 320, 15)];		
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	}
-	[_lock unlock];
+	[m_pLock unlock];
 }
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {	
 	static double tickCounter = 0;
 
-	if(_allSongsLoaded) {
+	if(m_bAllSongsLoaded) {
 		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
-		_allSongsLoaded = NO; // Do this only once
+		m_bAllSongsLoaded = NO; // Do this only once
 		
-	} else if(_globalError) {
+	} else if(m_bGlobalError) {
 		tickCounter += [fDelta floatValue];
 		
 		if(tickCounter >= 5.0) {
@@ -114,52 +114,52 @@
 		
 	}
 	
-	[_lock lock];
+	[m_pLock lock];
 	[self generateTexture];
-	[_lock unlock];
+	[m_pLock unlock];
 }
 
 /* TMSongsLoaderSupport stuff */
 - (void) startLoadingSong:(NSString*) path {
-	[_lock lock];
-	_currentMessage = [NSString stringWithFormat:@"Loading song '%@'", path];
-	_textureShouldChange = YES;
-	[_lock unlock];
+	[m_pLock lock];
+	m_sCurrentMessage = [NSString stringWithFormat:@"Loading song '%@'", path];
+	m_bTextureShouldChange = YES;
+	[m_pLock unlock];
 }
 
 - (void) doneLoadingSong:(NSString*) path {
-	[_lock lock];
-	_currentMessage = [NSString stringWithFormat:@"Loading song '%@' done", path];
-	_textureShouldChange = YES;
-	[_lock unlock];
+	[m_pLock lock];
+	m_sCurrentMessage = [NSString stringWithFormat:@"Loading song '%@' done", path];
+	m_bTextureShouldChange = YES;
+	[m_pLock unlock];
 }
 
 - (void) errorLoadingSong:(NSString*) path withReason:(NSString*) message {
-	[_lock lock];
-	_currentMessage = [NSString stringWithFormat:@"ERROR Loading song '%@': %@", path, message];
-	_textureShouldChange = YES;
-	[_lock unlock];
+	[m_pLock lock];
+	m_sCurrentMessage = [NSString stringWithFormat:@"ERROR Loading song '%@': %@", path, message];
+	m_bTextureShouldChange = YES;
+	[m_pLock unlock];
 	
 	// Sleep some time to let the user see the error
 	[NSThread sleepForTimeInterval:3.0f];
 }
 
 - (void) songLoaderError:(NSString*) message {
-	[_lock lock];
+	[m_pLock lock];
 	
-	_currentMessage = [NSString stringWithFormat:@"ERROR: %@", message];
-	_textureShouldChange = YES;
+	m_sCurrentMessage = [NSString stringWithFormat:@"ERROR: %@", message];
+	m_bTextureShouldChange = YES;
 	
-	_globalError = YES;
-	[_lock unlock];	
+	m_bGlobalError = YES;
+	[m_pLock unlock];	
 }
 
 - (void) songLoaderFinished {
-	[_lock lock];
-	_textureShouldChange = YES;
-	_allSongsLoaded = YES;
-	_currentMessage = [[NSString stringWithString:@"All songs loaded..."] retain];
-	[_lock unlock];
+	[m_pLock lock];
+	m_bTextureShouldChange = YES;
+	m_bAllSongsLoaded = YES;
+	m_sCurrentMessage = [[NSString stringWithString:@"All songs loaded..."] retain];
+	[m_pLock unlock];
 }
 						
 

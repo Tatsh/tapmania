@@ -10,8 +10,8 @@
 #import "Texture2D.h"
 
 @interface TMFramedTexture : Texture2D {
-	int totalFrames;	// Total count of loaded frames. defaults to 1
-	int framesToLoad[2];	// Rectangle to load [cols,rows]. defaults to 1,1
+	int		m_nTotalFrames;	// Total count of loaded frames. defaults to 1
+	int		m_nFramesToLoad[2];	// Rectangle to load [cols,rows]. defaults to 1,1
 }
 
 // Constructor

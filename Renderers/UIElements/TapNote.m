@@ -21,11 +21,11 @@
 		return nil;
 	
 	// We will animate every arrow at same time
-	startFrame = 0;
-	endFrame = 4;
+	m_nStartFrame = 0;
+	m_nEndFrame = 4;
 	
-	currentFrame = startFrame;
-	looping = YES;
+	m_nCurrentFrame = m_nStartFrame;
+	m_bIsLooping = YES;
 		
 	return self;
 }
@@ -53,14 +53,14 @@
 /* Main drawing routine */
 - (void) drawTapNote:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
 	float rotation = [self calculateRotation:dir];
-	int frameToRender = currentFrame + type*framesToLoad[0]; // Columns
+	int frameToRender = m_nCurrentFrame + type*m_nFramesToLoad[0]; // Columns
 	
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
 }
 
 - (void) drawHoldTapNoteHolding:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
 	float rotation = [self calculateRotation:dir];
-	int frameToRender = (currentFrame+4) + type*framesToLoad[0]; // Columns
+	int frameToRender = (m_nCurrentFrame+4) + type*m_nFramesToLoad[0]; // Columns
 	
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
 }

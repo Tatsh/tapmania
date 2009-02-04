@@ -16,34 +16,34 @@
 
 @implementation SongResultsRenderer
 
-- (id) initWithSong:(TMSong*)lSong withSteps:(TMSteps*)lSteps {
+- (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps {
 	self = [super init];
 	if(!self)
 		return nil;
 		
-	steps = [lSteps retain];
-	song = [lSong retain];
+	m_pSteps = [steps retain];
+	m_pSong = [song retain];
 
 	int i, track;
 	
 	// asure we have zeros in all score counters
-	for(i=0; i<kNumNoteScores; i++) counters[i]=0;
-	for(i=0; i<kNumHoldScores; i++) okNgCounters[i]=0;
+	for(i=0; i<kNumNoteScores; i++) m_nCounters[i]=0;
+	for(i=0; i<kNumHoldScores; i++) m_nOkNgCounters[i]=0;
 	
-	returnToSongSelection = NO;
+	m_bReturnToSongSelection = NO;
 	
 	// Calculate
 	for(track=0; track<kNumOfAvailableTracks; track++) {
-		int notesCount = [steps getNotesCountForTrack:track];
+		int notesCount = [m_pSteps getNotesCountForTrack:track];
 		
 		for(i=0; i<notesCount; i++) {
-			TMNote* note = [steps getNote:i fromTrack:track];
+			TMNote* note = [m_pSteps getNote:i fromTrack:track];
 			
-			if(note.type != kNoteType_Empty) {
-				counters[ note.score ] ++;
+			if(note.m_nType != kNoteType_Empty) {
+				m_nCounters[ note.m_nScore ] ++;
 				
-				if(note.type == kNoteType_HoldHead) {
-					okNgCounters[ note.holdScore ] ++;
+				if(note.m_nType == kNoteType_HoldHead) {
+					m_nOkNgCounters[ note.m_nHoldScore ] ++;
 				}
 			}
 		}
@@ -53,21 +53,21 @@
 	texturesArray = [[NSMutableArray alloc] initWithCapacity:8];
 
 	// Cache the textures
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", counters[kNoteScore_W1]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", counters[kNoteScore_W2]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Great: %d", counters[kNoteScore_W3]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Good: %d", counters[kNoteScore_W4]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", counters[kNoteScore_W5]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", counters[kNoteScore_Miss]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", okNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", okNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", m_nCounters[kNoteScore_W1]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", m_nCounters[kNoteScore_W2]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Great: %d", m_nCounters[kNoteScore_W3]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Good: %d", m_nCounters[kNoteScore_W4]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kNoteScore_W5]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kNoteScore_Miss]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:24]];
 	
 	return self;
 }
 
 - (void) dealloc {
-	[steps release];
-	[song release];
+	[m_pSteps release];
+	[m_pSong release];
 	
 	[super dealloc];
 }
@@ -105,11 +105,11 @@
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
-	if(returnToSongSelection) {
+	if(m_bReturnToSongSelection) {
 		SongPickerMenuRenderer* spRenderer = [[SongPickerMenuRenderer alloc] init];
 		[[TapMania sharedInstance] switchToScreen:spRenderer];
 		
-		returnToSongSelection = NO;
+		m_bReturnToSongSelection = NO;
 	}
 }
 
@@ -122,7 +122,7 @@
 		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 */
 		
-		returnToSongSelection = YES;
+		m_bReturnToSongSelection = YES;
 	}
 }
 

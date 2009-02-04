@@ -68,13 +68,13 @@ Be aware that the content of the generated textures will be upside-down!
 @interface Texture2D : NSObject
 {
 @protected
-	GLuint						_name;
-	CGSize						_size;
-	NSUInteger					_width,
-								_height;
-	Texture2DPixelFormat		_format;
-	GLfloat						_maxS,
-								_maxT;
+	GLuint						m_unName;
+	CGSize						m_oSize;
+	NSUInteger					m_unWidth,
+								m_unHeight;
+	Texture2DPixelFormat		m_nFormat;
+	GLfloat						m_fMaxS,
+								m_fMaxT;
 }
 - (id) initWithData:(const void*)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size;
 

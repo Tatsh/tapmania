@@ -12,13 +12,13 @@
 #import "Texture2D.h"
 
 @interface SongPickerMenuItem : MenuItem {
-	TMSong* song;	// The song object bound to this menu item
-	Texture2D* title;
+	TMSong* m_pSong;	// The song object bound to this menu item
+	Texture2D* m_pTitle;
 }
 
-@property (readonly, retain, nonatomic) TMSong* song;
+@property (readonly, retain, nonatomic) TMSong* m_pSong;
 
-- (id) initWithSong:(TMSong*) lSong andShape:(CGRect)lShape;
-- (void) switchToSong:(TMSong*) lSong;
+- (id) initWithSong:(TMSong*) song andShape:(CGRect)shape;
+- (void) switchToSong:(TMSong*) song;
 
 @end

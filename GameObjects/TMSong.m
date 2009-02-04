@@ -13,32 +13,32 @@
 
 @implementation TMSong
 
-@synthesize fileType, filePath, musicFilePath;
-@synthesize title, artist;
-@synthesize bpm, gap;
-@synthesize bpmChangeArray, freezeArray;
+@synthesize m_nFileType, m_sFilePath, m_sMusicFilePath;
+@synthesize m_sTitle, m_sArtist;
+@synthesize m_fBpm, m_dGap;
+@synthesize m_aBpmChangeArray, m_aFreezeArray;
 
-- (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath {
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath {
 	
 	// Note: only title etc is loaded here. No steps.
-	if([lStepsFilePath hasSuffix:@".dwi"]) {
-		self = [DWIParser parseFromFile:lStepsFilePath];
-		self.fileType = kSongFileType_DWI;
+	if([stepsFilePath hasSuffix:@".dwi"]) {
+		self = [DWIParser parseFromFile:stepsFilePath];
+		self.m_nFileType = kSongFileType_DWI;
 	}
 	
-	self.musicFilePath = lMusicFilePath;
-	self.filePath = lStepsFilePath;
+	self.m_sMusicFilePath = musicFilePath;
+	self.m_sFilePath = stepsFilePath;
 
 	// Set the bpm for song start
-	NSMutableArray* songBpmChangeArray = self.bpmChangeArray;
-	self.bpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.bpm/60.0f] ,nil];
+	NSMutableArray* songBpmChangeArray = self.m_aBpmChangeArray;
+	self.m_aBpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.m_fBpm/60.0f] ,nil];
 
 	int i;
 	for(i=0; i<[songBpmChangeArray count]; i++){
 		TMChangeSegment* segment = [songBpmChangeArray objectAtIndex:i];
-		segment.changeValue = segment.changeValue/60.0f;
+		segment.m_fChangeValue = segment.m_fChangeValue/60.0f;
 		
-		[self.bpmChangeArray addObject:segment];
+		[self.m_aBpmChangeArray addObject:segment];
 	}
 	
 	[songBpmChangeArray release];
@@ -48,27 +48,27 @@
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty {
 
-	TMSteps* steps = [DWIParser parseStepsFromFile:self.filePath 
+	TMSteps* steps = [DWIParser parseStepsFromFile:self.m_sFilePath 
 				forDifficulty:difficulty forSong:self];	
 
 	return steps;
 }
 
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty {
-	if(difficulty < kNumSongDifficulties && _availableDifficultyLevels[difficulty] != kSongDifficulty_Invalid) 
+	if(difficulty < kNumSongDifficulties && m_nAvailableDifficultyLevels[difficulty] != kSongDifficulty_Invalid) 
 		return YES;
 	return NO;
 }
 
 - (int)  getDifficultyLevel:(TMSongDifficulty) difficulty {
 	if([self isDifficultyAvailable:difficulty])
-		return _availableDifficultyLevels[difficulty];
+		return m_nAvailableDifficultyLevels[difficulty];
 	
 	return -1;
 }
 
 - (void) enableDifficulty:(TMSongDifficulty) difficulty withLevel:(int) level {
-	_availableDifficultyLevels[difficulty] = level;
+	m_nAvailableDifficultyLevels[difficulty] = level;
 }
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty {

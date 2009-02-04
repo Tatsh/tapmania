@@ -13,15 +13,15 @@
 
 /* This object is a pair with title=>value */
 @interface TogglerItemObject : NSObject {
-	NSString * title;
-	NSObject * value;
+	NSString * m_sTitle;
+	NSObject * m_pValue;
 	
-	Texture2D * text;	// The title as texture
+	Texture2D * m_pText;	// The title as texture
 }
 
-@property (retain, nonatomic, readonly) NSString* title;
-@property (retain, nonatomic, readonly) Texture2D* text;
-@property (retain, nonatomic) NSObject* value;
+@property (retain, nonatomic, readonly) NSString* m_sTitle;
+@property (retain, nonatomic, readonly) Texture2D* m_pText;
+@property (retain, nonatomic) NSObject* m_pValue;
 
 - (id) initWithTitle:(NSString*)lTitle andValue:(NSObject*)lValue;
 
@@ -29,11 +29,11 @@
 
 /* The toggler self */
 @interface TogglerItem : MenuItem <TMGameUIResponder> {
-	NSMutableArray*		elements;			// All the elements which are available in this toggler item (TogglerItemObjects)
-	int					currentSelection;	// Index of currently selected element
+	NSMutableArray*		m_aElements;			// All the elements which are available in this toggler item (TogglerItemObjects)
+	int					m_nCurrentSelection;	// Index of currently selected element
 }
 
-- (id) initWithElements:(NSArray*)arr andShape:(CGRect) lShape;
+- (id) initWithElements:(NSArray*)arr andShape:(CGRect) shape;
 - (void) toggle;
 - (TogglerItemObject*) getCurrent;
 

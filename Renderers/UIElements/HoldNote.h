@@ -18,6 +18,6 @@
 }
 
 // Drawing routines
-- (void) drawBodyPieceWithSize:(CGFloat)lSize atPoint:(CGPoint)point;
+- (void) drawBodyPieceWithSize:(CGFloat)size atPoint:(CGPoint)point;
 
 @end

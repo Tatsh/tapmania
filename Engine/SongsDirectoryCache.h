@@ -10,13 +10,13 @@
 #import "TMSongsLoaderSupport.h"
 
 @interface SongsDirectoryCache : NSObject {
-	NSString*			songsDir;		// The path to 'Songs' directory
-	NSMutableArray*		availableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
+	NSString*			m_sSongsDir;		// The path to 'Songs' directory
+	NSMutableArray*		m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
 	
-	id					delegate;	// TMSongLoaderSupport delegate
+	id					m_idDelegate;	// TMSongLoaderSupport delegate
 }
 
-@property (assign) id<TMSongsLoaderSupport> delegate;
+@property (assign, setter=delegate:, getter=delegate) id<TMSongsLoaderSupport> m_idDelegate;
 
 - (void) cacheSongs;
 - (NSArray*) getSongList;

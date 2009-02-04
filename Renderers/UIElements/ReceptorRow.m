@@ -12,44 +12,44 @@
 
 @implementation ReceptorRow
 
-- (id) initOnPosition:(CGPoint)lPosition {
+- (id) initOnPosition:(CGPoint)position {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
-	_positionY = lPosition.y;	
-	_explosionYPosition = lPosition.y-32.0f;
+	m_fPositionY = position.y;	
+	m_fExplosionYPosition = position.y-32.0f;
 	
 	// Precalculate stuff
 	float currentOffset = 0.0f;
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		_receptorXPositions[i] = lPosition.x + currentOffset;
-		_explosionXPositions[i] = lPosition.x + currentOffset - 32.0f;
+		m_fReceptorXPositions[i] = position.x + currentOffset;
+		m_fExplosionXPositions[i] = position.x + currentOffset - 32.0f;
 		
 		currentOffset += 70; // 64 as width of the receptor + 6 as spacing
 		
-		_explosionTime[i] = 0.0f;
-		_explosion[i] = kExplosionTypeNone;
+		m_dExplosionTime[i] = 0.0f;
+		m_nExplosion[i] = kExplosionTypeNone;
 	}	
 	
-	_receptorRotations[0] = -90.0f;
-	_receptorRotations[1] = 0.0f;
-	_receptorRotations[2] = 180.0f;
-	_receptorRotations[3] = 90.0f;
+	m_fReceptorRotations[0] = -90.0f;
+	m_fReceptorRotations[1] = 0.0f;
+	m_fReceptorRotations[2] = 180.0f;
+	m_fReceptorRotations[3] = 90.0f;
 		
 	return self;
 }
 
 - (void) explodeDim:(TMAvailableTracks)receptor {
-	_explosionTime[receptor] = 0.0f;
-	_explosion[receptor] = kExplosionTypeDim;
+	m_dExplosionTime[receptor] = 0.0f;
+	m_nExplosion[receptor] = kExplosionTypeDim;
 }
 
 - (void) explodeBright:(TMAvailableTracks)receptor {
-	_explosionTime[receptor] = 0.0f;
-	_explosion[receptor] = kExplosionTypeBright;
+	m_dExplosionTime[receptor] = 0.0f;
+	m_nExplosion[receptor] = kExplosionTypeBright;
 }
 
 /* TMRenderable method */
@@ -59,19 +59,19 @@
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		[receptor drawFrame:0 rotation:_receptorRotations[i] inRect:CGRectMake(_receptorXPositions[i], _positionY, 64.0f, 64.0f)];
+		[receptor drawFrame:0 rotation:m_fReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], m_fPositionY, 64.0f, 64.0f)];
 		
 		// Draw explosion if required
-		if(_explosion[i] != kExplosionTypeNone) {
+		if(m_nExplosion[i] != kExplosionTypeNone) {
 			TMFramedTexture* tex = nil;
 			
-			if(_explosion[i] == kExplosionTypeDim) {
+			if(m_nExplosion[i] == kExplosionTypeDim) {
 				tex = (TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapExplosionDim];
 			} else {
 				tex = (TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapExplosionBright];
 			}
 
-			[tex drawFrame:0 rotation:_receptorRotations[i] inRect:CGRectMake(_explosionXPositions[i], _explosionYPosition, 128.0f, 128.0f)];
+			[tex drawFrame:0 rotation:m_fReceptorRotations[i] inRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, 128.0f, 128.0f)];
 		}
 	}
 }
@@ -81,11 +81,11 @@
 	// Check explosions
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i){
-		if(_explosion[i] != kExplosionTypeNone) {
+		if(m_nExplosion[i] != kExplosionTypeNone) {
 			// could timeout
-			_explosionTime[i] += [fDelta floatValue];
-			if(_explosionTime[i] >= kExplosionMaxTime) {
-				_explosion[i] = kExplosionTypeNone;	// Disable
+			m_dExplosionTime[i] += [fDelta floatValue];
+			if(m_dExplosionTime[i] >= kExplosionMaxTime) {
+				m_nExplosion[i] = kExplosionTypeNone;	// Disable
 			}
 		}
 	}

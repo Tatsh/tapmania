@@ -17,8 +17,8 @@
 	if (!self)
 		return nil;
 	
-	from = fromScreen;
-	to = toScreen;
+	m_pFrom = fromScreen;
+	m_pTo = toScreen;
 	
 	return self;
 }
@@ -30,21 +30,21 @@
 	[[TapMania sharedInstance] deregisterAll];	
 	
 	// Do custom deinitialization for transition if the object supports it
-	if([from conformsToProtocol:@protocol(TMTransitionSupport)]){
-		[from performSelector:@selector(deinitOnTransition)];
+	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
+		[m_pFrom performSelector:@selector(deinitOnTransition)];
 	}	
 	
 	// Drop current screen (might add some fadeout or so here)
 	[[TapMania sharedInstance] releaseCurrentScreen];
 	
 	// Do custom initialization for transition if the object supports it
-	if([to conformsToProtocol:@protocol(TMTransitionSupport)]){
-		[to performSelector:@selector(setupForTransition)];
+	if([m_pTo conformsToProtocol:@protocol(TMTransitionSupport)]){
+		[m_pTo performSelector:@selector(setupForTransition)];
 	}
 	
 	// Set new one and show it
-	[[TapMania sharedInstance] setCurrentScreen:to];
-	[[TapMania sharedInstance] registerObject:to withPriority:kRunLoopPriority_Highest];
+	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
+	[[TapMania sharedInstance] registerObject:m_pTo withPriority:kRunLoopPriority_Highest];
 }
 
 @end

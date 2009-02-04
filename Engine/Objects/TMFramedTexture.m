@@ -16,9 +16,9 @@
 	if(!self) 
 		return nil;
 	
-	framesToLoad[0] = columns;
-	framesToLoad[1] = rows;
-	totalFrames = columns*rows;
+	m_nFramesToLoad[0] = columns;
+	m_nFramesToLoad[1] = rows;
+	m_nTotalFrames = columns*rows;
 	
 	return self;
 }
@@ -37,22 +37,22 @@
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point {
 
 	// Sanity check
-	if(frameId >= totalFrames || frameId < 0)
+	if(frameId >= m_nTotalFrames || frameId < 0)
 		frameId = 0;
 	
-	float textureMaxT = _maxT/framesToLoad[1];
-	float textureMaxS = _maxS/framesToLoad[0];
+	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
+	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
 	
-	int textureRow = frameId/framesToLoad[0];
-	frameId -= textureRow*framesToLoad[0];
+	int textureRow = frameId/m_nFramesToLoad[0];
+	frameId -= textureRow*m_nFramesToLoad[0];
 	
 	float yOffset = textureRow*textureMaxT;
 	float xOffset = frameId*textureMaxS;
 	float widthOffset = xOffset + textureMaxS;
 	float heightOffset = yOffset + textureMaxT;
 	
-	float width = _width/framesToLoad[0];
-	float height = _height/framesToLoad[1];
+	float width = m_unWidth/m_nFramesToLoad[0];
+	float height = m_unHeight/m_nFramesToLoad[1];
 	
 	GLfloat	 coordinates[] = {  
 		xOffset,		heightOffset,
@@ -68,7 +68,7 @@
 		width / 2 + point.x,	height / 2 + point.y,	0.0 
 	};
 
-	glBindTexture(GL_TEXTURE_2D, _name);
+	glBindTexture(GL_TEXTURE_2D, m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	
@@ -77,14 +77,14 @@
 
 - (void) drawFrame:(int)frameId inRect:(CGRect)rect {
 	// Sanity check
-	if(frameId >= totalFrames || frameId < 0)
+	if(frameId >= m_nTotalFrames || frameId < 0)
 		frameId = 0;
 		
-	float textureMaxT = _maxT/framesToLoad[1];
-	float textureMaxS = _maxS/framesToLoad[0];
+	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
+	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
 	
-	int textureRow = frameId/framesToLoad[0];
-	frameId -= textureRow*framesToLoad[0];
+	int textureRow = frameId/m_nFramesToLoad[0];
+	frameId -= textureRow*m_nFramesToLoad[0];
 	
 	float yOffset = textureRow*textureMaxT;
 	float xOffset = frameId*textureMaxS;
@@ -105,7 +105,7 @@
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
 		
-	glBindTexture(GL_TEXTURE_2D, _name);
+	glBindTexture(GL_TEXTURE_2D, m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	

@@ -11,25 +11,25 @@
 
 @implementation TMSongOptions
 
-@synthesize speedMod, difficulty;
+@synthesize m_nSpeedMod, m_nDifficulty;
 
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	speedMod = kSpeedMod_1x;
-	difficulty = kSongDifficulty_Invalid;
+	m_nSpeedMod = kSpeedMod_1x;
+	m_nDifficulty = kSongDifficulty_Invalid;
 
 	return self;
 }
 
 - (void) setSpeedMod:(TMSpeedModifiers)speed {
-	speedMod = speed;
+	m_nSpeedMod = speed;
 }
 
 - (void) setDifficulty:(TMSongDifficulty)lDifficulty {
-	difficulty = lDifficulty;
+	m_nDifficulty = lDifficulty;
 }
 
 // Get string representation of the speed modifier

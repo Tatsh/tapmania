@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface InputEngine : NSObject {
-	NSMutableArray * subscribers;
+	NSMutableArray * m_aSubscribers;
 }
 
 // One can subscribe to receive touch events by implementing the TMGameUIResponder protocol and calling subscribe method

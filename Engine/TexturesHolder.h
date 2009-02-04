@@ -64,7 +64,7 @@ typedef enum {
 } TMTexture;
 
 @interface TexturesHolder : NSObject {
-	Texture2D*				_textures[kNumTextures];
+	Texture2D*				m_pTextures[kNumTextures];
 }
 
 - (Texture2D*) getTexture:(TMTexture) textureId;

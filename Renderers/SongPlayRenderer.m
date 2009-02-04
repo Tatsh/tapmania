@@ -22,22 +22,16 @@
 #import "TMSongOptions.h"
 #import "TMChangeSegment.h"
 
+#import "ThemeManager.h"
+
 #import <syslog.h>
 #import <math.h>
 
-#define kArrowsBaseX				23
-#define kArrowsBaseY				380	// This is the place where the arrows will match with the base
-#define kArrowsBaseWidth			274 // 6px spacing between arrows
-#define kArrowsBaseHeight			64
-
-#define kLifeBarY					kArrowsBaseY+kArrowsBaseHeight+4
-
-#define kArrowLeftX					23
-#define kArrowDownX					93
-#define kArrowUpX					163
-#define kArrowRightX				233	
-
-#define kHoldBodyPieceHeight		128.0f
+static int mt_ReceptorRowX, mt_ReceptorRowY;
+static int mt_ReceptorRowWidth, mt_ReceptorRowHeight;
+static int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
+static int mt_ArrowLeftX,	mt_ArrowDownX, mt_ArrowUpX, mt_ArrowRightX;
+static float mt_HoldBodyPieceHeight;
 
 @implementation SongPlayRenderer
 
@@ -46,13 +40,30 @@
 	if(!self)
 		return nil;
 	
+	// Cache metrics
+	mt_ReceptorRowX =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowXPosition"];
+	mt_ReceptorRowY =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowYPosition"];
+	mt_ReceptorRowWidth =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowWidth"];
+	mt_ReceptorRowHeight = [[ThemeManager sharedInstance] intMetric:@"ReceptorRowHeight"];
+	
+	mt_LifeBarX =		[[ThemeManager sharedInstance] intMetric:@"LifeBarXPosition"];
+	mt_LifeBarY =		[[ThemeManager sharedInstance] intMetric:@"LifeBarYPosition"];
+	mt_LifeBarWidth =	[[ThemeManager sharedInstance] intMetric:@"LifeBarWidth"];
+	mt_LifeBarHeight =	[[ThemeManager sharedInstance] intMetric:@"LifeBarHeight"];
+	
+	mt_ArrowLeftX =	[[ThemeManager sharedInstance] intMetric:@"ArrowLeftXPosition"];
+	mt_ArrowDownX =	[[ThemeManager sharedInstance] intMetric:@"ArrowDownXPosition"];
+	mt_ArrowUpX =		[[ThemeManager sharedInstance] intMetric:@"ArrowUpXPosition"];
+	mt_ArrowRightX =	[[ThemeManager sharedInstance] intMetric:@"ArrowRightXPosition"];
+	mt_HoldBodyPieceHeight = [[ThemeManager sharedInstance] floatMetric:@"HoldBodyPieceHeight"];	
+	
 	// Init the receptor row
-	receptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(kArrowsBaseX, kArrowsBaseY)];
-
+	m_pReceptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(mt_ReceptorRowX, mt_ReceptorRowY)];
+	
 	// Init the lifebar
-	lifeBar = [[LifeBar alloc] initWithRect:CGRectMake(0.0f, kLifeBarY, 320.0f, 32.0f)];
+	m_pLifeBar = [[LifeBar alloc] initWithRect:CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight)];
 
-	playingGame = NO;
+	m_bPlayingGame = NO;
 	
 	return self;
 }
@@ -62,56 +73,56 @@
 	// Unload bg music track
 	SoundEngine_UnloadBackgroundMusicTrack();
 	
-	[lifeBar release];
-	[receptorRow release];
+	[m_pLifeBar release];
+	[m_pReceptorRow release];
 		
 	[super dealloc];
 }
 
-- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options {
+- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];	
 	
-	song = [lSong retain];
-	steps = [song getStepsForDifficulty:options.difficulty];
+	m_pSong = [song retain];
+	m_pSteps = [m_pSong getStepsForDifficulty:options.m_nDifficulty];
 
-	speedModValue = [TMSongOptions speedModToValue:options.speedMod];
+	m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 	
 	int i;
 	
 	// Drop track positions to first elements
 	for(i=0; i<kNumOfAvailableTracks; i++) {
-		trackPos[i] = 0;
+		m_nTrackPos[i] = 0;
 	}
 	
-	SoundEngine_LoadBackgroundMusicTrack([song.musicFilePath UTF8String], NO, YES);
+	SoundEngine_LoadBackgroundMusicTrack([m_pSong.m_sMusicFilePath UTF8String], NO, YES);
 	
 	// Calculate starting offset for music playback
 	double now = [TimingUtil getCurrentTime];
-	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[steps getFirstNoteRow]] inSong:song];
-	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[steps getLastNoteRow]] inSong:song];
+	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getFirstNoteRow]] inSong:m_pSong];
+	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getLastNoteRow]] inSong:m_pSong];
 	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
-		playBackStartTime = now + kMinTimeTillStart;
-		musicPlaybackStarted = NO;
+		m_dPlayBackStartTime = now + kMinTimeTillStart;
+		m_bMusicPlaybackStarted = NO;
 	} else {	
-		playBackStartTime = now;
-		musicPlaybackStarted = YES;
+		m_dPlayBackStartTime = now;
+		m_bMusicPlaybackStarted = YES;
 		SoundEngine_StartBackgroundMusic();
 	}
 
-	playBackScheduledEndTime = playBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
+	m_dPlayBackScheduledEndTime = m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	
 	[tapNote startAnimation];
 	
 	// Enable joypad
-	joyPad = [[TapMania sharedInstance] enableJoyPad];
+	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];
 
-	playingGame = YES;	
+	m_bPlayingGame = YES;	
 }
 
 // Updates one frame of the gameplay
 - (void)update:(NSNumber*)fDelta {	
-	if(!playingGame) return;
+	if(!m_bPlayingGame) return;
 		
 	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
 	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
@@ -119,15 +130,15 @@
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
-	double elapsedTime = currentTime - playBackStartTime;
+	double elapsedTime = currentTime - m_dPlayBackStartTime;
 	
 	// Start music with delay if required
-	if(!musicPlaybackStarted) {
-		if(playBackStartTime <= currentTime){
-			musicPlaybackStarted = YES;
+	if(!m_bMusicPlaybackStarted) {
+		if(m_dPlayBackStartTime <= currentTime){
+			m_bMusicPlaybackStarted = YES;
 			SoundEngine_StartBackgroundMusic();
 		}
-	} else if(currentTime >= playBackScheduledEndTime) {
+	} else if(currentTime >= m_dPlayBackScheduledEndTime) {
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
 		SoundEngine_StopBackgroundMusic(NO);
@@ -139,23 +150,23 @@
 		[[TapMania sharedInstance] disableJoyPad];
 	
 		// request transition
-		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] initWithSong:song withSteps:steps];
+		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] initWithSong:m_pSong withSteps:m_pSteps];
 		
 		[[TapMania sharedInstance] switchToScreen:srScreen];
-		playingGame = NO;
+		m_bPlayingGame = NO;
 	}	
 	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;
 	
-	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:song]; 
+	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:m_pSong]; 
 	
 	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
-	[tapNote setFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
+	[tapNote setM_fFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
 	[tapNote update:fDelta];
 
 	// Update receptor row animations
-	[receptorRow update:fDelta];
+	[m_pReceptorRow update:fDelta];
 	
 	// Update judgement state
 	[judgement update:fDelta];
@@ -176,15 +187,15 @@
 	// For every track
 	for(i=0; i<kNumOfAvailableTracks; i++) {
 		// Search in this track for items starting at index:
-		int startIndex = trackPos[i];
+		int startIndex = m_nTrackPos[i];
 		int j;
 		
 		// This will hold the Y coordinate of the previous note in this track
-		float lastNoteYPosition = kArrowsBaseY;
+		float lastNoteYPosition = mt_ReceptorRowY;
 		
 		TMNote* prevNote = nil;
 		
-		double lastHitTime = [joyPad getTouchTimeForButton:i] - playBackStartTime;
+		double lastHitTime = [m_pJoyPad getTouchTimeForButton:i] - m_dPlayBackStartTime;
 		BOOL testHit = NO;
 
 		// Check for hit?
@@ -193,138 +204,138 @@
 		}
 		 
 		// For all interesting notes in the track
-		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
-			TMNote* note = [steps getNote:j fromTrack:i];
+		for(j=startIndex; j<[m_pSteps getNotesCountForTrack:i] ; j++) {
+			TMNote* note = [m_pSteps getNote:j fromTrack:i];
 			
 			// We are not handling empty notes though
-			if(note.type == kNoteType_Empty)
+			if(note.m_nType == kNoteType_Empty)
 				continue;
 			
 			// Get beats out of noteRows
-			float beat = [TMNote noteRowToBeat: note.startNoteRow];
-			float tillBeat = note.stopNoteRow == -1 ? -1.0f : [TMNote noteRowToBeat: note.stopNoteRow];
+			float beat = [TMNote noteRowToBeat: note.m_nStartNoteRow];
+			float tillBeat = note.m_nStopNoteRow == -1 ? -1.0f : [TMNote noteRowToBeat: note.m_nStopNoteRow];
 			
-			float noteBps = [TimingUtil getBpsAtBeat:beat inSong:song];
+			float noteBps = [TimingUtil getBpsAtBeat:beat inSong:m_pSong];
 			
 			float noteYPosition = lastNoteYPosition;
 			float holdBottomCapYPosition = 0.0f;
 			
-			int lastNoteRow = prevNote ? prevNote.startNoteRow : [TMNote beatToNoteRow:currentBeat];
-			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:song];
+			int lastNoteRow = prevNote ? prevNote.m_nStartNoteRow : [TMNote beatToNoteRow:currentBeat];
+			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:m_pSong];
 			
-			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:song];
+			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:m_pSong];
 			
 			// Now for every bpmchange we must apply all bpmchange related offsets
-			while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.startNoteRow) {
-				float tBps = [TimingUtil getBpsAtBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow-1] inSong:song];
+			while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.m_nStartNoteRow) {
+				float tBps = [TimingUtil getBpsAtBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow-1] inSong:m_pSong];
 				
-				noteYPosition -= (nextBpmChangeNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:tBps andSpeedMod:speedModValue];
+				noteYPosition -= (nextBpmChangeNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:tBps andSpeedMod:m_dSpeedModValue];
 				lastNoteRow = nextBpmChangeNoteRow;
-				nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow] inSong:song];
+				nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow] inSong:m_pSong];
 			}
 			
 			// Calculate for last segment
-			noteYPosition -= (note.startNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:noteBps andSpeedMod:speedModValue];
-			note.startYPosition = noteYPosition;
+			noteYPosition -= (note.m_nStartNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:noteBps andSpeedMod:m_dSpeedModValue];
+			note.m_fStartYPosition = noteYPosition;
 			
 			/* We must also calculate the Y position of the bottom cap of the hold if we handle a hold note */
-			if(note.type == kNoteType_HoldHead) {
+			if(note.m_nType == kNoteType_HoldHead) {
 				// If we hit (was ever holding) the note now we must fix it on the receptor base
-				if(note.isHit) {
-					note.startYPosition = kArrowsBaseY;
+				if(note.m_bIsHit) {
+					note.m_fStartYPosition = mt_ReceptorRowY;
 				}
 				
 				// Start from the calculated note head position
 				holdBottomCapYPosition = noteYPosition;
-				lastNoteRow = note.startNoteRow;
+				lastNoteRow = note.m_nStartNoteRow;
 				
-				nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:song];
+				nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:m_pSong];
 				
 				// Now for every bpmchange we must apply all bpmchange related offsets
-				while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.stopNoteRow) {
-					float tBps = [TimingUtil getBpsAtBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow-1] inSong:song];
+				while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.m_nStopNoteRow) {
+					float tBps = [TimingUtil getBpsAtBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow-1] inSong:m_pSong];
 					
-					holdBottomCapYPosition -= (nextBpmChangeNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:tBps andSpeedMod:speedModValue];
+					holdBottomCapYPosition -= (nextBpmChangeNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:tBps andSpeedMod:m_dSpeedModValue];
 					lastNoteRow = nextBpmChangeNoteRow;
-					nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow] inSong:song];
+					nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:nextBpmChangeNoteRow] inSong:m_pSong];
 				}
 				
 				// Calculate for last segment of the hold body
-				float capBps = [TimingUtil getBpsAtBeat:tillBeat inSong:song];
-				holdBottomCapYPosition -= (note.stopNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:capBps andSpeedMod:speedModValue];			
+				float capBps = [TimingUtil getBpsAtBeat:tillBeat inSong:m_pSong];
+				holdBottomCapYPosition -= (note.m_nStopNoteRow-lastNoteRow)*[TimingUtil getPixelsPerNoteRowForBPS:capBps andSpeedMod:m_dSpeedModValue];			
 				
-				note.stopYPosition = holdBottomCapYPosition;
+				note.m_fStopYPosition = holdBottomCapYPosition;
 			}
 			
 			// Check whether we already missed a note (hold head too)
-			if(!note.isLost && !note.isHit && (elapsedTime-noteTime)>=0.1f) {
-				[steps markAllNotesLostFromRow:note.startNoteRow];		
+			if(!note.m_bIsLost && !note.m_bIsHit && (elapsedTime-noteTime)>=0.1f) {
+				[m_pSteps markAllNotesLostFromRow:note.m_nStartNoteRow];		
 				[note score:kNoteScore_Miss];	// Only one of the notes get the scoring set
 
 				[judgement setCurrentJudgement:kJudgementMiss];
-				[lifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
+				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
 				
 				// Extra judgement for hold notes..
 				// TODO: all hold notes which are not held now should show NG. not only one.
-				if(note.type == kNoteType_HoldHead) {
-					[lifeBar updateBy:-0.05];	// NG judgement
+				if(note.m_nType == kNoteType_HoldHead) {
+					[m_pLifeBar updateBy:-0.05];	// NG judgement
 					[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
 				}
 			}
 			
 			// Check whether this note is already out of scope
-			if(note.type != kNoteType_HoldHead && noteYPosition >= 480.0f) {
-				++trackPos[i];				
+			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= 480.0f) {
+				++m_nTrackPos[i];				
 				continue; // Skip this note
 			}
 
 			// Now the same for hold notes
-			if(note.type == kNoteType_HoldHead) {
-				if(note.isHit && holdBottomCapYPosition >= kArrowsBaseY) {
+			if(note.m_nType == kNoteType_HoldHead) {
+				if(note.m_bIsHit && holdBottomCapYPosition >= mt_ReceptorRowY) {
 					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
-					[lifeBar updateBy:0.05];
+					[m_pLifeBar updateBy:0.05];
 					[holdJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
 					
-					++trackPos[i];
+					++m_nTrackPos[i];
 					continue; // Skip this hold already
-				} else if (!note.isHit && holdBottomCapYPosition >= 480.0f) {
+				} else if (!note.m_bIsHit && holdBottomCapYPosition >= 480.0f) {
 					// Let the hold go till the end of the screen. The lifebar and the NG graphic is done already when the hold was lost
-					++trackPos[i];
+					++m_nTrackPos[i];
 					continue; // Skip
 				}				
 			}
 			
 			// If the Y position is at the floor - jump to next track
-			if(note.startYPosition <= -64.0f){
+			if(note.m_fStartYPosition <= -64.0f){
 				break; // Start another track coz this note is out of screen
 			}				
 			
 			// Check old hit first
-			if(testHit && note.isHit){
+			if(testHit && note.m_bIsHit){
 				// This note was hit already (maybe using the same tap as we still hold)
-				if(note.hitTime == lastHitTime) {
+				if(note.m_dHitTime == lastHitTime) {
 					// Bingo! prevent further notes in this track from being hit
 					testHit = NO;
 				} 
 			}
 			 
 			// If we are at a hold arrow we must check it anyway
-			if(note.type == kNoteType_HoldHead) {
-				double lastReleaseTime = [joyPad getReleaseTimeForButton:i] - playBackStartTime;
+			if(note.m_nType == kNoteType_HoldHead) {
+				double lastReleaseTime = [m_pJoyPad getReleaseTimeForButton:i] - m_dPlayBackStartTime;
 				
-				if(note.isHit && !note.isHoldLost && !note.isHolding) {
+				if(note.m_bIsHit && !note.m_bIsHoldLost && !note.m_bIsHolding) {
 					// This means we released the hold but we still can catch it again
-					if(fabsf(elapsedTime - note.lastHoldReleaseTime) >= 0.8f) {
+					if(fabsf(elapsedTime - note.m_dLastHoldReleaseTime) >= 0.8f) {
 						[note markHoldLost];
-						[lifeBar updateBy:-0.05];	// NG judgement
+						[m_pLifeBar updateBy:-0.05];	// NG judgement
 						[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];					
 					}
 					
 					// But maybe we have touched it again before it was marked as lost totally?
-					if(!note.isHoldLost && note.lastHoldReleaseTime < lastHitTime) {
+					if(!note.m_bIsHoldLost && note.m_dLastHoldReleaseTime < lastHitTime) {
 						[note startHolding:lastHitTime];
 					}
-				} else if(note.isHit && !note.isHoldLost && note.isHolding) {				
+				} else if(note.m_bIsHit && !note.m_bIsHoldLost && note.m_bIsHolding) {				
 					if(lastReleaseTime > lastHitTime) {						
 						[note stopHolding:lastReleaseTime];
 					}
@@ -332,20 +343,20 @@
 			}
 			
 			// Check hit
-			if(testHit && !note.isLost && !note.isHit){
+			if(testHit && !note.m_bIsLost && !note.m_bIsHit){
 				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
 				
 					// Mark note as hit
 					[note hit:lastHitTime];
 					testHit = NO; // Don't want to test hit on other notes on the track in this run
 					
-					if(note.type == kNoteType_HoldHead) {
+					if(note.m_nType == kNoteType_HoldHead) {
 						[note startHolding:lastHitTime];
 					}
 					
 					// Check whether other tracks has any notes which are not hit yet and are on the same noterow
 					double timesOfHit[kNumOfAvailableTracks];
-					BOOL allNotesHit = [steps checkAllNotesHitFromRow:note.startNoteRow time1Out:&timesOfHit[0] time2Out:&timesOfHit[1] time3Out:&timesOfHit[2] time4Out:&timesOfHit[3]];
+					BOOL allNotesHit = [m_pSteps checkAllNotesHitFromRow:note.m_nStartNoteRow time1Out:&timesOfHit[0] time2Out:&timesOfHit[1] time3Out:&timesOfHit[2] time4Out:&timesOfHit[3]];
 					
 					// After the previous check we should know whether all the notes on the noterow are already hit
 					if(allNotesHit == YES) {					
@@ -370,12 +381,12 @@
 						[note score:noteScore];
 						
 						[judgement setCurrentJudgement:noteJudgement];
-						[lifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:noteScore]];
+						[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:noteScore]];
 						
 						// Explode all hit tracks
 						for(tr=0; tr<kNumOfAvailableTracks; ++tr){
 							if(timesOfHit[tr] != 0.0f) {								
-								[receptorRow explodeBright:tr];
+								[m_pReceptorRow explodeBright:tr];
 							}
 						}
 					}
@@ -404,10 +415,10 @@
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundSpread] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
-	if(!playingGame) return;
+	if(!m_bPlayingGame) return;
 
 	// Draw the receptor row
-	[receptorRow render:fDelta];
+	[m_pReceptorRow render:fDelta];
 		
 	int i;
 	
@@ -415,40 +426,40 @@
 	for(i=0; i<kNumOfAvailableTracks; i++) {
 		
 		// Search in this track for items starting at index:
-		int startIndex = trackPos[i];
+		int startIndex = m_nTrackPos[i];
 		int j;
 	
 		// For all interesting notes in the track
-		for(j=startIndex; j<[steps getNotesCountForTrack:i] ; j++) {
-			TMNote* note = [steps getNote:j fromTrack:i];
+		for(j=startIndex; j<[m_pSteps getNotesCountForTrack:i] ; j++) {
+			TMNote* note = [m_pSteps getNote:j fromTrack:i];
 			
 			// We are not handling empty notes though
-			if(note.type == kNoteType_Empty)
+			if(note.m_nType == kNoteType_Empty)
 				continue;
 			
 			// We will draw the note only if it wasn't hit yet
-			if(note.type == kNoteType_HoldHead || !note.isHit) {
-				if(note.startYPosition <= -64.0f) {
+			if(note.m_nType == kNoteType_HoldHead || !note.m_bIsHit) {
+				if(note.m_fStartYPosition <= -64.0f) {
 					break; // Start another track coz this note is out of screen
 				}
 				
 				// If note is a holdnote
-				if(note.type == kNoteType_HoldHead) {			
+				if(note.m_nType == kNoteType_HoldHead) {			
 					// Calculate body length
-					float bodyTopY = note.startYPosition + 32.0f; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = note.stopYPosition + 32.0f; // Make space for bottom cap
+					float bodyTopY = note.m_fStartYPosition + 32.0f; // Plus half of the tap note so that it will be overlapping
+					float bodyBottomY = note.m_fStopYPosition + 32.0f; // Make space for bottom cap
 					
 					// Determine the track X position now
 					float holdX = 0.0f;
 					
 					if( i == kAvailableTrack_Left )
-						holdX = kArrowLeftX;
+						holdX = mt_ArrowLeftX;
 					if( i == kAvailableTrack_Down )
-						holdX = kArrowDownX;
+						holdX = mt_ArrowDownX;
 					if( i == kAvailableTrack_Up )
-						holdX = kArrowUpX;
+						holdX = mt_ArrowUpX;
 					if( i == kAvailableTrack_Right )
-						holdX = kArrowRightX;
+						holdX = mt_ArrowRightX;
 					
 					// Calculate the height of the hold's body
 					float totalBodyHeight = bodyTopY - bodyBottomY;
@@ -456,25 +467,25 @@
 					
 					// Draw every piece separately
 					do{
-						float sizeOfPiece = totalBodyHeight > kHoldBodyPieceHeight ? kHoldBodyPieceHeight : totalBodyHeight;
+						float sizeOfPiece = totalBodyHeight > mt_HoldBodyPieceHeight ? mt_HoldBodyPieceHeight : totalBodyHeight;
 						
 						// Don't draw if we are out of screen
 						if(offset+sizeOfPiece > 0.0f) {					
-							if(note.isHolding) {
+							if(note.m_bIsHolding) {
 								[holdNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
 							} else {
 								[holdNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
 							}
 						}
 						
-						totalBodyHeight -= kHoldBodyPieceHeight;
-						offset += kHoldBodyPieceHeight;
+						totalBodyHeight -= mt_HoldBodyPieceHeight;
+						offset += mt_HoldBodyPieceHeight;
 					} while(totalBodyHeight > 0.0f);					
 					
 					// determine the position of the cap and draw it if needed
 					if(bodyBottomY > 0.0f) {
 						// Ok. must draw the cap
-						if(note.isHolding) {
+						if(note.m_bIsHolding) {
 							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapActive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
 						} else {
 							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
@@ -483,58 +494,58 @@
 				}
 				
 				if( i == kAvailableTrack_Left ) {
-					CGRect arrowRect = CGRectMake(kArrowLeftX, note.startYPosition , 64, 64);
-					if(note.type == kNoteType_HoldHead) {
-						if(note.isHolding) {
-							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+					CGRect arrowRect = CGRectMake(mt_ArrowLeftX, note.m_fStartYPosition , 64, 64);
+					if(note.m_nType == kNoteType_HoldHead) {
+						if(note.m_bIsHolding) {
+							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Left inRect:arrowRect];	
+							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Left inRect:arrowRect];
+						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Down ) {
-					CGRect arrowRect = CGRectMake(kArrowDownX, note.startYPosition, 64, 64);
-					if(note.type == kNoteType_HoldHead) {
-						if(note.isHolding) {
-							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+					CGRect arrowRect = CGRectMake(mt_ArrowDownX, note.m_fStartYPosition, 64, 64);
+					if(note.m_nType == kNoteType_HoldHead) {
+						if(note.m_bIsHolding) {
+							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Down inRect:arrowRect];	
+							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Down inRect:arrowRect];
+						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Up ) {
-					CGRect arrowRect = CGRectMake(kArrowUpX, note.startYPosition, 64, 64);
-					if(note.type == kNoteType_HoldHead) {
-						if(note.isHolding) {
-							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+					CGRect arrowRect = CGRectMake(mt_ArrowUpX, note.m_fStartYPosition, 64, 64);
+					if(note.m_nType == kNoteType_HoldHead) {
+						if(note.m_bIsHolding) {
+							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Up inRect:arrowRect];	
+							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Up inRect:arrowRect];
+						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Right ) {
-					CGRect arrowRect = CGRectMake(kArrowRightX, note.startYPosition, 64, 64);
-					if(note.type == kNoteType_HoldHead) {
-						if(note.isHolding) {
-							[tapNote drawHoldTapNoteHolding:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+					CGRect arrowRect = CGRectMake(mt_ArrowRightX, note.m_fStartYPosition, 64, 64);
+					if(note.m_nType == kNoteType_HoldHead) {
+						if(note.m_bIsHolding) {
+							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.beatType direction:kNoteDirection_Right inRect:arrowRect];	
+							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];	
 						}
 					} else {						
-						[tapNote drawTapNote:note.beatType direction:kNoteDirection_Right inRect:arrowRect];
+						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
 					}
 				}
 			}
 		}
 
 		// Draw the lifebar above all notes
-		[lifeBar render:fDelta];
+		[m_pLifeBar render:fDelta];
 
 		// Draw the judgement
 		[judgement render:fDelta];

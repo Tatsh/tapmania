@@ -19,20 +19,20 @@
 @class TMSong, TMSongOptions;
 
 @interface TapMania : NSObject <TMRunLoopDelegate> {	
-	TMSong* currentSong;	// Points to currently selected song which can be played
-	TMSongOptions* currentSongOptions;	// Holds current song options which are applied to the currentSong
+	TMSong*				m_pCurrentSong;	// Points to currently selected song which can be played
+	TMSongOptions*		m_pCurrentSongOptions;	// Holds current song options which are applied to the currentSong
 	
-	AbstractRenderer* currentScreen;	// This is set to currently rendering screen
+	AbstractRenderer*	m_pCurrentScreen;	// This is set to currently rendering screen
 	
-	UIWindow		*window;
-	EAGLView		*glView;
+	UIWindow*			m_pWindow;
+	EAGLView*			m_pGlView;
 		
-	TMRunLoop*				gameRunLoop;
-	JoyPad*					joyPad;  // The joypad
+	TMRunLoop*			m_pGameRunLoop;
+	JoyPad*				m_pJoyPad;  // The joypad
 }
 
-@property (retain, nonatomic) EAGLView* glView;
-@property (retain, nonatomic) UIWindow* window;
+@property (retain, nonatomic, readonly, getter=glView) EAGLView* m_pGlView;
+@property (retain, nonatomic, readonly) UIWindow* m_pWindow;
 
 - (void) startGame;
 

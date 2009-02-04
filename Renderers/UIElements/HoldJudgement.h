@@ -22,9 +22,9 @@ typedef enum {
 } TMHoldJudgement;
 
 @interface HoldJudgement : TMFramedTexture <TMLogicUpdater, TMRenderable> {
-	TMHoldJudgement _currentJudgement[kNumOfAvailableTracks];	// Currently displayed judgements for every track
-	double _elapsedTime[kNumOfAvailableTracks];	// Time elapsed since last renew of the judgement in every track
-	float _judgementXPositions[kNumOfAvailableTracks];
+	TMHoldJudgement m_nCurrentJudgement[kNumOfAvailableTracks];	// Currently displayed judgements for every track
+	double			m_dElapsedTime[kNumOfAvailableTracks];	// Time elapsed since last renew of the judgement in every track
+	float			m_fJudgementXPositions[kNumOfAvailableTracks];
 }
 
 - (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;

@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface BenchmarkUtil : NSObject {
-	float startTime;
-	float finishTime;
-	NSString* name;
+	float m_fStartTime;
+	float m_fFinishTime;
+	NSString* m_sName;
 }
 
-+ (id) instanceWithName:(NSString*)lName; // Used to get an instance and automatically start it
++ (id) instanceWithName:(NSString*)name; // Used to get an instance and automatically start it
 
-- (id) initWithName:(NSString*)lName;
+- (id) initWithName:(NSString*)name;
 
 - (void) start;  // Start the benchmark
 - (void) finish; // Finish the benchmark and automatically print latest stats

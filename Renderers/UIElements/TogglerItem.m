@@ -12,23 +12,23 @@
 
 @implementation TogglerItemObject
 
-@synthesize value, title, text;
+@synthesize m_pValue, m_sTitle, m_pText;
 
 - (id) initWithTitle:(NSString*)lTitle andValue:(NSObject*)lValue {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
-	title = lTitle;
-	value = lValue;
+	m_sTitle = lTitle;
+	m_pValue = lValue;
 	
-	text = [[Texture2D alloc] initWithString:title dimensions:CGSizeMake(60, 40) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:21.0f];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:CGSizeMake(60, 40) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:21.0f];
 	
 	return self;
 }
 
 - (void) dealloc {
-	[text release];
+	[m_pText release];
 	[super dealloc];
 }
 
@@ -36,48 +36,48 @@
 
 @implementation TogglerItem
 
-- (id) initWithElements:(NSArray*) arr andShape:(CGRect) lShape {
-	self = [super initWithTexture:kTexture_SongSelectionSpeedToggler andShape:lShape];
+- (id) initWithElements:(NSArray*) arr andShape:(CGRect) shape {
+	self = [super initWithTexture:kTexture_SongSelectionSpeedToggler andShape:shape];
 	if(!self)
 		return nil;
 	
-	elements = [[NSMutableArray alloc] initWithArray:arr];
-	currentSelection = 0;
+	m_aElements = [[NSMutableArray alloc] initWithArray:arr];
+	m_nCurrentSelection = 0;
 		
 	return self;
 }
 
 - (void) dealloc {
-	[elements removeAllObjects];
-	[elements release];
+	[m_aElements removeAllObjects];
+	[m_aElements release];
 	[super dealloc];
 }
 
 - (void) toggle {
-	if([elements count]-1 == currentSelection) {
-		currentSelection = 0;
+	if([m_aElements count]-1 == m_nCurrentSelection) {
+		m_nCurrentSelection = 0;
 	} else {
-		currentSelection++;
+		m_nCurrentSelection++;
 	}
 }
 
 - (TogglerItemObject*) getCurrent {
-	TogglerItemObject* obj = [elements objectAtIndex:currentSelection];
+	TogglerItemObject* obj = [m_aElements objectAtIndex:m_nCurrentSelection];
 	return obj;
 }
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	CGRect leftCapRect = CGRectMake(shape.origin.x, shape.origin.y, 12.0f, shape.size.height);
-	CGRect rightCapRect = CGRectMake(shape.origin.x+shape.size.width-12.0f, shape.origin.y, 12.0f, shape.size.height);
-	CGRect bodyRect = CGRectMake(shape.origin.x+12.0f, shape.origin.y, shape.size.width-24.0f, shape.size.height); 
+	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
+	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-12.0f, m_rShape.origin.y, 12.0f, m_rShape.size.height);
+	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-24.0f, m_rShape.size.height); 
 
-	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:textureId] drawFrame:0 inRect:leftCapRect];
-	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:textureId] drawFrame:1 inRect:bodyRect];
-	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:textureId] drawFrame:2 inRect:rightCapRect];
+	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:m_nTextureId] drawFrame:0 inRect:leftCapRect];
+	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:m_nTextureId] drawFrame:1 inRect:bodyRect];
+	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:m_nTextureId] drawFrame:2 inRect:rightCapRect];
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[[self getCurrent].text drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
+	[[self getCurrent].m_pText drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 }
 

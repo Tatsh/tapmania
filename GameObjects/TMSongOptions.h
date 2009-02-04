@@ -22,12 +22,12 @@ typedef enum {
 
 
 @interface TMSongOptions: NSObject {
-	TMSpeedModifiers speedMod;
-	TMSongDifficulty difficulty;
+	TMSpeedModifiers m_nSpeedMod;
+	TMSongDifficulty m_nDifficulty;
 }
 
-@property (readonly, assign) TMSpeedModifiers speedMod;
-@property (readonly, assign) TMSongDifficulty difficulty;
+@property (readonly, assign) TMSpeedModifiers m_nSpeedMod;
+@property (readonly, assign) TMSongDifficulty m_nDifficulty;
 
 // The constructor
 - (id) init;

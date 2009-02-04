@@ -13,17 +13,19 @@
 #define kDefaultThemeName	@"default"
 
 @interface ThemeManager : NSObject {
-	NSString* mCurrentThemeName;		// Current theme
-	ThemeMetrics* mCurrentThemeMetrics;	// The currently loaded theme metrics object
+	NSString*		m_sCurrentThemeName;		// Current theme
+	ThemeMetrics*	m_pCurrentThemeMetrics;	// The currently loaded theme metrics object
 	
-	NSMutableArray* mThemesList;	// A list of existing themes (directories in the 'themes' folder which contains metrics file)
+	NSMutableArray* m_aThemesList;	// A list of existing themes (directories in the 'themes' folder which contains metrics file)
 }
 
-@property (retain, nonatomic, readonly, getter=metrics) ThemeMetrics* mCurrentThemeMetrics;
-@property (retain, nonatomic, readonly, getter=themeName) NSString* mCurrentThemeName;
-@property (retain, nonatomic, readonly, getter=themeList) NSMutableArray* mThemesList;
+@property (retain, nonatomic, readonly, getter=themeName) NSString* m_sCurrentThemeName;
+@property (retain, nonatomic, readonly, getter=themeList) NSMutableArray* m_aThemesList;
 
 - (void) selectTheme:(NSString*) themeName;		// This will load the metrics file of the passed theme if that theme exists
+- (int) intMetric:(NSString*) metricKey;
+- (float) floatMetric:(NSString*) metricKey;
+- (NSString*) stringMetric:(NSString*) metricKey;
 
 + (ThemeManager *) sharedInstance;
 

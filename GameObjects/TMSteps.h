@@ -20,10 +20,10 @@ typedef enum {
 } TMAvailableTracks;
 
 @interface TMSteps : NSObject {
-	TMSongDifficulty	difficulty;						// The difficulty. eg. Easy, Heavy etc.
-	int					difficultyLevel;				// The level. eg. 1-15.
+	TMSongDifficulty	m_nDifficulty;						// The difficulty. eg. Easy, Heavy etc.
+	int					m_nDifficultyLevel;					// The level. eg. 1-15.
 	
-	TMTrack*			tracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
+	TMTrack*			m_pTracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
 }
 
 - (int) getDifficultyLevel;

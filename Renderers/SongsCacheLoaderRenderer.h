@@ -15,15 +15,15 @@
 #import "Texture2D.h"
 
 @interface SongsCacheLoaderRenderer : AbstractRenderer <TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
-	BOOL	_allSongsLoaded;
-	BOOL	_globalError;
-	BOOL	_textureShouldChange;
+	BOOL	m_bAllSongsLoaded;
+	BOOL	m_bGlobalError;
+	BOOL	m_bTextureShouldChange;
 	
-	NSString* _currentMessage;
-	Texture2D* _currentTexture;
+	NSString*	m_sCurrentMessage;
+	Texture2D*	m_pCurrentTexture;
 	
-	NSThread* _thread;
-	NSLock*   _lock;
+	NSThread* m_pThread;
+	NSLock*   m_pLock;
 }
 
 @end

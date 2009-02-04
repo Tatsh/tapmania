@@ -11,15 +11,15 @@
 
 @implementation TMChangeSegment
 
-@synthesize noteRow, changeValue; 
+@synthesize m_fNoteRow, m_fChangeValue; 
 
-- (id) initWithNoteRow:(int) lNoteRow andValue:(float) lValue {
+- (id) initWithNoteRow:(int) noteRow andValue:(float) value {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	noteRow = lNoteRow;
-	changeValue = lValue;
+	m_fNoteRow = noteRow;
+	m_fChangeValue = value;
 
 	return self;
 }

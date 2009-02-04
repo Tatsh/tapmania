@@ -34,21 +34,21 @@ typedef enum {
 	
 	// Array to hold the objects which will be used for rendering/updating
 	// This array is always sorted from hightest to lowest priority
-	NSMutableArray * objects;
+	NSMutableArray * m_aObjects;
 	
 	// Holds tasks which are performed once and removed from the list afterwards
-	NSMutableArray * singleTimeTasks;
+	NSMutableArray * m_aSingleTimeTasks;
 	
 	// Delegate with before/after hooks
-	id delegate;
+	id				 m_idDelegate;
 	
 	// Run loop can be stopped using this flag
 	@private 
-	BOOL _stopRequested;
-	BOOL _actualStopState;
+	BOOL			m_bStopRequested;
+	BOOL			m_bActualStopState;
 }
 
-@property (assign) id <TMRunLoopDelegate> delegate;
+@property (assign, getter=delegate, setter=delegate:) id <TMRunLoopDelegate> m_idDelegate;
 
 
 // Call this method to run the runloop

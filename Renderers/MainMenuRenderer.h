@@ -26,9 +26,9 @@ enum {
 };
 
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
-	int selectedMenu;
-	MenuItem* mainMenuItems[kNumMainMenuItems];
-	JoyPad * joyPad;
+	int			m_nSelectedMenu;
+	MenuItem*	m_pMainMenuItems[kNumMainMenuItems];
+	JoyPad*		m_pJoyPad;
 }
 
 @end

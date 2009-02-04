@@ -29,12 +29,12 @@
 		return nil;
 	
 	// No item selected by default
-	selectedMenu = -1;
+	m_nSelectedMenu = -1;
 	
 	// Register menu items
-	mainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(60.0f, 200.0f, 200.0f, 40.0f)];
-	mainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
-	mainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
+	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(60.0f, 200.0f, 200.0f, 40.0f)];
+	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
+	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
 	
 	// Enable joypad
 	// joyPad = [[TapMania sharedInstance] enableJoyPad];
@@ -44,9 +44,9 @@
 
 - (void) dealloc {
 	// Release menu items
-	[mainMenuItems[kMainMenuItem_Play] release];
-	[mainMenuItems[kMainMenuItem_Options] release];
-	[mainMenuItems[kMainMenuItem_Credits] release];
+	[m_pMainMenuItems[kMainMenuItem_Play] release];
+	[m_pMainMenuItems[kMainMenuItem_Options] release];
+	[m_pMainMenuItems[kMainMenuItem_Credits] release];
 	
 	[super dealloc];
 }
@@ -55,9 +55,9 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Add the menu items to the render loop with lower priority
-	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
-	[[TapMania sharedInstance] registerObject:mainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
+	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
+	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
@@ -86,22 +86,22 @@
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
-	if(selectedMenu == -1) 
+	if(m_nSelectedMenu == -1) 
 		return;
 	
-	if(selectedMenu == kMainMenuItem_Play) {
+	if(m_nSelectedMenu == kMainMenuItem_Play) {
 		NSLog(@"Enter song pick menu...");		
 		
 		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
-	} else if(selectedMenu == kMainMenuItem_Options) {
+	} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 		NSLog(@"Enter options menu...");
-	} else if(selectedMenu == kMainMenuItem_Credits) {
+	} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
 		NSLog(@"Enter credits screen...");
 		
 		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
 	}
 	
-	selectedMenu = -1; // To ensure we are not doing the transition more than once
+	m_nSelectedMenu = -1; // To ensure we are not doing the transition more than once
 }
 
 /* TMGameUIResponder methods */
@@ -111,12 +111,12 @@
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 							[touch locationInView:[TapMania sharedInstance].glView]];
 	
-		if([mainMenuItems[kMainMenuItem_Play] containsPoint:point]){
-			selectedMenu = kMainMenuItem_Play;
-		} else if([mainMenuItems[kMainMenuItem_Options] containsPoint:point]){
-			selectedMenu = kMainMenuItem_Options;
-		} else if([mainMenuItems[kMainMenuItem_Credits] containsPoint:point]){
-			selectedMenu = kMainMenuItem_Credits;
+		if([m_pMainMenuItems[kMainMenuItem_Play] containsPoint:point]){
+			m_nSelectedMenu = kMainMenuItem_Play;
+		} else if([m_pMainMenuItems[kMainMenuItem_Options] containsPoint:point]){
+			m_nSelectedMenu = kMainMenuItem_Options;
+		} else if([m_pMainMenuItems[kMainMenuItem_Credits] containsPoint:point]){
+			m_nSelectedMenu = kMainMenuItem_Credits;
 		}
 	}
 }

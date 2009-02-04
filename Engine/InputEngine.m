@@ -19,19 +19,19 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	if(!self)
 		return nil;
 	
-	subscribers = [[NSMutableArray alloc] initWithCapacity:5];
+	m_aSubscribers = [[NSMutableArray alloc] initWithCapacity:5];
 	
 	return self;
 }
 
 - (void) dealloc {
-	[subscribers release];
+	[m_aSubscribers release];
 	[super dealloc];
 }
 
 - (void) subscribe:(NSObject*) handler {
 	if([handler conformsToProtocol:@protocol(TMGameUIResponder)]){
-		[subscribers addObject:handler];
+		[m_aSubscribers addObject:handler];
 	} else {
 		NSLog(@"Passed an object which doesn't conform to TMGameUIResponder protocol. ignore.");
 	}
@@ -39,14 +39,14 @@ static InputEngine *sharedInputEngineDelegate = nil;
 
 - (void) unsubscribe:(NSObject*) handler {
 	// Will remove the handler if found
-	[subscribers removeObject:handler];
+	[m_aSubscribers removeObject:handler];
 }
 
 - (void) dispatchTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	int i;
 	
-	for(i=0; i<[subscribers count]; i++){
-		NSObject* handler = [subscribers objectAtIndex:i];
+	for(i=0; i<[m_aSubscribers count]; i++){
+		NSObject* handler = [m_aSubscribers objectAtIndex:i];
 		if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
 			[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
 		}
@@ -55,8 +55,8 @@ static InputEngine *sharedInputEngineDelegate = nil;
 
 - (void) dispatchTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
 	int i;
-	for(i=0; i<[subscribers count]; i++){
-		NSObject* handler = [subscribers objectAtIndex:i];
+	for(i=0; i<[m_aSubscribers count]; i++){
+		NSObject* handler = [m_aSubscribers objectAtIndex:i];
 		if([handler respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
 			[handler performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
 		}
@@ -65,8 +65,8 @@ static InputEngine *sharedInputEngineDelegate = nil;
 
 - (void) dispatchTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	int i;
-	for(i=0; i<[subscribers count]; i++){
-		NSObject* handler = [subscribers objectAtIndex:i];
+	for(i=0; i<[m_aSubscribers count]; i++){
+		NSObject* handler = [m_aSubscribers objectAtIndex:i];
 		if([handler respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
 			[handler performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
 		}

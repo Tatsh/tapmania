@@ -19,7 +19,7 @@ typedef enum {
 
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
 {
-	State					_state;
+	State					m_nState;
 }
 
 @end

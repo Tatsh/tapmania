@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ThemeMetrics : NSDictionary {
-/*	int mReceptorRowX, mReceptorRowY;
-	int mReceptorRowWidth, mReceptorRowHeight;
-	int mArrowLeftX, mArrowDownX, mArrowUpX, mArrowRightX;
-	int mLifeBarY;
-*/
 }
 
 @end

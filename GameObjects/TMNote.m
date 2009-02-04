@@ -11,70 +11,70 @@
 
 @implementation TMNote
 
-@synthesize type, beatType, isHit, isLost, isHeld, hitTime, isHolding, isHoldLost, score, holdScore;
-@synthesize lastHoldTouchTime, lastHoldReleaseTime, startNoteRow, stopNoteRow, startYPosition, stopYPosition;
+@synthesize m_nType, m_nBeatType, m_bIsHit, m_bIsLost, m_bIsHeld, m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nHoldScore;
+@synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)lType {
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	startNoteRow = noteRow;
-	stopNoteRow = -1;
-	beatType = [TMNote getBeatType:noteRow];
-	type = lType;
+	m_nStartNoteRow = noteRow;
+	m_nStopNoteRow = -1;
+	m_nBeatType = [TMNote getBeatType:noteRow];
+	m_nType = type;
 	
-	isLost = NO;
-	isHit = NO;
-	isHolding = NO;
-	isHeld = NO;
-	isHoldLost = NO;
-	hitTime = 0.0f;
+	m_bIsLost = NO;
+	m_bIsHit = NO;
+	m_bIsHolding = NO;
+	m_bIsHeld = NO;
+	m_bIsHoldLost = NO;
+	m_dHitTime = 0.0f;
 	
-	startYPosition = 0.0f;
-	stopYPosition = 0.0f;
+	m_fStartYPosition = 0.0f;
+	m_fStopYPosition = 0.0f;
 	
-	score = kNoteScore_None;	// No scoring info by default
-	holdScore = kHoldScore_NG;	// NG by default
+	m_nScore = kNoteScore_None;	// No scoring info by default
+	m_nHoldScore = kHoldScore_NG;	// NG by default
 	
 	return self;
 }
 
-- (void) hit:(double)lHitTime {
-	if(!isHit){
-		isHit = YES;
-		hitTime = lHitTime;
+- (void) hit:(double)hitTime {
+	if(!m_bIsHit){
+		m_bIsHit = YES;
+		m_dHitTime = hitTime;
 	}
 }
 
 - (void) markLost {
-	isLost = YES;
+	m_bIsLost = YES;
 }
 
-- (void) score:(TMNoteScore)lScore { 
-	score = lScore;
+- (void) score:(TMNoteScore)score { 
+	m_nScore = score;
 }
 
-- (void) startHolding:(double)lTouchTime {
-	lastHoldTouchTime = lTouchTime;
-	isHolding = YES;
-	isHeld = YES; // Will be set to NO if released
+- (void) startHolding:(double)touchTime {
+	m_dLastHoldTouchTime = touchTime;
+	m_bIsHolding = YES;
+	m_bIsHeld = YES; // Will be set to NO if released
 
-	holdScore = kHoldScore_OK;
+	m_nHoldScore = kHoldScore_OK;
 }
 
-- (void) stopHolding:(double)lReleaseTime {
-	lastHoldReleaseTime = lReleaseTime;
-	isHolding = NO;
-	isHeld = NO;
+- (void) stopHolding:(double)releaseTime {
+	m_dLastHoldReleaseTime = releaseTime;
+	m_bIsHolding = NO;
+	m_bIsHeld = NO;
 }
 
 - (void) markHoldLost {
-	isHolding = NO;
-	isHeld = NO;
-	isHoldLost = YES;
+	m_bIsHolding = NO;
+	m_bIsHeld = NO;
+	m_bIsHoldLost = YES;
 	
-	holdScore = kHoldScore_NG;
+	m_nHoldScore = kHoldScore_NG;
 }
 
 + (TMBeatType) getBeatType:(int) row {
@@ -93,8 +93,8 @@
 	return noteRow / (float)kRowsPerBeat;
 }
 
-+ (int) beatToNoteRow:(float) fBeat {
-	return lrintf( fBeat * kRowsPerBeat );	
++ (int) beatToNoteRow:(float) beat {
+	return lrintf( beat * kRowsPerBeat );	
 }
 
 @end

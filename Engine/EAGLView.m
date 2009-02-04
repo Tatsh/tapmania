@@ -171,17 +171,6 @@
 		printf("Failed to clear current context in %s\n", __FUNCTION__);
 }
 
-- (void) preRender {
-	[self setCurrentContext];
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);	
-}
-
-- (void) postRender {
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
-	if(![_context presentRenderbuffer:GL_RENDERBUFFER_OES])
-		printf("Failed to present renderbuffer in %s\n", __FUNCTION__);
-}
-
 - (void) swapBuffers
 {
 	EAGLContext *oldContext = [EAGLContext currentContext];

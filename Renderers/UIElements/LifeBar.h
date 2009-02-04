@@ -11,11 +11,11 @@
 #import "TMRenderable.h"
 
 @interface LifeBar : NSObject <TMRenderable, TMLogicUpdater> {
-	float _currentValue;  // 0.0 -> 100.0 :: defaults to 50.0 on song start
-	CGRect rect;	// The rect where the lifebar is drawn
+	float m_fCurrentValue;  // 0.0 -> 100.0 :: defaults to 50.0 on song start
+	CGRect m_rShape;	// The rect where the lifebar is drawn
 }
 
-- (id) initWithRect:(CGRect)lRect;
+- (id) initWithRect:(CGRect)rect;
 
 - (float) getCurrentValue;
 - (void) updateBy:(float)value;

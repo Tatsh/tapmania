@@ -10,15 +10,15 @@
 
 @implementation TMObjectWithPriority
 
-@synthesize obj, priority;
+@synthesize m_pObj, m_uPriority;
 
--(id) initWithObj:(NSObject*)lObj andPriority:(unsigned)lPriority {
+-(id) initWithObj:(NSObject*)obj andPriority:(unsigned)priority {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	obj = lObj;
-	priority = lPriority;	
+	m_pObj = obj;
+	m_uPriority = priority;	
 	
 	return self;
 }

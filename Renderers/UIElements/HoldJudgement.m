@@ -15,7 +15,7 @@
 @implementation HoldJudgement
 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
-	[self drawFrame:judgement-1 atPoint:CGPointMake( _judgementXPositions[track], 325 )];
+	[self drawFrame:judgement-1 atPoint:CGPointMake( m_fJudgementXPositions[track], 325 )];
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -29,20 +29,20 @@
 	
 	// FIXME: this should go to theme->metrics..
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		_judgementXPositions[i] = 45 + currentOffset;
+		m_fJudgementXPositions[i] = 45 + currentOffset;
 		
 		currentOffset += 70; // 64 as width of the receptor + 6 as spacing
 		
-		_elapsedTime[i] = 0.0f;
-		_currentJudgement[i] = kHoldJudgementNone;
+		m_dElapsedTime[i] = 0.0f;
+		m_nCurrentJudgement[i] = kHoldJudgementNone;
 	}	
 	
 	return self;
 }
 
 - (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
-	_elapsedTime[track] = 0.0f;
-	_currentJudgement[track] = judgement;
+	m_dElapsedTime[track] = 0.0f;
+	m_nCurrentJudgement[track] = judgement;
 }
 
 /* TMRenderable method */
@@ -50,8 +50,8 @@
 	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {			
-		if(_currentJudgement[i] != kHoldJudgementNone) {
-			[self drawHoldJudgement:_currentJudgement[i] forTrack:i];
+		if(m_nCurrentJudgement[i] != kHoldJudgementNone) {
+			[self drawHoldJudgement:m_nCurrentJudgement[i] forTrack:i];
 		}
 	}
 }
@@ -63,12 +63,12 @@
 	for(i=0; i<kNumOfAvailableTracks; ++i) {			
 
 		// If we show some judgement we must fade it out after some period of time
-		if(_currentJudgement[i] != kHoldJudgementNone) {
-			_elapsedTime[i] += [fDelta floatValue];
+		if(m_nCurrentJudgement[i] != kHoldJudgementNone) {
+			m_dElapsedTime[i] += [fDelta floatValue];
 		
-			if(_elapsedTime[i] >= HOLD_JUDGEMENT_MAX_SHOW_TIME) {
-				_elapsedTime[i] = 0.0f;
-				_currentJudgement[i] = kHoldJudgementNone;
+			if(m_dElapsedTime[i] >= HOLD_JUDGEMENT_MAX_SHOW_TIME) {
+				m_dElapsedTime[i] = 0.0f;
+				m_nCurrentJudgement[i] = kHoldJudgementNone;
 			}
 		}
 	}

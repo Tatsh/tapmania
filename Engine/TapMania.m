@@ -23,7 +23,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 @implementation TapMania
 
-@synthesize glView, window;
+@synthesize m_pGlView, m_pWindow;
 
 - (id) init {
 	self = [super init];
@@ -31,9 +31,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 		return nil;
 	
 	// Defaults
-	currentSong = nil;
-	currentSongOptions = nil;
-	currentScreen = nil;
+	m_pCurrentSong = nil;
+	m_pCurrentSongOptions = nil;
+	m_pCurrentScreen = nil;
 		
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];
@@ -42,14 +42,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 	CGRect rect = [[UIScreen mainScreen] bounds];	
 	
 	// Setup window
-	self.window = [[[UIWindow alloc] initWithFrame:rect] autorelease];
+	m_pWindow = [[[UIWindow alloc] initWithFrame:rect] autorelease];
 	
 	// Show window
-	[self.window makeKeyAndVisible];
+	[m_pWindow makeKeyAndVisible];
 	
 	// Init opengl
-	glView = [[EAGLView alloc] initWithFrame:rect];	
-	glView.multipleTouchEnabled = YES;
+	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
+	m_pGlView.multipleTouchEnabled = YES;
 
 	// Load all textures
 	[TexturesHolder sharedInstance];
@@ -68,62 +68,62 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Draw background first to avoid some odd effects with old graphics on the gpu
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:self.window.bounds];
+	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:self.m_pWindow.bounds];
 	glEnable(GL_BLEND);
 	
-	[glView swapBuffers];
+	[m_pGlView swapBuffers];
 	NSLog(@"SWAP BUFFERS DONE!");
 	
-	[self.window addSubview:glView];		
+	[m_pWindow addSubview:m_pGlView];		
 	
 	// FIXME: hardcoded style here
-	joyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
+	m_pJoyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
 	
 	// Load theme. FIXME: hardcoded default theme here!
 	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
 	
 	// Init main run loop
-	gameRunLoop = [[TMRunLoop alloc] init];
-	gameRunLoop.delegate = self;
+	m_pGameRunLoop = [[TMRunLoop alloc] init];
+	m_pGameRunLoop.delegate = self;
 	
 	return self;
 }
 
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer {
 	NSLog(@"Switch to screen requested!");
-	[gameRunLoop registerSingleTimeTask:[[BasicTransition alloc] initFromScreen:currentScreen toScreen:screenRenderer]];
+	[m_pGameRunLoop registerSingleTimeTask:[[BasicTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority {
-	[gameRunLoop registerObject:obj withPriority:priority];
+	[m_pGameRunLoop registerObject:obj withPriority:priority];
 }
 
 - (void) deregisterAll {
-	[gameRunLoop deregisterAllObjects];
+	[m_pGameRunLoop deregisterAllObjects];
 }
 
 - (void) setCurrentScreen:(AbstractRenderer*)screenRenderer {
-	currentScreen = screenRenderer;
+	m_pCurrentScreen = screenRenderer;
 }
 
 - (void) releaseCurrentScreen {
-	if(currentScreen != nil){
-		[currentScreen release];
+	if(m_pCurrentScreen != nil){
+		[m_pCurrentScreen release];
 	}
 }
    
 - (void) startGame {
-	[gameRunLoop run];	
+	[m_pGameRunLoop run];	
 }
 
 - (JoyPad*) enableJoyPad {
-	[joyPad reset];
-	[[InputEngine sharedInstance] subscribe:joyPad];
-	return joyPad;
+	[m_pJoyPad reset];
+	[[InputEngine sharedInstance] subscribe:m_pJoyPad];
+	return m_pJoyPad;
 }
 
 - (void) disableJoyPad {
-	[[InputEngine sharedInstance] unsubscribe:joyPad];
+	[[InputEngine sharedInstance] unsubscribe:m_pJoyPad];
 }
 
 /* Run loop delegate work */

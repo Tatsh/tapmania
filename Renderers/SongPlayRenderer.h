@@ -24,24 +24,24 @@
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
-	TMSong*					song;	// Currently played song
-	TMSteps*				steps;	// Currently played steps
+	TMSong*					m_pSong;	// Currently played song
+	TMSteps*				m_pSteps;	// Currently played steps
 
-	ReceptorRow*			receptorRow;
-	LifeBar*				lifeBar;
+	ReceptorRow*			m_pReceptorRow;
+	LifeBar*				m_pLifeBar;
 	
-	int						trackPos[kNumOfAvailableTracks];	// Current element of each track
+	int						m_nTrackPos[kNumOfAvailableTracks];	// Current element of each track
 	
-	double					speedModValue;	
-	double					playBackStartTime;			// The time to start music
-	double					playBackScheduledEndTime;	// The time to stop music and stop gameplay
+	double					m_dSpeedModValue;	
+	double					m_dPlayBackStartTime;			// The time to start music
+	double					m_dPlayBackScheduledEndTime;	// The time to stop music and stop gameplay
 	
-	BOOL					playingGame;
-	BOOL					musicPlaybackStarted;
+	BOOL					m_bPlayingGame;
+	BOOL					m_bMusicPlaybackStarted;
 
-	JoyPad* 				joyPad; // Local pointer for easy access
+	JoyPad* 				m_pJoyPad; // Local pointer for easy access
 }
 
-- (void) playSong:(TMSong*) lSong withOptions:(TMSongOptions*) options;
+- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;
 
 @end

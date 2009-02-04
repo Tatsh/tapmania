@@ -14,8 +14,8 @@
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	CGRect capRect = CGRectMake(shape.origin.x, shape.origin.y, 12.0f, shape.size.height);
-	CGRect bodyRect = CGRectMake(shape.origin.x+12.0f, shape.origin.y, shape.size.width-12.0f, shape.size.height); 
+	CGRect capRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
+	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-12.0f, m_rShape.size.height); 
 	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionWheelItemSelected] drawFrame:0 inRect:capRect];
 	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionWheelItemSelected] drawFrame:1 inRect:bodyRect];
 	

@@ -15,14 +15,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 @implementation SongsDirectoryCache
 
-@synthesize delegate;
+@synthesize m_idDelegate;
 
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	availableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
+	m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
 	
 	return self;
 }
@@ -32,28 +32,28 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	NSLog(@"Caching songs in 'Songs' dir...");
 	
 	int i;	
-	[availableSongs removeAllObjects];	// Clear the list if we had filled it before
+	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
 	
 	// Get songs directory
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
 	if([paths count] > 0) {
 		NSString * dir = [paths objectAtIndex:0]; 
-		songsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
+		m_sSongsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
 		
 		// Create the songs dir if missing
-		if(! [[NSFileManager defaultManager] isReadableFileAtPath:songsDir]){
-			[[NSFileManager defaultManager] createDirectoryAtPath:songsDir attributes:nil];
+		if(! [[NSFileManager defaultManager] isReadableFileAtPath:m_sSongsDir]){
+			[[NSFileManager defaultManager] createDirectoryAtPath:m_sSongsDir attributes:nil];
 		}
 		
-		NSLog(@"Songs dir at: %@", songsDir);		
+		NSLog(@"Songs dir at: %@", m_sSongsDir);		
 		
 		// Read all songs in the dir and cache them
-		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:songsDir];
+		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
 		
 		// Raise error if empty songs dir
 		if([songsDirContents count] == 0) {
-			if(delegate != nil) {
-				[delegate songLoaderError:@"Songs directory is empty"];
+			if(m_idDelegate != nil) {
+				[m_idDelegate songLoaderError:@"Songs directory is empty"];
 			}
 			
 			return;
@@ -62,7 +62,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		for(i = 0; i<[songsDirContents count]; i++) {
 			
 			NSString* songDirName = [songsDirContents objectAtIndex:i];
-			NSString* curPath = [songsDir stringByAppendingPathComponent:songDirName];
+			NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:songDirName];
 			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
 			NSString* file;
 			
@@ -85,19 +85,19 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			if(stepsFilePath != nil && musicFilePath != nil){
 				
 				// Parse very basic info from this file
-				if(delegate != nil) {
-					[delegate startLoadingSong:songDirName];
+				if(m_idDelegate != nil) {
+					[m_idDelegate startLoadingSong:songDirName];
 				}
 
 				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];				
-				[availableSongs addObject:song];
+				[m_aAvailableSongs addObject:song];
 				
-				if(delegate != nil) {
-					[delegate doneLoadingSong:songDirName];
+				if(m_idDelegate != nil) {
+					[m_idDelegate doneLoadingSong:songDirName];
 				}								
 			} else {
-				if(delegate != nil) {
-					[delegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
+				if(m_idDelegate != nil) {
+					[m_idDelegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
 				}			
 			}
 		}
@@ -107,24 +107,24 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	}
 	
 	// Tell the user that we are done
-	if(delegate != nil) {
-		[delegate songLoaderFinished];
+	if(m_idDelegate != nil) {
+		[m_idDelegate songLoaderFinished];
 	}
 	
 	NSLog(@"Done.");	
 }
 
 - (NSArray*) getSongList {
-	return availableSongs;
+	return m_aAvailableSongs;
 }
 
 - (NSString*) getSongsPath {
-	return songsDir;
+	return m_sSongsDir;
 }
 
 - (void) dealloc {
-	[songsDir release];
-	[availableSongs release];
+	[m_sSongsDir release];
+	[m_aAvailableSongs release];
 	
 	[super dealloc];
 }

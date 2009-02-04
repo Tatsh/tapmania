@@ -12,25 +12,25 @@
 
 @implementation MenuItem
  
-- (id) initWithTexture:(int) lTextureId andShape:(CGRect) lShape {
+- (id) initWithTexture:(int) textureId andShape:(CGRect) shape {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
-	shape = lShape;
-	textureId = lTextureId;
+	m_rShape = shape;
+	m_nTextureId = textureId;
 	
 	return self;
 }
 
 - (BOOL) containsPoint:(CGPoint)point {
-	return CGRectContainsPoint(shape, point);
+	return CGRectContainsPoint(m_rShape, point);
 }
 
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	[[[TexturesHolder sharedInstance] getTexture:textureId] drawInRect:shape];
+	[[[TexturesHolder sharedInstance] getTexture:m_nTextureId] drawInRect:m_rShape];
 }
 
 @end

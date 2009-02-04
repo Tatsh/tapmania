@@ -23,23 +23,23 @@
 	if(!self) 
 		return nil;
 
-	_elapsedTime = 0.0f;
-	_currentJudgement = kJudgementNone;
+	m_dElapsedTime = 0.0f;
+	m_nCurrentJudgement = kJudgementNone;
 
 	return self;
 }
 
 - (void) setCurrentJudgement:(TMJudgement) judgement {
-	_elapsedTime = 0.0f;
-	_currentJudgement = judgement;
+	m_dElapsedTime = 0.0f;
+	m_nCurrentJudgement = judgement;
 }
 
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
 	
 	// Just draw the current judgement if it's not set to none
-	if(_currentJudgement != kJudgementNone) {
-		[self drawJudgement:_currentJudgement];
+	if(m_nCurrentJudgement != kJudgementNone) {
+		[self drawJudgement:m_nCurrentJudgement];
 	}
 }
 
@@ -47,12 +47,12 @@
 - (void) update:(NSNumber*)fDelta {
 	
 	// If we show some judgement we must fade it out after some period of time
-	if(_currentJudgement != kJudgementNone) {
-		_elapsedTime += [fDelta floatValue];
+	if(m_nCurrentJudgement != kJudgementNone) {
+		m_dElapsedTime += [fDelta floatValue];
 	
-		if(_elapsedTime >= JUDGEMENT_MAX_SHOW_TIME) {
-			_elapsedTime = 0.0f;
-			_currentJudgement = kJudgementNone;
+		if(m_dElapsedTime >= JUDGEMENT_MAX_SHOW_TIME) {
+			m_dElapsedTime = 0.0f;
+			m_nCurrentJudgement = kJudgementNone;
 		}
 	}
 }

@@ -25,8 +25,8 @@ typedef enum {
 } TMJudgement;
 
 @interface Judgement : TMFramedTexture <TMLogicUpdater, TMRenderable> {
-	TMJudgement _currentJudgement;	// Currently displayed judgement
-	double _elapsedTime;	// Time elapsed since last renew of the judgement
+	TMJudgement m_nCurrentJudgement;	// Currently displayed judgement
+	double m_dElapsedTime;	// Time elapsed since last renew of the judgement
 }
 
 - (void) setCurrentJudgement:(TMJudgement) judgement;

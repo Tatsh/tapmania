@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface TMObjectWithPriority : NSObject {
-	NSObject* obj;
-	unsigned priority;
+	NSObject*	m_pObj;
+	unsigned	m_uPriority;
 }
 
-@property (readonly,retain,nonatomic) NSObject* obj;
-@property (readonly,assign) unsigned priority;
+@property (readonly,retain,nonatomic) NSObject* m_pObj;
+@property (readonly,assign) unsigned m_uPriority;
 
--(id) initWithObj:(NSObject*)lObj andPriority:(unsigned)lPriority;
+-(id) initWithObj:(NSObject*)obj andPriority:(unsigned)priority;
 
 @end

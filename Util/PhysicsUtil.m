@@ -13,14 +13,15 @@
 
 @implementation Vector
 
-@synthesize x,y;	
+@synthesize m_fX, m_fY;	
+
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 
-	x = 0.0f;
-	y = 0.0f;
+	m_fX = 0.0f;
+	m_fY = 0.0f;
 
 	return self;
 }
@@ -30,18 +31,18 @@
 	if(!self)
 		return nil;
 
-	x = lx;
-	y = ly;
+	m_fX = lx;
+	m_fY = ly;
 
 	return self;
 }
 
 - (float) norm {
-	return sqrt(x*x + y*y);
+	return sqrt(m_fX*m_fX + m_fY*m_fY);
 }
 
 - (float) normSquared {
-	return (x*x + y*y);
+	return (m_fX*m_fX + m_fY*m_fY);
 }
 
 + (float) norm:(Vector*)v0 {

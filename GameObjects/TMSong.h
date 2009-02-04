@@ -31,38 +31,38 @@ typedef enum {
 @interface TMSong : NSObject {
 	
 	// Disk info
-	NSString*		filePath;	// The path on the disk where the file used to get this song resides
-	TMSongFileType	fileType;	// The type of the file
+	NSString*		m_sFilePath;	// The path on the disk where the file used to get this song resides
+	TMSongFileType	m_nFileType;	// The type of the file
 	
 	// Music file info
-	NSString*		musicFilePath;	// The path on the disk where the music file lives
+	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
 	
 	// Song information
-	NSString* 	title;
-	NSString* 	artist;
-	float	  	bpm;
-	double		gap;
+	NSString* 	m_sTitle;
+	NSString* 	m_sArtist;
+	float	  	m_fBpm;
+	double		m_dGap;
 	
-	NSMutableArray* bpmChangeArray;
-	NSMutableArray* freezeArray;
+	NSMutableArray* m_aBpmChangeArray;
+	NSMutableArray* m_aFreezeArray;
 
-	int _availableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
+	int m_nAvailableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
 }
 
-@property (retain, nonatomic) NSString* filePath;
-@property (assign) TMSongFileType fileType;
+@property (retain, nonatomic) NSString* m_sFilePath;
+@property (assign) TMSongFileType m_nFileType;
 
-@property (retain, nonatomic) NSString* musicFilePath;
+@property (retain, nonatomic) NSString* m_sMusicFilePath;
 
-@property (retain, nonatomic) NSString* artist;
-@property (retain, nonatomic) NSString* title;
-@property (assign) float bpm;
-@property (assign) double gap;
-@property (retain, nonatomic) NSMutableArray* bpmChangeArray;
-@property (retain, nonatomic) NSMutableArray* freezeArray;
+@property (retain, nonatomic) NSString* m_sArtist;
+@property (retain, nonatomic) NSString* m_sTitle;
+@property (assign) float m_fBpm;
+@property (assign) double m_dGap;
+@property (retain, nonatomic) NSMutableArray* m_aBpmChangeArray;
+@property (retain, nonatomic) NSMutableArray* m_aFreezeArray;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
-- (id) initWithStepsFile:(NSString*) lStepsFilePath andMusicFile:(NSString*) lMusicFilePath;
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath;
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 

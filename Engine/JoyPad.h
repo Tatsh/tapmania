@@ -24,12 +24,12 @@ typedef enum {
 } JPStyle;
 
 @interface JoyPad : NSObject <TMGameUIResponder> {
-	BOOL _joyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
-	double _joyButtonTimeTouch[kNumJoyButtons];	// Last time every button was touched
-	double _joyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
+	BOOL		m_bJoyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
+	double		m_dJoyButtonTimeTouch[kNumJoyButtons];		// Last time every button was touched
+	double		m_dJoyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
 
-	Vector* _joyCurrentButtonLocation[kNumJoyButtons];	// Last touch location for every button
-	Triangle* _joyButtons[kNumJoyButtons];
+	Vector*		m_pJoyCurrentButtonLocation[kNumJoyButtons];	// Last touch location for every button
+	Triangle*	m_pJoyButtons[kNumJoyButtons];
 }
 
 // The constructor
