@@ -9,6 +9,9 @@
 #import "TogglerItem.h"
 #import "TexturesHolder.h"
 #import "TapMania.h"
+#import "EAGLView.h"
+
+#import "TMFramedTexture.h"
 
 @implementation TogglerItemObject
 

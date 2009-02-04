@@ -7,6 +7,15 @@
 //
 
 #import "TexturesHolder.h"
+#import "Texture2D.h"
+#import "TMFramedTexture.h"
+#import "TMAnimatable.h"
+
+#import "Judgement.h"
+#import "HoldJudgement.h"
+#import "Receptor.h"
+#import "TapNote.h"
+#import "HoldNote.h"
 
 // This is a singleton class, see below
 static TexturesHolder *sharedTexturesDelegate = nil;

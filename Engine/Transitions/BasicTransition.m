@@ -9,6 +9,7 @@
 #import "BasicTransition.h"
 #import "TMTransitionSupport.h"
 #import "TapMania.h"
+#import "TMRunLoop.h"	// For TMRunLoopPriority
 
 @implementation BasicTransition
 
@@ -44,7 +45,7 @@
 	
 	// Set new one and show it
 	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
-	[[TapMania sharedInstance] registerObject:m_pTo withPriority:kRunLoopPriority_Highest];
+	[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest];
 }
 
 @end

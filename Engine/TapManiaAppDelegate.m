@@ -8,6 +8,7 @@
 //
 
 #import "TapManiaAppDelegate.h"
+#import "TapMania.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
 

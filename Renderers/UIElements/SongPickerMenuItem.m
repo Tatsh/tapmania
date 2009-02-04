@@ -9,6 +9,9 @@
 #import "SongPickerMenuItem.h"
 #import "TMFramedTexture.h"
 #import "TexturesHolder.h"
+
+#import "TMSong.h"
+
 #import "TapMania.h"
 
 @implementation SongPickerMenuItem

@@ -11,7 +11,11 @@
 #import "TapMania.h"
 #import "InputEngine.h"
 #import "TexturesHolder.h"
+#import "EAGLView.h"
 
+#import "Texture2D.h"
+
+#import "TMSteps.h"
 #import "SongPickerMenuRenderer.h"
 
 @implementation SongResultsRenderer
@@ -115,7 +119,7 @@
 
 /* TMGameUIResponder methods */
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	UITouch *t1 = [[touches allObjects] objectAtIndex:0];
+	// UITouch *t1 = [[touches allObjects] objectAtIndex:0];
 	
 	if([touches count] == 1){
 /*		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];

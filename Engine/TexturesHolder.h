@@ -7,14 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Texture2D.h"
-#import "TMAnimatable.h"
-#import "TMFramedTexture.h"
-#import "TapNote.h"
-#import "HoldNote.h"
-#import "Receptor.h"
-#import "Judgement.h"
-#import "HoldJudgement.h"
+
+@class Texture2D;
 
 typedef enum {
 	// Gameplay stuff

@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InputEngine.h"
+
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-#import "MenuItem.h"
-
-
-#import "JoyPad.h"
+@class JoyPad, MenuItem;
 
 enum {
 	kMainMenuItem_Play = 0,

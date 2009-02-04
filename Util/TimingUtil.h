@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TMSong.h"
-#import "TMChangeSegment.h"
-#import "TMNote.h"
-#import "Judgement.h"
+#import "Judgement.h" // For TMJudgement
+#import "TMNote.h" // For TMNoteScore etc.
+
+@class TMSong, TMChangeSegment;
 
 @interface TimingUtil : NSObject {
 }

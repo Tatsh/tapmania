@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMSong.h"
+#import "TMSong.h"	// For TMSongDifficulty
 
 // Define available speed modifiers
 typedef enum {

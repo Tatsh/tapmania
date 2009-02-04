@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MenuItem.h"
-#import "TMSong.h"
-#import "Texture2D.h"
+
+@class Texture2D, TMSong;
 
 @interface SongPickerMenuItem : MenuItem {
 	TMSong* m_pSong;	// The song object bound to this menu item

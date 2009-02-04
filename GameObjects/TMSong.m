@@ -10,6 +10,7 @@
 
 #import "DWIParser.h"
 #import "TimingUtil.h"
+#import "TMChangeSegment.h"
 
 @implementation TMSong
 

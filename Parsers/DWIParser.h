@@ -8,9 +8,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMSong.h"
 #import "TMSteps.h"
 
+@class TMSong;
 
 enum {
 	DANCE_NOTE_NONE = 0,

@@ -10,7 +10,7 @@
 #import "TMFramedTexture.h"
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
-#import "TMSteps.h"
+#import "TMSteps.h"	// For kNumOfAvailableTracks
 
 #define HOLD_JUDGEMENT_MAX_SHOW_TIME 0.4	// Seconds 
 

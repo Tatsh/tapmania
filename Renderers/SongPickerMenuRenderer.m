@@ -24,6 +24,10 @@
 #import "SongPickerMenuSelectedItem.h"
 #import "TogglerItem.h"
 
+#import "InputEngine.h"
+#import "TapMania.h"
+#import "EAGLView.h"
+
 #import "SongPlayRenderer.h"
 
 #define kMinSwipeDelta 50.0f

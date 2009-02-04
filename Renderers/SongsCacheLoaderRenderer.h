@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AbstractRenderer.h"
 #import "TMLogicUpdater.h"
 #import "TMSongsLoaderSupport.h"
 #import "TMTransitionSupport.h"
-#import "Texture2D.h"
+
+#import "AbstractRenderer.h"
+
+@class Texture2D;
 
 @interface SongsCacheLoaderRenderer : AbstractRenderer <TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
 	BOOL	m_bAllSongsLoaded;

@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TapManiaAppDelegate.h"
 #import "TexturesHolder.h"
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
@@ -18,6 +17,10 @@
 #import "TMRunLoop.h"
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
+
+#import "EAGLView.h"
+#import "InputEngine.h"
+#import "TapMania.h"
 
 #import <syslog.h>
 

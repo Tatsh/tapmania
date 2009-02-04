@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TMSteps.h"
+#import "TMSteps.h"	// For kNumOfAvailableTracks
 #import "TMAnimatable.h"
 
 #define kExplosionMaxTime 0.1	// Seconds

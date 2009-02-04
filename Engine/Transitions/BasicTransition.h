@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractRenderer.h"
 #import "TMSingleTimeTask.h"
 
+@class AbstractRenderer;
 
 @interface BasicTransition : NSObject <TMSingleTimeTask> {
 	AbstractRenderer *m_pFrom, 

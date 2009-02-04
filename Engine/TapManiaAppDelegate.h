@@ -8,7 +8,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TapMania.h"
 
 typedef enum {
 	kState_StandBy = 0,		// Menu or entrance screen

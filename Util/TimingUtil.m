@@ -7,6 +7,8 @@
 //
 
 #import "TimingUtil.h"
+#import "TMSong.h"
+#import "TMChangeSegment.h"
 
 #include <mach/mach.h>
 #include <mach/mach_time.h>

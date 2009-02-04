@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Texture2D.h"
-#import "MenuItem.h"
 #import "TMGameUIResponder.h"
+#import "MenuItem.h"
+
+@class MenuItem, Texture2D;
 
 /* This object is a pair with title=>value */
 @interface TogglerItemObject : NSObject {

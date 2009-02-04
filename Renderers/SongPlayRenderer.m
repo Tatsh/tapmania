@@ -22,7 +22,18 @@
 #import "TMSongOptions.h"
 #import "TMChangeSegment.h"
 
+#import "ReceptorRow.h"
+#import "LifeBar.h"
+
 #import "ThemeManager.h"
+#import "TapMania.h"
+#import "EAGLView.h"
+#import "JoyPad.h"
+
+#import "TapNote.h"
+#import "HoldNote.h"
+#import "HoldJudgement.h"
+#import "Judgement.h"
 
 #import <syslog.h>
 #import <math.h>

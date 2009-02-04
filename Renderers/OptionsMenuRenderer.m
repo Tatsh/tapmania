@@ -6,8 +6,9 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TapManiaAppDelegate.h"
+#import "TapMania.h"
 #import "TexturesHolder.h"
+#import "EAGLView.h"
 
 #import "OptionsMenuRenderer.h"
 #import "MainMenuRenderer.h"
@@ -25,7 +26,7 @@
 }
 
 - (void)render:(NSNumber*) fDelta {
-	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+	// CGRect	bounds = [TapMania sharedInstance].glView.bounds;
 	
 	//Draw background
 	/*

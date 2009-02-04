@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMNote.h"
+
+@class TMNote;
 
 @interface TMTrack : NSObject {
 	NSMutableArray* m_aNotesArray;

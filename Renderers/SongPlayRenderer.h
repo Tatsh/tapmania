@@ -7,18 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractRenderer.h"
 
-#import "TMSong.h"
-#import "TMSteps.h"
-#import "TMSongOptions.h"
+#import "AbstractRenderer.h"
 #import "TMLogicUpdater.h"
-#import "JoyPad.h"
-#import "ReceptorRow.h"
-#import "LifeBar.h"
-#import "HoldNote.h"
-#import "Judgement.h"
-#import "HoldJudgement.h"
+
+#import "TMSteps.h" // For kNumOfAvailableTracks
+
+@class TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row

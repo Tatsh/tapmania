@@ -8,7 +8,7 @@
 
 #import "TMSteps.h"
 #import "TMTrack.h"
-
+#import "TMNote.h"
 
 @implementation TMSteps
 

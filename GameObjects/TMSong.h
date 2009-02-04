@@ -23,9 +23,6 @@ typedef enum {
 	kNumSongDifficulties
 } TMSongDifficulty;
 
-
-#import "TMSteps.h"
-
 @class TMSteps;
 
 @interface TMSong : NSObject {

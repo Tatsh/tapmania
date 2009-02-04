@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TMSteps.h"
-#import "TMSong.h"
-#import "TMLogicUpdater.h"
+#import "TMNote.h" // For kNumNoteScores etc.
+
 #import "AbstractRenderer.h"
+#import "TMLogicUpdater.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
+
+@class TMSteps, TMSong;
 
 @interface SongResultsRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	TMSong*					m_pSong;	// The song we are calculating for

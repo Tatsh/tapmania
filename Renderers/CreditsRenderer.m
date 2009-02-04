@@ -9,8 +9,10 @@
 #import "CreditsRenderer.h"
 #import "TexturesHolder.h"
 #import "Texture2D.h"
+#import "InputEngine.h"
 
-#import "TapManiaAppDelegate.h"
+#import "EAGLView.h"
+#import "TapMania.h"
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
 

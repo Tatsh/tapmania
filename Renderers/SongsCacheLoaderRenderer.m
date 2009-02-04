@@ -11,6 +11,8 @@
 #import "MainMenuRenderer.h"
 #import "SongsDirectoryCache.h"
 #import "TexturesHolder.h"
+#import "Texture2D.h"
+#import "EAGLView.h"
 
 @interface SongsCacheLoaderRenderer (Private)
 - (void) worker;

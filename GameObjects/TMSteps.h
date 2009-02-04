@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMSong.h"
-#import "TMNote.h"
+#import "TMSong.h"	// For TMSongDifficulty
 #import "TMTrack.h"
+
+@class TMTrack, TMNote;
 
 typedef enum {
 	kAvailableTrack_Left = 0,

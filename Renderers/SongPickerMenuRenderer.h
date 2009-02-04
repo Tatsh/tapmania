@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "InputEngine.h"
 #import "TMLogicUpdater.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-#import "SongPickerMenuItem.h"
 #import "AbstractRenderer.h"
-#import "TogglerItem.h"
+
+@class SongPickerMenuItem, TogglerItem;
 
 #define kNumWheelItems 7
 

@@ -14,7 +14,10 @@
 #import "TexturesHolder.h"
 #import "InputEngine.h"
 #import "ThemeManager.h"
+#import "EAGLView.h"
 
+#import "TMRunLoop.h"	// TMRunLoopPriority
+#import "JoyPad.h"
 #import "SongsCacheLoaderRenderer.h"
 
 

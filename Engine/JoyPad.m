@@ -11,6 +11,8 @@
 #import "JoyPad.h"
 #import "TapMania.h"
 #import "TimingUtil.h"
+#import "PhysicsUtil.h"
+#import "EAGLView.h"
 
 @interface JoyPad (Private)
 - (void) createSpreadJoy;

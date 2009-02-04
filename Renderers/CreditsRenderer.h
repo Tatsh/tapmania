@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
-#import "TMGameUIResponder.h"
 #import "TMTransitionSupport.h"
-#import "TMRunLoop.h"
+#import "TMGameUIResponder.h"
+
+@class TMRunLoop;
 
 @interface CreditsRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	NSMutableArray* m_aTexturesArray;

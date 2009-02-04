@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TMGameUIResponder.h"
-#import "PhysicsUtil.h"
+
+@class Vector, Triangle;
 
 typedef enum {
 	kJoyButtonLeft = 0,
