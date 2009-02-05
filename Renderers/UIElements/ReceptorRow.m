@@ -9,35 +9,51 @@
 #import "ReceptorRow.h"
 #import "Receptor.h"
 #import "TexturesHolder.h"
+#import "ThemeManager.h"
+
+static int mt_ReceptorRowX, mt_ReceptorRowY;
+static int mt_TapNoteHeight, mt_TapNoteWidth, mt_TapNoteSpacing;
+static int mt_ReceptorRotations[kNumOfAvailableTracks];
+static int mt_ExplosionAlignX, mt_ExplosionAlignY, mt_ExplosionWidth, mt_ExplosionHeight;
+static float mt_ExplosionMaxShowTime;
+
 
 @implementation ReceptorRow
 
-- (id) initOnPosition:(CGPoint)position {
+- (id) init {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
-	m_fPositionY = position.y;	
-	m_fExplosionYPosition = position.y-32.0f;
+	// Cache metrics
+	mt_ReceptorRowX = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow X"];
+	mt_ReceptorRowY = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Y"];
+	mt_ExplosionMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay ReceptorRow Explosion MaxShowTime"];
 	
-	// Precalculate stuff
-	float currentOffset = 0.0f;
+	mt_TapNoteWidth = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Width"];
+	mt_TapNoteHeight = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Height"];
+	mt_TapNoteSpacing = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Spacing"]; 
+	
+	mt_ExplosionAlignX = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Explosion AlignX"];
+	mt_ExplosionAlignY = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Explosion AlignY"];
+	mt_ExplosionWidth = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Explosion Width"];
+	mt_ExplosionHeight = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Explosion Height"];
+	
+	mt_ReceptorRotations[kAvailableTrack_Left] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Left"];
+	mt_ReceptorRotations[kAvailableTrack_Down] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Down"];
+	mt_ReceptorRotations[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Up"];
+	mt_ReceptorRotations[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Right"];
+
 	int i;
-	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		m_fReceptorXPositions[i] = position.x + currentOffset;
-		m_fExplosionXPositions[i] = position.x + currentOffset - 32.0f;
-		
-		currentOffset += 70; // 64 as width of the receptor + 6 as spacing
-		
 		m_dExplosionTime[i] = 0.0f;
 		m_nExplosion[i] = kExplosionTypeNone;
+		
+		m_fReceptorXPositions[i] = mt_ReceptorRowX + (mt_TapNoteWidth+mt_TapNoteSpacing)*i;
+		m_fExplosionXPositions[i] = m_fReceptorXPositions[i] + mt_ExplosionAlignX;
 	}	
 	
-	m_fReceptorRotations[0] = -90.0f;
-	m_fReceptorRotations[1] = 0.0f;
-	m_fReceptorRotations[2] = 180.0f;
-	m_fReceptorRotations[3] = 90.0f;
+	m_fExplosionYPosition = mt_ReceptorRowY+mt_ExplosionAlignY;
 		
 	return self;
 }
@@ -59,7 +75,7 @@
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		[receptor drawFrame:0 rotation:m_fReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], m_fPositionY, 64.0f, 64.0f)];
+		[receptor drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], mt_ReceptorRowY, mt_TapNoteWidth, mt_TapNoteHeight)];
 		
 		// Draw explosion if required
 		if(m_nExplosion[i] != kExplosionTypeNone) {
@@ -71,7 +87,7 @@
 				tex = (TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapExplosionBright];
 			}
 
-			[tex drawFrame:0 rotation:m_fReceptorRotations[i] inRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, 128.0f, 128.0f)];
+			[tex drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, mt_ExplosionWidth, mt_ExplosionHeight)];
 		}
 	}
 }
@@ -84,7 +100,7 @@
 		if(m_nExplosion[i] != kExplosionTypeNone) {
 			// could timeout
 			m_dExplosionTime[i] += [fDelta floatValue];
-			if(m_dExplosionTime[i] >= kExplosionMaxTime) {
+			if(m_dExplosionTime[i] >= mt_ExplosionMaxShowTime) {
 				m_nExplosion[i] = kExplosionTypeNone;	// Disable
 			}
 		}

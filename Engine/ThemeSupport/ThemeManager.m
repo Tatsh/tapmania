@@ -12,6 +12,11 @@
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
 
+@interface ThemeManager (Private)
+- (NSObject*) lookUpNode:(NSString*) key;
+@end
+
+
 @implementation ThemeManager
 
 @synthesize m_aThemesList, m_sCurrentThemeName;
@@ -71,27 +76,50 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (int) intMetric:(NSString*) metricKey {
-	NSNumber* n = (NSNumber*)[m_pCurrentThemeMetrics objectForKey:metricKey];
-	if(n) 
-		return [n intValue];
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node) 
+		return 0; // Defualt value
 	
-	return 0; // Default value
+	return [(NSNumber*)node	intValue];
 }
 
 - (float) floatMetric:(NSString*) metricKey {
-	NSNumber* n = (NSNumber*)[m_pCurrentThemeMetrics objectForKey:metricKey];
-	if(n) 
-		return [n floatValue];
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node) 
+		return 0.0f; // Defualt value
 	
-	return 0.0f; // Default value	
+	return [(NSNumber*)node	floatValue];
 }
 
 - (NSString*) stringMetric:(NSString*) metricKey {
-	NSString* s = (NSString*)[m_pCurrentThemeMetrics objectForKey:metricKey];
-	if(s) 
-		return [s autorelease];
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node) 
+		return @"EMPTY"; // Defualt value
 	
-	return @"EMPTY"; // Default value
+	return [[NSString stringWithString:(NSString*)node] autorelease];
+}
+
+// This is the private method which searches through the metrics tree to get the metric
+- (NSObject*) lookUpNode:(NSString*) key {
+	
+	// Key is of format: "SomeRootElement SomeInnerElement SomeEvenMoreInnerElement TheMetric"
+	NSArray* pathChunks = [key componentsSeparatedByString:@" "];
+	
+	NSObject* tmp = m_pCurrentThemeMetrics;
+	int i;
+	
+	for(i=0; i<[pathChunks count]-1; ++i) {
+		if(tmp != nil && [tmp isKindOfClass:[NSDictionary class]]) {
+			// Search next component
+			tmp = [(NSDictionary*)tmp objectForKey:[pathChunks objectAtIndex:i]];
+		}
+	}
+	
+	if(tmp != nil) {
+		tmp = [[(NSDictionary*)tmp objectForKey:[pathChunks lastObject]] retain];
+	}
+		
+	return tmp;	// nil or not
 }
 
 #pragma mark Singleton stuff

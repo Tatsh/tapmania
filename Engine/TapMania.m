@@ -37,7 +37,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pCurrentSong = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
-		
+
+	// Load theme. FIXME: hardcoded default theme here!
+	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
+	
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];
 	
@@ -81,10 +84,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// FIXME: hardcoded style here
 	m_pJoyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
-	
-	// Load theme. FIXME: hardcoded default theme here!
-	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
-	
+		
 	// Init main run loop
 	m_pGameRunLoop = [[TMRunLoop alloc] init];
 	m_pGameRunLoop.delegate = self;

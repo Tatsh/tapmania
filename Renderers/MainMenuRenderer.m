@@ -21,8 +21,12 @@
 #import "EAGLView.h"
 #import "InputEngine.h"
 #import "TapMania.h"
+#import "ThemeManager.h"
 
 #import <syslog.h>
+
+static int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
+static int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 
 @implementation MainMenuRenderer
 
@@ -31,16 +35,21 @@
 	if(!self)
 		return nil;
 	
+	// Cache metrics
+	mt_PlayButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu PlayButtonY"];
+	mt_OptionsButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu OptionsButtonY"];
+	mt_CreditsButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu CreditsButtonY"];
+	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsX"];	
+	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsWidth"];
+	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsHeight"];
+	
 	// No item selected by default
 	m_nSelectedMenu = -1;
 	
 	// Register menu items
-	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(60.0f, 200.0f, 200.0f, 40.0f)];
-	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(60.0f, 150.0f, 200.0f, 40.0f)];
-	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(60.0f, 100.0f, 200.0f, 40.0f)];
-	
-	// Enable joypad
-	// joyPad = [[TapMania sharedInstance] enableJoyPad];
+	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
+	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
+	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
 	
 	return self;
 }
@@ -69,10 +78,6 @@
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
-	
-	// Disable joypad
-	// [[TapMania sharedInstance] disableJoyPad];
-	
 }
 
 /* TMRenderable method */
@@ -98,6 +103,8 @@
 		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
 	} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 		NSLog(@"Enter options menu...");
+		
+		// [[TapMania sharedInstance] switchToScreen:[[OptionsRenderer alloc] init]];
 	} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
 		NSLog(@"Enter credits screen...");
 		

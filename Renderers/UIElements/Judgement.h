@@ -11,8 +11,6 @@
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
 
-#define JUDGEMENT_MAX_SHOW_TIME 1.0	// Seconds 
-
 typedef enum {
 	kJudgementNone = 0,
 	kJudgementW1,

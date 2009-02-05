@@ -13,7 +13,7 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@class JoyPad, MenuItem;
+@class MenuItem;
 
 enum {
 	kMainMenuItem_Play = 0,
@@ -25,7 +25,6 @@ enum {
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	int			m_nSelectedMenu;
 	MenuItem*	m_pMainMenuItems[kNumMainMenuItems];
-	JoyPad*		m_pJoyPad;
 }
 
 @end

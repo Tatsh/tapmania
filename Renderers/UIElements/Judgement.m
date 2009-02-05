@@ -7,15 +7,19 @@
 //
 
 #import "Judgement.h"
+#import "ThemeManager.h"
 
 @interface Judgement (Private) 
 - (void) drawJudgement:(TMJudgement) judgement;
 @end
 
+static int mt_JudgementX, mt_JudgementY;
+static float mt_JudgementMaxShowTime;
+
 @implementation Judgement
 
 - (void) drawJudgement:(TMJudgement) judgement {
-	[self drawFrame:judgement-1 atPoint:CGPointMake( 160, 240 )];
+	[self drawFrame:judgement-1 atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -23,6 +27,11 @@
 	if(!self) 
 		return nil;
 
+	// Cache metrics
+	mt_JudgementX = [[ThemeManager sharedInstance] intMetric:@"SongPlay Judgement X"];
+	mt_JudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay Judgement Y"];
+	mt_JudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay Judgement MaxShowTime"];
+	
 	m_dElapsedTime = 0.0f;
 	m_nCurrentJudgement = kJudgementNone;
 
@@ -50,7 +59,7 @@
 	if(m_nCurrentJudgement != kJudgementNone) {
 		m_dElapsedTime += [fDelta floatValue];
 	
-		if(m_dElapsedTime >= JUDGEMENT_MAX_SHOW_TIME) {
+		if(m_dElapsedTime >= mt_JudgementMaxShowTime) {
 			m_dElapsedTime = 0.0f;
 			m_nCurrentJudgement = kJudgementNone;
 		}

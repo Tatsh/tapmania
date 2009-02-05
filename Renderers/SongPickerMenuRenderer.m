@@ -27,6 +27,7 @@
 #import "InputEngine.h"
 #import "TapMania.h"
 #import "EAGLView.h"
+#import "ThemeManager.h"
 
 #import "SongPlayRenderer.h"
 
@@ -42,12 +43,21 @@
 @end
 
 
+static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTogglerHeight;
+
+
 @implementation SongPickerMenuRenderer
 
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
+	
+	// Cache metrics
+	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler X"];
+	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Y"];
+	mt_SpeedTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Width"];
+	mt_SpeedTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Height"];
 	
 	/*
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];

@@ -7,15 +7,19 @@
 //
 
 #import "HoldJudgement.h"
+#import "ThemeManager.h"
 
 @interface HoldJudgement (Private) 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
 @end
 
+static int mt_HoldJudgementX[kNumOfAvailableTracks], mt_HoldJudgementY;
+static float mt_HoldJudgementMaxShowTime;
+
 @implementation HoldJudgement
 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
-	[self drawFrame:judgement-1 atPoint:CGPointMake( m_fJudgementXPositions[track], 325 )];
+	[self drawFrame:judgement-1 atPoint:CGPointMake( mt_HoldJudgementX[track], mt_HoldJudgementY )];
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -23,16 +27,16 @@
 	if(!self) 
 		return nil;
 	
-	// Precalculate stuff
-	float currentOffset = 0.0f;
-	int i;
+	// Cache metrics
+	mt_HoldJudgementX[kAvailableTrack_Left] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement LeftX"];
+	mt_HoldJudgementX[kAvailableTrack_Down] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement DownX"];
+	mt_HoldJudgementX[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement UpX"];
+	mt_HoldJudgementX[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement RightX"];
+	mt_HoldJudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement Y"];
+	mt_HoldJudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay HoldJudgement MaxShowTime"];
 	
-	// FIXME: this should go to theme->metrics..
+	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		m_fJudgementXPositions[i] = 45 + currentOffset;
-		
-		currentOffset += 70; // 64 as width of the receptor + 6 as spacing
-		
 		m_dElapsedTime[i] = 0.0f;
 		m_nCurrentJudgement[i] = kHoldJudgementNone;
 	}	
@@ -66,7 +70,7 @@
 		if(m_nCurrentJudgement[i] != kHoldJudgementNone) {
 			m_dElapsedTime[i] += [fDelta floatValue];
 		
-			if(m_dElapsedTime[i] >= HOLD_JUDGEMENT_MAX_SHOW_TIME) {
+			if(m_dElapsedTime[i] >= mt_HoldJudgementMaxShowTime) {
 				m_dElapsedTime[i] = 0.0f;
 				m_nCurrentJudgement[i] = kHoldJudgementNone;
 			}

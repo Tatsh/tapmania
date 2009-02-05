@@ -38,11 +38,12 @@
 #import <syslog.h>
 #import <math.h>
 
-static int mt_ReceptorRowX, mt_ReceptorRowY;
-static int mt_ReceptorRowWidth, mt_ReceptorRowHeight;
+static int mt_ReceptorRowY;
 static int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 static int mt_ArrowLeftX,	mt_ArrowDownX, mt_ArrowUpX, mt_ArrowRightX;
-static float mt_HoldBodyPieceHeight;
+static int mt_ArrowWidth, mt_ArrowHeight;
+static int mt_HoldCapWidth, mt_HoldCapHeight;
+static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
 @implementation SongPlayRenderer
 
@@ -51,25 +52,28 @@ static float mt_HoldBodyPieceHeight;
 	if(!self)
 		return nil;
 	
-	// Cache metrics
-	mt_ReceptorRowX =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowXPosition"];
-	mt_ReceptorRowY =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowYPosition"];
-	mt_ReceptorRowWidth =	[[ThemeManager sharedInstance] intMetric:@"ReceptorRowWidth"];
-	mt_ReceptorRowHeight = [[ThemeManager sharedInstance] intMetric:@"ReceptorRowHeight"];
+	// Cache metrics	
+	mt_ReceptorRowY =	[[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Y"];
+	mt_LifeBarX =		[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar X"];
+	mt_LifeBarY =		[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Y"];
+	mt_LifeBarWidth =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Width"];
+	mt_LifeBarHeight =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Height"];
 	
-	mt_LifeBarX =		[[ThemeManager sharedInstance] intMetric:@"LifeBarXPosition"];
-	mt_LifeBarY =		[[ThemeManager sharedInstance] intMetric:@"LifeBarYPosition"];
-	mt_LifeBarWidth =	[[ThemeManager sharedInstance] intMetric:@"LifeBarWidth"];
-	mt_LifeBarHeight =	[[ThemeManager sharedInstance] intMetric:@"LifeBarHeight"];
+	mt_ArrowLeftX =	[[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote LeftX"];
+	mt_ArrowDownX =	[[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote DownX"];
+	mt_ArrowUpX =		[[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote UpX"];
+	mt_ArrowRightX =	[[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote RightX"];
+	mt_ArrowWidth =	[[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Width"];
+	mt_ArrowHeight = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Height"];
 	
-	mt_ArrowLeftX =	[[ThemeManager sharedInstance] intMetric:@"ArrowLeftXPosition"];
-	mt_ArrowDownX =	[[ThemeManager sharedInstance] intMetric:@"ArrowDownXPosition"];
-	mt_ArrowUpX =		[[ThemeManager sharedInstance] intMetric:@"ArrowUpXPosition"];
-	mt_ArrowRightX =	[[ThemeManager sharedInstance] intMetric:@"ArrowRightXPosition"];
-	mt_HoldBodyPieceHeight = [[ThemeManager sharedInstance] floatMetric:@"HoldBodyPieceHeight"];	
+	mt_HoldCapWidth = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldNote CapWidth"];	
+	mt_HoldCapHeight = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldNote CapHeight"];	
+	mt_HoldBodyPieceHeight = [[ThemeManager sharedInstance] floatMetric:@"SongPlay HoldNote BodyPieceHeight"];	
+	
+	mt_HalfOfArrowHeight = mt_ArrowHeight / 2.0f;
 	
 	// Init the receptor row
-	m_pReceptorRow = [[ReceptorRow alloc] initOnPosition:CGPointMake(mt_ReceptorRowX, mt_ReceptorRowY)];
+	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
 	// Init the lifebar
 	m_pLifeBar = [[LifeBar alloc] initWithRect:CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight)];
@@ -317,7 +321,7 @@ static float mt_HoldBodyPieceHeight;
 			}
 			
 			// If the Y position is at the floor - jump to next track
-			if(note.m_fStartYPosition <= -64.0f){
+			if(note.m_fStartYPosition <= -mt_ArrowHeight){
 				break; // Start another track coz this note is out of screen
 			}				
 			
@@ -450,15 +454,15 @@ static float mt_HoldBodyPieceHeight;
 			
 			// We will draw the note only if it wasn't hit yet
 			if(note.m_nType == kNoteType_HoldHead || !note.m_bIsHit) {
-				if(note.m_fStartYPosition <= -64.0f) {
+				if(note.m_fStartYPosition <= -mt_ArrowHeight) {
 					break; // Start another track coz this note is out of screen
 				}
 				
 				// If note is a holdnote
 				if(note.m_nType == kNoteType_HoldHead) {			
 					// Calculate body length
-					float bodyTopY = note.m_fStartYPosition + 32.0f; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = note.m_fStopYPosition + 32.0f; // Make space for bottom cap
+					float bodyTopY = note.m_fStartYPosition + mt_HalfOfArrowHeight; // Plus half of the tap note so that it will be overlapping
+					float bodyBottomY = note.m_fStopYPosition + mt_HalfOfArrowHeight; // Make space for bottom cap
 					
 					// Determine the track X position now
 					float holdX = 0.0f;
@@ -497,19 +501,19 @@ static float mt_HoldBodyPieceHeight;
 					if(bodyBottomY > 0.0f) {
 						// Ok. must draw the cap
 						if(note.m_bIsHolding) {
-							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapActive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
+							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapActive] drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapHeight)];
 						} else {
-							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-63.0f, 64.0f, 64.0f)];
+							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapWidth)];
 						}
 					}
 				}
 				
 				if( i == kAvailableTrack_Left ) {
-					CGRect arrowRect = CGRectMake(mt_ArrowLeftX, note.m_fStartYPosition , 64, 64);
+					CGRect arrowRect = CGRectMake(mt_ArrowLeftX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
 							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
-						} else { // if(note.isHoldLost == YES) {
+						} else { 
 							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];	
 						}
 					} else {
@@ -517,7 +521,7 @@ static float mt_HoldBodyPieceHeight;
 					}
 				}
 				else if( i == kAvailableTrack_Down ) {
-					CGRect arrowRect = CGRectMake(mt_ArrowDownX, note.m_fStartYPosition, 64, 64);
+					CGRect arrowRect = CGRectMake(mt_ArrowDownX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
 							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
@@ -529,7 +533,7 @@ static float mt_HoldBodyPieceHeight;
 					}
 				}
 				else if( i == kAvailableTrack_Up ) {
-					CGRect arrowRect = CGRectMake(mt_ArrowUpX, note.m_fStartYPosition, 64, 64);
+					CGRect arrowRect = CGRectMake(mt_ArrowUpX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
 							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
@@ -541,7 +545,7 @@ static float mt_HoldBodyPieceHeight;
 					}
 				}
 				else if( i == kAvailableTrack_Right ) {
-					CGRect arrowRect = CGRectMake(mt_ArrowRightX, note.m_fStartYPosition, 64, 64);
+					CGRect arrowRect = CGRectMake(mt_ArrowRightX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
 							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];

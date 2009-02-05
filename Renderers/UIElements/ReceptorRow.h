@@ -11,8 +11,6 @@
 #import "TMSteps.h"	// For kNumOfAvailableTracks
 #import "TMAnimatable.h"
 
-#define kExplosionMaxTime 0.1	// Seconds
-
 typedef enum {
 	kExplosionTypeNone = 0,
 	kExplosionTypeDim,
@@ -25,19 +23,13 @@ typedef enum {
  * Uses the Receptor class which holds the receptor arrow texture
 */
 @interface ReceptorRow : TMAnimatable {
-	float m_fPositionY;	// Where the bottom of the receptor row is relative to the screen
 	float m_fExplosionYPosition;
-
 	float m_fExplosionXPositions[kNumOfAvailableTracks];
 	float m_fReceptorXPositions[kNumOfAvailableTracks];	// Final positions on the X axis of the receptor arrows
-	
-	float m_fReceptorRotations[kNumOfAvailableTracks];
-	
+		
 	double m_dExplosionTime[kNumOfAvailableTracks];	// Time of explosion start
 	TMExplosionType m_nExplosion[kNumOfAvailableTracks];	// Which explosion is active
 }
-
-- (id) initOnPosition:(CGPoint)position;
 
 - (void) explodeDim:(TMAvailableTracks)receptor;		// Use this to start the explosion (dim)
 - (void) explodeBright:(TMAvailableTracks)receptor;		// Same (bright)
