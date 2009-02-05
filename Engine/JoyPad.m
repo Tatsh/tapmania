@@ -127,7 +127,12 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		// Check general touch position
-		if(point.y <= 320.0) {
+		if(point.y >= 420.0) {
+			// This means we want to exit the song (force fail)
+			m_bJoyButtonStates[kJoyButtonExit] = YES;
+			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp;
+			
+		} else if(point.y <= 320.0) {
 			int i;
 			int closestButton = -1;
 			float minDist = MAXFLOAT;

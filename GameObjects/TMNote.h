@@ -10,9 +10,9 @@
 
 typedef enum {
 	kNoteDirection_Left = 0,
-	kNoteDirection_Right,
 	kNoteDirection_Down,
 	kNoteDirection_Up,
+	kNoteDirection_Right,
 	kNumNoteDirections
 } TMNoteDirection;
 

@@ -153,7 +153,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 			m_bMusicPlaybackStarted = YES;
 			SoundEngine_StartBackgroundMusic();
 		}
-	} else if(currentTime >= m_dPlayBackScheduledEndTime) {
+	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit]) {
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
 		SoundEngine_StopBackgroundMusic(NO);

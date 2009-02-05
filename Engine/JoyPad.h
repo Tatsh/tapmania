@@ -16,6 +16,7 @@ typedef enum {
 	kJoyButtonDown,
 	kJoyButtonUp,
 	kJoyButtonRight,
+	kJoyButtonExit,
 	kNumJoyButtons
 } JPButton;
 

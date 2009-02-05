@@ -7,10 +7,14 @@
 //
 
 #import "TapNote.h"
+#import "TMSteps.h"
+#import "ThemeManager.h"
 
 @interface TapNote (Private)
 - (float) calculateRotation:(TMNoteDirection)dir;
 @end
+
+static int mt_TapNoteRotations[kNumOfAvailableTracks];
 
 @implementation TapNote
 
@@ -19,6 +23,12 @@
 	self = [super initWithImage:uiImage columns:columns andRows:rows];
 	if(!self)
 		return nil;
+	
+	// Cache metrics	
+	mt_TapNoteRotations[kAvailableTrack_Left] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Left"];
+	mt_TapNoteRotations[kAvailableTrack_Down] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Down"];
+	mt_TapNoteRotations[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Up"];
+	mt_TapNoteRotations[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Right"];	
 	
 	// We will animate every arrow at same time
 	m_nStartFrame = 0;
@@ -40,14 +50,7 @@
 }
 
 - (float) calculateRotation:(TMNoteDirection)dir {
-	if(dir == kNoteDirection_Up) 
-		return 180.0f;
-	else if(dir == kNoteDirection_Left) 
-		return -90.0f;
-	else if(dir == kNoteDirection_Right) 
-		return 90.0f;
-	
-	return 0.0f;
+	return mt_TapNoteRotations[dir];
 }
 
 /* Main drawing routine */
