@@ -54,16 +54,13 @@
 }
 
 + (Vector*) normalize:(Vector*)v0 withTolerance:(float)tolerance {
-	Vector* result = [[Vector alloc] init];
-
 	float len = [Vector norm:v0];
 
 	if(len >= tolerance){
-		result.x = v0.x/len;
-		result.y = v0.y/len;
+		return [[Vector alloc] initWithX:v0.x/len andY:v0.y/len];
 	}
-
-	return result;
+	
+	return [[Vector alloc] init];
 }
 
 + (float) dist:(Vector*)v0 and:(Vector*)v1 {

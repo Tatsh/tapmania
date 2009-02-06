@@ -87,7 +87,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 		
 	// Init main run loop
 	m_pGameRunLoop = [[TMRunLoop alloc] init];
-	m_pGameRunLoop.delegate = self;
+	[m_pGameRunLoop delegate:self];
 	
 	return self;
 }

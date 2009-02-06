@@ -10,6 +10,8 @@
 #import "ThemeMetrics.h"
 #import "ResourcesLoader.h"
 
+#import <syslog.h>
+
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
 
@@ -34,6 +36,8 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	
 	NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
 	NSLog(@"Point themes dir to '%@'!", themesDir);
+	syslog(LOG_DEBUG, "Point themes dir to '%s'!", [themesDir UTF8String]);
+
 	
 	NSArray* themesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:themesDir];
 		
@@ -53,6 +57,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 			// Ok. Looks like a valid tapmania theme.. add it to the list
 			[m_aThemesList addObject:themeDirName];
 			NSLog(@"Added theme '%@' to themes list.", themeDirName);
+			syslog(LOG_DEBUG, "added theme to list %s", [themeDirName UTF8String]);
 		}
 	}
 	
@@ -70,8 +75,10 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
+			syslog(LOG_DEBUG, "metrics loaded from file %s", [filePath UTF8String]);
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath andDelegate:self];
 			
+			syslog(LOG_DEBUG, "resources loaded from dir %s", [themeGraphicsPath UTF8String]);
 			NSLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 			
 		} else {

@@ -12,8 +12,8 @@
 	float m_fX, m_fY;
 }
 
-@property(assign,nonatomic, getter=x) float m_fX;
-@property(assign,nonatomic, getter=y) float m_fY;
+@property(setter = x:, getter = x, assign) float m_fX;
+@property(setter = y:, getter = y, assign) float m_fY;
 
 - (id) initWithX:(float)lx andY:(float)ly;
 - (float) norm;

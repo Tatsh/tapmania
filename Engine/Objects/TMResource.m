@@ -10,6 +10,8 @@
 #import "Texture2D.h"
 #import "TMFramedTexture.h"
 
+#import <syslog.h>
+
 @implementation TMResource
 
 @synthesize m_sResourceName, m_pResource;
@@ -96,10 +98,11 @@
 - (void) loadResource {
 	if(m_bIsLoaded) {
 		NSLog(@"Resource is already loaded. ignore.");
+		syslog(LOG_DEBUG, "Resource already loaded. ignore");
 		return;
 	}
 	
-	NSLog(@"Will try to load a resource for class '%@'...", [m_oClass className]);
+	// NSLog(@"Will try to load a resource for class '%@'...", [m_oClass className]);
 	
 	// For all framed classes
 	if( m_oClass == [TMFramedTexture class] ) {
@@ -113,7 +116,7 @@
 	}
 	
 	if(m_bIsLoaded) {
-		NSLog(@"RESOURCE [%@] is loaded!", [m_oClass className]);	
+		// NSLog(@"RESOURCE [%@] is loaded!", [m_oClass className]);	
 	} else {
 		NSLog(@"Failed to load resource!");
 	}

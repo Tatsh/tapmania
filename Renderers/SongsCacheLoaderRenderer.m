@@ -46,7 +46,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	// Do the caching
-	[SongsDirectoryCache sharedInstance].delegate = self;
+	[[SongsDirectoryCache sharedInstance] delegate:self];
 	[[SongsDirectoryCache sharedInstance] cacheSongs];
 	
 	[pool drain];

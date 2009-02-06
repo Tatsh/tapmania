@@ -3,11 +3,12 @@ CC=arm-apple-darwin9-gcc
 LD=$(CC) 
 FRAMEWORKS=-framework CoreFoundation -framework Foundation -framework UIKit -framework CoreAudio -framework OpenAL -framework CoreGraphics -framework OpenGLES -framework AudioToolbox -framework QuartzCore
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
-CFLAGS=-O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects -IEngine/Transitions -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
+CFLAGS=-std=c99 -fobjc-exceptions -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
 OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Objects/TMObjectWithPriority.o \
-	Engine/Objects/TMFramedTexture.o Engine/Objects/TMAnimatable.o \
+	Engine/Objects/TMFramedTexture.o Engine/Objects/TMAnimatable.o Engine/Objects/TMResource.o \
 	Engine/TapMania.o Engine/InputEngine.o Engine/TMRunLoop.o Engine/SoundEffectsHolder.o \
 	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/TexturesHolder.o Engine/EAGLView.o \
+	Engine/ThemeSupport/ResourcesLoader.o Engine/ThemeSupport/ThemeMetrics.o Engine/ThemeSupport/ThemeManager.o \
 	Renderers/AbstractRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
 	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \
 	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/SongResultsRenderer.o \
@@ -21,7 +22,7 @@ OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Obje
 all: app tar deploy 
 
 deploy:
-	scp tm.tar mobile@192.168.0.102:
+	scp tm.tar mobile@192.168.0.101:
 
 tar:
 	tar cf tm.tar TapMania.app

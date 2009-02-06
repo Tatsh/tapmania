@@ -9,6 +9,8 @@
 #import "ResourcesLoader.h"
 #import "TMResource.h"
 
+#import <syslog.h>
+
 @interface ResourcesLoader (Private)
 - (void) loadResourceFromPath:(NSString*) path intoNode:(NSDictionary*) node;
 - (NSObject*) lookUpNode:(NSString*) key;
@@ -98,13 +100,16 @@
 			// is dir?
 			if(isDirectory) {
 				NSLog(@"[+] Found directory: %@", itemName);
+				syslog(LOG_DEBUG, "[+] found dir: %s", [itemName UTF8String]);
 				
 				// Create new dictionary
 				NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 				NSLog(@"Start loading into '%@'", itemName);
+				syslog(LOG_DEBUG, "start loading into %s", [itemName UTF8String]);
 				[self loadResourceFromPath:curPath intoNode:dict];
 				
 				NSLog(@"------");
+				syslog(LOG_DEBUG, "------------");
 				
 				// Add that new dict node to the node specified in the arguments
 				[node setValue:dict forKey:itemName];
@@ -114,11 +119,13 @@
 				// file. check type
 				if( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] ) {
 					NSLog(@"[Supported] %@", itemName);
+					syslog(LOG_DEBUG, "[SUPPORTED] %s", [itemName UTF8String]);
 					TMResource* resource = [[TMResource alloc] initWithPath:curPath andItemName:itemName];
 					
 					// Add that resource
 					[node setValue:resource forKey:resource.componentName];										
 					NSLog(@"Added it to current node at key = '%@'", resource.componentName);
+					syslog(LOG_DEBUG, "Added it to %s", [resource.componentName UTF8String]);
 				}
 			}
 		}
