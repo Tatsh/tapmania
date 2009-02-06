@@ -16,6 +16,7 @@
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
+		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
 		246FB0E20F28A97500B3F641 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 246FB0D60F28A97500B3F641 /* noteskins */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */; };
@@ -86,6 +87,8 @@
 		244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRunLoop.m; sourceTree = "<group>"; };
 		244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMObjectWithPriority.h; sourceTree = "<group>"; };
 		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
+		244E56050F3C5D1D0004C921 /* ResourcesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesLoader.h; path = ThemeSupport/ResourcesLoader.h; sourceTree = "<group>"; };
+		244E56060F3C5D1D0004C921 /* ResourcesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesLoader.m; path = ThemeSupport/ResourcesLoader.m; sourceTree = "<group>"; };
 		246FB0D60F28A97500B3F641 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				24D762950F38A078008B0AA0 /* ThemeMetrics.m */,
 				24D762970F38A38D008B0AA0 /* ThemeManager.h */,
 				24D762980F38A38D008B0AA0 /* ThemeManager.m */,
+				244E56050F3C5D1D0004C921 /* ResourcesLoader.h */,
+				244E56060F3C5D1D0004C921 /* ResourcesLoader.m */,
 			);
 			name = ThemeSupport;
 			sourceTree = "<group>";
@@ -550,6 +555,7 @@
 				246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */,
 				24D762960F38A078008B0AA0 /* ThemeMetrics.m in Sources */,
 				24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */,
+				244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,11 +32,11 @@ The loader class should give a possibility to specify which resources are curren
 It also should provide a way to release unused resources by hand.
 These two routines should be able to load all sub groups using one group path like this:
 
-[ThemeLoader preLoad:@"SongPlay"]; 			--- Preloads all SongPlay stuff.
-[ThemeLoader preLoad:@"MainMenu AnimatinIcon"];		--- Preloads the AnimatingIcon only.
-[NoteSkinLoader preLoad:@"TapNote"];			--- Preloads all TapNote objects.
-[NoteSkinLoader preLoadAll];				--- Load the whole noteskin into memory
-[ThemeLoader releaseResources:@"SongPlay"];		--- Release all SongPlay stuff (for example on song end).
-[NoteSkinLoader releaseAll];				--- Release the noteskin.. for example if you changed the noteskin in options
+[themeLoader preLoad:@"SongPlay"]; 			--- Preloads all SongPlay stuff.
+[themeLoader preLoad:@"MainMenu AnimatinIcon"];		--- Preloads the AnimatingIcon only.
+[noteSkinLoader preLoad:@"TapNote"];			--- Preloads all TapNote objects.
+[noteSkinLoader preLoadAll];				--- Load the whole noteskin into memory
+[themeLoader unLoad:@"SongPlay"];			--- Release all SongPlay stuff (for example on song end).
+[noteSkinLoader unLoadAll];				--- Release the noteskin.. for example if you changed the noteskin in options
 
 All preloading/releasing routines should load/unload the textures to/from the GPU. This is done automatically by Texture2D though.
