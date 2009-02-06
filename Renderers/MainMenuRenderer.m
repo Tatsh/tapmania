@@ -22,11 +22,14 @@
 #import "InputEngine.h"
 #import "TapMania.h"
 #import "ThemeManager.h"
+#import "Texture2D.h"
 
 #import <syslog.h>
 
 static int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
 static int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
+
+static Texture2D* bg;
 
 @implementation MainMenuRenderer
 
@@ -42,6 +45,9 @@ static int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsX"];	
 	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsWidth"];
 	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsHeight"];
+	
+	// Preload all required graphics
+	bg = [[[ThemeManager sharedInstance].theme getResource:@"MainMenu Background"] resource];
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
@@ -86,7 +92,8 @@ static int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
+	// [[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
+	[bg drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// NOTE: Items will be rendered by it self

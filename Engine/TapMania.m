@@ -38,12 +38,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
 
-	// Load theme. FIXME: hardcoded default theme here!
-	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
-	
-	// Load all sounds
-	[SoundEffectsHolder sharedInstance];
-	
 	// Load up graphics system
 	CGRect rect = [[UIScreen mainScreen] bounds];	
 	
@@ -55,8 +49,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Init opengl
 	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
-	m_pGlView.multipleTouchEnabled = YES;
-
+	m_pGlView.multipleTouchEnabled = YES;	
+	
+	// Load theme. FIXME: hardcoded default theme here!
+	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
+	
+	// Load all sounds
+	[SoundEffectsHolder sharedInstance];
+	
 	// Load all textures
 	[TexturesHolder sharedInstance];
 	

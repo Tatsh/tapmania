@@ -8,6 +8,7 @@
 
 #import "ThemeManager.h"
 #import "ThemeMetrics.h"
+#import "ResourcesLoader.h"
 
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
@@ -20,6 +21,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 @implementation ThemeManager
 
 @synthesize m_aThemesList, m_sCurrentThemeName;
+@synthesize m_pCurrentThemeResources, m_pCurrentNoteSkinResources;
 
 - (id) init {
 	self = [super init];
@@ -63,11 +65,15 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		m_sCurrentThemeName = themeName;
 		
 		NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
+		NSString* themeGraphicsPath = [themesDir stringByAppendingFormat:@"/%@/Graphics/", m_sCurrentThemeName];
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
-			NSLog(@"Metrics loaded for theme '%@'.", m_sCurrentThemeName);
+			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath andDelegate:self];
+			
+			NSLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
+			
 		} else {
 			NSLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
 			exit(127);
@@ -120,6 +126,18 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	}
 		
 	return tmp;	// nil or not
+}
+
+
+/* ResourcesLoaderSupport delegate work */
+- (BOOL) resourceTypeSupported:(NSString*) itemName {
+	if([[itemName lowercaseString] hasSuffix:@".png"] || [[itemName lowercaseString] hasSuffix:@".jpg"] ||
+	   [[itemName lowercaseString] hasSuffix:@".gif"] || [[itemName lowercaseString] hasSuffix:@".bmp"] ) 
+	{ 
+		return YES;
+	}
+	
+	return NO;		
 }
 
 #pragma mark Singleton stuff
