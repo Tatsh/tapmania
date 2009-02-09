@@ -7,7 +7,6 @@
 //
 
 #import "SongPlayRenderer.h"
-#import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEngine.h"
 #import "SoundEffectsHolder.h"
@@ -38,14 +37,21 @@
 #import <syslog.h>
 #import <math.h>
 
-static int mt_ReceptorRowY;
-static int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
-static int mt_ArrowLeftX,	mt_ArrowDownX, mt_ArrowUpX, mt_ArrowRightX;
-static int mt_ArrowWidth, mt_ArrowHeight;
-static int mt_HoldCapWidth, mt_HoldCapHeight;
-static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
-
 @implementation SongPlayRenderer
+
+TapNote* t_TapNote;
+Judgement* judgement;
+HoldJudgement* t_HoldJudgement;
+HoldNote* t_HoldNoteInactive;
+HoldNote* t_HoldNoteActive;
+Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
+
+int mt_ReceptorRowY;
+int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
+int mt_ArrowLeftX,	mt_ArrowDownX, mt_ArrowUpX, mt_ArrowRightX;
+int mt_ArrowWidth, mt_ArrowHeight;
+int mt_HoldCapWidth, mt_HoldCapHeight;
+float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
 - (id) init {
 	self = [super init];
@@ -72,6 +78,9 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	
 	mt_HalfOfArrowHeight = mt_ArrowHeight / 2.0f;
 	
+	// Cache graphics
+	// tapNote = [[ThemeManager sharedInstance] noteSkinTexture:@"TapNote"];
+	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
@@ -95,8 +104,6 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 }
 
 - (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
-	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];	
-	
 	m_pSong = [song retain];
 	m_pSteps = [m_pSong getStepsForDifficulty:options.m_nDifficulty];
 
@@ -127,7 +134,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
 	m_dPlayBackScheduledEndTime = m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	
-	[tapNote startAnimation];
+	[t_TapNote startAnimation];
 	
 	// Enable joypad
 	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];
@@ -138,10 +145,6 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 // Updates one frame of the gameplay
 - (void)update:(NSNumber*)fDelta {	
 	if(!m_bPlayingGame) return;
-		
-	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
-	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
-	HoldJudgement* holdJudgement = (HoldJudgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldJudgement];	
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
@@ -159,7 +162,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		SoundEngine_StopBackgroundMusic(NO);
 		
 		// Stop animating the arrows
-		[tapNote stopAnimation];
+		[t_TapNote stopAnimation];
 	
 		// Disable the joypad
 		[[TapMania sharedInstance] disableJoyPad];
@@ -177,23 +180,23 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	[TimingUtil getBeatAndBPSFromElapsedTime:elapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:m_pSong]; 
 	
 	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
-	[tapNote setM_fFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
-	[tapNote update:fDelta];
+	[t_TapNote setM_fFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
+	[t_TapNote update:fDelta];
 
 	// Update receptor row animations
 	[m_pReceptorRow update:fDelta];
 	
 	// Update judgement state
 	[judgement update:fDelta];
-	[holdJudgement update:fDelta];
+	[t_HoldJudgement update:fDelta];
 	
 	// If freeze - leave for now
 	if(hasFreeze) {
-		[tapNote pauseAnimation];
+		[t_TapNote pauseAnimation];
 		return;
 	} 
 	
-	[tapNote continueAnimation];
+	[t_TapNote continueAnimation];
 	
 	double searchHitFromTime = elapsedTime - 0.1f;
 	double searchHitTillTime = elapsedTime + 0.1f;
@@ -294,7 +297,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 				// TODO: all hold notes which are not held now should show NG. not only one.
 				if(note.m_nType == kNoteType_HoldHead) {
 					[m_pLifeBar updateBy:-0.05];	// NG judgement
-					[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
+					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
 				}
 			}
 			
@@ -309,7 +312,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 				if(note.m_bIsHit && holdBottomCapYPosition >= mt_ReceptorRowY) {
 					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
 					[m_pLifeBar updateBy:0.05];
-					[holdJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
+					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
 					
 					++m_nTrackPos[i];
 					continue; // Skip this hold already
@@ -343,7 +346,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 					if(fabsf(elapsedTime - note.m_dLastHoldReleaseTime) >= 0.8f) {
 						[note markHoldLost];
 						[m_pLifeBar updateBy:-0.05];	// NG judgement
-						[holdJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];					
+						[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];					
 					}
 					
 					// But maybe we have touched it again before it was marked as lost totally?
@@ -417,17 +420,10 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 // Renders one scene of the gameplay
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	TapNote* tapNote = (TapNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapNote];
-	
-	HoldNote* holdNoteInactive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyInactive];
-	HoldNote* holdNoteActive = (HoldNote*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBodyActive];
-	
-	Judgement* judgement = (Judgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_Judgement];	
-	HoldJudgement* holdJudgement = (HoldJudgement*)[[TexturesHolder sharedInstance] getTexture:kTexture_HoldJudgement];	
 	
 	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundSpread] drawInRect:bounds];
+	// [[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundSpread] drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
 	if(!m_bPlayingGame) return;
@@ -487,9 +483,9 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 						// Don't draw if we are out of screen
 						if(offset+sizeOfPiece > 0.0f) {					
 							if(note.m_bIsHolding) {
-								[holdNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+								[t_HoldNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
 							} else {
-								[holdNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+								[t_HoldNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
 							}
 						}
 						
@@ -501,9 +497,9 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 					if(bodyBottomY > 0.0f) {
 						// Ok. must draw the cap
 						if(note.m_bIsHolding) {
-							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapActive] drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapHeight)];
+							[t_HoldBottomCapActive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapHeight)];
 						} else {
-							[[[TexturesHolder sharedInstance] getTexture:kTexture_HoldBottomCapInactive] drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapWidth)];
+							[t_HoldBottomCapInactive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapWidth)];
 						}
 					}
 				}
@@ -512,48 +508,48 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 					CGRect arrowRect = CGRectMake(mt_ArrowLeftX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
-							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
+							[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
 						} else { 
-							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];	
+							[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
+						[t_TapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Left inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Down ) {
 					CGRect arrowRect = CGRectMake(mt_ArrowDownX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
-							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
+							[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];	
+							[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
+						[t_TapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Down inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Up ) {
 					CGRect arrowRect = CGRectMake(mt_ArrowUpX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
-							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
+							[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];	
+							[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];	
 						}
 					} else {
-						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
+						[t_TapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Up inRect:arrowRect];
 					}
 				}
 				else if( i == kAvailableTrack_Right ) {
 					CGRect arrowRect = CGRectMake(mt_ArrowRightX, note.m_fStartYPosition, mt_ArrowWidth, mt_ArrowHeight);
 					if(note.m_nType == kNoteType_HoldHead) {
 						if(note.m_bIsHolding) {
-							[tapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
+							[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
 						} else { // if(note.isHoldLost == YES) {
-							[tapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];	
+							[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];	
 						}
 					} else {						
-						[tapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
+						[t_TapNote drawTapNote:note.m_nBeatType direction:kNoteDirection_Right inRect:arrowRect];
 					}
 				}
 			}
@@ -564,7 +560,7 @@ static float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
 		// Draw the judgement
 		[judgement render:fDelta];
-		[holdJudgement render:fDelta];
+		[t_HoldJudgement render:fDelta];
 	}
 	
 }

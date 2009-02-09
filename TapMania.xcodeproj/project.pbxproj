@@ -18,7 +18,7 @@
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
 		244E56150F3C6C680004C921 /* TMResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.m */; };
-		244E56BE0F3C8C790004C921 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 244E56BB0F3C8C790004C921 /* themes */; };
+		244E59A70F40998D0004C921 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 244E59A40F40998D0004C921 /* themes */; };
 		246FB0E20F28A97500B3F641 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 246FB0D60F28A97500B3F641 /* noteskins */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */; };
@@ -43,7 +43,6 @@
 		2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */; };
 		2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */; };
 		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
-		2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */; };
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
@@ -92,7 +91,7 @@
 		244E56060F3C5D1D0004C921 /* ResourcesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesLoader.m; path = ThemeSupport/ResourcesLoader.m; sourceTree = "<group>"; };
 		244E56130F3C6C680004C921 /* TMResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMResource.h; sourceTree = "<group>"; };
 		244E56140F3C6C680004C921 /* TMResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMResource.m; sourceTree = "<group>"; };
-		244E56BB0F3C8C790004C921 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
+		244E59A40F40998D0004C921 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		246FB0D60F28A97500B3F641 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
@@ -140,8 +139,6 @@
 		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSongOptions.m; sourceTree = "<group>"; };
 		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
 		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
-		2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturesHolder.h; sourceTree = "<group>"; };
-		2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturesHolder.m; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
 		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
@@ -228,8 +225,6 @@
 				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
-				2486F45F0EC1E6A200E5F9EE /* TexturesHolder.h */,
-				2486F4600EC1E6A200E5F9EE /* TexturesHolder.m */,
 				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
 				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 				24F15DB20EC2094600755788 /* SoundEffectsHolder.h */,
@@ -433,7 +428,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				244E56BB0F3C8C790004C921 /* themes */,
+				244E59A40F40998D0004C921 /* themes */,
 				246FB0D60F28A97500B3F641 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -502,7 +497,7 @@
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				246FB0E20F28A97500B3F641 /* noteskins in Resources */,
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
-				244E56BE0F3C8C790004C921 /* themes in Resources */,
+				244E59A70F40998D0004C921 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +517,6 @@
 				2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */,
 				2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */,
 				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */,
-				2486F4610EC1E6A200E5F9EE /* TexturesHolder.m in Sources */,
 				24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */,
 				24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */,
 				24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */,

@@ -13,7 +13,6 @@
 #import "TMSong.h"
 #import "TMSongOptions.h"
 
-#import "TexturesHolder.h"
 #import "TapManiaAppDelegate.h"
 #import "SongsDirectoryCache.h"
 #import "TimingUtil.h"
@@ -48,6 +47,8 @@ static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTog
 
 @implementation SongPickerMenuRenderer
 
+Texture2D* t_SongPickerBG;
+
 - (id) init {
 	self = [super init];
 	if(!self)
@@ -58,6 +59,9 @@ static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTog
 	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Y"];
 	mt_SpeedTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Width"];
 	mt_SpeedTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Height"];
+	
+	// Cache graphics
+	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	
 	/*
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
@@ -163,7 +167,7 @@ static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTog
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionBackground] drawInRect:bounds];
+	[t_SongPickerBG drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// Positions of the wheel items are fixed

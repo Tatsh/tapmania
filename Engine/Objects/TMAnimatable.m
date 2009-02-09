@@ -7,7 +7,6 @@
 //
 
 #import "TMAnimatable.h"
-#import "TexturesHolder.h"
 
 @interface TMAnimatable (Private)
 - (void) drawCurrentFrameInRect:(CGRect)rect;

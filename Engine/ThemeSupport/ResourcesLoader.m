@@ -39,12 +39,15 @@
 
 - (TMResource*) getResource:(NSString*) path {
 	NSObject* node = [self lookUpNode:path];
-	if(!node) {
-		[self preLoad:path];
-	}
 	
-	if([node isKindOfClass:[TMResource class]]) {
-		return node;
+	if(node && [node isKindOfClass:[TMResource class]]) {
+		
+		if(!((TMResource*)node).isLoaded) {
+			[(TMResource*)node loadResource];
+		}
+		
+		// Should be loaded now if above code worked
+		return (TMResource*)node;		
 	} else {
 		NSException* ex = [NSException exceptionWithName:@"Can't get resources." 
 												  reason:[NSString stringWithFormat:@"The path is not a resource. it seems to be a directory: %@", path] userInfo:nil];

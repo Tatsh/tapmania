@@ -7,7 +7,7 @@ CFLAGS=-std=c99 -fobjc-exceptions -O2 -I. -IParsers -IUtil -IGameObjects -IEngin
 OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Objects/TMObjectWithPriority.o \
 	Engine/Objects/TMFramedTexture.o Engine/Objects/TMAnimatable.o Engine/Objects/TMResource.o \
 	Engine/TapMania.o Engine/InputEngine.o Engine/TMRunLoop.o Engine/SoundEffectsHolder.o \
-	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/TexturesHolder.o Engine/EAGLView.o \
+	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/EAGLView.o \
 	Engine/ThemeSupport/ResourcesLoader.o Engine/ThemeSupport/ThemeMetrics.o Engine/ThemeSupport/ThemeManager.o \
 	Renderers/AbstractRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
 	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \

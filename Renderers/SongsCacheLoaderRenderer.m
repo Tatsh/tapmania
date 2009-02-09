@@ -10,9 +10,9 @@
 #import "TapMania.h"
 #import "MainMenuRenderer.h"
 #import "SongsDirectoryCache.h"
-#import "TexturesHolder.h"
 #import "Texture2D.h"
 #import "EAGLView.h"
+#import "ThemeManager.h"
 
 @interface SongsCacheLoaderRenderer (Private)
 - (void) worker;
@@ -21,10 +21,15 @@
 
 @implementation SongsCacheLoaderRenderer
 
+Texture2D* t_SongsLoaderBG;
+
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
+	
+	// Cache textures
+	t_SongsLoaderBG = [[ThemeManager sharedInstance] texture:@"SongsLoader Background"];
 	
 	m_bAllSongsLoaded = NO;
 	m_bGlobalError = NO;
@@ -86,7 +91,7 @@
 	
 	// Draw background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
+	[t_SongsLoaderBG drawInRect:bounds];
 	glEnable(GL_BLEND);
 
 	[m_pLock lock];

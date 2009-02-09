@@ -7,10 +7,12 @@
 //
 
 #import "LifeBar.h"
-
-#import "TexturesHolder.h"
+#import "Texture2D.h"
+#import "ThemeManager.h"
 
 @implementation LifeBar
+
+Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
 
 - (id) initWithRect:(CGRect)rect {
 	self = [super init];
@@ -20,6 +22,12 @@
 	m_fCurrentValue = 0.5f;
 	m_rShape = rect;
 	
+	// Preload all required graphics
+	t_LifeBarBG = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Background"];
+	t_LifeBarNormal = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Normal"];
+	t_LifeBarHot = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Hot"];
+	t_LifeBarFrame = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Frame"];
+		
 	return self;
 }
 
@@ -41,23 +49,23 @@
 	CGRect fillRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, m_rShape.size.width*m_fCurrentValue, m_rShape.size.height);
 
 	// Background first
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarBackground] drawInRect:m_rShape];
+	[t_LifeBarBG drawInRect:m_rShape];
 	
 	// TODO calculate stream from N springs and animate these
 	
 	if(m_fCurrentValue < 0.3) {
 		// Show passing bar
-		// TODO: get the image
-		[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarNormal] drawInRect:fillRect];
+		// TODO: get the image for passing (redir?)
+		[t_LifeBarNormal drawInRect:fillRect];
 	} else if(m_fCurrentValue < 1.0f) {
 		// Show normal bar
-		[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarNormal] drawInRect:fillRect];
+		[t_LifeBarNormal drawInRect:fillRect];
 	} else {
 		// Show hot only if we are very good and having full lifebar
-		[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarHot] drawInRect:fillRect];
+		[t_LifeBarHot drawInRect:fillRect];
 	}
 
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_LifeBarFrame] drawInRect:m_rShape];
+	[t_LifeBarFrame drawInRect:m_rShape];
 }
 
 /* TMLogicUpdater method */

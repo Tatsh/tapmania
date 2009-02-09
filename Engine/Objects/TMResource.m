@@ -14,32 +14,67 @@
 
 @implementation TMResource
 
-@synthesize m_sResourceName, m_pResource;
+@synthesize m_sResourceName, m_bIsLoaded, m_bIsSystem;
+@dynamic m_pResource;
+
+- (NSObject*) resource {
+	if(m_bIsRedirect)
+		return [m_pRedirectedResource resource];
+	
+	return m_pResource;
+}
 
 - (id) initWithPath:(NSString*) path andItemName:(NSString*) itemName {
 	self = [super init];
 	if(!self)
 		return nil;
 	
-	m_bIsLoaded = NO;
+	m_bIsLoaded = m_bIsSystem = m_bIsRedirect = NO;
 	m_oClass = [Texture2D class];
 	m_nCols = m_nRows = 1;	// 1x1 texture by default
 	
 	m_sFileSystemPath = [[NSString alloc] initWithString:path];
 	m_pResource = nil;
 	
-	BOOL loadOnStartup = NO;
-	
 	// Check whether we must load it right now
 	if( [itemName hasPrefix:@"_"] ) {
-		loadOnStartup = YES;
+		m_bIsSystem = YES;
 	}
 	
-	NSMutableArray* pathAsArray = (NSMutableArray*)[path componentsSeparatedByString:@"/"];
-	[pathAsArray removeLastObject];
-	NSString* pathToHoldingDir = [pathAsArray componentsJoinedByString:@"/"];
-	
-	NSString* componentName = [[itemName componentsSeparatedByString:@"."] objectAtIndex:0];
+	// Check whether this is a redir file. It's a redir only when both the path and the key are with the redir suffix
+	if( [itemName hasSuffix:@".redir"] && [m_sFileSystemPath hasSuffix:@".redir"] ) {
+		NSLog(@"REDIR FILE!");
+		
+		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:m_sFileSystemPath];
+		NSLog(@"CONTENTS: '%s'", [contents bytes]);
+		
+		NSString* resourceFileSystemPath = [[NSString stringWithUTF8String:[contents bytes]] 
+												stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+		NSLog(@"1: '%@'", resourceFileSystemPath);
+		
+		NSString* redirectedItemName = [resourceFileSystemPath lastPathComponent]; 
+		NSLog(@"2: '%@'", redirectedItemName);
+		
+		NSString* pathToHoldingDir = [[path stringByDeletingLastPathComponent]
+												stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSLog(@"3: '%@'", pathToHoldingDir);
+		
+		resourceFileSystemPath = [pathToHoldingDir stringByAppendingPathComponent:resourceFileSystemPath];
+		
+		NSLog(@"Redir path: '%@'", resourceFileSystemPath);
+		NSLog(@"Redir item name: '%@'", redirectedItemName);
+				
+		TMResource* redirectedResource = [[TMResource alloc] initWithPath:resourceFileSystemPath andItemName:redirectedItemName];
+
+		NSLog(@"Redirected resource created!");
+		
+		m_pRedirectedResource = redirectedResource;
+		m_bIsRedirect = YES;
+	}
+		
+	NSString* pathToHoldingDir = [path stringByDeletingLastPathComponent]; 	
+	NSString* componentName = [itemName stringByDeletingPathExtension];	
 	if( [componentName hasPrefix:@"_"] ) {
 		componentName = [componentName substringFromIndex:1];	// Remove it from there
 	}
@@ -55,6 +90,9 @@
 		m_nRows = [[dimensionsArray objectAtIndex:1] intValue];
 		
 		componentName = [nameAndDimension objectAtIndex:0];
+		
+		// Set class to framed texture
+		m_oClass = [TMFramedTexture class];
 	}
 	
 	m_sResourceName = [[NSString alloc] initWithString:componentName];
@@ -63,20 +101,21 @@
 	// Check whether the loader file exists
 	if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.loader", pathToHoldingDir, componentName]]) {
 		loaderFile = [NSString stringWithFormat:@"%@/%@.loader", pathToHoldingDir, componentName];
-	} else if(loadOnStartup && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/_%@.loader", pathToHoldingDir, componentName]]){
+	} else if(m_bIsSystem && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/_%@.loader", pathToHoldingDir, componentName]]){
 		loaderFile = [NSString stringWithFormat:@"%@/_%@.loader", pathToHoldingDir, componentName];
 	}
 	
 	if(loaderFile) {
 		NSLog(@"Have a loader file for this one...");
 		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:loaderFile];
-		NSString* className = [NSString stringWithCString:[contents bytes]];
+		NSString* className = [NSString stringWithUTF8String:[contents bytes]];
 		
+		// Override loader class from loader file
 		m_oClass = [[NSBundle mainBundle] classNamed:className];
 	}
 	
 	// Now load it directly if loadOnStartup is set
-	if(loadOnStartup) {
+	if(m_bIsSystem) {
 		[self loadResource];
 	}
 	
@@ -96,13 +135,15 @@
 
 
 - (void) loadResource {
+	if(m_bIsRedirect) {
+		return [m_pRedirectedResource loadResource];
+	}
+	
 	if(m_bIsLoaded) {
 		NSLog(@"Resource is already loaded. ignore.");
 		syslog(LOG_DEBUG, "Resource already loaded. ignore");
 		return;
 	}
-	
-	// NSLog(@"Will try to load a resource for class '%@'...", [m_oClass className]);
 	
 	// For all framed classes
 	if( m_oClass == [TMFramedTexture class] ) {
@@ -115,14 +156,16 @@
 		m_bIsLoaded = YES;		
 	}
 	
-	if(m_bIsLoaded) {
-		// NSLog(@"RESOURCE [%@] is loaded!", [m_oClass className]);	
-	} else {
+	if(!m_bIsLoaded) {
 		NSLog(@"Failed to load resource!");
 	}
 }
 
 - (void) unLoadResource {
+	if(m_bIsRedirect) {
+		return [m_pRedirectedResource unLoadResource];
+	}
+	
 	if(m_pResource) {
 		[m_pResource release];
 		m_bIsLoaded = NO;

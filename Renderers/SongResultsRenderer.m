@@ -10,21 +10,26 @@
 
 #import "TapMania.h"
 #import "InputEngine.h"
-#import "TexturesHolder.h"
 #import "EAGLView.h"
 
 #import "Texture2D.h"
+#import "ThemeManager.h"
 
 #import "TMSteps.h"
 #import "SongPickerMenuRenderer.h"
 
 @implementation SongResultsRenderer
 
+Texture2D* t_SongResultsBG;
+
 - (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps {
 	self = [super init];
 	if(!self)
 		return nil;
 		
+	// Cache textures
+	t_SongResultsBG = [[ThemeManager sharedInstance] texture:@"SongResults Background"];
+	
 	m_pSteps = [steps retain];
 	m_pSong = [song retain];
 
@@ -93,7 +98,7 @@
 	
 	// Draw background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionBackground] drawInRect:bounds];
+	[t_SongResultsBG drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// Draw texts	

@@ -8,7 +8,6 @@
 
 #import "ReceptorRow.h"
 #import "Receptor.h"
-#import "TexturesHolder.h"
 #import "ThemeManager.h"
 
 static int mt_ReceptorRowX, mt_ReceptorRowY;
@@ -17,8 +16,11 @@ static int mt_ReceptorRotations[kNumOfAvailableTracks];
 static int mt_ExplosionAlignX, mt_ExplosionAlignY, mt_ExplosionWidth, mt_ExplosionHeight;
 static float mt_ExplosionMaxShowTime;
 
+Receptor* t_GoReceptor;
+TMFramedTexture* t_ExplosionDim, *t_ExplosionBright;
 
 @implementation ReceptorRow
+
 
 - (id) init {
 	self = [super init];
@@ -71,20 +73,19 @@ static float mt_ExplosionMaxShowTime;
 /* TMRenderable method */
 - (void) render:(NSNumber*)fDelta {
 	// Here we will render all 4 receptors at their places
-	Receptor* receptor = (Receptor*)[[TexturesHolder sharedInstance] getTexture:kTexture_GoReceptor];
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		[receptor drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], mt_ReceptorRowY, mt_TapNoteWidth, mt_TapNoteHeight)];
+		[t_GoReceptor drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], mt_ReceptorRowY, mt_TapNoteWidth, mt_TapNoteHeight)];
 		
 		// Draw explosion if required
 		if(m_nExplosion[i] != kExplosionTypeNone) {
 			TMFramedTexture* tex = nil;
 			
 			if(m_nExplosion[i] == kExplosionTypeDim) {
-				tex = (TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapExplosionDim];
+				tex = t_ExplosionDim;
 			} else {
-				tex = (TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_TapExplosionBright];
+				tex = t_ExplosionBright;
 			}
 
 			[tex drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, mt_ExplosionWidth, mt_ExplosionHeight)];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ResourcesLoader.h"
 
-@class ThemeMetrics, ResourcesLoader;
+@class ThemeMetrics, ResourcesLoader, Texture2D;
 
 #define kDefaultThemeName	@"default"
 
@@ -29,9 +29,14 @@
 @property (retain, nonatomic, readonly, getter=noteSkin) ResourcesLoader* m_pCurrentNoteSkinResources;
 
 - (void) selectTheme:(NSString*) themeName;		// This will load the metrics file of the passed theme if that theme exists
+
+/* Metric stuff */
 - (int) intMetric:(NSString*) metricKey;
 - (float) floatMetric:(NSString*) metricKey;
 - (NSString*) stringMetric:(NSString*) metricKey;
+
+/* Theme textures */
+- (Texture2D*) texture:(NSString*) textureKey;
 
 + (ThemeManager *) sharedInstance;
 

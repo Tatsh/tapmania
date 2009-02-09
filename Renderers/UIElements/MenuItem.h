@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "AbstractRenderer.h"
 
+@class Texture2D;
+
 @interface MenuItem : AbstractRenderer {
-	int m_nTextureId;	// The id of the texture for the menu button
-	CGRect m_rShape;	// The points where the button is drawn
+	Texture2D*	m_pTexture;
+	CGRect		m_rShape;	// The points where the button is drawn
 }
 
-- (id) initWithTexture:(int) textureId andShape:(CGRect) shape;
+- (id) initWithTexture:(Texture2D*) texture andShape:(CGRect) shape;
 - (BOOL) containsPoint:(CGPoint)point;
 
 @end

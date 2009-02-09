@@ -7,18 +7,17 @@
 //
 
 #import "MenuItem.h"
-#import "TexturesHolder.h"
-
+#import "Texture2D.h"
 
 @implementation MenuItem
  
-- (id) initWithTexture:(int) textureId andShape:(CGRect) shape {
+- (id) initWithTexture:(Texture2D*) texture andShape:(CGRect) shape {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
 	m_rShape = shape;
-	m_nTextureId = textureId;
+	m_pTexture = texture;
 	
 	return self;
 }
@@ -30,7 +29,7 @@
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	[[[TexturesHolder sharedInstance] getTexture:m_nTextureId] drawInRect:m_rShape];
+	[m_pTexture drawInRect:m_rShape];
 }
 
 @end

@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface TMResource : NSObject {
-	NSObject*		m_pResource;			
+	NSObject*		m_pResource;
+	TMResource*		m_pRedirectedResource;
 	NSString*		m_sResourceName;		// The name (eg. '_TapNote_8x8.png' becomes 'TapNote')
 	int				m_nCols, m_nRows;		// For framed textures and animations
 	
@@ -17,10 +18,14 @@
 	Class			m_oClass;				// The class which should be used to construct the resource
 	
 	BOOL			m_bIsLoaded;
+	BOOL			m_bIsSystem;
+	BOOL			m_bIsRedirect;
 }
 
 @property (readonly, getter=resource, retain) NSObject* m_pResource;
 @property (readonly, getter=componentName, retain) NSString* m_sResourceName;
+@property (readonly, getter=isLoaded) BOOL m_bIsLoaded;
+@property (readonly, getter=isSystem) BOOL m_bIsSystem;
 
 /* The constructor. It only loads up information about the resource. Eg. it sets the m_sFileSystemPath and the m_idClass */
 - (id) initWithPath:(NSString*) path andItemName:(NSString*) itemName;

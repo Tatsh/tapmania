@@ -7,7 +7,6 @@
 //
 
 #import "TapMania.h"
-#import "TexturesHolder.h"
 #import "EAGLView.h"
 
 #import "OptionsMenuRenderer.h"

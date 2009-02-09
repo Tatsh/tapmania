@@ -8,13 +8,14 @@
 
 #import "SongPickerMenuItem.h"
 #import "TMFramedTexture.h"
-#import "TexturesHolder.h"
 
 #import "TMSong.h"
-
+#import "ThemeManager.h"
 #import "TapMania.h"
 
 @implementation SongPickerMenuItem
+
+TMFramedTexture* t_WheelItem;
 
 @synthesize m_pSong;
 
@@ -25,6 +26,9 @@
 	
 	m_rShape = shape;
 	m_pSong = song;	
+	
+	// Cache texture
+	t_WheelItem = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"SongPicker Wheel Item"];
 	
 	// The title must be taken from the song file
 	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", m_pSong.m_sArtist, m_pSong.m_sTitle];
@@ -52,8 +56,8 @@
 - (void) render:(NSNumber*)fDelta {
 	CGRect capRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
 	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-12.0f, m_rShape.size.height); 
-	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionWheelItem] drawFrame:0 inRect:capRect];
-	[(TMFramedTexture*)[[TexturesHolder sharedInstance] getTexture:kTexture_SongSelectionWheelItem] drawFrame:1 inRect:bodyRect];
+	[t_WheelItem drawFrame:0 inRect:capRect];
+	[t_WheelItem drawFrame:1 inRect:bodyRect];
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	[m_pTitle drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];

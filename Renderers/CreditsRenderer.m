@@ -7,9 +7,9 @@
 //
 
 #import "CreditsRenderer.h"
-#import "TexturesHolder.h"
 #import "Texture2D.h"
 #import "InputEngine.h"
+#import "ThemeManager.h"
 
 #import "EAGLView.h"
 #import "TapMania.h"
@@ -20,12 +20,17 @@
 
 @implementation CreditsRenderer
 
+Texture2D* t_CreditsBG;
+
 - (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 
 	int i;
+	
+	// Cache graphics
+	t_CreditsBG = [[ThemeManager sharedInstance] texture:@"Credits Background"];
 	
 	// We will show the credits until this set to YES
 	m_bShouldReturn = NO;
@@ -78,7 +83,7 @@
 	
 	//Draw background
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_CreditsBackground] drawInRect:bounds];
+	[t_CreditsBG drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// Draw the texts

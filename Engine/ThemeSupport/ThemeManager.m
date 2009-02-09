@@ -112,6 +112,16 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	return [[NSString stringWithString:(NSString*)node] autorelease];
 }
 
+- (Texture2D*) texture:(NSString*) textureKey {
+	TMResource* resource = [m_pCurrentThemeResources getResource:textureKey];
+	if(resource) {
+		return (Texture2D*)[resource resource];
+	}
+	
+	// TODO return some very default texture if not found
+	return nil;
+}
+
 // This is the private method which searches through the metrics tree to get the metric
 - (NSObject*) lookUpNode:(NSString*) key {
 	
@@ -141,6 +151,11 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	if([[itemName lowercaseString] hasSuffix:@".png"] || [[itemName lowercaseString] hasSuffix:@".jpg"] ||
 	   [[itemName lowercaseString] hasSuffix:@".gif"] || [[itemName lowercaseString] hasSuffix:@".bmp"] ) 
 	{ 
+		return YES;
+	}
+	
+	// Another way is redirection. .redir files therefore should also be accepted
+	if([[itemName lowercaseString] hasSuffix:@".redir"]) {
 		return YES;
 	}
 	

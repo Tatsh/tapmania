@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import "TexturesHolder.h"
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
 
@@ -26,12 +25,11 @@
 
 #import <syslog.h>
 
-static int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
-static int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
-
-static Texture2D* bg;
-
 @implementation MainMenuRenderer
+
+int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
+int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
+Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 
 - (id) init {
 	self = [super init];
@@ -47,15 +45,18 @@ static Texture2D* bg;
 	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsHeight"];
 	
 	// Preload all required graphics
-	bg = [[[ThemeManager sharedInstance].theme getResource:@"MainMenu Background"] resource];
+	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
+	t_MenuPlay = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonPlay"];
+	t_MenuOptions = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonOptions"];
+	t_MenuCredits = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonCredits"];
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
 	
 	// Register menu items
-	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
-	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
-	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:kTexture_MainMenuButtonCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
+	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
+	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
+	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
 	
 	return self;
 }
@@ -93,7 +94,7 @@ static Texture2D* bg;
 	// Draw menu background
 	glDisable(GL_BLEND);
 	// [[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
-	[bg drawInRect:bounds];
+	[t_BG drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
 	// NOTE: Items will be rendered by it self

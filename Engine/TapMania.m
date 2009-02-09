@@ -11,7 +11,6 @@
 #import "BasicTransition.h"
 #import "SongsDirectoryCache.h"
 #import "SoundEffectsHolder.h"
-#import "TexturesHolder.h"
 #import "InputEngine.h"
 #import "ThemeManager.h"
 #import "EAGLView.h"
@@ -57,9 +56,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];
 	
-	// Load all textures
-	[TexturesHolder sharedInstance];
-	
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
@@ -74,7 +70,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Draw background first to avoid some odd effects with old graphics on the gpu
 	glDisable(GL_BLEND);
-	[[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:self.m_pWindow.bounds];
+	[[[ThemeManager sharedInstance] texture:@"MainMenu Background"] drawInRect:self.m_pWindow.bounds];
 	glEnable(GL_BLEND);
 	
 	[m_pGlView swapBuffers];
