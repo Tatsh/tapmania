@@ -106,15 +106,15 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 		return;
 	
 	if(m_nSelectedMenu == kMainMenuItem_Play) {
-		NSLog(@"Enter song pick menu...");		
+		TMLog(@"Enter song pick menu...");		
 		
 		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
 	} else if(m_nSelectedMenu == kMainMenuItem_Options) {
-		NSLog(@"Enter options menu...");
+		TMLog(@"Enter options menu...");
 		
 		// [[TapMania sharedInstance] switchToScreen:[[OptionsRenderer alloc] init]];
 	} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
-		NSLog(@"Enter credits screen...");
+		TMLog(@"Enter credits screen...");
 		
 		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
 	}

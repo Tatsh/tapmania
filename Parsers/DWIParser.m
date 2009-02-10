@@ -43,7 +43,7 @@
 	TMSong* song = [[TMSong alloc] init];
 	
 	if( ! (fd = fopen([filename UTF8String], "r"))) {
-		syslog(LOG_DEBUG, "Err: can't open file '%s' for reading.", [filename UTF8String]);
+		TMLog(@"Err: can't open file '%@' for reading.", filename);
 		return nil;	
 	}
 
@@ -53,7 +53,7 @@
 	
 		// Start new section
 		if(c == '#') {
-			syslog(LOG_DEBUG, "Opening new section.");
+			TMLog(@"Opening new section.");
 
 			// Read the var name
 			c = getc(fd);
@@ -65,48 +65,48 @@
 			}
 			
 			if(feof(fd)){ 
-				syslog(LOG_DEBUG, "Fatal: dwi file broken.");
+				TMLog(@"Fatal: dwi file broken.");
 				return nil; 
 			}
 
 			varName[i] = 0;
-			syslog(LOG_DEBUG, "Found var: '%s'", varName);
+			TMLog(@"Found var: '%s'", varName);
 
 			// Now determine whether we are interested in this var or not
 			if( !strcasecmp(varName, "TITLE") ) {
-				syslog(LOG_DEBUG, "Title...");
+				TMLog(@"Title...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_sTitle = [[NSString stringWithCString:data] retain];
 			} 
 			else if( !strcasecmp(varName, "ARTIST") ) {
-				syslog(LOG_DEBUG, "Artist...");
+				TMLog(@"Artist...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_sArtist = [[NSString stringWithCString:data] retain];
 			}
 			else if( !strcasecmp(varName, "BPM") ) {
-				syslog(LOG_DEBUG, "BPM...");
+				TMLog(@"BPM...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_fBpm = atof(data);	
 			}
 			else if( !strcasecmp(varName, "GAP") ) {
-				syslog(LOG_DEBUG, "GAP...");
+				TMLog(@"GAP...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_dGap = (double)atoi(data) / 1000.0f;
 			}
 			else if( !strcasecmp(varName, "CHANGEBPM") || !strcasecmp(varName, "BPMCHANGE") ) {
-				syslog(LOG_DEBUG, "BPMCHANGE...");
+				TMLog(@"BPMCHANGE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_aBpmChangeArray = [DWIParser getChangesArray:data];
 			}
 			else if( !strcasecmp(varName, "FREEZE") ){
-				syslog(LOG_DEBUG, "FREEZE...");
+				TMLog(@"FREEZE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
-				syslog(LOG_DEBUG, "is '%s'", data);
+				TMLog(@"is '%s'", data);
 				song.m_aFreezeArray = [DWIParser getChangesArray:data];
 			}
 			else if( !strcasecmp(varName, "SINGLE") ){ 
@@ -121,12 +121,12 @@
 		}
 		// End the section
 		else if(c == ';') {
-			syslog(LOG_DEBUG, "Closing section.");
+			TMLog(@"Closing section.");
 		}
 	}
 	
 	// Close the file handle
-	syslog(LOG_DEBUG, "Done parsing the dwi file. close handle..");
+	TMLog(@"Done parsing the dwi file. close handle..");
 	fclose(fd);
 
 	return song;
@@ -142,7 +142,7 @@
 	int i;
 
 	if( ! (fd = fopen([filename UTF8String], "r"))) {
-		syslog(LOG_DEBUG, "Err: can't open file '%s' for reading.", [filename UTF8String]);
+		TMLog(@"Err: can't open file '%s' for reading.", [filename UTF8String]);
 		return nil;	
 	}
 
@@ -152,7 +152,7 @@
 	
 		// Start new section
 		if(c == '#') {
-			syslog(LOG_DEBUG, "Opening new section.");
+			TMLog(@"Opening new section.");
 
 			// Read the var name
 			c = getc(fd);
@@ -164,25 +164,25 @@
 			}
 			
 			if(feof(fd)){ 
-				syslog(LOG_DEBUG, "Fatal: dwi file broken.");
+				TMLog(@"Fatal: dwi file broken.");
 				return nil; 
 			}
 
 			varName[i] = 0;
 		
 			if( !strcasecmp(varName, "SINGLE") ){ 
-				syslog(LOG_DEBUG, "Got SINGLE input...");
+				TMLog(@"Got SINGLE input...");
 
 				char* diffStr  = [DWIParser parseSectionPartWithFD:fd];
 				char* levelStr = [DWIParser parseSectionPartWithFD:fd];
 
-				syslog(LOG_DEBUG, "Diff=%s level=%s", diffStr, levelStr);
+				TMLog(@"Diff=%s level=%s", diffStr, levelStr);
 				
 				TMSongDifficulty thisDiff = [DWIParser getDifficultyWithName:diffStr];
 				
 				// If this is the difficulty we are looking for - parse the data
 				if(thisDiff == difficulty) {
-					syslog(LOG_DEBUG, "FOUND our difficulty!!!");
+					TMLog(@"FOUND our difficulty!!!");
 					
 					TMSteps* steps = [DWIParser parseStepDataWithFD:fd forSong:song];
 					fclose(fd);
@@ -192,12 +192,12 @@
 		}
 		// End the section
 		else if(c == ';') {
-			syslog(LOG_DEBUG, "Closing section.");
+			TMLog(@"Closing section.");
 		}
 	}
 	
 	// Close the file handle
-	syslog(LOG_DEBUG, "Done parsing the dwi file. close handle..");
+	TMLog(@"Done parsing the dwi file. close handle..");
 	fclose(fd);
 
 	return nil;
@@ -464,7 +464,7 @@
 			TMNote* closingNote = [steps getNote:++noteIdx fromTrack:trackNum];
 
 			if(!closingNote) {
-				NSLog(@"Failed to close a hold. bad DWI?");
+				TMLog(@"Failed to close a hold. bad DWI?");
 				break;
 			}		
 
@@ -493,7 +493,7 @@
 	}
 
 	if(feof(fd) || c != ';'){ 
-		syslog(LOG_DEBUG, "Fatal: dwi file broken.");
+		TMLog(@"Fatal: dwi file broken.");
 		return nil; 
 	}
 
@@ -517,7 +517,7 @@
 	}
 	
 	if(feof(fd) || c != ':'){ 
-		syslog(LOG_DEBUG, "Fatal: dwi file broken.");
+		TMLog(@"Fatal: dwi file broken.");
 		return nil; 
 	}
 	
@@ -540,7 +540,7 @@
 	token = strtok( data, "," );
 
 	while( token != nil ) {
-		syslog(LOG_DEBUG, "got token: %s", token);
+		TMLog(@"got token: %s", token);
 		[arr addObject:[[NSString stringWithCString:token] retain]];
 		token = strtok( nil, "," );
 	}
@@ -553,7 +553,7 @@
 		value = strtok(nil, "=");
 
 		if(!token || !value) {
-			syslog(LOG_DEBUG, "Fatal: changes array broken.");
+			TMLog(@"Fatal: changes array broken.");
 			return nil;
 		}
 
@@ -564,7 +564,7 @@
 	}
 
 	[arr release];
-	syslog(LOG_DEBUG, "Total count of found tokens: %d", [resArr count]);
+	TMLog(@"Total count of found tokens: %d", [resArr count]);
 	return resArr;
 }
 

@@ -17,7 +17,7 @@ OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Obje
 	Renderers/UIElements/Judgement.o Renderers/UIElements/HoldJudgement.o \
 	Renderers/UIElements/ReceptorRow.o GameObjects/TMSong.o GameObjects/TMSteps.o \
 	GameObjects/TMSongOptions.o GameObjects/TMNote.o GameObjects/TMTrack.o GameObjects/TMChangeSegment.o \
-	Engine/SoundEngine.o Parsers/DWIParser.o Util/TimingUtil.o Util/PhysicsUtil.o Util/BenchmarkUtil.o
+	Engine/SoundEngine.o Parsers/DWIParser.o Util/LoggerUtil.o Util/TimingUtil.o Util/PhysicsUtil.o Util/BenchmarkUtil.o
 
 all: app tar deploy 
 

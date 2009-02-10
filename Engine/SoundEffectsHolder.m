@@ -22,7 +22,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	//Setup sound engine. Run it at 44Khz to match the sound files
 	SoundEngine_Initialize(44100);	
 	
-	NSLog(@"Loading sound effects...");
+	TMLog(@"Loading sound effects...");
 	
 	// FIXME: hardcode
 	NSString* themeDir = @"default";
@@ -33,7 +33,7 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	
 	SoundEngine_LoadEffect([[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"] UTF8String], &m_uiSounds[kSound_Clap]);
 	
-	NSLog(@"Done.");
+	TMLog(@"Done.");
 	
 	return self;
 }

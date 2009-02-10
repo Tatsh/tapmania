@@ -20,6 +20,7 @@
 		244E56150F3C6C680004C921 /* TMResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.m */; };
 		244E59A70F40998D0004C921 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 244E59A40F40998D0004C921 /* themes */; };
 		244E5A140F41AE410004C921 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 244E5A010F41AE410004C921 /* noteskins */; };
+		244E5AB50F41CB490004C921 /* LoggerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.m */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */; };
 		2472663D0EE949A500D501AF /* TapNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.m */; };
@@ -93,6 +94,8 @@
 		244E56140F3C6C680004C921 /* TMResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMResource.m; sourceTree = "<group>"; };
 		244E59A40F40998D0004C921 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		244E5A010F41AE410004C921 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
+		244E5AB30F41CB490004C921 /* LoggerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerUtil.h; path = Util/LoggerUtil.h; sourceTree = "<group>"; };
+		244E5AB40F41CB490004C921 /* LoggerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerUtil.m; path = Util/LoggerUtil.m; sourceTree = "<group>"; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */,
 				24EBF4DF0EC8780600533056 /* TimingUtil.h */,
 				24EBF4E00EC8780600533056 /* TimingUtil.m */,
+				244E5AB30F41CB490004C921 /* LoggerUtil.h */,
+				244E5AB40F41CB490004C921 /* LoggerUtil.m */,
 			);
 			name = Util;
 			path = ..;
@@ -556,6 +561,7 @@
 				24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */,
 				244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */,
 				244E56150F3C6C680004C921 /* TMResource.m in Sources */,
+				244E5AB50F41CB490004C921 /* LoggerUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,9 +587,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_CFLAGS = "-DDEBUG_NONE";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Release;

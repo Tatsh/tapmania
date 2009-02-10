@@ -142,7 +142,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	
 	if(image == NULL) {
 		[self release];
-		NSLog(@"Image is Null");
+		TMLog(@"Image is Null");
 		return nil;
 	}
 	

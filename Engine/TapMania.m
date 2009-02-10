@@ -19,7 +19,6 @@
 #import "JoyPad.h"
 #import "SongsCacheLoaderRenderer.h"
 
-
 // This is a singleton class, see below
 static TapMania *sharedTapManiaDelegate = nil;
 
@@ -31,6 +30,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 	self = [super init];
 	if(!self)
 		return nil;
+	
+	TMLog(@"Hello world! %d/%f!!!", 123, 534.34);
 	
 	// Defaults
 	m_pCurrentSong = nil;
@@ -75,7 +76,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glEnable(GL_BLEND);
 	
 	[m_pGlView swapBuffers];
-	NSLog(@"SWAP BUFFERS DONE!");
+	TMLog(@"SWAP BUFFERS DONE!");
 	
 	[m_pWindow addSubview:m_pGlView];		
 	
@@ -90,7 +91,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer {
-	NSLog(@"Switch to screen requested!");
+	TMLog(@"Switch to screen requested!");
 	[m_pGameRunLoop registerSingleTimeTask:[[BasicTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
@@ -128,14 +129,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 /* Run loop delegate work */
 - (void) runLoopInitHook {
-	NSLog(@"Init game run loop...");
+	TMLog(@"Init game run loop...");
 }
 
 - (void) runLoopInitializedNotification {
 	// Will start with main menu
 	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init]];
 	
-	NSLog(@"Game run loop initialized...");
+	TMLog(@"Game run loop initialized...");
 }
 
 - (void) runLoopBeforeHook:(NSNumber*)fDelta {

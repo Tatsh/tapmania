@@ -30,9 +30,9 @@
 	m_pRoot = [[NSMutableDictionary alloc] init];
 	
 	m_sRootPath = rootPath;
-	NSLog(@"Loading resources from root path at '%@'!!!", m_sRootPath);
+	TMLog(@"Loading resources from root path at '%@'!!!", m_sRootPath);
 	[self loadResourceFromPath:m_sRootPath intoNode:m_pRoot];
-	NSLog(@"Loaded resources.");
+	TMLog(@"Loaded resources.");
 	
 	return self;
 }
@@ -78,7 +78,7 @@
 - (void) unLoad:(NSString*) path {
 	NSObject* node = [self lookUpNode:path];
 	if(!node) {
-		NSLog(@"The resources on path '%@' are not loaded...", path);
+		TMLog(@"The resources on path '%@' are not loaded...", path);
 	}
 	
 	// TODO: release resources
@@ -102,33 +102,28 @@
 		if([[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDirectory]) {
 			// is dir?
 			if(isDirectory) {
-				NSLog(@"[+] Found directory: %@", itemName);
-				syslog(LOG_DEBUG, "[+] found dir: %s", [itemName UTF8String]);
+				TMLog(@"[+] Found directory: %@", itemName);
 				
 				// Create new dictionary
 				NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-				NSLog(@"Start loading into '%@'", itemName);
-				syslog(LOG_DEBUG, "start loading into %s", [itemName UTF8String]);
+				TMLog(@"Start loading into '%@'", itemName);
 				[self loadResourceFromPath:curPath intoNode:dict];
 				
-				NSLog(@"------");
-				syslog(LOG_DEBUG, "------------");
+				TMLog(@"------");
 				
 				// Add that new dict node to the node specified in the arguments
 				[node setValue:dict forKey:itemName];
-				NSLog(@"Stop adding there");
+				TMLog(@"Stop adding there");
 				
 			} else {
 				// file. check type
 				if( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] ) {
-					NSLog(@"[Supported] %@", itemName);
-					syslog(LOG_DEBUG, "[SUPPORTED] %s", [itemName UTF8String]);
+					TMLog(@"[Supported] %@", itemName);
 					TMResource* resource = [[TMResource alloc] initWithPath:curPath andItemName:itemName];
 					
 					// Add that resource
 					[node setValue:resource forKey:resource.componentName];										
-					NSLog(@"Added it to current node at key = '%@'", resource.componentName);
-					syslog(LOG_DEBUG, "Added it to %s", [resource.componentName UTF8String]);
+					TMLog(@"Added it to current node at key = '%@'", resource.componentName);
 				}
 			}
 		}

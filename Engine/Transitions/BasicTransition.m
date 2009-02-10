@@ -25,7 +25,7 @@
 }
 
 - (void) action:(NSNumber*)fDelta {
-	NSLog(@"Transition requested...");
+	TMLog(@"Transition requested...");
 	
 	// Remove the current screen from rendering/logic runloop.
 	[[TapMania sharedInstance] deregisterAll];	

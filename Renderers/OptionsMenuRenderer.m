@@ -37,7 +37,7 @@
 
 # pragma mark Touch handling
 - (void) backPress:(id)sender {
-	NSLog(@"Enter main menu (back from options)...");
+	TMLog(@"Enter main menu (back from options)...");
 }
 
 @end

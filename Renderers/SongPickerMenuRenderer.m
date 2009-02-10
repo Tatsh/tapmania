@@ -69,12 +69,12 @@ Texture2D* t_SongPickerBG;
 	for(i=0; i<[songList count]; i++){
 		TMSong *song = [songList objectAtIndex:i];
 	
-		syslog(LOG_DEBUG, "available difficulties:");
+		TMLog(@"available difficulties:");
 		TMSongDifficulty dif = kSongDifficulty_Invalid;
 		
 		for(; dif < kNumSongDifficulties; dif++) {
 			if([song isDifficultyAvailable:dif]) {
-	//			syslog(LOG_DEBUG, "%s [%d]", [[TMSong difficultyToString:dif] UTF8String], [song getDifficultyLevel:dif]);
+	//			TMLog(@"%s [%d]", [TMSong difficultyToString:dif], [song getDifficultyLevel:dif]);
 			}
 		}		
 	}

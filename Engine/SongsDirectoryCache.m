@@ -29,7 +29,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 
 - (void) cacheSongs {
-	NSLog(@"Caching songs in 'Songs' dir...");
+	TMLog(@"Caching songs in 'Songs' dir...");
 	
 	int i;	
 	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
@@ -45,7 +45,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			[[NSFileManager defaultManager] createDirectoryAtPath:m_sSongsDir attributes:nil];
 		}
 		
-		NSLog(@"Songs dir at: %@", m_sSongsDir);		
+		TMLog(@"Songs dir at: %@", m_sSongsDir);		
 		
 		// Read all songs in the dir and cache them
 		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
@@ -71,12 +71,12 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			
 			while (file = [dirEnum nextObject]) {
 				if([file hasSuffix:@".dwi"] || [file hasSuffix:@".DWI"]) {
-					NSLog(@"DWI file found: %@", file);
+					TMLog(@"DWI file found: %@", file);
 					stepsFilePath = [curPath stringByAppendingPathComponent:file];
 				}
 				
 				if([file hasSuffix:@".mp3"] || [file hasSuffix:@".MP3"]) {
-					NSLog(@"Found music file: %@", file);
+					TMLog(@"Found music file: %@", file);
 					musicFilePath = [curPath stringByAppendingPathComponent:file];
 				}
 			}
@@ -111,7 +111,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		[m_idDelegate songLoaderFinished];
 	}
 	
-	NSLog(@"Done.");	
+	TMLog(@"Done.");	
 }
 
 - (NSArray*) getSongList {

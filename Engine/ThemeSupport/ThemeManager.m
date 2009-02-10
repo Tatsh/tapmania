@@ -36,17 +36,17 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	int i;	
 	
 	NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
-	NSLog(@"Point themes dir to '%@'!", themesDir);
+	TMLog(@"Point themes dir to '%@'!", themesDir);
 
 	NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
-	NSLog(@"Point noteskins dir to '%@'!", noteskinsDir);
+	TMLog(@"Point noteskins dir to '%@'!", noteskinsDir);
 	
 	NSArray* themesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:themesDir];
 	NSArray* noteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:noteskinsDir];
 	
 	// Raise error if empty themes dir
 	if([themesDirContents count] == 0 || [noteskinsDirContents count] == 0) {
-		NSLog(@"Oops! Themes dir or noteskins dir is empty. This should never happen."); // We should have the default themes always
+		TMLog(@"Oops! Themes dir or noteskins dir is empty. This should never happen."); // We should have the default themes always
 		return nil;
 	}
 	
@@ -59,7 +59,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
 			// Ok. Looks like a valid tapmania theme.. add it to the list
 			[m_aThemesList addObject:themeDirName];
-			NSLog(@"Added theme '%@' to themes list.", themeDirName);
+			TMLog(@"Added theme '%@' to themes list.", themeDirName);
 		}
 	}
 
@@ -72,7 +72,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
 			// Ok. Looks like a valid tapmania noteskin.. add it to the list
 			[m_aNoteskinsList addObject:noteskinDirName];
-			NSLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
+			TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
 		}
 	}
 	
@@ -90,14 +90,12 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
-			syslog(LOG_DEBUG, "metrics loaded from file %s", [filePath UTF8String]);
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath andDelegate:self];
 			
-			syslog(LOG_DEBUG, "resources loaded from dir %s", [themeGraphicsPath UTF8String]);
-			NSLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
+			TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 			
 		} else {
-			NSLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
+			TMLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
 			exit(127);
 		}
 	}	

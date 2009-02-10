@@ -43,7 +43,7 @@
 	
 	// Check whether this is a redir file. It's a redir only when both the path and the key are with the redir suffix
 	if( [itemName hasSuffix:@".redir"] && [m_sFileSystemPath hasSuffix:@".redir"] ) {
-		NSLog(@"REDIR FILE!");
+		TMLog(@"REDIR FILE!");
 		
 		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:m_sFileSystemPath];	
 		NSString* contentsString = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
@@ -95,7 +95,7 @@
 	}
 	
 	if(loaderFile) {
-		NSLog(@"Have a loader file for this one...");
+		TMLog(@"Have a loader file for this one...");
 		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:loaderFile];
 		NSString* className = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
 		
@@ -130,8 +130,7 @@
 	}
 	
 	if(m_bIsLoaded) {
-		NSLog(@"Resource is already loaded. ignore.");
-		syslog(LOG_DEBUG, "Resource already loaded. ignore");
+		TMLog(@"Resource is already loaded. ignore.");
 		return;
 	}
 	
@@ -140,7 +139,7 @@
 	}
 	
 	if(!m_bIsLoaded) {
-		NSLog(@"Failed to load resource!");
+		TMLog(@"Failed to load resource!");
 	}
 }
 
@@ -153,7 +152,7 @@
 		[m_pResource release];
 		m_bIsLoaded = NO;
 	} else {
-		NSLog(@"Resource wasn't loaded.");
+		TMLog(@"Resource wasn't loaded.");
 	}
 }
 

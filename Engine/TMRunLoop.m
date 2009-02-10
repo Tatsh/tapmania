@@ -123,9 +123,8 @@
 		
 		if(totalTime > 1.0f) {
 			// Show fps
-			framesCounter/=totalTime;
-			// NSLog(@"[RunLoop] FPS: %d", framesCounter);			
-			// syslog(LOG_DEBUG, "[RunLoop] FPS: %d", framesCounter);
+			framesCounter/=totalTime;		
+			// TMLog(@"[RunLoop] FPS: %d", framesCounter);
 			
 			totalTime = 0.0f;
 			framesCounter = 0;

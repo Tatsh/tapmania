@@ -33,7 +33,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	if([handler conformsToProtocol:@protocol(TMGameUIResponder)]){
 		[m_aSubscribers addObject:handler];
 	} else {
-		NSLog(@"Passed an object which doesn't conform to TMGameUIResponder protocol. ignore.");
+		TMLog(@"Passed an object which doesn't conform to TMGameUIResponder protocol. ignore.");
 	}
 }
 
