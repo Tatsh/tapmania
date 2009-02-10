@@ -39,12 +39,15 @@
 
 @implementation SongPlayRenderer
 
-TapNote* t_TapNote;
-Judgement* judgement;
+// Theme stuff
+Judgement*	t_Judgement;
 HoldJudgement* t_HoldJudgement;
-HoldNote* t_HoldNoteInactive;
-HoldNote* t_HoldNoteActive;
+
+// Noteskin stuff
+TapNote* t_TapNote;
+HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
 Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
+Texture2D* t_BG;
 
 int mt_ReceptorRowY;
 int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
@@ -79,7 +82,18 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	mt_HalfOfArrowHeight = mt_ArrowHeight / 2.0f;
 	
 	// Cache graphics
-	// tapNote = [[ThemeManager sharedInstance] noteSkinTexture:@"TapNote"];
+	t_TapNote = (TapNote*)[[ThemeManager sharedInstance] skinTexture:@"DownTapNote"];
+	t_HoldNoteActive = (HoldNote*)[[ThemeManager sharedInstance] skinTexture:@"HoldBody DownActive"];
+	t_HoldNoteInactive = (HoldNote*)[[ThemeManager sharedInstance] skinTexture:@"HoldBody DownInactive"];
+	
+	t_HoldBottomCapActive = [[ThemeManager sharedInstance] skinTexture:@"HoldBody BottomCapActive"];
+	t_HoldBottomCapInactive = [[ThemeManager sharedInstance] skinTexture:@"HoldBody BottomCapInactive"];
+	
+	t_Judgement = (Judgement*)[[ThemeManager sharedInstance] texture:@"SongPlay Judgement"];
+	t_HoldJudgement = (HoldJudgement*)[[ThemeManager sharedInstance] texture:@"SongPlay HoldJudgement"];	
+	
+	// FIXME: hardcode!
+	t_BG = [[ThemeManager sharedInstance] texture:@"SongPlay BackgroundIndex"];
 	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
@@ -187,7 +201,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	[m_pReceptorRow update:fDelta];
 	
 	// Update judgement state
-	[judgement update:fDelta];
+	[t_Judgement update:fDelta];
 	[t_HoldJudgement update:fDelta];
 	
 	// If freeze - leave for now
@@ -290,7 +304,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 				[m_pSteps markAllNotesLostFromRow:note.m_nStartNoteRow];		
 				[note score:kNoteScore_Miss];	// Only one of the notes get the scoring set
 
-				[judgement setCurrentJudgement:kJudgementMiss];
+				[t_Judgement setCurrentJudgement:kJudgementMiss];
 				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
 				
 				// Extra judgement for hold notes..
@@ -398,7 +412,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 						// Set the score to the note (group of notes. only one will count anyway)
 						[note score:noteScore];
 						
-						[judgement setCurrentJudgement:noteJudgement];
+						[t_Judgement setCurrentJudgement:noteJudgement];
 						[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:noteScore]];
 						
 						// Explode all hit tracks
@@ -421,9 +435,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
-	//Draw background TODO: spread/index
 	glDisable(GL_BLEND);
-	// [[[TexturesHolder sharedInstance] getTexture:kTexture_SongPlayBackgroundSpread] drawInRect:bounds];
+	[t_BG drawInRect:bounds];
 	glEnable(GL_BLEND);
 		
 	if(!m_bPlayingGame) return;
@@ -559,7 +572,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		[m_pLifeBar render:fDelta];
 
 		// Draw the judgement
-		[judgement render:fDelta];
+		[t_Judgement render:fDelta];
 		[t_HoldJudgement render:fDelta];
 	}
 	

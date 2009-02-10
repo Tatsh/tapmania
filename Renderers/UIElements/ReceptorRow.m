@@ -8,19 +8,19 @@
 
 #import "ReceptorRow.h"
 #import "Receptor.h"
+#import "Texture2D.h"
 #import "ThemeManager.h"
-
-static int mt_ReceptorRowX, mt_ReceptorRowY;
-static int mt_TapNoteHeight, mt_TapNoteWidth, mt_TapNoteSpacing;
-static int mt_ReceptorRotations[kNumOfAvailableTracks];
-static int mt_ExplosionAlignX, mt_ExplosionAlignY, mt_ExplosionWidth, mt_ExplosionHeight;
-static float mt_ExplosionMaxShowTime;
-
-Receptor* t_GoReceptor;
-TMFramedTexture* t_ExplosionDim, *t_ExplosionBright;
 
 @implementation ReceptorRow
 
+int mt_ReceptorRowX, mt_ReceptorRowY;
+int mt_TapNoteHeight, mt_TapNoteWidth, mt_TapNoteSpacing;
+int mt_ReceptorRotations[kNumOfAvailableTracks];
+int mt_ExplosionAlignX, mt_ExplosionAlignY, mt_ExplosionWidth, mt_ExplosionHeight;
+float mt_ExplosionMaxShowTime;
+
+Receptor* t_GoReceptor;
+Texture2D* t_ExplosionDim, *t_ExplosionBright;
 
 - (id) init {
 	self = [super init];
@@ -46,6 +46,11 @@ TMFramedTexture* t_ExplosionDim, *t_ExplosionBright;
 	mt_ReceptorRotations[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Up"];
 	mt_ReceptorRotations[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Rotation Right"];
 
+	// Cache textures
+	t_GoReceptor = (Receptor*)[[ThemeManager sharedInstance] skinTexture:@"DownGoReceptor"];
+	t_ExplosionDim = [[ThemeManager sharedInstance] skinTexture:@"DownTapExplosionDim"];
+	t_ExplosionBright = [[ThemeManager sharedInstance] skinTexture:@"DownTapExplosionBright"];
+	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
 		m_dExplosionTime[i] = 0.0f;
@@ -80,7 +85,7 @@ TMFramedTexture* t_ExplosionDim, *t_ExplosionBright;
 		
 		// Draw explosion if required
 		if(m_nExplosion[i] != kExplosionTypeNone) {
-			TMFramedTexture* tex = nil;
+			Texture2D* tex = nil;
 			
 			if(m_nExplosion[i] == kExplosionTypeDim) {
 				tex = t_ExplosionDim;
@@ -88,7 +93,7 @@ TMFramedTexture* t_ExplosionDim, *t_ExplosionBright;
 				tex = t_ExplosionBright;
 			}
 
-			[tex drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, mt_ExplosionWidth, mt_ExplosionHeight)];
+			[tex drawInRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, mt_ExplosionWidth, mt_ExplosionHeight) rotation:mt_ReceptorRotations[i]];
 		}
 	}
 }

@@ -22,7 +22,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 
 @implementation ThemeManager
 
-@synthesize m_aThemesList, m_sCurrentThemeName;
+@synthesize m_aThemesList, m_sCurrentThemeName, m_aNoteskinsList, m_sCurrentNoteskinName;
 @synthesize m_pCurrentThemeResources, m_pCurrentNoteSkinResources;
 
 - (id) init {
@@ -32,18 +32,21 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	
 	/* We must list all the themes and store them into the mThemesList array */
 	m_aThemesList = [[NSMutableArray alloc] initWithCapacity:1];
+	m_aNoteskinsList = [[NSMutableArray alloc] initWithCapacity:1];
 	int i;	
 	
 	NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
 	NSLog(@"Point themes dir to '%@'!", themesDir);
-	syslog(LOG_DEBUG, "Point themes dir to '%s'!", [themesDir UTF8String]);
 
+	NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
+	NSLog(@"Point noteskins dir to '%@'!", noteskinsDir);
 	
 	NSArray* themesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:themesDir];
-		
+	NSArray* noteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:noteskinsDir];
+	
 	// Raise error if empty themes dir
-	if([themesDirContents count] == 0) {
-		NSLog(@"Oops! Themes dir is empty. This should never happen.");
+	if([themesDirContents count] == 0 || [noteskinsDirContents count] == 0) {
+		NSLog(@"Oops! Themes dir or noteskins dir is empty. This should never happen."); // We should have the default themes always
 		return nil;
 	}
 	
@@ -57,7 +60,19 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 			// Ok. Looks like a valid tapmania theme.. add it to the list
 			[m_aThemesList addObject:themeDirName];
 			NSLog(@"Added theme '%@' to themes list.", themeDirName);
-			syslog(LOG_DEBUG, "added theme to list %s", [themeDirName UTF8String]);
+		}
+	}
+
+	// Iterate through the noteskins
+	for(i = 0; i<[noteskinsDirContents count]; i++) {		
+		NSString* noteskinDirName = [noteskinsDirContents objectAtIndex:i];
+		NSString* path = [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", noteskinDirName];
+		
+		// Check the Metrics.plist file
+		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+			// Ok. Looks like a valid tapmania noteskin.. add it to the list
+			[m_aNoteskinsList addObject:noteskinDirName];
+			NSLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
 		}
 	}
 	
@@ -86,6 +101,17 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 			exit(127);
 		}
 	}	
+}
+
+- (void) selectNoteskin:(NSString*) skinName {
+	if([m_aNoteskinsList containsObject:skinName]) {
+		m_sCurrentNoteskinName = skinName;		
+
+		NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
+		NSString* skinPath =	 [noteskinsDir stringByAppendingPathComponent:skinName];
+		
+		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath andDelegate:self];
+	}		
 }
 
 - (int) intMetric:(NSString*) metricKey {
@@ -120,6 +146,16 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	
 	// TODO return some very default texture if not found
 	return nil;
+}
+
+- (Texture2D*) skinTexture:(NSString*) textureKey {
+	TMResource* resource = [m_pCurrentNoteSkinResources getResource:textureKey];
+	if(resource) {
+		return (Texture2D*)[resource resource];
+	}
+	
+	// TODO return some very default texture if not found
+	return nil;	
 }
 
 // This is the private method which searches through the metrics tree to get the metric

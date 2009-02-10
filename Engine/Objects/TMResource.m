@@ -45,32 +45,21 @@
 	if( [itemName hasSuffix:@".redir"] && [m_sFileSystemPath hasSuffix:@".redir"] ) {
 		NSLog(@"REDIR FILE!");
 		
-		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:m_sFileSystemPath];
-		NSLog(@"CONTENTS: '%s'", [contents bytes]);
-		
-		NSString* resourceFileSystemPath = [[NSString stringWithUTF8String:[contents bytes]] 
-												stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-		NSLog(@"1: '%@'", resourceFileSystemPath);
-		
+		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:m_sFileSystemPath];	
+		NSString* contentsString = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
+		NSString* resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		NSString* redirectedItemName = [resourceFileSystemPath lastPathComponent]; 
-		NSLog(@"2: '%@'", redirectedItemName);
-		
+
 		NSString* pathToHoldingDir = [[path stringByDeletingLastPathComponent]
 												stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSLog(@"3: '%@'", pathToHoldingDir);
-		
 		resourceFileSystemPath = [pathToHoldingDir stringByAppendingPathComponent:resourceFileSystemPath];
 		
-		NSLog(@"Redir path: '%@'", resourceFileSystemPath);
-		NSLog(@"Redir item name: '%@'", redirectedItemName);
-				
 		TMResource* redirectedResource = [[TMResource alloc] initWithPath:resourceFileSystemPath andItemName:redirectedItemName];
 
-		NSLog(@"Redirected resource created!");
-		
 		m_pRedirectedResource = redirectedResource;
 		m_bIsRedirect = YES;
+		
+		[contentsString release];
 	}
 		
 	NSString* pathToHoldingDir = [path stringByDeletingLastPathComponent]; 	
@@ -108,10 +97,11 @@
 	if(loaderFile) {
 		NSLog(@"Have a loader file for this one...");
 		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:loaderFile];
-		NSString* className = [NSString stringWithUTF8String:[contents bytes]];
+		NSString* className = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
 		
 		// Override loader class from loader file
-		m_oClass = [[NSBundle mainBundle] classNamed:className];
+		m_oClass = [[NSBundle mainBundle] classNamed:[className stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];		
+		[className release];
 	}
 	
 	// Now load it directly if loadOnStartup is set
@@ -145,15 +135,8 @@
 		return;
 	}
 	
-	// For all framed classes
-	if( m_oClass == [TMFramedTexture class] ) {
-		m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows];
+	if(m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows]) {
 		m_bIsLoaded = YES;
-		
-	} else if ( m_oClass == [Texture2D class] ) {
-		NSLog(@"Loading from file '%@'.", m_sFileSystemPath);
-		m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath]];
-		m_bIsLoaded = YES;		
 	}
 	
 	if(!m_bIsLoaded) {

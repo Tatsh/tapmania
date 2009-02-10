@@ -96,6 +96,7 @@ These functions require GL_TEXTURE_2D and both GL_VERTEX_ARRAY and GL_TEXTURE_CO
 @interface Texture2D (Drawing)
 - (void) drawAtPoint:(CGPoint)point;
 - (void) drawInRect:(CGRect)rect;
+- (void) drawInRect:(CGRect)rect rotation:(float)rotation;
 @end
 
 /*
@@ -104,6 +105,7 @@ Note that RGBA type textures will have their alpha premultiplied - use the blend
 */
 @interface Texture2D (Image)
 - (id) initWithImage:(UIImage *)uiImage;
+- (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
 @end
 
 /*

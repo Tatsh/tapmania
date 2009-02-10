@@ -52,6 +52,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Load theme. FIXME: hardcoded default theme here!
 	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
+	[[ThemeManager sharedInstance] selectNoteskin:kDefaultNoteSkinName];
 	
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];

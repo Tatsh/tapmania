@@ -112,6 +112,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 @implementation Texture2D (Image)
 	
+- (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
+	return [self initWithImage:uiImage];
+}
+
 - (id) initWithImage:(UIImage *)uiImage
 {
 	NSUInteger				width,
@@ -322,5 +326,18 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
+
+
+- (void) drawInRect:(CGRect)rect rotation:(float)rotation
+{
+	glPushMatrix();
+	
+	glTranslatef(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2, 0.0);
+	glRotatef(rotation, 0, 0, 1);
+	
+	[self drawAtPoint:CGPointZero];
+	glPopMatrix();
+}
+
 
 @end
