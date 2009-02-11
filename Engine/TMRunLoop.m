@@ -81,6 +81,20 @@
 	[m_aObjects insertObject:wrapper atIndex:i];	
 }
 
+- (void) deregisterObject:(NSObject*) obj {
+	int i = 0;
+	if([m_aObjects count] > 0) {
+		for(i=0; i<[m_aObjects count]; i++){
+			if([[(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_pObj] isEqualTo:obj]) {
+				TMLog(@"Found one to remove!");			
+				[m_aObjects removeObjectAtIndex:i];
+				
+				return;
+			}
+		}
+	}
+}
+
 - (void) deregisterAllObjects {
 	int i;
 	for(i=0; i<[m_aObjects count]; i++){

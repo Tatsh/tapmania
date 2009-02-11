@@ -7,13 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMSingleTimeTask.h"
+#import "TMTransition.h"
+#import "TMRenderable.h"
+#import "TMLogicUpdater.h"
+
+typedef enum {
+	kTransitionStateInitializing = 0,
+	kTransitionStateIn,
+	kTransitionStateOut,
+	kTransitionStateFinished,
+	kNumTransitionStates
+} TMTransitionState;
 
 @class AbstractRenderer;
 
-@interface BasicTransition : NSObject <TMSingleTimeTask> {
+@interface BasicTransition : NSObject <TMTransition, TMRenderable, TMLogicUpdater> {
 	AbstractRenderer *m_pFrom, 
 					 *m_pTo;
+	
+	double			  m_dTimePassed;
+	TMTransitionState m_nState;
 }
 
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen;

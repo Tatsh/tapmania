@@ -36,6 +36,7 @@
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer;
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
+- (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAll;
 
 - (void) setCurrentScreen:(AbstractRenderer*) screenRenderer;

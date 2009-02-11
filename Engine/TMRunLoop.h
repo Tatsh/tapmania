@@ -60,6 +60,7 @@ typedef enum {
 
 // The next routine is used to add renderables or logic updaters to the corresponding array
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
+- (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAllObjects;
 
 // Add single time tasks. The order of task performing is FIFO

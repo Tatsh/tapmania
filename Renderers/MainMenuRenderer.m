@@ -85,6 +85,11 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
+	
+	// Add the menu items to the render loop with lower priority
+	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Play]];
+	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Options]];
+	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Credits]];
 }
 
 /* TMRenderable method */

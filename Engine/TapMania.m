@@ -8,7 +8,7 @@
 
 #import "TapMania.h"
 
-#import "BasicTransition.h"
+#import "FadeTransition.h"
 #import "SongsDirectoryCache.h"
 #import "SoundEffectsHolder.h"
 #import "InputEngine.h"
@@ -30,8 +30,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 	self = [super init];
 	if(!self)
 		return nil;
-	
-	TMLog(@"Hello world! %d/%f!!!", 123, 534.34);
 	
 	// Defaults
 	m_pCurrentSong = nil;
@@ -64,11 +62,17 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glMatrixMode(GL_MODELVIEW);
 	
 	// Initialize OpenGL states
+	glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	glAlphaFunc(GL_GREATER, 0.1f);
+	glEnable(GL_ALPHA_TEST);
+	
+	glClearColor(0,0,0,1.0f);
 	
 	// Draw background first to avoid some odd effects with old graphics on the gpu
 	glDisable(GL_BLEND);
@@ -92,11 +96,15 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer {
 	TMLog(@"Switch to screen requested!");
-	[m_pGameRunLoop registerSingleTimeTask:[[BasicTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
+	[m_pGameRunLoop registerObject:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
 }
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority {
 	[m_pGameRunLoop registerObject:obj withPriority:priority];
+}
+
+- (void) deregisterObject:(NSObject*) obj {
+	[m_pGameRunLoop deregisterObject:obj];
 }
 
 - (void) deregisterAll {
