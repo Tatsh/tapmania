@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
-#import "TMSingleTimeTask.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, AbstractRenderer;
 

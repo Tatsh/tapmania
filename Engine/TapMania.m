@@ -48,7 +48,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Init opengl
 	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
 	m_pGlView.multipleTouchEnabled = YES;	
-	
+
 	// Load theme. FIXME: hardcoded default theme here!
 	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
 	[[ThemeManager sharedInstance] selectNoteskin:kDefaultNoteSkinName];
@@ -69,9 +69,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	glAlphaFunc(GL_GREATER, 0.1f);
-	glEnable(GL_ALPHA_TEST);
+//	glEnable(GL_ALPHA_TEST);
+//	glAlphaFunc(GL_GREATER, 0.1f);
 	
+	glLoadIdentity();
 	glClearColor(0,0,0,1.0f);
 	
 	// Draw background first to avoid some odd effects with old graphics on the gpu

@@ -35,10 +35,7 @@ typedef enum {
 	// Array to hold the objects which will be used for rendering/updating
 	// This array is always sorted from hightest to lowest priority
 	NSMutableArray * m_aObjects;
-	
-	// Holds tasks which are performed once and removed from the list afterwards
-	NSMutableArray * m_aSingleTimeTasks;
-	
+		
 	// Delegate with before/after hooks
 	id				 m_idDelegate;
 	
@@ -62,8 +59,5 @@ typedef enum {
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
 - (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAllObjects;
-
-// Add single time tasks. The order of task performing is FIFO
-- (void) registerSingleTimeTask:(NSObject*) task;
 
 @end

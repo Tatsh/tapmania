@@ -12,7 +12,6 @@
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
-#import "TMSingleTimeTask.h"
 #import "TapMania.h"
 #import <syslog.h>
 
@@ -29,8 +28,7 @@
 	if(!self)
 		return nil;
 
-	m_aObjects = [[NSMutableArray arrayWithCapacity:1] retain];
-	m_aSingleTimeTasks = [[NSMutableArray arrayWithCapacity:1] retain];
+	m_aObjects = [[NSMutableArray arrayWithCapacity:10] retain];
 	
 	m_bStopRequested = NO;
 	m_bActualStopState = YES; // Initially stopped
@@ -40,7 +38,6 @@
 
 - (void) dealloc {
 	[m_aObjects release];
-	[m_aSingleTimeTasks release];
 	
 	[super dealloc];
 }
@@ -69,8 +66,8 @@
 	
 	int i = 0;
 	if([m_aObjects count] > 0) {
-		for(i=0; i<([m_aObjects count])-1; i++){
-			if([(TMObjectWithPriority*)[m_aObjects objectAtIndex:i+1] m_uPriority] < priority) {
+		for(i=0; i<[m_aObjects count]; i++){
+			if([(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_uPriority] <= priority) {
 				break;
 			}
 		}
@@ -78,17 +75,19 @@
 	
 	// Add new object at 'i' and shift others if required
 	TMObjectWithPriority* wrapper = [[TMObjectWithPriority alloc] initWithObj:obj andPriority:priority];
-	[m_aObjects insertObject:wrapper atIndex:i];	
+	if(i < [m_aObjects count]) { 
+		[m_aObjects insertObject:wrapper atIndex:i]; 
+	} else {
+		[m_aObjects addObject:wrapper];	// To the end
+	}
 }
 
 - (void) deregisterObject:(NSObject*) obj {
 	int i = 0;
 	if([m_aObjects count] > 0) {
 		for(i=0; i<[m_aObjects count]; i++){
-			if([[(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_pObj] isEqualTo:obj]) {
-				TMLog(@"Found one to remove!");			
+			if([(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_pObj] == obj) {
 				[m_aObjects removeObjectAtIndex:i];
-				
 				return;
 			}
 		}
@@ -103,10 +102,6 @@
 	}	
 	
 	[m_aObjects removeAllObjects];
-}
-
-- (void) registerSingleTimeTask:(NSObject*) task {
-	[m_aSingleTimeTasks addObject:task]; // Add to the end
 }
 
 /* Private worker */
@@ -152,20 +147,9 @@
 			[m_idDelegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
 		}
 		
-		/* Perform all pending single time tasks first */
-		unsigned i;
-		for(i=0; i<[m_aSingleTimeTasks count]; i++){		
-			NSObject* task = [m_aSingleTimeTasks objectAtIndex:i];
-			if([task conformsToProtocol:@protocol(TMSingleTimeTask)]){
-				[task performSelector:@selector(action:) withObject:nDelta];
-			} 				
-		}
-		
-		// Remove all tasks from the list now
-		[m_aSingleTimeTasks removeAllObjects];
-		
 		/* Do the actual work */
 		/* First update all objects */
+		int i;
 		for(i=0; i<[m_aObjects count]; i++){
 			TMObjectWithPriority* wrapper = [m_aObjects objectAtIndex:i];
 			NSObject* obj = [wrapper m_pObj];

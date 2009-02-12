@@ -11,15 +11,6 @@
 #import "TapMania.h"
 #import "TMRunLoop.h"	// For TMRunLoopPriority
 
-#define kDefaultTransitionInTime	1.0f
-#define kDefaultTransitionOutTime	1.0f
-
-@interface BasicTransition (Protected)
-- (BOOL) updateTransitionIn:(float)fDelta;
-- (BOOL) updateTransitionOut:(float)fDelta;
-@end
-
-
 @implementation BasicTransition
 
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
@@ -62,22 +53,28 @@
 		[m_pTo performSelector:@selector(setupForTransition)];
 	}
 	
+	TMLog(@"Transition out");
+	
 	// Set new one and show it
 	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
+		TMLog(@"Transition out set current screen done");
 	[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest-1];	
+		TMLog(@"Transition out register object done");
 }
 
 - (void) transitionInFinished {
 	// Do custom deinitialization for transition if the object supports it
-	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
-		[m_pFrom performSelector:@selector(deinitOnTransition)];
-	}	
+	if(m_pFrom != nil) {
+		if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
+			[m_pFrom performSelector:@selector(deinitOnTransition)];
+		}	
 	
-	// Remove the current screen from rendering/logic runloop.
-	[[TapMania sharedInstance] deregisterObject:(NSObject*)m_pFrom];	
+		// Remove the current screen from rendering/logic runloop.
+		[[TapMania sharedInstance] deregisterObject:(NSObject*)m_pFrom];	
 	
-	// Drop current screen
-	[[TapMania sharedInstance] releaseCurrentScreen];
+		// Drop current screen
+		[[TapMania sharedInstance] releaseCurrentScreen];
+	}
 }
 
 - (void) transitionOutFinished {
