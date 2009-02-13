@@ -13,16 +13,12 @@
 
 @implementation FadeTransition
 
-Texture2D* t_Blank;
-
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
 	self = [super initFromScreen:fromScreen toScreen:toScreen];
 	if (!self)
 		return nil;
 	
-	// Cache graphics
-	t_Blank = [[ThemeManager sharedInstance] texture:@"Blank"];	
-	m_dTransitionPosition = 0.0f;
+	m_fTransitionPosition = 0.0f;
 	
 	return self;
 }
@@ -30,28 +26,32 @@ Texture2D* t_Blank;
 
 // TMRenderable stuff
 - (void)render:(NSNumber*)fDelta {	
-	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+	CGRect	rect = [TapMania sharedInstance].glView.bounds;
+	GLfloat	vertices[] = {	
+		rect.origin.x,							rect.origin.y,							
+		rect.origin.x + rect.size.width,		rect.origin.y,							
+		rect.origin.x,							rect.origin.y + rect.size.height,		
+		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height 
+	};
+	
+	glColor4f(0.0f, 0.0f, 0.0f, m_fTransitionPosition);
 
-	// TODO: fix this code so that it uses a transparent image and so that these calls to glTexEnvi and glBlendFunc are done only once
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-
-	glColor4f(m_dTransitionPosition, m_dTransitionPosition, m_dTransitionPosition, m_dTransitionPosition);
-	[t_Blank drawInRect: bounds];
+	glDisable(GL_TEXTURE_2D);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);	
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glEnable(GL_TEXTURE_2D);
 	
 	glColor4f(1, 1, 1, 1);
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 }
 
 - (BOOL) updateTransitionIn:(float)fDelta { 
 	[super updateTransitionIn:fDelta];
 	
-	float transDelta = fDelta / kDefaultTransitionInTime;
-	m_dTransitionPosition += transDelta;
+	float transDelta = fDelta / m_dTimeIn;
+	m_fTransitionPosition += transDelta;
 	
-	if(m_dTransitionPosition >= 1.0f) {
-		m_dTransitionPosition = 1.0f;
+	if(m_fTransitionPosition >= 1.0f) {
+		m_fTransitionPosition = 1.0f;
 
 		return YES; // Ready
 	}
@@ -62,11 +62,11 @@ Texture2D* t_Blank;
 - (BOOL) updateTransitionOut:(float)fDelta { 
 	[super updateTransitionOut:fDelta];
 
-	float transDelta = fDelta / kDefaultTransitionOutTime;
-	m_dTransitionPosition -= transDelta;
+	float transDelta = fDelta / m_dTimeOut;
+	m_fTransitionPosition -= transDelta;
 	
-	if(m_dTransitionPosition <= 0.0f) {
-		m_dTransitionPosition = 0.0f;
+	if(m_fTransitionPosition <= 0.0f) {
+		m_fTransitionPosition = 0.0f;
 		
 		return YES; // Ready
 	}

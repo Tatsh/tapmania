@@ -23,6 +23,8 @@
 #import "ThemeManager.h"
 #import "Texture2D.h"
 
+#import "QuadTransition.h"
+
 #import <syslog.h>
 
 @implementation MainMenuRenderer
@@ -98,7 +100,6 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	
 	// Draw menu background
 	glDisable(GL_BLEND);
-	// [[[TexturesHolder sharedInstance] getTexture:kTexture_MainMenuBackground] drawInRect:bounds];
 	[t_BG drawInRect:bounds];
 	glEnable(GL_BLEND);
 	
@@ -113,7 +114,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	if(m_nSelectedMenu == kMainMenuItem_Play) {
 		TMLog(@"Enter song pick menu...");		
 		
-		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
 	} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 		TMLog(@"Enter options menu...");
 		
@@ -121,7 +122,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
 		TMLog(@"Enter credits screen...");
 		
-		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[QuadTransition class]];
 	}
 	
 	m_nSelectedMenu = -1; // To ensure we are not doing the transition more than once

@@ -10,7 +10,7 @@
 #import "BasicTransition.h"
 
 @interface FadeTransition : BasicTransition {
-	double		m_dTransitionPosition;
+	float		m_fTransitionPosition;
 }
 
 @end

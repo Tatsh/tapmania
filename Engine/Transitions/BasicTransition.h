@@ -30,9 +30,12 @@ typedef enum {
 	
 	double			  m_dTimePassed;
 	TMTransitionState m_nState;
+	
+	double			  m_dTimeIn, m_dTimeOut;
 }
 
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen;
+- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut;
 
 - (BOOL) updateTransitionIn:(float)fDelta;
 - (BOOL) updateTransitionOut:(float)fDelta;

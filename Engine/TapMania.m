@@ -68,20 +68,12 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-//	glEnable(GL_ALPHA_TEST);
-//	glAlphaFunc(GL_GREATER, 0.1f);
-	
+		
 	glLoadIdentity();
 	glClearColor(0,0,0,1.0f);
 	
-	// Draw background first to avoid some odd effects with old graphics on the gpu
-	glDisable(GL_BLEND);
-	[[[ThemeManager sharedInstance] texture:@"MainMenu Background"] drawInRect:self.m_pWindow.bounds];
-	glEnable(GL_BLEND);
-	
-	[m_pGlView swapBuffers];
-	TMLog(@"SWAP BUFFERS DONE!");
+	// Clear
+	glClear(GL_COLOR_BUFFER_BIT);
 	
 	[m_pWindow addSubview:m_pGlView];		
 	
@@ -96,8 +88,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer {
-	TMLog(@"Switch to screen requested!");
 	[m_pGameRunLoop registerObject:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
+}
+
+- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass {
+	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
+}
+
+- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
+	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut] 
+					  withPriority:kRunLoopPriority_Lowest];
 }
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority {
@@ -143,7 +143,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void) runLoopInitializedNotification {
 	// Will start with main menu
-	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init]];
+	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init] usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
 	
 	TMLog(@"Game run loop initialized...");
 }

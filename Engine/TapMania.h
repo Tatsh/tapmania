@@ -33,6 +33,8 @@
 // Go to another screen using this method
 // This method will remove current screen and release memory. Afterwards it will switch to the specified screen.
 - (void) switchToScreen:(AbstractRenderer*)screenRenderer;
+- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass;
+- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;	
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
 - (void) deregisterObject:(NSObject*) obj;

@@ -13,6 +13,17 @@
 
 @implementation BasicTransition
 
+- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut {
+	self = [self initFromScreen:fromScreen toScreen:toScreen];
+	if(!self)
+		return nil;
+	
+	m_dTimeIn = timeIn;
+	m_dTimeOut = timeOut;
+	
+	return self;
+}
+
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
 	self = [super init];
 	if (!self)
@@ -23,6 +34,9 @@
 	m_dTimePassed = 0.0f;
 	m_nState = kTransitionStateInitializing;
 	
+	m_dTimeIn = kDefaultTransitionInTime;
+	m_dTimeOut = kDefaultTransitionOutTime;
+	
 	return self;
 }
 
@@ -30,7 +44,7 @@
 - (BOOL) updateTransitionIn:(float)fDelta {
 	m_dTimePassed += fDelta;
 	
-	if(m_dTimePassed >= kDefaultTransitionInTime)
+	if(m_dTimePassed >= m_dTimeIn)
 		return YES;
 	return NO;
 }
@@ -38,7 +52,7 @@
 - (BOOL) updateTransitionOut:(float)fDelta {
 	m_dTimePassed += fDelta;
 	
-	if(m_dTimePassed >= kDefaultTransitionOutTime)
+	if(m_dTimePassed >= m_dTimeOut)
 		return YES;
 	return NO;	
 }
