@@ -82,6 +82,7 @@ TMFramedTexture* t_TogglerItem;
 	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-12.0f, m_rShape.origin.y, 12.0f, m_rShape.size.height);
 	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-24.0f, m_rShape.size.height); 
 
+	glEnable(GL_BLEND);
 	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
@@ -89,6 +90,7 @@ TMFramedTexture* t_TogglerItem;
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	[[self getCurrent].m_pText drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_BLEND);
 }
 
 /* TMGameUIResponder method */

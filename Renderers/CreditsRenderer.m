@@ -82,11 +82,10 @@ Texture2D* t_CreditsBG;
 	int i, j;
 	
 	//Draw background
-	glDisable(GL_BLEND);
 	[t_CreditsBG drawInRect:bounds];
-	glEnable(GL_BLEND);
 	
 	// Draw the texts
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	for(i=0, j=[m_aTexturesArray count]-1; i<[m_aTexturesArray count]; i++,j--){
@@ -94,6 +93,7 @@ Texture2D* t_CreditsBG;
 	}
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_BLEND);
 }
 
 /* TMLogicUpdater method */

@@ -97,9 +97,7 @@ Texture2D* t_SongResultsBG;
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw background
-	glDisable(GL_BLEND);
 	[t_SongResultsBG drawInRect:bounds];
-	glEnable(GL_BLEND);
 	
 	// Draw texts	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

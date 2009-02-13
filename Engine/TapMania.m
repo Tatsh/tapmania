@@ -19,6 +19,8 @@
 #import "JoyPad.h"
 #import "SongsCacheLoaderRenderer.h"
 
+#import "FPS.h"
+
 // This is a singleton class, see below
 static TapMania *sharedTapManiaDelegate = nil;
 
@@ -123,6 +125,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
    
 - (void) startGame {
+	[[TapMania sharedInstance] registerObject:[[FPS alloc] init] withPriority:kRunLoopPriority_Lowest];	// FPS drawing
 	[m_pGameRunLoop run];	
 }
 

@@ -25,8 +25,6 @@
 
 #import "QuadTransition.h"
 
-#import <syslog.h>
-
 @implementation MainMenuRenderer
 
 int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
@@ -99,9 +97,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
-	glDisable(GL_BLEND);
 	[t_BG drawInRect:bounds];
-	glEnable(GL_BLEND);
 	
 	// NOTE: Items will be rendered by it self
 }

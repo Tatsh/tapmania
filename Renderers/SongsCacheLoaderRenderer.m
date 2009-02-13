@@ -90,15 +90,15 @@ Texture2D* t_SongsLoaderBG;
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw background
-	glDisable(GL_BLEND);
 	[t_SongsLoaderBG drawInRect:bounds];
-	glEnable(GL_BLEND);
 
 	[m_pLock lock];
 	if(m_pCurrentTexture != nil) {
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		[m_pCurrentTexture drawInRect:CGRectMake(0, 50, 320, 15)];		
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(GL_BLEND);
 	}
 	[m_pLock unlock];
 }

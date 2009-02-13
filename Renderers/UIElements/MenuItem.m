@@ -29,7 +29,10 @@
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
+	glEnable(GL_BLEND);
 	[m_pTexture drawInRect:m_rShape];
+	glDisable(GL_BLEND);
+
 }
 
 @end

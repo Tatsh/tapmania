@@ -37,8 +37,10 @@
 	glColor4f(0.0f, 0.0f, 0.0f, m_fTransitionPosition);
 
 	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 	glVertexPointer(2, GL_FLOAT, 0, vertices);	
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDisable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	
 	glColor4f(1, 1, 1, 1);

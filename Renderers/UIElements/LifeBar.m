@@ -65,7 +65,9 @@ Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
 		[t_LifeBarHot drawInRect:fillRect];
 	}
 
+	glEnable(GL_BLEND);
 	[t_LifeBarFrame drawInRect:m_rShape];
+	glDisable(GL_BLEND);
 }
 
 /* TMLogicUpdater method */

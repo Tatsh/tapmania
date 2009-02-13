@@ -19,7 +19,9 @@ static float mt_HoldJudgementMaxShowTime;
 @implementation HoldJudgement
 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
+	glEnable(GL_BLEND);
 	[self drawFrame:judgement-1 atPoint:CGPointMake( mt_HoldJudgementX[track], mt_HoldJudgementY )];
+	glDisable(GL_BLEND);
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {

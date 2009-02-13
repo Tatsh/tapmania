@@ -435,9 +435,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 - (void)render:(NSNumber*)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
-	glDisable(GL_BLEND);
 	[t_BG drawInRect:bounds];
-	glEnable(GL_BLEND);
 		
 	if(!m_bPlayingGame) return;
 
@@ -509,11 +507,15 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 					// determine the position of the cap and draw it if needed
 					if(bodyBottomY > 0.0f) {
 						// Ok. must draw the cap
+						glEnable(GL_BLEND);
+
 						if(note.m_bIsHolding) {
 							[t_HoldBottomCapActive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapHeight)];
 						} else {
 							[t_HoldBottomCapInactive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCapHeight-1), mt_HoldCapWidth, mt_HoldCapWidth)];
 						}
+						
+						glDisable(GL_BLEND);
 					}
 				}
 				

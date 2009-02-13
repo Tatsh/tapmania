@@ -58,14 +58,18 @@ static int mt_TapNoteRotations[kNumOfAvailableTracks];
 	float rotation = [self calculateRotation:dir];
 	int frameToRender = m_nCurrentFrame + type*m_nFramesToLoad[0]; // Columns
 	
+	glEnable(GL_BLEND);
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
+	glDisable(GL_BLEND);
 }
 
 - (void) drawHoldTapNoteHolding:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
 	float rotation = [self calculateRotation:dir];
 	int frameToRender = (m_nCurrentFrame+4) + type*m_nFramesToLoad[0]; // Columns
 	
+	glEnable(GL_BLEND);
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
+	glDisable(GL_BLEND);
 }
 
 - (void) drawHoldTapNoteReleased:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {

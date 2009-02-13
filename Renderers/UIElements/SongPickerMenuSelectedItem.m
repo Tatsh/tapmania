@@ -34,8 +34,11 @@ Texture2D* t_LoadingAvatar;
 	
 	CGRect capRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
 	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-12.0f, m_rShape.size.height); 
+	
+	glEnable(GL_BLEND);
 	[t_WheelItemSelected drawFrame:0 inRect:capRect];
 	[t_WheelItemSelected drawFrame:1 inRect:bodyRect];
+	glDisable(GL_BLEND);
 	
 	[t_LoadingAvatar drawInRect:CGRectMake(bodyRect.origin.x+20.f, bodyRect.origin.y+19, 256.0f, 80.0f)];
 }

@@ -29,9 +29,7 @@
 	
 	//Draw background
 	/*
-	glDisable(GL_BLEND);
 	[[[TexturesHolder sharedInstance] getTexture:kTexture_] drawInRect:bounds];
-	glEnable(GL_BLEND);
 	 */
 }	
 

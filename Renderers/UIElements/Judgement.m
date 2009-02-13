@@ -19,7 +19,9 @@ static float mt_JudgementMaxShowTime;
 @implementation Judgement
 
 - (void) drawJudgement:(TMJudgement) judgement {
+	glEnable(GL_BLEND);
 	[self drawFrame:judgement-1 atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
+	glDisable(GL_BLEND);
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {

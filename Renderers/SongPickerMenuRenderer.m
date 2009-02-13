@@ -166,9 +166,7 @@ Texture2D* t_SongPickerBG;
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
-	glDisable(GL_BLEND);
 	[t_SongPickerBG drawInRect:bounds];
-	glEnable(GL_BLEND);
 	
 	// Positions of the wheel items are fixed
 	int i;

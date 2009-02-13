@@ -81,7 +81,9 @@ Texture2D* t_ExplosionDim, *t_ExplosionBright;
 	int i;
 	
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
+		glEnable(GL_BLEND);
 		[t_GoReceptor drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:CGRectMake(m_fReceptorXPositions[i], mt_ReceptorRowY, mt_TapNoteWidth, mt_TapNoteHeight)];
+		glDisable(GL_BLEND);
 		
 		// Draw explosion if required
 		if(m_nExplosion[i] != kExplosionTypeNone) {
@@ -93,7 +95,9 @@ Texture2D* t_ExplosionDim, *t_ExplosionBright;
 				tex = t_ExplosionBright;
 			}
 
+			glEnable(GL_BLEND);
 			[tex drawInRect:CGRectMake(m_fExplosionXPositions[i], m_fExplosionYPosition, mt_ExplosionWidth, mt_ExplosionHeight) rotation:mt_ReceptorRotations[i]];
+			glDisable(GL_BLEND);
 		}
 	}
 }

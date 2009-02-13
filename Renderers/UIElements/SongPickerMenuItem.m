@@ -56,12 +56,15 @@ TMFramedTexture* t_WheelItem;
 - (void) render:(NSNumber*)fDelta {
 	CGRect capRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
 	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-12.0f, m_rShape.size.height); 
+
+	glEnable(GL_BLEND);
 	[t_WheelItem drawFrame:0 inRect:capRect];
 	[t_WheelItem drawFrame:1 inRect:bodyRect];
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	[m_pTitle drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);		
+	glDisable(GL_BLEND);
 }
 
 @end
