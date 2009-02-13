@@ -23,22 +23,13 @@
 }
 
 /* TMRenderable method */
+/* Updates are also done here because we actually want to count drawing only */
 - (void) render:(NSNumber*)fDelta {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
-	[m_pCurrentTexture drawInRect:CGRectMake(0.0f, 460.0f, 320.0f, 20.0f)];
-	
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_BLEND);
-}
-
-/* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
 	m_dTimeCounter += [fDelta doubleValue];
 	
 	if(m_dTimeCounter > 1.0f) {
 		m_lFpsCounter /= m_dTimeCounter;		
+
 		if(m_pCurrentTexture) {
 			[m_pCurrentTexture release];
 		}
@@ -51,6 +42,14 @@
 	}
 	
 	++m_lFpsCounter;
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	[m_pCurrentTexture drawInRect:CGRectMake(0.0f, 460.0f, 320.0f, 20.0f)];
+	
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_BLEND);
 }
 
 @end

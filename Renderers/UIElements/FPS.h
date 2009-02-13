@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TMRenderable.h"
-#import "TMLogicUpdater.h"
 #import "Texture2D.h"
 
-@interface FPS : NSObject <TMRenderable, TMLogicUpdater> {
+@interface FPS : NSObject <TMRenderable> {
 	long	m_lFpsCounter;
 	double	m_dTimeCounter;
 	
