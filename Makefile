@@ -1,37 +1,56 @@
 prefix=/dat/sys
+
 CC=arm-apple-darwin9-gcc
 LD=$(CC) 
-FRAMEWORKS=-framework CoreFoundation -framework Foundation -framework UIKit -framework CoreAudio -framework OpenAL -framework CoreGraphics -framework OpenGLES -framework AudioToolbox -framework QuartzCore
+
+FRAMEWORKS =  -framework CoreFoundation
+FRAMEWORKS += -framework Foundation 
+FRAMEWORKS += -framework UIKit 
+FRAMEWORKS += -framework CoreAudio 
+FRAMEWORKS += -framework OpenAL 
+FRAMEWORKS += -framework CoreGraphics 
+FRAMEWORKS += -framework OpenGLES 
+FRAMEWORKS += -framework AudioToolbox 
+FRAMEWORKS += -framework QuartzCore
+
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
-CFLAGS=-std=c99 -fobjc-exceptions -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements -I"${prefix}/usr/include"
-OBJS=Engine/Transitions/BasicTransition.o Engine/Objects/Texture2D.o Engine/Objects/TMObjectWithPriority.o \
-	Engine/Objects/TMFramedTexture.o Engine/Objects/TMAnimatable.o Engine/Objects/TMResource.o \
-	Engine/TapMania.o Engine/InputEngine.o Engine/TMRunLoop.o Engine/SoundEffectsHolder.o \
-	Engine/JoyPad.o Engine/SongsDirectoryCache.o Engine/TapManiaAppDelegate.o Engine/EAGLView.o \
-	Engine/ThemeSupport/ResourcesLoader.o Engine/ThemeSupport/ThemeMetrics.o Engine/ThemeSupport/ThemeManager.o \
-	Renderers/AbstractRenderer.o Renderers/MainMenuRenderer.o Renderers/UIElements/LifeBar.o \
-	Renderers/UIElements/MenuItem.o Renderers/UIElements/SongPickerMenuItem.o Renderers/UIElements/SongPickerMenuSelectedItem.o \
-	Renderers/SongPlayRenderer.o Renderers/SongPickerMenuRenderer.o Renderers/SongResultsRenderer.o \
-	Renderers/CreditsRenderer.o Renderers/OptionsMenuRenderer.o Renderers/SongsCacheLoaderRenderer.o \
-	Renderers/UIElements/TogglerItem.o Renderers/UIElements/TapNote.o Renderers/UIElements/HoldNote.o Renderers/UIElements/Receptor.o \
-	Renderers/UIElements/Judgement.o Renderers/UIElements/HoldJudgement.o \
-	Renderers/UIElements/ReceptorRow.o GameObjects/TMSong.o GameObjects/TMSteps.o \
-	GameObjects/TMSongOptions.o GameObjects/TMNote.o GameObjects/TMTrack.o GameObjects/TMChangeSegment.o \
-	Engine/SoundEngine.o Parsers/DWIParser.o Util/LoggerUtil.o Util/TimingUtil.o Util/PhysicsUtil.o Util/BenchmarkUtil.o
+
+CFLAGS =  -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects 
+CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements 
+CFLAGS += -I"${prefix}/usr/include" -include TapMania_Prefix.pch 
+
+CPPFLAGS = $(CFLAGS)
+
+SPECIFIC_CFLAGS = -std=c99 -fobjc-exceptions
+
+SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport 
+SRC_DIRS += Renderers Renderers/UIElements GameObjects Parsers Util
+
+MFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
+CFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+CPPFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
+
+OBJS =  $(MFILES:.m=.o)
+COBJS = $(CFILES:.c=.o)
+CPPOBJS = $(CPPFILES:.cpp=.o)
+
+TOBUILD =  $(CPPFILES:.cpp=.cppd)
+TOBUILD += $(MFILES:.m=.md)
+TOBUILD += $(CFILES:.c=.cd)
 
 all: app tar deploy 
 
 deploy:
-	scp tm.tar mobile@192.168.0.101:
+	scp tm.tar mobile@192.168.0.102:
+	ssh mobile@192.168.0.102 'sh redeploy.sh'
 
 tar:
 	tar cf tm.tar TapMania.app
 
-
 app: tapmania bin 
 
 bin:
-	$(LD) $(LDFLAGS) -v -o TapMania $(OBJS) main.o
+	$(LD) $(LDFLAGS) -v -o TapMania $(OBJS) $(COBJS) $(CPPOBJS) main.o
 	rm -rf TapMania.app
 	mkdir TapMania.app
 	cp Default.png TapMania.app/
@@ -39,13 +58,19 @@ bin:
 	cp *.plist TapMania.app/
 	cp TapMania TapMania.app/
 
-tapmania: $(OBJS) main.o 
+tapmania: $(TOBUILD) main.o 
 
-%.o: %.m soundengine
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+%.md: %.m
+	@echo "[+] Compile a .m file: $<"
+	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $<
 
-soundengine:
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) Engine/SoundEngine.cpp -o Engine/SoundEngine.o
+%.cd: %.c
+	@echo "[+] Compile a .c file: $<"
+	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $<
+
+%.cppd: %.cpp
+	@echo "[+] Compile a .cpp file: $<"
+	$(CC) -c $(CPPFLAGS) $<
 
 clean:
 	rm -f $(OBJS) main.o TapMania

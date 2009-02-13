@@ -63,7 +63,7 @@ Texture2D* t_SongsLoaderBG;
 			[m_pCurrentTexture release];
 		}
 		
-		m_pCurrentTexture = [[Texture2D alloc] initWithString:m_sCurrentMessage dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16];
+		m_pCurrentTexture = [[Texture2D alloc] initWithString:m_sCurrentMessage dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:16];
 	}
 }
 

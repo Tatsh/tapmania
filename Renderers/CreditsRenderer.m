@@ -43,7 +43,7 @@ Texture2D* t_CreditsBG;
 		
 	// Cache the textures
 	for(i=0; i<[textsArray count]; i++){
-		[m_aTexturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:16]];
+		[m_aTexturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:16]];
 	}
 	
 	[textsArray release];

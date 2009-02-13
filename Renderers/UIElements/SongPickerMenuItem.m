@@ -33,7 +33,7 @@ TMFramedTexture* t_WheelItem;
 	// The title must be taken from the song file
 	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", m_pSong.m_sArtist, m_pSong.m_sTitle];
 	
-	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Arial" fontSize:24.0f];
+	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
 	
 	return self;
 }
@@ -49,7 +49,7 @@ TMFramedTexture* t_WheelItem;
 	
 	m_pSong = song;	
 	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", m_pSong.m_sArtist, m_pSong.m_sTitle];
-	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Arial" fontSize:24.0f];
+	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
 }
 
 /* TMRenderable stuff */
