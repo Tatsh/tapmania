@@ -58,19 +58,19 @@ bin:
 	cp *.plist TapMania.app/
 	cp TapMania TapMania.app/
 
-tapmania: $(TOBUILD) main.o 
+tapmania: $(TOBUILD) main.md
 
 %.md: %.m
 	@echo "[+] Compile a .m file: $<"
-	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $<
+	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $< -o $(<:.m=.o)
 
 %.cd: %.c
 	@echo "[+] Compile a .c file: $<"
-	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $<
+	$(CC) -c $(CFLAGS) $(SPECIFIC_CFLAGS) $< -o $(<:.c=.o)
 
 %.cppd: %.cpp
 	@echo "[+] Compile a .cpp file: $<"
-	$(CC) -c $(CPPFLAGS) $<
+	$(CC) -c $(CPPFLAGS) $< -o $(<:.cpp=.o)
 
 clean:
 	rm -f $(OBJS) main.o TapMania

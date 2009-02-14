@@ -127,21 +127,6 @@
 		
 		prevTime = currentTime;
 		
-		/*
-		totalTime += delta;
-		
-		if(totalTime > 1.0f) {
-			// Show fps
-			framesCounter/=totalTime;		
-			// TMLog(@"[RunLoop] FPS: %d", framesCounter);
-			
-			totalTime = 0.0f;
-			framesCounter = 0;
-		}
-		
-		framesCounter ++;
-		*/
-		
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
 			[m_idDelegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
