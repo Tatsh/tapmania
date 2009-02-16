@@ -8,6 +8,7 @@
 
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
+#import "PhysicsUtil.h"
 
 #import "SongPickerMenuRenderer.h"
 #import "OptionsMenuRenderer.h"
@@ -25,10 +26,15 @@
 
 #import "QuadTransition.h"
 
+@interface MainMenuRenderer (Animations)
+- (void) animateMenu:(MainMenuState)direction; // in or out
+@end
+
 @implementation MainMenuRenderer
 
 int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
+int mt_Mass, mt_Gravity;
 Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 
 - (id) init {
@@ -44,6 +50,9 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsWidth"];
 	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsHeight"];
 	
+	mt_Mass = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonMass"];
+	mt_Gravity = [[ThemeManager sharedInstance] intMetric:@"MainMenu Gravity"];
+	
 	// Preload all required graphics
 	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
 	t_MenuPlay = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonPlay"];
@@ -52,6 +61,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
+	m_nState = kMainMenuState_Ready;
 	
 	// Register menu items
 	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
@@ -104,24 +114,67 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
-	if(m_nSelectedMenu == -1) 
-		return;
+	if(m_nState == kMainMenuState_Ready) {
+		
+		if(m_nSelectedMenu == kMainMenuItem_Play) {
+			TMLog(@"Enter song pick menu...");		
+			[self animateMenu:kMainMenuState_AnimatingOut];
+		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
+			TMLog(@"Enter options menu...");
+			
+			m_nSelectedMenu = -1;
+			// TODO
+			
+		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
+			TMLog(@"Enter credits screen...");
+			[self animateMenu:kMainMenuState_AnimatingOut];
+		}
+
+	} else if(m_nState == kMainMenuState_Finished) {
+		
+		if(m_nSelectedMenu == kMainMenuItem_Play) {
+			[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
+
+		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
+			// [[TapMania sharedInstance] switchToScreen:[[OptionsRenderer alloc] init]];
+			
+		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {				
+			[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[QuadTransition class]];
+		}
+		
+		m_nState = kMainMenuState_None;	// Do nothing more
 	
-	if(m_nSelectedMenu == kMainMenuItem_Play) {
-		TMLog(@"Enter song pick menu...");		
+	} else if(m_nState == kMainMenuState_AnimatingOut) {
 		
-		[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
-	} else if(m_nSelectedMenu == kMainMenuItem_Options) {
-		TMLog(@"Enter options menu...");
+		Vector* force = [[Vector alloc] initWithX:-mt_Mass * mt_Gravity andY:0.0f];
 		
-		// [[TapMania sharedInstance] switchToScreen:[[OptionsRenderer alloc] init]];
-	} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
-		TMLog(@"Enter credits screen...");
+		int i;
+		for(i=0; i<kNumMainMenuItems; ++i) {
+			
+			if(i == kMainMenuItem_Options && m_fAnimationTime < 0.1f) {
+				continue;
+			} else if(i == kMainMenuItem_Credits && m_fAnimationTime < 0.2f) {
+				continue;
+			}
+			
+			m_pVelocity[i].x += force.x / mt_Mass * [fDelta floatValue];
 		
-		[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[QuadTransition class]];
+			float newXPosition = [m_pMainMenuItems[i] getPosition].x;
+			newXPosition += m_pVelocity[i].x * [fDelta floatValue];
+		
+			float curY = [m_pMainMenuItems[i] getPosition].y;
+			[m_pMainMenuItems[i] updatePosition:CGPointMake(newXPosition, curY)];
+		
+			// Check whether all the items gone off screen already
+			if(i == kMainMenuItem_Credits && newXPosition < -mt_MenuButtonsWidth) {
+				m_nState = kMainMenuState_Finished; // Allow transition
+			}
+		}
+		
+		[force release];
+		m_fAnimationTime += [fDelta floatValue];
 	}
 	
-	m_nSelectedMenu = -1; // To ensure we are not doing the transition more than once
 }
 
 /* TMGameUIResponder methods */
@@ -138,6 +191,20 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 		} else if([m_pMainMenuItems[kMainMenuItem_Credits] containsPoint:point]){
 			m_nSelectedMenu = kMainMenuItem_Credits;
 		}
+	}
+}
+
+- (void) animateMenu:(MainMenuState)direction {
+	m_nState = direction;
+	m_fAnimationTime = 0.0f;
+	
+	int i;
+	for(i=0; i<kNumMainMenuItems; ++i) {
+		if(m_pVelocity[i]) {
+			[m_pVelocity[i] release];
+		}
+		
+		m_pVelocity[i] = [[Vector alloc] initWithX:0.0f andY:0.0f];
 	}
 }
 

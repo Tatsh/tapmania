@@ -17,6 +17,8 @@
 }
 
 - (id) initWithTexture:(Texture2D*) texture andShape:(CGRect) shape;
+- (CGPoint) getPosition;
+- (void) updatePosition:(CGPoint)point;
 - (BOOL) containsPoint:(CGPoint)point;
 
 @end

@@ -13,18 +13,29 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@class MenuItem;
+@class MenuItem, Vector;
 
-enum {
+typedef enum {
 	kMainMenuItem_Play = 0,
 	kMainMenuItem_Options,
 	kMainMenuItem_Credits,
 	kNumMainMenuItems
-};
+} MainMenuItem;
+
+typedef enum {
+	kMainMenuState_AnimatingOut = 0,
+	kMainMenuState_Ready,
+	kMainMenuState_Finished,
+	kMainMenuState_None
+} MainMenuState;
 
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
-	int			m_nSelectedMenu;
-	MenuItem*	m_pMainMenuItems[kNumMainMenuItems];
+	MainMenuItem	m_nSelectedMenu;
+	MainMenuState	m_nState;
+	float			m_fAnimationTime;
+	
+	Vector*			m_pVelocity[kNumMainMenuItems];
+	MenuItem*		m_pMainMenuItems[kNumMainMenuItems];
 }
 
 @end

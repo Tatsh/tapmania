@@ -26,6 +26,14 @@
 	return CGRectContainsPoint(m_rShape, point);
 }
 
+- (CGPoint) getPosition {
+	return m_rShape.origin;
+}
+
+- (void) updatePosition:(CGPoint)point {
+	m_rShape.origin.x = point.x;
+	m_rShape.origin.y = point.y;
+}
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
