@@ -45,6 +45,9 @@
 		2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */; };
 		2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */; };
 		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
+		248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0C640F4B13DB005A998C /* BasicEffect.m */; };
+		248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D210F4B24B4005A998C /* ZoomEffect.m */; };
+		248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D910F4B3750005A998C /* BlinkEffect.m */; };
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
@@ -147,6 +150,13 @@
 		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSongOptions.m; sourceTree = "<group>"; };
 		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
 		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
+		248B0C630F4B13DB005A998C /* BasicEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEffect.h; sourceTree = "<group>"; };
+		248B0C640F4B13DB005A998C /* BasicEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEffect.m; sourceTree = "<group>"; };
+		248B0CA90F4B1B00005A998C /* TMEffectSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEffectSupport.h; sourceTree = "<group>"; };
+		248B0D200F4B24B4005A998C /* ZoomEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomEffect.h; sourceTree = "<group>"; };
+		248B0D210F4B24B4005A998C /* ZoomEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomEffect.m; sourceTree = "<group>"; };
+		248B0D900F4B3750005A998C /* BlinkEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlinkEffect.h; sourceTree = "<group>"; };
+		248B0D910F4B3750005A998C /* BlinkEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlinkEffect.m; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
 		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
@@ -266,6 +276,7 @@
 				248548E20EE6D9E600AD4FAB /* TMGameUIResponder.h */,
 				246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */,
 				24079C1B0F4324260052EDB2 /* TMTransition.h */,
+				248B0CA90F4B1B00005A998C /* TMEffectSupport.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -328,6 +339,7 @@
 		2486F2A60EC0A18C00E5F9EE /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				248B0C620F4B133E005A998C /* Effects */,
 				24F15EB70EC31E4700755788 /* MenuItem.h */,
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
@@ -387,16 +399,30 @@
 				246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */,
 				24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */,
 				24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */,
-				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
 				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
 				242946370EC474D900B88828 /* SongPickerMenuRenderer.h */,
 				242946380EC474D900B88828 /* SongPickerMenuRenderer.m */,
 				2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */,
 				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */,
 				242327B90F273B630013AC23 /* SongResultsRenderer.h */,
+				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
 				242327BA0F273B630013AC23 /* SongResultsRenderer.m */,
 			);
 			name = Renderers;
+			sourceTree = "<group>";
+		};
+		248B0C620F4B133E005A998C /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				248B0C630F4B13DB005A998C /* BasicEffect.h */,
+				248B0C640F4B13DB005A998C /* BasicEffect.m */,
+				248B0D200F4B24B4005A998C /* ZoomEffect.h */,
+				248B0D210F4B24B4005A998C /* ZoomEffect.m */,
+				248B0D900F4B3750005A998C /* BlinkEffect.h */,
+				248B0D910F4B3750005A998C /* BlinkEffect.m */,
+			);
+			name = Effects;
+			path = Renderers/UIElements/Effects;
 			sourceTree = "<group>";
 		};
 		24D762930F389FBE008B0AA0 /* ThemeSupport */ = {
@@ -611,6 +637,9 @@
 				24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */,
 				24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */,
 				24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */,
+				248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */,
+				248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */,
+				248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +669,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				OTHER_CFLAGS = "-DDEBUG1";
+				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Release;

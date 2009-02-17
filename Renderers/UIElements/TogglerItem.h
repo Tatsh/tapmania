@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TMGameUIResponder.h"
 #import "MenuItem.h"
 
 @class MenuItem, Texture2D;
@@ -29,7 +28,7 @@
 @end
 
 /* The toggler self */
-@interface TogglerItem : MenuItem <TMGameUIResponder> {
+@interface TogglerItem : MenuItem {
 	NSMutableArray*		m_aElements;			// All the elements which are available in this toggler item (TogglerItemObjects)
 	int					m_nCurrentSelection;	// Index of currently selected element
 }

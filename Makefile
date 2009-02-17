@@ -16,7 +16,7 @@ FRAMEWORKS += -framework QuartzCore
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
 
 CFLAGS =  -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects 
-CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements 
+CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements -IRenderers/UIElements/Effects
 CFLAGS += -I"${prefix}/usr/include" -include TapMania_Prefix.pch 
 
 CPPFLAGS = $(CFLAGS)
@@ -24,7 +24,7 @@ CPPFLAGS = $(CFLAGS)
 SPECIFIC_CFLAGS = -std=c99 -fobjc-exceptions
 
 SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport 
-SRC_DIRS += Renderers Renderers/UIElements GameObjects Parsers Util
+SRC_DIRS += Renderers Renderers/UIElements Renderers/UIElements/Effects GameObjects Parsers Util
 
 MFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
 CFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))

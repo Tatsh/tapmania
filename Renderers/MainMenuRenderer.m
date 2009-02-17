@@ -24,11 +24,21 @@
 #import "ThemeManager.h"
 #import "Texture2D.h"
 
+#import "ZoomEffect.h"
+#import "BlinkEffect.h"
+
 #import "QuadTransition.h"
 
 @interface MainMenuRenderer (Animations)
 - (void) animateMenu:(MainMenuState)direction; // in or out
 @end
+
+@interface MainMenuRenderer (InputHandling)
+- (void) playButtonHit;
+- (void) optionsButtonHit;
+- (void) creditsButtonHit;
+@end
+
 
 @implementation MainMenuRenderer
 
@@ -64,10 +74,17 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	m_nState = kMainMenuState_Ready;
 	
 	// Register menu items
-	m_pMainMenuItems[kMainMenuItem_Play] = [[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
-	m_pMainMenuItems[kMainMenuItem_Options] = [[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
-	m_pMainMenuItems[kMainMenuItem_Credits] = [[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)];
-	
+	m_pMainMenuItems[kMainMenuItem_Play] = 
+		[[ZoomEffect alloc] initWithRenderable:	
+	 		[[BlinkEffect alloc] initWithRenderable:
+				[[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
+	m_pMainMenuItems[kMainMenuItem_Options] = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+	m_pMainMenuItems[kMainMenuItem_Credits] = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+
+	[m_pMainMenuItems[kMainMenuItem_Play] setActionHandler:@selector(playButtonHit) receiver:self];
+	[m_pMainMenuItems[kMainMenuItem_Options] setActionHandler:@selector(optionsButtonHit) receiver:self];
+	[m_pMainMenuItems[kMainMenuItem_Credits] setActionHandler:@selector(creditsButtonHit) receiver:self];
+
 	return self;
 }
 
@@ -87,14 +104,18 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
-	
+		
 	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:self];
+	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Play]];
+	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Options]];
+	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Credits]];	
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:self];
+	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Play]];
+	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Options]];
+	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Credits]];
 	
 	// Add the menu items to the render loop with lower priority
 	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Play]];
@@ -177,23 +198,20 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	
 }
 
-/* TMGameUIResponder methods */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	if([touches count] == 1) {
-		UITouch * touch = [touches anyObject];
-		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
-							[touch locationInView:[TapMania sharedInstance].glView]];
-	
-		if([m_pMainMenuItems[kMainMenuItem_Play] containsPoint:point]){
-			m_nSelectedMenu = kMainMenuItem_Play;
-		} else if([m_pMainMenuItems[kMainMenuItem_Options] containsPoint:point]){
-			m_nSelectedMenu = kMainMenuItem_Options;
-		} else if([m_pMainMenuItems[kMainMenuItem_Credits] containsPoint:point]){
-			m_nSelectedMenu = kMainMenuItem_Credits;
-		}
-	}
+/* Input handlers */
+- (void) playButtonHit {
+	m_nSelectedMenu = kMainMenuItem_Play;
 }
 
+- (void) optionsButtonHit {
+	m_nSelectedMenu = kMainMenuItem_Options;
+}
+
+- (void) creditsButtonHit {
+	m_nSelectedMenu = kMainMenuItem_Credits;
+}
+
+/* Animation stuff */
 - (void) animateMenu:(MainMenuState)direction {
 	m_nState = direction;
 	m_fAnimationTime = 0.0f;
