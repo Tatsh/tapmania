@@ -18,8 +18,15 @@
 - (id) initWithX:(float)lx andY:(float)ly;
 - (float) norm;
 - (float) normSquared;
+- (void) sum:(Vector*)v1;
+- (void) sub:(Vector*)v1;
+- (void) div:(Vector*)v1;
+- (void) mul:(Vector*)v1;
+- (void) divScalar:(float)op;
+- (void) mulScalar:(float)op;
 
-// Static util functions
+
+// Static util functions. They all return autoreleased stuff
 + (float) norm:(Vector*)v0;
 + (float) normSquared:(Vector*)v0;
 + (Vector*) normalize:(Vector*)v0 withTolerance:(float)tolerance;
@@ -28,6 +35,10 @@
 + (float) distSquared:(Vector*)v0 and:(Vector*)v1;
 + (Vector*) sum:(Vector*)v0 and:(Vector*)v1;
 + (Vector*) sub:(Vector*)v0 and:(Vector*)v1;
++ (Vector*) div:(Vector*)v0 and:(Vector*)v1;
++ (Vector*) mul:(Vector*)v0 and:(Vector*)v1;
++ (Vector*) divScalar:(Vector*)v0 and:(float)op;
++ (Vector*) mulScalar:(Vector*)v0 and:(float)op;
 + (float) dot:(Vector*)v0 and:(Vector*)v1;
 
 @end

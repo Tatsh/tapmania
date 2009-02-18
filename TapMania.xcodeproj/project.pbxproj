@@ -51,6 +51,7 @@
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
+		24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.m */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
@@ -163,6 +164,8 @@
 		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapMania.m; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
+		24A57AF20F4C265D0057F723 /* SlideEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideEffect.h; sourceTree = "<group>"; };
+		24A57AF30F4C265D0057F723 /* SlideEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideEffect.m; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				248B0D210F4B24B4005A998C /* ZoomEffect.m */,
 				248B0D900F4B3750005A998C /* BlinkEffect.h */,
 				248B0D910F4B3750005A998C /* BlinkEffect.m */,
+				24A57AF20F4C265D0057F723 /* SlideEffect.h */,
+				24A57AF30F4C265D0057F723 /* SlideEffect.m */,
 			);
 			name = Effects;
 			path = Renderers/UIElements/Effects;
@@ -640,6 +645,7 @@
 				248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */,
 				248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */,
 				248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */,
+				24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

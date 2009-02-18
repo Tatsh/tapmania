@@ -26,12 +26,9 @@
 
 #import "ZoomEffect.h"
 #import "BlinkEffect.h"
+#import "SlideEffect.h"
 
 #import "QuadTransition.h"
-
-@interface MainMenuRenderer (Animations)
-- (void) animateMenu:(MainMenuState)direction; // in or out
-@end
 
 @interface MainMenuRenderer (InputHandling)
 - (void) playButtonHit;
@@ -72,15 +69,33 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	// No item selected by default
 	m_nSelectedMenu = -1;
 	m_nState = kMainMenuState_Ready;
+	m_dAnimationTime = 0.0;
 	
 	// Register menu items
 	m_pMainMenuItems[kMainMenuItem_Play] = 
-		[[ZoomEffect alloc] initWithRenderable:	
-	 		[[BlinkEffect alloc] initWithRenderable:
-				[[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
-	m_pMainMenuItems[kMainMenuItem_Options] = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
-	m_pMainMenuItems[kMainMenuItem_Credits] = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:	
+				[[BlinkEffect alloc] initWithRenderable:
+					[[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]]];							
 
+	m_pMainMenuItems[kMainMenuItem_Options] = 
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:
+				[[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+
+	m_pMainMenuItems[kMainMenuItem_Credits] = 	
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:
+				[[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_CreditsButtonY)];
+
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) effectTime: 0.4f];
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) effectTime: 0.4f];
+	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) effectTime: 0.4f];	
+	
 	[m_pMainMenuItems[kMainMenuItem_Play] setActionHandler:@selector(playButtonHit) receiver:self];
 	[m_pMainMenuItems[kMainMenuItem_Options] setActionHandler:@selector(optionsButtonHit) receiver:self];
 	[m_pMainMenuItems[kMainMenuItem_Credits] setActionHandler:@selector(creditsButtonHit) receiver:self];
@@ -139,7 +154,8 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 		
 		if(m_nSelectedMenu == kMainMenuItem_Play) {
 			TMLog(@"Enter song pick menu...");		
-			[self animateMenu:kMainMenuState_AnimatingOut];
+			m_nState = kMainMenuState_AnimatingOut;
+			
 		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 			TMLog(@"Enter options menu...");
 			
@@ -148,7 +164,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 			
 		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
 			TMLog(@"Enter credits screen...");
-			[self animateMenu:kMainMenuState_AnimatingOut];
+			m_nState = kMainMenuState_AnimatingOut;
 		}
 
 	} else if(m_nState == kMainMenuState_Finished) {
@@ -165,35 +181,31 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 		
 		m_nState = kMainMenuState_None;	// Do nothing more
 	
-	} else if(m_nState == kMainMenuState_AnimatingOut) {
+	} else if(m_nState == kMainMenuState_AnimatingOut) {		
 		
-		Vector* force = [[Vector alloc] initWithX:-mt_Mass * mt_Gravity andY:0.0f];
-		
-		int i;
-		for(i=0; i<kNumMainMenuItems; ++i) {
-			
-			if(i == kMainMenuItem_Options && m_fAnimationTime < 0.1f) {
-				continue;
-			} else if(i == kMainMenuItem_Credits && m_fAnimationTime < 0.2f) {
-				continue;
-			}
-			
-			m_pVelocity[i].x += force.x / mt_Mass * [fDelta floatValue];
-		
-			float newXPosition = [m_pMainMenuItems[i] getPosition].x;
-			newXPosition += m_pVelocity[i].x * [fDelta floatValue];
-		
-			float curY = [m_pMainMenuItems[i] getPosition].y;
-			[m_pMainMenuItems[i] updatePosition:CGPointMake(newXPosition, curY)];
-		
-			// Check whether all the items gone off screen already
-			if(i == kMainMenuItem_Credits && newXPosition < -mt_MenuButtonsWidth) {
-				m_nState = kMainMenuState_Finished; // Allow transition
-			}
+		if([(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isFinished]) {
+			m_nState = kMainMenuState_Finished;
+			return;
 		}
 		
-		[force release];
-		m_fAnimationTime += [fDelta floatValue];
+		// Start stuff with timeouts
+		if(![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] isFinished] && 
+		   ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] isTweening])
+		{			
+			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] startTweening];
+			
+		} else if(m_dAnimationTime >= 0.1 && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] isFinished]
+				  && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] isTweening]) 
+		{			
+			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] startTweening];
+			
+		} else if(m_dAnimationTime >= 0.2 && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isFinished]
+				  && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isTweening]) 
+		{			
+			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] startTweening];
+		}
+						
+		m_dAnimationTime += [fDelta floatValue];
 	}
 	
 }
@@ -209,21 +221,6 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 
 - (void) creditsButtonHit {
 	m_nSelectedMenu = kMainMenuItem_Credits;
-}
-
-/* Animation stuff */
-- (void) animateMenu:(MainMenuState)direction {
-	m_nState = direction;
-	m_fAnimationTime = 0.0f;
-	
-	int i;
-	for(i=0; i<kNumMainMenuItems; ++i) {
-		if(m_pVelocity[i]) {
-			[m_pVelocity[i] release];
-		}
-		
-		m_pVelocity[i] = [[Vector alloc] initWithX:0.0f andY:0.0f];
-	}
 }
 
 @end

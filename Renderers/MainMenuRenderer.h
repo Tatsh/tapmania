@@ -32,7 +32,7 @@ typedef enum {
 @interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
 	MainMenuItem	m_nSelectedMenu;
 	MainMenuState	m_nState;
-	float			m_fAnimationTime;
+	double			m_dAnimationTime;
 	
 	Vector*			m_pVelocity[kNumMainMenuItems];
 	MenuItem*		m_pMainMenuItems[kNumMainMenuItems];

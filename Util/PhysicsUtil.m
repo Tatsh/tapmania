@@ -45,6 +45,36 @@
 	return (m_fX*m_fX + m_fY*m_fY);
 }
 
+- (void) sum:(Vector*)v1 {
+	m_fX += v1.x;
+	m_fY += v1.y;
+}
+
+- (void) sub:(Vector*)v1 {
+	m_fX -= v1.x;
+	m_fY -= v1.y;	
+}
+
+- (void) mul:(Vector*)v1 {
+	m_fX *= v1.x;
+	m_fY *= v1.y;
+}
+
+- (void) div:(Vector*)v1 {
+	m_fX /= v1.x;
+	m_fY /= v1.y;	
+}
+
+- (void) divScalar:(float)op {
+	m_fX /= op;
+	m_fY /= op;
+}
+
+- (void) mulScalar:(float)op {
+	m_fX *= op;
+	m_fY *= op;
+}
+
 + (float) norm:(Vector*)v0 {
 	return sqrt(v0.x*v0.x + v0.y*v0.y);
 }
@@ -57,14 +87,14 @@
 	float len = [Vector norm:v0];
 
 	if(len >= tolerance){
-		return [[Vector alloc] initWithX:v0.x/len andY:v0.y/len];
+		return [[[Vector alloc] initWithX:v0.x/len andY:v0.y/len] autorelease];
 	}
 	
-	return [[Vector alloc] init];
+	return [[[Vector alloc] init] autorelease];
 }
 
 + (float) dist:(Vector*)v0 and:(Vector*)v1 {
-	return sqrt( [Vector distSquared:v0 and:v1]);
+	return sqrt( [Vector distSquared:v0 and:v1] );
 }
 
 + (float) distSquared:(Vector*)v0 and:(Vector*)v1 {
@@ -72,11 +102,27 @@
 }
 
 + (Vector*) sum:(Vector*)v0 and:(Vector*)v1 {
-	return [[Vector alloc] initWithX:v0.x+v1.x andY:v0.y+v1.y];
+	return [[[Vector alloc] initWithX:v0.x+v1.x andY:v0.y+v1.y] autorelease];
 }
 
 + (Vector*) sub:(Vector*)v0 and:(Vector*)v1 {
-	return [[Vector alloc] initWithX:v0.x-v1.x andY:v0.y-v1.y];
+	return [[[Vector alloc] initWithX:v0.x-v1.x andY:v0.y-v1.y] autorelease];
+}
+
++ (Vector*) div:(Vector*)v0 and:(Vector*)v1 {
+	return [[[Vector alloc] initWithX:v0.x/v1.x andY:v0.y/v1.y] autorelease];
+}
+
++ (Vector*) mul:(Vector*)v0 and:(Vector*)v1 {
+	return [[[Vector alloc] initWithX:v0.x*v1.x andY:v0.y*v1.y] autorelease];
+}
+
++ (Vector*) divScalar:(Vector*)v0 and:(float)op {
+	return [[[Vector alloc] initWithX:v0.x/op andY:v0.y/op] autorelease];
+}
+
++ (Vector*) mulScalar:(Vector*)v0 and:(float)op {
+	return [[[Vector alloc] initWithX:v0.x*op andY:v0.y*op] autorelease];
 }
 
 + (float) dot:(Vector*)v0 and:(Vector*)v1 {

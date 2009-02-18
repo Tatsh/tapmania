@@ -53,6 +53,7 @@
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
+	[super update:fDelta];
 	
 	if(m_nState == kBlinkWaiting) {
 		m_fBlinkTime += [fDelta floatValue];
@@ -71,8 +72,6 @@
 			m_nState = kBlinkWaiting;
 		}		
 	}
-	
-	[super update:fDelta];
 }
 
 /* TMGameUIResponder stuff */

@@ -25,7 +25,8 @@
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {
-		
+	[super update:fDelta];
+	
 	if(m_nState == kZoomIn) {
 
 		m_fCurrentValue += kZoomStep;
@@ -45,13 +46,11 @@
 	}
 	
 	if(m_nState != kZoomNone) {
-		CGRect newShape = CGRectMake(m_rOriginalShape.origin.x-m_fCurrentValue, m_rOriginalShape.origin.y-m_fCurrentValue, 
-									 m_rOriginalShape.size.width+(m_fCurrentValue*2), m_rOriginalShape.size.height+(m_fCurrentValue*2));
-		
-		[self updateShape:newShape];	// Update internal shape of our effect
+		CGRect decoratedShape = [m_idDecoratedObject getShape];
+		m_rShape = CGRectMake(decoratedShape.origin.x-m_fCurrentValue, decoratedShape.origin.y-m_fCurrentValue, 
+									 decoratedShape.size.width+(m_fCurrentValue*2), decoratedShape.size.height+(m_fCurrentValue*2));
 	}
-	
-	[super update:fDelta];
+
 }
 
 /* TMGameUIResponder stuff */
