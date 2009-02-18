@@ -13,7 +13,7 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@class MenuItem, Vector;
+@class MenuItem;
 
 typedef enum {
 	kMainMenuItem_Play = 0,
@@ -34,7 +34,6 @@ typedef enum {
 	MainMenuState	m_nState;
 	double			m_dAnimationTime;
 	
-	Vector*			m_pVelocity[kNumMainMenuItems];
 	MenuItem*		m_pMainMenuItems[kNumMainMenuItems];
 }
 
