@@ -16,19 +16,22 @@
 
 @class SongPickerMenuItem, TogglerItem;
 
-#define kNumWheelItems 7
+#define kNumWheelItems 9
+#define kNumSwipePositions 10
 
 @interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	TogglerItem*			m_pSpeedToggler;
 	
-	SongPickerMenuItem*		m_pWheelItems[kNumWheelItems]; // Always 7 wheel items are visible on screen
+	NSMutableArray*			m_pWheelItems;		// Always maintain 9 wheel items
 	int						m_nCurrentSongId;	// Selected song index
 	
-	float					m_fScrollVelocity;	// Current velocity of the wheel scroll if moving. -values is down, +values is up
-	float					m_fMoveRows;
+	float					m_fVelocity;		// Current speed of the wheel
+	float					m_fAcceleration;	// The acceleration (breaks system)
 	
-	CGPoint					m_oStartTouchPos, m_oLastTouchPos;
-	float					m_fStartTouchTime, m_fLastMoveTime;
+	int						m_nCurrentSwipePosition;
+	float					m_fSwipeBuffer[kNumSwipePositions];
+	float					m_fLastSwipeY;
+	float					m_fSwipeDirection;	// -1 or +1
 	
 	BOOL					m_bStartSongPlay;
 }

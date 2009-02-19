@@ -32,12 +32,15 @@
 
 #define kMinSwipeDelta 50.0f
 #define	kMinSwipeTime 0.1f
-#define kSelectedWheelItemId 2
+#define kSelectedWheelItemId 4
 
 @interface SongPickerMenuRenderer (Private)
 
-- (void) shiftWheelBy:(float)items;
-- (void) playSong;
+- (void) saveSwipeElement:(float)value;
+- (float) calculateSwipeVelocity;
+- (void) clearSwipes;
+
+- (void) rollWheel:(float) pixels;
 
 @end
 
@@ -48,6 +51,7 @@ static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTog
 @implementation SongPickerMenuRenderer
 
 Texture2D* t_SongPickerBG;
+Texture2D* t_Highlight;
 
 - (id) init {
 	self = [super init];
@@ -62,37 +66,19 @@ Texture2D* t_SongPickerBG;
 	
 	// Cache graphics
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
+	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
 	
-	/*
+	m_pWheelItems = [[NSMutableArray alloc] initWithCapacity:kNumWheelItems];
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-		
-	for(i=0; i<[songList count]; i++){
-		TMSong *song = [songList objectAtIndex:i];
 	
-		TMLog(@"available difficulties:");
-		TMSongDifficulty dif = kSongDifficulty_Invalid;
-		
-		for(; dif < kNumSongDifficulties; dif++) {
-			if([song isDifficultyAvailable:dif]) {
-	//			TMLog(@"%s [%d]", [TMSong difficultyToString:dif], [song getDifficultyLevel:dif]);
-			}
-		}		
-	}
-	*/
-	
-	m_fScrollVelocity = 0.0f;
-	m_fMoveRows = 0;
+	m_fVelocity = 0.0f;
+	m_fAcceleration = 5.0f;
 	m_bStartSongPlay = NO;
 	
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-		
-	float curWidth = 0.85f;	// 95% - 2*5% = 85% = 0.85
-	float curYOffset = -39.0f;
-	float curXOffset;
+	[self clearSwipes];
 	
-	float curIncrementer = 0.05;
 	
+	float curYOffset = 0.0f;
 	int i;
 	int j = 0;
 	
@@ -102,39 +88,13 @@ Texture2D* t_SongPickerBG;
 			j = 0;
 		}
 
-		TMSong *song = [songList objectAtIndex:j++];
+		TMSong *song = [songList objectAtIndex:j++];				
+		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, curYOffset)]];
 		
-		float curHeight = 40.0f;
-		
-		if(i<kSelectedWheelItemId){
-			curIncrementer -= 0.01;
-			curWidth += curIncrementer;
-			curYOffset += curHeight+2;
-			curXOffset = bounds.size.width - curWidth*bounds.size.width;
-			m_pWheelItems[i] = [[SongPickerMenuItem alloc] initWithSong:song andShape:CGRectMake(curXOffset, curYOffset, curWidth*bounds.size.width, curHeight)];
-
-		} else if (i==kSelectedWheelItemId){
-			
-			// Save current song id
-			m_nCurrentSongId = j;
-			
-			curWidth = 0.95;
-			curYOffset += curHeight;
-			curXOffset = bounds.size.width - curWidth*bounds.size.width;
-			m_pWheelItems[i] = [[SongPickerMenuSelectedItem alloc] initWithSong:song andShape:CGRectMake(curXOffset, curYOffset, curWidth*bounds.size.width, 118.0f)];
-
-			// Size difference
-			curYOffset += 76.0f;
-			
-		} else {
-			
-			curIncrementer += 0.01;
-			curYOffset += curHeight+2;
-			curWidth -= curIncrementer;
-			curXOffset = bounds.size.width - curWidth*bounds.size.width;
-			m_pWheelItems[i] = [[SongPickerMenuItem alloc] initWithSong:song andShape:CGRectMake(curXOffset, curYOffset, curWidth*bounds.size.width, curHeight)];
-		}
+		curYOffset += 46.0f;
 	}
+	
+	// 184.0f -- the position of the highlight element
 	
 	NSArray* arr = [NSArray arrayWithObjects:
 					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1x] andValue:[NSNumber numberWithInt:kSpeedMod_1x]],
@@ -146,6 +106,14 @@ Texture2D* t_SongPickerBG;
 	m_pSpeedToggler = [[TogglerItem alloc] initWithElements:arr andShape:CGRectMake(255, 375, 60, 40)];
 	
 	return self;
+}
+
+- (void) dealloc {
+	[m_pWheelItems removeAllObjects];
+	[m_pWheelItems release];
+	[m_pSpeedToggler release];
+	
+	[super dealloc];
 }
 
 /* TMTransitionSupport methods */
@@ -170,9 +138,14 @@ Texture2D* t_SongPickerBG;
 	
 	// Positions of the wheel items are fixed
 	int i;
-	for(i=0; i<kNumWheelItems; i++){
-		[m_pWheelItems[i] render:fDelta];
+	for(i=0; i<[m_pWheelItems count]; i++){
+		[(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] render:fDelta];
 	}
+	
+	// Highlight selection
+	glEnable(GL_BLEND);
+	[t_Highlight drawAtPoint:CGPointMake(165.0f, 184.0f)];
+	glDisable(GL_BLEND);
 	
 	[m_pSpeedToggler render:fDelta];
 }
@@ -192,7 +165,7 @@ Texture2D* t_SongPickerBG;
 		[options setDifficulty:kSongDifficulty_Hard];
 		
 		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
-		[songPlayRenderer playSong:m_pWheelItems[kSelectedWheelItemId].m_pSong withOptions:options];
+		[songPlayRenderer playSong:((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId]).m_pSong withOptions:options];
 		
 		[[TapMania sharedInstance] switchToScreen:songPlayRenderer];
 		
@@ -200,20 +173,18 @@ Texture2D* t_SongPickerBG;
 	}
 	
 	// Do all scroll related stuff
-	if(fabsf(m_fScrollVelocity) > 0.05f){
-		m_fScrollVelocity -= [fDelta floatValue]*m_fScrollVelocity;
-	} else {
-
-		// Stop scroll
-		m_fScrollVelocity = 0.0f;
-	}
-	
-	m_fMoveRows += m_fScrollVelocity/10.0f;
-	if(fabsf(m_fMoveRows) >= 1.0f) {
-		// Time to shift
-		[self shiftWheelBy:m_fMoveRows];
+	if(m_fVelocity != 0.0f) {
 		
-		m_fMoveRows = 0;
+		m_fVelocity -= [fDelta floatValue] * m_fAcceleration;
+		
+		if(m_fVelocity <= 0.0f) {
+			// Stop scrolling
+			m_fVelocity = 0.0f;
+			
+		} else {
+			[self rollWheel: [fDelta floatValue] * m_fVelocity * m_fSwipeDirection];
+			TMLog(@"Current velocity %f with direction %f", m_fVelocity, m_fSwipeDirection);
+		}
 	}
 }
 
@@ -224,13 +195,11 @@ Texture2D* t_SongPickerBG;
 		case 1:
 		{
 			UITouch* touch = [touches anyObject];
-			m_oStartTouchPos = [touch locationInView:[TapMania sharedInstance].glView];
-			m_fStartTouchTime = [TimingUtil getCurrentTime];
+			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
+			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 			
-			m_oLastTouchPos = m_oStartTouchPos;
-			m_fLastMoveTime = m_fStartTouchTime;
-			
-			m_fScrollVelocity = 0.0f;	// Stop scrollin if touching the screen
+			m_fLastSwipeY = pointGl.y;
+			m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
 			
 			break;
 		}
@@ -244,13 +213,10 @@ Texture2D* t_SongPickerBG;
 		{
 			UITouch* touch = [touches anyObject];
 			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-	
-			m_fMoveRows = (pos.y-m_oLastTouchPos.y)/40.0f; // 40.0f is about the size of the wheel item
-			if(fabsf(m_fMoveRows) >= 1.0f) {
-				m_oLastTouchPos = pos;
-			}
+			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 			
-			m_fLastMoveTime = [TimingUtil getCurrentTime];
+			[self saveSwipeElement:pointGl.y-m_fLastSwipeY];
+			m_fLastSwipeY = pointGl.y;
 			
 			break;
 		}
@@ -264,52 +230,63 @@ Texture2D* t_SongPickerBG;
 		
 		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
 		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-		
-		// Should start a song?
-		if([t1 tapCount] > 1 && [m_pWheelItems[kSelectedWheelItemId] containsPoint:pointGl]){
-			[self playSong];
-			return;
-		}
+		[self saveSwipeElement:pointGl.y-m_fLastSwipeY];		
 		
 		// Now the fun part - swipes
-		float deltaX = fabsf(m_oStartTouchPos.x - pos.x);
+		m_fVelocity = [self calculateSwipeVelocity];
+		TMLog(@"Got swipe velocity: %f", m_fVelocity);
 		
-		float curTime = [TimingUtil getCurrentTime];
-		
-		// Check vertical swipes only
-		if(deltaX <= kMinSwipeDelta && curTime-m_fLastMoveTime <= kMinSwipeTime) {
-			float timeDelta = [TimingUtil getCurrentTime] - m_fStartTouchTime;
-			m_fScrollVelocity = (pos.y-m_oStartTouchPos.y)/400.0f/timeDelta; // 400.0f is about one full wheel drag actually
-		}
+		[self clearSwipes];
 	}
 }
 
-
-/* Private method */
-- (void) shiftWheelBy:(float)items {
-	int i, j;
-	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
-
-	j = m_nCurrentSongId-kSelectedWheelItemId+items;
-	if(j < 0) j = [songList count]+j;
+- (void) clearSwipes {	
+	int i;
+	for(i=0; i<kNumSwipePositions; ++i) {
+		m_fSwipeBuffer[i] = 0.0f;
+	}
 	
-	for(i=0; i<kNumWheelItems; i++){
-		
-		if(j >= [songList count]) {
-			j = 0;
-		}
-		
-		if(i == kSelectedWheelItemId) m_nCurrentSongId = j;		
-		[m_pWheelItems[i] switchToSong:[songList objectAtIndex:j++]];
+	m_nCurrentSwipePosition = 0;
+	m_fLastSwipeY = 0.0f;
+}	
+
+- (float) calculateSwipeVelocity {
+	int i;
+	float total = 0.0f;	
+	
+	for(i=0; i<kNumSwipePositions; ++i) {
+		total += m_fSwipeBuffer[i];
 	}
+	
+	total /= kNumSwipePositions;
+	total *= 10.0f;
+	
+	if(total <= 0.0f) {
+		m_fSwipeDirection = -1.0f;
+		return fabsf(total);
+	}
+	
+	m_fSwipeDirection = 1.0f;
+	return total;
 }
 
-- (void) playSong {
-	if(m_pWheelItems[kSelectedWheelItemId] != nil) {
-		TMSong* song = m_pWheelItems[kSelectedWheelItemId].m_pSong;
-		if(song != nil) {
-			m_bStartSongPlay = YES;
-		}
+- (void) saveSwipeElement:(float)value {
+	if(m_nCurrentSwipePosition == kNumSwipePositions-1) {
+		m_nCurrentSwipePosition = 0;
+	}
+	
+	m_fSwipeBuffer[m_nCurrentSwipePosition++] = value;
+}
+
+- (void) rollWheel:(float) pixels {
+	int i;
+	for(i=0; i<[m_pWheelItems count]; ++i) {
+		[((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i]) updateYPosition:pixels];
+	}
+	
+	// Check last object
+	if ( [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y <= -23.0f ) {
+		TMLog(@"Time to remove element from bottom top of list");
 	}
 }
 

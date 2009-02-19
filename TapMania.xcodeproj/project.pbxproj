@@ -12,7 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.m */; };
-		24079DC20F4336120052EDB2 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24079D8D0F4336120052EDB2 /* themes */; };
+		240872D70F4DE2A600799C2B /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 240872A00F4DE2A600799C2B /* themes */; };
 		242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.m */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
@@ -86,7 +86,7 @@
 		24079C1B0F4324260052EDB2 /* TMTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransition.h; sourceTree = "<group>"; };
 		24079D8A0F4333300052EDB2 /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
 		24079D8B0F4333300052EDB2 /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
-		24079D8D0F4336120052EDB2 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
+		240872A00F4DE2A600799C2B /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
 		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
@@ -402,14 +402,14 @@
 				246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */,
 				24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */,
 				24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */,
-				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
 				242946370EC474D900B88828 /* SongPickerMenuRenderer.h */,
 				242946380EC474D900B88828 /* SongPickerMenuRenderer.m */,
 				2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */,
 				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */,
 				242327B90F273B630013AC23 /* SongResultsRenderer.h */,
-				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
 				242327BA0F273B630013AC23 /* SongResultsRenderer.m */,
+				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
+				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24079D8D0F4336120052EDB2 /* themes */,
+				240872A00F4DE2A600799C2B /* themes */,
 				244E5A010F41AE410004C921 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -550,7 +550,7 @@
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				244E5A140F41AE410004C921 /* noteskins in Resources */,
-				24079DC20F4336120052EDB2 /* themes in Resources */,
+				240872D70F4DE2A600799C2B /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

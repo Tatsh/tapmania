@@ -7,64 +7,84 @@
 //
 
 #import "SongPickerMenuItem.h"
-#import "TMFramedTexture.h"
+#import "Texture2D.h"
 
 #import "TMSong.h"
 #import "ThemeManager.h"
 #import "TapMania.h"
 
+@interface SongPickerMenuItem (Private)
+- (void) generateTextures;
+@end
+
+
 @implementation SongPickerMenuItem
 
-TMFramedTexture* t_WheelItem;
+Texture2D* t_WheelItem;
 
 @synthesize m_pSong;
 
-- (id) initWithSong:(TMSong*) song andShape:(CGRect)shape {
+- (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
-	m_rShape = shape;
+	m_rShape.origin = point; // We don't really use the size here
 	m_pSong = song;	
 	
 	// Cache texture
-	t_WheelItem = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"SongPicker Wheel Item"];
-	
-	// The title must be taken from the song file
-	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", m_pSong.m_sArtist, m_pSong.m_sTitle];
-	
-	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
+	t_WheelItem = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel ItemSong"];
+	[self generateTextures];
 	
 	return self;
 }
 
 - (void) dealloc {
 	[m_pTitle release];
+	[m_pArtist release];
 	[m_pSong release];
 	[super dealloc];
 }
 
 - (void) switchToSong:(TMSong*) song {
 	[m_pTitle release];	// Release old texture
+	[m_pArtist release];
 	
 	m_pSong = song;	
-	NSString *titleStr = [NSString stringWithFormat:@"%@ - %@", m_pSong.m_sArtist, m_pSong.m_sTitle];
-	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:m_rShape.size alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
+	[self generateTextures];
+}
+
+- (void) generateTextures {		
+	// The title must be taken from the song file
+	NSString *titleStr = [NSString stringWithFormat:@"%@", m_pSong.m_sTitle];	
+	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
+
+	// TODO from metrics!
+	float titleWidth = 280.0f;
+	float titleHeight = 34.0f;
+	float artistHeight = 12.0f;
+
+	CGSize titleSize = CGSizeMake(titleWidth, titleHeight);
+	CGSize artistSize = CGSizeMake(titleWidth, artistHeight); 
+
+	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:titleSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
+	m_pArtist = [[Texture2D alloc] initWithString:artistStr dimensions:artistSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:12.0f];
 }
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	CGRect capRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
-	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-12.0f, m_rShape.size.height); 
-
 	glEnable(GL_BLEND);
-	[t_WheelItem drawFrame:0 inRect:capRect];
-	[t_WheelItem drawFrame:1 inRect:bodyRect];
+	[t_WheelItem drawAtPoint:m_rShape.origin];
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[m_pTitle drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
+	[m_pTitle drawInRect:CGRectMake(15.0f, m_rShape.origin.y-20, 280.0f, 34.0f)];
+	[m_pArtist drawInRect:CGRectMake(18.0f, m_rShape.origin.y-18, 280.0f, 12.0f)];
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);		
 	glDisable(GL_BLEND);
+}
+
+- (void) updateYPosition:(float)pixels {
+	m_rShape.origin.y += pixels;
 }
 
 @end
