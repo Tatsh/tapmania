@@ -14,19 +14,29 @@
 
 #import "AbstractRenderer.h"
 
-@class SongPickerMenuItem, TogglerItem;
+@class SongPickerMenuItem, TogglerItem, BasicEffect, MenuItem;
 
-#define kNumWheelItems 9
+#define kNumWheelItems 10
 #define kNumSwipePositions 10
 
+#define kSelectedWheelItemId 4
+
+#define kWheelSwipeFactor		15.0f;
+#define kWheelStaticFriction	0.25f
+#define kWheelMass				80.0f
+
+#define kWheelReceptorMass		100000.0f
+#define kWheelLowerItemMass			10.0f
+#define kWheelUpperItemMass			10.0f;
+
 @interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
-	TogglerItem*			m_pSpeedToggler;
+	BasicEffect*			m_pSpeedToggler;
+	MenuItem*				m_pBackMenuItem;
 	
-	NSMutableArray*			m_pWheelItems;		// Always maintain 9 wheel items
+	NSMutableArray*			m_pWheelItems;		// The wheel items
 	int						m_nCurrentSongId;	// Selected song index
 	
 	float					m_fVelocity;		// Current speed of the wheel
-	float					m_fAcceleration;	// The acceleration (breaks system)
 	
 	int						m_nCurrentSwipePosition;
 	float					m_fSwipeBuffer[kNumSwipePositions];

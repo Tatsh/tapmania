@@ -122,6 +122,44 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	return m_sSongsDir;
 }
 
+- (TMSong*) getSongNextTo:(TMSong*)song {
+	int i;
+	for(i=0; i<[m_aAvailableSongs count]; ++i) {
+
+		// We search by memory addres
+		if([m_aAvailableSongs objectAtIndex:i] == song) {
+			if(i == [m_aAvailableSongs count]-1) {
+				i = 0; 
+			} else {
+				++i;
+			}
+			
+			return [m_aAvailableSongs objectAtIndex:i];
+		}
+	}
+	
+	return nil;	// Not found
+}
+
+- (TMSong*) getSongPrevFrom:(TMSong*)song {
+	int i;
+	for(i=0; i<[m_aAvailableSongs count]; ++i) {
+		
+		// We search by memory addres
+		if([m_aAvailableSongs objectAtIndex:i] == song) {
+			if(i == 0) {
+				i = [m_aAvailableSongs count]-1; 
+			} else {
+				--i;
+			}
+			
+			return [m_aAvailableSongs objectAtIndex:i];
+		}
+	}
+	
+	return nil;	// Not found	
+}
+
 - (void) dealloc {
 	[m_sSongsDir release];
 	[m_aAvailableSongs release];

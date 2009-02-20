@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kGravity -9.8f
+
 @interface Vector : NSObject {
 	float m_fX, m_fY;
 }

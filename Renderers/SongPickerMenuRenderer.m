@@ -18,6 +18,7 @@
 #import "TimingUtil.h"
 
 #import "MainMenuRenderer.h"
+#import "PhysicsUtil.h"
 
 #import "SongPickerMenuItem.h"
 #import "SongPickerMenuSelectedItem.h"
@@ -28,11 +29,11 @@
 #import "EAGLView.h"
 #import "ThemeManager.h"
 
+#import "ZoomEffect.h"
 #import "SongPlayRenderer.h"
+#import "MainMenuRenderer.h"
 
-#define kMinSwipeDelta 50.0f
-#define	kMinSwipeTime 0.1f
-#define kSelectedWheelItemId 4
+#import "QuadTransition.h"
 
 @interface SongPickerMenuRenderer (Private)
 
@@ -41,17 +42,20 @@
 - (void) clearSwipes;
 
 - (void) rollWheel:(float) pixels;
+- (void) backButtonHit;
+
+- (float) findClosest;
 
 @end
 
-
-static int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTogglerHeight;
-
-
 @implementation SongPickerMenuRenderer
+
+int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTogglerHeight;
 
 Texture2D* t_SongPickerBG;
 Texture2D* t_Highlight;
+Texture2D* t_Top;
+Texture2D* t_MenuBack;
 
 - (id) init {
 	self = [super init];
@@ -67,16 +71,16 @@ Texture2D* t_Highlight;
 	// Cache graphics
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
+	t_Top = [[ThemeManager sharedInstance] texture:@"SongPicker Top"];
+	t_MenuBack = [[ThemeManager sharedInstance] texture:@"SongPicker BackButton"];
 	
 	m_pWheelItems = [[NSMutableArray alloc] initWithCapacity:kNumWheelItems];
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
 	
 	m_fVelocity = 0.0f;
-	m_fAcceleration = 5.0f;
 	m_bStartSongPlay = NO;
 	
 	[self clearSwipes];
-	
 	
 	float curYOffset = 0.0f;
 	int i;
@@ -103,7 +107,11 @@ Texture2D* t_Highlight;
 					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_3x] andValue:[NSNumber numberWithInt:kSpeedMod_3x]],
 					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_5x] andValue:[NSNumber numberWithInt:kSpeedMod_5x]],
 					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_8x] andValue:[NSNumber numberWithInt:kSpeedMod_8x]], nil];
-	m_pSpeedToggler = [[TogglerItem alloc] initWithElements:arr andShape:CGRectMake(255, 375, 60, 40)];
+	
+	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithElements:arr andShape:CGRectMake(255.0f, 433.0f, 60.0f, 40.0f)]];
+	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuBack andShape:CGRectMake(5.0f, 433.0f, 60.0f, 40.0f)]];
+	
+	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	
 	return self;
 }
@@ -112,6 +120,7 @@ Texture2D* t_Highlight;
 	[m_pWheelItems removeAllObjects];
 	[m_pWheelItems release];
 	[m_pSpeedToggler release];
+	[m_pBackMenuItem release];
 	
 	[super dealloc];
 }
@@ -121,12 +130,22 @@ Texture2D* t_Highlight;
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 	[[InputEngine sharedInstance] subscribe:m_pSpeedToggler];
+	[[InputEngine sharedInstance] subscribe:m_pBackMenuItem];
+	
+	// Add the items with low priority
+	[[TapMania sharedInstance] registerObject:m_pSpeedToggler withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-1];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
 	[[InputEngine sharedInstance] unsubscribe:m_pSpeedToggler];
+	[[InputEngine sharedInstance] unsubscribe:m_pBackMenuItem];
+	
+	// Remove the items
+	[[TapMania sharedInstance] deregisterObject:m_pSpeedToggler];
+	[[TapMania sharedInstance] deregisterObject:m_pBackMenuItem];
 }
 
 /* TMRenderable method */
@@ -142,12 +161,12 @@ Texture2D* t_Highlight;
 		[(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] render:fDelta];
 	}
 	
-	// Highlight selection
+	// Highlight selection and draw top element
 	glEnable(GL_BLEND);
+	[t_Top drawInRect:CGRectMake(0.0f, 410.0f, 320.0f, 70.0f)];
 	[t_Highlight drawAtPoint:CGPointMake(165.0f, 184.0f)];
 	glDisable(GL_BLEND);
-	
-	[m_pSpeedToggler render:fDelta];
+
 }
 
 /* TMLogicUpdater stuff */
@@ -159,7 +178,7 @@ Texture2D* t_Highlight;
 		TMSongOptions* options = [[TMSongOptions alloc] init];
 		
 		// Assign speed modifier
-		[options setSpeedMod:[(NSNumber*)[m_pSpeedToggler getCurrent].m_pValue intValue]]; 
+		[options setSpeedMod:[(NSNumber*)[(TogglerItem*)m_pSpeedToggler getCurrent].m_pValue intValue]]; 
 		
 		// Assign difficulty
 		[options setDifficulty:kSongDifficulty_Hard];
@@ -175,15 +194,25 @@ Texture2D* t_Highlight;
 	// Do all scroll related stuff
 	if(m_fVelocity != 0.0f) {
 		
-		m_fVelocity -= [fDelta floatValue] * m_fAcceleration;
+		float frictionForce = kWheelStaticFriction * (-kWheelMass*kGravity);
+		float frictionDelta = [fDelta floatValue] * frictionForce;
 		
-		if(m_fVelocity <= 0.0f) {
-			// Stop scrolling
+		if(fabsf(m_fVelocity) < frictionDelta) {
 			m_fVelocity = 0.0f;
 			
+			float closestY = [self findClosest];
+			[self rollWheel: -closestY];
+			
+			return;
 		} else {
-			[self rollWheel: [fDelta floatValue] * m_fVelocity * m_fSwipeDirection];
-			TMLog(@"Current velocity %f with direction %f", m_fVelocity, m_fSwipeDirection);
+
+			if(m_fVelocity < 0.0f) {
+				m_fVelocity += frictionDelta;
+			} else {
+				m_fVelocity -= frictionDelta;
+			}
+
+			[self rollWheel: [fDelta floatValue] * m_fVelocity];
 		}
 	}
 }
@@ -215,8 +244,12 @@ Texture2D* t_Highlight;
 			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
 			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 			
-			[self saveSwipeElement:pointGl.y-m_fLastSwipeY];
+			float delta = pointGl.y-m_fLastSwipeY;
+			
+			[self saveSwipeElement:delta];
 			m_fLastSwipeY = pointGl.y;
+			
+			[self rollWheel:delta];	// Roll the wheel				
 			
 			break;
 		}
@@ -224,17 +257,11 @@ Texture2D* t_Highlight;
 }
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	UITouch *t1 = [[touches allObjects] objectAtIndex:0];
-	
-	if([touches count] == 1){
-		
-		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-		[self saveSwipeElement:pointGl.y-m_fLastSwipeY];		
-		
+	if([touches count] == 1){		
 		// Now the fun part - swipes
 		m_fVelocity = [self calculateSwipeVelocity];
-		TMLog(@"Got swipe velocity: %f", m_fVelocity);
+
+		if(m_fVelocity == 0.0f) m_fVelocity = 0.1f;
 		
 		[self clearSwipes];
 	}
@@ -259,14 +286,8 @@ Texture2D* t_Highlight;
 	}
 	
 	total /= kNumSwipePositions;
-	total *= 10.0f;
+	total *= kWheelSwipeFactor;
 	
-	if(total <= 0.0f) {
-		m_fSwipeDirection = -1.0f;
-		return fabsf(total);
-	}
-	
-	m_fSwipeDirection = 1.0f;
 	return total;
 }
 
@@ -285,9 +306,48 @@ Texture2D* t_Highlight;
 	}
 	
 	// Check last object
-	if ( [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y <= -23.0f ) {
-		TMLog(@"Time to remove element from bottom top of list");
+	float lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
+	
+	if (lastWheelItemY <= -23.0f ) {
+		[m_pWheelItems removeObjectAtIndex:0];	// Will release the object
+		
+		// Now we must add one on top of the wheel (last element of the array)
+		float firstWheelItemY = lastWheelItemY + 46.0f*kNumWheelItems;
+
+		// Get current song on top of the wheel
+		TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems lastObject]) song];	
+		TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
+		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, firstWheelItemY)]];				
+		
+	} else if(lastWheelItemY >= 23.0f) {
+		[m_pWheelItems removeLastObject];	// Will release the object
+		
+		// Now we must add one on the bottom of the wheel (first element of the array)
+		float newLastWheelItemY = lastWheelItemY - 46.0f;
+		
+		// Get current song on bottom of the wheel
+		TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) song];	
+		TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
+		[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, newLastWheelItemY)] atIndex:0];				
 	}
+}
+
+- (float) findClosest {
+	float tmp = MAXFLOAT;	// Holds current minimum
+	int i;
+	
+	for(i=kSelectedWheelItemId-2; i<kSelectedWheelItemId+2; ++i) {
+		float t = [(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] getPosition].y - 184.0f;
+		if(fabsf(t) < fabsf(tmp)) { tmp = t; }
+	}
+	
+	return tmp;
+}
+
+
+/* Handle back button */
+- (void) backButtonHit {
+	[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
 }
 
 @end

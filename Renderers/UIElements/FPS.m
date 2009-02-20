@@ -46,7 +46,7 @@
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	[m_pCurrentTexture drawInRect:CGRectMake(0.0f, 460.0f, 320.0f, 20.0f)];
+	[m_pCurrentTexture drawInRect:CGRectMake(0.0f, 0.0f, 320.0f, 20.0f)];
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_BLEND);

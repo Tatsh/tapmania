@@ -32,7 +32,7 @@ TMFramedTexture* t_TogglerItem;
 	m_pValue = lValue;
 	
 	// FIXME: Move this to metrics
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:CGSizeMake(60, 40) alignment:UITextAlignmentCenter fontName:@"Arial" fontSize:21.0f];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:CGSizeMake(60, 40) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
 	
 	return self;
 }

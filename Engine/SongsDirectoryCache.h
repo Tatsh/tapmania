@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TMSongsLoaderSupport.h"
 
+@class TMSong;
+
 @interface SongsDirectoryCache : NSObject {
 	NSString*			m_sSongsDir;		// The path to 'Songs' directory
 	NSMutableArray*		m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
@@ -21,6 +23,9 @@
 - (void) cacheSongs;
 - (NSArray*) getSongList;
 - (NSString*) getSongsPath;
+
+- (TMSong*) getSongNextTo:(TMSong*)song;
+- (TMSong*) getSongPrevFrom:(TMSong*)song;
 
 + (SongsDirectoryCache *)sharedInstance;
 

@@ -42,16 +42,10 @@ Texture2D* t_WheelItem;
 - (void) dealloc {
 	[m_pTitle release];
 	[m_pArtist release];
-	[m_pSong release];
-	[super dealloc];
-}
-
-- (void) switchToSong:(TMSong*) song {
-	[m_pTitle release];	// Release old texture
-	[m_pArtist release];
 	
-	m_pSong = song;	
-	[self generateTextures];
+	// Don't release the song
+	
+	[super dealloc];
 }
 
 - (void) generateTextures {		

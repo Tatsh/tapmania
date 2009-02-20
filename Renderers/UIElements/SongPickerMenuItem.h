@@ -17,10 +17,9 @@
 	Texture2D* m_pArtist;
 }
 
-@property (readonly, retain, nonatomic) TMSong* m_pSong;
+@property (readonly, retain, nonatomic, getter=song) TMSong* m_pSong;
 
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point;
-- (void) switchToSong:(TMSong*) song;
 - (void) updateYPosition:(float)pixels;
 
 @end
