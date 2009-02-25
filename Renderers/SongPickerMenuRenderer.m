@@ -37,7 +37,7 @@
 
 @interface SongPickerMenuRenderer (Private)
 
-- (void) saveSwipeElement:(float)value;
+- (void) saveSwipeElement:(float)value withTime:(float)delta;
 - (float) calculateSwipeVelocity;
 - (void) clearSwipes;
 
@@ -97,8 +97,6 @@ Texture2D* t_MenuBack;
 		
 		curYOffset += 46.0f;
 	}
-	
-	// 184.0f -- the position of the highlight element
 	
 	NSArray* arr = [NSArray arrayWithObjects:
 					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1x] andValue:[NSNumber numberWithInt:kSpeedMod_1x]],
@@ -229,6 +227,7 @@ Texture2D* t_MenuBack;
 			
 			m_fLastSwipeY = pointGl.y;
 			m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
+			m_dLastSwipeTime = [touch timestamp];
 			
 			break;
 		}
@@ -244,12 +243,13 @@ Texture2D* t_MenuBack;
 			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
 			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 			
-			float delta = pointGl.y-m_fLastSwipeY;
+			float yDelta = pointGl.y-m_fLastSwipeY;
 			
-			[self saveSwipeElement:delta];
+			[self saveSwipeElement:yDelta withTime:[touch timestamp]-m_dLastSwipeTime];
 			m_fLastSwipeY = pointGl.y;
+			m_dLastSwipeTime = [touch timestamp];
 			
-			[self rollWheel:delta];	// Roll the wheel				
+			[self rollWheel:yDelta];	// Roll the wheel				
 			
 			break;
 		}
@@ -261,7 +261,7 @@ Texture2D* t_MenuBack;
 		// Now the fun part - swipes
 		m_fVelocity = [self calculateSwipeVelocity];
 
-		if(m_fVelocity == 0.0f) m_fVelocity = 0.1f;
+		if(m_fVelocity == 0.0f) m_fVelocity = 0.1f;	// Make it jump to closest anyway
 		
 		[self clearSwipes];
 	}
@@ -270,7 +270,8 @@ Texture2D* t_MenuBack;
 - (void) clearSwipes {	
 	int i;
 	for(i=0; i<kNumSwipePositions; ++i) {
-		m_fSwipeBuffer[i] = 0.0f;
+		m_fSwipeBuffer[i][0] = 0.0f;
+		m_fSwipeBuffer[i][1] = 0.0f;
 	}
 	
 	m_nCurrentSwipePosition = 0;
@@ -279,24 +280,37 @@ Texture2D* t_MenuBack;
 
 - (float) calculateSwipeVelocity {
 	int i;
-	float total = 0.0f;	
+	float totalVelocity = 0.0f;	
+	float totalTime = 0.0f;
 	
 	for(i=0; i<kNumSwipePositions; ++i) {
-		total += m_fSwipeBuffer[i];
+		totalTime += m_fSwipeBuffer[i][0];
+		totalVelocity += m_fSwipeBuffer[i][1];
 	}
 	
-	total /= kNumSwipePositions;
-	total *= kWheelSwipeFactor;
+	// Get average
+	totalTime /= kNumSwipePositions;
+	totalVelocity /= kNumSwipePositions;
 	
-	return total;
+	// v = d/t
+	if(totalTime > 0.0f) {
+		totalVelocity /= totalTime;
+	}
+	
+	TMLog(@"Got swipe velocity: %f from delta time %f", totalVelocity, totalTime);
+	
+	return totalVelocity;
 }
 
-- (void) saveSwipeElement:(float)value {
+- (void) saveSwipeElement:(float)value withTime:(float)delta {
 	if(m_nCurrentSwipePosition == kNumSwipePositions-1) {
 		m_nCurrentSwipePosition = 0;
 	}
 	
-	m_fSwipeBuffer[m_nCurrentSwipePosition++] = value;
+	m_fSwipeBuffer[m_nCurrentSwipePosition][0] = delta;
+	m_fSwipeBuffer[m_nCurrentSwipePosition][1] = value;
+	
+	++m_nCurrentSwipePosition;
 }
 
 - (void) rollWheel:(float) pixels {
@@ -308,28 +322,34 @@ Texture2D* t_MenuBack;
 	// Check last object
 	float lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
 	
-	if (lastWheelItemY <= -23.0f ) {
-		[m_pWheelItems removeObjectAtIndex:0];	// Will release the object
+	do {
 		
-		// Now we must add one on top of the wheel (last element of the array)
-		float firstWheelItemY = lastWheelItemY + 46.0f*kNumWheelItems;
+		if (lastWheelItemY <= -23.0f ) {
+			[m_pWheelItems removeObjectAtIndex:0];	// Will release the object
+			
+			// Now we must add one on top of the wheel (last element of the array)
+			float firstWheelItemY = lastWheelItemY + 46.0f*kNumWheelItems;
 
-		// Get current song on top of the wheel
-		TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems lastObject]) song];	
-		TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
-		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, firstWheelItemY)]];				
+			// Get current song on top of the wheel
+			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems lastObject]) song];	
+			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
+			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, firstWheelItemY)]];				
+			
+		} else if(lastWheelItemY >= 23.0f) {
+			[m_pWheelItems removeLastObject];	// Will release the object
+			
+			// Now we must add one on the bottom of the wheel (first element of the array)
+			float newLastWheelItemY = lastWheelItemY - 46.0f;
+			
+			// Get current song on bottom of the wheel
+			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) song];	
+			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
+			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, newLastWheelItemY)] atIndex:0];				
+		}
 		
-	} else if(lastWheelItemY >= 23.0f) {
-		[m_pWheelItems removeLastObject];	// Will release the object
+		lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
 		
-		// Now we must add one on the bottom of the wheel (first element of the array)
-		float newLastWheelItemY = lastWheelItemY - 46.0f;
-		
-		// Get current song on bottom of the wheel
-		TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) song];	
-		TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
-		[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, newLastWheelItemY)] atIndex:0];				
-	}
+	} while (lastWheelItemY < -23.0f || lastWheelItemY > 23.0f);
 }
 
 - (float) findClosest {

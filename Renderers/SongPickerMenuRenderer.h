@@ -39,9 +39,9 @@
 	float					m_fVelocity;		// Current speed of the wheel
 	
 	int						m_nCurrentSwipePosition;
-	float					m_fSwipeBuffer[kNumSwipePositions];
+	float					m_fSwipeBuffer[kNumSwipePositions][2]; // 0=delta time, 1=delta y
 	float					m_fLastSwipeY;
-	float					m_fSwipeDirection;	// -1 or +1
+	double					m_dLastSwipeTime;
 	
 	BOOL					m_bStartSongPlay;
 }
