@@ -4,10 +4,6 @@
 <dict>
 	<key>MainMenu</key>
 	<dict>
-		<key>Gravity</key>
-		<integer>1000</integer>
-		<key>ButtonMass</key>
-		<integer>100</integer>
 		<key>PlayButtonY</key>
 		<integer>200</integer>
 		<key>OptionsButtonY</key>
@@ -23,12 +19,66 @@
 	</dict>
 	<key>SongPickerMenu</key>
 	<dict>
+		<key>Wheel</key>
+		<dict>
+			<key>Highlight</key>
+			<dict>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>335</integer>
+				<key>CenterX</key>
+				<integer>165</integer>
+				<key>CenterY</key>
+				<integer>184</integer>
+			</dict>
+			<key>ItemSong</key>
+			<dict>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>CenterX</key>
+				<integer>165</integer>
+			</dict>
+		</dict>
+		<key>ModPanel</key>
+		<dict>
+			<key>X</key>
+			<integer>0</integer>
+			<key>Y</key>
+			<integer>410</integer>
+			<key>Width</key>
+			<integer>320</integer>
+			<key>Height</key>
+			<integer>70</integer>
+		</dict>
+		<key>BackButton</key>
+		<dict>
+			<key>X</key>
+			<integer>5</integer>
+			<key>Y</key>
+			<integer>433</integer>
+			<key>Width</key>
+			<integer>60</integer>
+			<key>Height</key>
+			<integer>40</integer>
+		</dict>
+		<key>DifficultyToggler</key>
+		<dict>
+			<key>X</key>
+			<integer>70</integer>
+			<key>Y</key>
+			<integer>433</integer>
+			<key>Width</key>
+			<integer>180</integer>
+			<key>Height</key>
+			<integer>40</integer>
+		</dict>
 		<key>SpeedToggler</key>
 		<dict>
 			<key>X</key>
 			<integer>255</integer>
 			<key>Y</key>
-			<integer>375</integer>
+			<integer>433</integer>
 			<key>Width</key>
 			<integer>60</integer>
 			<key>Height</key>

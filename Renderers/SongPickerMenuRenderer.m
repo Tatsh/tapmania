@@ -45,16 +45,23 @@
 
 - (float) findClosest;
 - (void) selectSong;
+- (void) playSong;
 
 @end
 
 @implementation SongPickerMenuRenderer
 
 int mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTogglerHeight;
+int mt_DifficultyTogglerX, mt_DifficultyTogglerY, mt_DifficultyTogglerWidth, mt_DifficultyTogglerHeight;
+int mt_BackButtonX, mt_BackButtonY, mt_BackButtonWidth, mt_BackButtonHeight;
+int mt_ModPanelX, mt_ModPanelY, mt_ModPanelWidth, mt_ModPanelHeight;
+int mt_ItemSongHeight, mt_ItemSongCenterX, mt_ItemSongHalfHeight;
+int mt_HighlightCenterX, mt_HighlightCenterY;
+int mt_HighlightX, mt_HighlightY, mt_HighlightWidth, mt_HighlightHeight, mt_HighlightHalfHeight;
 
 Texture2D* t_SongPickerBG;
 Texture2D* t_Highlight;
-Texture2D* t_Top;
+Texture2D* t_ModPanel;
 Texture2D* t_MenuBack;
 
 - (id) init {
@@ -63,15 +70,43 @@ Texture2D* t_MenuBack;
 		return nil;
 	
 	// Cache metrics
-	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler X"];
-	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Y"];
-	mt_SpeedTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Width"];
-	mt_SpeedTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongSelection SpeedToggler Height"];
+	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler X"];
+	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Y"];
+	mt_SpeedTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Width"];
+	mt_SpeedTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Height"];
+
+	mt_DifficultyTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler X"];
+	mt_DifficultyTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler Y"];
+	mt_DifficultyTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler Width"];
+	mt_DifficultyTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler Height"];
 	
+	mt_BackButtonX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu BackButton X"];
+	mt_BackButtonY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu BackButton Y"];
+	mt_BackButtonWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu BackButton Width"];
+	mt_BackButtonHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu BackButton Height"];
+	
+	mt_ModPanelX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel X"];
+	mt_ModPanelY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Y"];
+	mt_ModPanelWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Width"];
+	mt_ModPanelHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Height"];
+		
+	mt_ItemSongHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel ItemSong Height"];
+	mt_ItemSongCenterX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel ItemSong CenterX"];
+	mt_ItemSongHalfHeight = mt_ItemSongHeight/2;
+	
+	mt_HighlightCenterX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight CenterX"];
+	mt_HighlightCenterY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight CenterY"];
+	mt_HighlightWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight Width"];
+	mt_HighlightHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight Height"];
+
+	mt_HighlightX = mt_HighlightCenterX - mt_HighlightWidth/2;
+	mt_HighlightY = mt_HighlightCenterY - mt_HighlightHeight/2;
+	mt_HighlightHalfHeight = mt_HighlightHeight/2;
+		
 	// Cache graphics
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
-	t_Top = [[ThemeManager sharedInstance] texture:@"SongPicker Top"];
+	t_ModPanel = [[ThemeManager sharedInstance] texture:@"SongPicker Top"];
 	t_MenuBack = [[ThemeManager sharedInstance] texture:@"SongPicker BackButton"];
 	
 	m_pWheelItems = [[NSMutableArray alloc] initWithCapacity:kNumWheelItems];
@@ -93,13 +128,13 @@ Texture2D* t_MenuBack;
 		}
 
 		TMSong *song = [songList objectAtIndex:j++];				
-		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, curYOffset)]];
+		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, curYOffset)]];
 		
-		curYOffset += 46.0f;
+		curYOffset += mt_ItemSongHeight;
 	}
 	
 	// Speed mod toggler	
-	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(255.0f, 433.0f, 60.0f, 40.0f)]];
+	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(mt_SpeedTogglerX, mt_SpeedTogglerY, mt_SpeedTogglerWidth, mt_SpeedTogglerHeight)]];
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1x]];
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1_5x]];
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_2x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_2x]];
@@ -108,11 +143,11 @@ Texture2D* t_MenuBack;
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_8x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_8x]];
 		
 	// Difficulty toggler
-	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(70.0f, 433.0f, 180.0f, 40.0f)]];
+	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(mt_DifficultyTogglerX, mt_DifficultyTogglerY, mt_DifficultyTogglerWidth, mt_DifficultyTogglerHeight)]];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	
 	// Back button
-	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuBack andShape:CGRectMake(5.0f, 433.0f, 60.0f, 40.0f)]];
+	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuBack andShape:CGRectMake(mt_BackButtonX, mt_BackButtonY, mt_BackButtonWidth, mt_BackButtonHeight)]];
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	
 	// Populate difficulty toggler with current song
@@ -173,8 +208,8 @@ Texture2D* t_MenuBack;
 	
 	// Highlight selection and draw top element
 	glEnable(GL_BLEND);
-	[t_Top drawInRect:CGRectMake(0.0f, 410.0f, 320.0f, 70.0f)];
-	[t_Highlight drawAtPoint:CGPointMake(165.0f, 184.0f)];
+	[t_ModPanel drawInRect:CGRectMake(mt_ModPanelX, mt_ModPanelY, mt_ModPanelWidth, mt_ModPanelHeight)];
+	[t_Highlight drawAtPoint:CGPointMake(mt_HighlightCenterX, mt_HighlightCenterY)];
 	glDisable(GL_BLEND);
 
 }
@@ -185,16 +220,18 @@ Texture2D* t_MenuBack;
 	// Check whether we should start playing
 	if(m_bStartSongPlay){
 		
+		SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
+		TMSong* song = [selected song];
 		TMSongOptions* options = [[TMSongOptions alloc] init];
 		
 		// Assign speed modifier
 		[options setSpeedMod:[(NSNumber*)[(TogglerItem*)m_pSpeedToggler getCurrent].m_pValue intValue]]; 
 		
 		// Assign difficulty
-		[options setDifficulty:kSongDifficulty_Hard];
+		[options setDifficulty:[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue]];
 		
 		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
-		[songPlayRenderer playSong:((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId]).m_pSong withOptions:options];
+		[songPlayRenderer playSong:song withOptions:options];
 		
 		[[TapMania sharedInstance] switchToScreen:songPlayRenderer];
 		
@@ -239,11 +276,13 @@ Texture2D* t_MenuBack;
 			UITouch* touch = [touches anyObject];
 			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
 			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-			
-			m_fLastSwipeY = pointGl.y;
-			m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
-			m_dLastSwipeTime = [touch timestamp];
-			
+		
+			if(pointGl.y < mt_ModPanelY) {
+				m_fLastSwipeY = pointGl.y;
+				m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
+				m_dLastSwipeTime = [touch timestamp];
+			}
+				
 			break;
 		}
 	}
@@ -257,14 +296,18 @@ Texture2D* t_MenuBack;
 			UITouch* touch = [touches anyObject];
 			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
 			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-			
-			float yDelta = pointGl.y-m_fLastSwipeY;
-			
-			[self saveSwipeElement:yDelta withTime:[touch timestamp]-m_dLastSwipeTime];
-			m_fLastSwipeY = pointGl.y;
-			m_dLastSwipeTime = [touch timestamp];
-			
-			[self rollWheel:yDelta];	// Roll the wheel				
+
+			if(pointGl.y < mt_ModPanelY) {
+				float yDelta = pointGl.y-m_fLastSwipeY;
+				
+				[self saveSwipeElement:yDelta withTime:[touch timestamp]-m_dLastSwipeTime];
+				m_fLastSwipeY = pointGl.y;
+				m_dLastSwipeTime = [touch timestamp];
+				
+				[self rollWheel:yDelta];	// Roll the wheel				
+			} else {
+				[self clearSwipes];
+			}
 			
 			break;
 		}
@@ -273,10 +316,23 @@ Texture2D* t_MenuBack;
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1){		
-		// Now the fun part - swipes
-		m_fVelocity = [self calculateSwipeVelocity];
+		UITouch* touch = [touches anyObject];
+		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
+		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
 
-		if(m_fVelocity == 0.0f) m_fVelocity = 0.01f;	// Make it jump to closest anyway
+		CGRect startSongRect = CGRectMake(mt_HighlightX, mt_HighlightY, mt_HighlightWidth, mt_HighlightHeight);
+		
+		// Should start song?
+		if([touch tapCount] > 1 && CGRectContainsPoint(startSongRect, pointGl)) {
+			[self playSong];
+			return;
+		}
+		
+		// Now the fun part - swipes
+		if(pointGl.y < mt_ModPanelY) {
+			m_fVelocity = [self calculateSwipeVelocity];
+			if(m_fVelocity == 0.0f) m_fVelocity = 0.01f;	// Make it jump to closest anyway
+		}
 		
 		[self clearSwipes];
 	}
@@ -339,32 +395,32 @@ Texture2D* t_MenuBack;
 	
 	do {
 		
-		if (lastWheelItemY <= -23.0f ) {
+		if (lastWheelItemY <= -mt_ItemSongHalfHeight ) {
 			[m_pWheelItems removeObjectAtIndex:0];	// Will release the object
 			
 			// Now we must add one on top of the wheel (last element of the array)
-			float firstWheelItemY = lastWheelItemY + 46.0f*kNumWheelItems;
+			float firstWheelItemY = lastWheelItemY + mt_ItemSongHeight*kNumWheelItems;
 
 			// Get current song on top of the wheel
 			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems lastObject]) song];	
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
-			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, firstWheelItemY)]];				
+			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, firstWheelItemY)]];				
 			
-		} else if(lastWheelItemY >= 23.0f) {
+		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {
 			[m_pWheelItems removeLastObject];	// Will release the object
 			
 			// Now we must add one on the bottom of the wheel (first element of the array)
-			float newLastWheelItemY = lastWheelItemY - 46.0f;
+			float newLastWheelItemY = lastWheelItemY - mt_ItemSongHeight;
 			
 			// Get current song on bottom of the wheel
 			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) song];	
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
-			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(165.0f, newLastWheelItemY)] atIndex:0];				
+			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, newLastWheelItemY)] atIndex:0];				
 		}
 		
 		lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
 		
-	} while (lastWheelItemY < -23.0f || lastWheelItemY > 23.0f);
+	} while (lastWheelItemY < -mt_ItemSongHalfHeight || lastWheelItemY > mt_ItemSongHalfHeight);
 }
 
 - (float) findClosest {
@@ -372,7 +428,7 @@ Texture2D* t_MenuBack;
 	int i;
 	
 	for(i=kSelectedWheelItemId-2; i<kSelectedWheelItemId+2; ++i) {
-		float t = [(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] getPosition].y - 184.0f;
+		float t = [(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] getPosition].y - mt_HighlightCenterY;
 		if(fabsf(t) < fabsf(tmp)) { tmp = t; }
 	}
 	
@@ -397,6 +453,10 @@ Texture2D* t_MenuBack;
 			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
 		}
 	}
+}
+
+- (void) playSong {
+	m_bStartSongPlay = YES;
 }
 
 /* Handle back button */

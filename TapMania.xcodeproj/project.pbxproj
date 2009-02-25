@@ -50,8 +50,8 @@
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.m */; };
+		24AABC4B0F5596D000908E43 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AABC480F5596D000908E43 /* themes */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
-		24B06A990F4EF0560001A38A /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24B06A600F4EF0560001A38A /* themes */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
@@ -162,9 +162,9 @@
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
 		24A57AF20F4C265D0057F723 /* SlideEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideEffect.h; sourceTree = "<group>"; };
 		24A57AF30F4C265D0057F723 /* SlideEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideEffect.m; sourceTree = "<group>"; };
+		24AABC480F5596D000908E43 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
-		24B06A600F4EF0560001A38A /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
@@ -474,7 +474,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24B06A600F4EF0560001A38A /* themes */,
+				24AABC480F5596D000908E43 /* themes */,
 				244E5A010F41AE410004C921 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -545,7 +545,7 @@
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				244E5A140F41AE410004C921 /* noteskins in Resources */,
-				24B06A990F4EF0560001A38A /* themes in Resources */,
+				24AABC4B0F5596D000908E43 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
