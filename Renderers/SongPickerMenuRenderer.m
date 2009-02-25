@@ -21,7 +21,6 @@
 #import "PhysicsUtil.h"
 
 #import "SongPickerMenuItem.h"
-#import "SongPickerMenuSelectedItem.h"
 #import "TogglerItem.h"
 
 #import "InputEngine.h"
@@ -45,6 +44,7 @@
 - (void) backButtonHit;
 
 - (float) findClosest;
+- (void) selectSong;
 
 @end
 
@@ -98,18 +98,25 @@ Texture2D* t_MenuBack;
 		curYOffset += 46.0f;
 	}
 	
-	NSArray* arr = [NSArray arrayWithObjects:
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1x] andValue:[NSNumber numberWithInt:kSpeedMod_1x]],
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_1_5x] andValue:[NSNumber numberWithInt:kSpeedMod_1_5x]], 
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_2x] andValue:[NSNumber numberWithInt:kSpeedMod_2x]],
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_3x] andValue:[NSNumber numberWithInt:kSpeedMod_3x]],
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_5x] andValue:[NSNumber numberWithInt:kSpeedMod_5x]],
-					[[TogglerItemObject alloc] initWithTitle:[TMSongOptions speedModAsString:kSpeedMod_8x] andValue:[NSNumber numberWithInt:kSpeedMod_8x]], nil];
+	// Speed mod toggler	
+	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(255.0f, 433.0f, 60.0f, 40.0f)]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1x]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1_5x]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_2x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_2x]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_3x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_3x]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_5x]];
+	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_8x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_8x]];
+		
+	// Difficulty toggler
+	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(70.0f, 433.0f, 180.0f, 40.0f)]];
+	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	
-	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithElements:arr andShape:CGRectMake(255.0f, 433.0f, 60.0f, 40.0f)]];
+	// Back button
 	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuBack andShape:CGRectMake(5.0f, 433.0f, 60.0f, 40.0f)]];
-	
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
+	
+	// Populate difficulty toggler with current song
+	[self selectSong];
 	
 	return self;
 }
@@ -118,6 +125,7 @@ Texture2D* t_MenuBack;
 	[m_pWheelItems removeAllObjects];
 	[m_pWheelItems release];
 	[m_pSpeedToggler release];
+	[m_pDifficultyToggler release];
 	[m_pBackMenuItem release];
 	
 	[super dealloc];
@@ -128,21 +136,25 @@ Texture2D* t_MenuBack;
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 	[[InputEngine sharedInstance] subscribe:m_pSpeedToggler];
+	[[InputEngine sharedInstance] subscribe:m_pDifficultyToggler];
 	[[InputEngine sharedInstance] subscribe:m_pBackMenuItem];
 	
 	// Add the items with low priority
 	[[TapMania sharedInstance] registerObject:m_pSpeedToggler withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-1];
+	[[TapMania sharedInstance] registerObject:m_pDifficultyToggler withPriority:kRunLoopPriority_NormalUpper-1];
+	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-2];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
 	[[InputEngine sharedInstance] unsubscribe:m_pSpeedToggler];
+	[[InputEngine sharedInstance] unsubscribe:m_pDifficultyToggler];
 	[[InputEngine sharedInstance] unsubscribe:m_pBackMenuItem];
 	
 	// Remove the items
 	[[TapMania sharedInstance] deregisterObject:m_pSpeedToggler];
+	[[TapMania sharedInstance] deregisterObject:m_pDifficultyToggler];
 	[[TapMania sharedInstance] deregisterObject:m_pBackMenuItem];
 }
 
@@ -199,7 +211,10 @@ Texture2D* t_MenuBack;
 			m_fVelocity = 0.0f;
 			
 			float closestY = [self findClosest];
-			[self rollWheel: -closestY];
+			if(closestY != 0.0f) {
+				[self rollWheel: -closestY];
+				[self selectSong];
+			}
 			
 			return;
 		} else {
@@ -261,7 +276,7 @@ Texture2D* t_MenuBack;
 		// Now the fun part - swipes
 		m_fVelocity = [self calculateSwipeVelocity];
 
-		if(m_fVelocity == 0.0f) m_fVelocity = 0.1f;	// Make it jump to closest anyway
+		if(m_fVelocity == 0.0f) m_fVelocity = 0.01f;	// Make it jump to closest anyway
 		
 		[self clearSwipes];
 	}
@@ -364,6 +379,25 @@ Texture2D* t_MenuBack;
 	return tmp;
 }
 
+- (void) selectSong {
+	[(TogglerItem*)m_pDifficultyToggler removeAll];
+	
+	SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
+	TMSong* song = [selected song];
+	
+	TMLog(@"Selected song is %@", song.title);
+	
+	// Go through all possible difficulties
+	TMSongDifficulty dif = kSongDifficulty_Invalid;
+	for(; dif < kNumSongDifficulties; ++dif) {
+		if([song isDifficultyAvailable:dif]){
+			NSString* title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:dif], [song getDifficultyLevel:dif]];
+			
+			TMLog(@"Add dif %d to toggler as [%@]", dif, title);
+			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
+		}
+	}
+}
 
 /* Handle back button */
 - (void) backButtonHit {

@@ -15,43 +15,47 @@
 
 @implementation TogglerItemObject
 
-TMFramedTexture* t_TogglerItem;
-
 @synthesize m_pValue, m_sTitle, m_pText;
 
-- (id) initWithTitle:(NSString*)lTitle andValue:(NSObject*)lValue {
+- (id) initWithTitle:(NSString*)lTitle value:(NSObject*)lValue size:(CGSize)size andFontSize:(float)fontSize {
 	self = [super init];
 	if(!self) 
 		return nil;
-	
-	// Cache graphics
-	// FIXME: move to common UI theme or something like that
-	t_TogglerItem = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"SongPicker SpeedToggler"];
-	
-	m_sTitle = lTitle;
-	m_pValue = lValue;
+		
+	m_sTitle = [lTitle retain];
+	m_pValue = [lValue retain];
 	
 	// FIXME: Move this to metrics
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:CGSizeMake(60, 40) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:fontSize];
 	
 	return self;
 }
 
 - (void) dealloc {
 	[m_pText release];
+	[m_sTitle release];
+	[m_pValue release];
 	[super dealloc];
 }
 
 @end
 
+
 @implementation TogglerItem
 
-- (id) initWithElements:(NSArray*) arr andShape:(CGRect) shape {
+TMFramedTexture* t_TogglerItem;
+
+- (id) initWithShape:(CGRect) shape {
+
+	// Cache graphics
+	// FIXME: move to common UI theme or something like that
+	t_TogglerItem = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"SongPicker SpeedToggler"];
+	
 	self = [super initWithTexture:t_TogglerItem andShape:shape];
 	if(!self)
 		return nil;
-	
-	m_aElements = [[NSMutableArray alloc] initWithArray:arr];
+
+	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
 		
 	return self;
@@ -63,6 +67,22 @@ TMFramedTexture* t_TogglerItem;
 	[super dealloc];
 }
 
+- (void) addItem:(NSObject*)value withTitle:(NSString*)title {
+	// TODO: Move things like font size to metrics
+	TogglerItemObject* obj = [[TogglerItemObject alloc] initWithTitle:title value:value size:m_rShape.size andFontSize:21.0f];
+	[m_aElements addObject:obj];	// Automatically retains
+}
+
+- (void) removeItemAtIndex:(int) index {
+	[m_aElements removeObjectAtIndex:index];	// Automatically releases
+	m_nCurrentSelection = 0;
+}
+
+- (void) removeAll {
+	[m_aElements removeAllObjects];
+	m_nCurrentSelection = 0;
+}
+
 - (void) toggle {
 	if([m_aElements count]-1 == m_nCurrentSelection) {
 		m_nCurrentSelection = 0;
@@ -72,8 +92,12 @@ TMFramedTexture* t_TogglerItem;
 }
 
 - (TogglerItemObject*) getCurrent {
-	TogglerItemObject* obj = [m_aElements objectAtIndex:m_nCurrentSelection];
-	return obj;
+	if([m_aElements count] > 0) {
+		TogglerItemObject* obj = [m_aElements objectAtIndex:m_nCurrentSelection];
+		return obj;
+	} 
+	
+	return nil;
 }
 
 /* TMRenderable stuff */
@@ -87,9 +111,12 @@ TMFramedTexture* t_TogglerItem;
 	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
 	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[[self getCurrent].m_pText drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	if([self getCurrent]) {
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		[[self getCurrent].m_pText drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
 	glDisable(GL_BLEND);
 }
 

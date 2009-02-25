@@ -52,7 +52,7 @@ typedef enum {
 @property (retain, nonatomic) NSString* m_sMusicFilePath;
 
 @property (retain, nonatomic) NSString* m_sArtist;
-@property (retain, nonatomic) NSString* m_sTitle;
+@property (retain, nonatomic, getter=title, setter=title:, readwrite) NSString* m_sTitle;
 @property (assign) float m_fBpm;
 @property (assign) double m_dGap;
 @property (retain, nonatomic) NSMutableArray* m_aBpmChangeArray;

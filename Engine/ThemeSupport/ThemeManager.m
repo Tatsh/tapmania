@@ -138,10 +138,12 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 
 - (Texture2D*) texture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentThemeResources getResource:textureKey];
+	
 	if(resource) {
 		return (Texture2D*)[resource resource];
 	}
-	
+
+	TMLog(@"NOT FOUND! Shit!!!");
 	// TODO return some very default texture if not found
 	return nil;
 }

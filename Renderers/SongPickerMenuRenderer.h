@@ -21,16 +21,12 @@
 
 #define kSelectedWheelItemId 4
 
-#define kWheelSwipeFactor		15.0f;
 #define kWheelStaticFriction	0.25f
 #define kWheelMass				80.0f
 
-#define kWheelReceptorMass		100000.0f
-#define kWheelLowerItemMass			10.0f
-#define kWheelUpperItemMass			10.0f;
-
 @interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	BasicEffect*			m_pSpeedToggler;
+	BasicEffect*			m_pDifficultyToggler;
 	MenuItem*				m_pBackMenuItem;
 	
 	NSMutableArray*			m_pWheelItems;		// The wheel items

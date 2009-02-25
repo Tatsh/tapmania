@@ -33,7 +33,6 @@
 		24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854A840EE8015500AD4FAB /* TMFramedTexture.m */; };
 		24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD40EE8065000AD4FAB /* SoundEngine.cpp */; };
 		24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD80EE8066800AD4FAB /* Texture2D.m */; };
-		24854B940EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854B930EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
 		2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */; };
@@ -132,8 +131,6 @@
 		24854AD50EE8065000AD4FAB /* SoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEngine.h; sourceTree = "<group>"; };
 		24854AD70EE8066800AD4FAB /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		24854AD80EE8066800AD4FAB /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
-		24854B920EE817EC00AD4FAB /* SongPickerMenuSelectedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuSelectedItem.h; path = Renderers/UIElements/SongPickerMenuSelectedItem.h; sourceTree = "<group>"; };
-		24854B930EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuSelectedItem.m; path = Renderers/UIElements/SongPickerMenuSelectedItem.m; sourceTree = "<group>"; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoyPad.h; sourceTree = "<group>"; };
 		2486F18A0EC077A300E5F9EE /* JoyPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoyPad.m; sourceTree = "<group>"; };
 		2486F1900EC077E100E5F9EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -347,8 +344,6 @@
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
 				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
-				24854B920EE817EC00AD4FAB /* SongPickerMenuSelectedItem.h */,
-				24854B930EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
 				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
 				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
@@ -624,7 +619,6 @@
 				24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */,
 				24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */,
 				24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */,
-				24854B940EE817EC00AD4FAB /* SongPickerMenuSelectedItem.m in Sources */,
 				2472663D0EE949A500D501AF /* TapNote.m in Sources */,
 				247266540EE94D3B00D501AF /* Receptor.m in Sources */,
 				2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */,

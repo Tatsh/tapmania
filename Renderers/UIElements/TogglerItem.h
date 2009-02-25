@@ -23,7 +23,7 @@
 @property (retain, nonatomic, readonly) Texture2D* m_pText;
 @property (retain, nonatomic) NSObject* m_pValue;
 
-- (id) initWithTitle:(NSString*)lTitle andValue:(NSObject*)lValue;
+- (id) initWithTitle:(NSString*)lTitle value:(NSObject*)lValue size:(CGSize)size andFontSize:(float)fontSize;
 
 @end
 
@@ -33,7 +33,11 @@
 	int					m_nCurrentSelection;	// Index of currently selected element
 }
 
-- (id) initWithElements:(NSArray*)arr andShape:(CGRect) shape;
+- (id) initWithShape:(CGRect) shape;
+- (void) addItem:(NSObject*)value withTitle:(NSString*)title;
+- (void) removeItemAtIndex:(int) index;
+- (void) removeAll;
+
 - (void) toggle;
 - (TogglerItemObject*) getCurrent;
 
