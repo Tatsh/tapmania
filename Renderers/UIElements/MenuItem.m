@@ -7,19 +7,22 @@
 //
 
 #import "MenuItem.h"
+#import "TMFramedTexture.h"
+#import "ThemeManager.h"
 #import "Texture2D.h"
 #import "TapMania.h"
 #import "EAGLView.h"
 
 @implementation MenuItem
 
-- (id) initWithTexture:(Texture2D*) texture andShape:(CGRect) shape {
+- (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
 	m_rShape = shape;
-	m_pTexture = texture;
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
+	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
 	
 	m_idDelegate = nil;
 	m_oActionHandler = nil;
@@ -38,8 +41,19 @@
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
+	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+	CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
+	
 	glEnable(GL_BLEND);
-	[m_pTexture drawInRect:m_rShape];
+	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
+	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
+	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
+	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	
 	glDisable(GL_BLEND);
 }
 

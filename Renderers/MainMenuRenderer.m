@@ -42,7 +42,7 @@
 int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 int mt_Mass, mt_Gravity;
-Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
+Texture2D *t_BG;
 
 - (id) init {
 	self = [super init];
@@ -62,9 +62,6 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 	
 	// Preload all required graphics
 	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
-	t_MenuPlay = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonPlay"];
-	t_MenuOptions = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonOptions"];
-	t_MenuCredits = [[ThemeManager sharedInstance] texture:@"MainMenu ButtonCredits"];
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
@@ -76,17 +73,17 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:	
 				[[BlinkEffect alloc] initWithRenderable:
-					[[MenuItem alloc] initWithTexture:t_MenuPlay andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]]];							
+					[[MenuItem alloc] initWithTitle:@"Play TapMania" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]]];							
 
 	m_pMainMenuItems[kMainMenuItem_Options] = 
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:
-				[[MenuItem alloc] initWithTexture:t_MenuOptions andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+				[[MenuItem alloc] initWithTitle:@"Options" andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
 
 	m_pMainMenuItems[kMainMenuItem_Credits] = 	
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:
-				[[MenuItem alloc] initWithTexture:t_MenuCredits andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+				[[MenuItem alloc] initWithTitle:@"Credits" andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
 
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
@@ -158,9 +155,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 			
 		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 			TMLog(@"Enter options menu...");
-			
-			m_nSelectedMenu = -1;
-			// TODO
+			m_nState = kMainMenuState_AnimatingOut;			
 			
 		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {
 			TMLog(@"Enter credits screen...");
@@ -173,7 +168,7 @@ Texture2D *t_BG, *t_MenuPlay, *t_MenuOptions, *t_MenuCredits;
 			[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
 
 		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
-			// [[TapMania sharedInstance] switchToScreen:[[OptionsRenderer alloc] init]];
+			[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init]];
 			
 		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {				
 			[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[QuadTransition class]];

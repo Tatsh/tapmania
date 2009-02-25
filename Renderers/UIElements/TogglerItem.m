@@ -25,7 +25,6 @@
 	m_sTitle = [lTitle retain];
 	m_pValue = [lValue retain];
 	
-	// FIXME: Move this to metrics
 	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:fontSize];
 	
 	return self;
@@ -43,21 +42,16 @@
 
 @implementation TogglerItem
 
-TMFramedTexture* t_TogglerItem;
-
 - (id) initWithShape:(CGRect) shape {
-
-	// Cache graphics
-	// FIXME: move to common UI theme or something like that
-	t_TogglerItem = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"SongPicker SpeedToggler"];
 	
-	self = [super initWithTexture:t_TogglerItem andShape:shape];
+	self = [super initWithTitle:@"Not used" andShape:shape];
 	if(!self)
 		return nil;
 
 	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
-		
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common Toggler"];	
+	
 	return self;
 }
 
@@ -102,18 +96,18 @@ TMFramedTexture* t_TogglerItem;
 
 /* TMRenderable stuff */
 - (void) render:(NSNumber*)fDelta {
-	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 12.0f, m_rShape.size.height);
-	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-12.0f, m_rShape.origin.y, 12.0f, m_rShape.size.height);
-	CGRect bodyRect = CGRectMake(m_rShape.origin.x+12.0f, m_rShape.origin.y, m_rShape.size.width-24.0f, m_rShape.size.height); 
+	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+	CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
 
 	glEnable(GL_BLEND);
 	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
-	
+	 
 	if([self getCurrent]) {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		[[self getCurrent].m_pText drawInRect:CGRectMake(bodyRect.origin.x, bodyRect.origin.y-8, bodyRect.size.width, bodyRect.size.height)];
+		[[self getCurrent].m_pText drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
@@ -128,7 +122,7 @@ TMFramedTexture* t_TogglerItem;
 		
 		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
 		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-		
+				
 		if([self containsPoint:pointGl]) {
 			[self toggle];
 		}

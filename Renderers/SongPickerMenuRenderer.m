@@ -62,7 +62,6 @@ int mt_HighlightX, mt_HighlightY, mt_HighlightWidth, mt_HighlightHeight, mt_High
 Texture2D* t_SongPickerBG;
 Texture2D* t_Highlight;
 Texture2D* t_ModPanel;
-Texture2D* t_MenuBack;
 
 - (id) init {
 	self = [super init];
@@ -107,7 +106,6 @@ Texture2D* t_MenuBack;
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
 	t_ModPanel = [[ThemeManager sharedInstance] texture:@"SongPicker Top"];
-	t_MenuBack = [[ThemeManager sharedInstance] texture:@"SongPicker BackButton"];
 	
 	m_pWheelItems = [[NSMutableArray alloc] initWithCapacity:kNumWheelItems];
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
@@ -147,7 +145,7 @@ Texture2D* t_MenuBack;
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	
 	// Back button
-	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTexture:t_MenuBack andShape:CGRectMake(mt_BackButtonX, mt_BackButtonY, mt_BackButtonWidth, mt_BackButtonHeight)]];
+	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTitle:@"Back" andShape:CGRectMake(mt_BackButtonX, mt_BackButtonY, mt_BackButtonWidth, mt_BackButtonHeight)]];
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	
 	// Populate difficulty toggler with current song

@@ -11,10 +11,11 @@
 #import "TMGameUIResponder.h"
 #import "TMEffectSupport.h"
 
-@class Texture2D;
+@class TMFramedTexture, Texture2D;
 
 @interface MenuItem : AbstractRenderer <TMGameUIResponder, TMEffectSupport> {
-	Texture2D*	m_pTexture;
+	TMFramedTexture*	m_pTexture;
+	Texture2D*			m_pTitle;
 	CGRect		m_rShape;	// The points where the button is drawn
 	
 	id			m_idDelegate;		// delegate to invoke the selector on
@@ -22,7 +23,7 @@
 }
 
 
-- (id) initWithTexture:(Texture2D*) texture andShape:(CGRect) shape;
+- (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
 
 - (CGPoint) getPosition;
 - (void) updatePosition:(CGPoint)point;

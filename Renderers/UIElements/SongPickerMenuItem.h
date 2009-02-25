@@ -13,7 +13,6 @@
 
 @interface SongPickerMenuItem : MenuItem {
 	TMSong* m_pSong;	// The song object bound to this menu item
-	Texture2D* m_pTitle;
 	Texture2D* m_pArtist;
 }
 
