@@ -14,7 +14,7 @@
 	float m_fX, m_fY;
 }
 
-@property(setter = x:, getter = x, assign) float m_fX;
+@property(setter = setX:, getter = x, assign) float m_fX;
 @property(setter = y:, getter = y, assign) float m_fY;
 
 - (id) initWithX:(float)lx andY:(float)ly;

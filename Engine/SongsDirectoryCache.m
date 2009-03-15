@@ -53,7 +53,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		// Raise error if empty songs dir
 		if([songsDirContents count] == 0) {
 			if(m_idDelegate != nil) {
-				[m_idDelegate songLoaderError:@"Songs directory is empty"];
+				[m_idDelegate songLoaderError:@"No songs uploaded! read the manual"];
 			}
 			
 			return;

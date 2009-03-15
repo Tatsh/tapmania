@@ -18,6 +18,7 @@ LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_l
 CFLAGS =  -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects 
 CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements -IRenderers/UIElements/Effects
 CFLAGS += -I"${prefix}/usr/include" -include TapMania_Prefix.pch 
+# CFLAGS += -DDEBUG	# comment for production
 
 CPPFLAGS = $(CFLAGS)
 
@@ -54,6 +55,7 @@ bin:
 	rm -rf TapMania.app
 	mkdir TapMania.app
 	cp Default.png TapMania.app/
+	cp TapManiaIcon.png TapMania.app/
 	cp -R Data/* TapMania.app/
 	cp *.plist TapMania.app/
 	cp TapMania TapMania.app/

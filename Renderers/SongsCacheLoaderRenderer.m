@@ -105,7 +105,7 @@ Texture2D* t_SongsLoaderBG;
 
 /* TMLogicUpdater stuff */
 - (void) update:(NSNumber*)fDelta {	
-	static double tickCounter = 0;
+	static double tickCounter = 0.0;
 
 	if(m_bAllSongsLoaded) {
 		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
@@ -114,7 +114,9 @@ Texture2D* t_SongsLoaderBG;
 	} else if(m_bGlobalError) {
 		tickCounter += [fDelta floatValue];
 		
-		if(tickCounter >= 5.0) {
+		if(tickCounter >= 10.0) {
+			TMLog(@"Time to die...");
+
 			// Timeout and die
 			exit(EXIT_FAILURE);
 		}
@@ -152,13 +154,18 @@ Texture2D* t_SongsLoaderBG;
 }
 
 - (void) songLoaderError:(NSString*) message {
+	TMLog(@"Got song loader error!");
 	[m_pLock lock];
 	
 	m_sCurrentMessage = [NSString stringWithFormat:@"ERROR: %@", message];
+	TMLog(@"Message: %@", m_sCurrentMessage);
+
 	m_bTextureShouldChange = YES;
 	
 	m_bGlobalError = YES;
 	[m_pLock unlock];	
+	
+	[NSThread sleepForTimeInterval:10.0f];
 }
 
 - (void) songLoaderFinished {
