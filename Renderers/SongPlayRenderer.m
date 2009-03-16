@@ -204,13 +204,12 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	[t_Judgement update:fDelta];
 	[t_HoldJudgement update:fDelta];
 	
-	// If freeze - leave for now
+	// If freeze - stop animating the notes but still check for hits etc.
 	if(hasFreeze) {
 		[t_TapNote pauseAnimation];
-		return;
-	} 
-	
-	[t_TapNote continueAnimation];
+	} else {
+		[t_TapNote continueAnimation];
+	}
 	
 	double searchHitFromTime = elapsedTime - 0.1f;
 	double searchHitTillTime = elapsedTime + 0.1f;
