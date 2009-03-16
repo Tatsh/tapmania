@@ -482,12 +482,12 @@
 + (char*) parseSectionWithFD:(FILE*) fd {
 	int c; // Incoming char
 	int i; // Counter
-	char data[256];
+	char data[4096];	// 4k should be enough
 
 	c = getc(fd);
 
 	// Get all data till the ';'
-	for(i=0; i<255 && !feof(fd) && c != ';'; i++) {
+	for(i=0; i<4096 && !feof(fd) && c != ';'; i++) {
 		data[i] = c;
 		c = getc(fd);	
 	}
@@ -537,6 +537,7 @@
 	NSMutableArray* resArr = nil;
 	
 	// 1288=666,1312=333,1316=166.5,1320=83.25,1356=333
+	// or happen to be something like 1288.000=666.000 etc.
 	token = strtok( data, "," );
 
 	while( token != nil ) {
