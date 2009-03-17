@@ -86,8 +86,10 @@ Texture2D* t_SongsLoaderBG;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
+	
+		TMLog(@"!!!!!!! RENDER");
 	
 	// Draw background
 	[t_SongsLoaderBG drawInRect:bounds];
@@ -104,15 +106,17 @@ Texture2D* t_SongsLoaderBG;
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {	
+- (void) update:(float)fDelta {	
 	static double tickCounter = 0.0;
 
+	TMLog(@"!!!!!!! UPDATE SONGS CACHER");
+	
 	if(m_bAllSongsLoaded) {
 		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
 		m_bAllSongsLoaded = NO; // Do this only once
 		
 	} else if(m_bGlobalError) {
-		tickCounter += [fDelta floatValue];
+		tickCounter += fDelta;
 		
 		if(tickCounter >= 10.0) {
 			TMLog(@"Time to die...");

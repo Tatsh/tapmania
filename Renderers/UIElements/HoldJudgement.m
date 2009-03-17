@@ -52,7 +52,7 @@ static float mt_HoldJudgementMaxShowTime;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {			
@@ -63,14 +63,14 @@ static float mt_HoldJudgementMaxShowTime;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {			
 
 		// If we show some judgement we must fade it out after some period of time
 		if(m_nCurrentJudgement[i] != kHoldJudgementNone) {
-			m_dElapsedTime[i] += [fDelta floatValue];
+			m_dElapsedTime[i] += fDelta;
 		
 			if(m_dElapsedTime[i] >= mt_HoldJudgementMaxShowTime) {
 				m_dElapsedTime[i] = 0.0f;

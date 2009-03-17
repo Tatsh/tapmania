@@ -103,7 +103,7 @@ Texture2D* t_SongResultsBG;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw background
@@ -123,7 +123,7 @@ Texture2D* t_SongResultsBG;
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	if(m_bReturnToSongSelection) {
 		SongPickerMenuRenderer* spRenderer = [[SongPickerMenuRenderer alloc] init];
 		[[TapMania sharedInstance] switchToScreen:spRenderer];

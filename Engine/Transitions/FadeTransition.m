@@ -25,7 +25,7 @@
 
 
 // TMRenderable stuff
-- (void)render:(NSNumber*)fDelta {	
+- (void)render:(float)fDelta {	
 	CGRect	rect = [TapMania sharedInstance].glView.bounds;
 	GLfloat	vertices[] = {	
 		rect.origin.x,							rect.origin.y,							

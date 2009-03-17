@@ -123,13 +123,13 @@
 		float currentTime = [TimingUtil getCurrentTime];
 		
 		float delta = currentTime-prevTime;
-		NSNumber* nDelta = [NSNumber numberWithFloat:delta];
+		// NSNumber* nDelta = [NSNumber numberWithFloat:delta];
 		
 		prevTime = currentTime;
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
 		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
-			[m_idDelegate performSelector:@selector(runLoopBeforeHook:) withObject:nDelta];
+			[m_idDelegate runLoopBeforeHook:delta];
 		}
 		
 		/* Do the actual work */
@@ -140,7 +140,8 @@
 			NSObject* obj = [wrapper m_pObj];
 			
 			if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
-				[obj performSelector:@selector(update:) withObject:nDelta];
+				// Ignore this warning.
+				[(id<TMLogicUpdater>)obj update:delta];
 			}
 		}
 
@@ -150,13 +151,14 @@
 			NSObject* obj = [wrapper m_pObj];
 			
 			if([obj conformsToProtocol:@protocol(TMRenderable)]) {
-				[obj performSelector:@selector(render:) withObject:nDelta];
+				// Ignore this warning.				
+				[(id<TMRenderable>)obj render:delta];
 			}
 		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */
 		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
-			[m_idDelegate performSelector:@selector(runLoopAfterHook:) withObject:nDelta];
+			[m_idDelegate runLoopAfterHook:delta];
 		}		
 	}
 	

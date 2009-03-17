@@ -8,6 +8,6 @@
 
 @protocol TMLogicUpdater
 
-- (void) update:(NSNumber*) fDelta;
+- (void) update:(float) fDelta;
 
 @end

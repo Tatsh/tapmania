@@ -69,11 +69,11 @@
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	// do effect actions prior to updating the decorated object
 	
 	if([m_idDecoratedObject conformsToProtocol:@protocol(TMLogicUpdater)]) {
-		[m_idDecoratedObject performSelector:@selector(update:) withObject:fDelta];
+		[m_idDecoratedObject update:fDelta];
 	}
 	
 	// do effect actions after updating the decorated object
@@ -81,13 +81,13 @@
 
 
 /* TMRenderable stuff */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	// do effect actions prior to drawing the decorated object
 	m_rOriginalShape = [m_idDecoratedObject getShape];
 	[m_idDecoratedObject updateShape:m_rShape];	// Set it to our effect shape temporary
 
 	if([m_idDecoratedObject conformsToProtocol:@protocol(TMRenderable)]) {
-		[m_idDecoratedObject performSelector:@selector(render:) withObject:fDelta];
+		[m_idDecoratedObject render:fDelta];
 	}
 	
 	// do effect actions after drawing the decorated object	

@@ -24,7 +24,7 @@
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	[super update:fDelta];
 	
 	if(m_nState == kZoomIn) {

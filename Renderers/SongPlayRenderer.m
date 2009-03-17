@@ -108,9 +108,6 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
 
 - (void) dealloc {
-	// Unload bg music track
-	SoundEngine_UnloadBackgroundMusicTrack();
-	
 	[m_pLifeBar release];
 	[m_pReceptorRow release];
 		
@@ -130,7 +127,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		m_nTrackPos[i] = 0;
 	}
 	
-	SoundEngine_LoadBackgroundMusicTrack([m_pSong.m_sMusicFilePath UTF8String], NO, YES);
+	SoundEngine_LoadBackgroundMusicTrack([m_pSong.m_sMusicFilePath UTF8String], YES, YES);
 	
 	// Calculate starting offset for music playback
 	double now = [TimingUtil getCurrentTime];
@@ -147,7 +144,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	}
 
 	m_dPlayBackScheduledEndTime = m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
-	
+
+	// Most likely we must start animating on a calculated time.. FIXME
 	[t_TapNote startAnimation];
 	
 	// Enable joypad
@@ -157,7 +155,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 }
 
 // Updates one frame of the gameplay
-- (void)update:(NSNumber*)fDelta {	
+- (void)update:(float)fDelta {	
 	if(!m_bPlayingGame) return;
 	
 	// Calculate current elapsed time
@@ -174,6 +172,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
 		SoundEngine_StopBackgroundMusic(NO);
+		SoundEngine_UnloadBackgroundMusicTrack();
 		
 		// Stop animating the arrows
 		[t_TapNote stopAnimation];
@@ -431,7 +430,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 }
 
 // Renders one scene of the gameplay
-- (void)render:(NSNumber*)fDelta {
+- (void)render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	[t_BG drawInRect:bounds];

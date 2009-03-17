@@ -24,7 +24,7 @@
 }
 
 /* TMRenderable stuff */
-- (void) render:(NSNumber*)fDelta {	
+- (void) render:(float)fDelta {	
 	[super render:fDelta];	// Render stuff
 	
 	if(m_nState == kBlinkOn) {
@@ -52,11 +52,11 @@
 
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	[super update:fDelta];
 	
 	if(m_nState == kBlinkWaiting) {
-		m_fBlinkTime += [fDelta floatValue];
+		m_fBlinkTime += fDelta;
 		
 		if(m_fBlinkTime >= kBlinkWaitTime) {
 			m_fBlinkTime = 0.0f;
@@ -65,7 +65,7 @@
 		
 	} else if(m_nState == kBlinkOn) {			
 		// Time to blink!
-		m_fBlinkTime += [fDelta floatValue];
+		m_fBlinkTime += fDelta;
 		
 		if(m_fBlinkTime >= kBlinkOnTime) {
 			m_fBlinkTime = 0.0f;

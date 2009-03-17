@@ -76,7 +76,7 @@ Texture2D* t_ExplosionDim, *t_ExplosionBright;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	// Here we will render all 4 receptors at their places
 	int i;
 	
@@ -103,13 +103,13 @@ Texture2D* t_ExplosionDim, *t_ExplosionBright;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	// Check explosions
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i){
 		if(m_nExplosion[i] != kExplosionTypeNone) {
 			// could timeout
-			m_dExplosionTime[i] += [fDelta floatValue];
+			m_dExplosionTime[i] += fDelta;
 			if(m_dExplosionTime[i] >= mt_ExplosionMaxShowTime) {
 				m_nExplosion[i] = kExplosionTypeNone;	// Disable
 			}

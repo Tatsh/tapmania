@@ -151,12 +151,12 @@ static TapMania *sharedTapManiaDelegate = nil;
 	TMLog(@"Game run loop initialized...");
 }
 
-- (void) runLoopBeforeHook:(NSNumber*)fDelta {
+- (void) runLoopBeforeHook:(float)fDelta {
 	// We must let the system handle all the events too
 	while( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.009, FALSE) == kCFRunLoopRunHandledSource);
 }
 
-- (void) runLoopAfterHook:(NSNumber*)fDelta {
+- (void) runLoopAfterHook:(float)fDelta {
 	// Must swap buffer after drawing
 	[self.glView swapBuffers];
 }

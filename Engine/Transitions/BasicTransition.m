@@ -103,12 +103,12 @@
 }
 
 // TMRenderable stuff
-- (void)render:(NSNumber*)fDelta {	
+- (void)render:(float)fDelta {	
 	// OVERRIDE
 }
 
 // TMLogicUpdater stuff. should not override in subclasses.
-- (void)update:(NSNumber*)fDelta {	
+- (void)update:(float)fDelta {	
 	switch(m_nState) {
 		case kTransitionStateInitializing:
 			// Start transition
@@ -120,7 +120,7 @@
 			
 		case kTransitionStateIn:
 			// Do calculation
-			if( [self updateTransitionIn:[fDelta doubleValue]] ) {
+			if( [self updateTransitionIn:fDelta] ) {
 			
 				// Switch to Out transition part
 				[self transitionInFinished];
@@ -132,7 +132,7 @@
 			
 		case kTransitionStateOut:
 			// Do calculation
-			if ( [self updateTransitionOut:[fDelta doubleValue]] ) {
+			if ( [self updateTransitionOut:fDelta] ) {
 				
 				// Switch to finish
 				[self transitionOutFinished];

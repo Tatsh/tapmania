@@ -46,7 +46,7 @@ static float mt_JudgementMaxShowTime;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	
 	// Just draw the current judgement if it's not set to none
 	if(m_nCurrentJudgement != kJudgementNone) {
@@ -55,11 +55,11 @@ static float mt_JudgementMaxShowTime;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	
 	// If we show some judgement we must fade it out after some period of time
 	if(m_nCurrentJudgement != kJudgementNone) {
-		m_dElapsedTime += [fDelta floatValue];
+		m_dElapsedTime += fDelta;
 	
 		if(m_dElapsedTime >= mt_JudgementMaxShowTime) {
 			m_dElapsedTime = 0.0f;

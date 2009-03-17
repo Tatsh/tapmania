@@ -67,7 +67,7 @@ Texture2D* t_WheelItem;
 }
 
 /* TMRenderable stuff */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	glEnable(GL_BLEND);
 	[t_WheelItem drawAtPoint:m_rShape.origin];
 	

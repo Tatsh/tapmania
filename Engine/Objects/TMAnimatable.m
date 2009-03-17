@@ -62,14 +62,14 @@
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	[self drawFrame:m_nCurrentFrame inRect:m_oFrameRect];
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	if(m_bIsAnimating) {
-		m_fElapsedTime += [fDelta floatValue];
+		m_fElapsedTime += fDelta;
 		if(m_fElapsedTime > m_fFrameTime) {
 			// Time to switch the frame
 			// If not looping but hit first frame again - stop

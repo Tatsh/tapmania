@@ -88,7 +88,7 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
-- (void)render:(NSNumber*) fDelta {
+- (void)render:(float) fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
@@ -98,7 +98,7 @@ Texture2D *t_BG;
 }	
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	if(m_nState == kOptionsMenuState_Ready) {
 		
 		if(m_nSelectedMenu == kOptionsMenuItem_Back) {
@@ -128,7 +128,7 @@ Texture2D *t_BG;
 			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] startTweening];			
 		} 
 		
-		m_dAnimationTime += [fDelta floatValue];
+		m_dAnimationTime += fDelta;
 	}
 	
 }

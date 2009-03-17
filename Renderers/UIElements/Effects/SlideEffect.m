@@ -59,14 +59,14 @@
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	
 	[super update:fDelta];
 	m_rShape = [m_idDecoratedObject getShape];
 	
 	if(m_nState == kSlideTweening) {
-		[m_pVelocity sum:[Vector mulScalar:m_pAcceleration and:[fDelta floatValue]]];
-		[m_pCurrentPos sum:[Vector mulScalar:m_pVelocity and:[fDelta floatValue]]];
+		[m_pVelocity sum:[Vector mulScalar:m_pAcceleration and:fDelta]];
+		[m_pCurrentPos sum:[Vector mulScalar:m_pVelocity and:fDelta]];
 		
 		m_rShape.origin.x +=  m_pCurrentPos.x;
 		m_rShape.origin.y +=  m_pCurrentPos.y;
@@ -76,7 +76,7 @@
 			m_nState = kSlideFinished;
 		}
 		
-		m_dTweeningTime += [fDelta floatValue];
+		m_dTweeningTime += fDelta;
 	} else if(m_nState == kSlideFinished) {
 		m_rShape.origin.x +=  m_pCurrentPos.x;	// Keep the object on it's new location
 		m_rShape.origin.y +=  m_pCurrentPos.y;	

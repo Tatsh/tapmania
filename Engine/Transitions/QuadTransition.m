@@ -23,7 +23,7 @@
 }
 
 // TMRenderable stuff
-- (void)render:(NSNumber*)fDelta {	
+- (void)render:(float)fDelta {	
 	GLfloat midX = 160.0f;
 	GLfloat midY = 240.0f;
 	

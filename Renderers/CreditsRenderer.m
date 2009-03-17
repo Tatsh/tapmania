@@ -78,7 +78,7 @@ Texture2D* t_CreditsBG;
 }
 
 /* TMRenderable methods */
-- (void) render:(NSNumber*) fDelta {
+- (void) render:(float) fDelta {
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
 	int i, j;
 	
@@ -98,13 +98,13 @@ Texture2D* t_CreditsBG;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	if(m_fCurrentPos > 460) {
 		m_fCurrentPos = ([m_aTexturesArray count]*15);
 		m_fCurrentPos = -m_fCurrentPos;
 	}
 	
-	m_fCurrentPos += [fDelta floatValue]*kCreditsVelocity;
+	m_fCurrentPos += fDelta*kCreditsVelocity;
 	
 	/* Check whether we should leave the credits screen already */
 	if(m_bShouldReturn){

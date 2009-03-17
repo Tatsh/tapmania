@@ -42,7 +42,7 @@ static int mt_TapNoteRotations[kNumOfAvailableTracks];
 
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	/* 
 	 * NOTE: We have to override this method because we will handle rendering separately. 
 	 * We must be sure that this rendering routine will do nothing 

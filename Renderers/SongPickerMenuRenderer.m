@@ -198,7 +198,7 @@ Texture2D* t_ModPanel;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
@@ -219,7 +219,7 @@ Texture2D* t_ModPanel;
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	
 	// Check whether we should start playing
 	if(m_bStartSongPlay){
@@ -246,7 +246,7 @@ Texture2D* t_ModPanel;
 	if(m_fVelocity != 0.0f) {
 		
 		float frictionForce = kWheelStaticFriction * (-kWheelMass*kGravity);
-		float frictionDelta = [fDelta floatValue] * frictionForce;
+		float frictionDelta = fDelta * frictionForce;
 		
 		if(fabsf(m_fVelocity) < frictionDelta) {
 			m_fVelocity = 0.0f;
@@ -266,7 +266,7 @@ Texture2D* t_ModPanel;
 				m_fVelocity -= frictionDelta;
 			}
 
-			[self rollWheel: [fDelta floatValue] * m_fVelocity];
+			[self rollWheel: fDelta * m_fVelocity];
 		}
 	}
 }

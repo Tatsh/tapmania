@@ -45,7 +45,7 @@ Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	CGRect fillRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, m_rShape.size.width*m_fCurrentValue, m_rShape.size.height);
 
 	// Background first
@@ -71,7 +71,7 @@ Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 
 }
 

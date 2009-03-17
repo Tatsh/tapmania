@@ -136,7 +136,7 @@ Texture2D *t_BG;
 }
 
 /* TMRenderable method */
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw menu background
@@ -146,7 +146,7 @@ Texture2D *t_BG;
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(NSNumber*)fDelta {
+- (void) update:(float)fDelta {
 	if(m_nState == kMainMenuState_Ready) {
 		
 		if(m_nSelectedMenu == kMainMenuItem_Play) {
@@ -200,7 +200,7 @@ Texture2D *t_BG;
 			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] startTweening];
 		}
 						
-		m_dAnimationTime += [fDelta floatValue];
+		m_dAnimationTime += fDelta;
 	}
 	
 }

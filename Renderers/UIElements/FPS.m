@@ -24,8 +24,8 @@
 
 /* TMRenderable method */
 /* Updates are also done here because we actually want to count drawing only */
-- (void) render:(NSNumber*)fDelta {
-	m_dTimeCounter += [fDelta doubleValue];
+- (void) render:(float)fDelta {
+	m_dTimeCounter += fDelta;
 	
 	if(m_dTimeCounter > 1.0f) {
 		m_lFpsCounter /= m_dTimeCounter;		

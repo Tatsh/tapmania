@@ -11,7 +11,7 @@
 
 @implementation AbstractRenderer
 
-- (void) render:(NSNumber*)fDelta {
+- (void) render:(float)fDelta {
 	NSException *ex = [NSException exceptionWithName:@"AbstractClass" 
 											  reason:@"You may not call render on the abstract renderer class." userInfo:nil];
 	@throw ex;

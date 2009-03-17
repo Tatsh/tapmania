@@ -23,8 +23,8 @@ typedef enum {
 @protocol TMRunLoopDelegate
 @optional
 - (void) runLoopInitHook;
-- (void) runLoopBeforeHook:(NSNumber*)fDelta;
-- (void) runLoopAfterHook:(NSNumber*)fDelta;
+- (void) runLoopBeforeHook:(float)fDelta;
+- (void) runLoopAfterHook:(float)fDelta;
 
 - (void) runLoopInitializedNotification;
 @end
