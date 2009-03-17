@@ -75,8 +75,18 @@ Texture2D* t_SongResultsBG;
 }
 
 - (void) dealloc {
+	
+	// Here we MUST release memory used by the steps since after this place we will not need it anymore
+	TMLog(@"!!!!!!!!!!!!! Releasing steps/song...");
 	[m_pSteps release];
 	[m_pSong release];
+	
+	int i;
+	for(i=0; i<[texturesArray count]; ++i) {
+		[[texturesArray objectAtIndex:i] release];
+	}
+	
+	[texturesArray release];
 	
 	[super dealloc];
 }

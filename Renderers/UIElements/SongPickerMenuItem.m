@@ -44,6 +44,7 @@ Texture2D* t_WheelItem;
 	[m_pArtist release];
 	
 	// Don't release the song
+	TMLog(@"DEALLOC SONG PICKER MENU ITEM");
 	
 	[super dealloc];
 }

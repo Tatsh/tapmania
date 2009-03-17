@@ -62,6 +62,7 @@ Texture2D* t_CreditsBG;
 		[[m_aTexturesArray objectAtIndex:i] release];
 	}	
 	
+	[m_aTexturesArray release];
 	[super dealloc];
 }
 

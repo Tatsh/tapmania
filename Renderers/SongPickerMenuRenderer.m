@@ -155,7 +155,13 @@ Texture2D* t_ModPanel;
 }
 
 - (void) dealloc {
-	[m_pWheelItems removeAllObjects];
+	
+	// Explicitly deallocate memory
+	int i;
+	for(i=0; i<[m_pWheelItems count]; ++i) {
+		[[m_pWheelItems objectAtIndex:i] release];
+	}	
+	
 	[m_pWheelItems release];
 	[m_pSpeedToggler release];
 	[m_pDifficultyToggler release];
@@ -385,38 +391,54 @@ Texture2D* t_ModPanel;
 - (void) rollWheel:(float) pixels {
 	int i;
 	for(i=0; i<[m_pWheelItems count]; ++i) {
-		[((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i]) updateYPosition:pixels];
+		SongPickerMenuItem* item = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i];		
+		[item updateYPosition:pixels];
 	}
 	
 	// Check last object
-	float lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
+	SongPickerMenuItem* item = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0];
+	float lastWheelItemY = [item getPosition].y;
 	
 	do {
 		
-		if (lastWheelItemY <= -mt_ItemSongHalfHeight ) {
-			[m_pWheelItems removeObjectAtIndex:0];	// Will release the object
+		if (lastWheelItemY <= -mt_ItemSongHalfHeight ) {		
+			// Explicitly deallocate the object. autorelease didn't work for some reason.
+			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0];
+			[itemToRemove release];
+			
+			[m_pWheelItems removeObjectAtIndex:0];
 			
 			// Now we must add one on top of the wheel (last element of the array)
 			float firstWheelItemY = lastWheelItemY + mt_ItemSongHeight*kNumWheelItems;
 
 			// Get current song on top of the wheel
-			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems lastObject]) song];	
+			SongPickerMenuItem* lastItem = (SongPickerMenuItem*)[m_pWheelItems lastObject];
+			TMSong* searchSong = [lastItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
-			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, firstWheelItemY)]];				
 			
-		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {
+			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, firstWheelItemY)]];							
+			
+		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {		
+			// Explicitly deallocate the object. autorelease didn't work for some reason.
+			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)[m_pWheelItems lastObject];
+			[itemToRemove release]; 
+			
 			[m_pWheelItems removeLastObject];	// Will release the object
 			
 			// Now we must add one on the bottom of the wheel (first element of the array)
 			float newLastWheelItemY = lastWheelItemY - mt_ItemSongHeight;
 			
 			// Get current song on bottom of the wheel
-			TMSong* searchSong = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) song];	
+			SongPickerMenuItem* firstItem = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0];
+			TMSong* searchSong = [firstItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
-			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, newLastWheelItemY)] atIndex:0];				
+			
+			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, newLastWheelItemY)] atIndex:0];						
 		}
-		
-		lastWheelItemY = [((SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0]) getPosition].y;
+
+		// get possibly new first item
+		SongPickerMenuItem* firstItem = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0];
+		lastWheelItemY = [firstItem getPosition].y;
 		
 	} while (lastWheelItemY < -mt_ItemSongHalfHeight || lastWheelItemY > mt_ItemSongHalfHeight);
 }
@@ -436,7 +458,7 @@ Texture2D* t_ModPanel;
 - (void) selectSong {
 	[(TogglerItem*)m_pDifficultyToggler removeAll];
 	
-	SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
+	SongPickerMenuItem* selected = (SongPickerMenuItem*)[[m_pWheelItems objectAtIndex:kSelectedWheelItemId] retain];
 	TMSong* song = [selected song];
 	
 	TMLog(@"Selected song is %@", song.title);
@@ -451,6 +473,9 @@ Texture2D* t_ModPanel;
 			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
 		}
 	}
+	
+	// Mark released to prevent memleaks
+	[selected release];
 }
 
 - (void) playSong {

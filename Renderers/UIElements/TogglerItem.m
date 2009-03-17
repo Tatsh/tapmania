@@ -56,7 +56,7 @@
 }
 
 - (void) dealloc {
-	[m_aElements removeAllObjects];
+	[self removeAll];
 	[m_aElements release];
 	[super dealloc];
 }
@@ -73,6 +73,13 @@
 }
 
 - (void) removeAll {
+	// Explicitly deallocate
+	int i;
+	
+	for(i=0; i<[m_aElements count]; ++i) {
+		[[m_aElements objectAtIndex:i] release];
+	}
+	
 	[m_aElements removeAllObjects];
 	m_nCurrentSelection = 0;
 }
