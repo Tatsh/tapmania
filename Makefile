@@ -48,7 +48,7 @@ deploy:
 tar:
 	tar cf tm.tar TapMania.app
 
-app: tapmania bin 
+app: tapmania bin production 
 
 bin:
 	$(LD) $(LDFLAGS) -v -o TapMania $(OBJS) $(COBJS) $(CPPOBJS) main.o
@@ -61,6 +61,9 @@ bin:
 	cp TapMania TapMania.app/
 
 tapmania: $(TOBUILD) main.md
+
+production:
+	find TapMania.app/ -name ".svn" -type d | xargs rm -rf
 
 %.md: %.m
 	@echo "[+] Compile a .m file: $<"
