@@ -443,14 +443,14 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1039, 896}}";
 			sepNavSelRange = "{545, 42}";
-			sepNavVisRange = "{154, 1373}";
+			sepNavVisRange = "{129, 1398}";
 		};
 	};
 	244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1039, 2380}}";
-			sepNavSelRange = "{3734, 0}";
-			sepNavVisRange = "{2308, 1732}";
+			sepNavIntBoundsRect = "{{0, 0}, {1039, 2352}}";
+			sepNavSelRange = "{2822, 0}";
+			sepNavVisRange = "{2307, 1679}";
 		};
 	};
 	244954E10EDD613C00D462F0 /* PBXTextBookmark */ = {
@@ -1806,7 +1806,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -2341,9 +2341,9 @@
 	};
 	248EE4570EE4002000FF1D43 /* TapMania.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1039, 2870}}";
-			sepNavSelRange = "{4224, 0}";
-			sepNavVisRange = "{3194, 1412}";
+			sepNavIntBoundsRect = "{{0, 0}, {1039, 2912}}";
+			sepNavSelRange = "{3419, 0}";
+			sepNavVisRange = "{2555, 1661}";
 			sepNavWindowFrame = "{{38, 173}, {991, 803}}";
 		};
 	};
@@ -3510,7 +3510,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 182";
 		rLen = 0;
-		rLoc = 4045;
+		rLoc = 3986;
 		rType = 0;
 		vrLen = 1578;
 		vrLoc = 2873;
@@ -3530,7 +3530,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 165";
 		rLen = 0;
-		rLoc = 3733;
+		rLoc = 3674;
 		rType = 0;
 		vrLen = 1645;
 		vrLoc = 2873;
@@ -3550,7 +3550,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 165";
 		rLen = 0;
-		rLoc = 3733;
+		rLoc = 3674;
 		rType = 0;
 		vrLen = 1645;
 		vrLoc = 2873;
@@ -3640,7 +3640,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 153";
 		rLen = 42;
-		rLoc = 3734;
+		rLoc = 3675;
 		rType = 0;
 		vrLen = 801;
 		vrLoc = 3141;
@@ -3650,7 +3650,7 @@
 		comments = "warning: conflicting types for '-(void)runLoopBeforeHook:(NSNumber *)fDelta'";
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		rLen = 1;
-		rLoc = 153;
+		rLoc = 156;
 		rType = 1;
 	};
 	24A5453F0F7018B10088FDF7 /* PBXTextBookmark */ = {
@@ -3668,7 +3668,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 153";
 		rLen = 42;
-		rLoc = 3734;
+		rLoc = 3675;
 		rType = 0;
 		vrLen = 801;
 		vrLoc = 3141;
@@ -3678,7 +3678,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 0;
-		rLoc = 4355;
+		rLoc = 4443;
 		rType = 0;
 		vrLen = 975;
 		vrLoc = 3710;
@@ -3718,7 +3718,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 132";
 		rLen = 17;
-		rLoc = 3081;
+		rLoc = 3022;
 		rType = 0;
 		vrLen = 1602;
 		vrLoc = 2279;
@@ -3775,7 +3775,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 132";
 		rLen = 17;
-		rLoc = 3081;
+		rLoc = 3022;
 		rType = 0;
 		vrLen = 1602;
 		vrLoc = 2279;
@@ -3805,7 +3805,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 0;
-		rLoc = 4355;
+		rLoc = 4443;
 		rType = 0;
 		vrLen = 975;
 		vrLoc = 3710;
@@ -4055,7 +4055,7 @@
 		comments = "warning: 'NSObject' may not respond to '-update:'";
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		rLen = 0;
-		rLoc = 143;
+		rLoc = 141;
 		rType = 1;
 	};
 	24A545880F701B730088FDF7 /* PBXTextBookmark */ = {
@@ -4063,7 +4063,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 159";
 		rLen = 0;
-		rLoc = 4355;
+		rLoc = 4443;
 		rType = 0;
 		vrLen = 975;
 		vrLoc = 3710;
@@ -4193,7 +4193,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 143";
 		rLen = 40;
-		rLoc = 3420;
+		rLoc = 3361;
 		rType = 0;
 		vrLen = 773;
 		vrLoc = 3174;
@@ -4483,7 +4483,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 143";
 		rLen = 40;
-		rLoc = 3420;
+		rLoc = 3361;
 		rType = 0;
 		vrLen = 773;
 		vrLoc = 3174;
@@ -4713,7 +4713,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 154";
 		rLen = 0;
-		rLoc = 3702;
+		rLoc = 3643;
 		rType = 0;
 		vrLen = 794;
 		vrLoc = 3174;
@@ -4803,7 +4803,7 @@
 		comments = "warning: 'NSObject' may not respond to '-update:'";
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		rLen = 0;
-		rLoc = 143;
+		rLoc = 141;
 		rType = 1;
 	};
 	24A545E40F701D250088FDF7 /* PBXTextBookmark */ = {
@@ -4811,7 +4811,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 3698;
 		rType = 0;
 		vrLen = 889;
 		vrLoc = 3114;
@@ -4860,8 +4860,8 @@
 		isa = PBXTextBookmark;
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 126";
-		rLen = 9;
-		rLoc = 2828;
+		rLen = 0;
+		rLoc = 2822;
 		rType = 0;
 		vrLen = 1281;
 		vrLoc = 2159;
@@ -4967,8 +4967,8 @@
 		isa = PBXTextBookmark;
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 126";
-		rLen = 9;
-		rLoc = 2828;
+		rLen = 0;
+		rLoc = 2822;
 		rType = 0;
 		vrLen = 1281;
 		vrLoc = 2159;
@@ -5095,7 +5095,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 3698;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 3114;
@@ -5113,7 +5113,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 3698;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 3114;
@@ -5193,7 +5193,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 132";
 		rLen = 17;
-		rLoc = 3081;
+		rLoc = 3022;
 		rType = 0;
 		vrLen = 1712;
 		vrLoc = 2225;
@@ -5213,7 +5213,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 158";
 		rLen = 0;
-		rLoc = 3733;
+		rLoc = 3674;
 		rType = 0;
 		vrLen = 1583;
 		vrLoc = 2225;
@@ -5233,7 +5233,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3420;
+		rLoc = 3361;
 		rType = 0;
 		vrLen = 1722;
 		vrLoc = 2225;
@@ -5248,7 +5248,7 @@
 		vrLen = 1123;
 		vrLoc = 2453;
 	};
-	24A546220F701EF90088FDF7 /* TMRunLoop.m:161 */ = {
+	24A546220F701EF90088FDF7 /* TMRunLoop.m:159 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -5260,12 +5260,12 @@
 		functionName = "-worker";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 161;
+		lineNumber = 159;
 		location = TapMania;
 		modificationTime = 259006876.355512;
 		state = 2;
 	};
-	24A546260F701F300088FDF7 /* TMRunLoop.m:132 */ = {
+	24A546260F701F300088FDF7 /* TMRunLoop.m:130 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -5277,12 +5277,12 @@
 		functionName = "-worker";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 132;
+		lineNumber = 130;
 		location = TapMania;
 		modificationTime = 259006876.355545;
 		state = 2;
 	};
-	24A546280F701F520088FDF7 /* TapMania.m:156 */ = {
+	24A546280F701F520088FDF7 /* TapMania.m:159 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -5294,7 +5294,7 @@
 		functionName = "-runLoopBeforeHook:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 156;
+		lineNumber = 159;
 		location = TapMania;
 		modificationTime = 259006876.355604;
 		state = 2;
@@ -5364,7 +5364,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 161";
 		rLen = 0;
-		rLoc = 3937;
+		rLoc = 3878;
 		rType = 0;
 		vrLen = 1305;
 		vrLoc = 2702;
@@ -5373,7 +5373,7 @@
 		isa = PBXTextBookmark;
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		rLen = 0;
-		rLoc = 155;
+		rLoc = 158;
 		rType = 1;
 	};
 	24A546310F701F880088FDF7 /* PBXTextBookmark */ = {
@@ -5381,7 +5381,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 141";
 		rLen = 0;
-		rLoc = 3324;
+		rLoc = 3265;
 		rType = 0;
 		vrLen = 1586;
 		vrLoc = 2225;
@@ -5401,7 +5401,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 142";
 		rLen = 14;
-		rLoc = 3368;
+		rLoc = 3309;
 		rType = 0;
 		vrLen = 1437;
 		vrLoc = 2515;
@@ -5421,7 +5421,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 142";
 		rLen = 14;
-		rLoc = 3368;
+		rLoc = 3309;
 		rType = 0;
 		vrLen = 1437;
 		vrLoc = 2515;
@@ -5451,7 +5451,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 142";
 		rLen = 14;
-		rLoc = 3368;
+		rLoc = 3309;
 		rType = 0;
 		vrLen = 1305;
 		vrLoc = 2702;
@@ -5471,7 +5471,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 161";
 		rLen = 0;
-		rLoc = 3937;
+		rLoc = 3878;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5481,7 +5481,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 161";
 		rLen = 11;
-		rLoc = 4414;
+		rLoc = 4502;
 		rType = 0;
 		vrLen = 988;
 		vrLoc = 4125;
@@ -5501,7 +5501,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 162";
 		rLen = 0;
-		rLoc = 4428;
+		rLoc = 4516;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 4084;
@@ -5541,7 +5541,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 132";
 		rLen = 17;
-		rLoc = 3081;
+		rLoc = 3022;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5561,7 +5561,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 132";
 		rLen = 17;
-		rLoc = 3081;
+		rLoc = 3022;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5571,7 +5571,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 154";
 		rLen = 43;
-		rLoc = 4128;
+		rLoc = 4216;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 4084;
@@ -5581,7 +5581,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 139";
 		rLen = 0;
-		rLoc = 3222;
+		rLoc = 3163;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5591,7 +5591,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 4084;
@@ -5601,7 +5601,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 161";
 		rLen = 0;
-		rLoc = 3937;
+		rLoc = 3878;
 		rType = 0;
 		vrLen = 1305;
 		vrLoc = 2702;
@@ -5611,7 +5611,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 4084;
@@ -5631,7 +5631,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1467;
 		vrLoc = 3399;
@@ -5691,7 +5691,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3441;
+		rLoc = 3382;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5701,7 +5701,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 3395;
@@ -5711,7 +5711,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 161";
 		rLen = 0;
-		rLoc = 3937;
+		rLoc = 3878;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5721,7 +5721,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1467;
 		vrLoc = 3399;
@@ -5731,7 +5731,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3416;
+		rLoc = 3357;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5751,7 +5751,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3416;
+		rLoc = 3357;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5771,7 +5771,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3416;
+		rLoc = 3357;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5791,7 +5791,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3416;
+		rLoc = 3357;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5831,7 +5831,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3416;
+		rLoc = 3357;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5851,7 +5851,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 144";
 		rLen = 0;
-		rLoc = 3441;
+		rLoc = 3382;
 		rType = 0;
 		vrLen = 1307;
 		vrLoc = 2700;
@@ -5891,7 +5891,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3756;
+		rLoc = 3697;
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 2697;
@@ -5906,7 +5906,7 @@
 		vrLen = 1123;
 		vrLoc = 2453;
 	};
-	24A5466D0F7020690088FDF7 /* TMRunLoop.m:155 */ = {
+	24A5466D0F7020690088FDF7 /* TMRunLoop.m:153 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -5918,7 +5918,7 @@
 		functionName = "-worker";
 		hitCount = 2;
 		ignoreCount = 0;
-		lineNumber = 155;
+		lineNumber = 153;
 		location = TapMania;
 		modificationTime = 259006892.162482;
 		state = 2;
@@ -5928,7 +5928,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3756;
+		rLoc = 3697;
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 2697;
@@ -5988,7 +5988,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1412;
 		vrLoc = 3194;
@@ -5998,7 +5998,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3756;
+		rLoc = 3697;
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 2697;
@@ -6008,7 +6008,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3756;
+		rLoc = 3697;
 		rType = 0;
 		vrLen = 1329;
 		vrLoc = 2697;
@@ -6058,7 +6058,7 @@
 		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
 		name = "TapMania.m: 156";
 		rLen = 0;
-		rLoc = 4224;
+		rLoc = 4312;
 		rType = 0;
 		vrLen = 1412;
 		vrLoc = 3194;
@@ -6068,7 +6068,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3755;
+		rLoc = 3696;
 		rType = 0;
 		vrLen = 1730;
 		vrLoc = 2307;
@@ -6097,7 +6097,7 @@
 		isa = PBXTextBookmark;
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		rLen = 0;
-		rLoc = 154;
+		rLoc = 152;
 		rType = 1;
 	};
 	24A546870F7021AF0088FDF7 /* PBXTextBookmark */ = {
@@ -6105,7 +6105,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3755;
+		rLoc = 3696;
 		rType = 0;
 		vrLen = 1730;
 		vrLoc = 2307;
@@ -6125,7 +6125,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3734;
+		rLoc = 3675;
 		rType = 0;
 		vrLen = 1729;
 		vrLoc = 2308;
@@ -6145,7 +6145,7 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3734;
+		rLoc = 3675;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 2308;
@@ -6243,12 +6243,112 @@
 		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
 		name = "TMRunLoop.m: 155";
 		rLen = 0;
-		rLoc = 3734;
+		rLoc = 3675;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 2308;
 	};
 	24A546A00F7023350088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */;
+		name = "BasicTransition.m: 137";
+		rLen = 0;
+		rLoc = 3500;
+		rType = 0;
+		vrLen = 1138;
+		vrLoc = 2453;
+	};
+	24A546A20F7023430088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
+		name = "TMRunLoop.m: 155";
+		rLen = 0;
+		rLoc = 3675;
+		rType = 0;
+		vrLen = 1729;
+		vrLoc = 2308;
+	};
+	24A546A30F7023430088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */;
+		name = "BasicTransition.m: 137";
+		rLen = 0;
+		rLoc = 3500;
+		rType = 0;
+		vrLen = 1123;
+		vrLoc = 2453;
+	};
+	24A546A50F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
+		name = "TMRunLoop.m: 125";
+		rLen = 0;
+		rLoc = 2822;
+		rType = 0;
+		vrLen = 1679;
+		vrLoc = 2307;
+	};
+	24A546A60F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 244954D10EDD5AC200D462F0 /* TMRunLoop.h */;
+		name = "TMRunLoop.h: 26";
+		rLen = 42;
+		rLoc = 545;
+		rType = 0;
+		vrLen = 1398;
+		vrLoc = 129;
+	};
+	24A546A70F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */;
+		name = "TMRunLoop.m: 125";
+		rLen = 0;
+		rLoc = 2822;
+		rType = 0;
+		vrLen = 1679;
+		vrLoc = 2307;
+	};
+	24A546A80F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 244954D10EDD5AC200D462F0 /* TMRunLoop.h */;
+		name = "TMRunLoop.h: 26";
+		rLen = 42;
+		rLoc = 545;
+		rType = 0;
+		vrLen = 1398;
+		vrLoc = 129;
+	};
+	24A546A90F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
+		name = "TapMania.m: 127";
+		rLen = 0;
+		rLoc = 3419;
+		rType = 0;
+		vrLen = 1658;
+		vrLoc = 2555;
+	};
+	24A546AA0F7025720088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */;
+		name = "BasicTransition.m: 137";
+		rLen = 0;
+		rLoc = 3500;
+		rType = 0;
+		vrLen = 1123;
+		vrLoc = 2453;
+	};
+	24A546AE0F7025950088FDF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 248EE4570EE4002000FF1D43 /* TapMania.m */;
+		name = "TapMania.m: 127";
+		rLen = 0;
+		rLoc = 3419;
+		rType = 0;
+		vrLen = 1661;
+		vrLoc = 2555;
+	};
+	24A546AF0F7025950088FDF7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */;
 		name = "BasicTransition.m: 137";
@@ -8994,10 +9094,10 @@
 			248EE50F0EE4267600FF1D43 /* AbstractMenuRenderer.m:92 */,
 			244E599B0F4097FF0004C921 /* TMResource.m:46 */,
 			24079E240F4414F40052EDB2 /* TMRunLoop.m:81 */,
-			24A546220F701EF90088FDF7 /* TMRunLoop.m:161 */,
-			24A546260F701F300088FDF7 /* TMRunLoop.m:132 */,
-			24A546280F701F520088FDF7 /* TapMania.m:156 */,
-			24A5466D0F7020690088FDF7 /* TMRunLoop.m:155 */,
+			24A546220F701EF90088FDF7 /* TMRunLoop.m:159 */,
+			24A546260F701F300088FDF7 /* TMRunLoop.m:130 */,
+			24A546280F701F520088FDF7 /* TapMania.m:159 */,
+			24A5466D0F7020690088FDF7 /* TMRunLoop.m:153 */,
 		);
 		codeSenseManager = 2486F1860EC0774B00E5F9EE /* Code sense */;
 		executables = (
@@ -9640,6 +9740,16 @@
 			24A5469E0F7023320088FDF7 /* PBXTextBookmark */ = 24A5469E0F7023320088FDF7 /* PBXTextBookmark */;
 			24A5469F0F7023350088FDF7 /* PBXTextBookmark */ = 24A5469F0F7023350088FDF7 /* PBXTextBookmark */;
 			24A546A00F7023350088FDF7 /* PBXTextBookmark */ = 24A546A00F7023350088FDF7 /* PBXTextBookmark */;
+			24A546A20F7023430088FDF7 /* PBXTextBookmark */ = 24A546A20F7023430088FDF7 /* PBXTextBookmark */;
+			24A546A30F7023430088FDF7 /* PBXTextBookmark */ = 24A546A30F7023430088FDF7 /* PBXTextBookmark */;
+			24A546A50F7025720088FDF7 /* PBXTextBookmark */ = 24A546A50F7025720088FDF7 /* PBXTextBookmark */;
+			24A546A60F7025720088FDF7 /* PBXTextBookmark */ = 24A546A60F7025720088FDF7 /* PBXTextBookmark */;
+			24A546A70F7025720088FDF7 /* PBXTextBookmark */ = 24A546A70F7025720088FDF7 /* PBXTextBookmark */;
+			24A546A80F7025720088FDF7 /* PBXTextBookmark */ = 24A546A80F7025720088FDF7 /* PBXTextBookmark */;
+			24A546A90F7025720088FDF7 /* PBXTextBookmark */ = 24A546A90F7025720088FDF7 /* PBXTextBookmark */;
+			24A546AA0F7025720088FDF7 /* PBXTextBookmark */ = 24A546AA0F7025720088FDF7 /* PBXTextBookmark */;
+			24A546AE0F7025950088FDF7 /* PBXTextBookmark */ = 24A546AE0F7025950088FDF7 /* PBXTextBookmark */;
+			24A546AF0F7025950088FDF7 /* PBXTextBookmark */ = 24A546AF0F7025950088FDF7 /* PBXTextBookmark */;
 			24A57B240F4C428F0057F723 = 24A57B240F4C428F0057F723 /* PBXTextBookmark */;
 			24A57B260F4C428F0057F723 = 24A57B260F4C428F0057F723 /* PBXTextBookmark */;
 			24A57B330F4C428F0057F723 = 24A57B330F4C428F0057F723 /* PBXTextBookmark */;

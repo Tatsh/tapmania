@@ -122,9 +122,7 @@
 	while (!m_bStopRequested) {
 		float currentTime = [TimingUtil getCurrentTime];
 		
-		float delta = currentTime-prevTime;
-		// NSNumber* nDelta = [NSNumber numberWithFloat:delta];
-		
+		float delta = currentTime-prevTime;		
 		prevTime = currentTime;
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
