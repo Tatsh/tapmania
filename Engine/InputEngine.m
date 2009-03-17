@@ -20,6 +20,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 		return nil;
 	
 	m_aSubscribers = [[NSMutableArray alloc] initWithCapacity:5];
+	m_bDispatcherEnabled = YES;
 	
 	return self;
 }
@@ -27,6 +28,14 @@ static InputEngine *sharedInputEngineDelegate = nil;
 - (void) dealloc {
 	[m_aSubscribers release];
 	[super dealloc];
+}
+
+- (void) disableDispatcher {
+	m_bDispatcherEnabled = NO;
+}
+
+- (void) enableDispatcher { 
+	m_bDispatcherEnabled = YES;
 }
 
 - (void) subscribe:(NSObject*) handler {
@@ -43,34 +52,39 @@ static InputEngine *sharedInputEngineDelegate = nil;
 }
 
 - (void) dispatchTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
-	int i;
-	
-	for(i=0; i<[m_aSubscribers count]; i++){
-		NSObject* handler = [m_aSubscribers objectAtIndex:i];
-		if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
-			[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
+	if(m_bDispatcherEnabled) {
+		int i;
+		for(i=0; i<[m_aSubscribers count]; i++){
+			NSObject* handler = [m_aSubscribers objectAtIndex:i];
+			if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
+				[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
+			}
 		}
 	}
 }
 
 - (void) dispatchTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
-	int i;
-	for(i=0; i<[m_aSubscribers count]; i++){
-		NSObject* handler = [m_aSubscribers objectAtIndex:i];
-		if([handler respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
-			[handler performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
-		}
-	}	
+	if(m_bDispatcherEnabled) {
+		int i;
+		for(i=0; i<[m_aSubscribers count]; i++){
+			NSObject* handler = [m_aSubscribers objectAtIndex:i];
+			if([handler respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
+				[handler performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
+			}
+		}	
+	}
 }
 
 - (void) dispatchTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	int i;
-	for(i=0; i<[m_aSubscribers count]; i++){
-		NSObject* handler = [m_aSubscribers objectAtIndex:i];
-		if([handler respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
-			[handler performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
-		}
-	}	
+	if(m_bDispatcherEnabled) {
+		int i;
+		for(i=0; i<[m_aSubscribers count]; i++){
+			NSObject* handler = [m_aSubscribers objectAtIndex:i];
+			if([handler respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
+				[handler performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
+			}
+		}	
+	}
 }
 
 #pragma mark Singleton stuff

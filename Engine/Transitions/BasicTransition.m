@@ -9,6 +9,7 @@
 #import "BasicTransition.h"
 #import "TMTransitionSupport.h"
 #import "TapMania.h"
+#import "InputEngine.h"
 #import "TMRunLoop.h"	// For TMRunLoopPriority
 
 @implementation BasicTransition
@@ -59,6 +60,8 @@
 
 // TMTransition stuff. can be overriden to do some special stuff.
 - (void) transitionInStarted {
+	// Disable the dispatcher so that we don't mess around with random taps
+	[[InputEngine sharedInstance] disableDispatcher];
 }
 
 - (void) transitionOutStarted {
@@ -94,6 +97,9 @@
 - (void) transitionOutFinished {
 	// Remove our transition from runloop
 	[[TapMania sharedInstance] deregisterObject:self];
+	
+	// Enable the dispatcher so that we can mess again :P
+	[[InputEngine sharedInstance] enableDispatcher];
 }
 
 // TMRenderable stuff

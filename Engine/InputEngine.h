@@ -10,7 +10,13 @@
 
 @interface InputEngine : NSObject {
 	NSMutableArray * m_aSubscribers;
+	
+	BOOL			 m_bDispatcherEnabled;
 }
+
+// The dispatcher can be temporarily disabled to avoid random taps from messing around
+- (void) disableDispatcher;
+- (void) enableDispatcher;
 
 // One can subscribe to receive touch events by implementing the TMGameUIResponder protocol and calling subscribe method
 - (void) subscribe:(NSObject*) handler;

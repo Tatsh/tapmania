@@ -72,8 +72,8 @@ Texture2D *t_BG;
 	m_pMainMenuItems[kMainMenuItem_Play] = 
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:	
-				[[BlinkEffect alloc] initWithRenderable:
-					[[MenuItem alloc] initWithTitle:@"Play TapMania" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]]];							
+				// [[BlinkEffect alloc] initWithRenderable:
+					[[MenuItem alloc] initWithTitle:@"Play TapMania" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
 
 	m_pMainMenuItems[kMainMenuItem_Options] = 
 		[[SlideEffect alloc] initWithRenderable:
@@ -208,14 +208,19 @@ Texture2D *t_BG;
 /* Input handlers */
 - (void) playButtonHit {
 	m_nSelectedMenu = kMainMenuItem_Play;
+
+	// Disable the dispatcher so that we don't mess around with random taps
+	[[InputEngine sharedInstance] disableDispatcher];
 }
 
 - (void) optionsButtonHit {
 	m_nSelectedMenu = kMainMenuItem_Options;
+	[[InputEngine sharedInstance] disableDispatcher];
 }
 
 - (void) creditsButtonHit {
 	m_nSelectedMenu = kMainMenuItem_Credits;
+	[[InputEngine sharedInstance] disableDispatcher];
 }
 
 @end

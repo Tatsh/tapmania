@@ -70,13 +70,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			NSString* musicFilePath = nil;			
 			
 			while (file = [dirEnum nextObject]) {
-				if([file hasSuffix:@".dwi"] || [file hasSuffix:@".DWI"]) {
+				if([[file lowercaseString] hasSuffix:@".dwi"]) {
 					TMLog(@"DWI file found: %@", file);
 					stepsFilePath = [curPath stringByAppendingPathComponent:file];
-				}
-				
-				if([file hasSuffix:@".mp3"] || [file hasSuffix:@".MP3"]) {
-					TMLog(@"Found music file: %@", file);
+				} else if([[file lowercaseString] hasSuffix:@".mp3"]) {
+					// we support mp3 files					
+					TMLog(@"Found music file (MP3): %@", file);
+					musicFilePath = [curPath stringByAppendingPathComponent:file];
+				} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
+					// and ogg too
+					TMLog(@"Found music file (OGG): %@", file);
 					musicFilePath = [curPath stringByAppendingPathComponent:file];
 				}
 			}
