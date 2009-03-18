@@ -55,6 +55,7 @@ typedef enum {
 } TMHoldScore;
 
 // Do constants instead?
+#define kNotesPerMeasureRow 4
 #define kBeatsPerMeasure 	4
 #define kRowsPerBeat 		48
 #define kRowsPerMeasure		192 // 4x48

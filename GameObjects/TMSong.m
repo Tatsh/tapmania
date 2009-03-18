@@ -9,6 +9,8 @@
 #import "TMSong.h"
 
 #import "DWIParser.h"
+#import "SMParser.h"
+
 #import "TimingUtil.h"
 #import "TMChangeSegment.h"
 
@@ -22,15 +24,23 @@
 - (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath {
 	
 	// Note: only title etc is loaded here. No steps.
-	if([stepsFilePath hasSuffix:@".dwi"]) {
+	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
 		self = [DWIParser parseFromFile:stepsFilePath];
 		self.m_nFileType = kSongFileType_DWI;
+	} else if([[stepsFilePath lowercaseString] hasSuffix:@".sm"]) {
+		self = [SMParser parseFromFile:stepsFilePath];	
+		self.m_nFileType = kSongFileType_SM;
+	} else {
+		TMLog(@"Some unknown format...");
+		return nil;
 	}
-	
+
+	// ERROR HERE! FIXME
 	self.m_sMusicFilePath = musicFilePath;
 	self.m_sFilePath = stepsFilePath;
-
+	
 	// Set the bpm for song start
+	TMLog(@"Bpm stuff");
 	NSMutableArray* songBpmChangeArray = self.m_aBpmChangeArray;
 	self.m_aBpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.m_fBpm/60.0f] ,nil];
 
@@ -42,6 +52,8 @@
 		[self.m_aBpmChangeArray addObject:segment];
 	}
 	
+	TMLog(@"Done bpm stuff");
+	
 	[songBpmChangeArray release];
 	
 	return self;
@@ -49,8 +61,15 @@
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty {
 
-	TMSteps* steps = [DWIParser parseStepsFromFile:self.m_sFilePath 
+	TMSteps* steps = nil;
+	
+	if(m_nFileType == kSongFileType_DWI) {
+		steps = [DWIParser parseStepsFromFile:self.m_sFilePath 
 				forDifficulty:difficulty forSong:self];	
+	} else if(m_nFileType == kSongFileType_SM) {
+		steps = [SMParser parseStepsFromFile:self.m_sFilePath 
+				forDifficulty:difficulty forSong:self];	
+	}
 
 	return steps;
 }

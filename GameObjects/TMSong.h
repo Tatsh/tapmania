@@ -10,7 +10,8 @@
 
 typedef enum {
 	kSongFileType_Invalid = 0,
-	kSongFileType_DWI
+	kSongFileType_DWI,
+	kSongFileType_SM
 } TMSongFileType;
 
 typedef enum {

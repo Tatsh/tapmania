@@ -89,8 +89,6 @@ Texture2D* t_SongsLoaderBG;
 - (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
-		TMLog(@"!!!!!!! RENDER");
-	
 	// Draw background
 	[t_SongsLoaderBG drawInRect:bounds];
 
@@ -108,8 +106,6 @@ Texture2D* t_SongsLoaderBG;
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {	
 	static double tickCounter = 0.0;
-
-	TMLog(@"!!!!!!! UPDATE SONGS CACHER");
 	
 	if(m_bAllSongsLoaded) {
 		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];

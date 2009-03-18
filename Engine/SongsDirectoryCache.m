@@ -61,24 +61,42 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		
 		for(i = 0; i<[songsDirContents count]; i++) {
 			
+			TMLog(@"Pick a song to load...");
+			
 			NSString* songDirName = [songsDirContents objectAtIndex:i];
 			NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:songDirName];
 			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
 			NSString* file;
 			
 			NSString* stepsFilePath = nil;
+			
 			NSString* musicFilePath = nil;			
+			
+			TMLog(@"Found some path.. now check contents...");
 			
 			while (file = [dirEnum nextObject]) {
 				if([[file lowercaseString] hasSuffix:@".dwi"]) {
+					
+					// SM format should be picked if both dwi and sm available					
 					TMLog(@"DWI file found: %@", file);
-					stepsFilePath = [curPath stringByAppendingPathComponent:file];
+					if(stepsFilePath == nil) {
+						stepsFilePath = [curPath stringByAppendingPathComponent:file];
+					} else {
+						TMLog(@"Ignoring because SM is used already...");
+					}
+				} else if([[file lowercaseString] hasSuffix:@".sm"]) {
+					
+					// SM format should be picked if both dwi and sm available
+					TMLog(@"SM file found: %@", file);
+					stepsFilePath = [curPath stringByAppendingPathComponent:file];						
 				} else if([[file lowercaseString] hasSuffix:@".mp3"]) {
+					
 					// we support mp3 files					
 					TMLog(@"Found music file (MP3): %@", file);
 					musicFilePath = [curPath stringByAppendingPathComponent:file];
 				} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
-					// and ogg too
+					
+					// and ogg too (in future :P)
 					TMLog(@"Found music file (OGG): %@", file);
 					musicFilePath = [curPath stringByAppendingPathComponent:file];
 				}
@@ -92,7 +110,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 					[m_idDelegate startLoadingSong:songDirName];
 				}
 
-				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];				
+				TMSong* song = [[TMSong alloc] initWithStepsFile:[stepsFilePath copy] andMusicFile:[musicFilePath copy]];				
+				
+				TMLog(@"Song ready to be added to list!!");
 				[m_aAvailableSongs addObject:song];
 				
 				if(m_idDelegate != nil) {
