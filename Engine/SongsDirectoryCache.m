@@ -68,8 +68,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
 			NSString* file;
 			
-			NSString* stepsFilePath = nil;
-			
+			NSString* stepsFilePath = nil;			
 			NSString* musicFilePath = nil;			
 			
 			TMLog(@"Found some path.. now check contents...");
@@ -110,7 +109,8 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 					[m_idDelegate startLoadingSong:songDirName];
 				}
 
-				TMSong* song = [[TMSong alloc] initWithStepsFile:[stepsFilePath copy] andMusicFile:[musicFilePath copy]];				
+				TMLog(@"Music file path: %@", musicFilePath);
+				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];				
 				
 				TMLog(@"Song ready to be added to list!!");
 				[m_aAvailableSongs addObject:song];

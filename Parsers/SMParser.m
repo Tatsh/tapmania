@@ -30,7 +30,7 @@
 + (TMSong*) parseFromFile:(NSString*) filename {
 	FILE* fd;
 	int c; // Incoming char
-	char varName[16]; // The name of the variable which comes directly after the '#' till the ':'.
+	char varName[32]; // The name of the variable which comes directly after the '#' till the ':'.
 	int i;
 	
 	TMSong* song = [[TMSong alloc] init];
@@ -53,6 +53,11 @@
 			i = 0;
 			
 			while(!feof(fd) && c != ':') {
+				if(i >= 31){ 				
+					TMLog(@"Fatal: sm file broken.");
+					return nil; 
+				}
+				
 				varName[i++] = c;	
 				c = getc(fd);
 			}
@@ -86,7 +91,10 @@
 				TMLog(@"OFFSET...");
 				char* data = [SMParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_dGap = (double)atof(data);
+				
+				// The gap in SM is the opposite of the DWI one.
+				// Thus 2050 becomes -2.050
+				song.m_dGap = (double) -atof(data); 
 				
 				free(data);
 			}
@@ -141,7 +149,6 @@
 	// Close the file handle
 	TMLog(@"Done parsing the SM file. close handle");
 	if(fd) fclose(fd);
-	TMLog(@"Closed the file");
 	
 	return song;	
 }
@@ -273,14 +280,10 @@
 		// And also.. if we encounter a linebreak we must increment the row counter
 		// '//' indicates a comment line. the comment ends at a line break
 		
-		if(c == ' ' || c == '\t' || c == '\r') {
+		if(c == ' ' || c == '\t' || c == '\r' || c == '\n') {
 			continue; // Skip this char
 			
 		} else 
-		if(c == '\n') {			
-			++rowsInMeasure;
-			
-		} else
 		if(c == '/' && stepData[curPos+1] == '/') {
 			
 			// Got a comment... skip all till \n
@@ -292,19 +295,25 @@
 		if(c == ',') {
 			
 			// End of measure.
-			TMLog(@"End of measure %d. rows in measure: %d", measureId, rowsInMeasure);
-			measureData[measureDataIndex] = 0;
+			measureData[measureDataIndex] = 0;			
+			rowsInMeasure = (measureDataIndex+1)/kNotesPerMeasureRow;
 			
+			TMLog(@"End of measure %d. rows in measure: %d", measureId, rowsInMeasure);			
 			TMLog(@"Measure data: '%s'", measureData);
 			
 			// Parse measure data and create notes		
 			int row, note;
+			int thisMeasure = measureId-1;
 			TMNote* holds[kNumOfAvailableTracks];	// Used to store the objects which require a closing hold
 			
-			int noteRowIncrementer = kRowsPerBeat*kBeatsPerMeasure / rowsInMeasure;
-			TMLog(@"Incrementer is %d", noteRowIncrementer);
-			
 			for(row = 0; row < rowsInMeasure; ++row) {			
+				
+				float percent = row/(float)rowsInMeasure;
+				float beat = ((float)thisMeasure + percent) * kBeatsPerMeasure;
+				currentNoteRow = [TMNote beatToNoteRow:beat];
+				
+				TMLog(@"CALCULATED SM noterow is %d for beat %f", currentNoteRow, beat);
+				
 				for(note = 0; note < kNotesPerMeasureRow; ++note) {
 					char cc = measureData[row*kNotesPerMeasureRow + note];
 					
@@ -312,13 +321,13 @@
 						// something should be tapped
 						if(cc == '1') {
 							// it's a regular tap note. good
-							TMLog(@"Place a note on %d in panel %d", currentNoteRow, note);
+							// TMLog(@"Place a note on %d in panel %d", currentNoteRow, note);
 							[steps setNote:[[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_Original] toTrack:note onNoteRow:currentNoteRow];									
 						}
 						else
 						if(cc == '2') {
 							// it's a hold note start... not bad too
-							TMLog(@"Place a holdhead on %d in panel %d", currentNoteRow, note);
+							// TMLog(@"Place a holdhead on %d in panel %d", currentNoteRow, note);
 							TMNote* holdHead = [[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_HoldHead];
 							
 							// save it in the holds array
@@ -342,13 +351,11 @@
 						// TODO: add mines and rolls support
 					}
 				}
-				
-				currentNoteRow += noteRowIncrementer;
 			}
 			
 			++measureId;
 			rowsInMeasure = 0;	// Drop rows counter
-			measureDataIndex = 0;					
+			measureDataIndex = 0;								
 		} else {
 			
 			// Contents

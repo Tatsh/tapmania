@@ -34,7 +34,7 @@
 		TMLog(@"Some unknown format...");
 		return nil;
 	}
-
+	
 	// ERROR HERE! FIXME
 	self.m_sMusicFilePath = musicFilePath;
 	self.m_sFilePath = stepsFilePath;
@@ -53,8 +53,25 @@
 	}
 	
 	TMLog(@"Done bpm stuff");
-	
 	[songBpmChangeArray release];
+
+	// In SM format we must multiply by 1000 to match the format of DWI
+	if(self.m_nFileType == kSongFileType_SM) {
+		TMLog(@"Freezes stuff");
+
+		NSMutableArray* freezeChangeArray = self.m_aFreezeArray;
+		self.m_aFreezeArray = [[NSMutableArray alloc] initWithCapacity:[freezeChangeArray count]];
+	
+		for(i=0; i<[freezeChangeArray count]; i++){
+			TMChangeSegment* segment = [freezeChangeArray objectAtIndex:i];
+			segment.m_fChangeValue = segment.m_fChangeValue*1000.0f;
+		
+			[self.m_aFreezeArray addObject:segment];
+		}
+	
+		TMLog(@"Done freezes stuff");
+		[freezeChangeArray release];
+	}
 	
 	return self;
 }

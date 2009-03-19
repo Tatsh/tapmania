@@ -37,7 +37,7 @@
 + (TMSong*) parseFromFile:(NSString*) filename {
 	FILE* fd;
 	int c; // Incoming char
-	char varName[16]; // The name of the variable which comes directly after the '#' till the ':'.
+	char varName[32]; // The name of the variable which comes directly after the '#' till the ':'.
 	int i;
 
 	TMSong* song = [[TMSong alloc] init];
@@ -60,6 +60,11 @@
 			i = 0;
 
 			while(!feof(fd) && c != ':') {
+				if(i >= 31){ 				
+					TMLog(@"Fatal: dwi file broken.");
+					return nil; 
+				}
+								
 				varName[i++] = c;	
 				c = getc(fd);
 			}
@@ -78,36 +83,48 @@
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_sTitle = [[NSString stringWithCString:data] retain];
+				
+				free(data);
 			} 
 			else if( !strcasecmp(varName, "ARTIST") ) {
 				TMLog(@"Artist...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_sArtist = [[NSString stringWithCString:data] retain];
+
+				free(data);
 			}
 			else if( !strcasecmp(varName, "BPM") ) {
 				TMLog(@"BPM...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_fBpm = atof(data);	
+
+				free(data);
 			}
 			else if( !strcasecmp(varName, "GAP") ) {
 				TMLog(@"GAP...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_dGap = (double)atoi(data) / 1000.0f;
+
+				free(data);
 			}
 			else if( !strcasecmp(varName, "CHANGEBPM") || !strcasecmp(varName, "BPMCHANGE") ) {
 				TMLog(@"BPMCHANGE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_aBpmChangeArray = [DWIParser getChangesArray:data];
+
+				free(data);
 			}
 			else if( !strcasecmp(varName, "FREEZE") ){
 				TMLog(@"FREEZE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
 				song.m_aFreezeArray = [DWIParser getChangesArray:data];
+
+				free(data);
 			}
 			else if( !strcasecmp(varName, "SINGLE") ){ 
 				// This is interesting! Some single mode stepchart here..
@@ -117,6 +134,9 @@
 
 				TMSongDifficulty difficulty = [DWIParser getDifficultyWithName:diffStr];
 				[song enableDifficulty:difficulty withLevel:atoi(levelStr)];
+				
+				free(diffStr);
+				free(levelStr);
 			}
 		}
 		// End the section
@@ -408,7 +428,9 @@
 					currentNote++;
 				}
 				
-				const int iIndex = [TMNote beatToNoteRow:currentBeat];
+				const int iIndex = [TMNote beatToNoteRow:currentBeat];			
+				TMLog(@"CALCULATED DWI noterow is %d for beat %f", iIndex, currentBeat);
+				
 				currentNote--;
 				
 				do {
