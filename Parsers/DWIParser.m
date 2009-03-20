@@ -98,7 +98,10 @@
 				TMLog(@"BPM...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_fBpm = atof(data);	
+				song.m_fBpm = atof(data);
+
+				// Add it to the bpm change array
+				[song addBpmSegment:[[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:song.m_fBpm/60.0f]];				
 
 				free(data);
 			}
@@ -114,16 +117,35 @@
 				TMLog(@"BPMCHANGE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_aBpmChangeArray = [DWIParser getChangesArray:data];
-
+				
+				NSMutableArray* arr = [DWIParser getChangesArray:data];								
+				
+				// Now populate
+				int i;
+				for(i=0; i<[arr count]; ++i) {
+					TMChangeSegment* seg = [arr objectAtIndex:i];
+					seg.m_fChangeValue /= 60.0f;
+					
+					[song addBpmSegment:seg];
+				}
+				
+				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "FREEZE") ){
 				TMLog(@"FREEZE...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_aFreezeArray = [DWIParser getChangesArray:data];
-
+				
+				NSMutableArray* arr = [DWIParser getChangesArray:data];								
+				
+				// Now populate
+				int i;
+				for(i=0; i<[arr count]; ++i) {
+					[song addFreezeSegment:[arr objectAtIndex:i]];
+				}
+				
+				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "SINGLE") ){ 

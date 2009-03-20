@@ -20,6 +20,23 @@
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
 @synthesize m_aBpmChangeArray, m_aFreezeArray;
+@synthesize m_nBpmChangeCount, m_nFreezeCount;
+
+- (id) init {
+	self = [super init];
+	if(!self)
+		return nil;
+
+	m_nBpmCapacity = kDefaultChangesCapacity;
+	m_aBpmChangeArray = (TMChangeSegment**)malloc(sizeof(TMChangeSegment*)*m_nBpmCapacity);
+	m_nBpmChangeCount = 0;
+
+	m_nFreezeCapacity = kDefaultChangesCapacity;
+	m_aFreezeArray = (TMChangeSegment**)malloc(sizeof(TMChangeSegment*)*m_nFreezeCapacity);
+	m_nFreezeCount = 0;
+	
+	return self;
+}
 
 - (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath {
 	
@@ -27,53 +44,27 @@
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
 		self = [DWIParser parseFromFile:stepsFilePath];
 		self.m_nFileType = kSongFileType_DWI;
+		
 	} else if([[stepsFilePath lowercaseString] hasSuffix:@".sm"]) {
 		self = [SMParser parseFromFile:stepsFilePath];	
 		self.m_nFileType = kSongFileType_SM;
+		
 	} else {
 		TMLog(@"Some unknown format...");
 		return nil;
 	}
 	
-	// ERROR HERE! FIXME
 	self.m_sMusicFilePath = musicFilePath;
 	self.m_sFilePath = stepsFilePath;
 	
-	// Set the bpm for song start
-	TMLog(@"Bpm stuff");
-	NSMutableArray* songBpmChangeArray = self.m_aBpmChangeArray;
-	self.m_aBpmChangeArray = [[NSMutableArray alloc] initWithObjects: [[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:self.m_fBpm/60.0f] ,nil];
-
-	int i;
-	for(i=0; i<[songBpmChangeArray count]; i++){
-		TMChangeSegment* segment = [songBpmChangeArray objectAtIndex:i];
-		segment.m_fChangeValue = segment.m_fChangeValue/60.0f;
-		
-		[self.m_aBpmChangeArray addObject:segment];
-	}
-	
-	TMLog(@"Done bpm stuff");
-	[songBpmChangeArray release];
-
-	// In SM format we must multiply by 1000 to match the format of DWI
-	if(self.m_nFileType == kSongFileType_SM) {
-		TMLog(@"Freezes stuff");
-
-		NSMutableArray* freezeChangeArray = self.m_aFreezeArray;
-		self.m_aFreezeArray = [[NSMutableArray alloc] initWithCapacity:[freezeChangeArray count]];
-	
-		for(i=0; i<[freezeChangeArray count]; i++){
-			TMChangeSegment* segment = [freezeChangeArray objectAtIndex:i];
-			segment.m_fChangeValue = segment.m_fChangeValue*1000.0f;
-		
-			[self.m_aFreezeArray addObject:segment];
-		}
-	
-		TMLog(@"Done freezes stuff");
-		[freezeChangeArray release];
-	}
-	
 	return self;
+}
+
+- (void) dealloc {
+	free(m_aBpmChangeArray);
+	free(m_aFreezeArray);
+	
+	[super dealloc];
 }
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty {
@@ -106,6 +97,26 @@
 
 - (void) enableDifficulty:(TMSongDifficulty) difficulty withLevel:(int) level {
 	m_nAvailableDifficultyLevels[difficulty] = level;
+}
+
+- (void) addBpmSegment:(TMChangeSegment*)segment {
+	// realloc buffer
+	if(m_nBpmChangeCount >= m_nBpmCapacity) {
+		m_nBpmCapacity += kDefaultChangesCapacity;
+		m_aBpmChangeArray = (TMChangeSegment**)realloc(m_aBpmChangeArray, m_nBpmCapacity*sizeof(TMChangeSegment*));	
+	}
+	
+	m_aBpmChangeArray[m_nBpmChangeCount++] = segment;	
+}
+
+- (void) addFreezeSegment:(TMChangeSegment*)segment {
+	// realloc buffer
+	if(m_nFreezeCount >= m_nFreezeCapacity) {
+		m_nFreezeCapacity += kDefaultChangesCapacity;
+		m_aFreezeArray = (TMChangeSegment**)realloc(m_aFreezeArray, m_nFreezeCapacity*sizeof(TMChangeSegment*));	
+	}
+	
+	m_aFreezeArray[m_nFreezeCount++] = segment;	
 }
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty {

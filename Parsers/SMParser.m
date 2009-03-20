@@ -102,19 +102,41 @@
 				TMLog(@"BPMS...");
 				char* data = [SMParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_aBpmChangeArray = [SMParser getChangesArray:data];
 				
-				song.m_fBpm = ((TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:0]).m_fChangeValue;
-				[song.m_aBpmChangeArray removeObjectAtIndex:0];	// First object represents the initial bpm..
+				NSMutableArray* arr = [SMParser getChangesArray:data];								
+				song.m_fBpm = ((TMChangeSegment*)[arr objectAtIndex:0]).m_fChangeValue/60.0f;				
 				
+				// Now populate
+				int i;
+				for(i=0; i<[arr count]; ++i) {
+					TMChangeSegment* seg = [arr objectAtIndex:i];
+					seg.m_fChangeValue /= 60.0f;
+					
+					[song addBpmSegment:seg];
+				}
+					
+				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "STOPS") ){
 				TMLog(@"STOPS...");
 				char* data = [SMParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_aFreezeArray = [SMParser getChangesArray:data];
 
+				NSMutableArray* arr = [SMParser getChangesArray:data];								
+						
+				// Now populate
+				int i;
+				for(i=0; i<[arr count]; ++i) {
+					TMChangeSegment* seg = [arr objectAtIndex:i];
+
+					// In SM format we must multiply by 1000 to match the format of DWI
+					seg.m_fChangeValue *= 1000.0f;
+
+					[song addFreezeSegment:seg];
+				}
+						
+				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "NOTES") ){ 
@@ -363,6 +385,8 @@
 		}		
 	
 	}	
+	
+	TMLog(@"Steps are constructed!");
 	
 	return steps;
 }

@@ -204,7 +204,6 @@ Texture2D* t_ModPanel;
 	// Draw menu background
 	[t_SongPickerBG drawInRect:bounds];
 	
-	// Positions of the wheel items are fixed
 	int i;
 	for(i=0; i<[m_pWheelItems count]; i++){
 		[(SongPickerMenuItem*)[m_pWheelItems objectAtIndex:i] render:fDelta];

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kDefaultChangesCapacity 16
+
 typedef enum {
 	kSongFileType_Invalid = 0,
 	kSongFileType_DWI,
@@ -25,6 +27,7 @@ typedef enum {
 } TMSongDifficulty;
 
 @class TMSteps;
+@class TMChangeSegment;
 
 @interface TMSong : NSObject {
 	
@@ -41,8 +44,13 @@ typedef enum {
 	float	  	m_fBpm;
 	double		m_dGap;
 	
-	NSMutableArray* m_aBpmChangeArray;
-	NSMutableArray* m_aFreezeArray;
+	int					m_nBpmChangeCount;
+	int					m_nFreezeCount;
+	int					m_nBpmCapacity;
+	int					m_nFreezeCapacity;
+	
+	TMChangeSegment**	m_aBpmChangeArray;
+	TMChangeSegment**	m_aFreezeArray;
 
 	int m_nAvailableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
 }
@@ -56,8 +64,12 @@ typedef enum {
 @property (retain, nonatomic, getter=title, setter=title:, readwrite) NSString* m_sTitle;
 @property (assign) float m_fBpm;
 @property (assign) double m_dGap;
-@property (retain, nonatomic) NSMutableArray* m_aBpmChangeArray;
-@property (retain, nonatomic) NSMutableArray* m_aFreezeArray;
+
+@property (assign, readonly) int m_nFreezeCount;
+@property (assign, readonly) int m_nBpmChangeCount;
+
+@property (retain, nonatomic) TMChangeSegment** m_aBpmChangeArray;
+@property (retain, nonatomic) TMChangeSegment** m_aFreezeArray;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
 - (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath;
@@ -67,6 +79,10 @@ typedef enum {
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty;
 - (int)  getDifficultyLevel:(TMSongDifficulty) difficulty;
 - (void) enableDifficulty:(TMSongDifficulty) difficulty withLevel:(int) level;
+
+// Change arrays
+- (void) addBpmSegment:(TMChangeSegment*)segment;
+- (void) addFreezeSegment:(TMChangeSegment*)segment;
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
 

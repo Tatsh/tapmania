@@ -9,6 +9,11 @@
 #import "TMTrack.h"
 #import "TMNote.h"
 
+@interface TMTrack (Private)
+- (int) getNoteIndexFromRow:(int)noteRow;
+@end
+
+
 @implementation TMTrack
 
 - (id) init {
@@ -16,73 +21,98 @@
 	if (!self)
 		return nil;
 	
-	// Alloc space for the notes array
-	m_aNotesArray = [[NSMutableArray alloc] initWithCapacity:50];
+	// Alloc space for the initial notes array
+	m_nCurrentCapacity = kDefaultTrackCapacity;
+	m_aNotesArray = (TMNote**)malloc(sizeof(TMNote*) * m_nCurrentCapacity);
+	
+	int i;
+	for(i=0; i<m_nCurrentCapacity; ++i) {
+		m_aNotesArray[i] = NULL;
+	}
+	
+	m_nTotalNotes = 0;
 	
 	return self;
 }
 
+- (void) dealloc {
+	free(m_aNotesArray);
+	[super dealloc];
+}
+
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow {
-	
-	int i = 0;
-	for(; i<[m_aNotesArray count]; ++i){
-		if( [(TMNote*)[ m_aNotesArray objectAtIndex:i] m_nStartNoteRow] == noteRow ) {
-			[m_aNotesArray replaceObjectAtIndex:i withObject:note];		
-			return;
+	TMLog(@"Set note to %d", noteRow);
+
+	if(m_nTotalNotes >= m_nCurrentCapacity) {
+		m_nCurrentCapacity += kDefaultTrackCapacity;		// add new positions
+		
+		TMLog(@"Must realloc to %d", m_nCurrentCapacity);
+		m_aNotesArray = (TMNote**)realloc(m_aNotesArray, sizeof(TMNote*) * m_nCurrentCapacity);
+		
+		// clean
+		int i;
+		for(i=m_nTotalNotes; i<m_nCurrentCapacity; ++i) {
+			m_aNotesArray[i] = NULL;
 		}
+		
+		TMLog(@"Worked");
+	}
+
+	int index = [self getNoteIndexFromRow:noteRow];
+	if(index != -1) {
+		// The note must be replaced
+		m_aNotesArray[index] = note;
+		
+	} else {
+		// The note must be appended
+		m_aNotesArray[m_nTotalNotes++] = note;			
 	}
 	
 	note.m_nStartNoteRow = noteRow;
-	[m_aNotesArray addObject:note];
+	TMLog(@"Note set to noterow %d", noteRow);
 }
 
-- (TMNote*) getNoteFromRow:(int)noteRow {
-	int i = 0;
+- (int) getNoteIndexFromRow:(int)noteRow {
+	int low = 0;
+	int high = m_nTotalNotes;
+	int mid;
 	
-	while(i < [m_aNotesArray count]) {
-		if( [(TMNote*)[ m_aNotesArray objectAtIndex:i] m_nStartNoteRow] < noteRow ){
-			++i;
-			continue;
-		}
-	
-		if( [(TMNote*)[ m_aNotesArray objectAtIndex:i] m_nStartNoteRow] == noteRow )
-			return (TMNote*)[ m_aNotesArray objectAtIndex:i];
+	while(low < high) {
+		mid = low + ((high-low)/2);
+		if(m_aNotesArray[mid].m_nStartNoteRow < noteRow)
+			low = mid+1;
 		else
-			return nil;
+			high = mid;
 	}
+	
+	if((low < m_nTotalNotes) && (m_aNotesArray[low].m_nStartNoteRow == noteRow))
+		return low;
+	
+	return -1;	
+}
+
+- (TMNote*) getNoteFromRow:(int)noteRow {	
+	int index = [self getNoteIndexFromRow:noteRow];
+	
+	if(index != -1)
+		return m_aNotesArray[index];
 	
 	return nil;
 }
 
-- (BOOL) hasNoteAtRow:(int)noteRow {
-	int i = 0;
-	
-	while(i < [m_aNotesArray count]) {
-		if( [(TMNote*)[ m_aNotesArray objectAtIndex:i] m_nStartNoteRow] < noteRow ) {
-			++i;
-			continue;
-		}
-		
-		if( [(TMNote*)[ m_aNotesArray objectAtIndex:i] m_nStartNoteRow] == noteRow )
-			return YES;
-		else
-			return NO;
-	}
-	
-	return NO;
+- (TMNote*) getNote:(int)index {
+	if(index >= m_nTotalNotes)
+		return nil;
+
+	return m_aNotesArray[index];
 }
 
-- (TMNote*) getNote:(int) index {
-	return [m_aNotesArray objectAtIndex:index];
+- (BOOL) hasNoteAtRow:(int)noteRow {
+	return ([self getNoteFromRow:noteRow] != nil);
 }
 
 - (int) getNotesCount {
-	return [m_aNotesArray count];
-}
-
-- (void) dealloc {
-	[m_aNotesArray release];
-	[super dealloc];
+	return m_nTotalNotes;
 }
 
 @end

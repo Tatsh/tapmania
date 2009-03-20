@@ -10,13 +10,21 @@
 
 @class TMNote;
 
+#define kDefaultTrackCapacity 1024
+
 @interface TMTrack : NSObject {
-	NSMutableArray* m_aNotesArray;
+//	NSMutableArray* m_aNotesArray;
+	TMNote**		m_aNotesArray;
+
+	int				m_nTotalNotes;
+	int				m_nCurrentCapacity;
 }
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;
-- (TMNote*) getNote:(int) index;
+
 - (TMNote*) getNoteFromRow:(int)noteRow;
+- (TMNote*) getNote:(int)index;
+
 - (BOOL) hasNoteAtRow:(int)noteRow;
 
 - (int) getNotesCount;

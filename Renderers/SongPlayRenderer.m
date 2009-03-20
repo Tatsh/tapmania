@@ -118,6 +118,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	m_pSong = [song retain];
 	m_pSteps = [m_pSong getStepsForDifficulty:options.m_nDifficulty];
 
+	TMLog(@"Steps recieved by songplayrenderer");
+	
 	m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 	
 	int i;
@@ -131,8 +133,11 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	
 	// Calculate starting offset for music playback
 	double now = [TimingUtil getCurrentTime];
+	
+	TMLog(@"Try to get first and last beat");
 	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getFirstNoteRow]] inSong:m_pSong];
 	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getLastNoteRow]] inSong:m_pSong];
+	TMLog(@"Success...");
 	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
 		m_dPlayBackStartTime = now + kMinTimeTillStart;
@@ -234,7 +239,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		}
 		 
 		// For all interesting notes in the track
-		for(j=startIndex; j<[m_pSteps getNotesCountForTrack:i] ; j++) {
+		for(j=startIndex; j<[m_pSteps getNotesCountForTrack:i] ; ++j) {
 			TMNote* note = [m_pSteps getNote:j fromTrack:i];
 			
 			// We are not handling empty notes though

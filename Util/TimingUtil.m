@@ -43,13 +43,13 @@
 	int noteRow = [TMNote beatToNoteRow:beat];
 	
 	int i;	
-	for(i=0; i<[song.m_aBpmChangeArray count]-1; i++){
-		if( [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i+1] m_fNoteRow] > noteRow){
+	for(i=0; i<song.m_nBpmChangeCount-1; i++){
+		if( [(TMChangeSegment*)song.m_aBpmChangeArray[i+1] m_fNoteRow] > noteRow){
 			break;
 		}
 	}
 	
-	return [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fChangeValue];
+	return [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fChangeValue];
 }
 
 + (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song {
@@ -59,23 +59,23 @@
 	int noteRow = [TMNote beatToNoteRow:beat];
 	unsigned i;
 	
-	for(i=0; i<[song.m_aFreezeArray count]; i++){
-		if([(TMChangeSegment*)[song.m_aFreezeArray objectAtIndex:i] m_fNoteRow] >= noteRow) {
+	for(i=0; i<song.m_nFreezeCount; i++){
+		if([(TMChangeSegment*)song.m_aFreezeArray[i] m_fNoteRow] >= noteRow) {
 			break;
 		}
 		
-		elapsedTime += [(TMChangeSegment*)[song.m_aFreezeArray objectAtIndex:i] m_fChangeValue]/1000.0f;		
+		elapsedTime += [(TMChangeSegment*)song.m_aFreezeArray[i] m_fChangeValue]/1000.0f;		
 	}
 	
-	for(i=0; i<[song.m_aBpmChangeArray count]; i++){
-		const BOOL isLastBpmChange = i == [song.m_aBpmChangeArray count]-1;
-		const float bps = [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fChangeValue]; 
+	for(i=0; i<song.m_nBpmChangeCount; i++){
+		const BOOL isLastBpmChange = i == song.m_nBpmChangeCount-1;
+		const float bps = [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fChangeValue]; 
 		
 		if(isLastBpmChange){
 			elapsedTime += [TMNote noteRowToBeat:noteRow]/bps;
 		} else {
-			const int startRowThisChange = [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fNoteRow]; 
-			const int startRowNextChange = [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i+1] m_fNoteRow];
+			const int startRowThisChange = [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fNoteRow]; 
+			const int startRowNextChange = [(TMChangeSegment*)song.m_aBpmChangeArray[i+1] m_fNoteRow];
 			const int rowsInSegment = fminl( startRowNextChange - startRowThisChange, noteRow );
 			elapsedTime += [TMNote noteRowToBeat:rowsInSegment]/bps;
 			noteRow -= rowsInSegment;
@@ -93,19 +93,19 @@
 	elapsedTime -= song.m_dGap;
 	
 	unsigned i;
-	for( i=0; i<[song.m_aBpmChangeArray count]; i++) { // Foreach bpm change in the song
+	for( i=0; i<song.m_nBpmChangeCount; i++) { // Foreach bpm change in the song
 		
-		const int startRowThisChange = [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fNoteRow]; 
+		const int startRowThisChange = [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fNoteRow]; 
 		const float startBeatThisChange = [TMNote noteRowToBeat:startRowThisChange]; 
 		const BOOL isFirstBpmChange = i==0;
-		const BOOL isLastBpmChange = i==[song.m_aBpmChangeArray count]-1;
-		const int startRowNextChange = isLastBpmChange ? -1 : [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i+1] m_fNoteRow];
+		const BOOL isLastBpmChange = i==song.m_nBpmChangeCount-1;
+		const int startRowNextChange = isLastBpmChange ? -1 : [(TMChangeSegment*)song.m_aBpmChangeArray[i+1] m_fNoteRow];
 		const float startBeatNextChange = isLastBpmChange ? MAXFLOAT : [TMNote noteRowToBeat:startRowNextChange];
-		const float bps = [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fChangeValue];
+		const float bps = [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fChangeValue];
 	
 		unsigned j;
-		for( j=0; j<[song.m_aFreezeArray count]; j++) { // Foreach freeze
-			TMChangeSegment* freeze = [song.m_aFreezeArray objectAtIndex:j];
+		for( j=0; j<song.m_nFreezeCount; j++) { // Foreach freeze
+			TMChangeSegment* freeze = song.m_aFreezeArray[j];
 			float freezeBeat = [TMNote noteRowToBeat:[freeze m_fNoteRow]];
 			
 			if(!isFirstBpmChange && startBeatThisChange >= freezeBeat)
@@ -153,9 +153,9 @@
 	int noteRow = [TMNote beatToNoteRow:beat];
 	
 	int i;	
-	for(i=0; i<[song.m_aBpmChangeArray count]; i++){
-		if( [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fNoteRow] > noteRow){
-			return [(TMChangeSegment*)[song.m_aBpmChangeArray objectAtIndex:i] m_fNoteRow];
+	for(i=0; i<song.m_nBpmChangeCount; i++){
+		if( [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fNoteRow] > noteRow){
+			return [(TMChangeSegment*)song.m_aBpmChangeArray[i] m_fNoteRow];
 		}
 	}
 	

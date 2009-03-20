@@ -101,11 +101,11 @@
 	for(i=0; i<kNumOfAvailableTracks; i++){
 		int j = 0;
 
-		// Skip all empty notes
-		while([(TMNote*)[m_pTracks[i] getNote:j++] m_nType] == kNoteType_Empty);
-
+		int total = [m_pTracks[i] getNotesCount];
+		while([m_pTracks[i] getNote:j++].m_nType == kNoteType_Empty && j < total);
+				
 		// Get the smallest
-		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow]);
+		minNoteRow = (int) fmaxf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow] );
 	}
 
 	return minNoteRow;
@@ -116,8 +116,9 @@
 	int maxNoteRow = 0;
 	
 	for(i=0; i<kNumOfAvailableTracks; i++){
+		// Get the biggest
 		TMNote* lastNote = [m_pTracks[i] getNote:[m_pTracks[i] getNotesCount]-1];
-		maxNoteRow = (int) fmaxf( (float)maxNoteRow, lastNote.m_nType == kNoteType_HoldHead ? (float)[lastNote m_nStopNoteRow] : (float)[lastNote m_nStartNoteRow]);
+		maxNoteRow = (int) fmaxf( (float)maxNoteRow, (float) lastNote.m_nType==kNoteType_HoldHead? [lastNote m_nStopNoteRow] : [lastNote m_nStartNoteRow] );
 	}
 	
 	return maxNoteRow;
