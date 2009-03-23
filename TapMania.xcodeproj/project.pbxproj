@@ -708,7 +708,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				OTHER_CFLAGS = "-DDEBUG1";
+				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Release;

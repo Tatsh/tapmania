@@ -161,6 +161,12 @@
 				
 				free(notesType);
 			}
+			// Otherwise we just fetch data till ';' and ignore it
+			else {
+				char* data = [SMParser parseSectionWithFD:fd];
+				free(data);				
+			}
+			
 		}
 		// End the section
 		else if(c == ';') {

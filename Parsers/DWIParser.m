@@ -160,6 +160,11 @@
 				free(diffStr);
 				free(levelStr);
 			}
+			// Otherwise we just fetch data till ';' and ignore it
+			else {
+				char* data = [DWIParser parseSectionWithFD:fd];
+				free(data);				
+			}
 		}
 		// End the section
 		else if(c == ';') {
