@@ -139,6 +139,9 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getLastNoteRow]] inSong:m_pSong];
 	TMLog(@"Success...");
 	
+	TMLog(@"first: %f   last: %f", timeOfFirstBeat, timeOfLastBeat);
+	TMLog(@"first nr: %d", [m_pSteps getFirstNoteRow]);
+	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
 		m_dPlayBackStartTime = now + kMinTimeTillStart;
 		m_bMusicPlaybackStarted = NO;

@@ -105,7 +105,7 @@
 		while([m_pTracks[i] getNote:j++].m_nType == kNoteType_Empty && j < total);
 				
 		// Get the smallest
-		minNoteRow = (int) fmaxf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow] );
+		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow] );
 	}
 
 	return minNoteRow;
