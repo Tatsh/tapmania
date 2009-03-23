@@ -10,7 +10,7 @@
 #import "ThemeManager.h"
 
 @interface Judgement (Private) 
-- (void) drawJudgement:(TMJudgement) judgement;
+- (void) drawJudgement:(int) frame;
 @end
 
 static int mt_JudgementX, mt_JudgementY;
@@ -18,9 +18,9 @@ static float mt_JudgementMaxShowTime;
 
 @implementation Judgement
 
-- (void) drawJudgement:(TMJudgement) judgement {
+- (void) drawJudgement:(int) frame {
 	glEnable(GL_BLEND);
-	[self drawFrame:judgement-1 atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
+	[self drawFrame:frame atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
 	glDisable(GL_BLEND);
 }
 
@@ -36,13 +36,15 @@ static float mt_JudgementMaxShowTime;
 	
 	m_dElapsedTime = 0.0f;
 	m_nCurrentJudgement = kJudgementNone;
+	m_nCurrentFlag = 0;
 
 	return self;
 }
 
-- (void) setCurrentJudgement:(TMJudgement) judgement {
+- (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag{
 	m_dElapsedTime = 0.0f;
 	m_nCurrentJudgement = judgement;
+	m_nCurrentFlag = flag;
 }
 
 /* TMRenderable method */
@@ -50,7 +52,7 @@ static float mt_JudgementMaxShowTime;
 	
 	// Just draw the current judgement if it's not set to none
 	if(m_nCurrentJudgement != kJudgementNone) {
-		[self drawJudgement:m_nCurrentJudgement];
+		[self drawJudgement:m_nCurrentJudgement*2+m_nCurrentFlag];
 	}
 }
 

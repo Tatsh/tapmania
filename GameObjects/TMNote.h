@@ -39,12 +39,23 @@ typedef enum {
 
 typedef enum {
 	kNoteScore_None = 0,
-	kNoteScore_W1,
-	kNoteScore_W2,
-	kNoteScore_W3,
-	kNoteScore_W4,
-	kNoteScore_W5,
-	kNoteScore_Miss,
+	kNoteScore_W1E,
+	kNoteScore_W1L,
+	
+	kNoteScore_W2E,
+	kNoteScore_W2L,
+	
+	kNoteScore_W3E,
+	kNoteScore_W3L,
+	
+	kNoteScore_W4E,
+	kNoteScore_W4L,
+	
+	kNoteScore_W5E,
+	kNoteScore_W5L,
+	
+	kNoteScore_MissE,
+	kNoteScore_MissL,
 	kNumNoteScores
 } TMNoteScore;
 

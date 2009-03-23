@@ -25,7 +25,7 @@
 + (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod;
 
 + (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore;
-+ (TMNoteScore) getNoteScoreByDelta:(float)delta;	
++ (TMNoteScore) getNoteScoreByDelta:(float)delta andTimingFlag:(TMTimingFlag)flag;	
 + (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore;
 
 @end

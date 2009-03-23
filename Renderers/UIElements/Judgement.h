@@ -12,21 +12,27 @@
 #import "TMRenderable.h"
 
 typedef enum {
-	kJudgementNone = 0,
-	kJudgementW1,
+	kJudgementW1 = 0,
 	kJudgementW2,
 	kJudgementW3,
 	kJudgementW4,
 	kJudgementW5,
 	kJudgementMiss,
-	kNumJudgementValues
+	kNumJudgementValues,
+	kJudgementNone
 } TMJudgement;
+
+typedef enum {
+	kTimingFlagEarly = 0,
+	kTimingFlagLate	
+} TMTimingFlag;
 
 @interface Judgement : TMFramedTexture <TMLogicUpdater, TMRenderable> {
 	TMJudgement m_nCurrentJudgement;	// Currently displayed judgement
+	TMTimingFlag m_nCurrentFlag;
 	double m_dElapsedTime;	// Time elapsed since last renew of the judgement
 }
 
-- (void) setCurrentJudgement:(TMJudgement) judgement;
+- (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag;
 
 @end

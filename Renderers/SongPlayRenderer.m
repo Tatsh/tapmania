@@ -308,10 +308,10 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 			// Check whether we already missed a note (hold head too)
 			if(!note.m_bIsLost && !note.m_bIsHit && (elapsedTime-noteTime)>=0.1f) {
 				[m_pSteps markAllNotesLostFromRow:note.m_nStartNoteRow];		
-				[note score:kNoteScore_Miss];	// Only one of the notes get the scoring set
+				[note score:kNoteScore_MissL];	// Only one of the notes get the scoring set
 
-				[t_Judgement setCurrentJudgement:kJudgementMiss];
-				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_Miss]];
+				[t_Judgement setCurrentJudgement:kJudgementMiss andTimingFlag:kTimingFlagLate];
+				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_MissL]];
 				
 				// Extra judgement for hold notes..
 				// TODO: all hold notes which are not held now should show NG. not only one.
@@ -401,24 +401,28 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 					
 						// Get the worse scoring of all hit notes
 						double worseDelta = 0.0f;
+						TMTimingFlag timingFlag;
 						
 						int tr = 0;
 						for(; tr<kNumOfAvailableTracks; ++tr){
 							if(timesOfHit[tr] != 0.0f) {
-								double thisDelta = fabs(noteTime-timesOfHit[tr]);
+								double timing = noteTime-timesOfHit[tr];
+								double thisDelta = fabs(timing);
 
-								if(thisDelta > worseDelta) 
+								if(thisDelta > worseDelta) {
 									worseDelta = thisDelta;
+									timingFlag = timing<0?kTimingFlagEarly:kTimingFlagLate;
+								}
 							}
 						}
 						
-						TMNoteScore noteScore = [TimingUtil getNoteScoreByDelta:worseDelta];
+						TMNoteScore noteScore = [TimingUtil getNoteScoreByDelta:worseDelta andTimingFlag:timingFlag];
 						TMJudgement noteJudgement = [TimingUtil getJudgementByScore:noteScore];
 						
 						// Set the score to the note (group of notes. only one will count anyway)
 						[note score:noteScore];
 						
-						[t_Judgement setCurrentJudgement:noteJudgement];
+						[t_Judgement setCurrentJudgement:noteJudgement andTimingFlag:timingFlag];
 						[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:noteScore]];
 						
 						// Explode all hit tracks

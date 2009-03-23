@@ -9,6 +9,7 @@
 #import "TimingUtil.h"
 #import "TMSong.h"
 #import "TMChangeSegment.h"
+#import "Judgement.h"
 
 #include <mach/mach.h>
 #include <mach/mach_time.h>
@@ -179,47 +180,65 @@
 }
 
 + (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore {
-	if(noteScore == kNoteScore_W1) {
+	if(noteScore == kNoteScore_W1E || noteScore == kNoteScore_W1L) {
 		return kJudgementW1;
-	} else if(noteScore == kNoteScore_W2) {
+	} else if(noteScore == kNoteScore_W2E || noteScore == kNoteScore_W2L) {
 		return kJudgementW2;
-	} else if(noteScore == kNoteScore_W3) {
+	} else if(noteScore == kNoteScore_W3E || noteScore == kNoteScore_W3L) {
 		return kJudgementW3;
-	} else if(noteScore == kNoteScore_W4) {
+	} else if(noteScore == kNoteScore_W4E || noteScore == kNoteScore_W4L) {
 		return kJudgementW4;
-	} else if(noteScore == kNoteScore_W5) {						
+	} else if(noteScore == kNoteScore_W5E || noteScore == kNoteScore_W5L) {						
 		return kJudgementW5;
 	} else {
 		return kJudgementMiss;
 	}	
 }
 
-+ (TMNoteScore) getNoteScoreByDelta:(float)delta {
++ (TMNoteScore) getNoteScoreByDelta:(float)delta andTimingFlag:(TMTimingFlag) flag {
 	if(delta <= 0.022500) {
-		return kNoteScore_W1;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_W1E;
+		return kNoteScore_W1L;
+		
 	} else if(delta <= 0.045000) {
-		return kNoteScore_W2;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_W2E;
+		return kNoteScore_W2L;
+		
 	} else if(delta <= 0.090000) {
-		return kNoteScore_W3;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_W3E;
+		return kNoteScore_W3L;
+		
 	} else if(delta <= 0.135000) {
-		return kNoteScore_W4;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_W4E;
+		return kNoteScore_W4L;
+		
 	} else if(delta <= 0.180000) {						
-		return kNoteScore_W5;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_W5E;
+		return kNoteScore_W5L;
+		
 	} else {
-		return kNoteScore_Miss;
+		if(flag == kTimingFlagEarly)
+			return kNoteScore_MissE;
+		return kNoteScore_MissL;
+		
 	}		
 }
 
 + (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore {
-	if(noteScore == kNoteScore_W1) {
+	if(noteScore == kNoteScore_W1E || noteScore == kNoteScore_W1L) {
 		return 0.1f;
-	} else if(noteScore == kNoteScore_W2) {
+	} else if(noteScore == kNoteScore_W2E || noteScore == kNoteScore_W2L) {
 		return 0.05f;
-	} else if(noteScore == kNoteScore_W3) {
+	} else if(noteScore == kNoteScore_W3E || noteScore == kNoteScore_W3L) {
 		return 0.02f;
-	} else if(noteScore == kNoteScore_W4) {
+	} else if(noteScore == kNoteScore_W4E || noteScore == kNoteScore_W4L) {
 		return 0.01f;
-	} else if(noteScore == kNoteScore_W5) {						
+	} else if(noteScore == kNoteScore_W5E || noteScore == kNoteScore_W5L) {						
 		return 0.0f;
 	} else {
 		// Miss
