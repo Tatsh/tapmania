@@ -47,7 +47,8 @@
 		248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D910F4B3750005A998C /* BlinkEffect.m */; };
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
-		248F77CA0F77EC1A00AE2130 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 248F77900F77EC1A00AE2130 /* themes */; };
+		248F78150F77F99700AE2130 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.m */; };
+		248F78990F7805AD00AE2130 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 248F785E0F7805AD00AE2130 /* themes */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
 		24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */; };
@@ -181,7 +182,9 @@
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
 		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
 		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapMania.m; sourceTree = "<group>"; };
-		248F77900F77EC1A00AE2130 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
+		248F78130F77F99700AE2130 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = Renderers/UIElements/Slider.h; sourceTree = "<group>"; };
+		248F78140F77F99700AE2130 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slider.m; path = Renderers/UIElements/Slider.m; sourceTree = "<group>"; };
+		248F785E0F7805AD00AE2130 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
@@ -377,6 +380,8 @@
 				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
 				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
+				248F78130F77F99700AE2130 /* Slider.h */,
+				248F78140F77F99700AE2130 /* Slider.m */,
 				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
 				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
 				2472663B0EE949A500D501AF /* TapNote.h */,
@@ -507,7 +512,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				248F77900F77EC1A00AE2130 /* themes */,
+				248F785E0F7805AD00AE2130 /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
 				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -582,7 +587,7 @@
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
-				248F77CA0F77EC1A00AE2130 /* themes in Resources */,
+				248F78990F7805AD00AE2130 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +684,7 @@
 				24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */,
 				24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */,
 				24A4257B0F713529001B0CDE /* SMParser.m in Sources */,
+				248F78150F77F99700AE2130 /* Slider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

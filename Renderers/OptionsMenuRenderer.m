@@ -18,6 +18,8 @@
 
 #import "QuadTransition.h"
 
+#import "Slider.h"
+
 #import "OptionsMenuRenderer.h"
 #import "MainMenuRenderer.h"
 
@@ -51,6 +53,9 @@ Texture2D *t_BG;
 	m_dAnimationTime = 0.0;	
 	
 	// Register menu items
+	
+	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	[[Slider alloc] initWithShape:CGRectMake(40.0f, 40.0f, 240.0f, 46.0f) andValue:0.2f];
+	
 	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:	
@@ -58,7 +63,7 @@ Texture2D *t_BG;
 
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
-	
+
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
 	
 	return self;
@@ -66,6 +71,7 @@ Texture2D *t_BG;
 
 - (void) dealloc {
 	// Release menu items
+	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] release];
 	
 	[super dealloc];
@@ -74,17 +80,21 @@ Texture2D *t_BG;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Add the menu items to the render loop with lower priority
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
 	
 	// Subscribe for input events
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
-	
+		
 	// Remove the menu items from the render loop
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
