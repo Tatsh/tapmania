@@ -24,8 +24,9 @@
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
 	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
 	
-	m_idDelegate = nil;
+	m_idActionDelegate = nil;
 	m_oActionHandler = nil;
+	m_oChangedActionHandler = nil;
 	
 	return self;
 }
@@ -35,8 +36,13 @@
 }
 
 - (void) setActionHandler:(SEL)selector receiver:(id)receiver {
-	m_idDelegate = receiver;
+	m_idActionDelegate = receiver;
 	m_oActionHandler = selector;
+}
+
+- (void) setChangedActionHandler:(SEL)selector receiver:(id)receiver {
+	m_idChangedDelegate = receiver;
+	m_oChangedActionHandler = selector;
 }
 
 /* TMRenderable stuff */
@@ -59,7 +65,7 @@
 
 /* TMGameUIResponder stuff */
 - (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
-	if(m_idDelegate != nil && [m_idDelegate respondsToSelector:m_oActionHandler]) {
+	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 		UITouch * touch = [touches anyObject];
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 							[touch locationInView:[TapMania sharedInstance].glView]];
@@ -71,26 +77,26 @@
 }
 
 - (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
-	if(m_idDelegate != nil && [m_idDelegate respondsToSelector:m_oActionHandler]) {
+	if(m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
 		UITouch * touch = [touches anyObject];
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			TMLog(@"Menu item finger moved!");
+			[m_idChangedDelegate performSelector:m_oChangedActionHandler];
 		}
 	}
 }
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
-	if(m_idDelegate != nil && [m_idDelegate respondsToSelector:m_oActionHandler]) {
+	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 		UITouch * touch = [touches anyObject];
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
 			TMLog(@"Menu item finger raised!");
-			[m_idDelegate performSelector:m_oActionHandler];
+			[m_idActionDelegate performSelector:m_oActionHandler];
 		}
 	}
 }

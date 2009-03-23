@@ -18,8 +18,11 @@
 	Texture2D*			m_pTitle;
 	CGRect		m_rShape;	// The points where the button is drawn
 	
-	id			m_idDelegate;		// delegate to invoke the selector on
-	SEL			m_oActionHandler;	// selector which should be invoked on button touch
+	id			m_idActionDelegate;			// delegate to invoke the selector on
+	SEL			m_oActionHandler;			// selector which should be invoked on button touch
+	
+	id			m_idChangedDelegate;		// delegate to invoke the selector on
+	SEL			m_oChangedActionHandler;	// selector which should be invoked on finger drag over the menu item
 }
 
 
@@ -31,5 +34,6 @@
 - (BOOL) containsPoint:(CGPoint)point;
 
 - (void) setActionHandler:(SEL)selector receiver:(id)receiver;
+- (void) setChangedActionHandler:(SEL)selector receiver:(id)receiver;
 
 @end

@@ -79,10 +79,13 @@
 			[self setValueFromPoint:pointGl];
 		}
 	}
+	
+	[super tmTouchesMoved:touches withEvent:event];
 }
 
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	[self tmTouchesMoved:touches withEvent:event];
+	[super tmTouchesEnded:touches withEvent:event];
 }
 
 

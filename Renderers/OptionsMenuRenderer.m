@@ -11,6 +11,7 @@
 #import "EAGLView.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
+#import "SoundEngine.h"
 
 #import "MenuItem.h"
 #import "ZoomEffect.h"
@@ -25,6 +26,7 @@
 
 @interface OptionsMenuRenderer (InputHandling)
 - (void) backButtonHit;
+- (void) soundSliderChanged;
 @end
 
 @implementation OptionsMenuRenderer
@@ -65,6 +67,7 @@ Texture2D *t_BG;
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
 
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
+	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] setChangedActionHandler:@selector(soundSliderChanged) receiver:self];
 	
 	return self;
 }
@@ -146,6 +149,11 @@ Texture2D *t_BG;
 /* Input handlers */
 - (void) backButtonHit {
 	m_nSelectedMenu = kOptionsMenuItem_Back;
+}
+
+- (void) soundSliderChanged {
+	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
+	SoundEngine_SetMasterVolume(value);
 }
 
 @end
