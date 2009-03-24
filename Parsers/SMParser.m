@@ -257,7 +257,7 @@
 	}
 	
 	// Close the file handle
-	TMLog(@"Done parsing the dwi file. close handle..");
+	TMLog(@"Done parsing the sm file. close handle..");
 	fclose(fd);
 	
 	return nil;
@@ -326,9 +326,6 @@
 			measureData[measureDataIndex] = 0;			
 			rowsInMeasure = (measureDataIndex+1)/kNotesPerMeasureRow;
 			
-			TMLog(@"End of measure %d. rows in measure: %d", measureId, rowsInMeasure);			
-			TMLog(@"Measure data: '%s'", measureData);
-			
 			// Parse measure data and create notes		
 			int row, note;
 			int thisMeasure = measureId-1;
@@ -339,8 +336,6 @@
 				float percent = row/(float)rowsInMeasure;
 				float beat = ((float)thisMeasure + percent) * kBeatsPerMeasure;
 				currentNoteRow = [TMNote beatToNoteRow:beat];
-				
-				TMLog(@"CALCULATED SM noterow is %d for beat %f", currentNoteRow, beat);
 				
 				for(note = 0; note < kNotesPerMeasureRow; ++note) {
 					char cc = measureData[row*kNotesPerMeasureRow + note];

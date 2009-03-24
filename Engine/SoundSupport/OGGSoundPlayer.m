@@ -6,16 +6,30 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
+/* 
+ * This code is pretty much based on the great OGG streaming article by Jesse Maurais (http://www.devmaster.net/articles/openal-tutorials/lesson8.php )
+ */
+
 #import "OGGSoundPlayer.h"
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <AudioToolbox/AudioFile.h>
 
-#import <vorbis/vorbisfile.h>
+#import <syslog.h>
 
+// #define BUFFER_SIZE		32768     // 32 KB buffers
+// #define BUFFER_SIZE			65536	// 64 KB buffers
+#define BUFFER_SIZE		131072     // 128 KB buffers
 
-#define BUFFER_SIZE   32768     // 32 KB buffers
+@interface OGGSoundPlayer (Private)
+- (BOOL) stream:(ALuint)buffer;		// Stream
+- (void) empty;						// Clear the queue
+- (void) playback;
+
+- (NSString*) errStr:(int)code;
+- (void) checkErr;
+- (void) worker;					// Thread worker
+@end
+
 
 @implementation OGGSoundPlayer
 
@@ -26,71 +40,242 @@
 
 	TMLog(@"Try to init ogg player for file '%@'", inFile);
 	
-	// Read the file and parse ogg stuff
-	int endian = 0;             // 0 for Little-Endian, 1 for Big-Endian
-	int bitStream;
-	long bytes, curLen;
-	char array[BUFFER_SIZE];    // Local fixed size array
-	FILE *f;
-
-	curLen = 0;
-	char *buffer = nil;
+	m_pFile = fopen([inFile UTF8String], "rb");
+	if(!m_pFile) {
+		TMLog(@"ERROR opening OGG file from %@", inFile);
+		return nil;
+	}
+		
+	// Open the stream
+	if(	ov_open(m_pFile, &m_oStream, NULL, 0) < 0) {
+		fclose(m_pFile);
+		
+		[self checkErr];
+	}
 	
-	ALenum format;
-	ALsizei freq;
+	// Get infos
+	m_pVorbisInfo = ov_info(&m_oStream, -1);
+	[self checkErr];
 	
-	f = fopen([inFile UTF8String], "rb");
-
-	vorbis_info *pInfo;
-  	OggVorbis_File oggFile;
-
-	ov_open(f, &oggFile, NULL, 0);
-
-	pInfo = ov_info(&oggFile, -1);
-	if (pInfo->channels == 1)
-		format = AL_FORMAT_MONO16;
+	if (m_pVorbisInfo->channels == 1)
+		m_nFormat = AL_FORMAT_MONO16;
 	else
-		format = AL_FORMAT_STEREO16;
+		m_nFormat = AL_FORMAT_STEREO16;
 	
-	freq = pInfo->rate;
+	m_nFreq = m_pVorbisInfo->rate;
 	
-	// FIXME: this is insanely slow!!! like 30 seconds for a simple 1.5 min ogg file... :(
-	do { 
-		
-		bytes = ov_read(&oggFile, array, BUFFER_SIZE, endian, 2, 1, &bitStream);
-		curLen += bytes;
-
-		buffer = (char*) realloc(buffer, curLen);
-		
-		int i, j;
-		for(j=0, i=curLen-bytes; i<curLen; ++i, ++j){ 
-			buffer[i] = array[j];
-		}
-
- 	} while (bytes > 0);
-
-	TMLog(@"Done with ogg reading...");
-	ov_clear(&oggFile);
-
-	// Now to the AL player...
-	NSUInteger bufferID;
-	alGenBuffers(1, &bufferID);
-	alBufferData(bufferID,format,buffer,curLen,freq);
+	// Generate buffers and source
+	alGenBuffers(kSoundEngineNumBuffers, m_nBuffers);
+	[self checkErr];
 	
-	NSUInteger sourceID;	
-	alGenSources(1, &sourceID); 
-	alSourcei(sourceID, AL_BUFFER, bufferID);
-	alSourcef(sourceID, AL_PITCH, 1.0f);
-	alSourcef(sourceID, AL_GAIN, 1.0f);
+	alGenSources(1, &m_nSourceID); 
+	[self checkErr];
+
+	alSource3f(m_nSourceID, AL_POSITION, 0.0, 0.0, 0.0);
+	alSource3f(m_nSourceID, AL_VELOCITY, 0.0, 0.0, 0.0);
+	alSource3f(m_nSourceID, AL_DIRECTION, 0.0, 0.0, 0.0);
 	
-	alSourcei(sourceID, AL_LOOPING, AL_FALSE);
+	alSourcef(m_nSourceID, AL_PITCH, 1.0f);
+	alSourcef(m_nSourceID, AL_GAIN, 1.0f);
+	
+	alSourcei(m_nSourceID, AL_LOOPING, AL_FALSE);	
+	alSourcef(m_nSourceID, AL_ROLLOFF_FACTOR, 0.0);
+	alSourcei(m_nSourceID, AL_SOURCE_RELATIVE, AL_TRUE);
 
-	// play!
-	TMLog(@"Try to play sound...");
-	alSourcePlay(sourceID);
-	TMLog(@"huh?");
+	// Construct thread
+	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
+	
+	TMLog(@"Done constructing OGG player!");
 
+	// Start thread. the thread will start streaming in background till play is invoked
+	m_bPlaying = NO;
+	[m_pThread start];
+	
 	return self;
+}
+
+- (void) dealloc {
+	[self stop];
+	
+	// Cleanup
+	alDeleteSources(1, &m_nSourceID);
+	alDeleteBuffers(kSoundEngineNumBuffers, m_nBuffers);
+
+	[m_pThread release];
+	ov_clear(&m_oStream);
+
+	[super dealloc];
+}
+
+- (void) worker {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	// Thread entrance point
+	TMLog(@"START PLAYBACK THREAD!");
+	
+	[NSThread setThreadPriority:1.0];
+	
+	while([self update]) {
+		if(m_bPlaying) {
+			if(![self isPlaying]) {	
+				alSourcePlay(m_nSourceID);
+			}
+		}
+	}
+	
+	[pool drain];
+}
+
+/* Highlevel methods */
+- (void) play {
+	m_bPlaying = YES;
+	[self playback];
+}
+
+- (BOOL) isPlaying {
+	ALenum state;
+	alGetSourcei(m_nSourceID, AL_SOURCE_STATE, &state);
+	[self checkErr];
+	
+	return (state == AL_PLAYING);
+}
+
+- (void) stop {
+	if([self isPlaying]) {		
+		alSourceStop(m_nSourceID);
+		[self checkErr];
+	}
+	
+	// Unqueue the rest
+	[self empty];
+}
+
+- (void) playback {
+	if([self isPlaying]) {
+		return;
+	}
+	
+	// Fill with first chunks
+	int bufId = 0;
+	for(;bufId<kSoundEngineNumBuffers;++bufId) {
+	if(![self stream:m_nBuffers[bufId]])
+		return;
+	}
+	
+	alSourceQueueBuffers(m_nSourceID, kSoundEngineNumBuffers, m_nBuffers);
+	[self checkErr];
+	
+	alSourcePlay(m_nSourceID);
+	[self checkErr];
+}
+
+// Return YES if still active. NO on end of stream
+- (BOOL) update {
+	int processed;
+	BOOL active = YES;
+	
+	alGetSourcei(m_nSourceID, AL_BUFFERS_PROCESSED, &processed);
+	[self checkErr];
+	
+	TMLog(@"We have %d processed buffers...", processed);
+	
+	while(processed--) {
+		ALuint buffer;
+		
+		alSourceUnqueueBuffers(m_nSourceID, 1, &buffer);
+		[self checkErr];
+		
+		active = [self stream:buffer];
+		
+		alSourceQueueBuffers(m_nSourceID, 1, &buffer);
+		[self checkErr];
+	}
+	
+	return active;
+}
+
+/* Lowlevel methods */
+// Return YES if stream is ok. NO if end reached or got error
+- (BOOL) stream:(ALuint)buffer {
+	char data[BUFFER_SIZE];
+	int size = 0;
+	int section;
+	int result;
+	
+	TMLog(@"Stream to buffer %d", buffer);
+	
+	while(size < BUFFER_SIZE) {
+		result = ov_read(&m_oStream, data + size, BUFFER_SIZE - size, 0, 2 , 1, &section);
+		[self checkErr];
+		
+		TMLog(@"Got %d bytes data...", result);
+		
+		if(result > 0) {
+			size += result;
+			TMLog(@"Cur size: %d", size);
+		} else {
+			if(result < 0) {
+				TMLog(@"ERROR in OGG");
+				return NO;
+			}
+			else {
+				break;
+				// We are done...
+			}
+		}				
+	}
+	
+	// Finished?
+	if(size == 0)
+		return NO;
+	
+	TMLog(@"DONE. Store buffer with size: %d", size);
+	syslog(LOG_DEBUG, "store to buffer %d", buffer);
+	alBufferData(buffer, m_nFormat, data, size, m_nFreq);
+	[self checkErr];
+	
+	return YES;
+}
+
+- (void) empty {
+	int queued;
+	
+	alGetSourcei(m_nSourceID, AL_BUFFERS_QUEUED, &queued);
+	[self checkErr];
+	
+	while(queued--) {
+		ALuint buffer;
+		
+		alSourceUnqueueBuffers(m_nSourceID, 1, &buffer);		
+		[self checkErr];
+	}
+}
+
+- (NSString*) errStr:(int)code {
+	switch (code) {
+		case OV_EREAD:
+			return @"Read from media";
+		case OV_ENOTVORBIS:
+			return @"Not vorbis data";
+		case OV_EVERSION:
+			return @"Invalid vorbis version";
+		case OV_EBADHEADER:
+			return @"Invalid vorbis header";
+		case OV_EFAULT:
+			return @"Internal logic fault";
+		default:
+			return @"Unknown OGG error";
+	}
+}
+
+- (void) checkErr {
+	int err = alGetError();
+	
+	if(err != AL_NO_ERROR) {
+		NSException *ex = [NSException exceptionWithName:@"OpenALError" reason:[self errStr:err] userInfo:nil];
+		@throw ex;
+	}
+		
 }
 
 @end

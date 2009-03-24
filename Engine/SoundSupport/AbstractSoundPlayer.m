@@ -17,4 +17,9 @@
 	return nil;
 }
 
+- (void) play {}
+- (BOOL) isPlaying { return NO; }
+- (void) stop {}
+- (BOOL) update { return NO; }
+
 @end

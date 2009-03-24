@@ -123,6 +123,8 @@ Exit:
 	
 	if(![self initOpenAL]) 
 		return nil;
+	
+	m_pCurrentMusicPlayer = nil;
 
 	return self;
 }
@@ -163,48 +165,16 @@ Exit:
 
 // Methods
 - (BOOL) loadMusicFile:(NSString*) inPath {
-	ALvoid * outData;
-	ALenum  error = AL_NO_ERROR;
-	ALenum  format;
-	ALsizei size;
-	ALsizei freq;			 
-
-//	TMLog(@"Test file '%@' to be ogg or not...", inPath);
-//	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {
+	TMLog(@"Test file '%@' to be ogg or not...", inPath);
+	
+	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {
 		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! OGG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		AbstractSoundPlayer* player = [[OGGSoundPlayer alloc] initWithFile:inPath];
-
-		// TODO save pointer somewhere so we can play it etc
-//	} else {
-//		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MP3? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//	}
-
-	/*
-
-	TMLog(@"Going to load sound file from '%@'", inPath);
-	CFURLRef url = (CFURLRef)[[NSURL fileURLWithPath:inPath] retain];
-	outData = getOpenALAudioData(url, &size, &format, &freq);	
-	TMLog(@"Got file info: %d, %d, %d", size, format, freq);
-	*/
-	/*
-	NSUInteger bufferID;
-	alGenBuffers(1, &bufferID);
-	alBufferData(bufferID,format,outData,size,freq);
+		m_pCurrentMusicPlayer = [[OGGSoundPlayer alloc] initWithFile:inPath];
+		
+	} else {
+		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MP3? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
 	
-	NSUInteger sourceID;	
-	alGenSources(1, &sourceID); 
-	alSourcei(sourceID, AL_BUFFER, bufferID);
-	alSourcef(sourceID, AL_PITCH, 1.0f);
-	alSourcef(sourceID, AL_GAIN, 1.0f);
-	
-	alSourcei(sourceID, AL_LOOPING, AL_TRUE);
-
-	// play!
-	TMLog(@"Try to play sound...");
-	alSourcePlay(sourceID);
-	TMLog(@"huh?");
-	*/
-
 	return YES;
 }
 
@@ -213,7 +183,12 @@ Exit:
 
 // Music playback
 - (BOOL) playMusic {
-	return YES;	
+	if(m_pCurrentMusicPlayer) {
+		[m_pCurrentMusicPlayer play];
+		return YES;	
+	}
+	
+	return NO;
 }
 
 - (BOOL) pauseMusic {
@@ -221,7 +196,12 @@ Exit:
 }
 
 - (BOOL) stopMusic {
-	return YES;	
+	if(m_pCurrentMusicPlayer) {
+		[m_pCurrentMusicPlayer stop];		
+		return YES;
+	} 
+	
+	return NO;
 }
 
 - (BOOL) setMusicPosition:(float) inPosition {

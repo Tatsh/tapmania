@@ -16,6 +16,8 @@
 
 #import <OpenAL/alc.h>
 
+@class AbstractSoundPlayer;
+
 @interface TMSoundEngine : NSObject {
 	ALCcontext  *m_oContext;
 	ALCdevice	*m_oDevice;
@@ -24,12 +26,15 @@
 	
 	float		m_fMusicVolume;		// Music sound volume
 	float		m_fEffectsVolume;	// Effects sound volume
+	
+	// Current bg music player
+	AbstractSoundPlayer*	m_pCurrentMusicPlayer;
 }
 
 -(void) shutdownOpenAL;
 
 // Methods
-- (BOOL) loadMusicFile:(NSString*) inPath;	// Files are loaded completely into the memory
+- (BOOL) loadMusicFile:(NSString*) inPath;	// File format is determined automatically and the corresponding playr is used
 - (void) unloadMusic;						// Just unload it (free memory)
 
 // Music playback

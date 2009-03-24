@@ -41,12 +41,8 @@
 }
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow {
-	TMLog(@"Set note to %d", noteRow);
-
 	if(m_nTotalNotes >= m_nCurrentCapacity) {
 		m_nCurrentCapacity += kDefaultTrackCapacity;		// add new positions
-		
-		TMLog(@"Must realloc to %d", m_nCurrentCapacity);
 		m_aNotesArray = (TMNote**)realloc(m_aNotesArray, sizeof(TMNote*) * m_nCurrentCapacity);
 		
 		// clean
@@ -54,8 +50,6 @@
 		for(i=m_nTotalNotes; i<m_nCurrentCapacity; ++i) {
 			m_aNotesArray[i] = NULL;
 		}
-		
-		TMLog(@"Worked");
 	}
 
 	int index = [self getNoteIndexFromRow:noteRow];
@@ -69,7 +63,6 @@
 	}
 	
 	note.m_nStartNoteRow = noteRow;
-	TMLog(@"Note set to noterow %d", noteRow);
 }
 
 - (int) getNoteIndexFromRow:(int)noteRow {

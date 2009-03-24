@@ -7,8 +7,11 @@
 //
 
 #import "AbstractSoundPlayer.h"
+#import <vorbis/vorbisfile.h>
 
 @interface OGGSoundPlayer : AbstractSoundPlayer {
+	OggVorbis_File	m_oStream;
+	vorbis_info*	m_pVorbisInfo;
 }
 
 @end
