@@ -8,6 +8,7 @@
 
 #import "SoundEffectsHolder.h"
 #import "SoundEngine.h"
+#import "TMSoundEngine.h"
 
 // This is a singleton class, see below
 static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
@@ -20,18 +21,23 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 		return nil;
 	
 	//Setup sound engine. Run it at 44Khz to match the sound files
-	SoundEngine_Initialize(44100);	
+	// SoundEngine_Initialize(44100);	
 	
 	TMLog(@"Loading sound effects...");
 	
 	// FIXME: hardcode
 	NSString* themeDir = @"default";
 	
+	/*
 	SoundEngine_SetListenerPosition(0.0, 0.0, 1.0);
 	SoundEngine_SetEffectsVolume(1.0);
 	SoundEngine_SetBackgroundMusicVolume(1.0);
 	
 	SoundEngine_LoadEffect([[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"] UTF8String], &m_uiSounds[kSound_Clap]);
+	*/
+
+	// TMLog(@"Attempt to start TMSoundEngine...");
+	// [[TMSoundEngine sharedInstance] loadMusicFile:[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"]];
 	
 	TMLog(@"Done.");
 	

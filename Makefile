@@ -16,15 +16,16 @@ FRAMEWORKS += -framework QuartzCore
 LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_load -lobjc -lstdc++ $(FRAMEWORKS)
 
 CFLAGS =  -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects 
-CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements -IRenderers/UIElements/Effects
-CFLAGS += -I"${prefix}/usr/include" -include TapMania_Prefix.pch 
-# CFLAGS += -DDEBUG	# comment for production
+CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements 
+CFLAGS += -IEngine/SoundSupport -IRenderers/UIElements/Effects
+CFLAGS += -I"${prefix}/usr/include" -I"${prefix}/include" -include TapMania_Prefix.pch 
+#CFLAGS += -DDEBUG	# comment for production
 
 CPPFLAGS = $(CFLAGS)
 
 SPECIFIC_CFLAGS = -std=c99 -fobjc-exceptions
 
-SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport 
+SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport Engine/SoundSupport 
 SRC_DIRS += Renderers Renderers/UIElements Renderers/UIElements/Effects GameObjects Parsers Util
 
 MFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
@@ -35,6 +36,9 @@ OBJS =  $(MFILES:.m=.o)
 COBJS = $(CFILES:.c=.o)
 CPPOBJS = $(CPPFILES:.cpp=.o)
 
+LIBS_DIR = libs
+STATICLIBS = $(foreach dir,$(LIBS_DIR),$(wildcard $(dir)/*.a))
+
 TOBUILD =  $(CPPFILES:.cpp=.cppd)
 TOBUILD += $(MFILES:.m=.md)
 TOBUILD += $(CFILES:.c=.cd)
@@ -42,8 +46,8 @@ TOBUILD += $(CFILES:.c=.cd)
 all: app tar deploy 
 
 deploy:
-	scp tm.tar mobile@192.168.0.102:
-	ssh mobile@192.168.0.102 'sh redeploy.sh'
+	scp tm.tar mobile@192.168.0.143:
+	ssh mobile@192.168.0.143 'sh redeploy.sh'
 
 tar:
 	tar cf tm.tar TapMania.app
@@ -51,7 +55,7 @@ tar:
 app: tapmania bin production 
 
 bin:
-	$(LD) $(LDFLAGS) -v -o TapMania $(OBJS) $(COBJS) $(CPPOBJS) main.o
+	$(LD) $(LDFLAGS) -v -o TapMania $(STATICLIBS) $(OBJS) $(COBJS) $(CPPOBJS) main.o
 	rm -rf TapMania.app
 	mkdir TapMania.app
 	cp Default.png TapMania.app/

@@ -8,10 +8,19 @@
 
 #import "TMSoundEngine.h"
 
+#import "AbstractSoundPlayer.h"
+#import "OGGSoundPlayer.h"
+
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioToolbox/AudioFile.h>
+
+#import <vorbis/vorbisfile.h>
+
+@interface TMSoundEngine (Private)
+-(BOOL) initOpenAL;
+@end
 
 // This is a singleton class, seebelow
 static TMSoundEngine *sharedSoundEngineDelegate = nil;
@@ -49,7 +58,7 @@ void* getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 	err = AudioFileGetProperty(aFID, kAudioFilePropertyDataFormat, &thePropertySize, &theFileFormat);
 	if(err) { printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyDataFormat) FAILED, Error = %ld\n", err); goto Exit; }
 	if (theFileFormat.mChannelsPerFrame > 2)  { printf("getOpenALAudioData - Unsupported Format, channel count is greater than stereo\n"); goto Exit;}
-	
+
 	// Set the client format to 16 bit signed integer (native-endian) data
 	// Maintain the channel count and sample rate of the original source format
 	theOutputFormat.mSampleRate = theFileFormat.mSampleRate;
@@ -112,15 +121,90 @@ Exit:
 	if(!self)
 		return nil;
 	
+	if(![self initOpenAL]) 
+		return nil;
+
 	return self;
 }
 
 - (void) dealloc {
+	alcDestroyContext(m_oContext);
+	alcCloseDevice(m_oDevice);
+
 	[super dealloc];
 }
 
+- (BOOL) initOpenAL {
+
+	TMLog(@"Try to init openal...");
+	m_oDevice = alcOpenDevice(NULL);
+
+	if (m_oDevice) {
+		TMLog(@"Got a device!");
+		m_oContext=alcCreateContext(m_oDevice,NULL);
+		alcMakeContextCurrent(m_oContext);
+
+		TMLog(@"Great! context is made current! we are in...");
+
+		return YES;
+	}
+
+	return NO;
+}
+
+- (void) shutdownOpenAL {
+	@synchronized(self) {
+		if (sharedSoundEngineDelegate != nil) {
+			[self dealloc];
+		}
+	}
+}
+
+
 // Methods
 - (BOOL) loadMusicFile:(NSString*) inPath {
+	ALvoid * outData;
+	ALenum  error = AL_NO_ERROR;
+	ALenum  format;
+	ALsizei size;
+	ALsizei freq;			 
+
+//	TMLog(@"Test file '%@' to be ogg or not...", inPath);
+//	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {
+		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! OGG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		AbstractSoundPlayer* player = [[OGGSoundPlayer alloc] initWithFile:inPath];
+
+		// TODO save pointer somewhere so we can play it etc
+//	} else {
+//		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MP3? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//	}
+
+	/*
+
+	TMLog(@"Going to load sound file from '%@'", inPath);
+	CFURLRef url = (CFURLRef)[[NSURL fileURLWithPath:inPath] retain];
+	outData = getOpenALAudioData(url, &size, &format, &freq);	
+	TMLog(@"Got file info: %d, %d, %d", size, format, freq);
+	*/
+	/*
+	NSUInteger bufferID;
+	alGenBuffers(1, &bufferID);
+	alBufferData(bufferID,format,outData,size,freq);
+	
+	NSUInteger sourceID;	
+	alGenSources(1, &sourceID); 
+	alSourcei(sourceID, AL_BUFFER, bufferID);
+	alSourcef(sourceID, AL_PITCH, 1.0f);
+	alSourcef(sourceID, AL_GAIN, 1.0f);
+	
+	alSourcei(sourceID, AL_LOOPING, AL_TRUE);
+
+	// play!
+	TMLog(@"Try to play sound...");
+	alSourcePlay(sourceID);
+	TMLog(@"huh?");
+	*/
+
 	return YES;
 }
 

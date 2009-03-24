@@ -14,12 +14,19 @@
  This sound engine should support both .mp3 and .ogg. (Unfortunatly it seems like .ogg is out of support by Apple atm. have to wait a bit)
 */
 
+#import <OpenAL/alc.h>
+
 @interface TMSoundEngine : NSObject {
+	ALCcontext  *m_oContext;
+	ALCdevice	*m_oDevice;
+
 	BOOL		m_bEffectsEnabled;	// Disable/Enable sound effects (not music)
 	
 	float		m_fMusicVolume;		// Music sound volume
 	float		m_fEffectsVolume;	// Effects sound volume
 }
+
+-(void) shutdownOpenAL;
 
 // Methods
 - (BOOL) loadMusicFile:(NSString*) inPath;	// Files are loaded completely into the memory
