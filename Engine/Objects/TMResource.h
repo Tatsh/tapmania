@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ResourcesLoader.h"
 
 @interface TMResource : NSObject {
 	NSObject*		m_pResource;
@@ -28,7 +29,7 @@
 @property (readonly, getter=isSystem) BOOL m_bIsSystem;
 
 /* The constructor. It only loads up information about the resource. Eg. it sets the m_sFileSystemPath and the m_idClass */
-- (id) initWithPath:(NSString*) path andItemName:(NSString*) itemName;
+- (id) initWithPath:(NSString*) path type:(TMResourceLoaderType)inType andItemName:(NSString*) itemName;
 
 - (void) loadResource;		// Will actually load the resource into memory (GPU)
 - (void) unLoadResource;	// Will release m_pResource

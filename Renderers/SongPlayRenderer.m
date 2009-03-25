@@ -34,7 +34,6 @@
 #import "HoldJudgement.h"
 #import "Judgement.h"
 
-#import <syslog.h>
 #import <math.h>
 
 @implementation SongPlayRenderer

@@ -14,7 +14,6 @@
 #import "TimingUtil.h"
 
 #import <stdio.h>
-#import <syslog.h>
 #import <strings.h>
 
 

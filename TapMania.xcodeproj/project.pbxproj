@@ -48,7 +48,6 @@
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		248F78150F77F99700AE2130 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.m */; };
-		248F78990F7805AD00AE2130 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 248F785E0F7805AD00AE2130 /* themes */; };
 		249648520F79134D00C9D5BC /* AbstractSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */; };
 		249648530F79134D00C9D5BC /* OGGSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 249648510F79134D00C9D5BC /* OGGSoundPlayer.m */; };
 		24964C3B0F79209E00C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964C370F79209E00C9D5BC /* config.h */; };
@@ -127,6 +126,10 @@
 		24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */; };
 		24A4257B0F713529001B0CDE /* SMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.m */; };
 		24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.m */; };
+		24A709AE0F7A93B40080121C /* FontCharmaps.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A709AD0F7A93B40080121C /* FontCharmaps.m */; };
+		24A709C60F7AA2760080121C /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.m */; };
+		24A70B3C0F7AB1D50080121C /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24A70AF70F7AB1D50080121C /* themes */; };
+		24A70B3F0F7AB3C00080121C /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.m */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
@@ -158,14 +161,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 24964C320F791F4500C9D5BC /* ogg */;
+			remoteGlobalIDString = 24964C320F791F4500C9D5BC;
 			remoteInfo = ogg;
 		};
 		24964C5A0F7921ED00C9D5BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 24964C530F7921A200C9D5BC /* vorbis */;
+			remoteGlobalIDString = 24964C530F7921A200C9D5BC;
 			remoteInfo = vorbis;
 		};
 /* End PBXContainerItemProxy section */
@@ -253,7 +256,6 @@
 		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapMania.m; sourceTree = "<group>"; };
 		248F78130F77F99700AE2130 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = Renderers/UIElements/Slider.h; sourceTree = "<group>"; };
 		248F78140F77F99700AE2130 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slider.m; path = Renderers/UIElements/Slider.m; sourceTree = "<group>"; };
-		248F785E0F7805AD00AE2130 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		2496484E0F79134D00C9D5BC /* AbstractSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractSoundPlayer.h; sourceTree = "<group>"; };
 		2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractSoundPlayer.m; sourceTree = "<group>"; };
 		249648500F79134D00C9D5BC /* OGGSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGGSoundPlayer.h; sourceTree = "<group>"; };
@@ -339,6 +341,13 @@
 		24A4257A0F713529001B0CDE /* SMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMParser.m; path = Parsers/SMParser.m; sourceTree = "<group>"; };
 		24A57AF20F4C265D0057F723 /* SlideEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideEffect.h; sourceTree = "<group>"; };
 		24A57AF30F4C265D0057F723 /* SlideEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideEffect.m; sourceTree = "<group>"; };
+		24A709AC0F7A93B40080121C /* FontCharmaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharmaps.h; sourceTree = "<group>"; };
+		24A709AD0F7A93B40080121C /* FontCharmaps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCharmaps.m; sourceTree = "<group>"; };
+		24A709C40F7AA2760080121C /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
+		24A709C50F7AA2760080121C /* FontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontManager.m; sourceTree = "<group>"; };
+		24A70AF70F7AB1D50080121C /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
+		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		24A70B3E0F7AB3C00080121C /* Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Font.m; sourceTree = "<group>"; };
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
@@ -426,6 +435,7 @@
 		080E96DDFE201D6D7F000001 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				24A709AB0F7A936C0080121C /* FontSupport */,
 				2496484D0F79131C00C9D5BC /* SoundSupport */,
 				24D762930F389FBE008B0AA0 /* ThemeSupport */,
 				248547290EE56BEB00AD4FAB /* Transitions */,
@@ -779,6 +789,19 @@
 			name = VORBIS;
 			sourceTree = "<group>";
 		};
+		24A709AB0F7A936C0080121C /* FontSupport */ = {
+			isa = PBXGroup;
+			children = (
+				24A709AC0F7A93B40080121C /* FontCharmaps.h */,
+				24A709AD0F7A93B40080121C /* FontCharmaps.m */,
+				24A709C40F7AA2760080121C /* FontManager.h */,
+				24A709C50F7AA2760080121C /* FontManager.m */,
+				24A70B3D0F7AB3C00080121C /* Font.h */,
+				24A70B3E0F7AB3C00080121C /* Font.m */,
+			);
+			path = FontSupport;
+			sourceTree = "<group>";
+		};
 		24D762930F389FBE008B0AA0 /* ThemeSupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,7 +854,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				248F785E0F7805AD00AE2130 /* themes */,
+				24A70AF70F7AB1D50080121C /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
 				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -999,7 +1022,7 @@
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
-				248F78990F7805AD00AE2130 /* themes in Resources */,
+				24A70B3C0F7AB1D50080121C /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,6 +1093,9 @@
 				248F78150F77F99700AE2130 /* Slider.m in Sources */,
 				249648520F79134D00C9D5BC /* AbstractSoundPlayer.m in Sources */,
 				249648530F79134D00C9D5BC /* OGGSoundPlayer.m in Sources */,
+				24A709AE0F7A93B40080121C /* FontCharmaps.m in Sources */,
+				24A709C60F7AA2760080121C /* FontManager.m in Sources */,
+				24A70B3F0F7AB3C00080121C /* Font.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,7 +1190,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/libs\"",
 				);
-				OTHER_CFLAGS = "-DDEBUG1";
+				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Release;

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+	kResourceLoaderGraphics = 0,
+	kResourceLoaderFonts,
+	kResourceLoaderSounds,
+	kResourceLoaderNoteSkin,
+	kNumResourceLoaderTypes
+} TMResourceLoaderType;
+
 @class TMResource;
 
 @protocol ResourcesLoaderSupport
@@ -25,13 +33,14 @@
 	NSMutableDictionary*	m_pRoot;		// Root of the components path. Contains all resources.
 	NSString*				m_sRootPath;	// The root path from which we load the resources
 	
+	TMResourceLoaderType	m_nType;		// By default it's graphics
 	id						m_idDelegate;
 }
 
 @property (assign, nonatomic, getter=delegate, setter=delegate:) id <ResourcesLoaderSupport> m_idDelegate;
 
 /* The constructor */
-- (id) initWithPath:(NSString*) rootPath andDelegate:(id) delegate;
+- (id) initWithPath:(NSString*) rootPath type:(TMResourceLoaderType)inType andDelegate:(id) delegate;
 
 /* Used to get the resource and automatically preload it if required */
 - (TMResource*) getResource:(NSString*) path;

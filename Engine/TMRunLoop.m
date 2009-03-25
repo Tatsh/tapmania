@@ -13,7 +13,6 @@
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
 #import "TapMania.h"
-#import <syslog.h>
 
 @interface TMRunLoop (Private)
 - (void) worker; 

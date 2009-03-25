@@ -8,7 +8,6 @@
 
 #import "BenchmarkUtil.h"
 #import "TimingUtil.h"
-#import <syslog.h>
 
 @implementation BenchmarkUtil
 

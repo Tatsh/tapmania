@@ -10,8 +10,6 @@
 #import "Texture2D.h"
 #import "TMFramedTexture.h"
 
-#import <syslog.h>
-
 @implementation TMResource
 
 @synthesize m_sResourceName, m_bIsLoaded, m_bIsSystem;
@@ -24,7 +22,7 @@
 	return m_pResource;
 }
 
-- (id) initWithPath:(NSString*) path andItemName:(NSString*) itemName {
+- (id) initWithPath:(NSString*) path type:(TMResourceLoaderType)inType andItemName:(NSString*) itemName {
 	self = [super init];
 	if(!self)
 		return nil;
@@ -54,7 +52,7 @@
 												stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		resourceFileSystemPath = [pathToHoldingDir stringByAppendingPathComponent:resourceFileSystemPath];
 		
-		TMResource* redirectedResource = [[TMResource alloc] initWithPath:resourceFileSystemPath andItemName:redirectedItemName];
+		TMResource* redirectedResource = [[TMResource alloc] initWithPath:resourceFileSystemPath type:inType andItemName:redirectedItemName];
 
 		m_pRedirectedResource = redirectedResource;
 		m_bIsRedirect = YES;
@@ -86,6 +84,34 @@
 	
 	m_sResourceName = [[NSString alloc] initWithString:componentName];
 	NSString* loaderFile = nil;
+	NSString* iniFile    = nil;
+	
+	// Override stuff TODO
+	if(inType == kResourceLoaderSounds) {
+		// TODO: set default sound loader 
+	}
+	
+	// For fonts we must check plist files which configure the font
+	if(inType == kResourceLoaderFonts) {
+		if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.plist", pathToHoldingDir, componentName]]) {
+			iniFile = [NSString stringWithFormat:@"%@/%@.plist", pathToHoldingDir, componentName];
+		} else if(m_bIsSystem && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/_%@.plist", pathToHoldingDir, componentName]]){
+			iniFile = [NSString stringWithFormat:@"%@/_%@.plist", pathToHoldingDir, componentName];
+		}
+		
+		if(iniFile) {
+			TMLog(@"Have a font plist file...");
+			NSDictionary* config = [NSDictionary dictionaryWithContentsOfFile:iniFile];
+			
+			// Read config values
+			NSString* cm = [config objectForKey:@"charmap"];
+			if(cm) {
+				TMLog(@"Found charmap for font: %@", cm);
+
+				// TODO use it
+			}
+		}
+	}
 	
 	// Check whether the loader file exists
 	if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.loader", pathToHoldingDir, componentName]]) {

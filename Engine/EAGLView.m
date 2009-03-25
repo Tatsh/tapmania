@@ -8,7 +8,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import <syslog.h>
 
 #import "EAGLView.h"
 #import "TapManiaAppDelegate.h"

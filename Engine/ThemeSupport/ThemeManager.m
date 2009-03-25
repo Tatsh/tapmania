@@ -10,7 +10,6 @@
 #import "ThemeMetrics.h"
 #import "ResourcesLoader.h"
 
-#import <syslog.h>
 
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
@@ -85,13 +84,19 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		m_sCurrentThemeName = themeName;
 		
 		NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
+		
 		NSString* themeGraphicsPath = [themesDir stringByAppendingFormat:@"/%@/Graphics/", m_sCurrentThemeName];
+		NSString* themeFontsPath	= [themesDir stringByAppendingFormat:@"/%@/Fonts/", m_sCurrentThemeName];
+		
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
-			m_pCurrentThemeMetrics = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
-			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath andDelegate:self];
+			m_pCurrentThemeMetrics	 = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
+			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
 			
+			// Use font manager to load up fonts
+			[[FontManager sharedInstance] loadFonts:themeFontsPath];
+						
 			TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 			
 		} else {
@@ -108,7 +113,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
 		NSString* skinPath =	 [noteskinsDir stringByAppendingPathComponent:skinName];
 		
-		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath andDelegate:self];
+		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
 	}		
 }
 

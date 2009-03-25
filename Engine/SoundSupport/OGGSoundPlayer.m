@@ -14,7 +14,6 @@
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 
-#import <syslog.h>
 
 // #define BUFFER_SIZE		32768     // 32 KB buffers
 // #define BUFFER_SIZE			65536	// 64 KB buffers
@@ -230,7 +229,6 @@
 		return NO;
 	
 	TMLog(@"DONE. Store buffer with size: %d", size);
-	syslog(LOG_DEBUG, "store to buffer %d", buffer);
 	alBufferData(buffer, m_nFormat, data, size, m_nFreq);
 	[self checkErr];
 	

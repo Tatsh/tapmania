@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "FontManager.h"
 #import "ResourcesLoader.h"
 
 @class ThemeMetrics, ResourcesLoader, Texture2D;

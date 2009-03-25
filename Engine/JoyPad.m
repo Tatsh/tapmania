@@ -6,8 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <syslog.h>
-
 #import "JoyPad.h"
 #import "TapMania.h"
 #import "TimingUtil.h"

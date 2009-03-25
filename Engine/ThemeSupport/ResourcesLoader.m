@@ -9,7 +9,6 @@
 #import "ResourcesLoader.h"
 #import "TMResource.h"
 
-#import <syslog.h>
 
 @interface ResourcesLoader (Private)
 - (void) loadResourceFromPath:(NSString*) path intoNode:(NSDictionary*) node;
@@ -21,12 +20,13 @@
 
 @synthesize m_idDelegate;
 
-- (id) initWithPath:(NSString*) rootPath andDelegate:(id) delegate {
+- (id) initWithPath:(NSString*) rootPath type:(TMResourceLoaderType)inType andDelegate:(id) delegate {
 	self = [super init];
 	if(!self)
 		return nil;
 	
 	m_idDelegate = delegate;
+	m_nType = inType;
 	m_pRoot = [[NSMutableDictionary alloc] init];
 	
 	m_sRootPath = rootPath;
@@ -40,18 +40,23 @@
 - (TMResource*) getResource:(NSString*) path {
 	NSObject* node = [self lookUpNode:path];
 	
-	if(node && [node isKindOfClass:[TMResource class]]) {
+	if(node) {
+		if([node isKindOfClass:[TMResource class]]) {
 		
-		if(!((TMResource*)node).isLoaded) {
-			[(TMResource*)node loadResource];
+			if(!((TMResource*)node).isLoaded) {
+				[(TMResource*)node loadResource];
+			}
+		
+			// Should be loaded now if above code worked
+			return (TMResource*)node;		
+		} else if([node isKindOfClass:[NSDictionary class]]) {
+			NSException* ex = [NSException exceptionWithName:@"Can't get resources." 
+													  reason:[NSString stringWithFormat:@"The path is not a resource. it seems to be a directory: %@", path] userInfo:nil];
+			@throw ex;			
 		}
-		
-		// Should be loaded now if above code worked
-		return (TMResource*)node;		
 	} else {
-		NSException* ex = [NSException exceptionWithName:@"Can't get resources." 
-												  reason:[NSString stringWithFormat:@"The path is not a resource. it seems to be a directory: %@", path] userInfo:nil];
-		@throw ex;
+		// Resource is not available! it's just not existing in the current theme or something like that... we must return the default resource in this case
+		// TODO !!!
 	}
 }
 
@@ -119,7 +124,7 @@
 				// file. check type
 				if( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] ) {
 					TMLog(@"[Supported] %@", itemName);
-					TMResource* resource = [[TMResource alloc] initWithPath:curPath andItemName:itemName];
+					TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
 					
 					// Add that resource
 					[node setValue:resource forKey:resource.componentName];										
