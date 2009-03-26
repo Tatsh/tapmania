@@ -10,6 +10,11 @@
 #import "Texture2D.h"
 #import "TMFramedTexture.h"
 
+@interface TMResource (Private)
+- (void) parseDimensions:(NSString*)str;
+@end
+
+
 @implementation TMResource
 
 @synthesize m_sResourceName, m_bIsLoaded, m_bIsSystem;
@@ -66,51 +71,44 @@
 		componentName = [componentName substringFromIndex:1];	// Remove it from there
 	}
 	
-	NSArray* nameAndDimension = [componentName componentsSeparatedByString:@"_"];
+	NSArray* nameSpecificator = [componentName componentsSeparatedByString:@"_"];
 	
-	// Try to get the _NxM suffix if it exists
-	if( [nameAndDimension count] > 1 ) {
-		NSString* dimensions = [nameAndDimension objectAtIndex:1];
-		NSArray* dimensionsArray = [dimensions componentsSeparatedByString:@"x"];
+	// 1) ItemName_[PageName]_DxD.ext
+	// 2) ItemName_[PageName].ext
+	// 3) ItemName_DxD.ext
+	// 4) ItemName.ext
+	if( [nameSpecificator count] == 3 ) {		
+		// Got a page and dimension
+		NSString* pageName = [nameSpecificator objectAtIndex:1];
+		NSString* dimensions = [nameSpecificator objectAtIndex:2];
+	
+		[self parseDimensions:dimensions];
+
+		componentName = [NSString stringWithFormat:@"%@%@", [nameSpecificator objectAtIndex:0], pageName];
 		
-		m_nCols = [[dimensionsArray objectAtIndex:0] intValue];
-		m_nRows = [[dimensionsArray objectAtIndex:1] intValue];
-		
-		componentName = [nameAndDimension objectAtIndex:0];
-		
+	} else if( [nameSpecificator count] == 2 ) {
+		// Tricky! can have only page name or only dimension
+	
+		NSString* unknown = [nameSpecificator objectAtIndex:1];
+		if(![unknown hasPrefix:@"["]) {
+			// Dimension
+			[self parseDimensions:unknown];
+			
+			componentName = [nameSpecificator objectAtIndex:0];
+		} else {
+			componentName = [NSString stringWithFormat:@"%@%@", [nameSpecificator objectAtIndex:0], unknown];
+		}
+				
 		// Set class to framed texture
 		m_oClass = [TMFramedTexture class];
 	}
 	
 	m_sResourceName = [[NSString alloc] initWithString:componentName];
 	NSString* loaderFile = nil;
-	NSString* iniFile    = nil;
 	
 	// Override stuff TODO
 	if(inType == kResourceLoaderSounds) {
 		// TODO: set default sound loader 
-	}
-	
-	// For fonts we must check plist files which configure the font
-	if(inType == kResourceLoaderFonts) {
-		if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.plist", pathToHoldingDir, componentName]]) {
-			iniFile = [NSString stringWithFormat:@"%@/%@.plist", pathToHoldingDir, componentName];
-		} else if(m_bIsSystem && [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/_%@.plist", pathToHoldingDir, componentName]]){
-			iniFile = [NSString stringWithFormat:@"%@/_%@.plist", pathToHoldingDir, componentName];
-		}
-		
-		if(iniFile) {
-			TMLog(@"Have a font plist file...");
-			NSDictionary* config = [NSDictionary dictionaryWithContentsOfFile:iniFile];
-			
-			// Read config values
-			NSString* cm = [config objectForKey:@"charmap"];
-			if(cm) {
-				TMLog(@"Found charmap for font: %@", cm);
-
-				// TODO use it
-			}
-		}
 	}
 	
 	// Check whether the loader file exists
@@ -180,6 +178,14 @@
 	} else {
 		TMLog(@"Resource wasn't loaded.");
 	}
+}
+
+// Private
+- (void) parseDimensions:(NSString*)str {
+	NSArray* dimensionsArray = [str componentsSeparatedByString:@"x"];
+	
+	m_nCols = [[dimensionsArray objectAtIndex:0] intValue];
+	m_nRows = [[dimensionsArray objectAtIndex:1] intValue];	
 }
 
 @end

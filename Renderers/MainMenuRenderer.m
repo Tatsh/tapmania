@@ -30,6 +30,9 @@
 
 #import "QuadTransition.h"
 
+#import "FontManager.h"
+#import "Font.h"
+
 @interface MainMenuRenderer (InputHandling)
 - (void) playButtonHit;
 - (void) optionsButtonHit;
@@ -141,6 +144,11 @@ Texture2D *t_BG;
 	
 	// Draw menu background
 	[t_BG drawInRect:bounds];
+	
+	// TEST FONT
+	Font* f = [[[FontManager sharedInstance] fonts] objectForKey:@"Combo numbers"];	
+	[f drawText:@"12345" atPoint:CGPointMake(0, 50)];
+	[f drawText:@"0.998721" atPoint:CGPointMake(40, 20)];
 	
 	// NOTE: Items will be rendered by it self
 }

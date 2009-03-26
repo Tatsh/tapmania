@@ -10,16 +10,16 @@
 #import "ResourcesLoader.h"
 
 @interface FontManager : NSObject <ResourcesLoaderSupport> {
-	ResourcesLoader*	m_pCurrentFontResources;		// Current theme's fonts
+	ResourcesLoader*		m_pCurrentFontResources;		// Current theme's font textures
+	NSMutableDictionary*	m_pFonts;						// Map with Font objects
 }
 
-@property (retain, nonatomic, readonly, getter=fonts) ResourcesLoader* m_pCurrentFontResources;
+@property (retain, nonatomic, readonly, getter=textures) ResourcesLoader* m_pCurrentFontResources;
+@property (retain, nonatomic, readonly, getter=fonts) NSMutableDictionary* m_pFonts;
 
 // Methods
 - (void) loadFonts:(NSString*)fontDirPath;
-
-// Printing text
-- (void) printText:(NSString*)str withFont:(NSString*) startPoint:(CGPoint)point;
+- (void) loadFont:(NSString*)fontPath andName:(NSString*)name;
 
 + (FontManager *) sharedInstance;
 

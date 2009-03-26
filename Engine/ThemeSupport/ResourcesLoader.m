@@ -8,6 +8,7 @@
 
 #import "ResourcesLoader.h"
 #import "TMResource.h"
+#import "FontManager.h"
 
 
 @interface ResourcesLoader (Private)
@@ -124,11 +125,20 @@
 				// file. check type
 				if( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] ) {
 					TMLog(@"[Supported] %@", itemName);
-					TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
 					
-					// Add that resource
-					[node setValue:resource forKey:resource.componentName];										
-					TMLog(@"Added it to current node at key = '%@'", resource.componentName);
+					if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".plist"]) {
+						
+						// Remove the plist suffix
+						itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.plist' length
+						[[FontManager sharedInstance] loadFont:curPath andName:itemName];
+						
+					}else {
+						TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+						
+						// Add that resource
+						[node setValue:resource forKey:resource.componentName];										
+						TMLog(@"Added it to current node at key = '%@'", resource.componentName);						
+					}
 				}
 			}
 		}

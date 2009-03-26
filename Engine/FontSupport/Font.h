@@ -24,14 +24,17 @@
 	float m_fHorizShift;
 	
 	CGRect m_oTextureRect;
+	int		m_nTextureFrame;
 }
+
+- (id) initWithFrameId:(int)frameId;
 
 @property(retain, nonatomic) FontPage* m_pFontPage;
 @property(assign) int m_nHorizAdvance;
 @property(assign) float m_fWidth;
 @property(assign) float m_fHeight;
 @property(assign) float m_fHorizShift;
-@property(assign) CGRect m_oTextureRect;
+@property(assign, readonly) int m_nTextureFrame;
 
 @end
 
@@ -48,7 +51,8 @@
 	TMResource*			m_pTextureResource;
 	TMFramedTexture*	m_pTexture;	// The texture extracted from the resource
 	
-	NSMutableArray*		m_aGlyphs;
+	NSMutableArray*			m_aGlyphs;
+	NSMutableDictionary*	m_pCharToGlyphNo;		// Contains direct mappings
 }
 
 @property(retain, nonatomic) NSString* m_sPageName;
@@ -56,8 +60,14 @@
 @property(assign) float m_fVertShift;
 
 @property(retain, nonatomic, readonly, getter=glyphs) NSMutableArray* m_aGlyphs; 
+@property(retain, nonatomic, readonly, getter=maps) NSMutableDictionary* m_pCharToGlyphNo; 
+
+@property(retain, nonatomic, readonly, getter=texture) TMFramedTexture* m_pTexture;
 
 - (id) initWithResource:(TMResource*)res;
+
+- (void) mapRange:(NSString*)charmap mapOffset:(int)offset glyphNo:(int)glyphNo count:(int)cnt;
+- (void) setupGlyphsFromTexture:(TMFramedTexture*)tex andConfig:(NSDictionary*)config;
 
 @end
 
@@ -68,11 +78,20 @@
 @interface Font : NSObject {
 	NSString*			m_sFontName;
 	
+	NSDictionary*		m_pConfig;
 	NSMutableArray*		m_aPages;
 	FontPage*			m_pDefaultPage;
 	
-	NSMutableArray*		m_aCharToGlyph;		// Contains direct mappings
+	NSMutableDictionary*		m_pCharToGlyph;		// Contains direct mappings to Glyph objects
 }
 
+@property(retain, nonatomic, readonly, getter=maps) NSMutableDictionary* m_pCharToGlyph; 
+
+- (id) initWithName:(NSString*) name andConfig:(NSDictionary*)config;
+- (void) load;
+- (void) cacheMapsFromPage:(FontPage*)page;
+
+- (void) drawText:(NSString*)str atPoint:(CGPoint)point;
+- (void) drawAsImage;
 
 @end

@@ -14,6 +14,8 @@
 	int		m_nFramesToLoad[2];	// Rectangle to load [cols,rows]. defaults to 1,1
 }
 
+@property(assign, readonly, getter=totalFrames) int m_nTotalFrames;
+
 // Constructor
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
 
@@ -22,5 +24,8 @@
 - (void) drawFrame:(int)frameId rotation:(float)rotation inRect:(CGRect)rect;
 
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point;
+
+- (int) cols;
+- (int) rows;
 
 @end

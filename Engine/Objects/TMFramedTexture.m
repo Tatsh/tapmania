@@ -11,6 +11,8 @@
 
 @implementation TMFramedTexture
 	
+@synthesize m_nTotalFrames;
+
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
 	self = [super initWithImage:uiImage];
 	if(!self) 
@@ -23,6 +25,13 @@
 	return self;
 }
 
+- (int) cols {
+	return m_nFramesToLoad[0];
+}
+
+- (int) rows {
+	return m_nFramesToLoad[1];
+}
 
 - (void) drawFrame:(int)frameId rotation:(float)rotation inRect:(CGRect)rect {
 	glPushMatrix();
