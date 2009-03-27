@@ -130,7 +130,6 @@
 		24A709C60F7AA2760080121C /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.m */; };
 		24A70B3F0F7AB3C00080121C /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.m */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
-		24AD22C00F7BC48700268CBB /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AD22700F7BC48700268CBB /* themes */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
@@ -151,6 +150,7 @@
 		24F15EB90EC31E4700755788 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.m */; };
 		24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */; };
 		24F161150EC348B100755788 /* CreditsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.m */; };
+		24FDBFE00F7D457D00A7AB15 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24FDBF8D0F7D457D00A7AB15 /* themes */; };
 		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -348,7 +348,6 @@
 		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		24A70B3E0F7AB3C00080121C /* Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Font.m; sourceTree = "<group>"; };
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
-		24AD22700F7BC48700268CBB /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
@@ -387,6 +386,7 @@
 		24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionsMenuRenderer.m; path = Renderers/OptionsMenuRenderer.m; sourceTree = "<group>"; };
 		24F161130EC348B100755788 /* CreditsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditsRenderer.h; path = Renderers/CreditsRenderer.h; sourceTree = "<group>"; };
 		24F161140EC348B100755788 /* CreditsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditsRenderer.m; path = Renderers/CreditsRenderer.m; sourceTree = "<group>"; };
+		24FDBF8D0F7D457D00A7AB15 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		28FD14FD0DC6FC130079059D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -854,7 +854,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24AD22700F7BC48700268CBB /* themes */,
+				24FDBF8D0F7D457D00A7AB15 /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
 				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -1022,7 +1022,7 @@
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
-				24AD22C00F7BC48700268CBB /* themes in Resources */,
+				24FDBFE00F7D457D00A7AB15 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

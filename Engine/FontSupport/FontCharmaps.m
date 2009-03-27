@@ -213,17 +213,18 @@ static const unichar map_numbers[] = {
 	self = [super init];
 	if(!self)
 		return nil;
-
+	
 	// Alloc mem
 	m_pCharmaps = [[NSMutableDictionary alloc] initWithCapacity:10];
 	
 	// default maps
-	NSString* ascii = [[NSString stringWithCharacters:map_numbers length:sizeof(map_ascii)/sizeof(*map_ascii)] retain];
-	NSString* bJap = [[NSString stringWithCharacters:map_numbers length:sizeof(map_basic_japanese)/sizeof(*map_basic_japanese)] retain];
-	NSString* iso8859_1 = [[NSString stringWithCharacters:map_numbers length:sizeof(map_iso_8859_1)/sizeof(*map_iso_8859_1)] retain];
-	NSString* cp1252 = [[NSString stringWithCharacters:map_numbers length:sizeof(map_cp1252)/sizeof(*map_cp1252)] retain];
-	NSString* iso8859_2 = [[NSString stringWithCharacters:map_numbers length:sizeof(map_iso_8859_2)/sizeof(*map_iso_8859_2)] retain];
-	NSString* kJamo = [[NSString stringWithCharacters:map_numbers length:sizeof(map_korean_jamo)/sizeof(*map_korean_jamo)] retain];
+	// (NSString*)CFStringCreateWithBytes(NULL, &map_ascii, sizeof(map_ascii)/sizeof(*map_ascii), kCFStringEncodingUTF32LE, NO);
+	NSString* ascii = [[NSString stringWithCharacters:map_ascii length:sizeof(map_ascii)/sizeof(*map_ascii)] retain];
+	NSString* bJap = [[NSString stringWithCharacters:map_basic_japanese length:sizeof(map_basic_japanese)/sizeof(*map_basic_japanese)] retain];
+	NSString* iso8859_1 = [[NSString stringWithCharacters:map_iso_8859_1 length:sizeof(map_iso_8859_1)/sizeof(*map_iso_8859_1)] retain];
+	NSString* cp1252 = [[NSString stringWithCharacters:map_cp1252 length:sizeof(map_cp1252)/sizeof(*map_cp1252)] retain];
+	NSString* iso8859_2 = [[NSString stringWithCharacters:map_iso_8859_2 length:sizeof(map_iso_8859_2)/sizeof(*map_iso_8859_2)] retain];
+	NSString* kJamo = [[NSString stringWithCharacters:map_korean_jamo length:sizeof(map_korean_jamo)/sizeof(*map_korean_jamo)] retain];
 	NSString* numbers = [[NSString stringWithCharacters:map_numbers length:sizeof(map_numbers)/sizeof(*map_numbers)] retain];
 	
 	// Store maps	

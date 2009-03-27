@@ -53,6 +53,7 @@
 	
 	NSMutableArray*			m_aGlyphs;
 	NSMutableDictionary*	m_pCharToGlyphNo;		// Contains direct mappings
+	NSMutableDictionary*	m_pGlyphWidths;	// If missing - use texture frame width
 }
 
 @property(retain, nonatomic) NSString* m_sPageName;
@@ -64,7 +65,7 @@
 
 @property(retain, nonatomic, readonly, getter=texture) TMFramedTexture* m_pTexture;
 
-- (id) initWithResource:(TMResource*)res;
+- (id) initWithResource:(TMResource*)res andSettings:(NSArray*)settings;
 
 - (void) mapRange:(NSString*)charmap mapOffset:(int)offset glyphNo:(int)glyphNo count:(int)cnt;
 - (void) setupGlyphsFromTexture:(TMFramedTexture*)tex andConfig:(NSDictionary*)config;
@@ -77,6 +78,7 @@
  */
 @interface Font : NSObject {
 	NSString*			m_sFontName;
+	BOOL				m_bMultipage;	// True if has multiple pages
 	
 	NSDictionary*		m_pConfig;
 	NSMutableArray*		m_aPages;
@@ -92,6 +94,5 @@
 - (void) cacheMapsFromPage:(FontPage*)page;
 
 - (void) drawText:(NSString*)str atPoint:(CGPoint)point;
-- (void) drawAsImage;
 
 @end

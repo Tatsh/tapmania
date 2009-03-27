@@ -86,6 +86,9 @@
 
 		componentName = [NSString stringWithFormat:@"%@%@", [nameSpecificator objectAtIndex:0], pageName];
 		
+		// Set class to framed texture
+		m_oClass = [TMFramedTexture class];
+		
 	} else if( [nameSpecificator count] == 2 ) {
 		// Tricky! can have only page name or only dimension
 	
@@ -94,13 +97,13 @@
 			// Dimension
 			[self parseDimensions:unknown];
 			
+			// Set class to framed texture
+			m_oClass = [TMFramedTexture class];
+			
 			componentName = [nameSpecificator objectAtIndex:0];
 		} else {
 			componentName = [NSString stringWithFormat:@"%@%@", [nameSpecificator objectAtIndex:0], unknown];
 		}
-				
-		// Set class to framed texture
-		m_oClass = [TMFramedTexture class];
 	}
 	
 	m_sResourceName = [[NSString alloc] initWithString:componentName];
