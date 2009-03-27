@@ -18,6 +18,7 @@ LDFLAGS=-L"${prefix}/usr/lib" -F"${prefix}/System/Library/Frameworks" -bind_at_l
 CFLAGS =  -O2 -I. -IParsers -IUtil -IGameObjects -IEngine -IEngine/Protocols -IEngine/Objects 
 CFLAGS += -IEngine/ThemeSupport -IEngine/Transitions -IRenderers -IRenderers/UIElements 
 CFLAGS += -IEngine/SoundSupport -IRenderers/UIElements/Effects
+CFLAGS += -IEngine/FontSupport 
 CFLAGS += -I"${prefix}/usr/include" -I"${prefix}/include" -include TapMania_Prefix.pch 
 #CFLAGS += -DDEBUG	# comment for production
 
@@ -25,7 +26,7 @@ CPPFLAGS = $(CFLAGS)
 
 SPECIFIC_CFLAGS = -std=c99 -fobjc-exceptions
 
-SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport Engine/SoundSupport 
+SRC_DIRS =  Engine Engine/Transitions Engine/Objects Engine/ThemeSupport Engine/SoundSupport Engine/FontSupport
 SRC_DIRS += Renderers Renderers/UIElements Renderers/UIElements/Effects GameObjects Parsers Util
 
 MFILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
