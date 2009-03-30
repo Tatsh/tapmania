@@ -47,6 +47,7 @@
 	
 	int			m_nLineSpacing;
 	float		m_fVertShift;
+	float		m_fHeight;
 	
 	TMResource*			m_pTextureResource;
 	TMFramedTexture*	m_pTexture;	// The texture extracted from the resource
@@ -59,6 +60,7 @@
 @property(retain, nonatomic) NSString* m_sPageName;
 @property(assign) int m_nLineSpacing;
 @property(assign) float m_fVertShift;
+@property(assign) float m_fHeight;
 
 @property(retain, nonatomic, readonly, getter=glyphs) NSMutableArray* m_aGlyphs; 
 @property(retain, nonatomic, readonly, getter=maps) NSMutableDictionary* m_pCharToGlyphNo; 
@@ -66,6 +68,8 @@
 @property(retain, nonatomic, readonly, getter=texture) TMFramedTexture* m_pTexture;
 
 - (id) initWithResource:(TMResource*)res andSettings:(NSArray*)settings;
+
+- (void) applyGlobalConfig:(NSDictionary*)conf;
 
 - (void) mapRange:(NSString*)charmap mapOffset:(int)offset glyphNo:(int)glyphNo count:(int)cnt;
 - (void) setupGlyphsFromTexture:(TMFramedTexture*)tex andConfig:(NSDictionary*)config;
@@ -79,6 +83,7 @@
 @interface Font : NSObject {
 	NSString*			m_sFontName;
 	BOOL				m_bMultipage;	// True if has multiple pages
+	BOOL				m_bIsLoaded;	// True if this font is already complete and loaded
 	
 	NSDictionary*		m_pConfig;
 	NSMutableArray*		m_aPages;
@@ -88,6 +93,9 @@
 }
 
 @property(retain, nonatomic, readonly, getter=maps) NSMutableDictionary* m_pCharToGlyph; 
+
+@property(retain, nonatomic, readonly, getter=pages) NSMutableArray* m_aPages; 
+@property(retain, nonatomic, readonly, getter=defaultPage) FontPage* m_pDefaultPage;
 
 - (id) initWithName:(NSString*) name andConfig:(NSDictionary*)config;
 - (void) load;

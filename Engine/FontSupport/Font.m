@@ -32,10 +32,11 @@
 @interface FontPage (Private)
 - (void) doRange:(NSString*)setting;
 - (void) doLine:(NSString*)setting;
+- (void) applyGlobalConfig:(NSDictionary*)conf;
 @end
 
 @implementation FontPage
-@synthesize m_sPageName, m_nLineSpacing, m_fVertShift;
+@synthesize m_sPageName, m_nLineSpacing, m_fVertShift, m_fHeight;
 @synthesize m_aGlyphs, m_pCharToGlyphNo;
 @synthesize m_pTexture;
 
@@ -88,6 +89,75 @@
 	}
 	
 	return self;
+}
+
+- (void) applyGlobalConfig:(NSDictionary*)conf {
+	// Parse global config (common values)
+	
+	int defaultWidth = m_pTexture.contentSize.width/[m_pTexture cols];
+	if([conf objectForKey:@"DefaultWidth"]) {
+		defaultWidth = [[conf objectForKey:@"DefaultWidth"] intValue];		
+	}
+	
+	// Do default widths
+	
+	if([conf objectForKey:@"AddToAllWidths"]) {	
+		int iAdd = [[conf objectForKey:@"AddToAllWidths"] intValue];
+		
+		int glyph = 0;
+		for(; glyph <  [m_aGlyphs count]; ++glyph) {
+			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
+			g.m_fWidth += (float)iAdd;
+		}
+	}
+	
+	if([conf objectForKey:@"ScaleAllWidthsBy"]) {
+		int fScale = [[conf objectForKey:@"ScaleAllWidthsBy"] floatValue];
+		
+		int glyph = 0;
+		for(; glyph <  [m_aGlyphs count]; ++glyph) {
+			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
+			g.m_fWidth = lrintf( g.m_fWidth * fScale );
+		}
+	}
+	
+	if([conf objectForKey:@"DrawExtraPixelsLeft"]) {
+	}
+	
+	if([conf objectForKey:@"DrawExtraPixelsRight"]) {
+	}
+	
+	if([conf objectForKey:@"LineSpacing"]) {
+		m_nLineSpacing = [[conf objectForKey:@"LineSpacing"] intValue];
+	} else {	
+		// Set to frame height
+		m_nLineSpacing = m_pTexture.contentSize.height/[m_pTexture rows];
+	}
+	
+	int iBaseline;
+	if([conf objectForKey:@"Baseline"]) {
+		iBaseline = [[conf objectForKey:@"Baseline"] intValue];
+	} else {
+		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
+		iBaseline = (int)(center + m_nLineSpacing/2);
+	}
+	
+	int iTop;
+	if([conf objectForKey:@"Top"]) {
+		iTop = [[conf objectForKey:@"Top"] intValue];
+	} else {
+		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
+		iTop = (int)( center - m_nLineSpacing/2 );
+	}
+	
+	m_fHeight = iBaseline-iTop;
+	// TODO extra pixels
+	
+	m_fVertShift = (float) - iBaseline;
+	
+	if([conf objectForKey:@"AdvanceExtraPixels"]) {
+	}
+	
 }
 
 - (void) doRange:(NSString*)setting {
@@ -234,11 +304,13 @@
 
 
 @interface Font (Private)
-- (void) parseDefaultSettings;
+- (void) mergeFont:(Font*)other;
 @end
 
 
 @implementation Font
+
+@synthesize m_pDefaultPage, m_aPages, m_pCharToGlyph;
 
 - (id) initWithName:(NSString*)name andConfig:(NSDictionary*)config {
 	self = [super init];
@@ -246,6 +318,7 @@
 		return nil;
 	
 	m_sFontName = name;
+	m_bIsLoaded = NO;	
 	m_pConfig = [config retain];
 	
 	m_bMultipage = NO;
@@ -257,7 +330,34 @@
 
 // This does the real loading work
 - (void) load {
+	if(m_bIsLoaded) {
+		TMLog(@"Attempt to load %@ font which is already loaded. break.", m_sFontName);
+		return;
+	}
+	
 	TMLog(@"Loading the %@ font...", m_sFontName);
+	
+	// First of all.. try to do imports if needed
+	NSArray* imports = [m_pConfig objectForKey:@"import"];
+	if(imports) {
+		TMLog(@"Have something to import... load it");
+		
+		int iF = 0;
+		for(; iF<[imports count]; ++iF) {
+			NSString* fontName = [imports objectAtIndex:iF];
+			
+			if(fontName) {
+				TMLog(@"Importing font '%@'", fontName);
+				Font* f = [[FontManager sharedInstance] getFont:fontName];
+				
+				// Try to load it first.. it will load only once anyway
+				[f load];
+				
+				// Now this font should be loaded so we can try to import it
+				[self mergeFont:f];
+			}
+		}
+	}
 	
 	// Check for multiple pages
 	NSDictionary* pages = [m_pConfig objectForKey:@"pages"];
@@ -268,9 +368,6 @@
 			m_bMultipage = YES;
 		}
 	}
-	
-	// Ok. We must parse all default settings
-	[self parseDefaultSettings];
 	
 	// Try to find a resource which has a matching name	
 	if(m_bMultipage) {
@@ -292,7 +389,7 @@
 										reason:[NSString stringWithFormat:@"Resource '%@' is not found", pageResourceName] userInfo:nil];
 				@throw ex;
 			}
-			
+					
 			FontPage* page = [[FontPage alloc] initWithResource:resource andSettings:pageSettings];
 			
 			if([pageName isEqualToString:@"main"]) {				
@@ -309,6 +406,9 @@
 			// Now add real glyphs
 			TMFramedTexture* tex = (TMFramedTexture*)[resource resource];
 			[page setupGlyphsFromTexture:tex andConfig:m_pConfig];
+			
+			// Finally apply global font config items to the resulting glyphs
+			[page applyGlobalConfig:m_pConfig];
 		}		
 		
 	} else {
@@ -317,7 +417,7 @@
 		TMResource* mainPage = [[[FontManager sharedInstance] textures] getResource:m_sFontName];
 		if(mainPage) {
 			TMLog(@"Found the texture resource!");
-
+					
 			// It can be so that the [main] page config is specified.. so we must check that
 			if([[pages allKeys] count] == 1) { // Not multipage but still have config
 				m_pDefaultPage = [[FontPage alloc] initWithResource:mainPage andSettings:[[pages allValues] objectAtIndex:0]];						
@@ -346,6 +446,9 @@
 			
 			// Now add real glyphs
 			[m_pDefaultPage setupGlyphsFromTexture:tex andConfig:m_pConfig];
+			
+			// Finally apply global font config items to the resulting glyphs
+			[m_pDefaultPage applyGlobalConfig:m_pConfig];
 		}
 	}
 	
@@ -358,44 +461,24 @@
 		
 		[self cacheMapsFromPage:p];
 	}
+	
+	m_bIsLoaded = YES;
 }
 
-- (void) parseDefaultSettings {
-	if([m_pConfig objectForKey:@"AddToAllWidths"]) {
-		
+- (void) mergeFont:(Font*)other {
+	if(m_pDefaultPage == nil) {		
+		// Steal the page pointer
+		m_pDefaultPage = other.defaultPage;
 	}
 	
-	if([m_pConfig objectForKey:@"ScaleAllWidthsBy"]) {
-		
-	}
+	// Cache all char to glyphs
+	[m_pCharToGlyph setValuesForKeysWithDictionary:other.maps];
 	
-	if([m_pConfig objectForKey:@"DrawExtraPixelsLeft"]) {
-		
-	}
+	// Copy all pages
+	[m_aPages addObjectsFromArray:other.pages];
 	
-	if([m_pConfig objectForKey:@"DrawExtraPixelsRight"]) {
-		
-	}
-	
-	if([m_pConfig objectForKey:@"LineSpacing"]) {
-		
-	}
-	
-	if([m_pConfig objectForKey:@"Top"]) {
-		
-	}
-	
-	if([m_pConfig objectForKey:@"Baseline"]) {
-		
-	}
-	
-	if([m_pConfig objectForKey:@"DefaultWidth"]) {
-		
-	}
-	
-	if([m_pConfig objectForKey:@"AdvanceExtraPixels"]) {
-		
-	}	
+	// Clear the imported font
+	[[other pages] removeAllObjects];
 }
 
 - (void) cacheMapsFromPage:(FontPage*)page {

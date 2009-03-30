@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ResourcesLoader.h"
 
+@class Font;
+
 @interface FontManager : NSObject <ResourcesLoaderSupport> {
 	ResourcesLoader*		m_pCurrentFontResources;		// Current theme's font textures
 	NSMutableDictionary*	m_pFonts;						// Map with Font objects
@@ -20,6 +22,8 @@
 // Methods
 - (void) loadFonts:(NSString*)fontDirPath;
 - (void) loadFont:(NSString*)fontPath andName:(NSString*)name;
+
+- (Font*) getFont:(NSString*)fontName;
 
 + (FontManager *) sharedInstance;
 

@@ -55,6 +55,11 @@ static FontManager *sharedFontManagerDelegate = nil;
 	TMLog(@"Font with name '%@' is added..", name);
 }
 
+- (Font*) getFont:(NSString*)fontName {
+	Font* f = [m_pFonts objectForKey:fontName];
+	return f;
+}
+
 /* ResourcesLoaderSupport delegate work */
 - (BOOL) resourceTypeSupported:(NSString*) itemName {
 	// Fonts are in PNG textures

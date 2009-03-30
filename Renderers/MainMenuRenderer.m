@@ -146,10 +146,10 @@ Texture2D *t_BG;
 	[t_BG drawInRect:bounds];
 	
 	// TEST FONT
-	Font* f = [[[FontManager sharedInstance] fonts] objectForKey:@"Common Shared1"];	
-	Font* jf = [[[FontManager sharedInstance] fonts] objectForKey:@"Japanese 16px"];	
-	[f drawText:@"TapMania! fubar" atPoint:CGPointMake(0, 50)];
-	[jf drawText:@"九十本語＆" atPoint:CGPointMake(40, 20)];
+	Font* f = [[[FontManager sharedInstance] fonts] objectForKey:@"Default"];	
+//	Font* jf = [[[FontManager sharedInstance] fonts] objectForKey:@"Japanese 16px"];	
+	[f drawText:@"Tap:九十本語＆" atPoint:CGPointMake(0, 50)];
+//	[jf drawText:@"九十本語＆" atPoint:CGPointMake(40, 20)];
 	
 	// NOTE: Items will be rendered by it self
 }
