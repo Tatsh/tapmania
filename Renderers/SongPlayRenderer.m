@@ -373,7 +373,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 						[note startHolding:lastHitTime];
 					}
 				} else if(note.m_bIsHit && !note.m_bIsHoldLost && note.m_bIsHolding) {				
-					if(lastReleaseTime > lastHitTime) {						
+					if(lastReleaseTime >= lastHitTime) {						
 						[note stopHolding:lastReleaseTime];
 					}
 				} 
