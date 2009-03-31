@@ -10,6 +10,7 @@
 
 #import "FontManager.h"
 #import "FontCharmaps.h"
+#import "FontCharAliases.h"
 #import "TMFramedTexture.h"
 
 @implementation Glyph
@@ -23,6 +24,7 @@
 		return nil;
 
 	m_nTextureFrame = frameId;
+	m_nHorizAdvance = 0;
 	
 	return self;
 }
@@ -32,6 +34,7 @@
 @interface FontPage (Private)
 - (void) doRange:(NSString*)setting;
 - (void) doLine:(NSString*)setting;
+- (void) doMap:(NSString*)setting;
 - (void) applyGlobalConfig:(NSDictionary*)conf;
 @end
 
@@ -68,6 +71,12 @@
 				TMLog(@"Got line setting!!");
 				
 				[self doLine:setting];
+			}
+			// map alias=...
+			else if([[setting lowercaseString] hasPrefix:@"map"]) { 
+				TMLog(@"Got map setting!!");
+					
+				[self doMap:setting];				
 			} else {
 				// This normally should be int=int (width specificator)
 				// Try to split by '='
@@ -93,13 +102,7 @@
 
 - (void) applyGlobalConfig:(NSDictionary*)conf {
 	// Parse global config (common values)
-	
-	int defaultWidth = m_pTexture.contentSize.width/[m_pTexture cols];
-	if([conf objectForKey:@"DefaultWidth"]) {
-		defaultWidth = [[conf objectForKey:@"DefaultWidth"] intValue];		
-	}
-	
-	// Do default widths
+	// NOTE: DefaultWidth is handled elsewhere
 	
 	if([conf objectForKey:@"AddToAllWidths"]) {	
 		int iAdd = [[conf objectForKey:@"AddToAllWidths"] intValue];
@@ -156,6 +159,13 @@
 	m_fVertShift = (float) - iBaseline;
 	
 	if([conf objectForKey:@"AdvanceExtraPixels"]) {
+		int extra = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
+		int glyph = 0;
+		
+		for(; glyph <  [m_aGlyphs count]; ++glyph) {
+			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
+			g.m_nHorizAdvance = extra;
+		}
 	}
 	
 }
@@ -244,6 +254,33 @@
 	}	
 }
 
+- (void) doMap:(NSString*)setting {
+	// Parse [map alias=position]
+	// Format taken from StepMania to achive some compatibility
+	
+	NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
+	if([keyValuePair count] != 2) {
+		NSException *ex = [NSException exceptionWithName:@"MAP" 
+												  reason:[NSString stringWithFormat:@"Map '%@' is invalid", setting] userInfo:nil];
+		@throw ex;		
+	}
+	
+	// The value part
+	NSString* value = [keyValuePair objectAtIndex:1];
+	
+	// Parse the key part
+	NSString* keyPart = [[keyValuePair objectAtIndex:0] stringByReplacingOccurrencesOfString:@"map " withString:@""];
+
+	unichar c;
+	[[FontCharAliases sharedInstance] getChar:keyPart result:&c];
+	
+	NSNumber* num = value;
+	NSString* s = [NSString stringWithFormat:@"%C", c];
+	
+	[m_pCharToGlyphNo setObject:num forKey:s];
+	TMLog(@"[line] Mapped '%@' as %d", keyPart, [num intValue]);
+}
+
 - (void) mapRange:(NSString*)charmap mapOffset:(int)offset glyphNo:(int)glyphNo count:(int)cnt {
 	
 	NSString* map = [[FontCharmaps sharedInstance] getCharMap:charmap];
@@ -290,7 +327,12 @@
 			if(gw) {
 				glyph.m_fWidth = [gw floatValue];
 			} else {			
-				glyph.m_fWidth = glyphWidth;
+				float defaultWidth = glyphWidth;
+				if([config objectForKey:@"DefaultWidth"]) {
+					defaultWidth = [[config objectForKey:@"DefaultWidth"] floatValue];		
+				}
+				
+				glyph.m_fWidth = defaultWidth;
 			}
 			
 			glyph.m_fHeight = glyphHeight;
@@ -310,7 +352,7 @@
 
 @implementation Font
 
-@synthesize m_pDefaultPage, m_aPages, m_pCharToGlyph;
+@synthesize m_pDefaultPage, m_aPages, m_pCharToGlyph, m_pDefaultGlyph;
 
 - (id) initWithName:(NSString*)name andConfig:(NSDictionary*)config {
 	self = [super init];
@@ -462,6 +504,9 @@
 		[self cacheMapsFromPage:p];
 	}
 	
+	// Map defaultGlyph if possible. can be nil for fonts which don't provide it (will always ask default font anyway)
+	m_pDefaultGlyph = [m_pCharToGlyph objectForKey:[NSString stringWithFormat:@"%C", DEFAULT_GLYPH]];
+	
 	m_bIsLoaded = YES;
 }
 
@@ -495,6 +540,31 @@
 	}
 }
 
+- (Glyph*) getGlyph:(NSString*)inChar {
+	Glyph* g = [m_pCharToGlyph objectForKey:inChar];
+	Font* df = [[FontManager sharedInstance] defaultFont];
+	
+	// If not found here - use default font
+	if(!g && self != df) {
+		g = [df getGlyph:inChar];
+	}
+	
+	// If not found there too - use default glyph
+	if(!g) {
+		// Get default glyph from default font
+		g = [[[FontManager sharedInstance] defaultFont] defaultGlyph];
+	}	
+	
+	// If no default glyph - error
+	if(!g) {
+		// ERROR!
+		NSException *ex = [NSException exceptionWithName:@"DefaultGlyphMissing" 
+												  reason:[NSString stringWithFormat:@"Font '%@' missing default glyph", m_sFontName] userInfo:nil];
+		@throw ex;			
+	}
+	
+	return g;
+}
 
 - (void) drawText:(NSString*)str atPoint:(CGPoint)point {
 	int curCharacter = 0;
@@ -504,17 +574,13 @@
 		unichar c = [str characterAtIndex:curCharacter];
 		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
 		
-		Glyph* g = [m_pCharToGlyph objectForKey:mapTester];
-		
-		if(g) {
-			glEnable(GL_BLEND);
-			[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(curPoint.x+[g m_fWidth]/2, curPoint.y+[g m_fHeight]/2)];
-			glDisable(GL_BLEND);
+		Glyph* g = [self getGlyph:mapTester];
+					
+		glEnable(GL_BLEND);
+		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(curPoint.x+[g m_fWidth]/2, curPoint.y+[g m_fHeight]/2)];
+		glDisable(GL_BLEND);
 			
-			curPoint = CGPointMake(curPoint.x+[g m_fWidth], point.y);
-		} else {
-			TMLog(@"Can't find mapping for '%@' char", mapTester);
-		}
+		curPoint = CGPointMake(curPoint.x+[g m_fWidth]+[g m_nHorizAdvance], point.y);
 	}
 }
 

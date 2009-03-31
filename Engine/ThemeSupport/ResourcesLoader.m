@@ -131,14 +131,37 @@
 						// Remove the plist suffix
 						itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.plist' length
 						[[FontManager sharedInstance] loadFont:curPath andName:itemName];
+						continue;
 						
-					}else {
-						TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+					} 
+					
+					if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".redir"]) {
 						
-						// Add that resource
-						[node setValue:resource forKey:resource.componentName];										
-						TMLog(@"Added it to current node at key = '%@'", resource.componentName);						
-					}
+						// A font redirect?
+						NSData* contents = [[NSFileManager defaultManager] contentsAtPath:curPath];	
+						NSString* contentsString = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
+						NSString* resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+						NSString* redirectedItemName = [resourceFileSystemPath lastPathComponent]; 
+						
+						if([redirectedItemName hasSuffix:@".plist"]) {
+							// Yes. a font redirect.
+							itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.redir' length
+							redirectedItemName = [redirectedItemName substringToIndex:[redirectedItemName length]-6]; // 6 is '.plist' length
+							TMLog(@"Add font redir: '%@'=>'%@'", itemName, redirectedItemName);
+							
+							[[FontManager sharedInstance] addRedirect:itemName to:redirectedItemName];
+							
+							continue;
+						} 
+						
+						[contentsString release];
+					} 
+										
+					TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+						
+					// Add that resource
+					[node setValue:resource forKey:resource.componentName];										
+					TMLog(@"Added it to current node at key = '%@'", resource.componentName);						
 				}
 			}
 		}

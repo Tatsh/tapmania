@@ -12,6 +12,9 @@
 @class TMFramedTexture;
 @class FontPage;
 
+const static unichar DEFAULT_GLYPH = 0xF8FF;
+const static unichar INVALID_CHAR = 0xFFFD;
+
 /*
  * A glyph. 
  * Contains one character map from a font page.
@@ -90,17 +93,20 @@
 	FontPage*			m_pDefaultPage;
 	
 	NSMutableDictionary*		m_pCharToGlyph;		// Contains direct mappings to Glyph objects
+	Glyph*						m_pDefaultGlyph;
 }
 
 @property(retain, nonatomic, readonly, getter=maps) NSMutableDictionary* m_pCharToGlyph; 
 
 @property(retain, nonatomic, readonly, getter=pages) NSMutableArray* m_aPages; 
 @property(retain, nonatomic, readonly, getter=defaultPage) FontPage* m_pDefaultPage;
+@property(retain, nonatomic, readonly, getter=defaultGlyph) Glyph* m_pDefaultGlyph;
 
 - (id) initWithName:(NSString*) name andConfig:(NSDictionary*)config;
 - (void) load;
 - (void) cacheMapsFromPage:(FontPage*)page;
 
+- (Glyph*) getGlyph:(NSString*)inChar;
 - (void) drawText:(NSString*)str atPoint:(CGPoint)point;
 
 @end

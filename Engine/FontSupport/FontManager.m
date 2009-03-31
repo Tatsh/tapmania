@@ -14,7 +14,7 @@ static FontManager *sharedFontManagerDelegate = nil;
 
 @implementation FontManager
 
-@synthesize m_pCurrentFontResources, m_pFonts;
+@synthesize m_pCurrentFontResources, m_pFonts, m_pDefaultFont;
 
 - (id) init {
 	self = [super init];
@@ -22,6 +22,7 @@ static FontManager *sharedFontManagerDelegate = nil;
 		return nil;
 	
 	m_pFonts = [[NSMutableDictionary alloc] initWithCapacity:256];
+	m_pRedirects = [[NSMutableDictionary alloc] initWithCapacity:256];
 	
 	return self;
 }
@@ -43,6 +44,14 @@ static FontManager *sharedFontManagerDelegate = nil;
 		Font* font = [values objectAtIndex:i];		
 		[font load];
 	}
+	
+	// Setup default font mapping
+	m_pDefaultFont = [m_pFonts objectForKey:@"Default"];
+	if(!m_pDefaultFont) {
+		NSException *ex = [NSException exceptionWithName:@"DefaultFontMissing" 
+								  reason:@"Default font is missing" userInfo:nil];
+		@throw ex;		
+	}
 }
 
 - (void) loadFont:(NSString*)fontPath andName:(NSString*)name {
@@ -55,9 +64,32 @@ static FontManager *sharedFontManagerDelegate = nil;
 	TMLog(@"Font with name '%@' is added..", name);
 }
 
-- (Font*) getFont:(NSString*)fontName {
+- (void) addRedirect:(NSString*)alias to:(NSString*)real {
+	[m_pRedirects setObject:real forKey:alias];
+}
+
+- (Font*) getFont:(NSString*)fontName {	
 	Font* f = [m_pFonts objectForKey:fontName];
+	if(!f) {
+		// Check in redirects
+		NSString* fn = [m_pRedirects objectForKey:fontName];
+		if(fn)
+			f = [m_pFonts objectForKey:fn];
+	}
+	
+	// Still not found?
+	if(!f) {
+		TMLog(@"Requested font '%@' is missing. returning default.", fontName);
+		return m_pDefaultFont;
+	}
+	
 	return f;
+}
+
+/* Drawing routines */
+- (void) print:(NSString*)text usingFont:(NSString*)fontName atPoint:(CGPoint)point {
+	Font* f = [self getFont:fontName];
+	[f drawText:text atPoint:point];
 }
 
 /* ResourcesLoaderSupport delegate work */
