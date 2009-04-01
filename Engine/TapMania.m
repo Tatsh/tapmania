@@ -126,9 +126,9 @@ static TapMania *sharedTapManiaDelegate = nil;
    
 - (void) startGame {
 	// Show FPS in debug mode only. FPS rendering slows things a lot.
-#ifdef DEBUG 
+// #ifdef DEBUG 
 	[[TapMania sharedInstance] registerObject:[[FPS alloc] init] withPriority:kRunLoopPriority_Lowest];	// FPS drawing
-#endif
+// #endif
 	[m_pGameRunLoop run];	
 }
 

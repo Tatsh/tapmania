@@ -119,6 +119,8 @@
 	}
 	
 	while (!m_bStopRequested) {
+		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+		
 		float currentTime = [TimingUtil getCurrentTime];
 		
 		float delta = currentTime-prevTime;		
@@ -157,6 +159,9 @@
 		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
 			[m_idDelegate runLoopAfterHook:delta];
 		}		
+		
+		// Clean up pool
+		[pool drain];	// Drain will call release on iPhone
 	}
 	
 	// Mark as stopped

@@ -92,7 +92,7 @@ const static unichar INVALID_CHAR = 0xFFFD;
 	NSMutableArray*		m_aPages;
 	FontPage*			m_pDefaultPage;
 	
-	NSMutableDictionary*		m_pCharToGlyph;		// Contains direct mappings to Glyph objects
+	NSMutableDictionary*		m_pCharToGlyph;		// Contains direct mappings to Glyph objects	
 	Glyph*						m_pDefaultGlyph;
 }
 
@@ -106,6 +106,7 @@ const static unichar INVALID_CHAR = 0xFFFD;
 - (void) load;
 - (void) cacheMapsFromPage:(FontPage*)page;
 
+- (float) getStringWidth:(NSString*)str;
 - (Glyph*) getGlyph:(NSString*)inChar;
 - (void) drawText:(NSString*)str atPoint:(CGPoint)point;
 

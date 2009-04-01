@@ -29,6 +29,7 @@
 - (void) addRedirect:(NSString*)alias to:(NSString*)real;
 
 - (Font*) getFont:(NSString*)fontName;
+- (float) getStringWidth:(NSString*)str usingFont:(NSString*)fontName;
 
 // Drawing text
 - (void) print:(NSString*)text usingFont:(NSString*)fontName atPoint:(CGPoint)point;

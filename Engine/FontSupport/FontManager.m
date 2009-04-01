@@ -86,6 +86,11 @@ static FontManager *sharedFontManagerDelegate = nil;
 	return f;
 }
 
+- (float) getStringWidth:(NSString*)str usingFont:(NSString*)fontName {
+	Font* f = [self getFont:fontName];
+	return [f getStringWidth:str];
+}
+
 /* Drawing routines */
 - (void) print:(NSString*)text usingFont:(NSString*)fontName atPoint:(CGPoint)point {
 	Font* f = [self getFont:fontName];

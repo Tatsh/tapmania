@@ -76,7 +76,7 @@ Texture2D *t_BG;
 		[[SlideEffect alloc] initWithRenderable:
 			[[ZoomEffect alloc] initWithRenderable:	
 				// [[BlinkEffect alloc] initWithRenderable:
-					[[MenuItem alloc] initWithTitle:@"Play TapMania" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
+					[[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
 
 	m_pMainMenuItems[kMainMenuItem_Options] = 
 		[[SlideEffect alloc] initWithRenderable:
@@ -144,10 +144,6 @@ Texture2D *t_BG;
 	
 	// Draw menu background
 	[t_BG drawInRect:bounds];
-	
-	// TEST FONT
-	[[FontManager sharedInstance] print:[NSString stringWithFormat:@"TapIt:九十本語＆ [%C]", 0xff32]
-				usingFont:@"MainMenuButtons" atPoint:CGPointMake(0, 50)];
 	
 	// NOTE: Items will be rendered by it self
 }

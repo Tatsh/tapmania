@@ -156,7 +156,7 @@
 	m_fHeight = iBaseline-iTop;
 	// TODO extra pixels
 	
-	m_fVertShift = (float) - iBaseline;
+	m_fVertShift = (float) -iBaseline;
 	
 	if([conf objectForKey:@"AdvanceExtraPixels"]) {
 		int extra = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
@@ -566,6 +566,20 @@
 	return g;
 }
 
+- (float) getStringWidth:(NSString*)str {
+	float width = 0.0f;
+	int i;
+	
+	for(i=0; i<[str length]; ++i) {
+		unichar* c = [str characterAtIndex:i];
+		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
+		
+		width+=[g m_fWidth]+[g m_nHorizAdvance];
+	}
+		
+	return width;
+}
+
 - (void) drawText:(NSString*)str atPoint:(CGPoint)point {
 	int curCharacter = 0;
 	CGPoint curPoint = point;
@@ -577,7 +591,7 @@
 		Glyph* g = [self getGlyph:mapTester];
 					
 		glEnable(GL_BLEND);
-		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(curPoint.x+[g m_fWidth]/2, curPoint.y+[g m_fHeight]/2)];
+		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(curPoint.x+[g m_fWidth]/2, curPoint.y+[g m_fHeight]/2+[[g m_pFontPage] m_fVertShift])];
 		glDisable(GL_BLEND);
 			
 		curPoint = CGPointMake(curPoint.x+[g m_fWidth]+[g m_nHorizAdvance], point.y);

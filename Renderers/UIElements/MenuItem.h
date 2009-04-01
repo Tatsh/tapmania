@@ -16,6 +16,7 @@
 @interface MenuItem : AbstractRenderer <TMGameUIResponder, TMEffectSupport> {
 	TMFramedTexture*	m_pTexture;
 	Texture2D*			m_pTitle;
+	NSString*			m_sTitle;
 	CGRect		m_rShape;	// The points where the button is drawn
 	
 	id			m_idActionDelegate;			// delegate to invoke the selector on
