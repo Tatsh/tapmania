@@ -15,6 +15,10 @@
 		242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.m */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
+		243DF6400FB1C0CA004C08EF /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
+		243DF6410FB1C0CA004C08EF /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C540F7921A200C9D5BC /* libvorbis.a */; };
+		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
+		243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
@@ -114,12 +118,9 @@
 		24964CEC0F79223C00C9D5BC /* synthesis.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAC0F79223C00C9D5BC /* synthesis.c */; };
 		24964CED0F79223C00C9D5BC /* tone.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAD0F79223C00C9D5BC /* tone.c */; };
 		24964CEE0F79223C00C9D5BC /* vorbisenc.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAE0F79223C00C9D5BC /* vorbisenc.c */; };
-		24964CEF0F79223C00C9D5BC /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		24964CF00F79223C00C9D5BC /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CB00F79223C00C9D5BC /* window.c */; };
 		24964CF10F79223C00C9D5BC /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964CB10F79223C00C9D5BC /* window.h */; };
 		24964D130F79231100C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964D120F79231100C9D5BC /* config.h */; };
-		24964D8E0F79262000C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
-		24964D8F0F79262000C9D5BC /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C540F7921A200C9D5BC /* libvorbis.a */; };
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
 		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
@@ -158,6 +159,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		243DF66E0FB1C281004C08EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24964C530F7921A200C9D5BC /* vorbis */;
+			remoteInfo = vorbis;
+		};
 		24964C570F7921A800C9D5BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -189,6 +197,7 @@
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
 		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsDirectoryCache.h; sourceTree = "<group>"; };
 		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsDirectoryCache.m; sourceTree = "<group>"; };
+		243DF64B0FB1C156004C08EF /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244954B40EDD54DA00D462F0 /* TMRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRenderable.h; sourceTree = "<group>"; };
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
 		244954D10EDD5AC200D462F0 /* TMRunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRunLoop.h; sourceTree = "<group>"; };
@@ -412,8 +421,16 @@
 				2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */,
 				2486F1C40EC08CF300E5F9EE /* AudioToolbox.framework in Frameworks */,
 				2486F1C60EC08CFD00E5F9EE /* OpenAL.framework in Frameworks */,
-				24964D8E0F79262000C9D5BC /* libogg.a in Frameworks */,
-				24964D8F0F79262000C9D5BC /* libvorbis.a in Frameworks */,
+				243DF6400FB1C0CA004C08EF /* libogg.a in Frameworks */,
+				243DF6410FB1C0CA004C08EF /* libvorbis.a in Frameworks */,
+				243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		243DF6490FB1C156004C08EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +492,7 @@
 				1D6058910D05DD3D006BFB54 /* TapMania.app */,
 				24964C330F791F4500C9D5BC /* libogg.a */,
 				24964C540F7921A200C9D5BC /* libvorbis.a */,
+				243DF64B0FB1C156004C08EF /* libvorbisfile.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -887,6 +905,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		243DF6470FB1C156004C08EF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24964C2F0F791F4500C9D5BC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,6 +989,24 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* TapMania.app */;
 			productType = "com.apple.product-type.application";
 		};
+		243DF64A0FB1C156004C08EF /* vorbisfile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 243DF64F0FB1C16E004C08EF /* Build configuration list for PBXNativeTarget "vorbisfile" */;
+			buildPhases = (
+				243DF6470FB1C156004C08EF /* Headers */,
+				243DF6480FB1C156004C08EF /* Sources */,
+				243DF6490FB1C156004C08EF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				243DF66F0FB1C281004C08EF /* PBXTargetDependency */,
+			);
+			name = vorbisfile;
+			productName = vorbisfile;
+			productReference = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		24964C320F791F4500C9D5BC /* ogg */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24964C360F791F6A00C9D5BC /* Build configuration list for PBXNativeTarget "ogg" */;
@@ -1014,6 +1057,7 @@
 				1D6058900D05DD3D006BFB54 /* TapMania */,
 				24964C320F791F4500C9D5BC /* ogg */,
 				24964C530F7921A200C9D5BC /* vorbis */,
+				243DF64A0FB1C156004C08EF /* vorbisfile */,
 			);
 		};
 /* End PBXProject section */
@@ -1105,6 +1149,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		243DF6480FB1C156004C08EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24964C300F791F4500C9D5BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1140,7 +1192,6 @@
 				24964CEC0F79223C00C9D5BC /* synthesis.c in Sources */,
 				24964CED0F79223C00C9D5BC /* tone.c in Sources */,
 				24964CEE0F79223C00C9D5BC /* vorbisenc.c in Sources */,
-				24964CEF0F79223C00C9D5BC /* vorbisfile.c in Sources */,
 				24964CF00F79223C00C9D5BC /* window.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1148,6 +1199,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		243DF66F0FB1C281004C08EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24964C530F7921A200C9D5BC /* vorbis */;
+			targetProxy = 243DF66E0FB1C281004C08EF /* PBXContainerItemProxy */;
+		};
 		24964C580F7921A800C9D5BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 24964C320F791F4500C9D5BC /* ogg */;
@@ -1188,16 +1244,42 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"/Users/godexsoft/Documents/TapMania/ext/libogg-1.1.3/include/**",
-					"/Users/godexsoft/Documents/TapMania/ext/libvorbis-1.2.0/include/**",
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/libs\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "-DDEBUG1";
 				PRODUCT_NAME = TapMania;
+			};
+			name = Release;
+		};
+		243DF64C0FB1C157004C08EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+			};
+			name = Debug;
+		};
+		243DF64D0FB1C157004C08EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -1220,7 +1302,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				HEADER_SEARCH_PATHS = "/Users/godexsoft/Documents/TapMania/ext/libogg-1.1.3/include";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ext/libogg-1.1.3/include";
 				PREBINDING = NO;
 				PRODUCT_NAME = ogg;
 				ZERO_LINK = NO;
@@ -1247,9 +1329,9 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				HEADER_SEARCH_PATHS = (
-					"/Users/godexsoft/Documents/TapMania/ext/libogg-1.1.3/include",
-					"/Users/godexsoft/Documents/TapMania/ext/libvorbis-1.2.0/lib",
-					"/Users/godexsoft/Documents/TapMania/ext/libvorbis-1.2.0/include",
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/lib",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = vorbis;
@@ -1292,6 +1374,15 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		243DF64F0FB1C16E004C08EF /* Build configuration list for PBXNativeTarget "vorbisfile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				243DF64C0FB1C157004C08EF /* Debug */,
+				243DF64D0FB1C157004C08EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,9 +1,18 @@
 TapMania is the iPhone's version of StepMania.
 
+IMPORTANT:
+	Linux Makefile compatibility is not supported since may 2009. I'm now running MacOSX everywhere so I don't use Linux with the open toolchain anymore.
+
 TO_READ:
 	# less LICENCE
 	# links http://code.google.com/p/tapmania
 	# links http://stepmania.com
+
+HOWTO COMPILE VORBIS AND OGG:
+	# create 'ext' directory in the root of tapmania project
+	# download libvorbis-1.2.0 and libogg-1.1.3 and extract them into 'ext' directory.
+	# configure and compile both using ./configure && make && sudo make install
+	# TapMania should now compile fine using Xcode
 
 THANKS:
 	Thanks to all people involved in StepMania development for their great game which inspired me to create TapMania.
