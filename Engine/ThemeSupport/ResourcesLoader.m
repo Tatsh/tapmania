@@ -59,6 +59,8 @@
 		// Resource is not available! it's just not existing in the current theme or something like that... we must return the default resource in this case
 		// TODO !!!
 	}
+	
+	return nil;
 }
 
 - (void) preLoad:(NSString*) path {

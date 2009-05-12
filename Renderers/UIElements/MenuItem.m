@@ -22,7 +22,7 @@
 	
 	m_rShape = shape;
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
-//	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
+	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
 	m_sTitle = title;
 	
 	m_idActionDelegate = nil;
@@ -57,11 +57,12 @@
 	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
 	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
 	
-	/*
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	 */
+	
+	/*
+	 TODO: Use our fonts later
 	float vCenter = m_rShape.origin.y + m_rShape.size.height/2;
 	float hCenter = m_rShape.origin.x + m_rShape.size.width/2;
 	float strWidth = [[FontManager sharedInstance] getStringWidth:m_sTitle usingFont:@"MainMenuButtons"];
@@ -70,7 +71,7 @@
 		
 	[[FontManager sharedInstance] print:m_sTitle
 				  usingFont:@"MainMenuButtons" atPoint:CGPointMake(xPos, yPos)];
-	
+	*/
 	
 	glDisable(GL_BLEND);
 }

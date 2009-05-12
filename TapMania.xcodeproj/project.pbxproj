@@ -163,8 +163,15 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 24964C530F7921A200C9D5BC /* vorbis */;
+			remoteGlobalIDString = 24964C530F7921A200C9D5BC;
 			remoteInfo = vorbis;
+		};
+		245726760FBA11C2002CBAAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 243DF64A0FB1C156004C08EF /* vorbisfile */;
+			remoteInfo = vorbisfile;
 		};
 		24964C570F7921A800C9D5BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -983,6 +990,7 @@
 			);
 			dependencies = (
 				24964C5B0F7921ED00C9D5BC /* PBXTargetDependency */,
+				245726770FBA11C2002CBAAE /* PBXTargetDependency */,
 			);
 			name = TapMania;
 			productName = TapMania;
@@ -1204,6 +1212,11 @@
 			target = 24964C530F7921A200C9D5BC /* vorbis */;
 			targetProxy = 243DF66E0FB1C281004C08EF /* PBXContainerItemProxy */;
 		};
+		245726770FBA11C2002CBAAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 243DF64A0FB1C156004C08EF /* vorbisfile */;
+			targetProxy = 245726760FBA11C2002CBAAE /* PBXContainerItemProxy */;
+		};
 		24964C580F7921A800C9D5BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 24964C320F791F4500C9D5BC /* ogg */;
@@ -1217,24 +1230,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/libs\"",
-				);
-				PRODUCT_NAME = TapMania;
-			};
-			name = Debug;
-		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1249,22 +1244,9 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_CFLAGS = "-DDEBUG1";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Release;
-		};
-		243DF64C0FB1C157004C08EF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PREBINDING = NO;
-				PRODUCT_NAME = vorbisfile;
-			};
-			name = Debug;
 		};
 		243DF64D0FB1C157004C08EF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1283,15 +1265,86 @@
 			};
 			name = Release;
 		};
-		24964C340F791F4600C9D5BC /* Debug */ = {
+		2457266F0FBA1172002CBAAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos2.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		245726700FBA1172002CBAAE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "-DDEBUG";
+				PRODUCT_NAME = TapMania;
+			};
+			name = Debug;
+		};
+		245726710FBA1172002CBAAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ext/libogg-1.1.3/include";
 				PREBINDING = NO;
 				PRODUCT_NAME = ogg;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		245726720FBA1172002CBAAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/lib",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbis;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		245726730FBA1172002CBAAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
@@ -1308,18 +1361,6 @@
 				ZERO_LINK = NO;
 			};
 			name = Release;
-		};
-		24964C550F7921A300C9D5BC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PREBINDING = NO;
-				PRODUCT_NAME = vorbis;
-			};
-			name = Debug;
 		};
 		24964C560F7921A300C9D5BC /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1338,20 +1379,6 @@
 				ZERO_LINK = NO;
 			};
 			name = Release;
-		};
-		C01FCF4F08A954540054247B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos2.0;
-			};
-			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1372,8 +1399,8 @@
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TapMania" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				245726700FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1381,8 +1408,8 @@
 		243DF64F0FB1C16E004C08EF /* Build configuration list for PBXNativeTarget "vorbisfile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				243DF64C0FB1C157004C08EF /* Debug */,
 				243DF64D0FB1C157004C08EF /* Release */,
+				245726730FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1390,8 +1417,8 @@
 		24964C360F791F6A00C9D5BC /* Build configuration list for PBXNativeTarget "ogg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				24964C340F791F4600C9D5BC /* Debug */,
 				24964C350F791F4600C9D5BC /* Release */,
+				245726710FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1399,8 +1426,8 @@
 		24964C590F7921C700C9D5BC /* Build configuration list for PBXNativeTarget "vorbis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				24964C550F7921A300C9D5BC /* Debug */,
 				24964C560F7921A300C9D5BC /* Release */,
+				245726720FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1408,8 +1435,8 @@
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TapMania" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				2457266F0FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -95,7 +95,8 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
 			
 			// Use font manager to load up fonts
-			[[FontManager sharedInstance] loadFonts:themeFontsPath];
+			// TODO: Use our fonts in a later release
+			// [[FontManager sharedInstance] loadFonts:themeFontsPath];
 						
 			TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 			
