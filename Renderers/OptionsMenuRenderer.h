@@ -19,6 +19,8 @@ typedef enum {
 	kOptionsMenuItem_JoyPad = 0,
 	kOptionsMenuItem_Back,
 	kOptionsMenuItem_SoundMaster,
+	kOptionsMenuItem_Theme,
+	kOptionsMenuItem_NoteSkin,
 	kNumOptionsMenuItems
 } OptionsMenuItem;
 

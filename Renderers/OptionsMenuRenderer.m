@@ -19,6 +19,7 @@
 
 #import "QuadTransition.h"
 
+#import "TogglerItem.h"
 #import "Slider.h"
 
 #import "OptionsMenuRenderer.h"
@@ -55,8 +56,32 @@ Texture2D *t_BG;
 	m_dAnimationTime = 0.0;	
 	
 	// Register menu items
+	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:	
+				[[Slider alloc] initWithShape:CGRectMake(40.0f, 40.0f, 240.0f, 46.0f) andValue:0.2f]]];
 	
-	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	[[Slider alloc] initWithShape:CGRectMake(40.0f, 40.0f, 240.0f, 46.0f) andValue:0.2f];
+	// Theme selection
+	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:	
+				[[TogglerItem alloc] initWithShape:CGRectMake(40.0f, 90.0f, 240.0f, 46.0f)]]];
+
+	// Add all themes to the toggler list
+	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
+		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] addItem:themeName withTitle:themeName];	
+	}
+
+	// NoteSkin selection
+	m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] = 		
+		[[SlideEffect alloc] initWithRenderable:
+			[[ZoomEffect alloc] initWithRenderable:	
+				[[TogglerItem alloc] initWithShape:CGRectMake(40.0f, 200.0f, 240.0f, 46.0f)]]];
+	
+	// Add all noteskins to the toggler list
+	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
+		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] addItem:skinName withTitle:skinName];	
+	}
 	
 	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
 		[[SlideEffect alloc] initWithRenderable:
@@ -66,7 +91,18 @@ Texture2D *t_BG;
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
 
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Theme]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Theme]) effectTime: 0.4f];
+	
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) effectTime: 0.4f];
+	
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]) effectTime: 0.4f];
+	
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
+//	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setChangedActionHandler:@selector(themeTogglerChanged) receiver:self];
+//	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] setChangedActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] setChangedActionHandler:@selector(soundSliderChanged) receiver:self];
 	
 	return self;
@@ -76,6 +112,8 @@ Texture2D *t_BG;
 	// Release menu items
 	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] release];
+	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] release];
+	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] release];
 	
 	[super dealloc];
 }
@@ -84,20 +122,28 @@ Texture2D *t_BG;
 - (void) setupForTransition {
 	// Add the menu items to the render loop with lower priority
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 		
 	// Remove the menu items from the render loop
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
@@ -138,6 +184,9 @@ Texture2D *t_BG;
 		if(![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isFinished] && 
 		   ![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isTweening])
 		{			
+			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] startTweening];			
+			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] startTweening];			
+			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] startTweening];			
 			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] startTweening];			
 		} 
 		
