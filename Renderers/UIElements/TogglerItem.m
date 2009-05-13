@@ -89,7 +89,7 @@
 	
 	for(i=0; i<[m_aElements count]; ++i) {
 		TogglerItemObject* elem = (TogglerItemObject*)[m_aElements objectAtIndex:i];
-		if( [value isEqualTo:[elem m_pValue]] ) {
+		if( [[elem m_pValue] isEqual:value] ) {
 			return i;
 		}
 	}
