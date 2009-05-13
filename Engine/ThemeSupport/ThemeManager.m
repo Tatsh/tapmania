@@ -104,7 +104,10 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 			TMLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
 			exit(127);
 		}
-	}	
+	} else {
+		TMLog(@"Theme '%@' is no longer available. Switch to default.", themeName);
+		[self selectTheme:kDefaultThemeName];
+	}
 }
 
 - (void) selectNoteskin:(NSString*) skinName {
@@ -115,7 +118,10 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* skinPath =	 [noteskinsDir stringByAppendingPathComponent:skinName];
 		
 		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
-	}		
+	} else {
+		TMLog(@"NoteSkin '%@' is no longer available. Switch to default.", skinName);
+		[self selectNoteskin:kDefaultNoteSkinName];
+	}
 }
 
 - (int) intMetric:(NSString*) metricKey {

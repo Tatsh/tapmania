@@ -72,6 +72,13 @@ Texture2D *t_BG;
 	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
 		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] addItem:themeName withTitle:themeName];	
 	}
+	
+	// Preselect the one from config
+	NSString* theme = [[SettingsEngine sharedInstance] getStringValue:@"theme"];
+	int iTheme = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] findIndexByValue:theme];
+	iTheme = iTheme == -1 ? 0 : iTheme;
+	
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] selectItemAtIndex:iTheme];	
 
 	// NoteSkin selection
 	m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] = 		
@@ -83,6 +90,14 @@ Texture2D *t_BG;
 	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
 		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] addItem:skinName withTitle:skinName];	
 	}
+	
+	// Preselect the one from config
+	NSString* noteskin = [[SettingsEngine sharedInstance] getStringValue:@"noteskin"];
+	int iSkin = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] findIndexByValue:noteskin];
+	iSkin = iSkin == -1 ? 0 : iSkin;
+	
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] selectItemAtIndex:iSkin];	
+
 	
 	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
 		[[SlideEffect alloc] initWithRenderable:

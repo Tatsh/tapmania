@@ -228,8 +228,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -268,7 +266,6 @@
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>2486F4510EC1E0E600E5F9EE</string>
 								<string>2486F2A60EC0A18C00E5F9EE</string>
-								<string>248B0C620F4B133E005A998C</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>24D762930F389FBE008B0AA0</string>
 								<string>244954D70EDD612800D462F0</string>
@@ -279,13 +276,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>53</integer>
-									<integer>3</integer>
+									<integer>54</integer>
+									<integer>50</integer>
+									<integer>47</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 720}, {205, 830}}</string>
+							<string>{{0, 195}, {205, 830}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -315,12 +313,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>OptionsMenuRenderer.m</string>
+								<string>ThemeManager.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,11 +328,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>OptionsMenuRenderer.m</string>
+										<string>ThemeManager.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>24A5874C0FBAF579000954E8</string>
+										<string>24A587630FBB0694000954E8</string>
 										<key>history</key>
 										<array>
 											<string>24EBF5930EC89B7A00533056</string>
@@ -494,7 +494,6 @@
 											<string>24A586230FBAE967000954E8</string>
 											<string>24A586240FBAE967000954E8</string>
 											<string>24A586260FBAE967000954E8</string>
-											<string>24A586270FBAE967000954E8</string>
 											<string>24A5862A0FBAE967000954E8</string>
 											<string>24A5862B0FBAE967000954E8</string>
 											<string>24A5862C0FBAE967000954E8</string>
@@ -508,9 +507,10 @@
 											<string>24A587130FBAF375000954E8</string>
 											<string>24A587320FBAF537000954E8</string>
 											<string>24A587330FBAF537000954E8</string>
-											<string>24A587340FBAF537000954E8</string>
-											<string>24A5874A0FBAF579000954E8</string>
-											<string>24A587350FBAF537000954E8</string>
+											<string>24A587550FBB0547000954E8</string>
+											<string>24A587560FBB0547000954E8</string>
+											<string>24A5875D0FBB05DC000954E8</string>
+											<string>24A5875E0FBB05DC000954E8</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -827,6 +827,12 @@
 											<string>24A587440FBAF537000954E8</string>
 											<string>24A587450FBAF537000954E8</string>
 											<string>24A5874B0FBAF579000954E8</string>
+											<string>24A587500FBAFD59000954E8</string>
+											<string>24A587510FBAFD59000954E8</string>
+											<string>24A587520FBAFD59000954E8</string>
+											<string>24A587580FBB0547000954E8</string>
+											<string>24A587590FBB0547000954E8</string>
+											<string>24A5875F0FBB05DC000954E8</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -1020,12 +1026,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>24A587640FBB0694000954E8</string>
 		<string>24A586850FBAE967000954E8</string>
 		<string>24A586860FBAE967000954E8</string>
 		<string>2486F1BB0EC08C1600E5F9EE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/godexsoft/Documents/TapMania/TapMania.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>-1 113 1280 889 0 0 1280 1002 </string>

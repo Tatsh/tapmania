@@ -84,6 +84,25 @@
 	m_nCurrentSelection = 0;
 }
 
+- (int) findIndexByValue:(NSObject*)value {
+	int i;
+	
+	for(i=0; i<[m_aElements count]; ++i) {
+		TogglerItemObject* elem = (TogglerItemObject*)[m_aElements objectAtIndex:i];
+		if( [value isEqualTo:[elem m_pValue]] ) {
+			return i;
+		}
+	}
+	
+	return -1;
+}
+
+- (void) selectItemAtIndex:(int) index {
+	if(index >= 0 && index < [m_aElements count]) {
+		m_nCurrentSelection = index;
+	}
+}
+
 - (void) toggle {
 	if([m_aElements count]-1 == m_nCurrentSelection) {
 		m_nCurrentSelection = 0;

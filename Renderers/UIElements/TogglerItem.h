@@ -38,6 +38,8 @@
 - (void) removeItemAtIndex:(int) index;
 - (void) removeAll;
 
+- (int) findIndexByValue:(NSObject*)value;
+- (void) selectItemAtIndex:(int) index;
 - (void) toggle;
 - (TogglerItemObject*) getCurrent;
 
