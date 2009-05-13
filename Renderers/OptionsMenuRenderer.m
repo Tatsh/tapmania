@@ -11,6 +11,7 @@
 #import "EAGLView.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
+#import "SettingsEngine.h"
 #import "SoundEngine.h"
 
 #import "MenuItem.h"
@@ -101,8 +102,8 @@ Texture2D *t_BG;
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]) effectTime: 0.4f];
 	
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
-//	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setChangedActionHandler:@selector(themeTogglerChanged) receiver:self];
-//	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] setChangedActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
+	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setActionHandler:@selector(themeTogglerChanged) receiver:self];
+	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] setActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] setChangedActionHandler:@selector(soundSliderChanged) receiver:self];
 	
 	return self;
@@ -203,6 +204,14 @@ Texture2D *t_BG;
 - (void) soundSliderChanged {
 	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
 	SoundEngine_SetMasterVolume(value);
+}
+
+- (void) themeTogglerChanged {
+	[[SettingsEngine sharedInstance] setStringValue:[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme]) getCurrent] m_pValue] forKey:@"theme"];
+}
+
+- (void) noteSkinTogglerChanged {
+	[[SettingsEngine sharedInstance] setStringValue:[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) getCurrent] m_pValue] forKey:@"noteskin"];
 }
 
 @end

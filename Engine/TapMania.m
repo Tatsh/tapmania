@@ -12,6 +12,7 @@
 #import "SongsDirectoryCache.h"
 #import "SoundEffectsHolder.h"
 #import "InputEngine.h"
+#import "SettingsEngine.h"
 #import "ThemeManager.h"
 #import "EAGLView.h"
 
@@ -32,6 +33,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	self = [super init];
 	if(!self)
 		return nil;
+
+	// Load up user configuration and cache
+	[[SettingsEngine sharedInstance] loadUserConfig];
 	
 	// Defaults
 	m_pCurrentSong = nil;
@@ -51,9 +55,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
 	m_pGlView.multipleTouchEnabled = YES;	
 
-	// Load theme. FIXME: hardcoded default theme here!
-	[[ThemeManager sharedInstance] selectTheme:kDefaultThemeName];
-	[[ThemeManager sharedInstance] selectNoteskin:kDefaultNoteSkinName];
+	// Load theme
+	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
+	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
 	
 	// Load all sounds
 	[SoundEffectsHolder sharedInstance];

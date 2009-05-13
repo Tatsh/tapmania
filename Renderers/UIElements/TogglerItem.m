@@ -132,6 +132,9 @@
 				
 		if([self containsPoint:pointGl]) {
 			[self toggle];
+			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {			
+				[m_idActionDelegate performSelector:m_oActionHandler];
+			}
 		}
 	}
 }
