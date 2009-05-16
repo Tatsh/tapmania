@@ -20,8 +20,10 @@
 
 - (NSString*) getStringValue:(NSString*)key;
 - (int) getIntValue:(NSString*)key;
+- (float) getFloatValue:(NSString*)key;
 
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key;
+- (void) setFloatValue:(float)value forKey:(NSString*)key;
 
 + (SettingsEngine *) sharedInstance;
 

@@ -21,6 +21,7 @@
 #import "QuadTransition.h"
 
 #import "TogglerItem.h"
+#import "Label.h"
 #import "Slider.h"
 
 #import "OptionsMenuRenderer.h"
@@ -56,17 +57,19 @@ Texture2D *t_BG;
 	m_nState = kOptionsMenuState_Ready;
 	m_dAnimationTime = 0.0;	
 	
+	m_pLabels[kOptionsLabel_SoundMaster] = [[Label alloc] initWithTitle:@"Sound:" andShape:CGRectMake(20.0f, 90.0f, 70.0f, 46.0f)];
+	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(20.0f, 150.0f, 70.0f, 46.0f)];
+	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(20.0f, 200.0f, 80.0f, 46.0f)];
+	
 	// Register menu items
 	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:	
-				[[Slider alloc] initWithShape:CGRectMake(40.0f, 40.0f, 240.0f, 46.0f) andValue:0.2f]]];
+		[[ZoomEffect alloc] initWithRenderable:	
+			[[Slider alloc] initWithShape:CGRectMake(110.0f, 90.0f, 190.0f, 46.0f) andValue:SoundEngine_GetMasterVolume()]];
 	
 	// Theme selection
 	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:	
-				[[TogglerItem alloc] initWithShape:CGRectMake(40.0f, 90.0f, 240.0f, 46.0f)]]];
+		[[ZoomEffect alloc] initWithRenderable:	
+			[[TogglerItem alloc] initWithShape:CGRectMake(110.0f, 150.0f, 190.0f, 46.0f)]];
 
 	// Add all themes to the toggler list
 	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
@@ -82,9 +85,8 @@ Texture2D *t_BG;
 
 	// NoteSkin selection
 	m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] = 		
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:	
-				[[TogglerItem alloc] initWithShape:CGRectMake(40.0f, 200.0f, 240.0f, 46.0f)]]];
+		[[ZoomEffect alloc] initWithRenderable:	
+			[[TogglerItem alloc] initWithShape:CGRectMake(110.0f, 200.0f, 190.0f, 46.0f)]];
 	
 	// Add all noteskins to the toggler list
 	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
@@ -104,17 +106,8 @@ Texture2D *t_BG;
 			[[ZoomEffect alloc] initWithRenderable:	
 				[[MenuItem alloc] initWithTitle:@"Back" andShape:CGRectMake(mt_MenuButtonsX, mt_BackButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
 
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
+	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(mt_MenuButtonsX, 480+mt_MenuButtonsHeight)];
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
-
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Theme]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Theme]) effectTime: 0.4f];
-	
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) effectTime: 0.4f];
-	
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_BackButtonY)];
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]) effectTime: 0.4f];
 	
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setActionHandler:@selector(themeTogglerChanged) receiver:self];
@@ -131,6 +124,10 @@ Texture2D *t_BG;
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] release];
 	
+	[m_pLabels[kOptionsLabel_SoundMaster] release];
+	[m_pLabels[kOptionsLabel_Theme] release];
+	[m_pLabels[kOptionsLabel_NoteSkin] release];
+	
 	[super dealloc];
 }
 
@@ -141,6 +138,10 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
+	
+	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_Theme] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
@@ -161,6 +162,10 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
+	
+	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_SoundMaster]];
+	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_Theme]];
+	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_NoteSkin]];
 }
 
 - (void)render:(float) fDelta {
@@ -200,9 +205,6 @@ Texture2D *t_BG;
 		if(![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isFinished] && 
 		   ![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isTweening])
 		{			
-			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] startTweening];			
-			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] startTweening];			
-			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] startTweening];			
 			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] startTweening];			
 		} 
 		
@@ -219,6 +221,7 @@ Texture2D *t_BG;
 - (void) soundSliderChanged {
 	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
 	SoundEngine_SetMasterVolume(value);
+	[[SettingsEngine sharedInstance] setFloatValue:value forKey:@"sound"];
 }
 
 - (void) themeTogglerChanged {

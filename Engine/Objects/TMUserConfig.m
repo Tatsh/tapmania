@@ -15,7 +15,8 @@
 	if(!self)
 		return nil;
 		
-	m_pConfigDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", nil];
+	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
+						[NSNumber numberWithFloat:0.8f], @"sound", nil];
 	
 	return self;
 }
@@ -25,7 +26,7 @@
 	if(!self)
 		return nil;
 	
-	m_pConfigDict = [[NSDictionary alloc] initWithContentsOfFile:configPath];
+	m_pConfigDict = [[NSMutableDictionary alloc] initWithContentsOfFile:configPath];
 	
 	return self;	
 }
@@ -40,6 +41,11 @@
 	
 	if(! [m_pConfigDict valueForKey:@"noteskin"]) {
 		[m_pConfigDict setObject:@"default" forKey:@"noteskin"];
+		++errCount;
+	}
+	
+	if(! [m_pConfigDict valueForKey:@"sound"]) {
+		[m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
 		++errCount;
 	}
 	

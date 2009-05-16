@@ -123,6 +123,13 @@ OSStatus  SoundEngine_Teardown();
 OSStatus  SoundEngine_SetMasterVolume(Float32 inValue);
 
 /*!
+	@function		SoundEngine_GetMasterVolume
+	@abstract		Returns current master volume setting
+	@result			float value between 0.0 and 1.0 (inclusive).
+*/
+float	  SoundEngine_GetMasterVolume();
+
+/*!
     @function       SoundEngine_SetListenerPosition
     @abstract       Sets the position of the listener in the 3D space
     @param          inX

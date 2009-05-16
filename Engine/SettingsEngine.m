@@ -69,11 +69,9 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 - (NSString*) getStringValue:(NSString*)key {
 	TMLog(@"Get value for key from config: '%@'", key);
 	if( [m_pUserConfig valueForKey:key] != nil ) {
-		TMLog(@"It's nonnil!");
 		return (NSString*)[m_pUserConfig valueForKey:key];
 	}
 	
-	TMLog(@"It's nil!");
 	return @"";
 }
 
@@ -85,10 +83,25 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	return 0;
 }
 
+- (float) getFloatValue:(NSString*)key {
+	if( [m_pUserConfig valueForKey:key] != nil ) {
+		return [(NSNumber*)[m_pUserConfig valueForKey:key] floatValue];
+	}	
+	
+	return 0.0f;
+}
+
+
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key {
 	[m_pUserConfig setObject:value forKey:key];
 	[self writeUserConfig];
 }
+
+- (void) setFloatValue:(float)value forKey:(NSString*)key {
+	[m_pUserConfig setObject:[NSNumber numberWithFloat:value] forKey:key];
+	[self writeUserConfig];
+}
+
 
 #pragma mark Singleton stuff
 

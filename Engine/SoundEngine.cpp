@@ -1454,6 +1454,12 @@ OSStatus  SoundEngine_SetMasterVolume(Float32 inValue)
 }
 
 extern "C"
+float  SoundEngine_GetMasterVolume()
+{
+	return gMasterVolumeGain;
+}
+
+extern "C"
 OSStatus  SoundEngine_SetListenerPosition(Float32 inX, Float32 inY, Float32 inZ)
 {	
 	return (sOpenALObject) ? sOpenALObject->SetListenerPosition(inX, inY, inZ) : kSoundEngineErrUnitialized;

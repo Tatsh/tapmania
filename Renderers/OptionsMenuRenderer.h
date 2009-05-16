@@ -14,13 +14,21 @@
 #import "TMGameUIResponder.h"
 
 @class MenuItem;
+@class Label;
 
 typedef enum {
-	kOptionsMenuItem_JoyPad = 0,
-	kOptionsMenuItem_Back,
-	kOptionsMenuItem_SoundMaster,
+	kOptionsLabel_SoundMaster = 0,
+	kOptionsLabel_Theme,
+	kOptionsLabel_NoteSkin,
+	kNumOptionsLabels
+} OptionsLabels;
+
+typedef enum {
+	kOptionsMenuItem_SoundMaster = 0,
 	kOptionsMenuItem_Theme,
-	kOptionsMenuItem_NoteSkin,
+	kOptionsMenuItem_NoteSkin,	
+	kOptionsMenuItem_JoyPad,
+	kOptionsMenuItem_Back,
 	kNumOptionsMenuItems
 } OptionsMenuItem;
 
@@ -36,6 +44,7 @@ typedef enum {
 	OptionsMenuState	m_nState;
 	double				m_dAnimationTime;
 
+	Label*				m_pLabels[kNumOptionsLabels];
 	MenuItem*			m_pOptionsMenuItems[kNumOptionsMenuItems];
 }
 

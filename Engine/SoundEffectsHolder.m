@@ -8,6 +8,7 @@
 
 #import "SoundEffectsHolder.h"
 #import "SoundEngine.h"
+#import "SettingsEngine.h"
 
 // This is a singleton class, see below
 static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
@@ -30,6 +31,10 @@ static SoundEffectsHolder *sharedSoundEffectsDelegate = nil;
 	SoundEngine_SetListenerPosition(0.0, 0.0, 1.0);
 	SoundEngine_SetEffectsVolume(1.0);
 	SoundEngine_SetBackgroundMusicVolume(1.0);
+	
+	// Set the master volume from settings
+	float volume = [[SettingsEngine sharedInstance] getFloatValue:@"sound"];
+	SoundEngine_SetMasterVolume(volume);
 	
 	SoundEngine_LoadEffect([[NSString stringWithFormat:@"themes/%@/Sounds/%@", themeDir, @"tick.wav"] UTF8String], &m_uiSounds[kSound_Clap]);
 	
