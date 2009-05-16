@@ -228,6 +228,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -278,13 +280,15 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>95</integer>
-									<integer>49</integer>
+									<integer>102</integer>
+									<integer>99</integer>
+									<integer>98</integer>
+									<integer>97</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 1069}, {205, 606}}</string>
+							<string>{{0, 1493}, {205, 606}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -314,14 +318,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SoundEffectsHolder.m</string>
+								<string>OptionsMenuRenderer.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +331,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>SoundEffectsHolder.m</string>
+										<string>OptionsMenuRenderer.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>24627C8F0FBF82DE002E245D</string>
+										<string>24627C9F0FBF8525002E245D</string>
 										<key>history</key>
 										<array>
 											<string>24EBF5930EC89B7A00533056</string>
@@ -511,10 +513,10 @@
 											<string>24627C5A0FBF8173002E245D</string>
 											<string>24627C5B0FBF8173002E245D</string>
 											<string>24627C650FBF818C002E245D</string>
-											<string>24627C7F0FBF8298002E245D</string>
 											<string>24627C800FBF8298002E245D</string>
 											<string>24627C890FBF82A7002E245D</string>
-											<string>24627C8A0FBF82A7002E245D</string>
+											<string>24627C920FBF843C002E245D</string>
+											<string>24627C930FBF843C002E245D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -775,6 +777,7 @@
 											<string>24627C850FBF8298002E245D</string>
 											<string>24627C860FBF8298002E245D</string>
 											<string>24627C8B0FBF82A7002E245D</string>
+											<string>24627C940FBF843C002E245D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -968,12 +971,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>24627C900FBF82DE002E245D</string>
 		<string>24627B9B0FBF6DA9002E245D</string>
 		<string>24627B8C0FBF6CF0002E245D</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>2486F1BB0EC08C1600E5F9EE</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/godexsoft/Development/Tapmania/TapMania.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -1348,7 +1350,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

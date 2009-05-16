@@ -216,12 +216,14 @@ Texture2D *t_BG;
 /* Input handlers */
 - (void) backButtonHit {
 	m_nSelectedMenu = kOptionsMenuItem_Back;
+	
+	// Hack. This is slow so we do this on exit... save the sound setting only once
+	[[SettingsEngine sharedInstance] setFloatValue:SoundEngine_GetMasterVolume() forKey:@"sound"];
 }
 
 - (void) soundSliderChanged {
 	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
 	SoundEngine_SetMasterVolume(value);
-	[[SettingsEngine sharedInstance] setFloatValue:value forKey:@"sound"];
 }
 
 - (void) themeTogglerChanged {
