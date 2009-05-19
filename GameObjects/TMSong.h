@@ -34,6 +34,9 @@ typedef enum {
 	// Disk info
 	NSString*		m_sFilePath;	// The path on the disk where the file used to get this song resides
 	TMSongFileType	m_nFileType;	// The type of the file
+
+	NSString*		m_sSongDirName;		// Path to this song's dir
+	NSString*		m_sHash;		// MD5 sum for this song
 	
 	// Music file info
 	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
@@ -72,7 +75,7 @@ typedef enum {
 @property (retain, nonatomic) TMChangeSegment** m_aFreezeArray;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
-- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath;
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir;
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 

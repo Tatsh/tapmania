@@ -13,6 +13,11 @@
 // This is a singleton class, see below
 static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
+@interface SongsDirectoryCache (Private) 
+- (NSDictionary*) getCatalogueCache;
+- (void) writeCatalogueCache;
+@end
+
 @implementation SongsDirectoryCache
 
 @synthesize m_idDelegate;
@@ -59,6 +64,10 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			return;
 		}
 		
+		// Try to read the catalogue file
+		m_pCatalogueCache = [[SongsDirectoryCache sharedInstance] getCatalogueCache];		
+		
+		// Renew the cache
 		for(i = 0; i<[songsDirContents count]; i++) {
 			
 			TMLog(@"Pick a song to load...");
@@ -110,10 +119,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 				}
 
 				TMLog(@"Music file path: %@", musicFilePath);
-				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath];				
+				
+				if([m_pCatalogueCache valueForKey:songDirName] != nil) {
+					TMLog(@"Catalogue file has this file already!");
+				}
+				
+				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
 				
 				TMLog(@"Song ready to be added to list!!");
 				[m_aAvailableSongs addObject:song];
+				[m_pCatalogueCache setObject:song forKey:songDirName];
 				
 				if(m_idDelegate != nil) {
 					[m_idDelegate doneLoadingSong:songDirName];
@@ -128,6 +143,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound" reason:@"Songs directory couldn't be found!" userInfo:nil];
 		@throw ex;
 	}
+	
+	// Write cache file
+	[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
 	
 	// Tell the user that we are done
 	if(m_idDelegate != nil) {
@@ -182,6 +200,34 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	return nil;	// Not found	
 }
+
+- (NSMutableDictionary*) getCatalogueCache {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
+	
+	if([paths count] > 0) {
+		NSString * dir = [paths objectAtIndex:0]; 
+		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
+		
+		if ([[NSFileManager defaultManager] fileExistsAtPath:catalogueFile]) {
+			return [[NSMutableDictionary alloc] initWithContentsOfFile:catalogueFile];
+		}
+	}
+	
+	return [[NSMutableDictionary alloc] init];
+}
+
+- (void) writeCatalogueCache {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
+	
+	if([paths count] > 0) {
+		NSString * dir = [paths objectAtIndex:0]; 
+		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
+
+		TMLog(@"Write catalogue to: %@", catalogueFile);
+		[m_pCatalogueCache writeToFile:catalogueFile atomically:NO];
+	}
+}
+
 
 - (void) dealloc {
 	[m_sSongsDir release];

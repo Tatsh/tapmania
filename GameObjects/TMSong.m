@@ -38,7 +38,7 @@
 	return self;
 }
 
-- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath {
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir {
 	
 	// Note: only title etc is loaded here. No steps.
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
@@ -54,8 +54,9 @@
 		return nil;
 	}
 	
-	self.m_sMusicFilePath = musicFilePath;
-	self.m_sFilePath = stepsFilePath;
+	m_sMusicFilePath = musicFilePath;
+	m_sFilePath = stepsFilePath;
+	m_sSongDirName  = dir;
 	
 	return self;
 }
@@ -134,6 +135,60 @@
 		default:
 			return @"UNKNOWN";
 	}
+}
+
+// Serialization
+- (id) initWithCoder: (NSCoder *) coder {
+	m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
+	m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
+	m_nFileType = [coder decodeIntForKey:@"ft"];
+	
+	m_sTitle = [[coder decodeObjectForKey:@"t"] retain];
+	m_sArtist = [[coder decodeObjectForKey:@"a"] retain];
+
+	m_fBpm = [coder decodeFloatForKey:@"b"];
+	m_dGap = [coder decodeDoubleForKey:@"g"];
+
+	m_nBpmChangeCount = [coder decodeIntForKey:@"bc"];
+	m_nFreezeCount = [coder decodeIntForKey:@"fc"];
+	
+	NSArray* bpmChangeArr = [coder decodeObjectForKey:@"bca"];
+	NSArray* freezeArr = [coder decodeObjectForKey:@"fca"];
+	
+	int i = 0;
+	for (TMChangeSegment* segment in bpmChangeArr) {
+		m_aBpmChangeArray[i++] = [segment retain];
+	}
+	
+	i = 0;
+	for (TMChangeSegment* segment in freezeArr) {
+		m_aFreezeArray[i++] = [segment retain];
+	}
+	
+	NSArray* availDiff = [coder decodeObjectForKey:@"adl"];
+	i = 0;
+	for (NSNumber* val in availDiff) {
+		m_nAvailableDifficultyLevels[i++] = [val intValue];
+	}
+}
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+	[coder encodeObject:m_sFilePath forKey:@"fp"];
+	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
+	[coder encodeInt:m_nFileType forKey:@"ft"];
+	
+	[coder encodeObject:m_sTitle forKey:@"t"];
+	[coder encodeObject:m_sArtist forKey:@"a"];
+	
+	[coder encodeFloat:m_fBpm forKey:@"b"];
+	[coder encodeDouble:m_dGap forKey:@"g"];
+
+	[coder encodeInt:m_nBpmChangeCount forKey:@"bc"];
+	[coder encodeInt:m_nFreezeCount forKey:@"fc"];
+	
+	[coder encodeObject:[NSArray arrayWithObjects:m_aBpmChangeArray count:m_nBpmChangeCount] forKey:@"bca"];
+	[coder encodeObject:[NSArray arrayWithObjects:m_aFreezeArray count:m_nFreezeCount] forKey:@"fca"];
+	[coder encodeObject:[NSArray arrayWithObjects:m_nAvailableDifficultyLevels count:kNumSongDifficulties] forKey:@"adl"];
 }
 
 @end
