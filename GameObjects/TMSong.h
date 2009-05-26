@@ -29,7 +29,7 @@ typedef enum {
 @class TMSteps;
 @class TMChangeSegment;
 
-@interface TMSong : NSObject {
+@interface TMSong : NSObject <NSCoding> {
 	
 	// Disk info
 	NSString*		m_sFilePath;	// The path on the disk where the file used to get this song resides

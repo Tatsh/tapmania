@@ -124,6 +124,8 @@
 		24964D130F79231100C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964D120F79231100C9D5BC /* config.h */; };
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
+		249D80540FCC9A2200630646 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 249D7FFD0FCC9A2200630646 /* themes */; };
+		249D805A0FCC9AF700630646 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.m */; };
 		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
 		24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */; };
 		24A4257B0F713529001B0CDE /* SMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.m */; };
@@ -135,7 +137,6 @@
 		24A70B3F0F7AB3C00080121C /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.m */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.m */; };
-		24AF459C0F827B7800F630FD /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 24AF45460F827B7800F630FD /* themes */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
@@ -357,6 +358,9 @@
 		24964D120F79231100C9D5BC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = "ext/libvorbis-1.2.0/config.h"; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
+		249D7FFD0FCC9A2200630646 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
+		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
+		249D80590FCC9AF700630646 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = Renderers/UIElements/ImageButton.m; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
 		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundEngine.h; sourceTree = "<group>"; };
 		24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSoundEngine.m; sourceTree = "<group>"; };
@@ -377,7 +381,6 @@
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		24AF446D0F825BE200F630FD /* FontCharAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharAliases.h; sourceTree = "<group>"; };
 		24AF446E0F825BE200F630FD /* FontCharAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCharAliases.m; sourceTree = "<group>"; };
-		24AF45460F827B7800F630FD /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				248B0C620F4B133E005A998C /* Effects */,
 				24F15EB70EC31E4700755788 /* MenuItem.h */,
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
+				249D80580FCC9AF700630646 /* ImageButton.h */,
+				249D80590FCC9AF700630646 /* ImageButton.m */,
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
 				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
 				24627B9C0FBF6DF9002E245D /* Label.h */,
@@ -901,8 +906,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				249D7FFD0FCC9A2200630646 /* themes */,
 				24E104CF0FC35B4100FF69E9 /* TapManiaCatalogue.plist */,
-				24AF45460F827B7800F630FD /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
 				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -1097,8 +1102,8 @@
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
-				24AF459C0F827B7800F630FD /* themes in Resources */,
 				24E104D00FC35B4100FF69E9 /* TapManiaCatalogue.plist in Resources */,
+				249D80540FCC9A2200630646 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1176,6 +1181,7 @@
 				24A586000FBADCE6000954E8 /* TMUserConfig.m in Sources */,
 				24A5860A0FBADFD6000954E8 /* SettingsEngine.m in Sources */,
 				24627B9E0FBF6DF9002E245D /* Label.m in Sources */,
+				249D805A0FCC9AF700630646 /* ImageButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMChangeSegment : NSObject {
+@interface TMChangeSegment : NSObject <NSCoding> {
 	float	m_fNoteRow;		// The noteRow when this change should fire
 	float	m_fChangeValue;	// The value to change to
 }

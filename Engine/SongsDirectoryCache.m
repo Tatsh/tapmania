@@ -14,7 +14,7 @@
 static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 @interface SongsDirectoryCache (Private) 
-- (NSDictionary*) getCatalogueCache;
+- (NSMutableDictionary*) getCatalogueCache;
 - (void) writeCatalogueCache;
 @end
 
@@ -164,41 +164,20 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 }
 
 - (TMSong*) getSongNextTo:(TMSong*)song {
-	int i;
-	for(i=0; i<[m_aAvailableSongs count]; ++i) {
-
-		// We search by memory addres
-		if([m_aAvailableSongs objectAtIndex:i] == song) {
-			if(i == [m_aAvailableSongs count]-1) {
-				i = 0; 
-			} else {
-				++i;
-			}
-			
-			return [m_aAvailableSongs objectAtIndex:i];
-		}
-	}
+	int i = [m_aAvailableSongs indexOfObject:song];
+	if(i == [m_aAvailableSongs count]-1) i = 0;
+	else ++i;
 	
-	return nil;	// Not found
+	return [m_aAvailableSongs objectAtIndex:i];
 }
 
 - (TMSong*) getSongPrevFrom:(TMSong*)song {
-	int i;
-	for(i=0; i<[m_aAvailableSongs count]; ++i) {
-		
-		// We search by memory addres
-		if([m_aAvailableSongs objectAtIndex:i] == song) {
-			if(i == 0) {
-				i = [m_aAvailableSongs count]-1; 
-			} else {
-				--i;
-			}
-			
-			return [m_aAvailableSongs objectAtIndex:i];
-		}
-	}
 	
-	return nil;	// Not found	
+	int i = [m_aAvailableSongs indexOfObject:song];
+	if(i == 0) i = [m_aAvailableSongs count] -1;
+	else --i;
+	
+	return [m_aAvailableSongs objectAtIndex:i];
 }
 
 - (NSMutableDictionary*) getCatalogueCache {

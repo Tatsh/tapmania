@@ -8,6 +8,7 @@
 
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
+#import "ImageButton.h"
 #import "PhysicsUtil.h"
 
 #import "SongPickerMenuRenderer.h"
@@ -37,6 +38,8 @@
 - (void) playButtonHit;
 - (void) optionsButtonHit;
 - (void) creditsButtonHit;
+
+- (void) donateButtonHit;
 @end
 
 
@@ -46,6 +49,7 @@ int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 int mt_Mass, mt_Gravity;
 Texture2D *t_BG;
+Texture2D *t_Donate;
 
 - (id) init {
 	self = [super init];
@@ -65,11 +69,16 @@ Texture2D *t_BG;
 	
 	// Preload all required graphics
 	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
+	t_Donate = [[ThemeManager sharedInstance] texture:@"Common Donate"];
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
 	m_nState = kMainMenuState_Ready;
 	m_dAnimationTime = 0.0;
+	
+	// Create donation button
+	m_pDonateButton = [[ZoomEffect alloc] initWithRenderable:
+		[[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
 	
 	// Register menu items
 	m_pMainMenuItems[kMainMenuItem_Play] = 
@@ -99,6 +108,8 @@ Texture2D *t_BG;
 	[m_pMainMenuItems[kMainMenuItem_Play] setActionHandler:@selector(playButtonHit) receiver:self];
 	[m_pMainMenuItems[kMainMenuItem_Options] setActionHandler:@selector(optionsButtonHit) receiver:self];
 	[m_pMainMenuItems[kMainMenuItem_Credits] setActionHandler:@selector(creditsButtonHit) receiver:self];
+	
+	[m_pDonateButton setActionHandler:@selector(donateButtonHit) receiver:self];
 
 	return self;
 }
@@ -108,6 +119,8 @@ Texture2D *t_BG;
 	[m_pMainMenuItems[kMainMenuItem_Play] release];
 	[m_pMainMenuItems[kMainMenuItem_Options] release];
 	[m_pMainMenuItems[kMainMenuItem_Credits] release];
+	
+	[m_pDonateButton release];
 	
 	[super dealloc];
 }
@@ -119,11 +132,15 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
+	
+	[[TapMania sharedInstance] registerObject:m_pDonateButton withPriority:kRunLoopPriority_NormalUpper-3];
 		
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Play]];
 	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Options]];
 	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Credits]];	
+	
+	[[InputEngine sharedInstance] subscribe:m_pDonateButton];
 }
 
 - (void) deinitOnTransition {
@@ -131,11 +148,15 @@ Texture2D *t_BG;
 	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Play]];
 	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Options]];
 	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Credits]];
+
+	[[InputEngine sharedInstance] unsubscribe:m_pDonateButton];
 	
 	// Remove the menu items from the render loop
 	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Play]];
 	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Options]];
 	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Credits]];
+	
+	[[TapMania sharedInstance] deregisterObject:m_pDonateButton];
 }
 
 /* TMRenderable method */
@@ -224,6 +245,11 @@ Texture2D *t_BG;
 - (void) creditsButtonHit {
 	m_nSelectedMenu = kMainMenuItem_Credits;
 	[[InputEngine sharedInstance] disableDispatcher];
+}
+
+- (void) donateButtonHit {
+	NSURL* url = [NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=godexsoft%40gmail%2ecom&lc=US&item_name=TapMania&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"];
+	[[UIApplication sharedApplication] openURL:url];
 }
 
 @end

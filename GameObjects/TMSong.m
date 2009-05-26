@@ -139,6 +139,8 @@
 
 // Serialization
 - (id) initWithCoder: (NSCoder *) coder {
+	self = [super initWithCoder:coder];
+	
 	m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
 	m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
 	m_nFileType = [coder decodeIntForKey:@"ft"];
@@ -170,9 +172,13 @@
 	for (NSNumber* val in availDiff) {
 		m_nAvailableDifficultyLevels[i++] = [val intValue];
 	}
+	
+	return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
+	[super encodeWithCoder:coder];
+	
 	[coder encodeObject:m_sFilePath forKey:@"fp"];
 	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
 	[coder encodeInt:m_nFileType forKey:@"ft"];
