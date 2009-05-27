@@ -28,21 +28,12 @@ Texture2D* t_SongsLoaderBG;
 	if(!self)
 		return nil;
 	
-	// Cache textures
-	t_SongsLoaderBG = [[ThemeManager sharedInstance] texture:@"SongsLoader Background"];
-	
 	m_bAllSongsLoaded = NO;
 	m_bGlobalError = NO;
-	
-	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
-	m_pLock = [[NSLock alloc] init];
 	
 	m_pCurrentTexture = nil;
 	m_sCurrentMessage = @"Start loading songs...";
 	m_bTextureShouldChange = YES;
-	
-	// Make sure we have the instance initialized on the main pool
-	[SongsDirectoryCache sharedInstance];
 	
 	return self;
 }
@@ -78,6 +69,15 @@ Texture2D* t_SongsLoaderBG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	// Cache textures
+	t_SongsLoaderBG = [[ThemeManager sharedInstance] texture:@"SongsLoader Background"];
+	
+	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
+	m_pLock = [[NSLock alloc] init];
+	
+	// Make sure we have the instance initialized on the main pool
+	[SongsDirectoryCache sharedInstance];
+	
 	// Start the song cache thread
 	[m_pThread start];
 }

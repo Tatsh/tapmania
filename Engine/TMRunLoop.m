@@ -105,9 +105,7 @@
 
 /* Private worker */
 - (void) worker {
-	// int framesCounter = 0;
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
-	// float totalTime = 0.0f;
 
 	/* Call initialization routine on delegate */
 	if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {

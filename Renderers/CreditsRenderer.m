@@ -22,39 +22,6 @@
 
 Texture2D* t_CreditsBG;
 
-- (id) init {
-	self = [super init];
-	if(!self)
-		return nil;
-
-	int i;
-	
-	// Cache graphics
-	t_CreditsBG = [[ThemeManager sharedInstance] texture:@"Credits Background"];
-	
-	// We will show the credits until this set to YES
-	m_bShouldReturn = NO;
-	
-	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"plist"];	
-	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
-	
-	// Alloc the textures array
-	m_aTexturesArray = [[NSMutableArray alloc] initWithCapacity:[textsArray count]];
-		
-	// Cache the textures
-	for(i=0; i<[textsArray count]; i++){
-		[m_aTexturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:16]];
-	}
-	
-	[textsArray release];
-	
-	// Set starting pos
-	m_fCurrentPos = ([m_aTexturesArray count]*15);
-	m_fCurrentPos = -m_fCurrentPos;		
-	
-	return self;
-}
-
 - (void) dealloc {
 	int i;
 
@@ -68,6 +35,31 @@ Texture2D* t_CreditsBG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	int i;
+	
+	// Cache graphics
+	t_CreditsBG = [[ThemeManager sharedInstance] texture:@"Credits Background"];
+	
+	// We will show the credits until this set to YES
+	m_bShouldReturn = NO;
+	
+	NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"plist"];	
+	NSArray* textsArray = [[NSArray arrayWithContentsOfFile:filePath] retain];
+	
+	// Alloc the textures array
+	m_aTexturesArray = [[NSMutableArray alloc] initWithCapacity:[textsArray count]];
+	
+	// Cache the textures
+	for(i=0; i<[textsArray count]; i++){
+		[m_aTexturesArray addObject:[[Texture2D alloc] initWithString:[textsArray objectAtIndex:i] dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:16]];
+	}
+	
+	[textsArray release];
+	
+	// Set starting pos
+	m_fCurrentPos = ([m_aTexturesArray count]*15);
+	m_fCurrentPos = -m_fCurrentPos;			
+	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 }

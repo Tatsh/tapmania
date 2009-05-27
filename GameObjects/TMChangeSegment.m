@@ -26,7 +26,7 @@
 
 // Serialization
 - (id) initWithCoder: (NSCoder *) coder {
-	self = [super initWithCoder:coder];
+	self = [super init];
 	
 	m_fNoteRow = [coder decodeFloatForKey:@"r"];
 	m_fChangeValue = [coder decodeFloatForKey:@"v"];
@@ -35,8 +35,6 @@
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-	[super encodeWithCoder:coder];
-	
 	[coder encodeFloat:m_fNoteRow forKey:@"r"];
 	[coder encodeFloat:m_fChangeValue forKey:@"v"];
 }

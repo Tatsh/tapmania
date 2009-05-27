@@ -57,8 +57,8 @@
 	glPopMatrix();
 }
 
-- (BOOL) updateTransitionIn:(float)fDelta { 
-	if( ![super updateTransitionIn:fDelta] ) {
+- (BOOL) updateTransitionIn { 
+	if( ![super updateTransitionIn] ) {
 		m_fRotation += 8.0f;
 		return NO;
 	}
@@ -66,8 +66,8 @@
 	return YES;
 }
 
-- (BOOL) updateTransitionOut:(float)fDelta { 
-	if( ![super updateTransitionOut:fDelta] ) {
+- (BOOL) updateTransitionOut { 
+	if( ![super updateTransitionOut] ) {
 		m_fRotation += 8.0f;
 		return NO;
 	}

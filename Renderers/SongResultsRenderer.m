@@ -26,12 +26,34 @@ Texture2D* t_SongResultsBG;
 	self = [super init];
 	if(!self)
 		return nil;
-		
-	// Cache textures
-	t_SongResultsBG = [[ThemeManager sharedInstance] texture:@"SongResults Background"];
-	
+			
 	m_pSteps = [steps retain];
 	m_pSong = [song retain];
+		
+	return self;
+}
+
+- (void) dealloc {
+	
+	// Here we MUST release memory used by the steps since after this place we will not need it anymore
+	TMLog(@"!!!!!!!!!!!!! Releasing steps/song...");
+	[m_pSteps release];
+	[m_pSong release];
+	
+	int i;
+	for(i=0; i<[texturesArray count]; ++i) {
+		[[texturesArray objectAtIndex:i] release];
+	}
+	
+	[texturesArray release];
+	
+	[super dealloc];
+}
+
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
+	// Cache textures
+	t_SongResultsBG = [[ThemeManager sharedInstance] texture:@"SongResults Background"];
 
 	int i, track;
 	
@@ -57,10 +79,10 @@ Texture2D* t_SongResultsBG;
 			}
 		}
 	}
-		
+	
 	// Alloc the textures array
 	texturesArray = [[NSMutableArray alloc] initWithCapacity:8];
-
+	
 	// Cache the textures
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", m_nCounters[kNoteScore_W1E]+m_nCounters[kNoteScore_W1L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", m_nCounters[kNoteScore_W2E]+m_nCounters[kNoteScore_W2L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
@@ -69,30 +91,8 @@ Texture2D* t_SongResultsBG;
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kNoteScore_W5E]+m_nCounters[kNoteScore_W5L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kNoteScore_MissE]+m_nCounters[kNoteScore_MissL]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
 	
-	return self;
-}
-
-- (void) dealloc {
-	
-	// Here we MUST release memory used by the steps since after this place we will not need it anymore
-	TMLog(@"!!!!!!!!!!!!! Releasing steps/song...");
-	[m_pSteps release];
-	[m_pSong release];
-	
-	int i;
-	for(i=0; i<[texturesArray count]; ++i) {
-		[[texturesArray objectAtIndex:i] release];
-	}
-	
-	[texturesArray release];
-	
-	[super dealloc];
-}
-
-/* TMTransitionSupport methods */
-- (void) setupForTransition {
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 }

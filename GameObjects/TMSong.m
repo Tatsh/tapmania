@@ -139,8 +139,7 @@
 
 // Serialization
 - (id) initWithCoder: (NSCoder *) coder {
-	self = [super initWithCoder:coder];
-	
+	self = [super init];
 	m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
 	m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
 	m_nFileType = [coder decodeIntForKey:@"ft"];
@@ -177,8 +176,6 @@
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-	[super encodeWithCoder:coder];
-	
 	[coder encodeObject:m_sFilePath forKey:@"fp"];
 	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
 	[coder encodeInt:m_nFileType forKey:@"ft"];

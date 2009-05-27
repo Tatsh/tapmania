@@ -46,11 +46,10 @@
 	glColor4f(1, 1, 1, 1);
 }
 
-- (BOOL) updateTransitionIn:(float)fDelta { 
-	[super updateTransitionIn:fDelta];
-	
-	float transDelta = fDelta / m_dTimeIn;
-	m_fTransitionPosition += transDelta;
+- (BOOL) updateTransitionIn { 
+	[super updateTransitionIn];
+
+	m_fTransitionPosition = m_dElapsedTime/m_dTimeIn;
 	
 	if(m_fTransitionPosition >= 1.0f) {
 		m_fTransitionPosition = 1.0f;
@@ -61,11 +60,10 @@
 	return NO; // Busy
 }
 
-- (BOOL) updateTransitionOut:(float)fDelta { 
-	[super updateTransitionOut:fDelta];
+- (BOOL) updateTransitionOut { 
+	[super updateTransitionOut];
 
-	float transDelta = fDelta / m_dTimeOut;
-	m_fTransitionPosition -= transDelta;
+	m_fTransitionPosition = 1.0f - m_dElapsedTime/m_dTimeOut;
 	
 	if(m_fTransitionPosition <= 0.0f) {
 		m_fTransitionPosition = 0.0f;

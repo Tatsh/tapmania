@@ -29,7 +29,8 @@
 #import "BlinkEffect.h"
 #import "SlideEffect.h"
 
-#import "QuadTransition.h"
+//#import "QuadTransition.h"
+#import "FadeTransition.h"
 
 #import "FontManager.h"
 #import "Font.h"
@@ -51,11 +52,20 @@ int mt_Mass, mt_Gravity;
 Texture2D *t_BG;
 Texture2D *t_Donate;
 
-- (id) init {
-	self = [super init];
-	if(!self)
-		return nil;
+- (void) dealloc {
+	// Release menu items
+	[m_pMainMenuItems[kMainMenuItem_Play] release];
+	[m_pMainMenuItems[kMainMenuItem_Options] release];
+	[m_pMainMenuItems[kMainMenuItem_Credits] release];
 	
+	[m_pDonateButton release];
+	
+	[super dealloc];
+}
+
+
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
 	// Cache metrics
 	mt_PlayButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu PlayButtonY"];
 	mt_OptionsButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu OptionsButtonY"];
@@ -78,29 +88,29 @@ Texture2D *t_Donate;
 	
 	// Create donation button
 	m_pDonateButton = [[ZoomEffect alloc] initWithRenderable:
-		[[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
+					   [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
 	
 	// Register menu items
 	m_pMainMenuItems[kMainMenuItem_Play] = 
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:	
-				// [[BlinkEffect alloc] initWithRenderable:
-					[[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
-
+	[[SlideEffect alloc] initWithRenderable:
+	 [[ZoomEffect alloc] initWithRenderable:	
+	  // [[BlinkEffect alloc] initWithRenderable:
+	  [[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
+	
 	m_pMainMenuItems[kMainMenuItem_Options] = 
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:
-				[[MenuItem alloc] initWithTitle:@"Options" andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
-
+	[[SlideEffect alloc] initWithRenderable:
+	 [[ZoomEffect alloc] initWithRenderable:
+	  [[MenuItem alloc] initWithTitle:@"Options" andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	
 	m_pMainMenuItems[kMainMenuItem_Credits] = 	
-		[[SlideEffect alloc] initWithRenderable:
-			[[ZoomEffect alloc] initWithRenderable:
-				[[MenuItem alloc] initWithTitle:@"Credits" andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
-
+	[[SlideEffect alloc] initWithRenderable:
+	 [[ZoomEffect alloc] initWithRenderable:
+	  [[MenuItem alloc] initWithTitle:@"Credits" andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_CreditsButtonY)];
-
+	
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) effectTime: 0.4f];
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) effectTime: 0.4f];
 	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) effectTime: 0.4f];	
@@ -109,25 +119,8 @@ Texture2D *t_Donate;
 	[m_pMainMenuItems[kMainMenuItem_Options] setActionHandler:@selector(optionsButtonHit) receiver:self];
 	[m_pMainMenuItems[kMainMenuItem_Credits] setActionHandler:@selector(creditsButtonHit) receiver:self];
 	
-	[m_pDonateButton setActionHandler:@selector(donateButtonHit) receiver:self];
-
-	return self;
-}
-
-- (void) dealloc {
-	// Release menu items
-	[m_pMainMenuItems[kMainMenuItem_Play] release];
-	[m_pMainMenuItems[kMainMenuItem_Options] release];
-	[m_pMainMenuItems[kMainMenuItem_Credits] release];
+	[m_pDonateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
 	
-	[m_pDonateButton release];
-	
-	[super dealloc];
-}
-
-
-/* TMTransitionSupport methods */
-- (void) setupForTransition {
 	// Add the menu items to the render loop with lower priority
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
@@ -189,13 +182,13 @@ Texture2D *t_Donate;
 	} else if(m_nState == kMainMenuState_Finished) {
 		
 		if(m_nSelectedMenu == kMainMenuItem_Play) {
-			[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
+			[[TapMania sharedInstance] switchToScreen:[[SongPickerMenuRenderer alloc] init] usingTransition:[FadeTransition class]];
 
 		} else if(m_nSelectedMenu == kMainMenuItem_Options) {
 			[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init]];
 			
 		} else if(m_nSelectedMenu == kMainMenuItem_Credits) {				
-			[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[QuadTransition class]];
+			[[TapMania sharedInstance] switchToScreen:[[CreditsRenderer alloc] init] usingTransition:[FadeTransition class]];
 		}
 		
 		m_nState = kMainMenuState_None;	// Do nothing more

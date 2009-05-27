@@ -61,17 +61,30 @@ Texture2D* t_SongPickerBG;
 Texture2D* t_Highlight;
 Texture2D* t_ModPanel;
 
-- (id) init {
-	self = [super init];
-	if(!self)
-		return nil;
+- (void) dealloc {
 	
+	// Explicitly deallocate memory
+	int i;
+	for(i=0; i<[m_pWheelItems count]; ++i) {
+		[[m_pWheelItems objectAtIndex:i] release];
+	}	
+	
+	[m_pWheelItems release];
+	[m_pSpeedToggler release];
+	[m_pDifficultyToggler release];
+	[m_pBackMenuItem release];
+	
+	[super dealloc];
+}
+
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
 	// Cache metrics
 	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler X"];
 	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Y"];
 	mt_SpeedTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Width"];
 	mt_SpeedTogglerHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Height"];
-
+	
 	mt_DifficultyTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler X"];
 	mt_DifficultyTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler Y"];
 	mt_DifficultyTogglerWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu DifficultyToggler Width"];
@@ -86,7 +99,7 @@ Texture2D* t_ModPanel;
 	mt_ModPanelY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Y"];
 	mt_ModPanelWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Width"];
 	mt_ModPanelHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu ModPanel Height"];
-		
+	
 	mt_ItemSongHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel ItemSong Height"];
 	mt_ItemSongCenterX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel ItemSong CenterX"];
 	mt_ItemSongHalfHeight = mt_ItemSongHeight/2;
@@ -95,11 +108,11 @@ Texture2D* t_ModPanel;
 	mt_HighlightCenterY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight CenterY"];
 	mt_HighlightWidth = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight Width"];
 	mt_HighlightHeight = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu Wheel Highlight Height"];
-
+	
 	mt_HighlightX = mt_HighlightCenterX - mt_HighlightWidth/2;
 	mt_HighlightY = mt_HighlightCenterY - mt_HighlightHeight/2;
 	mt_HighlightHalfHeight = mt_HighlightHeight/2;
-		
+	
 	// Cache graphics
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
@@ -122,7 +135,7 @@ Texture2D* t_ModPanel;
 		if(j == [songList count]) {
 			j = 0;
 		}
-
+		
 		TMSong *song = [songList objectAtIndex:j++];				
 		[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, curYOffset)]];
 		
@@ -137,7 +150,7 @@ Texture2D* t_ModPanel;
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_3x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_3x]];
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_5x]];
 	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_8x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_8x]];
-		
+	
 	// Difficulty toggler
 	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:CGRectMake(mt_DifficultyTogglerX, mt_DifficultyTogglerY, mt_DifficultyTogglerWidth, mt_DifficultyTogglerHeight)]];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
@@ -147,29 +160,8 @@ Texture2D* t_ModPanel;
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	
 	// Populate difficulty toggler with current song
-	[self selectSong];
+	[self selectSong];	
 	
-	return self;
-}
-
-- (void) dealloc {
-	
-	// Explicitly deallocate memory
-	int i;
-	for(i=0; i<[m_pWheelItems count]; ++i) {
-		[[m_pWheelItems objectAtIndex:i] release];
-	}	
-	
-	[m_pWheelItems release];
-	[m_pSpeedToggler release];
-	[m_pDifficultyToggler release];
-	[m_pBackMenuItem release];
-	
-	[super dealloc];
-}
-
-/* TMTransitionSupport methods */
-- (void) setupForTransition {
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 	[[InputEngine sharedInstance] subscribe:m_pSpeedToggler];

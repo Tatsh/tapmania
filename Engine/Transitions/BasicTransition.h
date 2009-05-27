@@ -11,8 +11,8 @@
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 
-#define kDefaultTransitionInTime	0.3f
-#define kDefaultTransitionOutTime	0.3f
+#define kDefaultTransitionInTime	0.3
+#define kDefaultTransitionOutTime	0.3
 
 typedef enum {
 	kTransitionStateInitializing = 0,
@@ -28,7 +28,8 @@ typedef enum {
 	AbstractRenderer *m_pFrom, 
 					 *m_pTo;
 	
-	double			  m_dTimePassed;
+	double			  m_dTimeStart;
+	double			  m_dElapsedTime;
 	TMTransitionState m_nState;
 	
 	double			  m_dTimeIn, m_dTimeOut;
@@ -37,7 +38,7 @@ typedef enum {
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen;
 - (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut;
 
-- (BOOL) updateTransitionIn:(float)fDelta;
-- (BOOL) updateTransitionOut:(float)fDelta;
+- (BOOL) updateTransitionIn;
+- (BOOL) updateTransitionOut;
 
 @end

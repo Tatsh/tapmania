@@ -11,6 +11,7 @@
 #import "TapMania.h"
 #import "InputEngine.h"
 #import "TMRunLoop.h"	// For TMRunLoopPriority
+#import "TimingUtil.h"
 
 @implementation BasicTransition
 
@@ -32,30 +33,28 @@
 	
 	m_pFrom = fromScreen;
 	m_pTo = toScreen;
-	m_dTimePassed = 0.0f;
+	m_dElapsedTime = 0.0;
 	m_nState = kTransitionStateInitializing;
 	
 	m_dTimeIn = kDefaultTransitionInTime;
 	m_dTimeOut = kDefaultTransitionOutTime;
-	
+
 	return self;
 }
 
 // May override in animating transitions
-- (BOOL) updateTransitionIn:(float)fDelta {
-	m_dTimePassed += fDelta;
-	
-	if(m_dTimePassed >= m_dTimeIn)
+- (BOOL) updateTransitionIn {
+	m_dElapsedTime = [TimingUtil getCurrentTime] - m_dTimeStart;
+	if(m_dElapsedTime >= m_dTimeIn)
 		return YES;
 	return NO;
 }
 
-- (BOOL) updateTransitionOut:(float)fDelta {
-	m_dTimePassed += fDelta;
-	
-	if(m_dTimePassed >= m_dTimeOut)
+- (BOOL) updateTransitionOut {
+	m_dElapsedTime = [TimingUtil getCurrentTime] - m_dTimeStart;
+	if(m_dElapsedTime >= m_dTimeOut)
 		return YES;
-	return NO;	
+	return NO;
 }
 
 // TMTransition stuff. can be overriden to do some special stuff.
@@ -64,13 +63,15 @@
 	[[InputEngine sharedInstance] disableDispatcher];
 }
 
-- (void) transitionOutStarted {
+- (void) transitionOutStarted {	
+	TMLog(@"Do custom initialization for transition out...");
+	
 	// Do custom initialization for transition if the object supports it
 	if([m_pTo conformsToProtocol:@protocol(TMTransitionSupport)]){
 		[m_pTo performSelector:@selector(setupForTransition)];
-	}
+	}	
 	
-	TMLog(@"Transition out");
+	TMLog(@"Transition out animation started...");
 	
 	// Set new one and show it
 	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
@@ -115,24 +116,24 @@
 			[self transitionInStarted];
 		
 			m_nState = kTransitionStateIn;
-			m_dTimePassed = 0.0f;
+			m_dTimeStart = [TimingUtil getCurrentTime];
 			break;
 			
 		case kTransitionStateIn:
 			// Do calculation
-			if( [self updateTransitionIn:fDelta] ) {
+			if( [self updateTransitionIn] ) {
 			
 				// Switch to Out transition part
 				[self transitionInFinished];
-				m_nState = kTransitionStateOut;
-				m_dTimePassed = 0.0f;
 				[self transitionOutStarted];
+				m_nState = kTransitionStateOut;
+				m_dTimeStart = [TimingUtil getCurrentTime];
 			}			
 			break;
 			
 		case kTransitionStateOut:
 			// Do calculation
-			if ( [self updateTransitionOut:fDelta] ) {
+			if ( [self updateTransitionOut] ) {
 				
 				// Switch to finish
 				[self transitionOutFinished];
