@@ -20,22 +20,19 @@ typedef enum {
 	kNumJoyButtons
 } JPButton;
 
-typedef enum {
-	kJoyStyleSpread = 0,
-	kJoyStyleIndex
-} JPStyle;
-
 @interface JoyPad : NSObject <TMGameUIResponder> {
+	BOOL		m_bAutoTrackEnabled;						// YES=enabled, NO=disabled
+	
 	BOOL		m_bJoyButtonStates[kNumJoyButtons]; 		// YES=touched, NO=lifted
 	double		m_dJoyButtonTimeTouch[kNumJoyButtons];		// Last time every button was touched
 	double		m_dJoyButtonTimeRelease[kNumJoyButtons];	// Last time every button was released
 
 	Vector*		m_pJoyCurrentButtonLocation[kNumJoyButtons];	// Last touch location for every button
+	Vector*		m_pJoyDefaultLocations[kNumJoyButtons];	
 	Triangle*	m_pJoyButtons[kNumJoyButtons];
 }
 
-// The constructor
-- (id) initWithStyle:(JPStyle)style;
+@property (assign) BOOL m_bAutoTrackEnabled;
 
 // Reset method must be called on song start
 - (void) reset;

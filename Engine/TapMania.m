@@ -82,9 +82,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	[m_pWindow addSubview:m_pGlView];		
-	
-	// FIXME: hardcoded style here
-	m_pJoyPad = [[JoyPad alloc] initWithStyle:kJoyStyleIndex];
+
+	m_pJoyPad = [[JoyPad alloc] init];
 		
 	// Init main run loop
 	m_pGameRunLoop = [[TMRunLoop alloc] init];

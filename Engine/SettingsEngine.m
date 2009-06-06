@@ -91,6 +91,34 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	return 0.0f;
 }
 
+- (BOOL) getBoolValue:(NSString*)key {
+	if( [m_pUserConfig valueForKey:key] != nil ) {
+		return [(NSNumber*)[m_pUserConfig valueForKey:key] boolValue];
+	}	
+	
+	return NO;
+}
+
+- (CGPoint) getJoyPadButton:(JPButton) button {
+	if( [m_pUserConfig valueForKey:@"joypad"] != nil ) {
+		NSArray* joyPadArr = [m_pUserConfig valueForKey:@"joypad"];
+		
+		if([joyPadArr count] > button) {
+			NSArray* buttonArr = [joyPadArr objectAtIndex:button];
+		
+			if(buttonArr != nil) {
+				float x = [(NSNumber*)[buttonArr objectAtIndex:0] floatValue];
+				float y = [(NSNumber*)[buttonArr objectAtIndex:1] floatValue];
+			
+				return CGPointMake(x, y);
+			}
+		}
+		
+		return CGPointMake(-1, -1);
+	}
+	
+	return CGPointMake(-1, -1);
+}
 
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key {
 	[m_pUserConfig setObject:value forKey:key];
@@ -102,6 +130,28 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	[self writeUserConfig];
 }
 
+- (void) setBoolValue:(BOOL)value forKey:(NSString*)key {
+	[m_pUserConfig setObject:[NSNumber numberWithBool:value] forKey:key];
+	[self writeUserConfig];
+}
+
+- (void) setJoyPadButtonPosition:(CGPoint) point forButton:(JPButton) button {
+	if( [m_pUserConfig valueForKey:@"joypad"] == nil ) {
+		[m_pUserConfig setObject:[[NSMutableArray alloc] initWithCapacity:kNumJoyButtons] forKey:@"joypad"];
+	}
+	
+	NSMutableArray* joyPadArr = [m_pUserConfig valueForKey:@"joypad"];
+	NSMutableArray* buttonArr = [[NSMutableArray alloc] initWithObjects:
+								 [NSNumber numberWithFloat:point.x], [NSNumber numberWithFloat:point.y], nil];
+	
+	if([joyPadArr count] > button) {
+		[joyPadArr replaceObjectAtIndex:button withObject:buttonArr];
+	} else {
+		[joyPadArr insertObject:buttonArr atIndex:button];
+	}
+	
+	[self writeUserConfig];
+}
 
 #pragma mark Singleton stuff
 

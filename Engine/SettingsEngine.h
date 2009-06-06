@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JoyPad.h"
 
 @class TMUserConfig;
 #define kUserConfigFile @"TapManiaConfig.plist"
@@ -18,12 +19,17 @@
 - (void) loadUserConfig;
 - (void) writeUserConfig;
 
+- (CGPoint) getJoyPadButton:(JPButton) button;
+- (void) setJoyPadButtonPosition:(CGPoint) point forButton:(JPButton) button;
+
 - (NSString*) getStringValue:(NSString*)key;
 - (int) getIntValue:(NSString*)key;
 - (float) getFloatValue:(NSString*)key;
+- (BOOL) getBoolValue:(NSString*)key;
 
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key;
 - (void) setFloatValue:(float)value forKey:(NSString*)key;
+- (void) setBoolValue:(BOOL)value forKey:(NSString*)key;
 
 + (SettingsEngine *) sharedInstance;
 

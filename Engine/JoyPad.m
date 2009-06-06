@@ -8,6 +8,7 @@
 
 #import "JoyPad.h"
 #import "TapMania.h"
+#import "SettingsEngine.h"
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"
 #import "EAGLView.h"
@@ -20,83 +21,44 @@
 
 @implementation JoyPad
 
-- (id) initWithStyle:(JPStyle)style {
+@synthesize m_bAutoTrackEnabled;
+
+- (id) init {
 	self = [super init];
 	if(!self)
 		return nil;
 
-	switch (style) {
-		case kJoyStyleIndex:
-			[self createIndexJoy];
-			break;
-		case kJoyStyleSpread:
-		default:
-			[self createSpreadJoy];
-			break;
-	}
-
+	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithX:80 andY:160];
+	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithX:160 andY:80];
+	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithX:160 andY:160];
+	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithX:240 andY:80];
+	m_pJoyDefaultLocations[kJoyButtonExit] =  nil;
+	
 	// Reset states
 	[self reset];
 
 	return self;
 }
 
-/* Private constructor helpers */
-- (void) createSpreadJoy {
-	m_pJoyButtons[kJoyButtonLeft] = [[Triangle alloc] 
-								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-								   V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 		// Top-left
-								   andV2:[[Vector alloc] initWithX:0.0 andY:100.0 ]];	// Bottom-left
-	
-	m_pJoyButtons[kJoyButtonRight] = [[Triangle alloc] 
-									initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-									V1:[[Vector alloc] initWithX:320.0 andY:320.0 ] 		// Top-right
-									andV2:[[Vector alloc] initWithX:320.0 andY:100.0 ]];		// Bottom-right
-	
-	m_pJoyButtons[kJoyButtonUp] = [[Triangle alloc] 
-								 initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
-								 V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 			// Center-bottom
-								 andV2:[[Vector alloc] initWithX:416.0 andY:64.0 ]];	// Right
-	
-	m_pJoyButtons[kJoyButtonDown] = [[Triangle alloc] 
-								   initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center-center
-								   V1:[[Vector alloc] initWithX:160.0 andY:-90.0 ] 		// Center-bottom
-								   andV2:[[Vector alloc] initWithX:-96.0 andY:64.0 ]];	// Left
-}
-
-- (void) createIndexJoy {
-	// We have a 320x320 joypad
-	//
-	//	*     *
-	//     *
-	//  *     *
-	
-	m_pJoyButtons[kJoyButtonLeft] = [[Triangle alloc] 
-		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-		V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 		// Top-left
-		andV2:[[Vector alloc] initWithX:0.0 andY:0.0 ]];	// Bottom-left
-
-	m_pJoyButtons[kJoyButtonRight] = [[Triangle alloc] 
-		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-		V1:[[Vector alloc] initWithX:320.0 andY:320.0 ] 		// Top-right
-		andV2:[[Vector alloc] initWithX:320.0 andY:0.0 ]];		// Bottom-right
-
-	m_pJoyButtons[kJoyButtonUp] = [[Triangle alloc] 
-		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-		V1:[[Vector alloc] initWithX:0.0 andY:320.0 ] 			// Top-left
-		andV2:[[Vector alloc] initWithX:320.0 andY:320.0 ]];	// Top-Right
-
-	m_pJoyButtons[kJoyButtonDown] = [[Triangle alloc] 
-		initWithV0:[[Vector alloc] initWithX:160.0 andY:160.0 ]	// Center
-		V1:[[Vector alloc] initWithX:0.0 andY:0.0 ] 		// Bottom-left
-		andV2:[[Vector alloc] initWithX:320.0 andY:0.0 ]];	// Bottom-right
-}
-
 /* Public methods */
 - (void) reset {	
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
-		m_pJoyCurrentButtonLocation[i] = nil;
+		// Check whether we have a value in config or not
+		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:i];
+		
+		if(buttonPoint.x != -1 && buttonPoint.y != -1) {
+			m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:buttonPoint.x andY:buttonPoint.y];
+		} else {
+			// Set default value for this button
+			m_pJoyCurrentButtonLocation[i] = m_pJoyDefaultLocations[i];
+		}
+		
+		if(m_pJoyCurrentButtonLocation[i] != nil) {
+			// Save into config
+			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyDefaultLocations[i].m_fX, m_pJoyDefaultLocations[i].m_fY) forButton:i];
+		}
+		
 		m_bJoyButtonStates[i] = NO;
 		m_dJoyButtonTimeTouch[i] = 0.0f;
 		m_dJoyButtonTimeRelease[i] = 0.0f;
@@ -130,40 +92,28 @@
 			m_bJoyButtonStates[kJoyButtonExit] = YES;
 			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp;
 			
-		} else if(point.y <= 320.0) {
+		} else {
 			int i;
 			int closestButton = -1;
 			float minDist = MAXFLOAT;
 
 			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
-			for(i=0; i<kNumJoyButtons; ++i){
-				
-				if(m_pJoyCurrentButtonLocation[i] != nil) {
+			for(i=0; i<kNumJoyButtons; ++i){					
+				float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
-					float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
-					
-					if(d < minDist) {
-						minDist = d;
-						closestButton = i;
-					}
-
-				} else {
-					if([m_pJoyButtons[i] containsPoint:point]){
-
-						// Setup button location system
-						m_pJoyCurrentButtonLocation[i] = v1;
-						closestButton = i;
-
-						goto doneTouch;
-					}
+				if(d < minDist) {
+					minDist = d;
+					closestButton = i;
 				}
 			}
 
-			[m_pJoyCurrentButtonLocation[closestButton] release];
-			m_pJoyCurrentButtonLocation[closestButton] = v1;
+			if(m_bAutoTrackEnabled == YES) {
+				// Store new position if we are using the autotrack feature
+				[m_pJoyCurrentButtonLocation[closestButton] release];
+				m_pJoyCurrentButtonLocation[closestButton] = v1;
+			}
 
-			doneTouch:;	// HACK
 			m_bJoyButtonStates[closestButton] = YES;
 			m_dJoyButtonTimeTouch[closestButton] = touch.timestamp;
 		}
@@ -184,44 +134,30 @@
 		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 
-		// Check general touch position
-		if(point.y <= 320.0) {
-			int i;
-			int closestButton = -1;
-			float minDist = MAXFLOAT;
+		int i;
+		int closestButton = -1;
+		float minDist = MAXFLOAT;
 
-			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
+		Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
-			for(i=0; i<kNumJoyButtons; ++i){
-				
-				if(m_pJoyCurrentButtonLocation[i] != nil) {
+		for(i=0; i<kNumJoyButtons; ++i){
+			
+			float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
-					float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
-					
-					if(d < minDist) {
-						minDist = d;
-						closestButton = i;
-					}
-
-				} else {
-					if([m_pJoyButtons[i] containsPoint:point]){
-
-						// Setup button location system
-						m_pJoyCurrentButtonLocation[i] = v1;
-						closestButton = i;
-						
-						goto doneRelease;
-					}
-				}
+			if(d < minDist) {
+				minDist = d;
+				closestButton = i;
 			}
+		}
 
+		if(m_bAutoTrackEnabled == YES) {
+			// Store new position if we are using the autotrack feature
 			[m_pJoyCurrentButtonLocation[closestButton] release];
 			m_pJoyCurrentButtonLocation[closestButton] = v1;
-
-			doneRelease:;	// HACK
-			m_bJoyButtonStates[closestButton] = NO;
-			m_dJoyButtonTimeRelease[closestButton] = touch.timestamp;			
 		}
+		
+		m_bJoyButtonStates[closestButton] = NO;
+		m_dJoyButtonTimeRelease[closestButton] = touch.timestamp;			
 	}
 }
 
