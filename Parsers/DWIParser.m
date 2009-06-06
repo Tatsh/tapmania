@@ -182,6 +182,8 @@
  * Parse steps data from file
  */
 + (TMSteps*) parseStepsFromFile:(NSString*) filename forDifficulty:(TMSongDifficulty)difficulty forSong:(TMSong*)song{
+	TMLog(@"Parsing steps from file: %@", filename);
+	
 	FILE* fd;
 	int c; // Incoming char
 	char varName[16]; // The name of the variable which comes directly after the '#' till the ':'.

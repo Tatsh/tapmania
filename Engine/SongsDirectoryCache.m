@@ -10,12 +10,19 @@
 
 #import "TMSong.h"
 
+#include <CommonCrypto/CommonDigest.h>
+
+#define CHUNK_SIZE 131072 // 128kb
+
 // This is a singleton class, see below
 static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 @interface SongsDirectoryCache (Private) 
 - (NSMutableDictionary*) getCatalogueCache;
 - (void) writeCatalogueCache;
+
++ (NSString*)fileMD5:(NSString*)path;
++ (NSString*)dirMD5:(NSString*)path;
 @end
 
 @implementation SongsDirectoryCache
@@ -120,16 +127,46 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 				TMLog(@"Music file path: %@", musicFilePath);
 				
+				// Make the files relative to the songs dir
+				musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
+				stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
+				
 				if([m_pCatalogueCache valueForKey:songDirName] != nil) {
 					TMLog(@"Catalogue file has this file already!");
+					TMSong* song = [m_pCatalogueCache valueForKey:songDirName];
+					
+					// Check hash
+					NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
+					TMLog(@"GOT HASH: '%@'", songHash);
+					TMLog(@"CACHED HASH IS: '%@'", song.m_sHash);
+					
+					if(! [songHash isEqualToString:song.m_sHash]) {
+						TMLog(@"Hash missmatch! Must reload!");
+						[song release];
+						song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
+						
+						// Also update in cache
+						[m_pCatalogueCache setObject:song forKey:songDirName];
+					}
+					
+					[m_aAvailableSongs addObject:song];
+					
+				} else {
+					TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
+					
+					// Calculate the hash and store it
+					NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
+					TMLog(@"GOT HASH: '%@'", songHash);
+					
+					song.m_sHash = songHash;
+
+					TMLog(@"Song ready to be added to list!!");
+					[m_aAvailableSongs addObject:song];
+					
+					// Add to cache
+					[m_pCatalogueCache setObject:song forKey:songDirName];					
 				}
-				
-				TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
-				
-				TMLog(@"Song ready to be added to list!!");
-				[m_aAvailableSongs addObject:song];
-				[m_pCatalogueCache setObject:song forKey:songDirName];
-				
+												
 				if(m_idDelegate != nil) {
 					[m_idDelegate doneLoadingSong:songDirName];
 				}								
@@ -188,10 +225,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:catalogueFile]) {
-			return [[NSMutableDictionary alloc] initWithContentsOfFile:catalogueFile];
+			return [[NSMutableDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:catalogueFile]];
 		}
 	}
 	
+	TMLog(@"Catalogue cache is empty! Returning default empty cache instance...");
 	return [[NSMutableDictionary alloc] init];
 }
 
@@ -203,10 +241,89 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
 
 		TMLog(@"Write catalogue to: %@", catalogueFile);
-		[m_pCatalogueCache writeToFile:catalogueFile atomically:NO];
+		
+		if( YES == [NSKeyedArchiver archiveRootObject:m_pCatalogueCache toFile:catalogueFile] ) {
+			TMLog(@"Successfully written the catalogue!");
+		} else {
+			TMLog(@"Too bad. Failed to write catalogue...");
+		}
 	}
 }
 
++(NSString*)fileMD5:(NSString*)path {
+	NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:YES];
+		
+	if (fileAttributes == nil) {
+		return @"Can't get file md5";
+	}
+
+	NSNumber *fileSize;
+	NSDate *fileModDate;
+	NSString* result = @"";
+	
+	CC_MD5_CTX md5;
+	CC_MD5_Init(&md5);
+	
+	if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
+		result = [result stringByAppendingString:[fileSize stringValue]];
+	}
+	
+	if (fileModDate = [fileAttributes objectForKey:NSFileModificationDate]) {
+		result = [result stringByAppendingString:[fileSize stringValue]];
+	}
+	
+	CC_MD5_Update(&md5, [result UTF8String], [result length]);
+	
+	unsigned char digest[CC_MD5_DIGEST_LENGTH];
+	CC_MD5_Final(digest, &md5);
+
+	NSString* s = [NSString stringWithFormat: @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+				   digest[0], digest[1], 
+				   digest[2], digest[3],
+				   digest[4], digest[5],
+				   digest[6], digest[7],
+				   digest[8], digest[9],
+				   digest[10], digest[11],
+				   digest[12], digest[13],
+				   digest[14], digest[15]];
+	return s;
+}
+
++ (NSString*)dirMD5:(NSString*)path {
+	NSArray* dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+	
+	if([dirContents count] == 0) {
+		return nil;
+	}
+	
+	NSString* result = @"";
+	int i;
+	
+	// Accumulate md5s of all files in the dir
+	for(i = 0; i<[dirContents count]; i++) {		
+		NSString* md5 = [SongsDirectoryCache fileMD5:[path stringByAppendingPathComponent:[dirContents objectAtIndex:i]]];
+		result = [result stringByAppendingString:md5];
+	}
+	
+	// Create one md5 from the ruslt string
+	CC_MD5_CTX md5;
+	CC_MD5_Init(&md5);
+	CC_MD5_Update(&md5, [result UTF8String], [result length]);
+	
+	unsigned char digest[CC_MD5_DIGEST_LENGTH];
+	CC_MD5_Final(digest, &md5);
+	NSString* s = [NSString stringWithFormat: @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+				   digest[0], digest[1], 
+				   digest[2], digest[3],
+				   digest[4], digest[5],
+				   digest[6], digest[7],
+				   digest[8], digest[9],
+				   digest[10], digest[11],
+				   digest[12], digest[13],
+				   digest[14], digest[15]];
+
+	return s;
+}
 
 - (void) dealloc {
 	[m_sSongsDir release];

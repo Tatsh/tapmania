@@ -36,7 +36,7 @@ typedef enum {
 	TMSongFileType	m_nFileType;	// The type of the file
 
 	NSString*		m_sSongDirName;		// Path to this song's dir
-	NSString*		m_sHash;		// MD5 sum for this song
+ 	NSString*		m_sHash;		// MD5 sum for this song
 	
 	// Music file info
 	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
@@ -55,11 +55,14 @@ typedef enum {
 	TMChangeSegment**	m_aBpmChangeArray;
 	TMChangeSegment**	m_aFreezeArray;
 
-	int m_nAvailableDifficultyLevels[kNumSongDifficulties];	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
+	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
+	int					m_nAvailableDifficultyLevels[kNumSongDifficulties];
 }
 
 @property (retain, nonatomic) NSString* m_sFilePath;
 @property (assign) TMSongFileType m_nFileType;
+@property (retain, nonatomic) NSString* m_sSongDirName;
+@property (retain, nonatomic) NSString* m_sHash;
 
 @property (retain, nonatomic) NSString* m_sMusicFilePath;
 

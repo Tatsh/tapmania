@@ -14,9 +14,12 @@
 #import "TimingUtil.h"
 #import "TMChangeSegment.h"
 
+#import "SongsDirectoryCache.h"
+
 @implementation TMSong
 
-@synthesize m_nFileType, m_sFilePath, m_sMusicFilePath;
+@synthesize m_nFileType, m_sFilePath, m_sMusicFilePath, m_sSongDirName;
+@synthesize m_sHash;
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
 @synthesize m_aBpmChangeArray, m_aFreezeArray;
@@ -42,11 +45,11 @@
 	
 	// Note: only title etc is loaded here. No steps.
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
-		self = [DWIParser parseFromFile:stepsFilePath];
+		self = [DWIParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:stepsFilePath]];
 		self.m_nFileType = kSongFileType_DWI;
 		
 	} else if([[stepsFilePath lowercaseString] hasSuffix:@".sm"]) {
-		self = [SMParser parseFromFile:stepsFilePath];	
+		self = [SMParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:stepsFilePath]];	
 		self.m_nFileType = kSongFileType_SM;
 		
 	} else {
@@ -54,9 +57,11 @@
 		return nil;
 	}
 	
-	m_sMusicFilePath = musicFilePath;
-	m_sFilePath = stepsFilePath;
-	m_sSongDirName  = dir;
+	self.m_sMusicFilePath = musicFilePath;
+	self.m_sFilePath = stepsFilePath;
+	self.m_sSongDirName  = dir;
+	
+	TMLog(@"Set musicpath: '%@' and steps: '%@'", m_sMusicFilePath, m_sFilePath);
 	
 	return self;
 }
@@ -73,10 +78,10 @@
 	TMSteps* steps = nil;
 	
 	if(m_nFileType == kSongFileType_DWI) {
-		steps = [DWIParser parseStepsFromFile:self.m_sFilePath 
+		steps = [DWIParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
 				forDifficulty:difficulty forSong:self];	
 	} else if(m_nFileType == kSongFileType_SM) {
-		steps = [SMParser parseStepsFromFile:self.m_sFilePath 
+		steps = [SMParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
 				forDifficulty:difficulty forSong:self];	
 	}
 
@@ -139,16 +144,16 @@
 
 // Serialization
 - (id) initWithCoder: (NSCoder *) coder {
-	self = [super init];
-	m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
-	m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
-	m_nFileType = [coder decodeIntForKey:@"ft"];
+	self.m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
+	self.m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
+	self.m_sHash = [[coder decodeObjectForKey:@"ha"] retain];
+	self.m_nFileType = [coder decodeIntForKey:@"ft"];
 	
-	m_sTitle = [[coder decodeObjectForKey:@"t"] retain];
-	m_sArtist = [[coder decodeObjectForKey:@"a"] retain];
+	self.m_sTitle = [[coder decodeObjectForKey:@"t"] retain];
+	self.m_sArtist = [[coder decodeObjectForKey:@"a"] retain];
 
-	m_fBpm = [coder decodeFloatForKey:@"b"];
-	m_dGap = [coder decodeDoubleForKey:@"g"];
+	self.m_fBpm = [coder decodeFloatForKey:@"b"];
+	self.m_dGap = [coder decodeDoubleForKey:@"g"];
 
 	m_nBpmChangeCount = [coder decodeIntForKey:@"bc"];
 	m_nFreezeCount = [coder decodeIntForKey:@"fc"];
@@ -157,16 +162,22 @@
 	NSArray* freezeArr = [coder decodeObjectForKey:@"fca"];
 	
 	int i = 0;
+	m_nBpmCapacity = self.m_nBpmChangeCount;
+	m_aBpmChangeArray = (TMChangeSegment**)realloc(m_aBpmChangeArray, m_nBpmCapacity*sizeof(TMChangeSegment*));	
+	
 	for (TMChangeSegment* segment in bpmChangeArr) {
 		m_aBpmChangeArray[i++] = [segment retain];
 	}
 	
 	i = 0;
+	m_nFreezeCapacity = self.m_nFreezeCount;
+	m_aFreezeArray = (TMChangeSegment**)realloc(m_aFreezeArray, m_nFreezeCapacity*sizeof(TMChangeSegment*));	
+	
 	for (TMChangeSegment* segment in freezeArr) {
 		m_aFreezeArray[i++] = [segment retain];
 	}
 	
-	NSArray* availDiff = [coder decodeObjectForKey:@"adl"];
+	NSMutableArray* availDiff = [coder decodeObjectForKey:@"adl"];
 	i = 0;
 	for (NSNumber* val in availDiff) {
 		m_nAvailableDifficultyLevels[i++] = [val intValue];
@@ -178,6 +189,7 @@
 - (void) encodeWithCoder: (NSCoder *) coder {
 	[coder encodeObject:m_sFilePath forKey:@"fp"];
 	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
+	[coder encodeObject:m_sHash forKey:@"ha"];
 	[coder encodeInt:m_nFileType forKey:@"ft"];
 	
 	[coder encodeObject:m_sTitle forKey:@"t"];
@@ -191,7 +203,15 @@
 	
 	[coder encodeObject:[NSArray arrayWithObjects:m_aBpmChangeArray count:m_nBpmChangeCount] forKey:@"bca"];
 	[coder encodeObject:[NSArray arrayWithObjects:m_aFreezeArray count:m_nFreezeCount] forKey:@"fca"];
-	[coder encodeObject:[NSArray arrayWithObjects:m_nAvailableDifficultyLevels count:kNumSongDifficulties] forKey:@"adl"];
+	
+	NSMutableArray* diffArr = [NSMutableArray arrayWithCapacity:kNumSongDifficulties+1];
+
+	int i;
+	for (i=0; i<kNumSongDifficulties; ++i) {
+		[diffArr addObject:[NSNumber numberWithInt:(m_nAvailableDifficultyLevels[i])]];
+	}	
+	
+	[coder encodeObject:diffArr forKey:@"adl"];
 }
 
 @end
