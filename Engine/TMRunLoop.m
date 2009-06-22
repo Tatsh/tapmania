@@ -109,10 +109,10 @@
 
 	/* Call initialization routine on delegate */
 	if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[m_idDelegate performSelector:@selector(runLoopInitHook) withObject:nil];
+		[m_idDelegate runLoopInitHook];
 		
 		if([m_idDelegate respondsToSelector:@selector(runLoopInitializedNotification)]){
-			[m_idDelegate performSelector:@selector(runLoopInitializedNotification) withObject:nil];
+			[m_idDelegate runLoopInitializedNotification];
 		}
 	}
 	

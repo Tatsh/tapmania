@@ -146,7 +146,6 @@
 		24D762960F38A078008B0AA0 /* ThemeMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* ThemeMetrics.m */; };
 		24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.m */; };
 		24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
-		24E104D00FC35B4100FF69E9 /* TapManiaCatalogue.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24E104CF0FC35B4100FF69E9 /* TapManiaCatalogue.plist */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -399,7 +398,6 @@
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
 		24D762980F38A38D008B0AA0 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeManager.m; path = ThemeSupport/ThemeManager.m; sourceTree = "<group>"; };
 		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
-		24E104CF0FC35B4100FF69E9 /* TapManiaCatalogue.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TapManiaCatalogue.plist; path = Data/TapManiaCatalogue.plist; sourceTree = SOURCE_ROOT; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -912,7 +910,6 @@
 			isa = PBXGroup;
 			children = (
 				249D7FFD0FCC9A2200630646 /* themes */,
-				24E104CF0FC35B4100FF69E9 /* TapManiaCatalogue.plist */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
 				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
@@ -1107,7 +1104,6 @@
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
 				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
-				24E104D00FC35B4100FF69E9 /* TapManiaCatalogue.plist in Resources */,
 				249D80540FCC9A2200630646 /* themes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

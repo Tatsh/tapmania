@@ -41,53 +41,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pCurrentSong = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
-
-	// Load up graphics system
-	CGRect rect = [[UIScreen mainScreen] bounds];	
-	
-	// Setup window
-	m_pWindow = [[[UIWindow alloc] initWithFrame:rect] autorelease];
-	
-	// Show window
-	[m_pWindow makeKeyAndVisible];
-	
-	// Init opengl
-	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
-	m_pGlView.multipleTouchEnabled = YES;	
-
-	// Load theme
-	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
-	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
-	
-	// Load all sounds
-	[SoundEffectsHolder sharedInstance];
-	
-	// Set up OpenGL projection matrix
-	glMatrixMode(GL_PROJECTION);
-	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
-	
-	// Initialize OpenGL states
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		
-	glLoadIdentity();
-	glClearColor(0,0,0,1.0f);
-	
-	// Clear
-	glClear(GL_COLOR_BUFFER_BIT);
-	
-	[m_pWindow addSubview:m_pGlView];		
-
-	m_pJoyPad = [[JoyPad alloc] init];
-		
-	// Init main run loop
-	m_pGameRunLoop = [[TMRunLoop alloc] init];
-	[m_pGameRunLoop delegate:self];
 	
 	return self;
 }
@@ -126,13 +79,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 		[m_pCurrentScreen release];
 	}
 }
-   
+
 - (void) startGame {
-	// Show FPS in debug mode only. FPS rendering slows things a lot.
-#ifdef DEBUG 
-	[[TapMania sharedInstance] registerObject:[[FPS alloc] init] withPriority:kRunLoopPriority_Lowest];	// FPS drawing
-#endif
-	[m_pGameRunLoop run];	
+	// Alloc main run loop
+	m_pGameRunLoop = [[TMRunLoop alloc] init];
+	[m_pGameRunLoop delegate:self];	
+
+	// And run it
+	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:NO];
 }
 
 - (JoyPad*) enableJoyPad {
@@ -148,9 +102,63 @@ static TapMania *sharedTapManiaDelegate = nil;
 /* Run loop delegate work */
 - (void) runLoopInitHook {
 	TMLog(@"Init game run loop...");
+	
+	// Load up graphics system
+	CGRect rect = [[UIScreen mainScreen] bounds];	
+	
+	// Setup window
+	m_pWindow = [[[UIWindow alloc] initWithFrame:rect] autorelease];
+	
+	// Show window
+	[m_pWindow makeKeyAndVisible];
+	
+	// Load all sounds
+	[SoundEffectsHolder sharedInstance];
+	
+	m_pJoyPad = [[JoyPad alloc] init];
+
+	// Init opengl
+	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
+	m_pGlView.multipleTouchEnabled = YES;	
+	
+	// Load theme
+	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
+	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
+	
+	// Load all sounds
+	[SoundEffectsHolder sharedInstance];
+	
+	// Set up OpenGL projection matrix
+	glMatrixMode(GL_PROJECTION);
+	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	
+	// Initialize OpenGL states
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	glLoadIdentity();
+	glClearColor(0,0,0,1.0f);
+	
+	// Clear
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+	// Add the gl view to our main window
+	[m_pWindow addSubview:m_pGlView];		
+
+	TMLog(@"Done initializing opengl");
 }
 
 - (void) runLoopInitializedNotification {
+	// Show FPS in debug mode only. FPS rendering slows things a lot.
+#ifdef DEBUG 
+	[[TapMania sharedInstance] registerObject:[[FPS alloc] init] withPriority:kRunLoopPriority_Lowest];	// FPS drawing
+#endif
+	
 	// Will start with main menu
 	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init] usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
 	
