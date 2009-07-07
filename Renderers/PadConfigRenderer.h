@@ -12,9 +12,26 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@class TMRunLoop;
+#import "TMSteps.h"
+
+@class TMRunLoop, ReceptorRow, LifeBar;
+
+typedef enum {
+	kPadConfigAction_None = 0,
+	kPadConfigAction_SelectedTrack,
+	kPadConfigAction_SelectLocation,
+	kPadConfigAction_SelectedLocation,
+	kNumPadConfigActions
+} TMPadConfigActions;
 
 @interface PadConfigRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+	CGRect m_oReceptorButtons[kNumOfAvailableTracks];
+
+	ReceptorRow*			m_pReceptorRow;
+	LifeBar*				m_pLifeBar;
+	
+	TMPadConfigActions		m_nPadConfigAction;
+	TMAvailableTracks		m_nSelectedTrack;
 }
 
 @end
