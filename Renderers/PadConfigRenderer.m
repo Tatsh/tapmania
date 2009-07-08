@@ -14,11 +14,15 @@
 #import "EAGLView.h"
 #import "TapMania.h"
 #import "MainMenuRenderer.h"
+#import "OptionsMenuRenderer.h"
+#import "QuadTransition.h"
 #import "MenuItem.h"
 
 #import "TapNote.h"
 #import "ReceptorRow.h"
 #import "LifeBar.h"
+
+#import "PhysicsUtil.h"
 
 @implementation PadConfigRenderer
 
@@ -59,12 +63,16 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	
 	// Start with no action. means we must select a receptor arrow
 	m_nPadConfigAction = kPadConfigAction_None;
+	m_pFingerTap = nil;
 	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
 	// Init the lifebar
 	m_pLifeBar = [[LifeBar alloc] initWithRect:CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight)];
+	
+	// Reset the joyPad to hold currently configured locations
+	[[TapMania sharedInstance].joyPad reset];
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
@@ -94,15 +102,33 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	
 	// Draw the receptor row
 	[m_pReceptorRow render:fDelta];
+	
+	// Draw the fingertap if any
+	if(m_pFingerTap) {
+		glEnable(GL_BLEND);
+		[t_FingerTap drawAtPoint:CGPointMake(m_pFingerTap.m_fX, m_pFingerTap.m_fY)];
+		glDisable(GL_BLEND);
+	}
 }
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
 	
+	if(m_nPadConfigAction == kPadConfigAction_Exit) {
+		// Exit to options menu
+		[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
+		
+		m_nPadConfigAction = kPadConfigAction_None;
+	}
+	
 	if(m_nPadConfigAction == kPadConfigAction_SelectedTrack) {
 		// Should explode the selected track
 		[m_pReceptorRow explodeBright:m_nSelectedTrack];
 		m_nPadConfigAction = kPadConfigAction_SelectLocation;	// Must select a location now
+		
+		// Must also plot a fingertap graphic on current location
+		m_pFingerTap = [[TapMania sharedInstance].joyPad getJoyPadButton:m_nSelectedTrack];
+		
 	} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {
 		// Must light the selected receptor while user decides
 		[m_pReceptorRow explodeBright:m_nSelectedTrack];
@@ -125,11 +151,19 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 				m_nSelectedTrack = i;	// Save the track number we touched
 			
 				return;
-			} else if(CGRectContainsPoint(CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight), pointGl)) {
-				TMLog(@"EXIT!");
-			} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation && m_nSelectedTrack == i) {
-				TMLog(@"Select location for track %d: x:%f y:%f", i, pointGl.x, pointGl.y);
 			}
+		}
+		
+		// If none of the receptor arrows was touched
+		if(CGRectContainsPoint(CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight), pointGl)) {
+			m_nPadConfigAction = kPadConfigAction_Exit;
+			
+		} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {			
+			TMLog(@"Select location for track %d: x:%f y:%f", m_nSelectedTrack, pointGl.x, pointGl.y);
+			[[TapMania sharedInstance].joyPad setJoyPadButton:m_nSelectedTrack onLocation:pointGl];
+			
+			m_nPadConfigAction = kPadConfigAction_None;
+			m_pFingerTap = nil;
 		}
 	}		
 }

@@ -42,4 +42,7 @@ typedef enum {
 - (double) getTouchTimeForButton: (JPButton) button;
 - (double) getReleaseTimeForButton: (JPButton) button;
 
+- (Vector*) getJoyPadButton: (JPButton) button;
+- (void) setJoyPadButton: (JPButton) button onLocation: (CGPoint) location;
+
 @end

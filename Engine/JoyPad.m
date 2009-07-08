@@ -65,6 +65,21 @@
 	}
 }
 
+- (Vector*) getJoyPadButton: (JPButton) button {
+	return m_pJoyCurrentButtonLocation[button];
+}
+
+- (void) setJoyPadButton: (JPButton) button onLocation: (CGPoint) location {
+	// Save in the settings
+	[[SettingsEngine sharedInstance] setJoyPadButtonPosition:location forButton:button];
+	
+	// Update locally
+	if(m_pJoyCurrentButtonLocation[button]) {
+		[(m_pJoyCurrentButtonLocation[button]) release];
+	}
+	m_pJoyCurrentButtonLocation[button] = [[Vector alloc] initWithX:location.x andY:location.y];
+}
+
 - (BOOL) getStateForButton: (JPButton) button {
 	return m_bJoyButtonStates[button];
 }

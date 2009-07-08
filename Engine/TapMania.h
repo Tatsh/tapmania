@@ -28,6 +28,8 @@
 @property (retain, nonatomic, readonly, getter=glView) EAGLView* m_pGlView;
 @property (retain, nonatomic, readonly) UIWindow* m_pWindow;
 
+@property (retain, nonatomic, readonly, getter=joyPad) JoyPad* m_pJoyPad;
+
 - (void) startGame;
 
 // Go to another screen using this method
