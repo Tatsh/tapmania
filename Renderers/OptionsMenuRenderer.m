@@ -36,7 +36,9 @@
 
 @implementation OptionsMenuRenderer
 
-int mt_BackButtonY, mt_MenuButtonsX;
+int mt_PadConfigButtonY,  mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_ThemeTogglerX, mt_ThemeTogglerY, mt_BackButtonY, mt_MenuButtonsX;
+int mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth;
+int mt_SoundLabelX, mt_SoundLabelY, mt_NoteSkinLabelX, mt_NoteSkinLabelY, mt_ThemeLabelX, mt_ThemeLabelY;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 Texture2D *t_BG;
 
@@ -58,10 +60,27 @@ Texture2D *t_BG;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Cache metrics
+	mt_PadConfigButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu PadConfigButtonY"];
+	mt_NoteSkinTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerX"];
+	mt_NoteSkinTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerY"];
+	mt_ThemeTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeTogglerX"];
+	mt_ThemeTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeTogglerY"];
 	mt_BackButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu BackButtonY"];
+
+	mt_SoundSliderX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderX"];
+	mt_SoundSliderY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderY"];
+	
+	mt_SoundLabelX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelX"];
+	mt_SoundLabelY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelY"];
+	mt_NoteSkinLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelX"];
+	mt_NoteSkinLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelY"];
+	mt_ThemeLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelX"];
+	mt_ThemeLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelY"];
+	
 	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsX"];	
 	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsWidth"];
 	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsHeight"];
+	mt_TogglersWidth = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu TogglersWidth"];
 	
 	// Preload all required graphics
 	t_BG = [[ThemeManager sharedInstance] texture:@"OptionsMenu Background"];
@@ -71,19 +90,20 @@ Texture2D *t_BG;
 	m_nState = kOptionsMenuState_Ready;
 	m_dAnimationTime = 0.0;	
 	
-	m_pLabels[kOptionsLabel_SoundMaster] = [[Label alloc] initWithTitle:@"Sound:" andShape:CGRectMake(20.0f, 90.0f, 70.0f, 46.0f)];
-	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(20.0f, 150.0f, 70.0f, 46.0f)];
-	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(20.0f, 200.0f, 80.0f, 46.0f)];
+	m_pLabels[kOptionsLabel_SoundMaster] = [[Label alloc] initWithTitle:@"Sound:" andShape:CGRectMake(mt_SoundLabelX, mt_SoundLabelY, 70.0f, mt_MenuButtonsHeight)];
+	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(mt_ThemeLabelX, mt_ThemeLabelY, 70.0f, mt_MenuButtonsHeight)];
+	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(mt_NoteSkinLabelX, mt_NoteSkinLabelY, 80.0f, mt_MenuButtonsHeight)];
 	
 	// Register menu items
 	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[Slider alloc] initWithShape:CGRectMake(110.0f, 90.0f, 190.0f, 46.0f) andValue:SoundEngine_GetMasterVolume()]];
+	 [[Slider alloc] initWithShape:CGRectMake(mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth, mt_MenuButtonsHeight) 
+						andValue:SoundEngine_GetMasterVolume()]];
 	
 	// Theme selection
 	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(110.0f, 150.0f, 190.0f, 46.0f)]];
+	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_ThemeTogglerX, mt_ThemeTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
 	
 	// Add all themes to the toggler list
 	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
@@ -100,7 +120,7 @@ Texture2D *t_BG;
 	// NoteSkin selection
 	m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] = 		
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(110.0f, 200.0f, 190.0f, 46.0f)]];
+	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
 	
 	// Add all noteskins to the toggler list
 	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
@@ -116,7 +136,7 @@ Texture2D *t_BG;
 	
 	m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] = 
 	 [[ZoomEffect alloc] initWithRenderable:	
-	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:CGRectMake(mt_MenuButtonsX, 250, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:CGRectMake(mt_MenuButtonsX, mt_PadConfigButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
 	
 	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
 	[[SlideEffect alloc] initWithRenderable:

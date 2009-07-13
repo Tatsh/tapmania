@@ -13,7 +13,7 @@
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@class MenuItem, ImageButton;
+@class MenuItem, ImageButton, Label;
 
 typedef enum {
 	kMainMenuItem_Play = 0,
@@ -36,6 +36,8 @@ typedef enum {
 	
 	MenuItem*		m_pMainMenuItems[kNumMainMenuItems];
 	ImageButton*	m_pDonateButton;
+	Label*			m_pVersion;
+	Label*			m_pCopyright;
 }
 
 @end

@@ -87,6 +87,10 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	[m_pReceptorRow release];
 	[m_pLifeBar release];
 	
+	if(m_pFingerTap) {
+		[m_pFingerTap release];
+	}
+	
 	[super dealloc];
 }
 

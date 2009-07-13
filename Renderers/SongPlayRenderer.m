@@ -91,8 +91,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	t_Judgement = (Judgement*)[[ThemeManager sharedInstance] texture:@"SongPlay Judgement"];
 	t_HoldJudgement = (HoldJudgement*)[[ThemeManager sharedInstance] texture:@"SongPlay HoldJudgement"];	
 	
-	// FIXME: hardcode!
-	t_BG = [[ThemeManager sharedInstance] texture:@"SongPlay BackgroundIndex"];
+	t_BG = [[ThemeManager sharedInstance] texture:@"SongPlay Background"];
 	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];

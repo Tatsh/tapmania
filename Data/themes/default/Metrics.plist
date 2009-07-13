@@ -4,213 +4,233 @@
 <dict>
 	<key>MainMenu</key>
 	<dict>
-		<key>PlayButtonY</key>
-		<integer>200</integer>
-		<key>OptionsButtonY</key>
-		<integer>150</integer>
-		<key>CreditsButtonY</key>
-		<integer>100</integer>
-		<key>ButtonsX</key>
-		<integer>60</integer>
-		<key>ButtonsWidth</key>
-		<integer>200</integer>
 		<key>ButtonsHeight</key>
 		<integer>46</integer>
+		<key>ButtonsWidth</key>
+		<integer>200</integer>
+		<key>ButtonsX</key>
+		<integer>60</integer>
+		<key>CreditsButtonY</key>
+		<integer>100</integer>
+		<key>OptionsButtonY</key>
+		<integer>150</integer>
+		<key>PlayButtonY</key>
+		<integer>200</integer>
 	</dict>
 	<key>OptionsMenu</key>
 	<dict>
-		<key>SoundSliderY</key>
-		<integer>90</integer>
-		<key>SoundSliderX</key>
-		<integer>110</integer>
-		<key>SoundLabelY</key>
-		<integer>90</integer>
-		<key>SoundLabelX</key>
-		<integer>20</integer>
 		<key>BackButtonY</key>
-		<integer>40</integer>
-		<key>ButtonsX</key>
-		<integer>20</integer>
-		<key>ButtonsWidth</key>
-		<integer>280</integer>
+		<integer>15</integer>
 		<key>ButtonsHeight</key>
 		<integer>46</integer>
+		<key>ButtonsWidth</key>
+		<integer>280</integer>
+		<key>ButtonsX</key>
+		<integer>20</integer>
+		<key>NoteSkinLabelX</key>
+		<integer>20</integer>
+		<key>NoteSkinLabelY</key>
+		<integer>175</integer>
+		<key>NoteSkinTogglerX</key>
+		<integer>110</integer>
+		<key>NoteSkinTogglerY</key>
+		<integer>175</integer>
+		<key>PadConfigButtonY</key>
+		<integer>225</integer>
+		<key>SoundLabelX</key>
+		<integer>20</integer>
+		<key>SoundLabelY</key>
+		<integer>68</integer>
+		<key>SoundSliderX</key>
+		<integer>110</integer>
+		<key>SoundSliderY</key>
+		<integer>68</integer>
+		<key>ThemeLabelX</key>
+		<integer>20</integer>
+		<key>ThemeLabelY</key>
+		<integer>125</integer>
+		<key>ThemeTogglerX</key>
+		<integer>110</integer>
+		<key>ThemeTogglerY</key>
+		<integer>125</integer>
+		<key>TogglersWidth</key>
+		<integer>190</integer>
 	</dict>
 	<key>SongPickerMenu</key>
 	<dict>
-		<key>Wheel</key>
-		<dict>
-			<key>Highlight</key>
-			<dict>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>335</integer>
-				<key>CenterX</key>
-				<integer>165</integer>
-				<key>CenterY</key>
-				<integer>184</integer>
-			</dict>
-			<key>ItemSong</key>
-			<dict>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>CenterX</key>
-				<integer>165</integer>
-			</dict>
-		</dict>
-		<key>ModPanel</key>
-		<dict>
-			<key>X</key>
-			<integer>0</integer>
-			<key>Y</key>
-			<integer>410</integer>
-			<key>Width</key>
-			<integer>320</integer>
-			<key>Height</key>
-			<integer>70</integer>
-		</dict>
 		<key>BackButton</key>
 		<dict>
+			<key>Height</key>
+			<integer>46</integer>
+			<key>Width</key>
+			<integer>60</integer>
 			<key>X</key>
 			<integer>5</integer>
 			<key>Y</key>
 			<integer>433</integer>
-			<key>Width</key>
-			<integer>60</integer>
-			<key>Height</key>
-			<integer>46</integer>
 		</dict>
 		<key>DifficultyToggler</key>
 		<dict>
+			<key>Height</key>
+			<integer>46</integer>
+			<key>Width</key>
+			<integer>180</integer>
 			<key>X</key>
 			<integer>70</integer>
 			<key>Y</key>
 			<integer>433</integer>
-			<key>Width</key>
-			<integer>180</integer>
+		</dict>
+		<key>ModPanel</key>
+		<dict>
 			<key>Height</key>
-			<integer>46</integer>
+			<integer>70</integer>
+			<key>Width</key>
+			<integer>320</integer>
+			<key>X</key>
+			<integer>0</integer>
+			<key>Y</key>
+			<integer>410</integer>
 		</dict>
 		<key>SpeedToggler</key>
 		<dict>
+			<key>Height</key>
+			<integer>46</integer>
+			<key>Width</key>
+			<integer>60</integer>
 			<key>X</key>
 			<integer>255</integer>
 			<key>Y</key>
 			<integer>433</integer>
-			<key>Width</key>
-			<integer>60</integer>
-			<key>Height</key>
-			<integer>46</integer>
+		</dict>
+		<key>Wheel</key>
+		<dict>
+			<key>Highlight</key>
+			<dict>
+				<key>CenterX</key>
+				<integer>165</integer>
+				<key>CenterY</key>
+				<integer>184</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>335</integer>
+			</dict>
+			<key>ItemSong</key>
+			<dict>
+				<key>CenterX</key>
+				<integer>165</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 		</dict>
 	</dict>
 	<key>SongPlay</key>
 	<dict>
+		<key>HoldJudgement</key>
+		<dict>
+			<key>DownX</key>
+			<integer>115</integer>
+			<key>LeftX</key>
+			<integer>45</integer>
+			<key>MaxShowTime</key>
+			<real>0.40000000000000002</real>
+			<key>RightX</key>
+			<integer>255</integer>
+			<key>UpX</key>
+			<integer>185</integer>
+			<key>Y</key>
+			<integer>325</integer>
+		</dict>
+		<key>HoldNote</key>
+		<dict>
+			<key>BodyPieceHeight</key>
+			<real>128</real>
+			<key>CapHeight</key>
+			<integer>64</integer>
+			<key>CapWidth</key>
+			<integer>64</integer>
+		</dict>
+		<key>Judgement</key>
+		<dict>
+			<key>MaxShowTime</key>
+			<integer>1</integer>
+			<key>X</key>
+			<integer>160</integer>
+			<key>Y</key>
+			<integer>240</integer>
+		</dict>
+		<key>LifeBar</key>
+		<dict>
+			<key>Height</key>
+			<integer>32</integer>
+			<key>Width</key>
+			<integer>320</integer>
+			<key>X</key>
+			<integer>0</integer>
+			<key>Y</key>
+			<integer>448</integer>
+		</dict>
 		<key>ReceptorRow</key>
 		<dict>
-			<key>Rotation</key>
-			<dict>
-				<key>Left</key>
-				<real>-90</real>
-				<key>Down</key>
-				<real>0</real>
-				<key>Up</key>
-				<real>180</real>
-				<key>Right</key>
-				<real>90</real>
-			</dict>
 			<key>Explosion</key>
 			<dict>
 				<key>AlignX</key>
 				<integer>-32</integer>
 				<key>AlignY</key>
 				<integer>-32</integer>
-				<key>Width</key>
-				<integer>128</integer>
 				<key>Height</key>
 				<integer>128</integer>
 				<key>MaxShowTime</key>
-				<real>0.1</real>
+				<real>0.10000000000000001</real>
+				<key>Width</key>
+				<integer>128</integer>
 			</dict>
+			<key>Height</key>
+			<integer>64</integer>
+			<key>Rotation</key>
+			<dict>
+				<key>Down</key>
+				<real>0.0</real>
+				<key>Left</key>
+				<real>-90</real>
+				<key>Right</key>
+				<real>90</real>
+				<key>Up</key>
+				<real>180</real>
+			</dict>
+			<key>Width</key>
+			<integer>274</integer>
 			<key>X</key>
 			<integer>23</integer>
 			<key>Y</key>
 			<integer>380</integer>
-			<key>Width</key>
-			<integer>274</integer>
-			<key>Height</key>
-			<integer>64</integer>
-		</dict>
-		<key>Judgement</key>
-		<dict>
-			<key>X</key>
-			<integer>160</integer>
-			<key>Y</key>
-			<integer>240</integer>
-			<key>MaxShowTime</key>
-			<integer>1</integer>
-		</dict>
-		<key>HoldJudgement</key>
-		<dict>
-			<key>Y</key>
-			<integer>325</integer>
-			<key>LeftX</key>
-			<integer>45</integer>
-			<key>DownX</key>
-			<integer>115</integer>
-			<key>UpX</key>
-			<integer>185</integer>
-			<key>RightX</key>
-			<integer>255</integer>
-			<key>MaxShowTime</key>
-			<real>0.4</real>
 		</dict>
 		<key>TapNote</key>
 		<dict>
-			<key>Rotation</key>
-			<dict>
-				<key>Left</key>
-				<real>-90</real>
-				<key>Down</key>
-				<real>0</real>
-				<key>Up</key>
-				<real>180</real>
-				<key>Right</key>
-				<real>90</real>
-			</dict>
-			<key>LeftX</key>
-			<integer>23</integer>
 			<key>DownX</key>
 			<integer>93</integer>
-			<key>UpX</key>
-			<integer>163</integer>
+			<key>Height</key>
+			<integer>64</integer>
+			<key>LeftX</key>
+			<integer>23</integer>
 			<key>RightX</key>
 			<integer>233</integer>
-			<key>Width</key>
-			<integer>64</integer>
-			<key>Height</key>
-			<integer>64</integer>
+			<key>Rotation</key>
+			<dict>
+				<key>Down</key>
+				<real>0.0</real>
+				<key>Left</key>
+				<real>-90</real>
+				<key>Right</key>
+				<real>90</real>
+				<key>Up</key>
+				<real>180</real>
+			</dict>
 			<key>Spacing</key>
 			<integer>6</integer>
-		</dict>
-		<key>LifeBar</key>
-		<dict>
-			<key>X</key>
-			<integer>0</integer>
-			<key>Y</key>
-			<integer>448</integer>
+			<key>UpX</key>
+			<integer>163</integer>
 			<key>Width</key>
-			<integer>320</integer>
-			<key>Height</key>
-			<integer>32</integer>
-		</dict>
-		<key>HoldNote</key>
-		<dict>
-			<key>BodyPieceHeight</key>
-			<real>128</real>
-			<key>CapWidth</key>
-			<integer>64</integer>
-			<key>CapHeight</key>
 			<integer>64</integer>
 		</dict>
 	</dict>

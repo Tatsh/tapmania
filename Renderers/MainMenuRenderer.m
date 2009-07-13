@@ -7,6 +7,7 @@
 //
 
 #import "MainMenuRenderer.h"
+#import "Label.h"
 #import "MenuItem.h"
 #import "ImageButton.h"
 #import "PhysicsUtil.h"
@@ -35,6 +36,8 @@
 #import "FontManager.h"
 #import "Font.h"
 
+#import "VersionInfo.h"
+
 @interface MainMenuRenderer (InputHandling)
 - (void) playButtonHit;
 - (void) optionsButtonHit;
@@ -58,6 +61,8 @@ Texture2D *t_Donate;
 	[m_pMainMenuItems[kMainMenuItem_Options] release];
 	[m_pMainMenuItems[kMainMenuItem_Credits] release];
 	
+	[m_pVersion release];
+	[m_pCopyright release];
 	[m_pDonateButton release];
 	
 	[super dealloc];
@@ -85,6 +90,10 @@ Texture2D *t_Donate;
 	m_nSelectedMenu = -1;
 	m_nState = kMainMenuState_Ready;
 	m_dAnimationTime = 0.0;
+	
+	// Create version and copyright
+	m_pVersion = [[Label alloc] initWithTitle:TAPMANIA_VERSION_STRING fontSize:12.0f andShape:CGRectMake(212, 285, 80, 40)];
+	m_pCopyright = [[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)];
 	
 	// Create donation button
 	m_pDonateButton = [[ZoomEffect alloc] initWithRenderable:
@@ -158,6 +167,10 @@ Texture2D *t_Donate;
 	
 	// Draw menu background
 	[t_BG drawInRect:bounds];
+	
+	// Version and copyright
+	[m_pVersion render:fDelta];
+	[m_pCopyright render:fDelta];
 	
 	// NOTE: Items will be rendered by it self
 }

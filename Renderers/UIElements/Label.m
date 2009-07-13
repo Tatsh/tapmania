@@ -12,15 +12,22 @@
 
 @implementation Label
 
-- (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
+- (id) initWithTitle:(NSString*)title fontSize:(float)fontSize andShape:(CGRect) shape {
 	self = [super init];
 	if(!self) 
 		return nil;
 	
+	m_fFontSize = fontSize;
+	
 	m_rShape = shape;
-	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
+	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
 	m_sTitle = title;
 	
+	return self;	
+}
+
+- (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
+	self = [self initWithTitle:title fontSize:21.0f andShape:shape];
 	return self;
 }
 
