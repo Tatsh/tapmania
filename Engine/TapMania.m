@@ -7,6 +7,7 @@
 //
 
 #import "TapMania.h"
+#import "WebServer.h"
 
 #import "FadeTransition.h"
 #import "SongsDirectoryCache.h"
@@ -161,6 +162,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Will start with main menu
 	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init] usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
+	
+	// TODO: remove! testing only
+	[[WebServer sharedInstance] start];
 	
 	TMLog(@"Game run loop initialized...");
 }

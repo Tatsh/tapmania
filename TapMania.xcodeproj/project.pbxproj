@@ -51,6 +51,20 @@
 		248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0C640F4B13DB005A998C /* BasicEffect.m */; };
 		248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D210F4B24B4005A998C /* ZoomEffect.m */; };
 		248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D910F4B3750005A998C /* BlinkEffect.m */; };
+		248E92EC1017982400DB27D9 /* WebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E92EB1017982400DB27D9 /* WebServer.m */; };
+		248E932C1017992B00DB27D9 /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93201017992B00DB27D9 /* connection.c */; };
+		248E932D1017992B00DB27D9 /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93211017992B00DB27D9 /* connection.h */; };
+		248E932E1017992B00DB27D9 /* daemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93221017992B00DB27D9 /* daemon.c */; };
+		248E932F1017992B00DB27D9 /* internal.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93231017992B00DB27D9 /* internal.c */; };
+		248E93301017992B00DB27D9 /* internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93241017992B00DB27D9 /* internal.h */; };
+		248E93311017992B00DB27D9 /* memorypool.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93251017992B00DB27D9 /* memorypool.c */; };
+		248E93321017992B00DB27D9 /* memorypool.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93261017992B00DB27D9 /* memorypool.h */; };
+		248E93331017992B00DB27D9 /* postprocessor.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93271017992B00DB27D9 /* postprocessor.c */; };
+		248E93341017992B00DB27D9 /* reason_phrase.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93281017992B00DB27D9 /* reason_phrase.c */; };
+		248E93351017992B00DB27D9 /* reason_phrase.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93291017992B00DB27D9 /* reason_phrase.h */; };
+		248E93361017992B00DB27D9 /* response.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E932A1017992B00DB27D9 /* response.c */; };
+		248E93371017992B00DB27D9 /* response.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E932B1017992B00DB27D9 /* response.h */; };
+		248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 248E931C101798BC00DB27D9 /* libmicrohttpd.a */; };
 		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
 		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
 		248F78150F77F99700AE2130 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.m */; };
@@ -178,6 +192,13 @@
 			remoteGlobalIDString = 243DF64A0FB1C156004C08EF;
 			remoteInfo = vorbisfile;
 		};
+		248E934710179A4000DB27D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 248E931B101798BC00DB27D9 /* microhttpd */;
+			remoteInfo = microhttpd;
+		};
 		24964C570F7921A800C9D5BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -276,6 +297,21 @@
 		248B0D210F4B24B4005A998C /* ZoomEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomEffect.m; sourceTree = "<group>"; };
 		248B0D900F4B3750005A998C /* BlinkEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlinkEffect.h; sourceTree = "<group>"; };
 		248B0D910F4B3750005A998C /* BlinkEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlinkEffect.m; sourceTree = "<group>"; };
+		248E92EA1017982400DB27D9 /* WebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServer.h; sourceTree = "<group>"; };
+		248E92EB1017982400DB27D9 /* WebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServer.m; sourceTree = "<group>"; };
+		248E931C101798BC00DB27D9 /* libmicrohttpd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmicrohttpd.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		248E93201017992B00DB27D9 /* connection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = connection.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/connection.c"; sourceTree = "<group>"; };
+		248E93211017992B00DB27D9 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = connection.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/connection.h"; sourceTree = "<group>"; };
+		248E93221017992B00DB27D9 /* daemon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = daemon.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/daemon.c"; sourceTree = "<group>"; };
+		248E93231017992B00DB27D9 /* internal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = internal.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/internal.c"; sourceTree = "<group>"; };
+		248E93241017992B00DB27D9 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = internal.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/internal.h"; sourceTree = "<group>"; };
+		248E93251017992B00DB27D9 /* memorypool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = memorypool.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/memorypool.c"; sourceTree = "<group>"; };
+		248E93261017992B00DB27D9 /* memorypool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memorypool.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/memorypool.h"; sourceTree = "<group>"; };
+		248E93271017992B00DB27D9 /* postprocessor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = postprocessor.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/postprocessor.c"; sourceTree = "<group>"; };
+		248E93281017992B00DB27D9 /* reason_phrase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = reason_phrase.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/reason_phrase.c"; sourceTree = "<group>"; };
+		248E93291017992B00DB27D9 /* reason_phrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reason_phrase.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/reason_phrase.h"; sourceTree = "<group>"; };
+		248E932A1017992B00DB27D9 /* response.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = response.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/response.c"; sourceTree = "<group>"; };
+		248E932B1017992B00DB27D9 /* response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = response.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/response.h"; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
 		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
@@ -447,10 +483,18 @@
 				243DF6400FB1C0CA004C08EF /* libogg.a in Frameworks */,
 				243DF6410FB1C0CA004C08EF /* libvorbis.a in Frameworks */,
 				243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */,
+				248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		243DF6490FB1C156004C08EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		248E931A101798BC00DB27D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,6 +522,7 @@
 		080E96DDFE201D6D7F000001 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				248E92E8101797D700DB27D9 /* UploadSupport */,
 				24A709AB0F7A936C0080121C /* FontSupport */,
 				2496484D0F79131C00C9D5BC /* SoundSupport */,
 				24D762930F389FBE008B0AA0 /* ThemeSupport */,
@@ -518,6 +563,7 @@
 				24964C330F791F4500C9D5BC /* libogg.a */,
 				24964C540F7921A200C9D5BC /* libvorbis.a */,
 				243DF64B0FB1C156004C08EF /* libvorbisfile.a */,
+				248E931C101798BC00DB27D9 /* libmicrohttpd.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -690,6 +736,34 @@
 			path = Renderers/UIElements/Effects;
 			sourceTree = "<group>";
 		};
+		248E92E8101797D700DB27D9 /* UploadSupport */ = {
+			isa = PBXGroup;
+			children = (
+				248E92EA1017982400DB27D9 /* WebServer.h */,
+				248E92EB1017982400DB27D9 /* WebServer.m */,
+			);
+			path = UploadSupport;
+			sourceTree = "<group>";
+		};
+		248E92ED1017983E00DB27D9 /* MICROHTTPD */ = {
+			isa = PBXGroup;
+			children = (
+				248E93201017992B00DB27D9 /* connection.c */,
+				248E93211017992B00DB27D9 /* connection.h */,
+				248E93221017992B00DB27D9 /* daemon.c */,
+				248E93231017992B00DB27D9 /* internal.c */,
+				248E93241017992B00DB27D9 /* internal.h */,
+				248E93251017992B00DB27D9 /* memorypool.c */,
+				248E93261017992B00DB27D9 /* memorypool.h */,
+				248E93271017992B00DB27D9 /* postprocessor.c */,
+				248E93281017992B00DB27D9 /* reason_phrase.c */,
+				248E93291017992B00DB27D9 /* reason_phrase.h */,
+				248E932A1017992B00DB27D9 /* response.c */,
+				248E932B1017992B00DB27D9 /* response.h */,
+			);
+			name = MICROHTTPD;
+			sourceTree = "<group>";
+		};
 		2496484D0F79131C00C9D5BC /* SoundSupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +778,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
+				248E92ED1017983E00DB27D9 /* MICROHTTPD */,
 				24964CF20F79227800C9D5BC /* VORBIS */,
 				24964C3F0F7920AA00C9D5BC /* OGG */,
 				2496486C0F7913F200C9D5BC /* libogg-1.1.3 */,
@@ -946,6 +1021,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		248E9318101798BC00DB27D9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248E932D1017992B00DB27D9 /* connection.h in Headers */,
+				248E93301017992B00DB27D9 /* internal.h in Headers */,
+				248E93321017992B00DB27D9 /* memorypool.h in Headers */,
+				248E93351017992B00DB27D9 /* reason_phrase.h in Headers */,
+				248E93371017992B00DB27D9 /* response.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24964C2F0F791F4500C9D5BC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1018,6 +1105,7 @@
 			dependencies = (
 				24964C5B0F7921ED00C9D5BC /* PBXTargetDependency */,
 				245726770FBA11C2002CBAAE /* PBXTargetDependency */,
+				248E934810179A4000DB27D9 /* PBXTargetDependency */,
 			);
 			name = TapMania;
 			productName = TapMania;
@@ -1040,6 +1128,23 @@
 			name = vorbisfile;
 			productName = vorbisfile;
 			productReference = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		248E931B101798BC00DB27D9 /* microhttpd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 248E931F101798E300DB27D9 /* Build configuration list for PBXNativeTarget "microhttpd" */;
+			buildPhases = (
+				248E9318101798BC00DB27D9 /* Headers */,
+				248E9319101798BC00DB27D9 /* Sources */,
+				248E931A101798BC00DB27D9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = microhttpd;
+			productName = microhttpd;
+			productReference = 248E931C101798BC00DB27D9 /* libmicrohttpd.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		24964C320F791F4500C9D5BC /* ogg */ = {
@@ -1093,6 +1198,7 @@
 				24964C320F791F4500C9D5BC /* ogg */,
 				24964C530F7921A200C9D5BC /* vorbis */,
 				243DF64A0FB1C156004C08EF /* vorbisfile */,
+				248E931B101798BC00DB27D9 /* microhttpd */,
 			);
 		};
 /* End PBXProject section */
@@ -1186,6 +1292,7 @@
 				24627B9E0FBF6DF9002E245D /* Label.m in Sources */,
 				249D805A0FCC9AF700630646 /* ImageButton.m in Sources */,
 				2479A3810FE6EDFF00688640 /* PadConfigRenderer.m in Sources */,
+				248E92EC1017982400DB27D9 /* WebServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1301,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		248E9319101798BC00DB27D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248E932C1017992B00DB27D9 /* connection.c in Sources */,
+				248E932E1017992B00DB27D9 /* daemon.c in Sources */,
+				248E932F1017992B00DB27D9 /* internal.c in Sources */,
+				248E93311017992B00DB27D9 /* memorypool.c in Sources */,
+				248E93331017992B00DB27D9 /* postprocessor.c in Sources */,
+				248E93341017992B00DB27D9 /* reason_phrase.c in Sources */,
+				248E93361017992B00DB27D9 /* response.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,6 +1370,11 @@
 			target = 243DF64A0FB1C156004C08EF /* vorbisfile */;
 			targetProxy = 245726760FBA11C2002CBAAE /* PBXContainerItemProxy */;
 		};
+		248E934810179A4000DB27D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 248E931B101798BC00DB27D9 /* microhttpd */;
+			targetProxy = 248E934710179A4000DB27D9 /* PBXContainerItemProxy */;
+		};
 		24964C580F7921A800C9D5BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 24964C320F791F4500C9D5BC /* ogg */;
@@ -1271,6 +1397,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
 					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
@@ -1321,6 +1449,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
 					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
@@ -1377,6 +1507,39 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = vorbisfile;
 				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		248E931D101798BD00DB27D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = microhttpd;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		248E931E101798BD00DB27D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = microhttpd;
 			};
 			name = Debug;
 		};
@@ -1446,6 +1609,15 @@
 			buildConfigurations = (
 				243DF64D0FB1C157004C08EF /* Release */,
 				245726730FBA1172002CBAAE /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		248E931F101798E300DB27D9 /* Build configuration list for PBXNativeTarget "microhttpd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				248E931D101798BD00DB27D9 /* Release */,
+				248E931E101798BD00DB27D9 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
