@@ -10,6 +10,7 @@
 #import "ThemeManager.h"
 #import "SongsDirectoryCache.h"
 #import "TMSong.h"
+#import "TMZipFile.h"
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
@@ -34,14 +35,6 @@ static WebServer *sharedWebServerDelegate = nil;
 #define GET             0
 #define POST            1
 
-struct connection_info_struct
-{
-	int connectiontype;
-	struct MHD_PostProcessor *postprocessor;
-	FILE *fp;
-	const char *answerstring;
-	int answercode;
-};
 
 char* getPage (char* page) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -188,6 +181,7 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 	char* pageContents = getPage("InternalError");
 	con_info->answerstring = pageContents;
 	con_info->answercode = MHD_HTTP_INTERNAL_SERVER_ERROR;
+	con_info->file_uploaded = false;
 	
 	if (0 != strcmp (key, "file")) {
 		[pool release];
@@ -202,7 +196,7 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 		TMLog(@"Check incoming file: '%s'", buffer);
 		
 		if (NULL != (fp = fopen (buffer, "r")))
-        {
+        {			
 			free(pageContents);
 			pageContents = getIndexPage("The file you are uploading seems to exist already");
 			
@@ -219,6 +213,11 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 			[pool release];
 			return MHD_NO;
 		}
+		
+		// Store file path
+		con_info->file_path = malloc(sizeof(char) * (strlen(buffer) + 1));
+		strncpy(con_info->file_path, buffer, strlen(buffer));
+		con_info->file_path[strlen(buffer)] = 0;
     }
 	
 	if (size > 0)
@@ -227,14 +226,8 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 			[pool release];
 			return MHD_NO;
 		}
-    }
-	
-	free(pageContents);
-	pageContents = getIndexPage("Your simfiles uploaded successfully");
-	
-	con_info->answerstring = pageContents;
-	con_info->answercode = MHD_HTTP_OK;
-	
+	}
+		
 	[pool release];
 	return MHD_YES;
 }
@@ -258,8 +251,45 @@ request_completed (void *cls, struct MHD_Connection *connection,
 		
 		if (con_info->fp)
 			fclose (con_info->fp);
+		
+		// Now when the file is uploaded completely we can unzip it
+		if(con_info->file_uploaded) {
+			// Finished the upload
+			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+			
+			TMLog(@"Going to unzip the file at '%s'...", con_info->file_path);
+			
+			// If we got here the file should be uploaded now
+			TMZipFile* zipHandler = [[TMZipFile alloc] initWithPath:[NSString stringWithCString:con_info->file_path]];
+			if(zipHandler) {	
+				NSString* extDir = [[[WebServer sharedInstance] getIncomingPath] stringByAppendingString:@"/Staging"];
+				
+				// Try to extract				
+				[zipHandler extractTo:extDir];
+				
+				// Delete the zip self
+				NSError* err;
+				[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithCString:con_info->file_path] error:&err];
+				
+				// Move the simfile(s)
+				[[SongsDirectoryCache sharedInstance] addSongsFrom:extDir];
+				
+				// Cleanup
+				[zipHandler release];
+				
+				// Delete the staging dir
+				[[NSFileManager defaultManager] removeItemAtPath:extDir error:&err];				
+				
+			} else {
+				// TODO raise error on gui
+				TMLog(@"Couldn't work with this zip file for some reason...");
+			}
+			
+			[pool release];			
+		}
     }
 	
+	if(con_info->file_path) free(con_info->file_path);						
 	free (con_info);
 	*con_cls = NULL;
 }
@@ -365,7 +395,9 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 			return code;
 		}
     }
+	// End of new connection block
 	
+	// Returning connection block below
 	if (0 == strcmp (method, "POST"))
     {
 		struct connection_info_struct *con_info = *con_cls;
@@ -378,9 +410,14 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 			
 			return MHD_YES;
         }
-		else
+		else {
+			con_info->file_uploaded = true;				
+			con_info->answerstring = getIndexPage("Your simfiles uploaded successfully");
+			con_info->answercode = MHD_HTTP_OK;
+			
 			return send_page (connection, con_info->answerstring,
 							  con_info->answercode);
+		}
     }
 	
 	return send_page (connection, getPage("Error"), MHD_HTTP_BAD_REQUEST);

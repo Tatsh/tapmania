@@ -21,6 +21,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (NSMutableDictionary*) getCatalogueCache;
 - (void) writeCatalogueCache;
 
+- (void) addSongsFromSmZipSongsDir:(NSString*)path;
+- (void) addSongFromDir:(NSString*)path;
+
 + (NSString*)fileMD5:(NSString*)path;
 + (NSString*)dirMD5:(NSString*)path;
 @end
@@ -220,6 +223,78 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	else --i;
 	
 	return [m_aAvailableSongs objectAtIndex:i];
+}
+
+- (void) addSongsFrom:(NSString*)rootDir {
+	// This is usually called after a smzip/zip was extracted
+	// First we need to determine the architecture of the uploaded package
+	NSArray* rootDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:rootDir];	
+	
+	if([rootDirContents count] == 0) {
+		TMLog(@"Empty zip?");
+		return;
+	}
+	
+	for (NSString* item in rootDirContents) {
+		if([[item lowercaseString] isEqualToString:@"songs"]) {
+			// This looks like Stepmania's Smzip format. we can use it
+			[self addSongsFromSmZipSongsDir:[rootDir stringByAppendingPathComponent:item]];
+		}
+	}
+}
+
+// SMZIP format support
+- (void) addSongsFromSmZipSongsDir:(NSString*)path {
+	// All stuff inside are groups on first level and songs on second level.
+	// We need to ignore the groups for now.
+	NSArray* rootDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
+	
+	if([rootDirContents count] == 0) {
+		TMLog(@"Empty Songs folder in SMZIP?");
+		return;
+	}
+	
+	for (NSString* item in rootDirContents) {
+		NSString* groupDir = [path stringByAppendingPathComponent:item];
+		NSArray* groupContents = [[NSFileManager defaultManager] directoryContentsAtPath:groupDir];
+
+		for (NSString* groupItem in groupContents) {
+			[self addSongFromDir:[groupDir stringByAppendingPathComponent:groupItem]];
+		}
+	}	
+}
+
+- (void) addSongFromDir:(NSString*)path {
+	NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:[path lastPathComponent]];
+	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
+	NSString* file;
+	
+	NSString* stepsFilePath = nil;			
+	NSString* musicFilePath = nil;			
+	
+	while (file = [dirEnum nextObject]) {
+		if([[file lowercaseString] hasSuffix:@".dwi"]) {		
+			if(stepsFilePath == nil) {
+				stepsFilePath = [curPath stringByAppendingPathComponent:file];
+			}
+		} else if([[file lowercaseString] hasSuffix:@".sm"]) {			
+			stepsFilePath = [curPath stringByAppendingPathComponent:file];						
+		} else if([[file lowercaseString] hasSuffix:@".mp3"]) {			
+			musicFilePath = [curPath stringByAppendingPathComponent:file];
+		} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
+			musicFilePath = [curPath stringByAppendingPathComponent:file];
+		}
+	}
+	
+	// If found all what we need - add this song to the collection
+	if(stepsFilePath != nil && musicFilePath != nil){
+		NSError* err;
+		
+		// TODO handle errors
+		if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
+			// TODO: Ok, now add to library
+		}
+	}
 }
 
 - (void) deleteSong:(NSString*)songDirName {

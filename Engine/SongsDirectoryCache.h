@@ -33,6 +33,7 @@
 - (TMSong*) getSongPrevFrom:(TMSong*)song;
 
 - (void) deleteSong:(NSString*)songDirName;
+- (void) addSongsFrom:(NSString*)rootDir;
 
 + (SongsDirectoryCache *)sharedInstance;
 
