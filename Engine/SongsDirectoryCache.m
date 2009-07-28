@@ -28,6 +28,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 @implementation SongsDirectoryCache
 
 @synthesize m_idDelegate;
+@synthesize m_bCatalogueIsEmpty;
 
 - (id) init {
 	self = [super init];
@@ -35,6 +36,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		return nil;
 	
 	m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
+	m_bCatalogueIsEmpty = NO;
 	
 	return self;
 }
@@ -63,12 +65,15 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
 		
 		// Raise error if empty songs dir
+		/*
+		 Version 0.1.6 introduces a webserver solution for song upload/management.
+		 Therefore the error should not arise.
+		 However we need to disable the Play button in the main menu so that
+		 the user will need to upload songs first if none are available.
+		*/
+		 
 		if([songsDirContents count] == 0) {
-			if(m_idDelegate != nil) {
-				[m_idDelegate songLoaderError:@"No songs uploaded! read the manual"];
-			}
-			
-			return;
+			m_bCatalogueIsEmpty = YES;
 		}
 		
 		// Try to read the catalogue file
@@ -215,6 +220,35 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	else --i;
 	
 	return [m_aAvailableSongs objectAtIndex:i];
+}
+
+- (void) deleteSong:(NSString*)songDirName {
+	TMSong* foundSong = nil;
+	
+	for(TMSong* song in m_aAvailableSongs) {
+		if([song.m_sSongDirName isEqualToString:songDirName]) {
+			foundSong = song;
+			break;
+		}
+	}
+	
+	// Only delete found songs to prevent any harm
+	if(foundSong == nil) 
+		return;
+	
+	// Remove from current list
+	[m_aAvailableSongs removeObject:foundSong];
+	if([m_aAvailableSongs count] == 0) {
+		m_bCatalogueIsEmpty = YES;
+	}
+	
+	// Update cache
+	[m_pCatalogueCache removeObjectForKey:songDirName];
+	[self writeCatalogueCache];
+	
+	// Remove the directory on the FS
+	NSError* err;
+	[[NSFileManager defaultManager] removeItemAtPath:[m_sSongsDir stringByAppendingPathComponent:songDirName] error:&err];
 }
 
 - (NSMutableDictionary*) getCatalogueCache {

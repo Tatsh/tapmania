@@ -25,6 +25,7 @@
 #import "TapMania.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
+#import "SongsDirectoryCache.h"
 
 #import "ZoomEffect.h"
 #import "BlinkEffect.h"
@@ -100,11 +101,20 @@ Texture2D *t_Donate;
 					   [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
 	
 	// Register menu items
-	m_pMainMenuItems[kMainMenuItem_Play] = 
-	[[SlideEffect alloc] initWithRenderable:
-	 [[ZoomEffect alloc] initWithRenderable:	
-	  // [[BlinkEffect alloc] initWithRenderable:
-	  [[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];							
+	// Must disable the play button if empty catalogue
+	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
+		m_pMainMenuItems[kMainMenuItem_Play] = 
+		[[SlideEffect alloc] initWithRenderable:
+		  [[MenuItem alloc] initWithTitle:@"No Songs" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];						
+		
+		[m_pMainMenuItems[kMainMenuItem_Play] disable];
+	} else {
+		
+		m_pMainMenuItems[kMainMenuItem_Play] = 
+		[[SlideEffect alloc] initWithRenderable:
+		 [[ZoomEffect alloc] initWithRenderable:
+		  [[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];								
+	}
 	
 	m_pMainMenuItems[kMainMenuItem_Options] = 
 	[[SlideEffect alloc] initWithRenderable:
@@ -254,7 +264,7 @@ Texture2D *t_Donate;
 }
 
 - (void) donateButtonHit {
-	NSURL* url = [NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=godexsoft%40gmail%2ecom&lc=US&item_name=TapMania&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"];
+	NSURL* url = [NSURL URLWithString:DONATE_URL];
 	[[UIApplication sharedApplication] openURL:url];
 }
 

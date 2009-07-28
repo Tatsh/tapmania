@@ -29,7 +29,17 @@
 	m_oActionHandler = nil;
 	m_oChangedActionHandler = nil;
 	
+	m_bEnabled = YES;
+	
 	return self;
+}
+
+- (void) disable {
+	m_bEnabled = NO;
+}
+
+- (void) enable {
+	m_bEnabled = YES;
 }
 
 - (BOOL) containsPoint:(CGPoint)point {
@@ -84,7 +94,9 @@
 							[touch locationInView:[TapMania sharedInstance].glView]];
 
 		if(CGRectContainsPoint(m_rShape, point)) {
-			TMLog(@"Menu item hit!");
+			if(m_bEnabled) {
+				TMLog(@"Menu item hit!");
+			}
 		}
 	}
 }
@@ -96,7 +108,9 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+			if(m_bEnabled) {
+				[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+			}
 		}
 	}
 }
@@ -108,8 +122,10 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			TMLog(@"Menu item finger raised!");
-			[m_idActionDelegate performSelector:m_oActionHandler];
+			if(m_bEnabled) {
+				TMLog(@"Menu item finger raised!");
+				[m_idActionDelegate performSelector:m_oActionHandler];
+			}
 		}
 	}
 }

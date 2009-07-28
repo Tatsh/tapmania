@@ -12,6 +12,7 @@ typedef enum {
 	kResourceLoaderGraphics = 0,
 	kResourceLoaderFonts,
 	kResourceLoaderSounds,
+	kResourceLoaderWeb,
 	kResourceLoaderNoteSkin,
 	kNumResourceLoaderTypes
 } TMResourceLoaderType;

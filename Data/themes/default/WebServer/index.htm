@@ -1,12 +1,40 @@
 <html>
 	<head>
-		<title>TapMania Song Uploader</title>
+		<title>TapMania Simfile Manager</title>
 	</head>
-	<body bgcolor="#040444" text="lightgray">
-		Upload a .SM file, please!<br>
+	<body bgcolor="#000000" text="lightgray">
+	<br>
+		<center><h3>Welcome to TapMania Simfile Manager!</h3></center>
+		<b>%MESSAGE%</b>
+		<hr/>
+		<b>Use this form to upload a simfile archive.</b><br/>
+		<small>The archive can be .smzip or .zip format. It should contain one or more simfile directories (with .sm/.dwi file, .mp3 file etc.).</small><br>
 		<form action="/filepost" method="post" enctype="multipart/form-data">
-			<input name="file" type="file">
+			<br/>
+			<input name="file" type="file"><br/>
 			<input type="submit" value=" Send ">
 		</form>
+		<hr/>
+		<br/>
+		<b>Current Catalogue:</b><br/>
+		<small>This is the list of currently available songs. You can delete individual songs using this interface.</small>
+		<br/><br/>
+
+		<table width="100%" cellspacing="1" cellpadding="4" bgcolor="lightgray">
+			<tr>
+				<td align="center" bgcolor="black"><u>Title</u></td>
+				<td align="center" bgcolor="black"><u>Author</u></td>
+				<td align="center" bgcolor="black"><u>Difficulties</u></td>
+				<td align="center" bgcolor="black"><u>Actions</u></td>
+			</tr>
+			%CATALOGUE%
+		</table>
+
+		<hr/>
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=godexsoft%40gmail%2ecom&lc=US&item_name=TapMania&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"><img src="Images/donate.png" alt="Make a donation" border="0"/></a>
+		<small>Donate to TapMania development if you like the game!</small>
+		<hr/>
+		Visit <a href="http://tapmania.org/">TapMania.org</a> - The TapMania community portal.<br/>
+		<small>Copyright 2008-2009 (c) Godexsoft</small>
 	</body>
 </html>

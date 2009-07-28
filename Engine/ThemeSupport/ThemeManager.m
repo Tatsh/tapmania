@@ -22,7 +22,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 @implementation ThemeManager
 
 @synthesize m_aThemesList, m_sCurrentThemeName, m_aNoteskinsList, m_sCurrentNoteskinName;
-@synthesize m_pCurrentThemeResources, m_pCurrentNoteSkinResources;
+@synthesize m_pCurrentThemeResources, m_pCurrentThemeWebResources, m_pCurrentNoteSkinResources;
 
 - (id) init {
 	self = [super init];
@@ -86,6 +86,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
 		
 		NSString* themeGraphicsPath = [themesDir stringByAppendingFormat:@"/%@/Graphics/", m_sCurrentThemeName];
+		NSString* themeWebPath = [themesDir stringByAppendingFormat:@"/%@/WebServer/", m_sCurrentThemeName];
 		NSString* themeFontsPath	= [themesDir stringByAppendingFormat:@"/%@/Fonts/", m_sCurrentThemeName];
 		
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
@@ -93,6 +94,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics	 = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
+			m_pCurrentThemeWebResources = [[ResourcesLoader alloc] initWithPath:themeWebPath type:kResourceLoaderWeb andDelegate:self];
 			
 			// Use font manager to load up fonts
 			// TODO: Use our fonts in a later release
@@ -204,6 +206,11 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	
 	// Another way is redirection. .redir files therefore should also be accepted
 	if([[itemName lowercaseString] hasSuffix:@".redir"]) {
+		return YES;
+	}
+	
+	// We are also going to support htm/html files for our built-in web server
+	if([[itemName lowercaseString] hasSuffix:@".htm"] || [[itemName lowercaseString] hasSuffix:@".html"]) {
 		return YES;
 	}
 	

@@ -8,6 +8,8 @@
 
 #import "WebServer.h"
 #import "ThemeManager.h"
+#import "SongsDirectoryCache.h"
+#import "TMSong.h"
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
@@ -44,17 +46,89 @@ struct connection_info_struct
 char* getPage (char* page) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
-	NSString* pagePath = [NSString stringWithFormat:@"%@/%@/WebServer/%s", themesDir, [ThemeManager sharedInstance].m_sCurrentThemeName, page];
-	TMLog(@"Page should be at '%@'...", pagePath);
-
-	if(! [[NSFileManager defaultManager] isReadableFileAtPath:pagePath]){
+	TMResource* pageResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithCString:page]];
+	if(!pageResource) {
 		[pool release];
-		return strdup("No page in current theme!");
+		return strdup("<b>Page not found in current theme! Report to theme developer please.</b>");
 	}
 	
-	NSData* contents = [[NSFileManager defaultManager] contentsAtPath:pagePath];
-	char* ptr = strdup([contents bytes]);
+	NSData* contents = (NSData*)[pageResource resource];
+	char* ptr = malloc(([contents length])+1);
+	
+	strncpy(ptr, [contents bytes], [contents length]);
+	ptr[([contents length])] = 0; // Make sure we don't mess up the interface
+	
+	[pool release];
+	return ptr;
+}
+
+void* getBytes (char* path, int *size) {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	TMResource* binaryResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithCString:path]];
+	if(!binaryResource) {
+		[pool release];
+		return NULL;
+	}
+	
+	NSData* resData = (NSData*)[binaryResource resource];
+	
+	*size = [resData length];
+	void* ptr = malloc(([resData length]) + 1);
+	
+	[resData getBytes:ptr];
+
+	[pool release];
+	return ptr;
+}
+
+char* getIndexPage(char* message) {
+
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	// Get the main page template
+	char* pageContents = getPage("index");
+	char* itemTmpl = getPage("item");
+	
+	// We need to evaluate the catalogue list and embed it where the 
+	// %CATALOGUE% variable is in the index page.
+	NSArray* songs = [[SongsDirectoryCache sharedInstance] getSongList];	
+	NSMutableString* catalogue = [[NSMutableString alloc] initWithCapacity:[songs count]];
+	
+	for (TMSong* song in songs) {
+		NSString* item = [NSString stringWithCString:itemTmpl];
+		item = [item stringByReplacingOccurrencesOfString:@"%TITLE%" withString:song.title];
+		item = [item stringByReplacingOccurrencesOfString:@"%AUTHOR%" withString:song.m_sArtist];
+		item = [item stringByReplacingOccurrencesOfString:@"%SONGID%" withString:song.m_sSongDirName];
+		
+		NSMutableString* diffs = [[NSMutableString alloc] initWithCapacity:3];
+		
+		// Get song difficulties
+		for (TMSongDifficulty diff = kSongDifficulty_Beginner; diff<kNumSongDifficulties; diff++) {
+			int level = -1;
+			
+			if((level = [song getDifficultyLevel:diff]) != -1) {
+				[diffs appendFormat:@" %@(%d) ", [TMSong difficultyToString:diff], level];
+			}
+		}
+		
+		item = [item stringByReplacingOccurrencesOfString:@"%DIFFICULTIES%" withString:diffs];
+		[diffs release];
+		
+		// Add to resulting catalogue html
+		[catalogue appendString:item];
+	}
+	
+	// Generate result
+	NSString* result = [NSString stringWithCString:pageContents];
+	result = [result stringByReplacingOccurrencesOfString:@"%CATALOGUE%" withString:catalogue];
+	result = [result stringByReplacingOccurrencesOfString:@"%MESSAGE%" withString:[NSString stringWithCString:message]];
+	
+	char* ptr = malloc(([result length]) + 1);
+	strcpy(ptr, [result UTF8String]);
+	
+	[catalogue release];
+	free(pageContents);
 	
 	[pool release];
 	return ptr;
@@ -80,6 +154,24 @@ send_page (struct MHD_Connection *connection, const char *page,
 	return ret;
 }
 
+int
+send_bytes (struct MHD_Connection *connection, const void* bytes, int size,
+           int status_code)
+{
+	int ret;
+	struct MHD_Response *response;
+	
+	response =
+    MHD_create_response_from_data (size, (void *) bytes, MHD_NO,
+                                   MHD_YES);
+	if (!response)
+		return MHD_NO;
+	
+	ret = MHD_queue_response (connection, status_code, response);
+	MHD_destroy_response (response);
+	
+	return ret;
+}
 
 int
 iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
@@ -93,7 +185,7 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 	struct connection_info_struct *con_info =
     (struct connection_info_struct *) coninfo_cls;
 	
-	char* pageContents = getPage("internal_error.htm");
+	char* pageContents = getPage("InternalError");
 	con_info->answerstring = pageContents;
 	con_info->answercode = MHD_HTTP_INTERNAL_SERVER_ERROR;
 	
@@ -112,7 +204,7 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 		if (NULL != (fp = fopen (buffer, "r")))
         {
 			free(pageContents);
-			pageContents = getPage("exists.htm");
+			pageContents = getIndexPage("The file you are uploading seems to exist already");
 			
 			fclose (fp);
 			con_info->answerstring = pageContents;
@@ -137,10 +229,8 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 		}
     }
 	
-	TMLog(@"Upload complete...");
-	
 	free(pageContents);
-	pageContents = getPage("success.htm");
+	pageContents = getIndexPage("Your simfiles uploaded successfully");
 	
 	con_info->answerstring = pageContents;
 	con_info->answercode = MHD_HTTP_OK;
@@ -205,7 +295,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 			
 			con_info->connectiontype = POST;
 			con_info->answercode = MHD_HTTP_OK;
-			con_info->answerstring = getPage("success.htm");
+			con_info->answerstring = getIndexPage("");
         }
 		else
 			con_info->connectiontype = GET;
@@ -217,11 +307,63 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 	
 	if (0 == strcmp (method, "GET"))
     {
-		char* pageContents = getPage("index.htm");
-		int code = send_page (connection, pageContents, MHD_HTTP_OK);
+		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+		
+		// Check whether we need a page or a binary file
+		NSString *objUrl = [[NSString stringWithCString:url] lowercaseString];
 
-		free(pageContents);
-		return code;
+		// Should get us 'Images/imageName.png' or so
+		NSString *objShortUrl = [[NSString stringWithCString:url] 
+								 stringByReplacingOccurrencesOfString:
+								 [[WebServer sharedInstance] getAddress] withString:@""];
+
+		if([objUrl hasSuffix:@".png"] || [objUrl hasSuffix:@".jpg"] || [objUrl hasSuffix:@".gif"]) {			
+			
+			// Create a resource path from it
+			objShortUrl = [objShortUrl stringByReplacingOccurrencesOfString:@"/" withString:@" "];
+			
+			// Remove ext and trim
+			objShortUrl = [[objShortUrl stringByDeletingPathExtension] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+			
+			int size;
+			char* bytes = getBytes([objShortUrl UTF8String], &size);
+			int code = send_bytes (connection, bytes, size, MHD_HTTP_OK);
+			
+			free(bytes);
+			
+			[pool release];
+			return code;
+			
+		} else if([objShortUrl hasPrefix:@"/delete"]) {
+			// We requested the delete handler
+			char* cParam = MHD_lookup_connection_value (connection, MHD_GET_ARGUMENT_KIND, "song");
+			if(!cParam)
+				return send_page (connection, getPage("Error"), MHD_HTTP_BAD_REQUEST);
+			
+			NSString* param = [NSString stringWithCString:cParam];			
+			TMLog(@"Delete song '%@' using web interface", param);
+			
+			[[SongsDirectoryCache sharedInstance] deleteSong:param];
+			
+			char* pageContents = getIndexPage("The requested song was deleted");			
+			int code = send_page (connection, pageContents, MHD_HTTP_OK);
+			
+			free(pageContents);
+			
+			[pool release];
+			return code;
+			
+		} else {		
+			
+			// Otherwise by default we return the main page
+			char* pageContents = getIndexPage("");			
+			int code = send_page (connection, pageContents, MHD_HTTP_OK);
+
+			free(pageContents);
+				
+			[pool release];
+			return code;
+		}
     }
 	
 	if (0 == strcmp (method, "POST"))
@@ -241,7 +383,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 							  con_info->answercode);
     }
 	
-	return send_page (connection, getPage("error.htm"), MHD_HTTP_BAD_REQUEST);
+	return send_page (connection, getPage("Error"), MHD_HTTP_BAD_REQUEST);
 }
 
 

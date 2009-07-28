@@ -17,11 +17,13 @@
 	NSMutableArray*			m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
 	
 	NSMutableDictionary*	m_pCatalogueCache;
+	BOOL					m_bCatalogueIsEmpty;
 	
 	id						m_idDelegate;	// TMSongLoaderSupport delegate
 }
 
 @property (assign, setter=delegate:, getter=delegate) id<TMSongsLoaderSupport> m_idDelegate;
+@property (assign, getter=catalogueIsEmpty) BOOL m_bCatalogueIsEmpty;
 
 - (void) cacheSongs;
 - (NSArray*) getSongList;
@@ -29,6 +31,8 @@
 
 - (TMSong*) getSongNextTo:(TMSong*)song;
 - (TMSong*) getSongPrevFrom:(TMSong*)song;
+
+- (void) deleteSong:(NSString*)songDirName;
 
 + (SongsDirectoryCache *)sharedInstance;
 

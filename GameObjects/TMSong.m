@@ -144,6 +144,7 @@
 
 // Serialization
 - (id) initWithCoder: (NSCoder *) coder {
+	self.m_sSongDirName = [[coder decodeObjectForKey:@"sdn"] retain];
 	self.m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
 	self.m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
 	self.m_sHash = [[coder decodeObjectForKey:@"ha"] retain];
@@ -187,6 +188,7 @@
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
+	[coder encodeObject:m_sSongDirName forKey:@"sdn"];
 	[coder encodeObject:m_sFilePath forKey:@"fp"];
 	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
 	[coder encodeObject:m_sHash forKey:@"ha"];

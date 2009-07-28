@@ -38,6 +38,7 @@
 	
 	m_sFileSystemPath = [[NSString alloc] initWithString:path];
 	m_pResource = nil;
+	m_nResourceType = inType;
 	
 	// Check whether we must load it right now
 	if( [itemName hasPrefix:@"_"] ) {
@@ -114,6 +115,10 @@
 		// TODO: set default sound loader 
 	}
 	
+	if(inType == kResourceLoaderWeb) {
+		m_oClass = [NSData class];
+	}
+	
 	// Check whether the loader file exists
 	if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@.loader", pathToHoldingDir, componentName]]) {
 		loaderFile = [NSString stringWithFormat:@"%@/%@.loader", pathToHoldingDir, componentName];
@@ -121,7 +126,7 @@
 		loaderFile = [NSString stringWithFormat:@"%@/_%@.loader", pathToHoldingDir, componentName];
 	}
 	
-	if(loaderFile) {
+	if(loaderFile && inType != kResourceLoaderWeb) {
 		TMLog(@"Have a loader file for this one...");
 		NSData* contents = [[NSFileManager defaultManager] contentsAtPath:loaderFile];
 		NSString* className = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
@@ -161,7 +166,12 @@
 		return;
 	}
 	
-	if(m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows]) {
+	if(m_nResourceType == kResourceLoaderWeb) {
+		m_pResource = [[m_oClass alloc] initWithContentsOfFile:m_sFileSystemPath];
+		if(m_pResource) 
+			m_bIsLoaded = YES;
+		
+	} else if(m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows]) {
 		m_bIsLoaded = YES;
 	}
 	

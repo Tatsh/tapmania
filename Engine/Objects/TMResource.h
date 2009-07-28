@@ -21,6 +21,8 @@
 	BOOL			m_bIsLoaded;
 	BOOL			m_bIsSystem;
 	BOOL			m_bIsRedirect;
+	
+	TMResourceLoaderType m_nResourceType;
 }
 
 @property (readonly, getter=resource, retain) NSObject* m_pResource;

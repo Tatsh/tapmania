@@ -18,6 +18,7 @@
 	Texture2D*			m_pTitle;
 	NSString*			m_sTitle;
 	CGRect		m_rShape;	// The points where the button is drawn
+	BOOL		m_bEnabled;
 	
 	id			m_idActionDelegate;			// delegate to invoke the selector on
 	SEL			m_oActionHandler;			// selector which should be invoked on button touch
@@ -28,6 +29,9 @@
 
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
+
+- (void) disable;
+- (void) enable;
 
 - (CGPoint) getPosition;
 - (void) updatePosition:(CGPoint)point;
