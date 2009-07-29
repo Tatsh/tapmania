@@ -21,7 +21,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (NSMutableDictionary*) getCatalogueCache;
 - (void) writeCatalogueCache;
 
-- (void) addSongsFromSmZipSongsDir:(NSString*)path;
+- (BOOL) dirIsSimfile:(NSString*)path;
 - (void) addSongFromDir:(NSString*)path;
 
 + (NSString*)fileMD5:(NSString*)path;
@@ -227,73 +227,81 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (void) addSongsFrom:(NSString*)rootDir {
 	// This is usually called after a smzip/zip was extracted
-	// First we need to determine the architecture of the uploaded package
-	NSArray* rootDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:rootDir];	
+	// We will just recursively iterate over the whole package and try to find
+	// all complete simfiles.
+	NSFileManager* fMan = [NSFileManager defaultManager];
+	TMLog(@"Going to test dir '%@' for simfiles...", rootDir);
 	
+	// Check whether this dir is a simfile dir already
+	if( ![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"] && [self dirIsSimfile:rootDir] ) {
+		TMLog(@"Found a potential simfile directory. try to add files from there..");
+		[self addSongFromDir:rootDir];
+
+		return;
+	}
+		
+	// Otherwise we will need to iterate over the contents to see if we can
+	// find directories with simfiles
+	NSArray* rootDirContents = [fMan directoryContentsAtPath:rootDir];	
+
+	// If the dir is empty, leave
 	if([rootDirContents count] == 0) {
-		TMLog(@"Empty zip?");
 		return;
 	}
 	
+	// Iterate over the contents
 	for (NSString* item in rootDirContents) {
-		if([[item lowercaseString] isEqualToString:@"songs"]) {
-			// This looks like Stepmania's Smzip format. we can use it
-			[self addSongsFromSmZipSongsDir:[rootDir stringByAppendingPathComponent:item]];
+		if( [item hasPrefix:@"__MACOSX"] ) 
+			continue;
+		
+		BOOL isDir = NO;
+		NSString* path = [rootDir stringByAppendingPathComponent:item];
+		
+		if([fMan fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+			TMLog(@"Recursively try '%@'...", path);
+			[self addSongsFrom:path];
 		}
 	}
 }
 
-// SMZIP format support
-- (void) addSongsFromSmZipSongsDir:(NSString*)path {
-	// All stuff inside are groups on first level and songs on second level.
-	// We need to ignore the groups for now.
-	NSArray* rootDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
+- (BOOL) dirIsSimfile:(NSString*)path {
+	NSArray* contents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
+	NSString* file;
+
+	TMLog(@"Test dir '%@' for simfile contents...", path);
 	
-	if([rootDirContents count] == 0) {
-		TMLog(@"Empty Songs folder in SMZIP?");
-		return;
+	// Need at least music and steps
+	BOOL stepsFound, musicFound;
+	stepsFound = musicFound = NO;
+	
+	for (NSString* file in contents) {		
+		TMLog(@"Examine file/dir: %@", file);
+		
+		if([[file lowercaseString] hasSuffix:@".dwi"] || [[file lowercaseString] hasSuffix:@".sm"]) {			
+			stepsFound = YES;
+		} else if([[file lowercaseString] hasSuffix:@".mp3"] || [[file lowercaseString] hasSuffix:@".ogg"]) {
+			musicFound = YES;
+		}
 	}
 	
-	for (NSString* item in rootDirContents) {
-		NSString* groupDir = [path stringByAppendingPathComponent:item];
-		NSArray* groupContents = [[NSFileManager defaultManager] directoryContentsAtPath:groupDir];
-
-		for (NSString* groupItem in groupContents) {
-			[self addSongFromDir:[groupDir stringByAppendingPathComponent:groupItem]];
-		}
-	}	
+	return musicFound && stepsFound;
 }
 
 - (void) addSongFromDir:(NSString*)path {
 	NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:[path lastPathComponent]];
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
-	NSString* file;
+	BOOL isDir;
 	
-	NSString* stepsFilePath = nil;			
-	NSString* musicFilePath = nil;			
-	
-	while (file = [dirEnum nextObject]) {
-		if([[file lowercaseString] hasSuffix:@".dwi"]) {		
-			if(stepsFilePath == nil) {
-				stepsFilePath = [curPath stringByAppendingPathComponent:file];
-			}
-		} else if([[file lowercaseString] hasSuffix:@".sm"]) {			
-			stepsFilePath = [curPath stringByAppendingPathComponent:file];						
-		} else if([[file lowercaseString] hasSuffix:@".mp3"]) {			
-			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
-			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		}
+	// Check whether the Song already exists in the catalogue
+	if( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] ) {
+		// TODO: handle situation. report to user.
+		return;
 	}
 	
-	// If found all what we need - add this song to the collection
-	if(stepsFilePath != nil && musicFilePath != nil){
-		NSError* err;
-		
-		// TODO handle errors
-		if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
-			// TODO: Ok, now add to library
-		}
+	// TODO handle errors
+	NSError* err;
+
+	if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
+		// TODO: Ok, now add to library
 	}
 }
 
