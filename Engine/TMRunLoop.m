@@ -107,8 +107,11 @@
 - (void) worker {
 	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
 
+	// We need a delegate
+	assert(m_idDelegate != nil);
+	
 	/* Call initialization routine on delegate */
-	if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
+	if([m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
 		[m_idDelegate runLoopInitHook];
 		
 		if([m_idDelegate respondsToSelector:@selector(runLoopInitializedNotification)]){
@@ -125,9 +128,7 @@
 		prevTime = currentTime;
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
-		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopBeforeHook:)]) { 
-			[m_idDelegate runLoopBeforeHook:delta];
-		}
+		[m_idDelegate runLoopBeforeHook:delta];
 		
 		/* Do the actual work */
 		/* First update all objects */
@@ -154,9 +155,7 @@
 		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */
-		if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(runLoopAfterHook:)]) { 
-			[m_idDelegate runLoopAfterHook:delta];
-		}		
+		[m_idDelegate runLoopAfterHook:delta];
 		
 		// Clean up pool
 		[pool drain];	// Drain will call release on iPhone
