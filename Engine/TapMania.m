@@ -28,7 +28,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 @implementation TapMania
 
-@synthesize m_pGlView, m_pWindow, m_pJoyPad;
+@synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop;
 
 - (id) init {
 	self = [super init];

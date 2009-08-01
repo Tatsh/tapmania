@@ -10,6 +10,16 @@
 
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
+#import "TMObjectWithPriority.h"
+
+#ifdef __cplusplus
+
+#include <vector>
+using namespace std;
+
+typedef vector<TMObjectWithPriority*> TMObjList;
+
+#endif
 
 /* Gradation between NormalLower and NormalUpper is possible */
 typedef enum {
@@ -35,7 +45,9 @@ typedef enum {
 	
 	// Array to hold the objects which will be used for rendering/updating
 	// This array is always sorted from hightest to lowest priority
-	NSMutableArray * m_aObjects;
+#ifdef __cplusplus
+	TMObjList		*m_aObjects;
+#endif
 		
 	// Delegate with before/after hooks
 	id				 m_idDelegate;

@@ -29,6 +29,7 @@
 @property (retain, nonatomic, readonly) UIWindow* m_pWindow;
 
 @property (retain, nonatomic, readonly, getter=joyPad) JoyPad* m_pJoyPad;
+@property (retain, nonatomic, readonly) TMRunLoop* m_pGameRunLoop;
 
 - (void) startGame;
 

@@ -27,7 +27,7 @@
 	if(!self)
 		return nil;
 
-	m_aObjects = [[NSMutableArray arrayWithCapacity:10] retain];
+	m_aObjects = new TMObjList();
 	
 	m_bStopRequested = NO;
 	m_bActualStopState = YES; // Initially stopped
@@ -36,7 +36,8 @@
 }
 
 - (void) dealloc {
-	[m_aObjects release];
+	//[m_aObjects release];
+	delete m_aObjects;
 	
 	[super dealloc];
 }
@@ -63,10 +64,11 @@
 		priority = kRunLoopPriority_Highest;
 	}
 	
-	int i = 0;
-	if([m_aObjects count] > 0) {
-		for(i=0; i<[m_aObjects count]; i++){
-			if([(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_uPriority] <= priority) {
+	TMObjList::iterator it;
+		
+	if( ! m_aObjects->empty() ) {
+		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
+			if([(TMObjectWithPriority*)*it m_uPriority] <= priority) {
 				break;
 			}
 		}
@@ -74,19 +76,20 @@
 	
 	// Add new object at 'i' and shift others if required
 	TMObjectWithPriority* wrapper = [[TMObjectWithPriority alloc] initWithObj:obj andPriority:priority];
-	if(i < [m_aObjects count]) { 
-		[m_aObjects insertObject:wrapper atIndex:i]; 
+	if(!m_aObjects->empty() && it != m_aObjects->end()) {
+		m_aObjects->insert(it, wrapper);
 	} else {
-		[m_aObjects addObject:wrapper];	// To the end
+		m_aObjects->push_back(wrapper);
 	}
 }
 
 - (void) deregisterObject:(NSObject*) obj {
-	int i = 0;
-	if([m_aObjects count] > 0) {
-		for(i=0; i<[m_aObjects count]; i++){
-			if([(TMObjectWithPriority*)[m_aObjects objectAtIndex:i] m_pObj] == obj) {
-				[m_aObjects removeObjectAtIndex:i];
+	TMObjList::iterator it;
+	
+	if( ! m_aObjects->empty() ) {
+		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
+			if([(TMObjectWithPriority*)*it m_pObj] == obj) {
+				m_aObjects->erase(it);
 				return;
 			}
 		}
@@ -94,13 +97,14 @@
 }
 
 - (void) deregisterAllObjects {
-	int i;
-	for(i=0; i<[m_aObjects count]; i++){
-		TMObjectWithPriority* obj = [m_aObjects objectAtIndex:i];
-		[obj release];
-	}	
-	
-	[m_aObjects removeAllObjects];
+	TMObjList::iterator it;
+		
+	if( ! m_aObjects->empty() ) {
+		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
+			[*it release];
+			m_aObjects->erase(it);
+		}
+	}
 }
 
 /* Private worker */
@@ -132,26 +136,33 @@
 		
 		/* Do the actual work */
 		/* First update all objects */
-		int i;
-		for(i=0; i<[m_aObjects count]; i++){
-			TMObjectWithPriority* wrapper = [m_aObjects objectAtIndex:i];
-			NSObject* obj = [wrapper m_pObj];
+		if(! m_aObjects->empty() ) {			
+			int curSize = m_aObjects->size();
 			
-			if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
-				// Ignore this warning.
-				[(id<TMLogicUpdater>)obj update:delta];
-			}
-		}
+			for (int i = 0; i < curSize; ++i) {				
+				TMObjectWithPriority* wrapper = (TMObjectWithPriority*)(m_aObjects->at(i));
+				NSObject* obj = [wrapper m_pObj];
 
-		/* Now draw all objects */
-		for(i=0; i<[m_aObjects count]; i++){
-			TMObjectWithPriority* wrapper = [m_aObjects objectAtIndex:i];
-			NSObject* obj = [wrapper m_pObj];
+				if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
+					// Ignore this warning.
+					[(id<TMLogicUpdater>)obj update:delta];
+					curSize = m_aObjects->size();	// To be safe
+				}
+			}	
+				
+			curSize = m_aObjects->size();
 			
-			if([obj conformsToProtocol:@protocol(TMRenderable)]) {
-				// Ignore this warning.				
-				[(id<TMRenderable>)obj render:delta];
-			}
+			/* Now draw all objects */
+			for (int i = 0; i < curSize; ++i) {				
+				TMObjectWithPriority* wrapper = (TMObjectWithPriority*)(m_aObjects->at(i));
+				NSObject* obj = [wrapper m_pObj];
+				
+				if([obj conformsToProtocol:@protocol(TMRenderable)]) {
+					// Ignore this warning.				
+					[(id<TMRenderable>)obj render:delta];
+					curSize = m_aObjects->size();
+				}
+			}			
 		}
 		
 		/* Now call the runLoopAfterHook method on the delegate */

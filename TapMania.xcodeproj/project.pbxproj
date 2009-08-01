@@ -19,7 +19,7 @@
 		243DF6410FB1C0CA004C08EF /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C540F7921A200C9D5BC /* libvorbis.a */; };
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */; };
-		244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.m */; };
+		244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.mm */; };
 		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
 		244E56150F3C6C680004C921 /* TMResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.m */; };
@@ -275,8 +275,8 @@
 		243DF64B0FB1C156004C08EF /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244954B40EDD54DA00D462F0 /* TMRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRenderable.h; sourceTree = "<group>"; };
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
-		244954D10EDD5AC200D462F0 /* TMRunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRunLoop.h; sourceTree = "<group>"; };
-		244954D20EDD5AC200D462F0 /* TMRunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRunLoop.m; sourceTree = "<group>"; };
+		244954D10EDD5AC200D462F0 /* TMRunLoop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TMRunLoop.h; sourceTree = "<group>"; };
+		244954D20EDD5AC200D462F0 /* TMRunLoop.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMRunLoop.mm; sourceTree = "<group>"; };
 		244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMObjectWithPriority.h; sourceTree = "<group>"; };
 		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
 		244E56050F3C5D1D0004C921 /* ResourcesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesLoader.h; path = ThemeSupport/ResourcesLoader.h; sourceTree = "<group>"; };
@@ -625,7 +625,7 @@
 				248EE4560EE4002000FF1D43 /* TapMania.h */,
 				248EE4570EE4002000FF1D43 /* TapMania.m */,
 				244954D10EDD5AC200D462F0 /* TMRunLoop.h */,
-				244954D20EDD5AC200D462F0 /* TMRunLoop.m */,
+				244954D20EDD5AC200D462F0 /* TMRunLoop.mm */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
 				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
@@ -1422,7 +1422,7 @@
 				24EBF55B0EC88B4400533056 /* TMNote.m in Sources */,
 				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
 				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
-				244954D30EDD5AC200D462F0 /* TMRunLoop.m in Sources */,
+				244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */,
 				244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */,
 				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */,
 				248EE4580EE4002000FF1D43 /* TapMania.m in Sources */,
@@ -1636,12 +1636,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};

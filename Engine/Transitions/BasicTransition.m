@@ -76,7 +76,7 @@
 	// Set new one and show it
 	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
 		TMLog(@"Transition out set current screen done");
-	[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest-1];	
+		[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest-1];	
 		TMLog(@"Transition out register object done");
 }
 
