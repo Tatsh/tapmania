@@ -18,10 +18,10 @@ void tapMania_debug(NSString* format, ...) {
 	NSString* st = [[NSString alloc] initWithFormat:format arguments:lst];
 	
 	// Do both NSLog and syslog
-#ifdef DEBUG_SIMULATOR
+#if defined(DEBUG_SIMULATOR) || SYSLOG_USED == 0
 	NSLog(st);
 #endif
-#ifdef DEBUG_IPHONE
+#if defined(DEBUG_IPHONE) && SYSLOG_USED == 1
 	syslog(LOG_DEBUG, [st UTF8String]);
 #endif
 	

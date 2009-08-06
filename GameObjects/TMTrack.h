@@ -10,14 +10,21 @@
 
 @class TMNote;
 
-#define kDefaultTrackCapacity 1024
+#ifdef __cplusplus
+
+#include <vector>
+using namespace std;
+
+typedef vector<TMNote*> TMNoteList;
+
+#endif
 
 @interface TMTrack : NSObject {
-//	NSMutableArray* m_aNotesArray;
-	TMNote**		m_aNotesArray;
 
-	int				m_nTotalNotes;
-	int				m_nCurrentCapacity;
+#ifdef __cplusplus
+	TMNoteList*		m_aNotesArray;
+#endif
+
 }
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;

@@ -198,7 +198,7 @@
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
-		24EBF5580EC889AD00533056 /* TMTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF5570EC889AD00533056 /* TMTrack.m */; };
+		24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF5570EC889AD00533056 /* TMTrack.mm */; };
 		24EBF55B0EC88B4400533056 /* TMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.m */; };
 		24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15DB30EC2094600755788 /* SoundEffectsHolder.m */; };
 		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
@@ -521,8 +521,8 @@
 		24EBF4110EC8446900533056 /* SongPickerMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuItem.m; path = Renderers/UIElements/SongPickerMenuItem.m; sourceTree = "<group>"; };
 		24EBF4DF0EC8780600533056 /* TimingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingUtil.h; path = Util/TimingUtil.h; sourceTree = "<group>"; };
 		24EBF4E00EC8780600533056 /* TimingUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimingUtil.m; path = Util/TimingUtil.m; sourceTree = "<group>"; };
-		24EBF5560EC889AD00533056 /* TMTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTrack.h; sourceTree = "<group>"; };
-		24EBF5570EC889AD00533056 /* TMTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTrack.m; sourceTree = "<group>"; };
+		24EBF5560EC889AD00533056 /* TMTrack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TMTrack.h; sourceTree = "<group>"; };
+		24EBF5570EC889AD00533056 /* TMTrack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMTrack.mm; sourceTree = "<group>"; };
 		24EBF5590EC88B4400533056 /* TMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMNote.h; sourceTree = "<group>"; };
 		24EBF55A0EC88B4400533056 /* TMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNote.m; sourceTree = "<group>"; };
 		24F15DB20EC2094600755788 /* SoundEffectsHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEffectsHolder.h; sourceTree = "<group>"; };
@@ -778,7 +778,7 @@
 				2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */,
 				2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */,
 				24EBF5560EC889AD00533056 /* TMTrack.h */,
-				24EBF5570EC889AD00533056 /* TMTrack.m */,
+				24EBF5570EC889AD00533056 /* TMTrack.mm */,
 				24EBF5590EC88B4400533056 /* TMNote.h */,
 				24EBF55A0EC88B4400533056 /* TMNote.m */,
 			);
@@ -1418,7 +1418,7 @@
 				24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */,
 				24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */,
 				24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */,
-				24EBF5580EC889AD00533056 /* TMTrack.m in Sources */,
+				24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */,
 				24EBF55B0EC88B4400533056 /* TMNote.m in Sources */,
 				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
 				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
@@ -1821,13 +1821,15 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
+				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.0;
 			};

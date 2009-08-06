@@ -13,8 +13,10 @@
 
 #if defined(TARGET_IPHONE_SIMULATOR) && TARGET_IPHONE_SIMULATOR == 1
 #define DEBUG_SIMULATOR 1
+#define SYSLOG_USED 0
 #else
 #define DEBUG_IPHONE 1
+#define SYSLOG_USED 0
 #endif
 
 #ifdef DEBUG
