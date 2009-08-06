@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.m */; };
+		241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.m */; };
 		242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.m */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
@@ -266,6 +267,8 @@
 		24079C1B0F4324260052EDB2 /* TMTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransition.h; sourceTree = "<group>"; };
 		24079D8A0F4333300052EDB2 /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
 		24079D8B0F4333300052EDB2 /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
+		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
+		241955EA102B08F800FC6E0F /* SongManagerRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongManagerRenderer.m; path = Renderers/SongManagerRenderer.m; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
 		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
@@ -807,6 +810,8 @@
 				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
 				2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */,
 				2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */,
+				241955E9102B08F800FC6E0F /* SongManagerRenderer.h */,
+				241955EA102B08F800FC6E0F /* SongManagerRenderer.m */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -1469,6 +1474,7 @@
 				2479A3810FE6EDFF00688640 /* PadConfigRenderer.m in Sources */,
 				248E92EC1017982400DB27D9 /* WebServer.m in Sources */,
 				24DC0E34101E969200F2B046 /* TMZipFile.m in Sources */,
+				241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

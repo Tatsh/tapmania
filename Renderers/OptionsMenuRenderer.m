@@ -27,16 +27,19 @@
 #import "OptionsMenuRenderer.h"
 #import "MainMenuRenderer.h"
 #import "PadConfigRenderer.h"
+#import "SongManagerRenderer.h"
 
 @interface OptionsMenuRenderer (InputHandling)
 - (void) joyPadButtonHit;
+- (void) songManagerButtonHit;
 - (void) backButtonHit;
 - (void) soundSliderChanged;
 @end
 
 @implementation OptionsMenuRenderer
 
-int mt_PadConfigButtonY,  mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_ThemeTogglerX, mt_ThemeTogglerY, mt_BackButtonY, mt_MenuButtonsX;
+int mt_PadConfigButtonY, mt_SongManagerConfigButtonY;
+int mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_ThemeTogglerX, mt_ThemeTogglerY, mt_BackButtonY, mt_MenuButtonsX;
 int mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth;
 int mt_SoundLabelX, mt_SoundLabelY, mt_NoteSkinLabelX, mt_NoteSkinLabelY, mt_ThemeLabelX, mt_ThemeLabelY;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
@@ -46,6 +49,7 @@ Texture2D *t_BG;
 	// Release menu items
 	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] release];
+	[m_pOptionsMenuItems[kOptionsMenuItem_SongManager] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] release];
@@ -61,6 +65,7 @@ Texture2D *t_BG;
 - (void) setupForTransition {
 	// Cache metrics
 	mt_PadConfigButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu PadConfigButtonY"];
+	mt_SongManagerConfigButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SongManagerButtonY"];
 	mt_NoteSkinTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerX"];
 	mt_NoteSkinTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerY"];
 	mt_ThemeTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeTogglerX"];
@@ -137,6 +142,10 @@ Texture2D *t_BG;
 	m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] = 
 	 [[ZoomEffect alloc] initWithRenderable:	
 	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:CGRectMake(mt_MenuButtonsX, mt_PadConfigButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+
+	m_pOptionsMenuItems[kOptionsMenuItem_SongManager] = 
+	[[ZoomEffect alloc] initWithRenderable:	
+	 [[MenuItem alloc] initWithTitle:@"Song manager" andShape:CGRectMake(mt_MenuButtonsX, mt_SongManagerConfigButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
 	
 	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
 	[[SlideEffect alloc] initWithRenderable:
@@ -146,6 +155,7 @@ Texture2D *t_BG;
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(mt_MenuButtonsX, 480+mt_MenuButtonsHeight)];
 	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
 	
+	[m_pOptionsMenuItems[kOptionsMenuItem_SongManager] setActionHandler:@selector(songManagerButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] setActionHandler:@selector(joyPadButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setActionHandler:@selector(themeTogglerChanged) receiver:self];
@@ -157,6 +167,7 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
 	
 	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
@@ -168,6 +179,7 @@ Texture2D *t_BG;
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 }
 
@@ -177,6 +189,7 @@ Texture2D *t_BG;
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 		
 	// Remove the menu items from the render loop
@@ -184,6 +197,7 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 	
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_SoundMaster]];
@@ -210,6 +224,11 @@ Texture2D *t_BG;
 		} else if(m_nSelectedMenu == kOptionsMenuItem_JoyPad) {
 			[[TapMania sharedInstance] switchToScreen:[[PadConfigRenderer alloc] init]];
 
+			m_nState = kOptionsMenuState_None;	// Do nothing more
+			return;
+		} else if(m_nSelectedMenu == kOptionsMenuItem_SongManager) {
+			[[TapMania sharedInstance] switchToScreen:[[SongManagerRenderer alloc] init]];
+			
 			m_nState = kOptionsMenuState_None;	// Do nothing more
 			return;
 		}
@@ -244,6 +263,10 @@ Texture2D *t_BG;
 /* Input handlers */
 - (void) joyPadButtonHit {
 	m_nSelectedMenu = kOptionsMenuItem_JoyPad;
+}
+
+- (void) songManagerButtonHit {
+	m_nSelectedMenu = kOptionsMenuItem_SongManager;
 }
 
 - (void) backButtonHit {

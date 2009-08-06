@@ -272,6 +272,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 				[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithCString:con_info->file_path] error:&err];
 				
 				// Move the simfile(s)
+				[[SongsDirectoryCache sharedInstance] delegate:nil];
 				[[SongsDirectoryCache sharedInstance] addSongsFrom:extDir];
 				
 				// Cleanup

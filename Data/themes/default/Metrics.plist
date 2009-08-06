@@ -37,6 +37,8 @@
 		<integer>175</integer>
 		<key>PadConfigButtonY</key>
 		<integer>225</integer>
+		<key>SongManagerButtonY</key>
+		<integer>277</integer>
 		<key>SoundLabelX</key>
 		<integer>20</integer>
 		<key>SoundLabelY</key>
@@ -133,7 +135,7 @@
 			<key>LeftX</key>
 			<integer>45</integer>
 			<key>MaxShowTime</key>
-			<real>0.40000000000000002</real>
+			<real>0.4</real>
 			<key>RightX</key>
 			<integer>255</integer>
 			<key>UpX</key>
@@ -181,7 +183,7 @@
 				<key>Height</key>
 				<integer>128</integer>
 				<key>MaxShowTime</key>
-				<real>0.10000000000000001</real>
+				<real>0.1</real>
 				<key>Width</key>
 				<integer>128</integer>
 			</dict>
@@ -190,7 +192,7 @@
 			<key>Rotation</key>
 			<dict>
 				<key>Down</key>
-				<real>0.0</real>
+				<real>0</real>
 				<key>Left</key>
 				<real>-90</real>
 				<key>Right</key>
@@ -218,7 +220,7 @@
 			<key>Rotation</key>
 			<dict>
 				<key>Down</key>
-				<real>0.0</real>
+				<real>0</real>
 				<key>Left</key>
 				<real>-90</real>
 				<key>Right</key>
@@ -233,6 +235,13 @@
 			<key>Width</key>
 			<integer>64</integer>
 		</dict>
+	</dict>
+	<key>SongManager</key>
+	<dict>
+		<key>UrlX</key>
+		<integer>160</integer>
+		<key>UrlY</key>
+		<integer>440</integer>
 	</dict>
 </dict>
 </plist>

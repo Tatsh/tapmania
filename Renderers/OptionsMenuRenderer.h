@@ -28,6 +28,7 @@ typedef enum {
 	kOptionsMenuItem_Theme,
 	kOptionsMenuItem_NoteSkin,	
 	kOptionsMenuItem_JoyPad,
+	kOptionsMenuItem_SongManager,
 	kOptionsMenuItem_Back,
 	kNumOptionsMenuItems
 } OptionsMenuItem;

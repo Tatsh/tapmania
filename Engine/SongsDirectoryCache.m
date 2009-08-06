@@ -23,6 +23,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (BOOL) dirIsSimfile:(NSString*)path;
 - (void) addSongFromDir:(NSString*)path;
+- (BOOL) addSongToLibrary:(NSString*) curPath useCache:(BOOL)useCache;
 
 + (NSString*)fileMD5:(NSString*)path;
 + (NSString*)dirMD5:(NSString*)path;
@@ -84,105 +85,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		
 		// Renew the cache
 		for(i = 0; i<[songsDirContents count]; i++) {
-			
-			TMLog(@"Pick a song to load...");
-			
-			NSString* songDirName = [songsDirContents objectAtIndex:i];
-			NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:songDirName];
-			NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:curPath];
-			NSString* file;
-			
-			NSString* stepsFilePath = nil;			
-			NSString* musicFilePath = nil;			
-			
-			TMLog(@"Found some path.. now check contents...");
-			
-			while (file = [dirEnum nextObject]) {
-				if([[file lowercaseString] hasSuffix:@".dwi"]) {
-					
-					// SM format should be picked if both dwi and sm available					
-					TMLog(@"DWI file found: %@", file);
-					if(stepsFilePath == nil) {
-						stepsFilePath = [curPath stringByAppendingPathComponent:file];
-					} else {
-						TMLog(@"Ignoring because SM is used already...");
-					}
-				} else if([[file lowercaseString] hasSuffix:@".sm"]) {
-					
-					// SM format should be picked if both dwi and sm available
-					TMLog(@"SM file found: %@", file);
-					stepsFilePath = [curPath stringByAppendingPathComponent:file];						
-				} else if([[file lowercaseString] hasSuffix:@".mp3"]) {
-					
-					// we support mp3 files					
-					TMLog(@"Found music file (MP3): %@", file);
-					musicFilePath = [curPath stringByAppendingPathComponent:file];
-				} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
-					
-					// and ogg too (in future :P)
-					TMLog(@"Found music file (OGG): %@", file);
-					musicFilePath = [curPath stringByAppendingPathComponent:file];
-				}
-			}
-			
-			// Now try to parse if found everything
-			if(stepsFilePath != nil && musicFilePath != nil){
-				
-				// Parse very basic info from this file
-				if(m_idDelegate != nil) {
-					[m_idDelegate startLoadingSong:songDirName];
-				}
-
-				TMLog(@"Music file path: %@", musicFilePath);
-				
-				// Make the files relative to the songs dir
-				musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
-				stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
-				
-				if([m_pCatalogueCache valueForKey:songDirName] != nil) {
-					TMLog(@"Catalogue file has this file already!");
-					TMSong* song = [m_pCatalogueCache valueForKey:songDirName];
-					
-					// Check hash
-					NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
-					TMLog(@"GOT HASH: '%@'", songHash);
-					TMLog(@"CACHED HASH IS: '%@'", song.m_sHash);
-					
-					if(! [songHash isEqualToString:song.m_sHash]) {
-						TMLog(@"Hash missmatch! Must reload!");
-						[song release];
-						song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
-						
-						// Also update in cache
-						[m_pCatalogueCache setObject:song forKey:songDirName];
-					}
-					
-					[m_aAvailableSongs addObject:song];
-					
-				} else {
-					TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
-					
-					// Calculate the hash and store it
-					NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
-					TMLog(@"GOT HASH: '%@'", songHash);
-					
-					song.m_sHash = songHash;
-
-					TMLog(@"Song ready to be added to list!!");
-					[m_aAvailableSongs addObject:song];
-					
-					// Add to cache
-					[m_pCatalogueCache setObject:song forKey:songDirName];					
-				}
-												
-				if(m_idDelegate != nil) {
-					[m_idDelegate doneLoadingSong:songDirName];
-				}								
-			} else {
-				if(m_idDelegate != nil) {
-					[m_idDelegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
-				}			
-			}
+			[self addSongToLibrary:[m_sSongsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]] useCache:YES];
 		}
 	} else {
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound" reason:@"Songs directory couldn't be found!" userInfo:nil];
@@ -301,8 +204,111 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	NSError* err;
 
 	if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
-		// TODO: Ok, now add to library
+		if([self addSongToLibrary:curPath useCache:NO]) {
+			// Write cache file
+			[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
+		}
 	}
+}
+
+- (BOOL) addSongToLibrary:(NSString*) curPath useCache:(BOOL)useCache {
+	NSArray* dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:curPath];
+	NSString* songDirName = [curPath lastPathComponent];
+	NSString* file;
+	
+	NSString* stepsFilePath = nil;			
+	NSString* musicFilePath = nil;			
+	
+	for (NSString* file in dirContents) {
+		if([[file lowercaseString] hasSuffix:@".dwi"]) {
+			
+			// SM format should be picked if both dwi and sm available					
+			TMLog(@"DWI file found: %@", file);
+			if(stepsFilePath == nil) {
+				stepsFilePath = [curPath stringByAppendingPathComponent:file];
+			} else {
+				TMLog(@"Ignoring because SM is used already...");
+			}
+		} else if([[file lowercaseString] hasSuffix:@".sm"]) {
+			
+			// SM format should be picked if both dwi and sm available
+			TMLog(@"SM file found: %@", file);
+			stepsFilePath = [curPath stringByAppendingPathComponent:file];
+		} else if([[file lowercaseString] hasSuffix:@".mp3"]) {
+			
+			// we support mp3 files					
+			TMLog(@"Found music file (MP3): %@", file);
+			musicFilePath = [curPath stringByAppendingPathComponent:file];
+		} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
+			
+			// and ogg too (in future :P)
+			TMLog(@"Found music file (OGG): %@", file);
+			musicFilePath = [curPath stringByAppendingPathComponent:file];
+		}
+	}
+	
+	// Now try to parse if found everything
+	if(stepsFilePath != nil && musicFilePath != nil){
+		
+		// Parse very basic info from this file
+		if(m_idDelegate != nil) {
+			[m_idDelegate startLoadingSong:songDirName];
+		}
+		
+		TMLog(@"Music file path: %@", musicFilePath);
+		
+		// Make the files relative to the songs dir
+		musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
+		stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
+		
+		if(useCache && [m_pCatalogueCache valueForKey:songDirName] != nil) {
+			TMLog(@"Catalogue file has this file already!");
+			TMSong* song = [m_pCatalogueCache valueForKey:songDirName];
+			
+			// Check hash
+			NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
+			TMLog(@"GOT HASH: '%@'", songHash);
+			TMLog(@"CACHED HASH IS: '%@'", song.m_sHash);
+			
+			if(! [songHash isEqualToString:song.m_sHash]) {
+				TMLog(@"Hash missmatch! Must reload!");
+				[song release];
+				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
+				
+				// Also update in cache
+				[m_pCatalogueCache setObject:song forKey:songDirName];
+			}
+			
+			[m_aAvailableSongs addObject:song];
+			
+		} else {
+			TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
+			
+			// Calculate the hash and store it
+			NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
+			TMLog(@"GOT HASH: '%@'", songHash);
+			
+			song.m_sHash = songHash;
+			
+			TMLog(@"Song ready to be added to list!!");
+			[m_aAvailableSongs addObject:song];
+			
+			// Add to cache
+			[m_pCatalogueCache setObject:song forKey:songDirName];					
+		}
+		
+		if(m_idDelegate != nil) {
+			[m_idDelegate doneLoadingSong:songDirName];
+		}								
+		
+		return YES;
+	} else {
+		if(m_idDelegate != nil) {
+			[m_idDelegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
+		}			
+		
+		return NO;
+	}	
 }
 
 - (void) deleteSong:(NSString*)songDirName {
