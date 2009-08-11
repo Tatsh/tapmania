@@ -11,6 +11,7 @@
 #import "SoundEffectsHolder.h"
 #import "SoundEngine.h"
 #import "TimingUtil.h"
+#import "PhysicsUtil.h"
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
 
@@ -46,6 +47,7 @@ HoldJudgement* t_HoldJudgement;
 TapNote* t_TapNote;
 HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
 Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
+Texture2D* t_FingerTap;
 Texture2D* t_BG;
 
 int mt_ReceptorRowY;
@@ -91,6 +93,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	t_Judgement = (Judgement*)[[ThemeManager sharedInstance] texture:@"SongPlay Judgement"];
 	t_HoldJudgement = (HoldJudgement*)[[ThemeManager sharedInstance] texture:@"SongPlay HoldJudgement"];	
 	
+	t_FingerTap = [[ThemeManager sharedInstance] texture:@"Common FingerTap"];
 	t_BG = [[ThemeManager sharedInstance] texture:@"SongPlay Background"];
 	
 	// Init the receptor row
@@ -587,6 +590,19 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		// Draw the judgement
 		[t_Judgement render:fDelta];
 		[t_HoldJudgement render:fDelta];
+		
+		// Draw the pad if requested
+		// TODO check bool var
+		if(0) {
+			glEnable(GL_BLEND);
+
+			for(int i=0; i<kNumOfAvailableTracks; i++) {
+				Vector* pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:i];
+				[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+			}
+
+			glDisable(GL_BLEND);
+		}
 	}
 	
 }
