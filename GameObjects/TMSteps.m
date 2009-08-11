@@ -99,10 +99,10 @@
 	int minNoteRow = INT_MAX;
 
 	for(i=0; i<kNumOfAvailableTracks; i++){
-		int j = 0;
+		int j;
 
 		int total = [m_pTracks[i] getNotesCount];
-		while([m_pTracks[i] getNote:j++].m_nType == kNoteType_Empty && j < total);
+		for(j=0; [m_pTracks[i] getNote:j].m_nType == kNoteType_Empty && j < total; j++);
 				
 		// Get the smallest
 		minNoteRow = (int) fminf( (float)minNoteRow, (float)[(TMNote*)[m_pTracks[i] getNote:j] m_nStartNoteRow] );

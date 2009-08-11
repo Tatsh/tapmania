@@ -141,12 +141,12 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	TMLog(@"first nr: %d", [m_pSteps getFirstNoteRow]);
 	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
-		m_dPlayBackStartTime = now + kMinTimeTillStart;
+		m_dPlayBackStartTime = now + (kMinTimeTillStart - timeOfFirstBeat);
 		m_bMusicPlaybackStarted = NO;
-	} else {	
+	} else {
 		m_dPlayBackStartTime = now;
-		m_bMusicPlaybackStarted = YES;
 		SoundEngine_StartBackgroundMusic();
+		m_bMusicPlaybackStarted = YES;
 	}
 
 	m_dPlayBackScheduledEndTime = m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
