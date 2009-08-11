@@ -44,6 +44,9 @@
 - (void) reset {	
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
+		if(i == kJoyButtonExit)
+			continue;
+		
 		// Check whether we have a value in config or not
 		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:i];
 		
@@ -114,7 +117,10 @@
 
 			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
-			for(i=0; i<kNumJoyButtons; ++i){					
+			for(i=0; i<kNumJoyButtons; ++i){
+				if(i == kJoyButtonExit)
+					continue;
+				
 				float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
 				if(d < minDist) {
@@ -156,6 +162,8 @@
 		Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 			
 		for(i=0; i<kNumJoyButtons; ++i){
+			if(i == kJoyButtonExit)
+				continue;
 			
 			float d = [Vector distSquared:v1 and:m_pJoyCurrentButtonLocation[i]];
 					
