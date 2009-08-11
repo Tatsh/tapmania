@@ -127,6 +127,9 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		m_nTrackPos[i] = 0;
 	}
 	
+	[t_Judgement reset];
+	[t_HoldJudgement reset];
+	
 	SoundEngine_LoadBackgroundMusicTrack([[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath] UTF8String], YES, YES);	
 	
 	// Calculate starting offset for music playback

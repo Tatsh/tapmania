@@ -44,9 +44,6 @@
 - (void) reset {	
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
-		if(i == kJoyButtonExit)
-			continue;
-		
 		// Check whether we have a value in config or not
 		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:i];
 		

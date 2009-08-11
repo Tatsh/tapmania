@@ -24,6 +24,14 @@ static float mt_HoldJudgementMaxShowTime;
 	glDisable(GL_BLEND);
 }
 
+- (void) reset {
+	int i;
+	for(i=0; i<kNumOfAvailableTracks; ++i) {
+		m_dElapsedTime[i] = 0.0f;
+		m_nCurrentJudgement[i] = kHoldJudgementNone;
+	}		
+}
+
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
 	self = [super initWithImage:uiImage columns:columns andRows:rows];
 	if(!self) 
@@ -37,11 +45,7 @@ static float mt_HoldJudgementMaxShowTime;
 	mt_HoldJudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement Y"];
 	mt_HoldJudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay HoldJudgement MaxShowTime"];
 	
-	int i;
-	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		m_dElapsedTime[i] = 0.0f;
-		m_nCurrentJudgement[i] = kHoldJudgementNone;
-	}	
+	[self reset];
 	
 	return self;
 }

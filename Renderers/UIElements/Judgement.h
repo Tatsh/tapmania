@@ -33,6 +33,7 @@ typedef enum {
 	double m_dElapsedTime;	// Time elapsed since last renew of the judgement
 }
 
+- (void) reset;
 - (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag;
 
 @end

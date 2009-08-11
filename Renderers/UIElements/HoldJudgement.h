@@ -26,6 +26,7 @@ typedef enum {
 	double			m_dElapsedTime[kNumOfAvailableTracks];	// Time elapsed since last renew of the judgement in every track
 }
 
+- (void) reset;
 - (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
 
 @end

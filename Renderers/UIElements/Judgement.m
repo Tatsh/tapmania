@@ -24,6 +24,12 @@ static float mt_JudgementMaxShowTime;
 	glDisable(GL_BLEND);
 }
 
+- (void) reset {
+	m_dElapsedTime = 0.0f;
+	m_nCurrentJudgement = kJudgementNone;
+	m_nCurrentFlag = 0;	
+}
+
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
 	self = [super initWithImage:uiImage columns:columns andRows:rows];
 	if(!self) 
@@ -34,10 +40,8 @@ static float mt_JudgementMaxShowTime;
 	mt_JudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay Judgement Y"];
 	mt_JudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay Judgement MaxShowTime"];
 	
-	m_dElapsedTime = 0.0f;
-	m_nCurrentJudgement = kJudgementNone;
-	m_nCurrentFlag = 0;
-
+	[self reset];
+	
 	return self;
 }
 
