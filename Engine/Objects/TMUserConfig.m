@@ -16,7 +16,8 @@
 		return nil;
 		
 	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
-						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithBool:NO], @"autotrack", nil];
+						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithBool:NO], @"autotrack", 
+						@"NONEXISTING", @"newsversion", nil];
 	
 	return self;
 }
@@ -51,6 +52,11 @@
 	
 	if(! [m_pConfigDict valueForKey:@"autotrack"]) {
 		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"autotrack"];
+		++errCount;
+	}
+
+	if(! [m_pConfigDict valueForKey:@"newsversion"]) {
+		[m_pConfigDict setObject:@"NONEXISTING" forKey:@"newsversion"];
 		++errCount;
 	}
 	

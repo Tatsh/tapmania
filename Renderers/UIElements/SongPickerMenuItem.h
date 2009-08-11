@@ -20,5 +20,6 @@
 
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point;
 - (void) updateYPosition:(float)pixels;
+- (void) updateWithSong:(TMSong*)song atPoint:(CGPoint)point;
 
 @end

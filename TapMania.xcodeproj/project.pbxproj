@@ -158,6 +158,9 @@
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
 		24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.m */; };
+		24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1041030D1EA00C7216A /* DialogRenderer.m */; };
+		24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.m */; };
+		24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.m */; };
 		24D762960F38A078008B0AA0 /* ThemeMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* ThemeMetrics.m */; };
 		24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.m */; };
 		24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
@@ -475,6 +478,12 @@
 		24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicsUtil.m; path = Util/PhysicsUtil.m; sourceTree = "<group>"; };
 		24D4C1460F1B3C1100643CC2 /* Judgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Judgement.h; path = Renderers/UIElements/Judgement.h; sourceTree = "<group>"; };
 		24D4C1470F1B3C1100643CC2 /* Judgement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Judgement.m; path = Renderers/UIElements/Judgement.m; sourceTree = "<group>"; };
+		24D6C1031030D1EA00C7216A /* DialogRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DialogRenderer.h; path = Renderers/DialogRenderer.h; sourceTree = "<group>"; };
+		24D6C1041030D1EA00C7216A /* DialogRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DialogRenderer.m; path = Renderers/DialogRenderer.m; sourceTree = "<group>"; };
+		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
+		24D6C18F1030DC5400C7216A /* NewsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsDialog.m; path = Renderers/NewsDialog.m; sourceTree = "<group>"; };
+		24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFetcher.h; sourceTree = "<group>"; };
+		24D6C1B01030DE4E00C7216A /* NewsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsFetcher.m; sourceTree = "<group>"; };
 		24D762940F38A078008B0AA0 /* ThemeMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeMetrics.h; path = ThemeSupport/ThemeMetrics.h; sourceTree = "<group>"; };
 		24D762950F38A078008B0AA0 /* ThemeMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeMetrics.m; path = ThemeSupport/ThemeMetrics.m; sourceTree = "<group>"; };
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
@@ -613,6 +622,7 @@
 		080E96DDFE201D6D7F000001 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				24D6C1AE1030DE2000C7216A /* NewsSupport */,
 				248E92E8101797D700DB27D9 /* UploadSupport */,
 				24A709AB0F7A936C0080121C /* FontSupport */,
 				2496484D0F79131C00C9D5BC /* SoundSupport */,
@@ -812,6 +822,10 @@
 				2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */,
 				241955E9102B08F800FC6E0F /* SongManagerRenderer.h */,
 				241955EA102B08F800FC6E0F /* SongManagerRenderer.m */,
+				24D6C1031030D1EA00C7216A /* DialogRenderer.h */,
+				24D6C1041030D1EA00C7216A /* DialogRenderer.m */,
+				24D6C18E1030DC5400C7216A /* NewsDialog.h */,
+				24D6C18F1030DC5400C7216A /* NewsDialog.m */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -1028,6 +1042,15 @@
 				24AF446E0F825BE200F630FD /* FontCharAliases.m */,
 			);
 			path = FontSupport;
+			sourceTree = "<group>";
+		};
+		24D6C1AE1030DE2000C7216A /* NewsSupport */ = {
+			isa = PBXGroup;
+			children = (
+				24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */,
+				24D6C1B01030DE4E00C7216A /* NewsFetcher.m */,
+			);
+			path = NewsSupport;
 			sourceTree = "<group>";
 		};
 		24D762930F389FBE008B0AA0 /* ThemeSupport */ = {
@@ -1475,6 +1498,9 @@
 				248E92EC1017982400DB27D9 /* WebServer.m in Sources */,
 				24DC0E34101E969200F2B046 /* TMZipFile.m in Sources */,
 				241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */,
+				24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */,
+				24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */,
+				24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

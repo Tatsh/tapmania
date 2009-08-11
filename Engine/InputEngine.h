@@ -11,6 +11,7 @@
 @interface InputEngine : NSObject {
 	NSMutableArray * m_aSubscribers;
 	
+	NSObject	   * m_pDialog;
 	BOOL			 m_bDispatcherEnabled;
 }
 
@@ -20,6 +21,7 @@
 
 // One can subscribe to receive touch events by implementing the TMGameUIResponder protocol and calling subscribe method
 - (void) subscribe:(NSObject*) handler;
+- (void) subscribeDialog:(NSObject*) handler;
 - (void) unsubscribe:(NSObject*) handler;
 
 - (void) dispatchTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;

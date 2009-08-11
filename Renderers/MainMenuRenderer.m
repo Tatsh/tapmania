@@ -11,10 +11,12 @@
 #import "MenuItem.h"
 #import "ImageButton.h"
 #import "PhysicsUtil.h"
+#import "NewsFetcher.h"
 
 #import "SongPickerMenuRenderer.h"
 #import "OptionsMenuRenderer.h"
 #import "CreditsRenderer.h"
+#import "NewsDialog.h"
 
 #import "TMRunLoop.h"
 #import "TMRenderable.h"
@@ -65,6 +67,8 @@ Texture2D *t_Donate;
 	[m_pVersion release];
 	[m_pCopyright release];
 	[m_pDonateButton release];
+	
+	[m_pDialog release];
 	
 	[super dealloc];
 }
@@ -153,6 +157,14 @@ Texture2D *t_Donate;
 	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Credits]];	
 	
 	[[InputEngine sharedInstance] subscribe:m_pDonateButton];
+	
+	// Raise a news dialog if unread news are found
+	if([[NewsFetcher sharedInstance] hasUnreadNews]) {
+		// Raise the dialog
+		m_pDialog = [[NewsDialog alloc] init];
+		[[TapMania sharedInstance] registerObject:m_pDialog withPriority:kRunLoopPriority_Lowest];
+		[[InputEngine sharedInstance] subscribeDialog:m_pDialog];
+	}
 }
 
 - (void) deinitOnTransition {

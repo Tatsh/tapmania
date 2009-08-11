@@ -82,4 +82,15 @@ Texture2D* t_WheelItem;
 	m_rShape.origin.y += pixels;
 }
 
+- (void) updateWithSong:(TMSong*)song atPoint:(CGPoint)point {
+	m_rShape.origin = point; // We don't really use the size here
+	m_pSong = song;	
+	
+	// Redo the texture
+	[m_pTitle release];
+	[m_pArtist release];
+
+	[self generateTextures];	
+}
+
 @end

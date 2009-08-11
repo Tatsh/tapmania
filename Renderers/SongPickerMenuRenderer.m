@@ -393,8 +393,6 @@ Texture2D* t_ModPanel;
 		if (lastWheelItemY <= -mt_ItemSongHalfHeight ) {		
 			// Explicitly deallocate the object. autorelease didn't work for some reason.
 			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:0];
-			[itemToRemove release];
-			
 			[m_pWheelItems removeObjectAtIndex:0];
 			
 			// Now we must add one on top of the wheel (last element of the array)
@@ -405,14 +403,13 @@ Texture2D* t_ModPanel;
 			TMSong* searchSong = [lastItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
 			
-			[m_pWheelItems addObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, firstWheelItemY)]];							
+			[itemToRemove updateWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, firstWheelItemY)];
+			[m_pWheelItems addObject:itemToRemove];							
 			
 		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {		
 			// Explicitly deallocate the object. autorelease didn't work for some reason.
 			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)[m_pWheelItems lastObject];
-			[itemToRemove release]; 
-			
-			[m_pWheelItems removeLastObject];	// Will release the object
+			[m_pWheelItems removeLastObject];
 			
 			// Now we must add one on the bottom of the wheel (first element of the array)
 			float newLastWheelItemY = lastWheelItemY - mt_ItemSongHeight;
@@ -422,7 +419,8 @@ Texture2D* t_ModPanel;
 			TMSong* searchSong = [firstItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
 			
-			[m_pWheelItems insertObject:[[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, newLastWheelItemY)] atIndex:0];						
+			[itemToRemove updateWithSong:song atPoint:CGPointMake(mt_ItemSongCenterX, newLastWheelItemY)];
+			[m_pWheelItems insertObject:itemToRemove atIndex:0];						
 		}
 
 		// get possibly new first item

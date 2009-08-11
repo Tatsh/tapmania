@@ -46,18 +46,33 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	}
 }
 
+- (void) subscribeDialog:(NSObject*) handler {
+	m_pDialog = handler;
+}
+
 - (void) unsubscribe:(NSObject*) handler {
-	// Will remove the handler if found
-	[m_aSubscribers removeObject:handler];
+	if(m_pDialog != nil && handler == m_pDialog) { 
+		m_pDialog = nil; 
+	} else {
+		// Will remove the handler if found
+		[m_aSubscribers removeObject:handler];
+	}
 }
 
 - (void) dispatchTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	if(m_bDispatcherEnabled) {
-		int i;
-		for(i=0; i<[m_aSubscribers count]; i++){
-			NSObject* handler = [m_aSubscribers objectAtIndex:i];
-			if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
-				[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
+		if(m_pDialog != nil) {
+			if([m_pDialog respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
+				[m_pDialog performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
+			}
+		} else {
+		
+			int i;
+			for(i=0; i<[m_aSubscribers count]; i++){
+				NSObject* handler = [m_aSubscribers objectAtIndex:i];
+				if([handler respondsToSelector:@selector(tmTouchesBegan:withEvent:)]){
+					[handler performSelector:@selector(tmTouchesBegan:withEvent:) withObject:touches withObject:event];
+				}
 			}
 		}
 	}
@@ -65,25 +80,39 @@ static InputEngine *sharedInputEngineDelegate = nil;
 
 - (void) dispatchTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
 	if(m_bDispatcherEnabled) {
-		int i;
-		for(i=0; i<[m_aSubscribers count]; i++){
-			NSObject* handler = [m_aSubscribers objectAtIndex:i];
-			if([handler respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
-				[handler performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
+		if(m_pDialog != nil) {
+			if([m_pDialog respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
+				[m_pDialog performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
 			}
-		}	
+		} else {
+			
+			int i;
+			for(i=0; i<[m_aSubscribers count]; i++){
+				NSObject* handler = [m_aSubscribers objectAtIndex:i];
+				if([handler respondsToSelector:@selector(tmTouchesMoved:withEvent:)]){
+					[handler performSelector:@selector(tmTouchesMoved:withEvent:) withObject:touches withObject:event];
+				}
+			}
+		}
 	}
 }
 
 - (void) dispatchTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if(m_bDispatcherEnabled) {
-		int i;
-		for(i=0; i<[m_aSubscribers count]; i++){
-			NSObject* handler = [m_aSubscribers objectAtIndex:i];
-			if([handler respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
-				[handler performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
+		if(m_pDialog != nil) {
+			if([m_pDialog respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
+				[m_pDialog performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
 			}
-		}	
+		} else {
+			
+			int i;
+			for(i=0; i<[m_aSubscribers count]; i++){
+				NSObject* handler = [m_aSubscribers objectAtIndex:i];
+				if([handler respondsToSelector:@selector(tmTouchesEnded:withEvent:)]){
+					[handler performSelector:@selector(tmTouchesEnded:withEvent:) withObject:touches withObject:event];
+				}
+			}
+		}
 	}
 }
 

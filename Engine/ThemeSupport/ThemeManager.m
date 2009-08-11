@@ -9,7 +9,7 @@
 #import "ThemeManager.h"
 #import "ThemeMetrics.h"
 #import "ResourcesLoader.h"
-
+#import "VersionInfo.h"
 
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
@@ -55,10 +55,15 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* path = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", themeDirName];
 	
 		// Check the Metrics.plist file
-		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-			// Ok. Looks like a valid tapmania theme.. add it to the list
-			[m_aThemesList addObject:themeDirName];
-			TMLog(@"Added theme '%@' to themes list.", themeDirName);
+		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {			
+			// Ok. Looks like a valid tapmania theme.. need to check the SystemVersion number
+			NSDictionary* themeMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
+			NSNumber* version = [themeMetrics objectForKey:@"ThemeSystemVersion"];
+			
+			if(version != nil && [version doubleValue]==TAPMANIA_THEME_VERSION) {
+				[m_aThemesList addObject:themeDirName];
+				TMLog(@"Added theme '%@' to themes list.", themeDirName);
+			}
 		}
 	}
 
@@ -69,9 +74,14 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		
 		// Check the Metrics.plist file
 		if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-			// Ok. Looks like a valid tapmania noteskin.. add it to the list
-			[m_aNoteskinsList addObject:noteskinDirName];
-			TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
+			// Ok. Looks like a valid tapmania noteskin.. need to check the SystemVersion number
+			NSDictionary* skinMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
+			NSNumber* version = [skinMetrics objectForKey:@"NoteskinSystemVersion"];
+			
+			if(version != nil && [version doubleValue]==TAPMANIA_NOTESKIN_VERSION) {
+				[m_aNoteskinsList addObject:noteskinDirName];
+				TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
+			}
 		}
 	}
 	
