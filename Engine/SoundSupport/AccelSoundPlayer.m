@@ -11,8 +11,7 @@
 
 #import "AccelSoundPlayer.h"
 
-static UInt32 gBufferSizeBytes = 0x10000; // 64k
-NSString *GBMusicTrackFinishedPlayingNotification = @"GBMusicTrackFinishedPlayingNotification";
+static UInt32 gBufferSizeBytes = 131072;     // 128 KB buffers
 
 @interface AccelSoundPlayer (Private)
 
@@ -88,11 +87,18 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 		{
 			// this might happen if the file was so short that it needed less buffers than we planned on using
 			break;
-		}
+		} 
 	}
-	repeat = NO;
+
 	m_bPlaying = NO;
 	m_bPaused = NO;
+	
+	// we would like to prime some frames so we are prepared to start directly
+	int framesPrimed;
+	AudioQueuePrime(queue, i, &framesPrimed);
+	
+	TMLog(@"Primed %d frames", framesPrimed);
+	
 	
 	return self;
 }
@@ -129,11 +135,6 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 	AudioQueueSetParameter(queue, kAudioQueueParam_Volume, gain);
 }
 
-- (void)setRepeat:(BOOL)yn
-{
-	repeat = yn;
-}
-
 - (void)play
 {
 	m_bPlaying = YES;
@@ -162,25 +163,8 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 {
 	if ([self readPacketsIntoBuffer:buffer] == 0)
 	{
-		// End Of File reached, so rewind and refill the buffer using the beginning of the file instead
-		packetIndex = 0;
-		[self readPacketsIntoBuffer:buffer];
-		// if not repeating then we'll pause it so it's ready to play again immediately if needed
-		if (!repeat)
-		{
-			AudioQueuePause(queue);
-			// we're not in the main thread during this callback, so enqueue a message on the main thread to post notification
-			// that we're done, or else the notification will have to be handled in this thread, making things more difficult
-			// [self performSelectorOnMainThread:@selector(postTrackFinishedPlayingNotification:) withObject:nil waitUntilDone:NO];
-		}
+		// End Of File reached
 	}
-}
-
-- (void)postTrackFinishedPlayingNotification:(id)object
-{
-	// if we're here then we're in the main thread as specified by the callback, so now we can post notification that
-	// the track is done without the notification observer(s) having to worry about thread safety and autorelease pools
-//	[[NSNotificationCenter defaultCenter] postNotificationName:GBMusicTrackFinishedPlayingNotification object:self];
 }
 
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer

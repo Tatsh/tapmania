@@ -27,5 +27,6 @@
 - (BOOL) isPaused;	// Check whether we are paused
 
 - (BOOL) update;	// Update the buffers
+- (void)setGain:(Float32)gain;
 
 @end

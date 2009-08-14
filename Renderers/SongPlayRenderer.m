@@ -136,8 +136,6 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	[[TMSoundEngine sharedInstance] loadMusicFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
 	
 	// Calculate starting offset for music playback
-	double now = [TimingUtil getCurrentTime];
-	
 	TMLog(@"Try to get first and last beat");
 	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getFirstNoteRow]] inSong:m_pSong];
 	double timeOfLastBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[m_pSteps getLastNoteRow]] inSong:m_pSong];
@@ -145,6 +143,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	
 	TMLog(@"first: %f   last: %f", timeOfFirstBeat, timeOfLastBeat);
 	TMLog(@"first nr: %d", [m_pSteps getFirstNoteRow]);
+	
+	double now = [TimingUtil getCurrentTime];
 	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
 		m_dPlayBackStartTime = now + (kMinTimeTillStart - timeOfFirstBeat);

@@ -125,6 +125,8 @@ Exit:
 	if(![self initOpenAL]) 
 		return nil;
 	
+	m_fMusicVolume = 1.0f;
+	m_fEffectsVolume = 1.0f;
 	m_pCurrentMusicPlayer = nil;
 
 	return self;
@@ -175,10 +177,16 @@ Exit:
 		m_pCurrentMusicPlayer = [[AccelSoundPlayer alloc] initWithFile:inPath];
 	}
 	
+	if(m_pCurrentMusicPlayer)
+		[m_pCurrentMusicPlayer setGain:m_fMusicVolume];
+	
 	return YES;
 }
 
 - (void) unloadMusic {
+	if(m_pCurrentMusicPlayer) {
+		[m_pCurrentMusicPlayer release];
+	}
 }
 
 // Music playback
@@ -209,6 +217,16 @@ Exit:
 }
 
 - (void) fadeOutMusic:(float) inTimeDelta {
+}
+
+- (void) setMasterVolume:(float)gain {
+	m_fMusicVolume = gain;
+	if(m_pCurrentMusicPlayer)
+		[m_pCurrentMusicPlayer setGain:gain];
+}
+
+- (float) getMasterVolume {
+	return m_fMusicVolume;
 }
 
 

@@ -23,5 +23,6 @@
 - (BOOL) isPaused { return NO; }
 - (void) stop {}
 - (BOOL) update { return NO; }
+- (void)setGain:(Float32)gain {}
 
 @end

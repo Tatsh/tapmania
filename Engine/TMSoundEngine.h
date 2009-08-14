@@ -45,6 +45,9 @@
 
 - (void) fadeOutMusic:(float) inTimeDelta;			// inTimeDelta specfies the time from start of fade out till silence.
 
+- (void) setMasterVolume:(float)gain;
+- (float) getMasterVolume;
+
 // TODO sound effects stuff
 
 + (TMSoundEngine *)sharedInstance;

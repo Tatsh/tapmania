@@ -27,7 +27,6 @@
 	UInt64							packetIndex;
 	UInt32							numPacketsToRead;
 	AudioStreamPacketDescription	*packetDescs;
-	BOOL							repeat;
 	AudioQueueBufferRef				buffers[NUM_QUEUE_BUFFERS];	
 }
 
