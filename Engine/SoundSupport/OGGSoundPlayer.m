@@ -14,9 +14,6 @@
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 
-
-// #define BUFFER_SIZE		32768     // 32 KB buffers
-// #define BUFFER_SIZE			65536	// 64 KB buffers
 #define BUFFER_SIZE		131072     // 128 KB buffers
 
 @interface OGGSoundPlayer (Private)
@@ -88,6 +85,8 @@
 
 	// Start thread. the thread will start streaming in background till play is invoked
 	m_bPlaying = NO;
+	m_bPaused = NO;
+	
 	[m_pThread start];
 	
 	return self;
@@ -112,8 +111,6 @@
 	// Thread entrance point
 	TMLog(@"START PLAYBACK THREAD!");
 	
-	[NSThread setThreadPriority:1.0];
-	
 	while([self update]) {
 		if(m_bPlaying) {
 			if(![self isPlaying]) {	
@@ -128,7 +125,16 @@
 /* Highlevel methods */
 - (void) play {
 	m_bPlaying = YES;
+	m_bPaused = NO;
+	
 	[self playback];
+}
+
+- (void) pause {
+	m_bPaused = YES;
+	m_bPlaying = NO;
+	
+	alSourcePause(m_nSourceID);
 }
 
 - (BOOL) isPlaying {
@@ -137,6 +143,14 @@
 	[self checkErr];
 	
 	return (state == AL_PLAYING);
+}
+
+- (BOOL) isPaused {
+	ALenum state;
+	alGetSourcei(m_nSourceID, AL_SOURCE_STATE, &state);
+	[self checkErr];
+	
+	return (state == AL_PAUSED);	
 }
 
 - (void) stop {

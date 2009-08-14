@@ -12,25 +12,20 @@
 #define kSoundEngineNumBuffers	2
 
 @interface AbstractSoundPlayer : NSObject {
-	FILE*  m_pFile;	// The file handle
-	
-	ALuint	m_nBuffers[kSoundEngineNumBuffers];	// We have back and front buffers
-	ALuint	m_nSourceID;	
-	ALenum	m_nFormat;		
-	ALsizei m_nFreq;
-	
-	// Threading
-	NSThread*	m_pThread;
 	BOOL		m_bPlaying;	// Control playback start
+	BOOL		m_bPaused;	// YES if paused
 }
 
 // Methods. throw exceptions here
 - (id) initWithFile:(NSString*)inFile;
 
 - (void) play;		// Start playback
-- (BOOL) isPlaying;	// Check whether we are playing sound now
+- (void) pause;		// Pause playback
 - (void) stop;		// Stop the playback
-- (BOOL) update;	// Update the buffers
 
+- (BOOL) isPlaying;	// Check whether we are playing sound now
+- (BOOL) isPaused;	// Check whether we are paused
+
+- (BOOL) update;	// Update the buffers
 
 @end

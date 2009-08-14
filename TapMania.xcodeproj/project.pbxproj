@@ -37,7 +37,6 @@
 		248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248547F20EE6BCD300AD4FAB /* InputEngine.m */; };
 		2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485499D0EE7C75800AD4FAB /* TMAnimatable.m */; };
 		24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854A840EE8015500AD4FAB /* TMFramedTexture.m */; };
-		24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD40EE8065000AD4FAB /* SoundEngine.cpp */; };
 		24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD80EE8066800AD4FAB /* Texture2D.m */; };
 		2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F18A0EC077A300E5F9EE /* JoyPad.m */; };
 		2486F1910EC077E100E5F9EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1900EC077E100E5F9EE /* CoreGraphics.framework */; };
@@ -158,6 +157,8 @@
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
 		24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.m */; };
+		24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */; };
+		24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D52ABD1035A4970030A6CA /* AVFoundation.framework */; };
 		24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1041030D1EA00C7216A /* DialogRenderer.m */; };
 		24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.m */; };
 		24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.m */; };
@@ -318,8 +319,6 @@
 		2485499D0EE7C75800AD4FAB /* TMAnimatable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAnimatable.m; sourceTree = "<group>"; };
 		24854A830EE8015500AD4FAB /* TMFramedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMFramedTexture.h; sourceTree = "<group>"; };
 		24854A840EE8015500AD4FAB /* TMFramedTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMFramedTexture.m; sourceTree = "<group>"; };
-		24854AD40EE8065000AD4FAB /* SoundEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundEngine.cpp; sourceTree = "<group>"; };
-		24854AD50EE8065000AD4FAB /* SoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEngine.h; sourceTree = "<group>"; };
 		24854AD70EE8066800AD4FAB /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		24854AD80EE8066800AD4FAB /* Texture2D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Texture2D.m; sourceTree = "<group>"; };
 		2486F1890EC077A300E5F9EE /* JoyPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoyPad.h; sourceTree = "<group>"; };
@@ -478,6 +477,9 @@
 		24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicsUtil.m; path = Util/PhysicsUtil.m; sourceTree = "<group>"; };
 		24D4C1460F1B3C1100643CC2 /* Judgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Judgement.h; path = Renderers/UIElements/Judgement.h; sourceTree = "<group>"; };
 		24D4C1470F1B3C1100643CC2 /* Judgement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Judgement.m; path = Renderers/UIElements/Judgement.m; sourceTree = "<group>"; };
+		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
+		24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelSoundPlayer.m; sourceTree = "<group>"; };
+		24D52ABD1035A4970030A6CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		24D6C1031030D1EA00C7216A /* DialogRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DialogRenderer.h; path = Renderers/DialogRenderer.h; sourceTree = "<group>"; };
 		24D6C1041030D1EA00C7216A /* DialogRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DialogRenderer.m; path = Renderers/DialogRenderer.m; sourceTree = "<group>"; };
 		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */,
 				248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */,
 				24DC0E55101E9D3A00F2B046 /* libzlib.a in Frameworks */,
+				24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,8 +650,6 @@
 				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
 				24F15DB20EC2094600755788 /* SoundEffectsHolder.h */,
 				24F15DB30EC2094600755788 /* SoundEffectsHolder.m */,
-				24854AD50EE8065000AD4FAB /* SoundEngine.h */,
-				24854AD40EE8065000AD4FAB /* SoundEngine.cpp */,
 				24A425490F7123D8001B0CDE /* TMSoundEngine.h */,
 				24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
@@ -802,8 +803,8 @@
 			isa = PBXGroup;
 			children = (
 				2486F2A60EC0A18C00E5F9EE /* UI Elements */,
-				24F15E6A0EC211D100755788 /* AbstractRenderer.h */,
 				24F15E6B0EC211D100755788 /* AbstractRenderer.m */,
+				24F15E6A0EC211D100755788 /* AbstractRenderer.h */,
 				24F161130EC348B100755788 /* CreditsRenderer.h */,
 				24F161140EC348B100755788 /* CreditsRenderer.m */,
 				246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */,
@@ -881,6 +882,8 @@
 				2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */,
 				249648500F79134D00C9D5BC /* OGGSoundPlayer.h */,
 				249648510F79134D00C9D5BC /* OGGSoundPlayer.m */,
+				24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */,
+				24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */,
 			);
 			path = SoundSupport;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24D52ABD1035A4970030A6CA /* AVFoundation.framework */,
 				2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */,
 				2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */,
 				2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */,
@@ -1458,7 +1462,6 @@
 				248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */,
 				2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */,
 				24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */,
-				24854AD60EE8065000AD4FAB /* SoundEngine.cpp in Sources */,
 				24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */,
 				2472663D0EE949A500D501AF /* TapNote.m in Sources */,
 				247266540EE94D3B00D501AF /* Receptor.m in Sources */,
@@ -1501,6 +1504,7 @@
 				24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */,
 				24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */,
 				24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */,
+				24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1644,6 +1648,7 @@
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TapMania;
+				SDKROOT = iphoneos2.2;
 			};
 			name = Release;
 		};

@@ -9,7 +9,7 @@
 #import "SongPlayRenderer.h"
 #import "TapManiaAppDelegate.h"
 #import "SoundEffectsHolder.h"
-#import "SoundEngine.h"
+#import "TMSoundEngine.h"
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"
 #import "SongsDirectoryCache.h"
@@ -132,8 +132,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	
 	[t_Judgement reset];
 	[t_HoldJudgement reset];
-	
-	SoundEngine_LoadBackgroundMusicTrack([[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath] UTF8String], YES, YES);	
+
+	[[TMSoundEngine sharedInstance] loadMusicFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
 	
 	// Calculate starting offset for music playback
 	double now = [TimingUtil getCurrentTime];
@@ -151,7 +151,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		m_bMusicPlaybackStarted = NO;
 	} else {
 		m_dPlayBackStartTime = now;
-		SoundEngine_StartBackgroundMusic();
+		[[TMSoundEngine sharedInstance] playMusic];
 		m_bMusicPlaybackStarted = YES;
 	}
 
@@ -178,13 +178,13 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	if(!m_bMusicPlaybackStarted) {
 		if(m_dPlayBackStartTime <= currentTime){
 			m_bMusicPlaybackStarted = YES;
-			SoundEngine_StartBackgroundMusic();
+			[[TMSoundEngine sharedInstance] playMusic];
 		}
 	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit]) {
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
-		SoundEngine_StopBackgroundMusic(NO);
-		SoundEngine_UnloadBackgroundMusicTrack();
+		[[TMSoundEngine sharedInstance] stopMusic];
+		[[TMSoundEngine sharedInstance] unloadMusic];
 		
 		// Stop animating the arrows
 		[t_TapNote stopAnimation];

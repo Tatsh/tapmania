@@ -18,7 +18,9 @@
 }
 
 - (void) play {}
+- (void) pause {}
 - (BOOL) isPlaying { return NO; }
+- (BOOL) isPaused { return NO; }
 - (void) stop {}
 - (BOOL) update { return NO; }
 

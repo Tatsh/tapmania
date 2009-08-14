@@ -10,6 +10,7 @@
 
 #import "AbstractSoundPlayer.h"
 #import "OGGSoundPlayer.h"
+#import "AccelSoundPlayer.h"
 
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
@@ -167,12 +168,11 @@ Exit:
 - (BOOL) loadMusicFile:(NSString*) inPath {
 	TMLog(@"Test file '%@' to be ogg or not...", inPath);
 	
-	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {
-		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! OGG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {		
 		m_pCurrentMusicPlayer = [[OGGSoundPlayer alloc] initWithFile:inPath];
 		
 	} else {
-		TMLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MP3? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		m_pCurrentMusicPlayer = [[AccelSoundPlayer alloc] initWithFile:inPath];
 	}
 	
 	return YES;

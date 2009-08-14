@@ -12,7 +12,6 @@
 #import "ThemeManager.h"
 #import "Texture2D.h"
 #import "SettingsEngine.h"
-#import "SoundEngine.h"
 
 #import "MenuItem.h"
 #import "ZoomEffect.h"
@@ -99,11 +98,11 @@ Texture2D *t_BG;
 	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(mt_ThemeLabelX, mt_ThemeLabelY, 70.0f, mt_MenuButtonsHeight)];
 	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(mt_NoteSkinLabelX, mt_NoteSkinLabelY, 80.0f, mt_MenuButtonsHeight)];
 	
-	// Register menu items
+	// Register menu items FIXME!!!!
 	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
 	[[ZoomEffect alloc] initWithRenderable:	
 	 [[Slider alloc] initWithShape:CGRectMake(mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth, mt_MenuButtonsHeight) 
-						andValue:SoundEngine_GetMasterVolume()]];
+						andValue:1.0]];
 	
 	// Theme selection
 	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
@@ -272,13 +271,13 @@ Texture2D *t_BG;
 - (void) backButtonHit {
 	m_nSelectedMenu = kOptionsMenuItem_Back;
 	
-	// Hack. This is slow so we do this on exit... save the sound setting only once
-	[[SettingsEngine sharedInstance] setFloatValue:SoundEngine_GetMasterVolume() forKey:@"sound"];
+	// Hack. This is slow so we do this on exit... save the sound setting only once (FIXME!!!!)
+	[[SettingsEngine sharedInstance] setFloatValue:1.0 forKey:@"sound"];
 }
 
 - (void) soundSliderChanged {
 	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
-	SoundEngine_SetMasterVolume(value);
+//	SoundEngine_SetMasterVolume(value);
 }
 
 - (void) themeTogglerChanged {

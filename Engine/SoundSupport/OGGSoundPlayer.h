@@ -12,6 +12,16 @@
 @interface OGGSoundPlayer : AbstractSoundPlayer {
 	OggVorbis_File	m_oStream;
 	vorbis_info*	m_pVorbisInfo;
+	
+	FILE*  m_pFile;	// The file handle
+	
+	ALuint	m_nBuffers[kSoundEngineNumBuffers];	// We have back and front buffers
+	ALuint	m_nSourceID;	
+	ALenum	m_nFormat;		
+	ALsizei m_nFreq;
+	
+	// Threading
+	NSThread*	m_pThread;
 }
 
 @end
