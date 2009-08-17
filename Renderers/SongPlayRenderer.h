@@ -17,6 +17,7 @@
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
+#define kFadeOutTime	3.0		// 3 seconds fade duration
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
 	TMSong*					m_pSong;	// Currently played song
@@ -28,10 +29,12 @@
 	int						m_nTrackPos[kNumOfAvailableTracks];	// Current element of each track
 	
 	double					m_dSpeedModValue;	
-	double					m_dPlayBackStartTime;			// The time to start music
-	double					m_dPlayBackScheduledEndTime;	// The time to stop music and stop gameplay
+	double					m_dPlayBackStartTime;				// The time to start music
+	double					m_dPlayBackScheduledEndTime;		// The time to stop music and stop gameplay
+	double					m_dPlayBackScheduledFadeOutTime;	// The time to start fading music out
 	
 	BOOL					m_bPlayingGame;
+	BOOL					m_bIsFading;
 	BOOL					m_bMusicPlaybackStarted;
 
 	JoyPad* 				m_pJoyPad; // Local pointer for easy access

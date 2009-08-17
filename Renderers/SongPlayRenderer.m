@@ -155,7 +155,9 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		m_bMusicPlaybackStarted = YES;
 	}
 
+	m_bIsFading = NO;
 	m_dPlayBackScheduledEndTime = m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
+	m_dPlayBackScheduledFadeOutTime = m_dPlayBackScheduledEndTime - kFadeOutTime;
 
 	// Most likely we must start animating on a calculated time.. FIXME
 	[t_TapNote startAnimation];
@@ -197,7 +199,13 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		
 		[[TapMania sharedInstance] switchToScreen:srScreen];
 		m_bPlayingGame = NO;
-	}	
+	} else if(currentTime >= m_dPlayBackScheduledFadeOutTime) {
+		if(!m_bIsFading) {
+			m_bIsFading = YES;
+			[[TMSoundEngine sharedInstance] stopMusicFading:kFadeOutTime];
+		}
+	}
+		
 	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;

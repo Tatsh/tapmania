@@ -12,6 +12,8 @@
 #import "OGGSoundPlayer.h"
 #import "AccelSoundPlayer.h"
 
+#import "TimingUtil.h"
+
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -21,6 +23,7 @@
 
 @interface TMSoundEngine (Private)
 -(BOOL) initOpenAL;
+-(void) musicFadeOutTick:(NSTimer*)sender;
 @end
 
 // This is a singleton class, seebelow
@@ -136,6 +139,11 @@ Exit:
 	alcDestroyContext(m_oContext);
 	alcCloseDevice(m_oDevice);
 
+	if(m_pFadeTimer) {
+		[m_pFadeTimer invalidate];
+		[m_pFadeTimer release];
+	}	
+	
 	[super dealloc];
 }
 
@@ -203,6 +211,38 @@ Exit:
 	return YES;
 }
 
+- (BOOL) stopMusicFading:(float)duration {
+	if(m_pCurrentMusicPlayer) {
+		if(m_pFadeTimer) {
+			[m_pFadeTimer invalidate];
+			[m_pFadeTimer release];
+		}
+
+		m_pFadeTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(musicFadeOutTick:) userInfo:nil repeats:YES] retain];
+		m_fMusicFadeStart = [TimingUtil getCurrentTime];
+		m_fMusicFadeDuration = duration;
+		
+		return YES;
+	}	
+	
+	return NO;
+}
+
+- (void) musicFadeOutTick:(NSTimer*)sender {
+	float elapsedTime = ([TimingUtil getCurrentTime] - m_fMusicFadeStart);
+	float gain = 1-(elapsedTime/m_fMusicFadeDuration);	// Inverse	
+		
+	if(gain <= 0.01f) {
+		// Stop fading
+		[m_pFadeTimer invalidate];
+		
+		// Stop music too
+		[self stopMusic];
+	} else if(m_pCurrentMusicPlayer && [m_pCurrentMusicPlayer getGain] >= gain) {
+		[m_pCurrentMusicPlayer setGain:gain];
+	}
+}
+
 - (BOOL) stopMusic {
 	if(m_pCurrentMusicPlayer) {
 		[m_pCurrentMusicPlayer stop];		
@@ -214,9 +254,6 @@ Exit:
 
 - (BOOL) setMusicPosition:(float) inPosition {
 	return YES;
-}
-
-- (void) fadeOutMusic:(float) inTimeDelta {
 }
 
 - (void) setMasterVolume:(float)gain {

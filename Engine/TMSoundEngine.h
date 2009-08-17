@@ -27,6 +27,10 @@
 	float		m_fMusicVolume;		// Music sound volume
 	float		m_fEffectsVolume;	// Effects sound volume
 	
+	NSTimer	    *m_pFadeTimer;		// Fade support
+	float		m_fMusicFadeStart;
+	float		m_fMusicFadeDuration;
+	
 	// Current bg music player
 	AbstractSoundPlayer*	m_pCurrentMusicPlayer;
 }
@@ -41,9 +45,8 @@
 - (BOOL) playMusic;
 - (BOOL) pauseMusic;
 - (BOOL) stopMusic;
+- (BOOL) stopMusicFading:(float)duration;			// Fade out music and stop it when done
 - (BOOL) setMusicPosition:(float) inPosition;		// Set the current position in the music file
-
-- (void) fadeOutMusic:(float) inTimeDelta;			// inTimeDelta specfies the time from start of fade out till silence.
 
 - (void) setMasterVolume:(float)gain;
 - (float) getMasterVolume;

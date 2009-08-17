@@ -23,6 +23,7 @@
 - (BOOL) isPaused { return NO; }
 - (void) stop {}
 - (BOOL) update { return NO; }
-- (void)setGain:(Float32)gain {}
+- (void) setGain:(Float32)gain {}
+- (Float32) getGain { return 1.0f; };
 
 @end

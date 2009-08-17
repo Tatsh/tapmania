@@ -92,13 +92,13 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 
 	m_bPlaying = NO;
 	m_bPaused = NO;
+	m_fGain = 1.0f;	// Will probably be set by setGain
 	
 	// we would like to prime some frames so we are prepared to start directly
 	int framesPrimed;
 	AudioQueuePrime(queue, i, &framesPrimed);
 	
 	TMLog(@"Primed %d frames", framesPrimed);
-	
 	
 	return self;
 }
@@ -133,6 +133,11 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 - (void)setGain:(Float32)gain
 {
 	AudioQueueSetParameter(queue, kAudioQueueParam_Volume, gain);
+	m_fGain = gain;
+}
+
+- (Float32) getGain {
+	return m_fGain;
 }
 
 - (void)play

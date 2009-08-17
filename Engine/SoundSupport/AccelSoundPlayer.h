@@ -28,6 +28,8 @@
 	UInt32							numPacketsToRead;
 	AudioStreamPacketDescription	*packetDescs;
 	AudioQueueBufferRef				buffers[NUM_QUEUE_BUFFERS];	
+	
+	float							m_fGain;
 }
 
 @end
