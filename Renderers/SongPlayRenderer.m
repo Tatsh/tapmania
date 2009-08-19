@@ -8,7 +8,6 @@
 
 #import "SongPlayRenderer.h"
 #import "TapManiaAppDelegate.h"
-#import "SoundEffectsHolder.h"
 #import "TMSoundEngine.h"
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"

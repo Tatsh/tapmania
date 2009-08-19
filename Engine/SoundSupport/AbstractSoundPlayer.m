@@ -7,6 +7,7 @@
 //
 
 #import "AbstractSoundPlayer.h"
+#import "TMSoundEngine.h"
 
 @implementation AbstractSoundPlayer
 
@@ -25,5 +26,12 @@
 - (BOOL) update { return NO; }
 - (void) setGain:(Float32)gain {}
 - (Float32) getGain { return 1.0f; };
+
+- (void) setLoop:(BOOL)loop { m_bLoop = loop; }
+- (BOOL) isLooping { return m_bLoop; }
+
+- (void) sendPlayBackFinishedNotification {
+	[[TMSoundEngine sharedInstance] performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:YES];
+}
 
 @end

@@ -15,10 +15,11 @@
 */
 
 #import <OpenAL/alc.h>
+#import "TMSoundSupport.h"
 
 @class AbstractSoundPlayer;
 
-@interface TMSoundEngine : NSObject {
+@interface TMSoundEngine : NSObject <TMSoundSupport> {
 	ALCcontext  *m_oContext;
 	ALCdevice	*m_oDevice;
 
@@ -33,7 +34,11 @@
 	
 	// Current bg music player
 	AbstractSoundPlayer*	m_pCurrentMusicPlayer;
+	
+	id			m_idDelegate;
 }
+
+@property (assign, setter=delegate:, getter=delegate) id<TMSoundSupport> m_idDelegate;
 
 -(void) shutdownOpenAL;
 

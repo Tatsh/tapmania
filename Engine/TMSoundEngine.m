@@ -120,6 +120,8 @@ Exit:
 /* Now to the implementation */
 @implementation TMSoundEngine
 
+@synthesize m_idDelegate;
+
 - (id) init {
 	self = [super init];
 	if(!self)
@@ -266,6 +268,13 @@ Exit:
 	return m_fMusicVolume;
 }
 
+/* TMSoundSupport delegate work */
+- (void) playBackFinishedNotification {
+	TMLog(@"SoundEngine: Queue is finished. Send to a further delegate if any.");
+	if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(playBackFinishedNotification)]) {
+		[m_idDelegate performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:YES];
+	}
+}
 
 #pragma mark Singleton stuff
 

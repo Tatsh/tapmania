@@ -86,6 +86,7 @@
 	// Start thread. the thread will start streaming in background till play is invoked
 	m_bPlaying = NO;
 	m_bPaused = NO;
+	m_bLoop = NO;
 	
 	[m_pThread start];
 	

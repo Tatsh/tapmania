@@ -10,7 +10,7 @@
 
 #import "FadeTransition.h"
 #import "SongsDirectoryCache.h"
-#import "SoundEffectsHolder.h"
+#import "TMSoundEngine.h"
 #import "InputEngine.h"
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
@@ -109,25 +109,20 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Setup window
 	m_pWindow = [[[UIWindow alloc] initWithFrame:rect] autorelease];
 	
-	// Show window
-	[m_pWindow makeKeyAndVisible];
-	
-	// Load all sounds
-	[SoundEffectsHolder sharedInstance];
-	
+	// Init global joypad
 	m_pJoyPad = [[JoyPad alloc] init];
 
 	// Init opengl
 	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
 	m_pGlView.multipleTouchEnabled = YES;	
 	
-	// Load theme
+	// Init sound system and set the master volume from settings
+	[[TMSoundEngine sharedInstance] setMasterVolume:[[SettingsEngine sharedInstance] getFloatValue:@"sound"]];
+	
+	// Load theme graphics, sounds, fonts, etc.
 	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
 	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
-	
-	// Load all sounds
-	[SoundEffectsHolder sharedInstance];
-	
+		
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
@@ -150,6 +145,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Add the gl view to our main window
 	[m_pWindow addSubview:m_pGlView];		
 
+	// Show window
+	[m_pWindow makeKeyAndVisible];
+	
 	TMLog(@"Done initializing opengl");
 }
 

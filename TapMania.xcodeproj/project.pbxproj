@@ -153,6 +153,8 @@
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.m */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
+		24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B3027D103BD46C0044AAB2 /* TMSound.m */; };
+		24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
@@ -205,7 +207,6 @@
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
 		24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF5570EC889AD00533056 /* TMTrack.mm */; };
 		24EBF55B0EC88B4400533056 /* TMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.m */; };
-		24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15DB30EC2094600755788 /* SoundEffectsHolder.m */; };
 		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
 		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
 		24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E6B0EC211D100755788 /* AbstractRenderer.m */; };
@@ -468,6 +469,11 @@
 		24AF446E0F825BE200F630FD /* FontCharAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCharAliases.m; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
 		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
+		24B3027C103BD46C0044AAB2 /* TMSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSound.h; sourceTree = "<group>"; };
+		24B3027D103BD46C0044AAB2 /* TMSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSound.m; sourceTree = "<group>"; };
+		24B3027F103BD4A40044AAB2 /* TMLoopedSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLoopedSound.h; sourceTree = "<group>"; };
+		24B30280103BD4A40044AAB2 /* TMLoopedSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLoopedSound.m; sourceTree = "<group>"; };
+		24B302CC103BDA5A0044AAB2 /* TMSoundSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundSupport.h; sourceTree = "<group>"; };
 		24CA104A100B4B1A001FAD18 /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
@@ -539,8 +545,6 @@
 		24EBF5570EC889AD00533056 /* TMTrack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMTrack.mm; sourceTree = "<group>"; };
 		24EBF5590EC88B4400533056 /* TMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMNote.h; sourceTree = "<group>"; };
 		24EBF55A0EC88B4400533056 /* TMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNote.m; sourceTree = "<group>"; };
-		24F15DB20EC2094600755788 /* SoundEffectsHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEffectsHolder.h; sourceTree = "<group>"; };
-		24F15DB30EC2094600755788 /* SoundEffectsHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundEffectsHolder.m; sourceTree = "<group>"; };
 		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
 		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
 		24F15E470EC2114F00755788 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -648,8 +652,6 @@
 				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 				248547F10EE6BCD300AD4FAB /* InputEngine.h */,
 				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
-				24F15DB20EC2094600755788 /* SoundEffectsHolder.h */,
-				24F15DB30EC2094600755788 /* SoundEffectsHolder.m */,
 				24A425490F7123D8001B0CDE /* TMSoundEngine.h */,
 				24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
@@ -681,6 +683,7 @@
 				246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */,
 				24079C1B0F4324260052EDB2 /* TMTransition.h */,
 				248B0CA90F4B1B00005A998C /* TMEffectSupport.h */,
+				24B302CC103BDA5A0044AAB2 /* TMSoundSupport.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -702,6 +705,10 @@
 				24A585FF0FBADCE6000954E8 /* TMUserConfig.m */,
 				24DC0E32101E969200F2B046 /* TMZipFile.h */,
 				24DC0E33101E969200F2B046 /* TMZipFile.m */,
+				24B3027C103BD46C0044AAB2 /* TMSound.h */,
+				24B3027D103BD46C0044AAB2 /* TMSound.m */,
+				24B3027F103BD4A40044AAB2 /* TMLoopedSound.h */,
+				24B30280103BD4A40044AAB2 /* TMLoopedSound.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1439,7 +1446,6 @@
 				2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */,
 				2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */,
 				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */,
-				24F15DB40EC2094600755788 /* SoundEffectsHolder.m in Sources */,
 				24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */,
 				24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */,
 				24F15EB90EC31E4700755788 /* MenuItem.m in Sources */,
@@ -1505,6 +1511,8 @@
 				24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */,
 				24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */,
 				24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */,
+				24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */,
+				24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

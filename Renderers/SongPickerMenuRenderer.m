@@ -17,6 +17,7 @@
 
 #import "MainMenuRenderer.h"
 #import "PhysicsUtil.h"
+#import "TMSoundEngine.h"
 
 #import "SongPickerMenuItem.h"
 #import "TogglerItem.h"
@@ -172,6 +173,9 @@ Texture2D* t_ModPanel;
 	[[TapMania sharedInstance] registerObject:m_pSpeedToggler withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pDifficultyToggler withPriority:kRunLoopPriority_NormalUpper-1];
 	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-2];
+	
+	// Stop currently playing music
+	[[TMSoundEngine sharedInstance] unloadMusic];
 }
 
 - (void) deinitOnTransition {

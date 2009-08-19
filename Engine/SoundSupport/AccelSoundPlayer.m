@@ -18,8 +18,9 @@ static UInt32 gBufferSizeBytes = 131072;     // 128 KB buffers
 static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer);
 - (void)callbackForBuffer:(AudioQueueBufferRef)buffer;
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer;
-
 @end
+
+void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID);
 
 @implementation AccelSoundPlayer
 
@@ -30,19 +31,27 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 	UInt32		size, maxPacketSize;
 	char		*cookie;
 	int			i;
+	
 	if(!(self = [super init])) return nil;
 	if (path == nil) return nil;
+	
 	// try to open up the file using the specified path
 	if (noErr != AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:path], 0x01, kAudioFileCAFType, &audioFile))
 	{
 		TMLog(@"AccelSoundPlayer Error - initWithPath: could not open audio file. Path given was: %@", path);
 		return nil;
 	}
+	
 	// get the data format of the file
 	size = sizeof(dataFormat);
 	AudioFileGetProperty(audioFile, kAudioFilePropertyDataFormat, &size, &dataFormat);
+	
 	// create a new playback queue using the specified data format and buffer callback
 	AudioQueueNewOutput(&dataFormat, BufferCallback, self, nil, nil, 0, &queue);
+	
+	// Setup callback for play/finish notification
+	AudioQueueAddPropertyListener (queue, kAudioQueueProperty_IsRunning, FinishedCallback, self);
+	
 	// calculate number of packets to read and allocate space for packet descriptions if needed
 	if (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0)
 	{
@@ -92,6 +101,7 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 
 	m_bPlaying = NO;
 	m_bPaused = NO;
+	m_bLoop = YES;
 	m_fGain = 1.0f;	// Will probably be set by setGain
 	
 	// we would like to prime some frames so we are prepared to start directly
@@ -164,11 +174,21 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 	[(AccelSoundPlayer *)inUserData callbackForBuffer:buffer];
 }
 
+void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID) {
+	if(![(AccelSoundPlayer *)inUserData isPlaying]) {
+		[(AccelSoundPlayer *)inUserData sendPlayBackFinishedNotification];
+	}
+}
+
 - (void)callbackForBuffer:(AudioQueueBufferRef)buffer
 {
 	if ([self readPacketsIntoBuffer:buffer] == 0)
 	{
-		// End Of File reached
+		// End Of File reached, so rewind and refill the buffer using the beginning of the file instead
+		if(m_bLoop) {
+			packetIndex = 0;
+			[self readPacketsIntoBuffer:buffer];
+		}
 	}
 }
 

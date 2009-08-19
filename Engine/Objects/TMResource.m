@@ -9,6 +9,8 @@
 #import "TMResource.h"
 #import "Texture2D.h"
 #import "TMFramedTexture.h"
+#import "TMSound.h"
+#import "TMLoopedSound.h"
 
 @interface TMResource (Private)
 - (void) parseDimensions:(NSString*)str;
@@ -33,7 +35,12 @@
 		return nil;
 	
 	m_bIsLoaded = m_bIsSystem = m_bIsRedirect = NO;
-	m_oClass = [Texture2D class];
+
+	if(inType == kResourceLoaderSounds) 
+		m_oClass = [TMSound class];
+	else
+		m_oClass = [Texture2D class];
+
 	m_nCols = m_nRows = 1;	// 1x1 texture by default
 	
 	m_sFileSystemPath = [[NSString alloc] initWithString:path];
@@ -76,8 +83,9 @@
 	
 	// 1) ItemName_[PageName]_DxD.ext
 	// 2) ItemName_[PageName].ext
-	// 3) ItemName_DxD.ext
-	// 4) ItemName.ext
+	// 3) ItemName_(loop).ext - for sounds
+	// 4) ItemName_DxD.ext
+	// 5) ItemName.ext
 	if( [nameSpecificator count] == 3 ) {		
 		// Got a page and dimension
 		NSString* pageName = [nameSpecificator objectAtIndex:1];
@@ -91,10 +99,19 @@
 		m_oClass = [TMFramedTexture class];
 		
 	} else if( [nameSpecificator count] == 2 ) {
-		// Tricky! can have only page name or only dimension
+		// Tricky! can have only page name, sound loop specifier or only dimension
 	
 		NSString* unknown = [nameSpecificator objectAtIndex:1];
-		if(![unknown hasPrefix:@"["]) {
+		if([unknown hasPrefix:@"("]) {
+			// Sound specifier
+			componentName = [nameSpecificator objectAtIndex:0];
+			
+			if([unknown isEqualToString:@"(loop)"]) {
+				TMLog(@"Looping sound specifier found. Setting resource type to looped sound.");
+				m_oClass = [TMLoopedSound class];
+			}
+			
+		} else if(![unknown hasPrefix:@"["]) {
 			// Dimension
 			[self parseDimensions:unknown];
 			
@@ -110,11 +127,7 @@
 	m_sResourceName = [[NSString alloc] initWithString:componentName];
 	NSString* loaderFile = nil;
 	
-	// Override stuff TODO
-	if(inType == kResourceLoaderSounds) {
-		// TODO: set default sound loader 
-	}
-	
+	// Override loader for web resources. They are basically NSData objects.
 	if(inType == kResourceLoaderWeb) {
 		m_oClass = [NSData class];
 	}
@@ -169,6 +182,11 @@
 	if(m_nResourceType == kResourceLoaderWeb) {
 		m_pResource = [[m_oClass alloc] initWithContentsOfFile:m_sFileSystemPath];
 		if(m_pResource) 
+			m_bIsLoaded = YES;
+		
+	} else if(m_nResourceType == kResourceLoaderSounds) {
+		m_pResource = [[m_oClass alloc] initWithPath:m_sFileSystemPath];
+		if(m_pResource)
 			m_bIsLoaded = YES;
 		
 	} else if(m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows]) {

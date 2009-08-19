@@ -39,6 +39,8 @@
 #import "FontManager.h"
 #import "Font.h"
 
+#import "TMSound.h"
+
 #import "VersionInfo.h"
 
 @interface MainMenuRenderer (InputHandling)
@@ -57,6 +59,7 @@ int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
 int mt_Mass, mt_Gravity;
 Texture2D *t_BG;
 Texture2D *t_Donate;
+TMSound   *sr_BG;
 
 - (void) dealloc {
 	// Release menu items
@@ -90,6 +93,9 @@ Texture2D *t_Donate;
 	// Preload all required graphics
 	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
 	t_Donate = [[ThemeManager sharedInstance] texture:@"Common Donate"];
+	
+	// And sounds
+	sr_BG = [[ThemeManager sharedInstance] sound:@"MainMenu Music"];
 	
 	// No item selected by default
 	m_nSelectedMenu = -1;
@@ -165,6 +171,9 @@ Texture2D *t_Donate;
 		[[TapMania sharedInstance] registerObject:m_pDialog withPriority:kRunLoopPriority_Lowest];
 		[[InputEngine sharedInstance] subscribeDialog:m_pDialog];
 	}
+	
+	// Play music
+	[sr_BG play];
 }
 
 - (void) deinitOnTransition {

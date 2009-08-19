@@ -14,6 +14,9 @@
 @interface AbstractSoundPlayer : NSObject {
 	BOOL		m_bPlaying;	// Control playback start
 	BOOL		m_bPaused;	// YES if paused
+	BOOL		m_bLoop;	// YES if should loop
+	
+	// Delegate is always shared instance of SoundEngine.
 }
 
 // Methods. throw exceptions here
@@ -30,5 +33,10 @@
 
 - (void) setGain:(Float32)gain;
 - (Float32) getGain;
+
+- (void) setLoop:(BOOL)loop;
+- (BOOL) isLooping;
+
+- (void) sendPlayBackFinishedNotification;
 
 @end

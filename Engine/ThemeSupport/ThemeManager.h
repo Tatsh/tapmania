@@ -20,8 +20,9 @@
 	NSString*			m_sCurrentThemeName;		// Current theme
 	NSString*			m_sCurrentNoteskinName;
 	
-	ThemeMetrics*		m_pCurrentThemeMetrics;		// The currently loaded theme metrics object
-	ResourcesLoader*	m_pCurrentThemeResources;	// Current theme's resources (graphics)
+	ThemeMetrics*		m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
+	ResourcesLoader*	m_pCurrentThemeResources;		// Current theme's resources (graphics)
+	ResourcesLoader*	m_pCurrentThemeSoundResources;	// Current theme's sounds
 	ResourcesLoader*	m_pCurrentThemeWebResources;
 	ResourcesLoader*	m_pCurrentNoteSkinResources;
 	
@@ -35,6 +36,7 @@
 @property (retain, nonatomic, readonly, getter=noteskinList) NSMutableArray* m_aNoteskinsList;
 
 @property (retain, nonatomic, readonly, getter=theme) ResourcesLoader* m_pCurrentThemeResources;
+@property (retain, nonatomic, readonly, getter=sounds) ResourcesLoader* m_pCurrentThemeSoundResources;
 @property (retain, nonatomic, readonly, getter=web) ResourcesLoader* m_pCurrentThemeWebResources;
 @property (retain, nonatomic, readonly, getter=noteSkin) ResourcesLoader* m_pCurrentNoteSkinResources;
 

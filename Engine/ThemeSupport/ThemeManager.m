@@ -9,6 +9,7 @@
 #import "ThemeManager.h"
 #import "ThemeMetrics.h"
 #import "ResourcesLoader.h"
+#import "TMSound.h"
 #import "VersionInfo.h"
 
 // This is a singleton class, see below
@@ -22,7 +23,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 @implementation ThemeManager
 
 @synthesize m_aThemesList, m_sCurrentThemeName, m_aNoteskinsList, m_sCurrentNoteskinName;
-@synthesize m_pCurrentThemeResources, m_pCurrentThemeWebResources, m_pCurrentNoteSkinResources;
+@synthesize m_pCurrentThemeResources, m_pCurrentThemeWebResources, m_pCurrentNoteSkinResources, m_pCurrentThemeSoundResources;
 
 - (id) init {
 	self = [super init];
@@ -98,12 +99,14 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* themeGraphicsPath = [themesDir stringByAppendingFormat:@"/%@/Graphics/", m_sCurrentThemeName];
 		NSString* themeWebPath = [themesDir stringByAppendingFormat:@"/%@/WebServer/", m_sCurrentThemeName];
 		NSString* themeFontsPath	= [themesDir stringByAppendingFormat:@"/%@/Fonts/", m_sCurrentThemeName];
+		NSString* themeSoundsPath	= [themesDir stringByAppendingFormat:@"/%@/Sounds/", m_sCurrentThemeName];
 		
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics	 = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
+			m_pCurrentThemeSoundResources = [[ResourcesLoader alloc] initWithPath:themeSoundsPath type:kResourceLoaderSounds andDelegate:self];
 			m_pCurrentThemeWebResources = [[ResourcesLoader alloc] initWithPath:themeWebPath type:kResourceLoaderWeb andDelegate:self];
 			
 			// Use font manager to load up fonts
@@ -172,6 +175,18 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	return nil;
 }
 
+- (TMSound*) sound:(NSString*) soundKey {
+	TMResource* resource = [m_pCurrentThemeSoundResources getResource:soundKey];
+	
+	if(resource) {
+		return (TMSound*)[resource resource];
+	}
+
+	// Will not play the sound
+	return nil;
+}
+
+
 - (Texture2D*) skinTexture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentNoteSkinResources getResource:textureKey];
 	if(resource) {
@@ -223,6 +238,14 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	if([[itemName lowercaseString] hasSuffix:@".htm"] || [[itemName lowercaseString] hasSuffix:@".html"]) {
 		return YES;
 	}
+	
+	// Sounds
+	if([[itemName lowercaseString] hasSuffix:@".mp3"] || [[itemName lowercaseString] hasSuffix:@".ogg"] ||
+	   [[itemName lowercaseString] hasSuffix:@".caf"] || [[itemName lowercaseString] hasSuffix:@".wav"] )
+	{
+		return YES;
+	}
+		
 	
 	return NO;		
 }
