@@ -91,8 +91,11 @@ TMSound*   sr_BG;
 }
 
 - (void) deinitOnTransition {
+}
+
+- (void) beforeTransition {
 	// Stop current music
-	[[TMSoundEngine sharedInstance] stopMusicFading:0.1f];	
+	[[TMSoundEngine sharedInstance] stopMusicFading:0.1f];		
 }
 
 /* TMRenderable method */

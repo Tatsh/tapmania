@@ -8,7 +8,12 @@
 
 @protocol TMTransitionSupport 
 
+@required
 - (void) setupForTransition;
 - (void) deinitOnTransition;
+
+@optional
+- (void) beforeTransition;
+- (void) afterTransition;
 
 @end

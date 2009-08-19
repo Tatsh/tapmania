@@ -61,6 +61,10 @@
 - (void) transitionInStarted {
 	// Disable the dispatcher so that we don't mess around with random taps
 	[[InputEngine sharedInstance] disableDispatcher];
+	
+	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
+		[m_pFrom performSelector:@selector(beforeTransition)];
+	}		
 }
 
 - (void) transitionOutStarted {	
@@ -75,15 +79,15 @@
 	
 	// Set new one and show it
 	[[TapMania sharedInstance] setCurrentScreen:m_pTo];
-		TMLog(@"Transition out set current screen done");
-		[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest-1];	
-		TMLog(@"Transition out register object done");
+	TMLog(@"Transition out set current screen done");
+	[[TapMania sharedInstance] registerObject:(NSObject*)m_pTo withPriority:kRunLoopPriority_Highest-1];	
+	TMLog(@"Transition out register object done");
 }
 
 - (void) transitionInFinished {
 	// Do custom deinitialization for transition if the object supports it
 	if(m_pFrom != nil) {
-		if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
+		if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)] && [m_pFrom respondsToSelector:@selector(beforeTransition)]){
 			[m_pFrom performSelector:@selector(deinitOnTransition)];
 		}	
 	
@@ -101,6 +105,10 @@
 	
 	// Enable the dispatcher so that we can mess again :P
 	[[InputEngine sharedInstance] enableDispatcher];
+	
+	if([m_pTo conformsToProtocol:@protocol(TMTransitionSupport)] && [m_pTo respondsToSelector:@selector(afterTransition)]){
+		[m_pTo performSelector:@selector(afterTransition)];
+	}			
 }
 
 // TMRenderable stuff
