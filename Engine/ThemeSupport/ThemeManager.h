@@ -11,7 +11,7 @@
 #import "FontManager.h"
 #import "ResourcesLoader.h"
 
-@class ThemeMetrics, ResourcesLoader, Texture2D;
+@class ThemeMetrics, ResourcesLoader, Texture2D, TMSound;
 
 #define kDefaultThemeName		@"default"
 #define kDefaultNoteSkinName	@"default"
@@ -48,7 +48,8 @@
 - (float) floatMetric:(NSString*) metricKey;
 - (NSString*) stringMetric:(NSString*) metricKey;
 
-/* Theme textures */
+/* Theme stuff */
+- (TMSound*) sound:(NSString*) soundKey;
 - (Texture2D*) texture:(NSString*) textureKey;
 - (Texture2D*) skinTexture:(NSString*) textureKey;
 

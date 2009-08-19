@@ -180,6 +180,12 @@ Exit:
 - (BOOL) loadMusicFile:(NSString*) inPath {
 	TMLog(@"Test file '%@' to be ogg or not...", inPath);
 	
+	if(m_pCurrentMusicPlayer) {
+		[m_pCurrentMusicPlayer release]; // Will stop the music directly
+		[m_pFadeTimer invalidate];
+		[m_pFadeTimer release];
+	}
+	
 	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {		
 		m_pCurrentMusicPlayer = [[OGGSoundPlayer alloc] initWithFile:inPath];
 		
@@ -266,6 +272,11 @@ Exit:
 
 - (float) getMasterVolume {
 	return m_fMusicVolume;
+}
+
+- (void) setLoop:(BOOL)loop { 
+	if(m_pCurrentMusicPlayer)
+		[m_pCurrentMusicPlayer setLoop:loop];
 }
 
 /* TMSoundSupport delegate work */

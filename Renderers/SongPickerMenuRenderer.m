@@ -80,6 +80,9 @@ Texture2D* t_ModPanel;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	// Stop currently playing music
+	[[TMSoundEngine sharedInstance] stopMusicFading:1.0f];
+	
 	// Cache metrics
 	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler X"];
 	mt_SpeedTogglerY = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler Y"];
@@ -173,9 +176,6 @@ Texture2D* t_ModPanel;
 	[[TapMania sharedInstance] registerObject:m_pSpeedToggler withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pDifficultyToggler withPriority:kRunLoopPriority_NormalUpper-1];
 	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-2];
-	
-	// Stop currently playing music
-	[[TMSoundEngine sharedInstance] unloadMusic];
 }
 
 - (void) deinitOnTransition {

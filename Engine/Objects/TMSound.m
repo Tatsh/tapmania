@@ -34,7 +34,7 @@
 
 /* TMSoundSupport delegate work */
 - (void) playBackFinishedNotification {
-	TMLog(@"Queue is finished!!!");
+	m_bIsPlaying = NO;
 }
 
 -(void) dealloc {

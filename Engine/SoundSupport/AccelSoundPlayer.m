@@ -101,7 +101,7 @@ void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 	m_bPlaying = NO;
 	m_bPaused = NO;
-	m_bLoop = YES;
+	m_bLoop = NO;
 	m_fGain = 1.0f;	// Will probably be set by setGain
 	
 	// we would like to prime some frames so we are prepared to start directly

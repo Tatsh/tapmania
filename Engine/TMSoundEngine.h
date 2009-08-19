@@ -56,6 +56,8 @@
 - (void) setMasterVolume:(float)gain;
 - (float) getMasterVolume;
 
+- (void) setLoop:(BOOL)loop;
+
 // TODO sound effects stuff
 
 + (TMSoundEngine *)sharedInstance;

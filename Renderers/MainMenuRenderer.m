@@ -39,6 +39,7 @@
 #import "FontManager.h"
 #import "Font.h"
 
+#import "TMSoundEngine.h"
 #import "TMSound.h"
 
 #import "VersionInfo.h"

@@ -13,6 +13,8 @@
 #import "Texture2D.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
+#import "TMSoundEngine.h"
+#import "TMSound.h"
 
 @interface SongsCacheLoaderRenderer (Private)
 - (void) worker;
@@ -22,6 +24,7 @@
 @implementation SongsCacheLoaderRenderer
 
 Texture2D* t_SongsLoaderBG;
+TMSound*   sr_BG;
 
 - (id) init {
 	self = [super init];
@@ -72,8 +75,13 @@ Texture2D* t_SongsLoaderBG;
 	// Cache textures
 	t_SongsLoaderBG = [[ThemeManager sharedInstance] texture:@"SongsLoader Background"];
 	
+	sr_BG = [[ThemeManager sharedInstance] sound:@"SongsLoader Music"];
+	
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
 	m_pLock = [[NSLock alloc] init];
+	
+	// Start the music
+	[sr_BG play];
 	
 	// Make sure we have the instance initialized on the main pool
 	[SongsDirectoryCache sharedInstance];
@@ -83,6 +91,8 @@ Texture2D* t_SongsLoaderBG;
 }
 
 - (void) deinitOnTransition {
+	// Stop current music
+	[[TMSoundEngine sharedInstance] stopMusicFading:0.1f];	
 }
 
 /* TMRenderable method */
