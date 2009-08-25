@@ -62,7 +62,7 @@
 	// Disable the dispatcher so that we don't mess around with random taps
 	[[InputEngine sharedInstance] disableDispatcher];
 	
-	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
+	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]  && [m_pFrom respondsToSelector:@selector(beforeTransition)]){
 		[m_pFrom performSelector:@selector(beforeTransition)];
 	}		
 }
@@ -87,7 +87,7 @@
 - (void) transitionInFinished {
 	// Do custom deinitialization for transition if the object supports it
 	if(m_pFrom != nil) {
-		if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)] && [m_pFrom respondsToSelector:@selector(beforeTransition)]){
+		if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]){
 			[m_pFrom performSelector:@selector(deinitOnTransition)];
 		}	
 	

@@ -20,7 +20,7 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer;
 @end
 
-void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID);
+void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID);
 
 @implementation AccelSoundPlayer
 
@@ -50,7 +50,7 @@ void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	AudioQueueNewOutput(&dataFormat, BufferCallback, self, nil, nil, 0, &queue);
 	
 	// Setup callback for play/finish notification
-	AudioQueueAddPropertyListener (queue, kAudioQueueProperty_IsRunning, FinishedCallback, self);
+	AudioQueueAddPropertyListener (queue, kAudioQueueProperty_IsRunning, PlayBackCallback, self);
 	
 	// calculate number of packets to read and allocate space for packet descriptions if needed
 	if (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0)
@@ -119,7 +119,13 @@ void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	[super dealloc];
 }
 
-- (BOOL)isPlaying {
+- (BOOL)isPlaying {	
+	UInt32 size, isRunning;
+	
+	AudioQueueGetPropertySize(queue, kAudioQueueProperty_IsRunning, &size);
+	AudioQueueGetProperty(queue, kAudioQueueProperty_IsRunning, &isRunning, &size);
+	
+	m_bPlaying = isRunning?YES:NO;
 	return m_bPlaying;
 }
 
@@ -150,12 +156,12 @@ void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	return m_fGain;
 }
 
-- (void)play
+- (BOOL)play
 {
+	AudioQueueStart(queue, nil);
 	m_bPlaying = YES;
 	m_bPaused = NO;
-	
-	AudioQueueStart(queue, nil);
+	return YES;
 }
 
 - (void)pause
@@ -174,9 +180,12 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 	[(AccelSoundPlayer *)inUserData callbackForBuffer:buffer];
 }
 
-void FinishedCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID) {
-	if(![(AccelSoundPlayer *)inUserData isPlaying]) {
+void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID) {
+
+	if(! [(AccelSoundPlayer*)inUserData isPlaying] ) {
 		[(AccelSoundPlayer *)inUserData sendPlayBackFinishedNotification];
+	} else {
+		[(AccelSoundPlayer *)inUserData sendPlayBackStartedNotification];	
 	}
 }
 

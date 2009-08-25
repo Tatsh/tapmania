@@ -15,11 +15,23 @@
 */
 
 #import <OpenAL/alc.h>
-#import "TMSoundSupport.h"
 
-@class AbstractSoundPlayer;
+@class TMSound, AbstractSoundPlayer;
 
-@interface TMSoundEngine : NSObject <TMSoundSupport> {
+#ifdef __cplusplus
+#include <list>
+using namespace std;
+
+typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
+#endif
+
+@interface TMSoundEngine : NSObject {
+
+#ifdef __cplusplus
+	TMSoundQueue	*m_pQueue;		// Queue of music resources
+#endif
+	NSThread	*m_pThread;			// Dedicated thread for sound
+	
 	ALCcontext  *m_oContext;
 	ALCdevice	*m_oDevice;
 
@@ -31,32 +43,32 @@
 	NSTimer	    *m_pFadeTimer;		// Fade support
 	float		m_fMusicFadeStart;
 	float		m_fMusicFadeDuration;
-	
-	// Current bg music player
-	AbstractSoundPlayer*	m_pCurrentMusicPlayer;
-	
-	id			m_idDelegate;
-}
 
-@property (assign, setter=delegate:, getter=delegate) id<TMSoundSupport> m_idDelegate;
+@private 
+	BOOL		m_bStopRequested;
+	BOOL		m_bPlayingSomething;
+}
 
 -(void) shutdownOpenAL;
 
 // Methods
-- (BOOL) loadMusicFile:(NSString*) inPath;	// File format is determined automatically and the corresponding playr is used
-- (void) unloadMusic;						// Just unload it (free memory)
+- (void) start;								// Start the sound engine thread
+- (void) stop;								// Stop the sound thread
+- (BOOL) addToQueue:(TMSound*)inObj;		// Adds a TMSound object to the queue
+- (BOOL) removeFromQueue:(TMSound*)inObj;	// Removes the TMSound object from the queue if it was enqueued before
 
-// Music playback
-- (BOOL) playMusic;
-- (BOOL) pauseMusic;
-- (BOOL) stopMusic;
-- (BOOL) stopMusicFading:(float)duration;			// Fade out music and stop it when done
-- (BOOL) setMusicPosition:(float) inPosition;		// Set the current position in the music file
+// Music playback control
+- (BOOL) playMusic;							// Starts playing the first element of the queue or continue if paused
+- (BOOL) pauseMusic;						// Pauses the queue
+- (BOOL) stopMusic;							// Stops the currently playing music (removes the track from the queue)
 
+// Fade in/out support
+- (BOOL) stopMusicFading:(float)duration;		// Fade out music and stop it when done (removes the track from the queue)
+- (BOOL) setMusicPosition:(float) inPosition;	// Set the current position in the current track
+
+// Volume control
 - (void) setMasterVolume:(float)gain;
 - (float) getMasterVolume;
-
-- (void) setLoop:(BOOL)loop;
 
 // TODO sound effects stuff
 

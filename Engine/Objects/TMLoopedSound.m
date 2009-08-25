@@ -11,15 +11,4 @@
 
 @implementation TMLoopedSound
 
--(void) play {
-	if(!m_bIsPlaying) {
-		TMLog(@"Play file: %@", m_sPath);
-		[[TMSoundEngine sharedInstance] loadMusicFile:m_sPath];
-		[[TMSoundEngine sharedInstance] delegate:self];
-		[[TMSoundEngine sharedInstance] setLoop:YES];
-		[[TMSoundEngine sharedInstance] playMusic];
-		m_bIsPlaying = YES;
-	}
-}
-
 @end

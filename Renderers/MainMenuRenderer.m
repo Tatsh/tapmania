@@ -174,7 +174,9 @@ TMSound   *sr_BG;
 	}
 	
 	// Play music
-	[sr_BG play];
+	if( ! sr_BG.playing ) {
+		[[TMSoundEngine sharedInstance] addToQueue:sr_BG];
+	}
 }
 
 - (void) deinitOnTransition {

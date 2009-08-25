@@ -81,7 +81,7 @@ Texture2D* t_ModPanel;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Stop currently playing music
-	[[TMSoundEngine sharedInstance] stopMusicFading:1.0f];
+	[[TMSoundEngine sharedInstance] stopMusicFading:0.5f];
 	
 	// Cache metrics
 	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler X"];

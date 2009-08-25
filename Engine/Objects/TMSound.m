@@ -9,7 +9,13 @@
 #import "TMSound.h"
 #import "TMSoundEngine.h"
 
+#import "AbstractSoundPlayer.h"
+#import "OGGSoundPlayer.h"
+#import "AccelSoundPlayer.h"
+
 @implementation TMSound
+
+@synthesize m_sPath, m_bAlreadyPlaying;
 
 -(id) initWithPath:(NSString*)inPath {
 	self = [super init];
@@ -17,24 +23,18 @@
 		return nil;
 	
 	m_sPath = inPath;
-	m_bIsPlaying = NO;
-	
+	m_bAlreadyPlaying = NO;
+			
 	return self;
 }
 
--(void) play {
-	if(!m_bIsPlaying) {
-		TMLog(@"Play file: %@", m_sPath);
-		[[TMSoundEngine sharedInstance] loadMusicFile:m_sPath];
-		[[TMSoundEngine sharedInstance] delegate:self];
-		[[TMSoundEngine sharedInstance] playMusic];
-		m_bIsPlaying = YES;
-	}
+/* TMSoundSupport delegate work */
+- (void) playBackStartedNotification {
+	m_bAlreadyPlaying = YES;
 }
 
-/* TMSoundSupport delegate work */
 - (void) playBackFinishedNotification {
-	m_bIsPlaying = NO;
+	m_bAlreadyPlaying = NO;
 }
 
 -(void) dealloc {

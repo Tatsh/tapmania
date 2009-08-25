@@ -81,7 +81,7 @@ TMSound*   sr_BG;
 	m_pLock = [[NSLock alloc] init];
 	
 	// Start the music
-	[sr_BG play];
+	[[TMSoundEngine sharedInstance] addToQueue:sr_BG];
 	
 	// Make sure we have the instance initialized on the main pool
 	[SongsDirectoryCache sharedInstance];
@@ -95,7 +95,7 @@ TMSound*   sr_BG;
 
 - (void) beforeTransition {
 	// Stop current music
-	[[TMSoundEngine sharedInstance] stopMusicFading:0.1f];		
+	[[TMSoundEngine sharedInstance] stopMusicFading:0.3f];		
 }
 
 /* TMRenderable method */

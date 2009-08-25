@@ -8,6 +8,9 @@
 
 #import "TMSoundEngine.h"
 
+#import "TMSound.h"
+#import "TMLoopedSound.h"
+
 #import "AbstractSoundPlayer.h"
 #import "OGGSoundPlayer.h"
 #import "AccelSoundPlayer.h"
@@ -24,6 +27,7 @@
 @interface TMSoundEngine (Private)
 -(BOOL) initOpenAL;
 -(void) musicFadeOutTick:(NSTimer*)sender;
+-(void) worker;
 @end
 
 // This is a singleton class, seebelow
@@ -120,8 +124,6 @@ Exit:
 /* Now to the implementation */
 @implementation TMSoundEngine
 
-@synthesize m_idDelegate;
-
 - (id) init {
 	self = [super init];
 	if(!self)
@@ -132,9 +134,40 @@ Exit:
 	
 	m_fMusicVolume = 1.0f;
 	m_fEffectsVolume = 1.0f;
-	m_pCurrentMusicPlayer = nil;
+	m_pQueue = new TMSoundQueue();
 
+	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
+	
 	return self;
+}
+
+- (void) start {
+	m_bStopRequested = NO;
+	[m_pThread start];
+}
+
+- (void) stop {
+	m_bStopRequested = YES;
+}
+
+- (void) worker {
+	while(! m_bStopRequested) {
+
+		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+		
+		@synchronized(self) {
+			if(!m_bPlayingSomething) {
+				if(!m_pQueue->empty()) {
+					[self playMusic];
+				}
+			}
+		}
+		
+		[pool drain];
+		
+		// Give some CPU time to others
+		[NSThread sleepForTimeInterval:0.05];		
+	}
 }
 
 - (void) dealloc {
@@ -146,6 +179,7 @@ Exit:
 		[m_pFadeTimer release];
 	}	
 	
+	delete m_pQueue;	
 	[super dealloc];
 }
 
@@ -177,85 +211,145 @@ Exit:
 
 
 // Methods
-- (BOOL) loadMusicFile:(NSString*) inPath {
-	TMLog(@"Test file '%@' to be ogg or not...", inPath);
+- (BOOL) addToQueue:(TMSound*)inObj {
 	
-	if(m_pCurrentMusicPlayer) {
-		[m_pCurrentMusicPlayer release]; // Will stop the music directly
-		[m_pFadeTimer invalidate];
-		[m_pFadeTimer release];
-	}
+	// Get a sound player for the track
+	AbstractSoundPlayer* pSoundPlayer = nil;
 	
-	if([[inPath lowercaseString] hasSuffix:@".ogg"]) {		
-		m_pCurrentMusicPlayer = [[OGGSoundPlayer alloc] initWithFile:inPath];
-		
+	if([[inObj.path lowercaseString] hasSuffix:@".ogg"]) {		
+		pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path];		
 	} else {
-		m_pCurrentMusicPlayer = [[AccelSoundPlayer alloc] initWithFile:inPath];
-	}
+		pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path];
+	}	
 	
-	if(m_pCurrentMusicPlayer)
-		[m_pCurrentMusicPlayer setGain:m_fMusicVolume];
+	// Check looping
+	if([inObj isKindOfClass:[TMLoopedSound class]])
+		[pSoundPlayer setLoop:YES];
+	
+	// Set delegate
+	[pSoundPlayer delegate:inObj];
+	
+	@synchronized(self) {
+		m_pQueue->push_back( pair<TMSound*, AbstractSoundPlayer*>(inObj, pSoundPlayer) );
+		TMLog(@"Added track to queue: '%@'. Current queue size: %d", inObj.path, m_pQueue->size());
+	}
 	
 	return YES;
 }
 
-- (void) unloadMusic {
-	if(m_pCurrentMusicPlayer) {
-		[m_pCurrentMusicPlayer release];
-	}
-}
-
-// Music playback
-- (BOOL) playMusic {
-	if(m_pCurrentMusicPlayer) {
-		[m_pCurrentMusicPlayer play];
-		return YES;	
+- (BOOL) removeFromQueue:(TMSound*)inObj {
+	TMSoundQueue::iterator it;
+	
+	@synchronized(self) {	
+		if( ! m_pQueue->empty() ) {
+			for (it = m_pQueue->begin(); it != m_pQueue->end(); ++it) {
+				if(it->first == inObj) {
+					
+					[it->second release];
+					m_pQueue->erase(it);
+					
+					return YES;
+				}
+			}
+		}	
 	}
 	
 	return NO;
 }
 
-- (BOOL) pauseMusic {
-	return YES;
+// Music playback
+- (BOOL) playMusic {	
+	@synchronized(self) {
+		TMLog(@"Play music issued!");
+		
+		if( ! m_pQueue->empty() ) {
+			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			TMLog(@"Got player: %X", pPlayer);
+			[pPlayer setGain:m_fMusicVolume];
+			if([pPlayer play]) 
+				m_bPlayingSomething = YES;			
+		}
+	}
+	
+	return m_bPlayingSomething;	
+}
+
+- (BOOL) pauseMusic {	
+	@synchronized(self) {
+		if( ! m_pQueue->empty() ) {
+			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			[pPlayer pause];
+			return YES;	
+		}
+	}
+	
+	return NO;
 }
 
 - (BOOL) stopMusicFading:(float)duration {
-	if(m_pCurrentMusicPlayer) {
-		if(m_pFadeTimer) {
-			[m_pFadeTimer invalidate];
-			[m_pFadeTimer release];
-		}
-
-		m_pFadeTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(musicFadeOutTick:) userInfo:nil repeats:YES] retain];
-		m_fMusicFadeStart = [TimingUtil getCurrentTime];
-		m_fMusicFadeDuration = duration;
+	@synchronized(self) {
+		TMLog(@"Stopping current track with fade out (%f)!", duration);
 		
-		return YES;
-	}	
+		if( ! m_pQueue->empty() ) {
+			if(m_pFadeTimer) {
+				[m_pFadeTimer invalidate];
+				[m_pFadeTimer release];
+			}
+
+			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			m_pFadeTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(musicFadeOutTick:) userInfo:pPlayer repeats:YES] retain];
+			m_fMusicFadeStart = [TimingUtil getCurrentTime];
+			m_fMusicFadeDuration = duration;
+		
+			return YES;
+		}
+	}
 	
 	return NO;
 }
 
 - (void) musicFadeOutTick:(NSTimer*)sender {
-	float elapsedTime = ([TimingUtil getCurrentTime] - m_fMusicFadeStart);
-	float gain = 1-(elapsedTime/m_fMusicFadeDuration);	// Inverse	
+	@synchronized(self) {
+		float elapsedTime = ([TimingUtil getCurrentTime] - m_fMusicFadeStart);
+		float gain = 1-(elapsedTime/m_fMusicFadeDuration);	// Inverse	
 		
-	if(gain <= 0.01f) {
-		// Stop fading
-		[m_pFadeTimer invalidate];
+		AbstractSoundPlayer* pPlayer = (AbstractSoundPlayer*)[sender userInfo];
 		
-		// Stop music too
-		[self stopMusic];
-	} else if(m_pCurrentMusicPlayer && [m_pCurrentMusicPlayer getGain] >= gain) {
-		[m_pCurrentMusicPlayer setGain:gain];
+		// If the player still exists
+		if(pPlayer) {
+			TMLog(@"player still exists...");
+			
+			if(gain <= 0.01f) {
+				TMLog(@"Time to stop the fading music track: %X", pPlayer);
+				
+				// Stop fading
+				[m_pFadeTimer invalidate];
+			
+				// Stop music too
+				[self stopMusic];
+			} else if(pPlayer && [pPlayer getGain] >= gain) {
+				[pPlayer setGain:gain];
+			}
+		}	
 	}
 }
 
 - (BOOL) stopMusic {
-	if(m_pCurrentMusicPlayer) {
-		[m_pCurrentMusicPlayer stop];		
-		return YES;
-	} 
+	@synchronized(self) {
+		TMLog(@"Actually stopping the current track!");
+		
+		if( ! m_pQueue->empty() ) {
+			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			TMLog(@"Got player to stop: %X", pPlayer);
+			
+			[pPlayer stop];		
+			[pPlayer release];
+			m_pQueue->pop_front();
+			m_bPlayingSomething = NO;
+			
+			return YES;
+		} 
+	}
 	
 	return NO;
 }
@@ -266,25 +360,17 @@ Exit:
 
 - (void) setMasterVolume:(float)gain {
 	m_fMusicVolume = gain;
-	if(m_pCurrentMusicPlayer)
-		[m_pCurrentMusicPlayer setGain:gain];
+	
+	@synchronized(self) {
+		if( ! m_pQueue->empty() ) {
+			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			[pPlayer setGain:gain];
+		}	
+	}
 }
 
 - (float) getMasterVolume {
 	return m_fMusicVolume;
-}
-
-- (void) setLoop:(BOOL)loop { 
-	if(m_pCurrentMusicPlayer)
-		[m_pCurrentMusicPlayer setLoop:loop];
-}
-
-/* TMSoundSupport delegate work */
-- (void) playBackFinishedNotification {
-	TMLog(@"SoundEngine: Queue is finished. Send to a further delegate if any.");
-	if(m_idDelegate && [m_idDelegate respondsToSelector:@selector(playBackFinishedNotification)]) {
-		[m_idDelegate performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:YES];
-	}
 }
 
 #pragma mark Singleton stuff

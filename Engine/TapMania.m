@@ -118,6 +118,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Init sound system and set the master volume from settings
 	[[TMSoundEngine sharedInstance] setMasterVolume:[[SettingsEngine sharedInstance] getFloatValue:@"sound"]];
+	[[TMSoundEngine sharedInstance] start];
 	
 	// Load theme graphics, sounds, fonts, etc.
 	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];

@@ -124,11 +124,12 @@
 }
 
 /* Highlevel methods */
-- (void) play {
+- (BOOL) play {
 	m_bPlaying = YES;
 	m_bPaused = NO;
 	
 	[self playback];
+	return YES;
 }
 
 - (void) pause {

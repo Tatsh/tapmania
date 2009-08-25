@@ -10,11 +10,13 @@
 #import "TMSoundSupport.h"
 
 @interface TMSound : NSObject <TMSoundSupport>{
-	NSString*	m_sPath;
-	BOOL		m_bIsPlaying;
+	NSString*				m_sPath;
+	BOOL					m_bAlreadyPlaying;
 }
 
+@property (assign, nonatomic, readonly, getter=playing) BOOL m_bAlreadyPlaying;
+@property (retain, nonatomic, readonly, getter=path) NSString* m_sPath;
+
 -(id) initWithPath:(NSString*)inPath;
--(void) play;
 
 @end

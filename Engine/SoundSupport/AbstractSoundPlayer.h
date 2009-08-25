@@ -8,6 +8,7 @@
 
 #import <OpenAL/alc.h>
 #import <OpenAL/al.h>
+#import "TMSoundSupport.h"
 
 #define kSoundEngineNumBuffers	2
 
@@ -16,13 +17,15 @@
 	BOOL		m_bPaused;	// YES if paused
 	BOOL		m_bLoop;	// YES if should loop
 	
-	// Delegate is always shared instance of SoundEngine.
+	id			m_idDelegate;
 }
+
+@property (assign, setter=delegate:, getter=delegate) id<TMSoundSupport> m_idDelegate;
 
 // Methods. throw exceptions here
 - (id) initWithFile:(NSString*)inFile;
 
-- (void) play;		// Start playback
+- (BOOL) play;		// Start playback
 - (void) pause;		// Pause playback
 - (void) stop;		// Stop the playback
 
@@ -37,6 +40,7 @@
 - (void) setLoop:(BOOL)loop;
 - (BOOL) isLooping;
 
+- (void) sendPlayBackStartedNotification;
 - (void) sendPlayBackFinishedNotification;
 
 @end

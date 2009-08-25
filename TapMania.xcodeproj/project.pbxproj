@@ -142,7 +142,7 @@
 		249D80540FCC9A2200630646 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 249D7FFD0FCC9A2200630646 /* themes */; };
 		249D805A0FCC9AF700630646 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.m */; };
 		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
-		24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */; };
+		24A4254B0F7123D8001B0CDE /* TMSoundEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */; };
 		24A4257B0F713529001B0CDE /* SMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.m */; };
 		24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.m */; };
 		24A586000FBADCE6000954E8 /* TMUserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A585FF0FBADCE6000954E8 /* TMUserConfig.m */; };
@@ -449,7 +449,7 @@
 		249D80590FCC9AF700630646 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = Renderers/UIElements/ImageButton.m; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
 		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundEngine.h; sourceTree = "<group>"; };
-		24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSoundEngine.m; sourceTree = "<group>"; };
+		24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TMSoundEngine.mm; sourceTree = "<group>"; };
 		24A425790F713529001B0CDE /* SMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMParser.h; path = Parsers/SMParser.h; sourceTree = "<group>"; };
 		24A4257A0F713529001B0CDE /* SMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMParser.m; path = Parsers/SMParser.m; sourceTree = "<group>"; };
 		24A57AF20F4C265D0057F723 /* SlideEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideEffect.h; sourceTree = "<group>"; };
@@ -653,7 +653,7 @@
 				248547F10EE6BCD300AD4FAB /* InputEngine.h */,
 				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
 				24A425490F7123D8001B0CDE /* TMSoundEngine.h */,
-				24A4254A0F7123D8001B0CDE /* TMSoundEngine.m */,
+				24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
 				24A586090FBADFD6000954E8 /* SettingsEngine.m */,
 			);
@@ -1490,7 +1490,7 @@
 				248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */,
 				248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */,
 				24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */,
-				24A4254B0F7123D8001B0CDE /* TMSoundEngine.m in Sources */,
+				24A4254B0F7123D8001B0CDE /* TMSoundEngine.mm in Sources */,
 				24A4257B0F713529001B0CDE /* SMParser.m in Sources */,
 				248F78150F77F99700AE2130 /* Slider.m in Sources */,
 				249648520F79134D00C9D5BC /* AbstractSoundPlayer.m in Sources */,

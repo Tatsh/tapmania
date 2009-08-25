@@ -28,6 +28,8 @@
 #import "PadConfigRenderer.h"
 #import "SongManagerRenderer.h"
 
+#import "TMSoundEngine.h"
+
 @interface OptionsMenuRenderer (InputHandling)
 - (void) joyPadButtonHit;
 - (void) songManagerButtonHit;
@@ -102,7 +104,7 @@ Texture2D *t_BG;
 	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
 	[[ZoomEffect alloc] initWithRenderable:	
 	 [[Slider alloc] initWithShape:CGRectMake(mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth, mt_MenuButtonsHeight) 
-						andValue:1.0]];
+						andValue:[[TMSoundEngine sharedInstance] getMasterVolume]]];
 	
 	// Theme selection
 	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
@@ -272,12 +274,12 @@ Texture2D *t_BG;
 	m_nSelectedMenu = kOptionsMenuItem_Back;
 	
 	// Hack. This is slow so we do this on exit... save the sound setting only once (FIXME!!!!)
-	[[SettingsEngine sharedInstance] setFloatValue:1.0 forKey:@"sound"];
+	[[SettingsEngine sharedInstance] setFloatValue:	[[TMSoundEngine sharedInstance] getMasterVolume] forKey:@"sound"];
 }
 
 - (void) soundSliderChanged {
 	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
-//	SoundEngine_SetMasterVolume(value);
+	[[TMSoundEngine sharedInstance] setMasterVolume:value];
 }
 
 - (void) themeTogglerChanged {
