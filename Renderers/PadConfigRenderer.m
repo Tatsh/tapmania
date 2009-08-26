@@ -76,11 +76,17 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
+	
+	// Remove ads for this time
+	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
+
+	// Get ads back to place
+	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void) dealloc {

@@ -9,6 +9,7 @@
 #import "SongPlayRenderer.h"
 #import "TapManiaAppDelegate.h"
 #import "TMSoundEngine.h"
+#import "TMSound.h"
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"
 #import "SongsDirectoryCache.h"
@@ -110,6 +111,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 - (void) dealloc {
 	[m_pLifeBar release];
 	[m_pReceptorRow release];
+	[m_pSound release];
 		
 	[super dealloc];
 }
@@ -132,7 +134,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	[t_Judgement reset];
 	[t_HoldJudgement reset];
 
-	[[TMSoundEngine sharedInstance] loadMusicFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
+	m_pSound = [[TMSoundEngine sharedInstance] loadMusicFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
 	
 	// Calculate starting offset for music playback
 	TMLog(@"Try to get first and last beat");
@@ -185,8 +187,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
 		[[TMSoundEngine sharedInstance] stopMusic];
-		[[TMSoundEngine sharedInstance] unloadMusic];
-		
+
 		// Stop animating the arrows
 		[t_TapNote stopAnimation];
 	

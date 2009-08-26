@@ -13,13 +13,14 @@
 
 #import "TMSteps.h" // For kNumOfAvailableTracks
 
-@class TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
+@class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
 #define kFadeOutTime	3.0		// 3 seconds fade duration
 
 @interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater> {
+	TMSound*				m_pSound;	// TMSound object with sound
 	TMSong*					m_pSong;	// Currently played song
 	TMSteps*				m_pSteps;	// Currently played steps
 

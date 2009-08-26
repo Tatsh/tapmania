@@ -176,6 +176,9 @@ Texture2D* t_ModPanel;
 	[[TapMania sharedInstance] registerObject:m_pSpeedToggler withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pDifficultyToggler withPriority:kRunLoopPriority_NormalUpper-1];
 	[[TapMania sharedInstance] registerObject:m_pBackMenuItem withPriority:kRunLoopPriority_NormalUpper-2];
+	
+	// Get ads back to place if removed
+	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void) deinitOnTransition {
@@ -189,6 +192,9 @@ Texture2D* t_ModPanel;
 	[[TapMania sharedInstance] deregisterObject:m_pSpeedToggler];
 	[[TapMania sharedInstance] deregisterObject:m_pDifficultyToggler];
 	[[TapMania sharedInstance] deregisterObject:m_pBackMenuItem];
+	
+	// Remove ads
+	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 /* TMRenderable method */

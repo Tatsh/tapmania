@@ -177,6 +177,9 @@ TMSound   *sr_BG;
 	if( ! sr_BG.playing ) {
 		[[TMSoundEngine sharedInstance] addToQueue:sr_BG];
 	}
+	
+	// Get ads back to place
+	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void) deinitOnTransition {

@@ -182,6 +182,9 @@ Texture2D *t_BG;
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
+	
+	// Temporarily remove ads
+	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void) deinitOnTransition {
@@ -204,6 +207,9 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_SoundMaster]];
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_Theme]];
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_NoteSkin]];
+	
+	// Get ads back to place
+	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void)render:(float) fDelta {
