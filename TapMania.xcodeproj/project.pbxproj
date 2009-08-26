@@ -202,6 +202,15 @@
 		24DC0E12101E943C00F2B046 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DC0E05101E943C00F2B046 /* zip.h */; };
 		24DC0E34101E969200F2B046 /* TMZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0E33101E969200F2B046 /* TMZipFile.m */; };
 		24DC0E55101E9D3A00F2B046 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DC0DC8101E939C00F2B046 /* libzlib.a */; };
+		24E388F210456AF5001B8DDE /* libAdWhirlDevice_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E388F010456AF5001B8DDE /* libAdWhirlDevice_1.2.6.a */; };
+		24E388F310456AF5001B8DDE /* libAdWhirlSimulator_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E388F110456AF5001B8DDE /* libAdWhirlSimulator_1.2.6.a */; };
+		24E3890710456B75001B8DDE /* libAdWhirlDevice_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3890510456B75001B8DDE /* libAdWhirlDevice_1.2.6.a */; };
+		24E3890810456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3890610456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a */; };
+		24E3895210456EE9001B8DDE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895110456EE9001B8DDE /* AddressBook.framework */; };
+		24E3895610456EFA001B8DDE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895510456EFA001B8DDE /* SystemConfiguration.framework */; };
+		24E3895A10456F13001B8DDE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895910456F13001B8DDE /* CoreLocation.framework */; };
+		24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895D10456F2B001B8DDE /* libxml2.dylib */; };
+		24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895F10456F33001B8DDE /* libsqlite3.dylib */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
 		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
 		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
@@ -535,6 +544,17 @@
 		24DC0E05101E943C00F2B046 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = "ext/zlib-1.2.3/contrib/minizip/zip.h"; sourceTree = "<group>"; };
 		24DC0E32101E969200F2B046 /* TMZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMZipFile.h; sourceTree = "<group>"; };
 		24DC0E33101E969200F2B046 /* TMZipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMZipFile.m; sourceTree = "<group>"; };
+		24E388EE10456AF5001B8DDE /* ARRollerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerProtocol.h; path = ext/AdWhirl/ARRollerProtocol.h; sourceTree = "<group>"; };
+		24E388EF10456AF5001B8DDE /* ARRollerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARRollerView.h; path = ext/AdWhirl/ARRollerView.h; sourceTree = "<group>"; };
+		24E388F010456AF5001B8DDE /* libAdWhirlDevice_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.6.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.6.a; sourceTree = "<group>"; };
+		24E388F110456AF5001B8DDE /* libAdWhirlSimulator_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.6.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.6.a; sourceTree = "<group>"; };
+		24E3890510456B75001B8DDE /* libAdWhirlDevice_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.6.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.6.a; sourceTree = "<group>"; };
+		24E3890610456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.6.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.6.a; sourceTree = "<group>"; };
+		24E3895110456EE9001B8DDE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		24E3895510456EFA001B8DDE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		24E3895910456F13001B8DDE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		24E3895D10456F2B001B8DDE /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		24E3895F10456F33001B8DDE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
@@ -584,6 +604,15 @@
 				248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */,
 				24DC0E55101E9D3A00F2B046 /* libzlib.a in Frameworks */,
 				24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */,
+				24E388F210456AF5001B8DDE /* libAdWhirlDevice_1.2.6.a in Frameworks */,
+				24E388F310456AF5001B8DDE /* libAdWhirlSimulator_1.2.6.a in Frameworks */,
+				24E3890710456B75001B8DDE /* libAdWhirlDevice_1.2.6.a in Frameworks */,
+				24E3890810456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a in Frameworks */,
+				24E3895210456EE9001B8DDE /* AddressBook.framework in Frameworks */,
+				24E3895610456EFA001B8DDE /* SystemConfiguration.framework in Frameworks */,
+				24E3895A10456F13001B8DDE /* CoreLocation.framework in Frameworks */,
+				24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */,
+				24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,6 +927,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
+				24E388ED10456AE1001B8DDE /* AdWhirl */,
 				24DC0DC3101E938800F2B046 /* ZLIB */,
 				248E92ED1017983E00DB27D9 /* MICROHTTPD */,
 				24964CF20F79227800C9D5BC /* VORBIS */,
@@ -1118,6 +1148,17 @@
 			name = ZLIB;
 			sourceTree = "<group>";
 		};
+		24E388ED10456AE1001B8DDE /* AdWhirl */ = {
+			isa = PBXGroup;
+			children = (
+				24E388EE10456AF5001B8DDE /* ARRollerProtocol.h */,
+				24E388EF10456AF5001B8DDE /* ARRollerView.h */,
+				24E388F010456AF5001B8DDE /* libAdWhirlDevice_1.2.6.a */,
+				24E388F110456AF5001B8DDE /* libAdWhirlSimulator_1.2.6.a */,
+			);
+			name = AdWhirl;
+			sourceTree = "<group>";
+		};
 		24EBF3E10EC83CED00533056 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,6 +1181,11 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				24E3895110456EE9001B8DDE /* AddressBook.framework */,
+				24E3895510456EFA001B8DDE /* SystemConfiguration.framework */,
+				24E3895910456F13001B8DDE /* CoreLocation.framework */,
+				24E3895D10456F2B001B8DDE /* libxml2.dylib */,
+				24E3895F10456F33001B8DDE /* libsqlite3.dylib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1171,6 +1217,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24E3890510456B75001B8DDE /* libAdWhirlDevice_1.2.6.a */,
+				24E3890610456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a */,
 				24D52ABD1035A4970030A6CA /* AVFoundation.framework */,
 				2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */,
 				2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */,
@@ -1654,7 +1702,10 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/AdWhirl\"",
+				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos2.2;
 			};
@@ -1686,6 +1737,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.0;
@@ -1709,9 +1761,13 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/AdWhirl\"",
+				);
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
+				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
 		};

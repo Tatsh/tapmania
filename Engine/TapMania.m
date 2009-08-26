@@ -15,6 +15,7 @@
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
 #import "EAGLView.h"
+#import "ARRollerView.h"
 
 #import "TMRunLoop.h"	// TMRunLoopPriority
 #import "JoyPad.h"
@@ -146,6 +147,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Add the gl view to our main window
 	[m_pWindow addSubview:m_pGlView];		
 
+	// Create the AdWhirl thing
+	m_pAdsView = [ARRollerView requestRollerViewWithDelegate:self];
+	[m_pGlView addSubview:m_pAdsView];
+	TMLog(@"Added the AdWhirl view.");
+	
 	// Show window
 	[m_pWindow makeKeyAndVisible];
 	
@@ -174,8 +180,41 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[self.glView swapBuffers];
 }
 
-#pragma mark Singleton stuff
+#pragma mark ARRollerDelegate required delegate method implementation
+- (NSString*)adWhirlApplicationKey
+{
+    return @"c7b13290e38c102c96dc5b26aef5c1e9";
+}
 
+#pragma mark ARRollerDelegate optional delegate method implementations
+
+- (void)rollerDidReceiveAd:(ARRollerView*)adWhirlView
+{
+	TMLog(@"Received ad from %@!", [m_pAdsView mostRecentNetworkName]);
+	
+}
+- (void)rollerDidFailToReceiveAd:(ARRollerView*)adWhirlView usingBackup:(BOOL)YesOrNo
+{
+	TMLog(@"Failed to receive ad from %@.  Using Backup: %@", [m_pAdsView mostRecentNetworkName], YesOrNo ? @"YES" : @"NO");
+}
+
+- (void)rollerReceivedRequestForDeveloperToFulfill:(ARRollerView*)adWhirlView
+{
+	TMLog(@"Received Generic Notification.  Use this notification to do anything you want, such as making a ad request call to an ad network");
+}
+
+- (void)willDisplayWebViewCanvas
+{
+	TMLog(@"A webview canvas will be displayed now because the user tapped on a banner ad.");
+}
+
+- (void)didDismissWebViewCanvas
+{
+	TMLog(@"The webview canvas will now disappear.");
+}
+
+
+#pragma mark Singleton stuff
 + (TapMania *)sharedInstance {
     @synchronized(self) {
         if (sharedTapManiaDelegate == nil) {

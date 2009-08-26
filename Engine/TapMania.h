@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
+#import "ARRollerProtocol.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, AbstractRenderer;
 
-@interface TapMania : NSObject <TMRunLoopDelegate> {	
+@interface TapMania : NSObject <TMRunLoopDelegate, ARRollerDelegate> {	
 	TMSong*				m_pCurrentSong;	// Points to currently selected song which can be played
 	TMSongOptions*		m_pCurrentSongOptions;	// Holds current song options which are applied to the currentSong
 	
@@ -20,6 +21,7 @@
 	
 	UIWindow*			m_pWindow;
 	EAGLView*			m_pGlView;
+	ARRollerView*		m_pAdsView;
 		
 	TMRunLoop*			m_pGameRunLoop;
 	JoyPad*				m_pJoyPad;  // The joypad
