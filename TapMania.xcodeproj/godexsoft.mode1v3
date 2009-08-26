@@ -275,13 +275,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>23</integer>
-									<integer>10</integer>
+									<integer>76</integer>
+									<integer>37</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {186, 692}}</string>
+							<string>{{0, 967}, {186, 692}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -311,12 +311,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TMSound.m</string>
+								<string>TapMania.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,53 +326,35 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TMSound.m</string>
+										<string>TapMania.m</string>
 										<key>_historyCapacity</key>
 										<integer>10</integer>
 										<key>bookmark</key>
-										<string>24E38B2B104599A4001B8DDE</string>
+										<string>24E38B5910459CD3001B8DDE</string>
 										<key>history</key>
 										<array>
-											<string>24E38AE2104595E3001B8DDE</string>
-											<string>24E38AF110459714001B8DDE</string>
-											<string>24E38AF210459714001B8DDE</string>
-											<string>24E38AF310459714001B8DDE</string>
-											<string>24E38AF510459714001B8DDE</string>
 											<string>24E38B0D10459898001B8DDE</string>
 											<string>24E38B14104598F0001B8DDE</string>
 											<string>24E38B1B10459939001B8DDE</string>
 											<string>24E38B1C10459939001B8DDE</string>
-											<string>24E38B1D10459939001B8DDE</string>
+											<string>24E38B2E10459C86001B8DDE</string>
+											<string>24E38B2F10459C86001B8DDE</string>
+											<string>24E38B3010459C86001B8DDE</string>
+											<string>24E38B3110459C86001B8DDE</string>
+											<string>24E38B5610459CD3001B8DDE</string>
+											<string>24E38B5710459CD3001B8DDE</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>24E38AEA104595E3001B8DDE</string>
 											<string>24E38AEB104595E3001B8DDE</string>
-											<string>24E38AED104595E3001B8DDE</string>
-											<string>24E38AEE104595E3001B8DDE</string>
-											<string>24E38AEF104595E3001B8DDE</string>
 											<string>24E38AF810459714001B8DDE</string>
-											<string>24E38AF910459714001B8DDE</string>
-											<string>24E38AFA10459714001B8DDE</string>
 											<string>24E38AFB10459714001B8DDE</string>
-											<string>24E38AFC10459714001B8DDE</string>
-											<string>24E38AFD10459714001B8DDE</string>
-											<string>24E38AFE10459714001B8DDE</string>
-											<string>24E38AFF10459714001B8DDE</string>
-											<string>24E38B0010459714001B8DDE</string>
-											<string>24E38B0110459714001B8DDE</string>
-											<string>24E38B0210459714001B8DDE</string>
-											<string>24E38B0810459805001B8DDE</string>
-											<string>24E38B0910459805001B8DDE</string>
-											<string>24E38B0F10459898001B8DDE</string>
 											<string>24E38B1010459898001B8DDE</string>
-											<string>24E38B15104598F0001B8DDE</string>
-											<string>24E38B1E10459939001B8DDE</string>
-											<string>24E38B1F10459939001B8DDE</string>
 											<string>24E38B2010459939001B8DDE</string>
-											<string>24E38B2110459939001B8DDE</string>
-											<string>24E38B2210459939001B8DDE</string>
-											<string>24E38B2310459939001B8DDE</string>
+											<string>24E38B3510459C86001B8DDE</string>
+											<string>24E38B3610459C86001B8DDE</string>
+											<string>24E38B5810459CD3001B8DDE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -392,8 +376,6 @@
 							<string>553pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -430,9 +412,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>24E38A9910458F30001B8DDE</string>
+				<string>24E38B5A10459CD3001B8DDE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>24E38A9A10458F30001B8DDE</string>
+				<string>24E38B5B10459CD3001B8DDE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -566,12 +548,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>24E38AB210459197001B8DDE</string>
-		<string>24E38AB310459197001B8DDE</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>24195554102AF48300FC6E0F</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/godexsoft/Documents/TapMania/TapMania.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

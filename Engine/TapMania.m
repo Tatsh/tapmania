@@ -160,7 +160,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 	// Create the AdWhirl thing
 	m_pAdsView = [ARRollerView requestRollerViewWithDelegate:self];
-	m_pAdsView.backgroundColor = [UIColor blueColor];
 	[m_pAdsView setFrame:CGRectMake(0,430, 320, 50)];
 	[m_pGlView addSubview:m_pAdsView];
 	TMLog(@"Added the AdWhirl view.");
@@ -196,7 +195,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 #pragma mark ARRollerDelegate required delegate method implementation
 - (NSString*)adWhirlApplicationKey
 {
-    return @"42b877e5bfc0102cb741df581a7911e8";//c7b13290e38c102c96dc5b26aef5c1e9";
+    return @"c7b13290e38c102c96dc5b26aef5c1e9";
 }
 
 #pragma mark ARRollerDelegate optional delegate method implementations
