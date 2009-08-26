@@ -99,7 +99,6 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 		} 
 	}
 
-	m_bPlaying = NO;
 	m_bPaused = NO;
 	m_bLoop = NO;
 	m_fGain = 1.0f;	// Will probably be set by setGain
@@ -113,9 +112,8 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	return self;
 }
 
-- (void)dealloc
-{
-	[self stop];
+- (void) dealloc {
+	AudioQueueDispose(queue, YES);
 	[super dealloc];
 }
 
@@ -125,8 +123,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	AudioQueueGetPropertySize(queue, kAudioQueueProperty_IsRunning, &size);
 	AudioQueueGetProperty(queue, kAudioQueueProperty_IsRunning, &isRunning, &size);
 	
-	m_bPlaying = isRunning?YES:NO;
-	return m_bPlaying;
+	return isRunning?YES:NO;
 }
 
 - (BOOL) isPaused {
@@ -135,15 +132,10 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 - (void)stop
 {
-	// it is preferrable to call stop first, before dealloc if there is a problem waiting for
-	// an autorelease
-	if (!m_bPlaying && !m_bPaused)
-		return;
-	
-	m_bPlaying = NO;
-	AudioQueueStop(queue, YES);
-	AudioQueueDispose(queue, YES);
-	AudioFileClose(audioFile);
+	if ([self isPlaying]) {
+		AudioQueueStop(queue, YES);
+		AudioFileClose(audioFile);
+	}
 }
 
 - (void)setGain:(Float32)gain
@@ -159,14 +151,16 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 - (BOOL)play
 {
 	AudioQueueStart(queue, nil);
-	m_bPlaying = YES;
+	if(!m_bLoop) {
+		AudioQueueStop(queue, NO);	// Stop at end
+	}
+	
 	m_bPaused = NO;
 	return YES;
 }
 
 - (void)pause
 {
-	m_bPlaying = NO;
 	m_bPaused = YES;
 	
 	AudioQueuePause(queue);
@@ -181,7 +175,6 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 }
 
 void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID) {
-
 	if(! [(AccelSoundPlayer*)inUserData isPlaying] ) {
 		[(AccelSoundPlayer *)inUserData sendPlayBackFinishedNotification];
 	} else {

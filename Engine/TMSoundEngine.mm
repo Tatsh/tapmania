@@ -343,9 +343,13 @@ Exit:
 			TMLog(@"Got player to stop: %X", pPlayer);
 			
 			[pPlayer stop];		
+			TMLog(@"Player stopped");
 			[pPlayer release];
+			TMLog(@"Player released");
 			m_pQueue->pop_front();
-			m_bPlayingSomething = NO;
+			TMLog(@"Popped player out of queue.");
+			
+			// Playing something flag will be set using a callback notification
 			
 			return YES;
 		} 
@@ -371,6 +375,21 @@ Exit:
 
 - (float) getMasterVolume {
 	return m_fMusicVolume;
+}
+
+/* TMSoundSupport delegate work */
+- (void) playBackStartedNotification {
+	@synchronized(self) {
+		TMLog(@"SOUNDENGINE: got notification about current track playback Started");
+		m_bPlayingSomething = YES;
+	}
+}
+
+- (void) playBackFinishedNotification {
+	@synchronized(self) {
+		TMLog(@"SOUNDENGINE: got notification about current track Stopped");
+		m_bPlayingSomething = NO;
+	}
 }
 
 #pragma mark Singleton stuff

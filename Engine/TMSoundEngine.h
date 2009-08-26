@@ -15,6 +15,7 @@
 */
 
 #import <OpenAL/alc.h>
+#import "TMSoundSupport.h"
 
 @class TMSound, AbstractSoundPlayer;
 
@@ -25,7 +26,7 @@ using namespace std;
 typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 #endif
 
-@interface TMSoundEngine : NSObject {
+@interface TMSoundEngine : NSObject <TMSoundSupport> {
 
 #ifdef __cplusplus
 	TMSoundQueue	*m_pQueue;		// Queue of music resources

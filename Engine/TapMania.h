@@ -48,6 +48,7 @@
 - (void) setCurrentScreen:(AbstractRenderer*) screenRenderer;
 - (void) releaseCurrentScreen;
 
+- (void) toggleAds:(BOOL)onOff;
 - (JoyPad*) enableJoyPad;
 - (void) disableJoyPad;
 

@@ -90,6 +90,13 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:NO];
 }
 
+- (void) toggleAds:(BOOL)onOff {
+	if(! onOff) 
+		[m_pAdsView removeFromSuperview];
+	else
+		[m_pGlView addSubview:m_pAdsView];
+}
+
 - (JoyPad*) enableJoyPad {
 	[m_pJoyPad reset];
 	[[InputEngine sharedInstance] subscribe:m_pJoyPad];
