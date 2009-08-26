@@ -151,9 +151,10 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 - (BOOL)play
 {
 	AudioQueueStart(queue, nil);
+	/*
 	if(!m_bLoop) {
 		AudioQueueStop(queue, NO);	// Stop at end
-	}
+	}*/
 	
 	m_bPaused = NO;
 	return YES;

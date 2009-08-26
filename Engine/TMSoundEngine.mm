@@ -211,6 +211,16 @@ Exit:
 
 
 // Methods
+- (TMSound*) loadMusicFile:(NSString*)inPath {
+	TMSound* pSound = [[TMSound alloc] initWithPath:inPath];
+
+	// Don't want the queue manager thread to start playback automatically
+	m_bPlayingSomething = YES;
+	
+	[self addToQueue:pSound];
+	return pSound;
+}
+
 - (BOOL) addToQueue:(TMSound*)inObj {
 	
 	// Get a sound player for the track

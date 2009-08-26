@@ -37,9 +37,4 @@
 	m_bAlreadyPlaying = NO;
 }
 
--(void) dealloc {
-	[m_sPath release];
-	[super dealloc];
-}
-
 @end

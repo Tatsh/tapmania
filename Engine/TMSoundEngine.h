@@ -57,6 +57,7 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 - (void) stop;								// Stop the sound thread
 - (BOOL) addToQueue:(TMSound*)inObj;		// Adds a TMSound object to the queue
 - (BOOL) removeFromQueue:(TMSound*)inObj;	// Removes the TMSound object from the queue if it was enqueued before
+- (TMSound*) loadMusicFile:(NSString*)inPath;	// Creates a TMSound object and ads to queue
 
 // Music playback control
 - (BOOL) playMusic;							// Starts playing the first element of the queue or continue if paused
