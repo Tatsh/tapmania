@@ -35,6 +35,10 @@
 - (void) songManagerButtonHit;
 - (void) backButtonHit;
 - (void) soundSliderChanged;
+- (void) themeTogglerChanged;
+- (void) noteSkinTogglerChanged;
+- (void) visiblePadTogglerChanged;
+- (void) fingerTrackingTogglerChanged;
 @end
 
 @implementation OptionsMenuRenderer
@@ -43,7 +47,10 @@ int mt_PadConfigButtonY, mt_SongManagerConfigButtonY;
 int mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_ThemeTogglerX, mt_ThemeTogglerY, mt_BackButtonY, mt_MenuButtonsX;
 int mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth;
 int mt_SoundLabelX, mt_SoundLabelY, mt_NoteSkinLabelX, mt_NoteSkinLabelY, mt_ThemeLabelX, mt_ThemeLabelY;
+int mt_FingerTrackingLabelX, mt_FingerTrackingLabelY, mt_VisiblePadLabelX, mt_VisiblePadLabelY;
+int mt_VisiblePadTogglerX, mt_VisiblePadTogglerY, mt_FingerTrackingTogglerX, mt_FingerTrackingTogglerY;
 int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
+
 Texture2D *t_BG;
 
 - (void) dealloc {
@@ -54,10 +61,14 @@ Texture2D *t_BG;
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] release];
 	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] release];
+	[m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] release];
+	[m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] release];
 	
 	[m_pLabels[kOptionsLabel_SoundMaster] release];
 	[m_pLabels[kOptionsLabel_Theme] release];
 	[m_pLabels[kOptionsLabel_NoteSkin] release];
+	[m_pLabels[kOptionsLabel_FingerTracking] release];
+	[m_pLabels[kOptionsLabel_VisiblePad] release];
 	
 	[super dealloc];
 }
@@ -76,12 +87,22 @@ Texture2D *t_BG;
 	mt_SoundSliderX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderX"];
 	mt_SoundSliderY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderY"];
 	
+	mt_VisiblePadTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadTogglerX"];
+	mt_VisiblePadTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadTogglerY"];
+	
+	mt_FingerTrackingTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingTogglerX"];
+	mt_FingerTrackingTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingTogglerY"];
+	
 	mt_SoundLabelX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelX"];
 	mt_SoundLabelY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelY"];
 	mt_NoteSkinLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelX"];
 	mt_NoteSkinLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelY"];
 	mt_ThemeLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelX"];
 	mt_ThemeLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelY"];
+	mt_FingerTrackingLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingLabelX"];
+	mt_FingerTrackingLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingLabelY"];
+	mt_VisiblePadLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadLabelX"];
+	mt_VisiblePadLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadLabelY"];
 	
 	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsX"];	
 	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsWidth"];
@@ -99,13 +120,43 @@ Texture2D *t_BG;
 	m_pLabels[kOptionsLabel_SoundMaster] = [[Label alloc] initWithTitle:@"Sound:" andShape:CGRectMake(mt_SoundLabelX, mt_SoundLabelY, 70.0f, mt_MenuButtonsHeight)];
 	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(mt_ThemeLabelX, mt_ThemeLabelY, 70.0f, mt_MenuButtonsHeight)];
 	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(mt_NoteSkinLabelX, mt_NoteSkinLabelY, 80.0f, mt_MenuButtonsHeight)];
+	m_pLabels[kOptionsLabel_FingerTracking] = [[Label alloc] initWithTitle:@"Autotrack:" andShape:CGRectMake(mt_FingerTrackingLabelX, mt_FingerTrackingLabelY, 90.0f, mt_MenuButtonsHeight)];
+	m_pLabels[kOptionsLabel_VisiblePad] = [[Label alloc] initWithTitle:@"VisPad:" andShape:CGRectMake(mt_VisiblePadLabelX, mt_VisiblePadLabelY, 80.0f, mt_MenuButtonsHeight)];
 	
-	// Register menu items FIXME!!!!
+	// Register menu items 
 	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
 	[[ZoomEffect alloc] initWithRenderable:	
 	 [[Slider alloc] initWithShape:CGRectMake(mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth, mt_MenuButtonsHeight) 
 						andValue:[[TMSoundEngine sharedInstance] getMasterVolume]]];
+
+	// Finger tracking
+	m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] =	
+	[[ZoomEffect alloc] initWithRenderable:	
+	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_FingerTrackingTogglerX, mt_FingerTrackingTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
+
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
 	
+	BOOL fingerTrack = [[SettingsEngine sharedInstance] getBoolValue:@"autotrack"];
+	int iFingerTrack = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] findIndexByValue:[NSNumber numberWithBool:fingerTrack]];
+	iFingerTrack = iFingerTrack == -1 ? 0 : iFingerTrack;
+	
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] selectItemAtIndex:iFingerTrack];	
+	
+	// PAD visibility
+	m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] =	
+	[[ZoomEffect alloc] initWithRenderable:	
+	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_VisiblePadTogglerX, mt_VisiblePadTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
+	
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
+
+	BOOL visPad = [[SettingsEngine sharedInstance] getBoolValue:@"vispad"];
+	int iPad = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] findIndexByValue:[NSNumber numberWithBool:visPad]];
+	iPad = iPad == -1 ? 0 : iPad;
+	
+	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] selectItemAtIndex:iPad];		
+		
 	// Theme selection
 	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
 	[[ZoomEffect alloc] initWithRenderable:	
@@ -159,11 +210,15 @@ Texture2D *t_BG;
 	[m_pOptionsMenuItems[kOptionsMenuItem_SongManager] setActionHandler:@selector(songManagerButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] setActionHandler:@selector(joyPadButtonHit) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
+	[m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] setActionHandler:@selector(fingerTrackingTogglerChanged) receiver:self];
+	[m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] setActionHandler:@selector(visiblePadTogglerChanged) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setActionHandler:@selector(themeTogglerChanged) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] setActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
 	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] setChangedActionHandler:@selector(soundSliderChanged) receiver:self];	
 	
 	// Add the menu items to the render loop with lower priority
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
@@ -171,11 +226,15 @@ Texture2D *t_BG;
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
 	
+	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_FingerTracking] withPriority:kRunLoopPriority_NormalUpper];
+	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_VisiblePad] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_Theme] withPriority:kRunLoopPriority_NormalUpper];
 	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
 	
 	// Subscribe for input events
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
+	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
@@ -189,6 +248,8 @@ Texture2D *t_BG;
 
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
+	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
@@ -197,13 +258,17 @@ Texture2D *t_BG;
 	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
 		
 	// Remove the menu items from the render loop
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
+	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
 	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
-	
+
+	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_VisiblePad]];
+	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_FingerTracking]];
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_SoundMaster]];
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_Theme]];
 	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_NoteSkin]];
@@ -294,6 +359,20 @@ Texture2D *t_BG;
 
 - (void) noteSkinTogglerChanged {
 	[[SettingsEngine sharedInstance] setStringValue:[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) getCurrent] m_pValue] forKey:@"noteskin"];
+}
+
+- (void) visiblePadTogglerChanged {
+	NSNumber* numVal = (NSNumber*)[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]) getCurrent] m_pValue];
+	BOOL val = [numVal boolValue];
+	[[SettingsEngine sharedInstance] setBoolValue:val forKey:@"vispad"];
+}
+
+- (void) fingerTrackingTogglerChanged {
+	NSNumber* numVal = (NSNumber*)[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]) getCurrent] m_pValue];
+	BOOL val = [numVal boolValue];
+	
+	[[SettingsEngine sharedInstance] setBoolValue:val forKey:@"autotrack"];	
+	[[[TapMania sharedInstance] joyPad] setM_bAutoTrackEnabled:val];
 }
 
 @end

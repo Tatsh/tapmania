@@ -55,6 +55,7 @@ void* getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 	AudioStreamBasicDescription theFileFormat;
 	UInt32 thePropertySize = sizeof(theFileFormat);
 	AudioFileID aFID;
+	UInt32		dataSize = 0;
 	
 	void* theData = NULL;
 	AudioStreamBasicDescription theOutputFormat;
@@ -86,7 +87,7 @@ void* getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 	if(err) { printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyAudioDataByteCount) FAILED, Error = %ld\n", err); goto Exit; }
 	
 	// Read all the data into memory
-	UInt32		dataSize = theFileLengthInBytes;
+	dataSize = theFileLengthInBytes;
 	theData = malloc(dataSize);
 	if (theData)
 	{

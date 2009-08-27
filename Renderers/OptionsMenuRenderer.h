@@ -18,6 +18,8 @@
 
 typedef enum {
 	kOptionsLabel_SoundMaster = 0,
+	kOptionsLabel_FingerTracking,
+	kOptionsLabel_VisiblePad,
 	kOptionsLabel_Theme,
 	kOptionsLabel_NoteSkin,
 	kNumOptionsLabels
@@ -25,6 +27,8 @@ typedef enum {
 
 typedef enum {
 	kOptionsMenuItem_SoundMaster = 0,
+	kOptionsMenuItem_FingerTracking,
+	kOptionsMenuItem_VisiblePad,
 	kOptionsMenuItem_Theme,
 	kOptionsMenuItem_NoteSkin,	
 	kOptionsMenuItem_JoyPad,

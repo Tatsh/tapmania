@@ -17,7 +17,7 @@
 		
 	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
 						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithBool:NO], @"autotrack", 
-						@"NONEXISTING", @"newsversion", nil];
+						[NSNumber numberWithBool:NO], @"vispad", @"NONEXISTING", @"newsversion", nil];
 	
 	return self;
 }
@@ -55,6 +55,11 @@
 		++errCount;
 	}
 
+	if(! [m_pConfigDict valueForKey:@"vispad"]) {
+		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"vispad"];
+		++errCount;
+	}
+	
 	if(! [m_pConfigDict valueForKey:@"newsversion"]) {
 		[m_pConfigDict setObject:@"NONEXISTING" forKey:@"newsversion"];
 		++errCount;

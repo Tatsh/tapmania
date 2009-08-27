@@ -25,6 +25,7 @@
 #import "ReceptorRow.h"
 #import "LifeBar.h"
 
+#import "SettingsEngine.h"
 #import "ThemeManager.h"
 #import "TapMania.h"
 #import "EAGLView.h"
@@ -57,6 +58,8 @@ int mt_ArrowWidth, mt_ArrowHeight;
 int mt_HoldCapWidth, mt_HoldCapHeight;
 float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 
+BOOL cfg_VisPad;
+
 - (id) init {
 	self = [super init];
 	if(!self)
@@ -81,6 +84,8 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 	mt_HoldBodyPieceHeight = [[ThemeManager sharedInstance] floatMetric:@"SongPlay HoldNote BodyPieceHeight"];	
 	
 	mt_HalfOfArrowHeight = mt_ArrowHeight / 2.0f;
+	
+	cfg_VisPad = [[SettingsEngine sharedInstance] getBoolValue:@"vispad"];
 	
 	// Cache graphics
 	t_TapNote = (TapNote*)[[ThemeManager sharedInstance] skinTexture:@"DownTapNote"];
@@ -600,8 +605,7 @@ float mt_HoldBodyPieceHeight, mt_HalfOfArrowHeight;
 		[t_HoldJudgement render:fDelta];
 		
 		// Draw the pad if requested
-		// TODO check bool var
-		if(0) {
+		if(cfg_VisPad) {
 			glEnable(GL_BLEND);
 
 			for(int i=0; i<kNumOfAvailableTracks; i++) {
