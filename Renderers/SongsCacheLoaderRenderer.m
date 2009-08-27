@@ -31,6 +31,7 @@ TMSound*   sr_BG;
 	if(!self)
 		return nil;
 	
+	m_bTransitionIsDone = NO;
 	m_bAllSongsLoaded = NO;
 	m_bGlobalError = NO;
 	
@@ -98,6 +99,10 @@ TMSound*   sr_BG;
 	[[TMSoundEngine sharedInstance] stopMusicFading:0.3f];		
 }
 
+- (void) afterTransition {
+	m_bTransitionIsDone = YES;
+}
+
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
@@ -120,7 +125,8 @@ TMSound*   sr_BG;
 - (void) update:(float)fDelta {	
 	static double tickCounter = 0.0;
 	
-	if(m_bAllSongsLoaded) {
+	if(m_bAllSongsLoaded && m_bTransitionIsDone) {
+		TMLog(@"Requesting switch to main screen!");
 		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
 		m_bAllSongsLoaded = NO; // Do this only once
 		
@@ -185,7 +191,7 @@ TMSound*   sr_BG;
 	[m_pLock lock];
 	m_bTextureShouldChange = YES;
 	m_bAllSongsLoaded = YES;
-	m_sCurrentMessage = [[NSString stringWithString:@"All songs loaded..."] retain];
+	m_sCurrentMessage = [NSString stringWithString:@"All songs loaded..."];
 	[m_pLock unlock];
 }
 						

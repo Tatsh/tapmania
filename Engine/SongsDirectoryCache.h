@@ -16,7 +16,8 @@
 	NSString*				m_sSongsDir;		// The path to 'Songs' directory
 	NSMutableArray*			m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
 	
-	NSMutableDictionary*	m_pCatalogueCache;
+	NSMutableDictionary*	m_pCatalogueCacheOld;
+	NSMutableDictionary*	m_pCatalogueCacheNew;
 	BOOL					m_bCatalogueIsEmpty;
 	
 	id						m_idDelegate;	// TMSongLoaderSupport delegate

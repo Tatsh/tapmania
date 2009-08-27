@@ -128,7 +128,7 @@
 					[song addBpmSegment:seg];
 				}
 				
-				[arr release];
+//				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "FREEZE") ){
@@ -144,7 +144,7 @@
 					[song addFreezeSegment:[arr objectAtIndex:i]];
 				}
 				
-				[arr release];
+//				[arr release];
 				free(data);
 			}
 			else if( !strcasecmp(varName, "SINGLE") ){ 
@@ -582,39 +582,32 @@
 	char *token, *value;
 	int i;
 
-	TMChangeSegment* changer = nil;
-	NSMutableArray* arr = [[NSMutableArray arrayWithCapacity:10] retain];
-	NSMutableArray* resArr = nil;
-	
-	// 1288=666,1312=333,1316=166.5,1320=83.25,1356=333
+	// data is '1288=666,1312=333,1316=166.5,1320=83.25,1356=333'
 	// or happen to be something like 1288.000=666.000 etc.
-	token = strtok( data, "," );
 
-	while( token != nil ) {
-		TMLog(@"got token: %s", token);
-		[arr addObject:[[NSString stringWithCString:token] retain]];
-		token = strtok( nil, "," );
-	}
+	NSArray* arr = [[NSString stringWithCString:data] componentsSeparatedByString:@","];	
+	TMChangeSegment* changer = nil;
+	
 
 	// Now for every saved change pair - split by '='
-	resArr = [[NSMutableArray arrayWithCapacity:[arr count]] retain];
+	NSMutableArray* resArr = [NSMutableArray arrayWithCapacity:[arr count]];
 
 	for(i = 0; i<[arr count]; i++){
-		token = strtok ( (char*)[[arr objectAtIndex:i] UTF8String], "=" );
-		value = strtok(nil, "=");
-
+		NSArray* tokVal = [[arr objectAtIndex:i] componentsSeparatedByString:@"="];
+		NSString* token = [tokVal objectAtIndex:0];
+		NSString* value = [tokVal objectAtIndex:1];
+		
 		if(!token || !value) {
 			TMLog(@"Fatal: changes array broken.");
 			return nil;
 		}
 
 		// Got '$token=$value'
-		int beatIndex = [TMNote beatToNoteRow:atof(token)/4.0f];
-		changer = [[TMChangeSegment alloc] initWithNoteRow:beatIndex andValue:atof(value)];
+		int beatIndex = [TMNote beatToNoteRow:atof([token UTF8String])/4.0f];
+		changer = [[TMChangeSegment alloc] initWithNoteRow:beatIndex andValue:atof([value UTF8String])];
 		[resArr addObject:changer];	
 	}
 
-	[arr release];
 	TMLog(@"Total count of found tokens: %d", [resArr count]);
 	return resArr;
 }

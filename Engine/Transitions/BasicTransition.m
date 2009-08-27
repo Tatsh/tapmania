@@ -100,11 +100,17 @@
 }
 
 - (void) transitionOutFinished {
+	TMLog(@"Transition out finished...");
+	
 	// Remove our transition from runloop
 	[[TapMania sharedInstance] deregisterObject:self];
 	
+	TMLog(@"Removed self from runloop");
+	
 	// Enable the dispatcher so that we can mess again :P
 	[[InputEngine sharedInstance] enableDispatcher];
+	
+	TMLog(@"m_pTo = %@", m_pTo);
 	
 	if([m_pTo conformsToProtocol:@protocol(TMTransitionSupport)] && [m_pTo respondsToSelector:@selector(afterTransition)]){
 		[m_pTo performSelector:@selector(afterTransition)];

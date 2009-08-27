@@ -42,16 +42,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
 	m_bCatalogueIsEmpty = NO;
 	
-	return self;
-}
-
-
-- (void) cacheSongs {
-	TMLog(@"Caching songs in 'Songs' dir...");
-	
-	int i;	
-	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
-	
 	// Get songs directory
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
 	if([paths count] > 0) {
@@ -64,34 +54,48 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		}
 		
 		TMLog(@"Songs dir at: %@", m_sSongsDir);		
-		
-		// Read all songs in the dir and cache them
-		NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
-		
-		// Raise error if empty songs dir
-		/*
-		 Version 0.1.6 introduces a webserver solution for song upload/management.
-		 Therefore the error should not arise.
-		 However we need to disable the Play button in the main menu so that
-		 the user will need to upload songs first if none are available.
-		*/
-		 
-		if([songsDirContents count] == 0) {
-			m_bCatalogueIsEmpty = YES;
-		}
-		
-		// Try to read the catalogue file
-		m_pCatalogueCache = [[SongsDirectoryCache sharedInstance] getCatalogueCache];		
-		
-		// Renew the cache
-		for(i = 0; i<[songsDirContents count]; i++) {
-			[self addSongToLibrary:[m_sSongsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]] useCache:YES];
-		}
 	} else {
-		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound" reason:@"Songs directory couldn't be found!" userInfo:nil];
+		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound"
+				reason:@"Songs directory couldn't be found because the system failed to give us a Documents folder!" userInfo:nil];
 		@throw ex;
 	}
 	
+	// Try to read the catalogue file
+	m_pCatalogueCacheOld = [[SongsDirectoryCache sharedInstance] getCatalogueCache];		
+	m_pCatalogueCacheNew = [[NSMutableDictionary alloc] initWithCapacity:[m_pCatalogueCacheOld count]];
+	
+	return self;
+}
+
+
+- (void) cacheSongs {
+	TMLog(@"Caching songs in 'Songs' dir...");
+	
+	int i;	
+	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
+	
+	// Read all songs in the dir and cache them
+	NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
+	
+	// Raise error if empty songs dir
+	/*
+	 Version 0.1.6 introduces a webserver solution for song upload/management.
+	 Therefore the error should not arise.
+	 However we need to disable the Play button in the main menu so that
+	 the user will need to upload songs first if none are available.
+	*/
+	 
+	if([songsDirContents count] == 0) {
+		m_bCatalogueIsEmpty = YES;
+	}
+
+	TMLog(@"Old cache has %d elements", [m_pCatalogueCacheOld count]);
+	
+	// Renew the cache
+	for(i = 0; i<[songsDirContents count]; i++) {
+		[self addSongToLibrary:[m_sSongsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]] useCache:YES];
+	}
+
 	// Write cache file
 	[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
 	
@@ -214,7 +218,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (BOOL) addSongToLibrary:(NSString*) curPath useCache:(BOOL)useCache {
 	NSArray* dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:curPath];
 	NSString* songDirName = [curPath lastPathComponent];
-	NSString* file;
 	
 	NSString* stepsFilePath = nil;			
 	NSString* musicFilePath = nil;			
@@ -261,9 +264,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
 		stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
 		
-		if(useCache && [m_pCatalogueCache valueForKey:songDirName] != nil) {
+		if(useCache && [m_pCatalogueCacheOld valueForKey:songDirName] != nil) {
 			TMLog(@"Catalogue file has this file already!");
-			TMSong* song = [m_pCatalogueCache valueForKey:songDirName];
+			TMSong* song = [[m_pCatalogueCacheOld valueForKey:songDirName] retain];
 			
 			// Check hash
 			NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
@@ -273,12 +276,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			if(! [songHash isEqualToString:song.m_sHash]) {
 				TMLog(@"Hash missmatch! Must reload!");
 				[song release];
-				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
-				
-				// Also update in cache
-				[m_pCatalogueCache setObject:song forKey:songDirName];
+				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];								
 			}
 			
+			// No matter where it comes from, cache or not, we need to save it to the new cache file
+			[m_pCatalogueCacheNew setObject:song forKey:songDirName];						
 			[m_aAvailableSongs addObject:song];
 			
 		} else {
@@ -293,8 +295,8 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			TMLog(@"Song ready to be added to list!!");
 			[m_aAvailableSongs addObject:song];
 			
-			// Add to cache
-			[m_pCatalogueCache setObject:song forKey:songDirName];					
+			// Add to new cache file
+			[m_pCatalogueCacheNew setObject:song forKey:songDirName];
 		}
 		
 		if(m_idDelegate != nil) {
@@ -332,7 +334,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	}
 	
 	// Update cache
-	[m_pCatalogueCache removeObjectForKey:songDirName];
+	[m_pCatalogueCacheNew removeObjectForKey:songDirName];
 	[self writeCatalogueCache];
 	
 	// Remove the directory on the FS
@@ -365,7 +367,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 		TMLog(@"Write catalogue to: %@", catalogueFile);
 		
-		if( YES == [NSKeyedArchiver archiveRootObject:m_pCatalogueCache toFile:catalogueFile] ) {
+		if( YES == [NSKeyedArchiver archiveRootObject:m_pCatalogueCacheNew toFile:catalogueFile] ) {
 			TMLog(@"Successfully written the catalogue!");
 		} else {
 			TMLog(@"Too bad. Failed to write catalogue...");

@@ -18,6 +18,7 @@
 
 @interface SongsCacheLoaderRenderer : AbstractRenderer <TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
 	BOOL	m_bAllSongsLoaded;
+	BOOL	m_bTransitionIsDone;
 	BOOL	m_bGlobalError;
 	BOOL	m_bTextureShouldChange;
 	
