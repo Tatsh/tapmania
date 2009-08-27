@@ -10,10 +10,14 @@
 #import "TMFramedTexture.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
+#import "TMSound.h"
+#import "TMSoundEngine.h"
 #import "TapMania.h"
 #import "EAGLView.h"
 
 @implementation MenuItem
+
+TMSound*	sr_MenuButtonEffect;
 
 - (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [super init];
@@ -30,6 +34,9 @@
 	m_oChangedActionHandler = nil;
 	
 	m_bEnabled = YES;
+	
+	// Load effect sound
+	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
 	
 	return self;
 }
@@ -125,6 +132,7 @@
 			if(m_bEnabled) {
 				TMLog(@"Menu item finger raised!");
 				[m_idActionDelegate performSelector:m_oActionHandler];
+				[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];
 			}
 		}
 	}

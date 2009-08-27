@@ -83,9 +83,7 @@ static NewsFetcher *sharedNewsFetcherDelegate = nil;
 }
 
 - (BOOL) hasUnreadNews {
-	@synchronized (self) {
-		return m_bGotNews;
-	}
+	return m_bGotNews;
 }
 
 - (NSString*) getUnreadNews {

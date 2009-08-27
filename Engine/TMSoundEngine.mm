@@ -21,6 +21,7 @@
 #import <OpenAL/alc.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioToolbox/AudioFile.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import <vorbis/vorbisfile.h>
 
@@ -354,12 +355,8 @@ Exit:
 			
 			[pPlayer stop];		
 			TMLog(@"Player stopped");
-			[pPlayer release];
-			TMLog(@"Player released");
-			m_pQueue->pop_front();
-			TMLog(@"Popped player out of queue.");
 			
-			// Playing something flag will be set using a callback notification
+			// PlayingSomething flag will be set using a callback notification
 			
 			return YES;
 		} 
@@ -398,12 +395,29 @@ Exit:
 - (void) playBackFinishedNotification {
 	@synchronized(self) {
 		TMLog(@"SOUNDENGINE: got notification about current track Stopped");
+
+		AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+		TMLog(@"Got player to stop: %X", pPlayer);
+		
+		[pPlayer release];
+		TMLog(@"Player released");
+		
+		m_pQueue->pop_front();
+		TMLog(@"Popped player out of queue.");
+			
 		m_bPlayingSomething = NO;
 	}
 }
 
-#pragma mark Singleton stuff
+// Effect support (short sounds)
+- (BOOL) playEffect:(TMSound*)inSound {
+	AVAudioPlayer *avSound = [[AVAudioPlayer alloc] initWithContentsOfURL:
+							[NSURL fileURLWithPath:inSound.path] error:NULL];
+	if(!avSound) return NO;
+	return [avSound play];
+}
 
+#pragma mark Singleton stuff
 + (TMSoundEngine *)sharedInstance {
     @synchronized(self) {
         if (sharedSoundEngineDelegate == nil) {

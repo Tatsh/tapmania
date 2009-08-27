@@ -10,6 +10,8 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
+#import "TMSound.h"
+#import "TMSoundEngine.h"
 
 #import "TMFramedTexture.h"
 
@@ -42,6 +44,8 @@
 
 @implementation TogglerItem
 
+TMSound*	sr_TogglerEffect;
+
 - (id) initWithShape:(CGRect) shape {
 	
 	self = [super initWithTitle:@"Not used" andShape:shape];
@@ -51,6 +55,9 @@
 	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common Toggler"];	
+	
+	// Load effect sound
+	sr_TogglerEffect = [[ThemeManager sharedInstance] sound:@"Common TogglerChange"];
 	
 	return self;
 }
@@ -109,6 +116,8 @@
 	} else {
 		m_nCurrentSelection++;
 	}
+	
+	[[TMSoundEngine sharedInstance] playEffect:sr_TogglerEffect];
 }
 
 - (TogglerItemObject*) getCurrent {
