@@ -337,7 +337,7 @@ BOOL cfg_VisPad;
 				// Extra judgement for hold notes..
 				// TODO: all hold notes which are not held now should show NG. not only one.
 				if(note.m_nType == kNoteType_HoldHead) {
-					[m_pLifeBar updateBy:-0.05];	// NG judgement
+					[m_pLifeBar updateBy:-0.080];	// NG judgement
 					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
 				}
 			}
@@ -352,7 +352,7 @@ BOOL cfg_VisPad;
 			if(note.m_nType == kNoteType_HoldHead) {
 				if(note.m_bIsHit && holdBottomCapYPosition >= mt_ReceptorRowY) {
 					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
-					[m_pLifeBar updateBy:0.05];
+					[m_pLifeBar updateBy:0.008];
 					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
 					
 					++m_nTrackPos[i];

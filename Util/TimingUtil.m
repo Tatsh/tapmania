@@ -231,18 +231,18 @@
 
 + (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore {
 	if(noteScore == kNoteScore_W1E || noteScore == kNoteScore_W1L) {
-		return 0.1f;
+		return 0.008f;
 	} else if(noteScore == kNoteScore_W2E || noteScore == kNoteScore_W2L) {
-		return 0.05f;
+		return 0.008f;
 	} else if(noteScore == kNoteScore_W3E || noteScore == kNoteScore_W3L) {
-		return 0.02f;
+		return 0.004f;
 	} else if(noteScore == kNoteScore_W4E || noteScore == kNoteScore_W4L) {
-		return 0.01f;
+		return 0.000f;
 	} else if(noteScore == kNoteScore_W5E || noteScore == kNoteScore_W5L) {						
-		return 0.0f;
+		return -0.040f;
 	} else {
 		// Miss
-		return -0.1f;
+		return -0.080f;
 	}
 }
 
