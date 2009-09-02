@@ -124,7 +124,11 @@ BOOL cfg_VisPad;
 - (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
 	m_pSong = [song retain];
 	m_pSteps = [m_pSong getStepsForDifficulty:options.m_nDifficulty];
-
+	
+#ifdef DEBUG 
+	[m_pSteps dump];
+#endif	
+	
 	TMLog(@"Steps recieved by songplayrenderer");
 	
 	m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];

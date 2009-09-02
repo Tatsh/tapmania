@@ -383,7 +383,7 @@
 + (TMSteps*) parseStepDataWithFD:(FILE*) fd forSong:(TMSong*) song{
 	TMSteps* steps = [[TMSteps alloc] init];
 
-	int initialCapacity = 1024;
+	int initialCapacity = 2048;
 	int memCounter = 0;
 	int totalElements = 0;
 	char *stepData = (char*) malloc(initialCapacity * sizeof(char));
@@ -392,8 +392,8 @@
 	
 	// We will need to read all the pending data into a single array of characters
 	while( !feof(fd) && c != ';' ) {
-		if(memCounter >= 1023) {
-			initialCapacity += 1024;
+		if(memCounter >= 2047) {
+			initialCapacity += 2048;
 
 			stepData = (char*) realloc(stepData, initialCapacity * sizeof(char));
 			memCounter = 0;
@@ -470,12 +470,12 @@
 					int col1, col2;
 					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];					
 										
-					if(col1 != -1)
+					if(col1 != -1) {
 						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col1 onNoteRow:iIndex];
-					if(col2 != -1)
+					} if(col2 != -1) {
 						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col2 onNoteRow:iIndex];
-					
-
+					}
+									
 					if(stepData[currentNote] == '!') {
 						currentNote++;
 						const char holdChar = stepData[currentNote++];
@@ -483,10 +483,11 @@
 						[DWIParser dwiCharToNoteCol:holdChar colOut1:&col1 colOut2:&col2];						
 						
 						// Every note here represents a hold head
-						if(col1 != -1)
+						if(col1 != -1) {
 							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col1 onNoteRow:iIndex];
-						if(col2 != -1)
+						} if(col2 != -1) {
 							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col2 onNoteRow:iIndex];						
+						}						
 					}
 					
 				} while (multiPanelJump);
@@ -517,14 +518,14 @@
 				TMLog(@"Failed to close a hold. bad DWI?");
 				break;
 			}		
-
+			
 			note.m_nStopNoteRow = closingNote.m_nStartNoteRow;
 
 			// Set note as empty so that it's not in the way anymore
 			closingNote.m_nType = kNoteType_Empty;
 		}
 	}
-
+	
 	return steps;
 }
 

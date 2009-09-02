@@ -42,4 +42,6 @@ typedef enum {
 - (int) getFirstNoteRow;
 - (int) getLastNoteRow;
 
+- (void) dump;
+
 @end

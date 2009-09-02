@@ -124,5 +124,38 @@
 	return maxNoteRow;
 }
 
+- (void) dump {
+	printf("Dumping steps: %d/%d\n\n", m_nDifficulty, m_nDifficultyLevel);
+	for(int i=0; i<kNumOfAvailableTracks; i++){
+		
+		printf("row %d |", i);
+		BOOL holdActive = NO;
+		
+		for(int j=0; j<[m_pTracks[i] getNotesCount]; j++){
+			TMNote* pNote = [m_pTracks[i] getNote:j];
+			char c = ' ';
+			
+			switch(pNote.m_nType) {
+				case kNoteType_HoldHead:
+					c = '#';
+					holdActive = YES;
+					break;
+				case kNoteType_Original:
+					c = '*';
+					holdActive = NO;
+					break;
+				case kNoteType_Empty:
+					c = '0';
+					break;
+				default:
+					if(holdActive)
+						c = '=';
+			}
+						
+			printf("%c", c);
+		}
+		printf("|\n");
+	}
+}
 
 @end

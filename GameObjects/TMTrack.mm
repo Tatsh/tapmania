@@ -33,11 +33,14 @@
 
 - (void) setNote:(TMNote*) note onNoteRow:(int)noteRow {	
 	int index = [self getNoteIndexFromRow:noteRow];
+	TMLog(@"NoteRow to index %d == %d", noteRow, index);
+	
 	note.m_nStartNoteRow = noteRow;
 	
 	if(index != -1) {
 		// The note must be replaced
-		m_aNotesArray->assign(index, note);
+		[m_aNotesArray->at(index) release];
+		m_aNotesArray->at(index) = note;
 		
 	} else {
 		// The note must be appended
@@ -58,9 +61,10 @@
 			high = mid;
 	}
 	
-	if((low < m_aNotesArray->size()) && (m_aNotesArray->at(low).m_nStartNoteRow == noteRow))
+	if((low < m_aNotesArray->size()) && (m_aNotesArray->at(low).m_nStartNoteRow == noteRow)) {
 		return low;
-	
+	}
+
 	return -1;	
 }
 
@@ -68,7 +72,7 @@
 	int index = [self getNoteIndexFromRow:noteRow];
 	
 	if(index != -1)
-		return m_aNotesArray->at(index);
+		return [self getNote:index];
 	
 	return nil;
 }
@@ -77,7 +81,8 @@
 	if(index >= m_aNotesArray->size())
 		return nil;
 
-	return m_aNotesArray->at(index);
+	TMNote* note = m_aNotesArray->at(index);
+	return note;
 }
 
 - (BOOL) hasNoteAtRow:(int)noteRow {
