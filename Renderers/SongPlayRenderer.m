@@ -450,8 +450,12 @@ BOOL cfg_VisPad;
 						
 						// Explode all hit tracks
 						for(tr=0; tr<kNumOfAvailableTracks; ++tr){
-							if(timesOfHit[tr] != 0.0f) {								
-								[m_pReceptorRow explodeBright:tr];
+							if(timesOfHit[tr] != 0.0f) {							
+								if(noteJudgement == kJudgementW1) {
+									[m_pReceptorRow explodeBright:tr];
+								} else {
+									[m_pReceptorRow explodeDim:tr];
+								}
 							}
 						}
 					}
