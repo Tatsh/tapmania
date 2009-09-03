@@ -59,6 +59,7 @@
 	m_dLastHoldTouchTime = touchTime;
 	m_bIsHolding = YES;
 	m_bIsHeld = YES; // Will be set to NO if released
+	m_bIsHoldLost = NO;
 
 	m_nHoldScore = kHoldScore_OK;
 }
@@ -66,7 +67,6 @@
 - (void) stopHolding:(double)releaseTime {
 	m_dLastHoldReleaseTime = releaseTime;
 	m_bIsHolding = NO;
-	m_bIsHeld = NO;
 }
 
 - (void) markHoldLost {

@@ -332,13 +332,14 @@ BOOL cfg_VisPad;
 				[note score:kNoteScore_MissL];	// Only one of the notes get the scoring set
 
 				[t_Judgement setCurrentJudgement:kJudgementMiss andTimingFlag:kTimingFlagLate];
-				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_MissL]];
+				[m_pLifeBar updateBy:[TimingUtil getLifebarChangeByNoteScore:kNoteScore_MissL]];				
 				
 				// Extra judgement for hold notes..
 				// TODO: all hold notes which are not held now should show NG. not only one.
 				if(note.m_nType == kNoteType_HoldHead) {
 					[m_pLifeBar updateBy:-0.080];	// NG judgement
-					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];						
+					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];		
+					[note markHoldLost];
 				}
 			}
 			
@@ -351,9 +352,10 @@ BOOL cfg_VisPad;
 			// Now the same for hold notes
 			if(note.m_nType == kNoteType_HoldHead) {
 				if(note.m_bIsHit && holdBottomCapYPosition >= mt_ReceptorRowY) {
-					// We could loose the hold till here so we didn't do any life bar actions neither did we show OK yet.				
-					[m_pLifeBar updateBy:0.008];
-					[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
+					if(note.m_bIsHeld) {
+						[m_pLifeBar updateBy:0.008];
+						[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementOK forTrack:i];
+					}
 					
 					++m_nTrackPos[i];
 					continue; // Skip this hold already
@@ -384,9 +386,9 @@ BOOL cfg_VisPad;
 				
 				if(note.m_bIsHit && !note.m_bIsHoldLost && !note.m_bIsHolding) {
 					// This means we released the hold but we still can catch it again
-					if(fabsf(elapsedTime - note.m_dLastHoldReleaseTime) >= 0.8f) {
+					if(fabsf(elapsedTime - note.m_dLastHoldReleaseTime) >= 0.4f) {
 						[note markHoldLost];
-						[m_pLifeBar updateBy:-0.05];	// NG judgement
+						[m_pLifeBar updateBy:-0.080];	// NG judgement
 						[t_HoldJudgement setCurrentHoldJudgement:kHoldJudgementNG forTrack:i];					
 					}
 					
