@@ -17,12 +17,17 @@
 #import "OptionsMenuRenderer.h"
 #import "QuadTransition.h"
 #import "MenuItem.h"
+#import "ZoomEffect.h"
 
 #import "TapNote.h"
 #import "ReceptorRow.h"
 #import "LifeBar.h"
 
 #import "PhysicsUtil.h"
+
+@interface PadConfigRenderer (InputHandling)
+- (void) resetButtonHit;
+@end
 
 @implementation PadConfigRenderer
 
@@ -34,6 +39,7 @@ TapNote* t_TapNote;
 int mt_ReceptorRowX, mt_ReceptorRowY;
 int mt_TapNoteHeight, mt_TapNoteWidth, mt_TapNoteSpacing;
 int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
+int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
@@ -55,6 +61,11 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	mt_LifeBarWidth =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Width"];
 	mt_LifeBarHeight =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Height"];
 	
+	mt_ResetButtonX = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton X"];
+	mt_ResetButtonY = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Y"];
+	mt_ResetButtonWidth = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Width"];
+	mt_ResetButtonHeight = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Height"];
+	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
 		m_oReceptorButtons[i] = CGRectMake(mt_ReceptorRowX + (mt_TapNoteWidth+mt_TapNoteSpacing)*i, 
@@ -74,8 +85,17 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	// Reset the joyPad to hold currently configured locations
 	[[TapMania sharedInstance].joyPad reset];
 	
+	// Create a reset button
+	m_pResetButton = [[ZoomEffect alloc] initWithRenderable:
+					  [[MenuItem alloc] initWithTitle:@"Reset" andShape:CGRectMake(mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight)]];
+	[m_pResetButton setActionHandler:@selector(resetButtonHit) receiver:self];
+	
 	// Subscribe for input events
+	[[InputEngine sharedInstance] subscribe:m_pResetButton];
 	[[InputEngine sharedInstance] subscribe:self];
+	
+	// Add stuff to runloop
+	[[TapMania sharedInstance] registerObject:m_pResetButton withPriority:kRunLoopPriority_NormalLower];
 	
 	// Remove ads for this time
 	[[TapMania sharedInstance] toggleAds:NO];
@@ -84,6 +104,10 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 - (void) deinitOnTransition {
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
+	[[InputEngine sharedInstance] unsubscribe:m_pResetButton];
+	
+	// Remove from runloop
+	[[TapMania sharedInstance] deregisterObject:m_pResetButton];
 
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];
@@ -92,6 +116,7 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 - (void) dealloc {
 	[m_pReceptorRow release];
 	[m_pLifeBar release];
+	[m_pResetButton release];
 	
 	if(m_pFingerTap) {
 		[m_pFingerTap release];
@@ -134,6 +159,8 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	if(m_nPadConfigAction == kPadConfigAction_SelectedTrack) {
 		// Should explode the selected track
 		[m_pReceptorRow explodeBright:m_nSelectedTrack];
+		[m_pResetButton hide];
+		
 		m_nPadConfigAction = kPadConfigAction_SelectLocation;	// Must select a location now
 		
 		// Must also plot a fingertap graphic on current location
@@ -142,6 +169,12 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 	} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {
 		// Must light the selected receptor while user decides
 		[m_pReceptorRow explodeBright:m_nSelectedTrack];
+		
+	} else if(m_nPadConfigAction == kPadConfigAction_Reset) {
+		// Reset the pad to default values
+		TMLog(@"Reset pad");
+		[[TapMania sharedInstance].joyPad resetToDefault];
+		m_nPadConfigAction = kPadConfigAction_None;
 	}
 
 	[m_pReceptorRow update:fDelta];
@@ -173,9 +206,16 @@ int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
 			[[TapMania sharedInstance].joyPad setJoyPadButton:m_nSelectedTrack onLocation:pointGl];
 			
 			m_nPadConfigAction = kPadConfigAction_None;
+			[m_pResetButton show];
 			m_pFingerTap = nil;
-		}
+		} 
 	}		
 }
+
+/* Input handlers */
+- (void) resetButtonHit {
+	m_nPadConfigAction = kPadConfigAction_Reset;
+}
+
 
 @end

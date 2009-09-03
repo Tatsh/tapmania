@@ -92,10 +92,12 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) toggleAds:(BOOL)onOff {
-	if(! onOff) 
+	if(! onOff) {
 		[m_pAdsView removeFromSuperview];
-	else
+	} else {
 		[m_pGlView addSubview:m_pAdsView];
+		[m_pAdsView getNextAd];
+	}
 }
 
 - (JoyPad*) enableJoyPad {

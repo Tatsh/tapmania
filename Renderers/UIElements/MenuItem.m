@@ -34,11 +34,20 @@ TMSound*	sr_MenuButtonEffect;
 	m_oChangedActionHandler = nil;
 	
 	m_bEnabled = YES;
+	m_bVisible = YES;
 	
 	// Load effect sound
 	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
 	
 	return self;
+}
+
+- (void) show {
+	m_bVisible = YES;
+}
+
+- (void) hide {
+	m_bVisible = NO;
 }
 
 - (void) disable {
@@ -65,32 +74,34 @@ TMSound*	sr_MenuButtonEffect;
 
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
-	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
-	
-	glEnable(GL_BLEND);
-	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
-	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
-	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
-	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	
-	/*
-	 TODO: Use our fonts later
-	float vCenter = m_rShape.origin.y + m_rShape.size.height/2;
-	float hCenter = m_rShape.origin.x + m_rShape.size.width/2;
-	float strWidth = [[FontManager sharedInstance] getStringWidth:m_sTitle usingFont:@"MainMenuButtons"];
-	float xPos = hCenter-strWidth/2;
-	float yPos = vCenter;
+	if(m_bVisible) {
+		CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+		CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+		CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
 		
-	[[FontManager sharedInstance] print:m_sTitle
-				  usingFont:@"MainMenuButtons" atPoint:CGPointMake(xPos, yPos)];
-	*/
-	
-	glDisable(GL_BLEND);
+		glEnable(GL_BLEND);
+		[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
+		[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
+		[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
+		
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		
+		/*
+		 TODO: Use our fonts later
+		float vCenter = m_rShape.origin.y + m_rShape.size.height/2;
+		float hCenter = m_rShape.origin.x + m_rShape.size.width/2;
+		float strWidth = [[FontManager sharedInstance] getStringWidth:m_sTitle usingFont:@"MainMenuButtons"];
+		float xPos = hCenter-strWidth/2;
+		float yPos = vCenter;
+			
+		[[FontManager sharedInstance] print:m_sTitle
+					  usingFont:@"MainMenuButtons" atPoint:CGPointMake(xPos, yPos)];
+		*/
+		
+		glDisable(GL_BLEND);
+	}
 }
 
 /* TMGameUIResponder stuff */
@@ -101,7 +112,7 @@ TMSound*	sr_MenuButtonEffect;
 							[touch locationInView:[TapMania sharedInstance].glView]];
 
 		if(CGRectContainsPoint(m_rShape, point)) {
-			if(m_bEnabled) {
+			if(m_bEnabled && m_bVisible) {
 				TMLog(@"Menu item hit!");
 			}
 		}
@@ -115,7 +126,7 @@ TMSound*	sr_MenuButtonEffect;
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			if(m_bEnabled) {
+			if(m_bEnabled && m_bVisible) {
 				[m_idChangedDelegate performSelector:m_oChangedActionHandler];
 			}
 		}
@@ -129,7 +140,7 @@ TMSound*	sr_MenuButtonEffect;
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			if(m_bEnabled) {
+			if(m_bEnabled && m_bVisible) {
 				TMLog(@"Menu item finger raised!");
 				[m_idActionDelegate performSelector:m_oActionHandler];
 				[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];

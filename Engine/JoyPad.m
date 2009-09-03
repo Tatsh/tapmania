@@ -34,7 +34,7 @@
 	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithX:240 andY:160];
 	m_pJoyDefaultLocations[kJoyButtonExit] =  nil;
 	
-	// Reset states
+	// Reset states (to saved if any)
 	[self reset];
 
 	return self;
@@ -47,11 +47,14 @@
 		// Check whether we have a value in config or not
 		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:i];
 		
+		if(m_pJoyCurrentButtonLocation[i]) 
+			[m_pJoyCurrentButtonLocation[i] release];		
+		
 		if(buttonPoint.x != -1 && buttonPoint.y != -1) {
 			m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:buttonPoint.x andY:buttonPoint.y];
 		} else {
 			// Set default value for this button
-			m_pJoyCurrentButtonLocation[i] = m_pJoyDefaultLocations[i];
+			m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:m_pJoyDefaultLocations[i].m_fX andY:m_pJoyDefaultLocations[i].m_fY];
 		}
 		
 		if(m_pJoyCurrentButtonLocation[i] != nil) {
@@ -62,6 +65,18 @@
 		m_bJoyButtonStates[i] = NO;
 		m_dJoyButtonTimeTouch[i] = 0.0f;
 		m_dJoyButtonTimeRelease[i] = 0.0f;
+	}
+}
+
+- (void) resetToDefault {
+	for(int i=0; i<kNumJoyButtons; ++i) {
+		if(m_pJoyCurrentButtonLocation[i]) 
+			[m_pJoyCurrentButtonLocation[i] release];
+		
+		m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:m_pJoyDefaultLocations[i].m_fX andY:m_pJoyDefaultLocations[i].m_fY];
+		if(m_pJoyCurrentButtonLocation[i] != nil) {
+			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:i];
+		}
 	}
 }
 

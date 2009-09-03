@@ -19,6 +19,7 @@
 	NSString*			m_sTitle;
 	CGRect		m_rShape;	// The points where the button is drawn
 	BOOL		m_bEnabled;
+	BOOL		m_bVisible;
 	
 	id			m_idActionDelegate;			// delegate to invoke the selector on
 	SEL			m_oActionHandler;			// selector which should be invoked on button touch
@@ -32,6 +33,9 @@
 
 - (void) disable;
 - (void) enable;
+
+- (void) show;
+- (void) hide;
 
 - (CGPoint) getPosition;
 - (void) updatePosition:(CGPoint)point;

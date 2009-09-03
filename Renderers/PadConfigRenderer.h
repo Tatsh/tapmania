@@ -14,13 +14,14 @@
 
 #import "TMSteps.h"
 
-@class TMRunLoop, ReceptorRow, LifeBar, Vector;
+@class TMRunLoop, ReceptorRow, LifeBar, MenuItem, Vector;
 
 typedef enum {
 	kPadConfigAction_None = 0,
 	kPadConfigAction_SelectedTrack,
 	kPadConfigAction_SelectLocation,
 	kPadConfigAction_SelectedLocation,
+	kPadConfigAction_Reset,
 	kPadConfigAction_Exit,
 	kNumPadConfigActions
 } TMPadConfigActions;
@@ -31,6 +32,7 @@ typedef enum {
 	
 	ReceptorRow*			m_pReceptorRow;
 	LifeBar*				m_pLifeBar;
+	MenuItem*				m_pResetButton;
 	
 	TMPadConfigActions		m_nPadConfigAction;
 	TMAvailableTracks		m_nSelectedTrack;

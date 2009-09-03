@@ -36,6 +36,7 @@ typedef enum {
 
 // Reset method must be called on song start
 - (void) reset;
+- (void) resetToDefault;
 
 // Get state of particular button
 - (BOOL) getStateForButton:(JPButton) button;

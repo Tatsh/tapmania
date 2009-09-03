@@ -626,6 +626,5 @@ BOOL cfg_VisPad;
 			glDisable(GL_BLEND);
 		}
 	}
-	
 }
 @end
