@@ -9,6 +9,7 @@
 #import "SongsDirectoryCache.h"
 
 #import "TMSong.h"
+#import "VersionInfo.h"
 
 #include <CommonCrypto/CommonDigest.h>
 
@@ -347,7 +348,8 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	if([paths count] > 0) {
 		NSString * dir = [paths objectAtIndex:0]; 
-		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
+		NSString * catalogueName = [NSString stringWithFormat:kCatalogueFileName, TAPMANIA_CACHE_VERSION];
+		NSString* catalogueFile = [[dir stringByAppendingPathComponent:catalogueName] retain];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:catalogueFile]) {
 			return [[NSMutableDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:catalogueFile]];
@@ -363,7 +365,8 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	if([paths count] > 0) {
 		NSString * dir = [paths objectAtIndex:0]; 
-		NSString* catalogueFile = [[dir stringByAppendingPathComponent:kCatalogueFileName] retain];
+		NSString * catalogueName = [NSString stringWithFormat:kCatalogueFileName, TAPMANIA_CACHE_VERSION];
+		NSString* catalogueFile = [[dir stringByAppendingPathComponent:catalogueName] retain];
 
 		TMLog(@"Write catalogue to: %@", catalogueFile);
 		

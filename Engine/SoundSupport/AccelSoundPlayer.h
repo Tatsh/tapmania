@@ -24,8 +24,12 @@
 	AudioFileID						audioFile;
 	AudioStreamBasicDescription		dataFormat;
 	AudioQueueRef					queue;
+	
 	UInt64							packetIndex;
-	UInt32							numPacketsToRead;
+	UInt64							startAtPacketIndex;
+	UInt64							stopAtPacketIndex;
+	
+	UInt32							numPacketsToRead, maxPacketSize;
 	AudioStreamPacketDescription	*packetDescs;
 	AudioQueueBufferRef				buffers[NUM_QUEUE_BUFFERS];	
 	

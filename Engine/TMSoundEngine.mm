@@ -136,6 +136,8 @@ Exit:
 	
 	m_fMusicVolume = 1.0f;
 	m_fEffectsVolume = 1.0f;
+	m_bManualStart = NO;
+	
 	m_pQueue = new TMSoundQueue();
 
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
@@ -158,7 +160,7 @@ Exit:
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
 		@synchronized(self) {
-			if(!m_bPlayingSomething) {
+			if(!m_bPlayingSomething && !m_bManualStart) {
 				if(!m_pQueue->empty()) {
 					[self playMusic];
 				}
@@ -213,31 +215,22 @@ Exit:
 
 
 // Methods
-- (TMSound*) loadMusicFile:(NSString*)inPath {
-	TMSound* pSound = [[TMSound alloc] initWithPath:inPath];
-
-	// Don't want the queue manager thread to start playback automatically
-	m_bPlayingSomething = YES;
-	
-	[self addToQueue:pSound];
-	return pSound;
-}
-
 - (BOOL) addToQueue:(TMSound*)inObj {
 	
 	// Get a sound player for the track
 	AbstractSoundPlayer* pSoundPlayer = nil;
 	
-	if([[inObj.path lowercaseString] hasSuffix:@".ogg"]) {		
-		pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path];		
-	} else {
-		pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path];
-	}	
-	
 	// Check looping
+	BOOL isLooping = NO;
 	if([inObj isKindOfClass:[TMLoopedSound class]])
-		[pSoundPlayer setLoop:YES];
+		isLooping = YES;
 	
+	if([[inObj.path lowercaseString] hasSuffix:@".ogg"]) {		
+		pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
+	} else {
+		pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
+	}	
+		
 	// Set delegate
 	[pSoundPlayer delegate:inObj];
 	
@@ -247,6 +240,11 @@ Exit:
 	}
 	
 	return YES;
+}
+
+- (BOOL) addToQueueWithManualStart:(TMSound*)inObj {
+	m_bManualStart = YES;
+	[self addToQueue:inObj];
 }
 
 - (BOOL) removeFromQueue:(TMSound*)inObj {
@@ -279,10 +277,11 @@ Exit:
 			TMLog(@"Got player: %X", pPlayer);
 			[pPlayer setGain:m_fMusicVolume];
 			if([pPlayer play]) 
-				m_bPlayingSomething = YES;			
+				m_bPlayingSomething = YES;						
 		}
 	}
 	
+	m_bManualStart = NO;	// Drop the flag
 	return m_bPlayingSomething;	
 }
 
@@ -347,27 +346,26 @@ Exit:
 }
 
 - (BOOL) stopMusic {
+	AbstractSoundPlayer* pPlayer = nil;
+	
 	@synchronized(self) {
 		TMLog(@"Actually stopping the current track!");
 		
 		if( ! m_pQueue->empty() ) {
-			AbstractSoundPlayer* pPlayer = m_pQueue->front().second;
+			pPlayer = m_pQueue->front().second;
 			TMLog(@"Got player to stop: %X", pPlayer);
+		}
+	}
+	
+	if(pPlayer) {
+		[pPlayer stop];		
+		TMLog(@"Player stopped");
 			
-			[pPlayer stop];		
-			TMLog(@"Player stopped");
-			
-			// PlayingSomething flag will be set using a callback notification
-			
-			return YES;
-		} 
+		// PlayingSomething flag will be set using a callback notification
+		return YES;
 	}
 	
 	return NO;
-}
-
-- (BOOL) setMusicPosition:(float) inPosition {
-	return YES;
 }
 
 - (void) setMasterVolume:(float)gain {
@@ -387,10 +385,8 @@ Exit:
 
 /* TMSoundSupport delegate work */
 - (void) playBackStartedNotification {
-	@synchronized(self) {
 		TMLog(@"SOUNDENGINE: got notification about current track playback Started");
 		m_bPlayingSomething = YES;
-	}
 }
 
 - (void) playBackFinishedNotification {

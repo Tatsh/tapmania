@@ -14,7 +14,7 @@
 
 #import "AbstractRenderer.h"
 
-@class SongPickerMenuItem, TogglerItem, BasicEffect, MenuItem;
+@class SongPickerMenuItem, TMSound, TogglerItem, BasicEffect, MenuItem;
 
 #define kNumWheelItems 10
 #define kNumSwipePositions 10
@@ -28,6 +28,7 @@
 	BasicEffect*			m_pSpeedToggler;
 	BasicEffect*			m_pDifficultyToggler;
 	MenuItem*				m_pBackMenuItem;
+	TMSound*				m_pPreviewMusic;
 	
 	NSMutableArray*			m_pWheelItems;		// The wheel items
 	int						m_nCurrentSongId;	// Selected song index

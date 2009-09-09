@@ -112,6 +112,24 @@
 
 				free(data);
 			}
+			else if( !strcasecmp(varName, "SAMPLESTART") ) {
+				TMLog(@"SAMPLESTART...");
+				char* data = [DWIParser parseSectionWithFD:fd];
+				TMLog(@"is '%s'", data);
+				
+				song.m_fPreviewStart = (double) atof(data); 
+				
+				free(data);
+			}
+			else if( !strcasecmp(varName, "SAMPLELENGTH") ) {
+				TMLog(@"SAMPLELENGTH...");
+				char* data = [DWIParser parseSectionWithFD:fd];
+				TMLog(@"is '%s'", data);
+				
+				song.m_fPreviewDuration = (double) atof(data); 
+				
+				free(data);
+			}
 			else if( !strcasecmp(varName, "CHANGEBPM") || !strcasecmp(varName, "BPMCHANGE") ) {
 				TMLog(@"BPMCHANGE...");
 				char* data = [DWIParser parseSectionWithFD:fd];

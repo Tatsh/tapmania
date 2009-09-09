@@ -18,6 +18,7 @@
 #import "MainMenuRenderer.h"
 #import "PhysicsUtil.h"
 #import "TMSoundEngine.h"
+#import "TMLoopedSound.h"
 
 #import "SongPickerMenuItem.h"
 #import "TogglerItem.h"
@@ -81,7 +82,7 @@ Texture2D* t_ModPanel;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Stop currently playing music
-	[[TMSoundEngine sharedInstance] stopMusicFading:0.5f];
+	[[TMSoundEngine sharedInstance] stopMusic]; // Fading:0.5f];
 	
 	// Cache metrics
 	mt_SpeedTogglerX = [[ThemeManager sharedInstance] intMetric:@"SongPickerMenu SpeedToggler X"];
@@ -222,6 +223,11 @@ Texture2D* t_ModPanel;
 	
 	// Check whether we should start playing
 	if(m_bStartSongPlay){
+		
+		// Stop current previewMusic if any
+		if(m_pPreviewMusic) {
+			[[TMSoundEngine sharedInstance] stopMusic];			
+		}
 		
 		SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
 		TMSong* song = [selected song];
@@ -471,6 +477,19 @@ Texture2D* t_ModPanel;
 		}
 	}
 	
+	// Stop current previewMusic if any
+	if(m_pPreviewMusic) {
+		[[TMSoundEngine sharedInstance] stopMusic];			
+		[m_pPreviewMusic release];
+	}
+	
+	// Play preview music
+	NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
+	m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
+	
+	[[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pPreviewMusic];
+	[[TMSoundEngine sharedInstance] playMusic];
+	
 	// Mark released to prevent memleaks
 	[selected release];
 }
@@ -481,6 +500,11 @@ Texture2D* t_ModPanel;
 
 /* Handle back button */
 - (void) backButtonHit {
+	// Stop current previewMusic if any
+	if(m_pPreviewMusic) {
+		[[TMSoundEngine sharedInstance] stopMusic];			
+	}
+	
 	[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
 }
 

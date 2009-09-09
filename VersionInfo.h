@@ -13,6 +13,7 @@
 
 #define TAPMANIA_THEME_VERSION			0.1
 #define TAPMANIA_NOTESKIN_VERSION		0.1
+#define TAPMANIA_CACHE_VERSION			"0.1"
 
 #define TAPMANIA_COPYRIGHT				@"Copyright © 2008-2009 Godexsoft"
 

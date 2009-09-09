@@ -48,6 +48,7 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 @private 
 	BOOL		m_bStopRequested;
 	BOOL		m_bPlayingSomething;
+	BOOL		m_bManualStart;		// If set to true the soundengine will wait for us to invoke play manually
 }
 
 -(void) shutdownOpenAL;
@@ -56,8 +57,8 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 - (void) start;								// Start the sound engine thread
 - (void) stop;								// Stop the sound thread
 - (BOOL) addToQueue:(TMSound*)inObj;		// Adds a TMSound object to the queue
+- (BOOL) addToQueueWithManualStart:(TMSound*)inObj;	
 - (BOOL) removeFromQueue:(TMSound*)inObj;	// Removes the TMSound object from the queue if it was enqueued before
-- (TMSound*) loadMusicFile:(NSString*)inPath;	// Creates a TMSound object and ads to queue
 
 // Music playback control
 - (BOOL) playMusic;							// Starts playing the first element of the queue or continue if paused
@@ -66,7 +67,6 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 
 // Fade in/out support
 - (BOOL) stopMusicFading:(float)duration;		// Fade out music and stop it when done (removes the track from the queue)
-- (BOOL) setMusicPosition:(float) inPosition;	// Set the current position in the current track
 
 // Volume control
 - (void) setMasterVolume:(float)gain;

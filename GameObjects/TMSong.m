@@ -19,6 +19,7 @@
 @implementation TMSong
 
 @synthesize m_nFileType, m_sFilePath, m_sMusicFilePath, m_sSongDirName;
+@synthesize m_fPreviewStart, m_fPreviewDuration;
 @synthesize m_sHash;
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
@@ -147,6 +148,8 @@
 	self.m_sSongDirName = [[coder decodeObjectForKey:@"sdn"] retain];
 	self.m_sFilePath = [[coder decodeObjectForKey:@"fp"] retain];
 	self.m_sMusicFilePath = [[coder decodeObjectForKey:@"mp"] retain];
+	self.m_fPreviewStart = [coder decodeFloatForKey:@"ps"];
+	self.m_fPreviewDuration = [coder decodeFloatForKey:@"pd"];
 	self.m_sHash = [[coder decodeObjectForKey:@"ha"] retain];
 	self.m_nFileType = [coder decodeIntForKey:@"ft"];
 	
@@ -191,6 +194,8 @@
 	[coder encodeObject:m_sSongDirName forKey:@"sdn"];
 	[coder encodeObject:m_sFilePath forKey:@"fp"];
 	[coder encodeObject:m_sMusicFilePath forKey:@"mp"];	
+	[coder encodeFloat:m_fPreviewStart forKey:@"ps"];
+	[coder encodeFloat:m_fPreviewDuration forKey:@"pd"];
 	[coder encodeObject:m_sHash forKey:@"ha"];
 	[coder encodeInt:m_nFileType forKey:@"ft"];
 	

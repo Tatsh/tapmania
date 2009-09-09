@@ -29,7 +29,7 @@
 
 @implementation OGGSoundPlayer
 
-- (id) initWithFile:(NSString*)inFile {
+- (id) initWithFile:(NSString*)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop {
 	self = [super init];
 	if(!self)
 		return nil;

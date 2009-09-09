@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TMSongsLoaderSupport.h"
 
-#define kCatalogueFileName @"TapManiaCatalogue.plist"
+#define kCatalogueFileName @"TapManiaCatalogue_%s.plist"
 @class TMSong;
 
 @interface SongsDirectoryCache : NSObject {

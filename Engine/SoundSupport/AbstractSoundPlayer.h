@@ -23,7 +23,8 @@
 @property (assign, setter=delegate:, getter=delegate) id<TMSoundSupport> m_idDelegate;
 
 // Methods. throw exceptions here
-- (id) initWithFile:(NSString*)inFile;
+- (id) initWithFile:(NSString*)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop;
+- (void) primeBuffers;
 
 - (BOOL) play;		// Start playback
 - (void) pause;		// Pause playback

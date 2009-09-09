@@ -143,7 +143,9 @@ BOOL cfg_VisPad;
 	[t_Judgement reset];
 	[t_HoldJudgement reset];
 
-	m_pSound = [[TMSoundEngine sharedInstance] loadMusicFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
+	m_pSound = [[TMSound alloc] initWithPath:
+				[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:m_pSong.m_sMusicFilePath]];
+	[[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pSound];
 	
 	// Calculate starting offset for music playback
 	TMLog(@"Try to get first and last beat");

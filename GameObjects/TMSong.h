@@ -40,6 +40,8 @@ typedef enum {
 	
 	// Music file info
 	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
+	float			m_fPreviewStart;	// Preview music in song selection screen
+	float			m_fPreviewDuration;
 	
 	// Song information
 	NSString* 	m_sTitle;
@@ -65,6 +67,9 @@ typedef enum {
 @property (retain, nonatomic) NSString* m_sHash;
 
 @property (retain, nonatomic) NSString* m_sMusicFilePath;
+@property (assign) float m_fPreviewStart;
+@property (assign) float m_fPreviewDuration;
+
 
 @property (retain, nonatomic) NSString* m_sArtist;
 @property (retain, nonatomic, getter=title, setter=title:, readwrite) NSString* m_sTitle;

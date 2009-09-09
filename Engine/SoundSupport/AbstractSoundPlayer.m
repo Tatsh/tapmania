@@ -13,12 +13,14 @@
 
 @synthesize m_idDelegate;
 
-- (id) initWithFile:(NSString*)inFile {
+- (id) initWithFile:(NSString*)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop {
 	NSException *ex = [NSException exceptionWithName:@"AbstractClass" reason:@"This class should not be used directly" userInfo:nil];
 	@throw ex;
-
-	return nil;
+	
+	return nil;	
 }
+
+- (void) primeBuffers {};
 
 - (BOOL) play { return NO; }
 - (void) pause {}

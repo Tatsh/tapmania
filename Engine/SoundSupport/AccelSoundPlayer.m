@@ -16,6 +16,7 @@ static UInt32 gBufferSizeBytes = 131072;     // 128 KB buffers
 @interface AccelSoundPlayer (Private)
 
 static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer);
+- (id)initDefaults:(NSString *)path;
 - (void)callbackForBuffer:(AudioQueueBufferRef)buffer;
 - (UInt32)readPacketsIntoBuffer:(AudioQueueBufferRef)buffer;
 @end
@@ -26,9 +27,9 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 #pragma mark -
 #pragma mark GBMusicTrack - AccelSoundPlayer
-- (id)initWithFile:(NSString *)path
+- (id)initDefaults:(NSString *)path
 {
-	UInt32		size, maxPacketSize;
+	UInt32		size;
 	char		*cookie;
 	int			i;
 	
@@ -87,10 +88,124 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 		AudioQueueSetProperty(queue, kAudioQueueProperty_MagicCookie, cookie, size);
 		free(cookie);
 	}
+
+	m_bPaused = NO;
+	m_bLoop = NO;
+	m_fGain = 1.0f;	// Will probably be set by setGain
+	startAtPacketIndex = stopAtPacketIndex = packetIndex = 0; // By default we will start playing at the begining
+	
+	return self;
+}
+
+- (id) initWithFile:(NSString*)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop {
+	self = [self initDefaults:inFile];
+	if(!self)
+		return nil;
+	
+	m_bLoop = inLoop;
+	
+	if(inTime != 0) {
+	
+		// Need to translate from time to packet index
+		if (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0) {		
+			UInt32		numBytes, numPackets;
+			numPackets = numPacketsToRead;
+			
+			float		seekToTime = inTime;
+			void *		dummyData = malloc(maxPacketSize*numPackets);
+			
+			BOOL		doSeek = YES;
+			float		totalTime = 0;
+			
+			while(doSeek) {
+				AudioFileReadPackets(audioFile, NO, &numBytes, packetDescs, packetIndex, &numPackets, dummyData);
+				if (numPackets > 0) {
+					for(int i=0; i<numPackets; ++i) {
+						// Check this packet			
+						
+						if(packetDescs[i].mVariableFramesInPacket == 0) {
+							totalTime += dataFormat.mFramesPerPacket / dataFormat.mSampleRate;
+						} else {
+							totalTime += packetDescs[i].mVariableFramesInPacket / dataFormat.mSampleRate;
+						}
+						
+						if(totalTime < seekToTime) {
+							packetIndex += 1;
+						} else {
+							doSeek = NO;
+							break;
+						}
+					}
+				} else { doSeek = NO; }
+			}
+			
+			free(dummyData);
+			
+		} else {
+			float packetTime =  dataFormat.mFramesPerPacket / dataFormat.mSampleRate;
+			packetIndex = inTime/packetTime;
+		}
+	
+		// Save this position
+		startAtPacketIndex = packetIndex;		
+	}
+	
+	// Now handle duration
+	if(inDuration != 0.0f) {
+		
+		// Need to translate from time to packet index
+		if (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0) {		
+			UInt32		numBytes, numPackets;
+			numPackets = numPacketsToRead;
+			
+			float		seekToTime = inTime+inDuration;
+			void *		dummyData = malloc(maxPacketSize*numPackets);
+			
+			BOOL		doSeek = YES;
+			float		totalTime = 0;
+			
+			while(doSeek) {
+				AudioFileReadPackets(audioFile, NO, &numBytes, packetDescs, stopAtPacketIndex, &numPackets, dummyData);
+				if (numPackets > 0) {
+					for(int i=0; i<numPackets; ++i) {
+						// Check this packet			
+						
+						if(packetDescs[i].mVariableFramesInPacket == 0) {
+							totalTime += dataFormat.mFramesPerPacket / dataFormat.mSampleRate;
+						} else {
+							totalTime += packetDescs[i].mVariableFramesInPacket / dataFormat.mSampleRate;
+						}
+						
+						if(totalTime < seekToTime) {
+							stopAtPacketIndex += 1;
+						} else {
+							doSeek = NO;
+							break;
+						}
+					}
+				} else { doSeek = NO; }
+			}
+			
+			free(dummyData);
+			
+		} else {
+			float packetTime =  dataFormat.mFramesPerPacket / dataFormat.mSampleRate;
+			stopAtPacketIndex = startAtPacketIndex + inDuration/packetTime;
+		}		
+	}
+	
+	// TMLog(@"Start at packet: %d; stop at packet: %d; loop: %s", startAtPacketIndex, stopAtPacketIndex, m_bLoop?"YES":"NO");
+	
+	// Finally prime all the samples into our buffers
+	[self primeBuffers];
+	
+	return self;
+}
+
+- (void) primeBuffers {
 	// allocate and prime buffers with some data
-	packetIndex = 0;
-	for (i = 0; i < NUM_QUEUE_BUFFERS; i++)
-	{
+	int i;
+	for (i = 0; i < NUM_QUEUE_BUFFERS; i++) {
 		AudioQueueAllocateBuffer(queue, gBufferSizeBytes, &buffers[i]);
 		if ([self readPacketsIntoBuffer:buffers[i]] == 0)
 		{
@@ -98,18 +213,12 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 			break;
 		} 
 	}
-
-	m_bPaused = NO;
-	m_bLoop = NO;
-	m_fGain = 1.0f;	// Will probably be set by setGain
 	
 	// we would like to prime some frames so we are prepared to start directly
 	int framesPrimed;
 	AudioQueuePrime(queue, i, &framesPrimed);
 	
-	TMLog(@"Primed %d frames", framesPrimed);
-	
-	return self;
+	TMLog(@"Primed %d frames", framesPrimed);	
 }
 
 - (void) dealloc {
@@ -150,6 +259,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 - (BOOL)play
 {
+	TMLog(@"Play issued. starting at %d", packetIndex);
 	AudioQueueStart(queue, nil);
 	/*
 	if(!m_bLoop) {
@@ -189,7 +299,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	{
 		// End Of File reached, so rewind and refill the buffer using the beginning of the file instead
 		if(m_bLoop) {
-			packetIndex = 0;
+			packetIndex = startAtPacketIndex;
 			[self readPacketsIntoBuffer:buffer];
 		}
 	}
@@ -211,6 +321,13 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 		AudioQueueEnqueueBuffer(queue, buffer, (packetDescs ? numPackets : 0), packetDescs);
 		// move ahead to be ready for next time we need to read from the file
 		packetIndex += numPackets;
+		
+		if(stopAtPacketIndex!=0 && packetIndex >= stopAtPacketIndex) {
+			if(m_bLoop)
+				packetIndex = startAtPacketIndex;
+			else
+				return 0;
+		}
 	}
 	return numPackets;
 }
