@@ -108,7 +108,7 @@
 				TMLog(@"GAP...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_dGap = (double)atoi(data) / 1000.0f;
+				song.m_dGap = ((double)atoi(data)) / 1000.0;
 
 				free(data);
 			}

@@ -49,7 +49,10 @@ TapNote* t_TapNote;
 HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
 Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
 Texture2D* t_FingerTap;
-Texture2D* t_BG;
+Texture2D* t_BG, *t_Failed, *t_Cleared, *t_Ready, *t_Go;
+
+// Sounds
+TMSound   *sr_Failed, *sr_Cleared;
 
 int mt_ReceptorRowY;
 int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
@@ -86,7 +89,7 @@ BOOL cfg_VisPad;
 	mt_HalfOfArrowHeight = mt_ArrowHeight / 2.0f;
 	
 	cfg_VisPad = [[SettingsEngine sharedInstance] getBoolValue:@"vispad"];
-	
+
 	// Cache graphics
 	t_TapNote = (TapNote*)[[ThemeManager sharedInstance] skinTexture:@"DownTapNote"];
 	t_HoldNoteActive = (HoldNote*)[[ThemeManager sharedInstance] skinTexture:@"HoldBody DownActive"];
@@ -100,7 +103,16 @@ BOOL cfg_VisPad;
 	
 	t_FingerTap = [[ThemeManager sharedInstance] texture:@"Common FingerTap"];
 	t_BG = [[ThemeManager sharedInstance] texture:@"SongPlay Background"];
+	t_Failed = [[ThemeManager sharedInstance] texture:@"SongPlay Failed"];
+	t_Cleared = [[ThemeManager sharedInstance] texture:@"SongPlay Cleared"];
 	
+	t_Ready = [[ThemeManager sharedInstance] texture:@"SongPlay Ready"];
+	t_Go = [[ThemeManager sharedInstance] texture:@"SongPlay Go"];
+	
+	// And sounds
+	sr_Failed = [[ThemeManager sharedInstance] sound:@"SongPlay Failed"];
+	sr_Cleared = [[ThemeManager sharedInstance] sound:@"SongPlay Cleared"];
+		
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
@@ -129,8 +141,11 @@ BOOL cfg_VisPad;
 	[m_pSteps dump];
 #endif	
 	
+	m_bAutoPlay = NO;
+	
 	TMLog(@"Steps recieved by songplayrenderer");
 	
+	m_bFailed = NO;
 	m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 	
 	int i;
@@ -178,6 +193,8 @@ BOOL cfg_VisPad;
 	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];
 
 	m_bPlayingGame = YES;	
+	m_bDrawReady = YES;
+	m_bDrawGo = NO;
 }
 
 // Updates one frame of the gameplay
@@ -194,7 +211,7 @@ BOOL cfg_VisPad;
 			m_bMusicPlaybackStarted = YES;
 			[[TMSoundEngine sharedInstance] playMusic];
 		}
-	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit]) {
+	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit] || m_bFailed) {
 		// Should stop music and stop gameplay now
 		// TODO: some fadeout would be better
 		[[TMSoundEngine sharedInstance] stopMusic];
@@ -256,7 +273,7 @@ BOOL cfg_VisPad;
 		
 		TMNote* prevNote = nil;
 		
-		double lastHitTime = [m_pJoyPad getTouchTimeForButton:i] - m_dPlayBackStartTime;
+		double lastHitTime = [m_pJoyPad getTouchTimeForButton:i] - m_dPlayBackStartTime;		
 		BOOL testHit = NO;
 
 		// Check for hit?
@@ -285,6 +302,13 @@ BOOL cfg_VisPad;
 			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:m_pSong];
 			
 			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:m_pSong];
+			
+			if(m_bAutoPlay) {
+				if(fabsf(noteTime - elapsedTime) <= 0.03f) {
+					testHit = YES;
+					lastHitTime = elapsedTime;
+				}
+			}
 			
 			// Now for every bpmchange we must apply all bpmchange related offsets
 			while (nextBpmChangeNoteRow != -1 && nextBpmChangeNoteRow < note.m_nStartNoteRow) {
@@ -386,6 +410,10 @@ BOOL cfg_VisPad;
 			if(note.m_nType == kNoteType_HoldHead) {
 				double lastReleaseTime = [m_pJoyPad getReleaseTimeForButton:i] - m_dPlayBackStartTime;
 				
+				if(m_bAutoPlay) {
+					lastReleaseTime = lastHitTime-0.01f;
+				}
+				
 				if(note.m_bIsHit && !note.m_bIsHoldLost && !note.m_bIsHolding) {
 					// This means we released the hold but we still can catch it again
 					if(fabsf(elapsedTime - note.m_dLastHoldReleaseTime) >= 0.4f) {
@@ -468,6 +496,23 @@ BOOL cfg_VisPad;
 			lastNoteYPosition = noteYPosition;
 		}
 	}
+	
+	// Check lifebar
+	if([m_pLifeBar getCurrentValue] < kMinLifeToKeepAlive) {
+		TMLog(@"Life is drained! Stop gameplay.");
+		m_bFailed = YES;
+	}
+	
+	// Check ready/go sprites
+	if(elapsedTime >= kReadySpriteTime) {
+		m_bDrawReady = NO;
+	}
+	
+	if(!m_bDrawReady && elapsedTime <= kReadySpriteTime+kGoSpriteTime) {
+		m_bDrawGo = YES;
+	} else {
+		m_bDrawGo = NO;
+	}
 }
 
 // Renders one scene of the gameplay
@@ -477,7 +522,7 @@ BOOL cfg_VisPad;
 	[t_BG drawInRect:bounds];
 		
 	if(!m_bPlayingGame) return;
-
+	
 	// Draw the receptor row
 	[m_pReceptorRow render:fDelta];
 		
@@ -608,25 +653,68 @@ BOOL cfg_VisPad;
 				}
 			}
 		}
-
-		// Draw the lifebar above all notes
-		[m_pLifeBar render:fDelta];
-
-		// Draw the judgement
-		[t_Judgement render:fDelta];
-		[t_HoldJudgement render:fDelta];
+	}
+	
+	// Draw the lifebar above all notes
+	[m_pLifeBar render:fDelta];
+	
+	// Draw the judgement
+	[t_Judgement render:fDelta];
+	[t_HoldJudgement render:fDelta];
+	
+	// Draw the pad if requested
+	if(cfg_VisPad) {
+		glEnable(GL_BLEND);
 		
-		// Draw the pad if requested
-		if(cfg_VisPad) {
-			glEnable(GL_BLEND);
-
-			for(int i=0; i<kNumOfAvailableTracks; i++) {
-				Vector* pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:i];
-				[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
-			}
-
-			glDisable(GL_BLEND);
+		for(int i=0; i<kNumOfAvailableTracks; i++) {
+			Vector* pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:i];
+			[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
 		}
+		
+		glDisable(GL_BLEND);
+	}
+	
+	// Draw the ready/go sprites if necesarry
+	if(m_bDrawReady) {
+		glEnable(GL_BLEND);
+		[t_Ready drawAtPoint:CGPointMake(160, 240)];		
+		glDisable(GL_BLEND);		
+	} else if(m_bDrawGo) {
+		glEnable(GL_BLEND);
+		[t_Go drawAtPoint:CGPointMake(160, 240)];
+		glDisable(GL_BLEND);		
 	}
 }
+
+/* TMTransitionSupport methods */
+- (void) setupForTransition {
+}
+
+- (void) deinitOnTransition {
+}
+
+- (void) beforeTransition {
+	// Before we start the transition to the results screen.
+	// Good place to play some sounds and show some effects
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;
+	[t_BG drawInRect:bounds];
+	
+	if(m_bFailed) {
+		[[TMSoundEngine sharedInstance] playEffect:sr_Failed];
+
+		glEnable(GL_BLEND);
+		[t_Failed drawAtPoint:CGPointMake(160, 240)];
+		glDisable(GL_BLEND);
+	} else {
+		[[TMSoundEngine sharedInstance] playEffect:sr_Cleared];
+		
+		glEnable(GL_BLEND);
+		[t_Cleared drawAtPoint:CGPointMake(160, 240)];
+		glDisable(GL_BLEND);
+	}
+	
+	[[[TapMania sharedInstance] glView] swapBuffers];		
+	[NSThread sleepForTimeInterval:1.5f];		
+}
+
 @end

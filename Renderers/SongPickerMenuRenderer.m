@@ -63,6 +63,8 @@ Texture2D* t_SongPickerBG;
 Texture2D* t_Highlight;
 Texture2D* t_ModPanel;
 
+TMSound* sr_SelectSong;
+
 - (void) dealloc {
 	
 	// Explicitly deallocate memory
@@ -122,6 +124,9 @@ Texture2D* t_ModPanel;
 	t_SongPickerBG = [[ThemeManager sharedInstance] texture:@"SongPicker Background"];
 	t_Highlight = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel Highlight"];
 	t_ModPanel = [[ThemeManager sharedInstance] texture:@"SongPicker Top"];
+	
+	// And sounds
+	sr_SelectSong = [[ThemeManager sharedInstance] sound:@"SongPicker SelectSong"];
 	
 	m_pWheelItems = [[NSMutableArray alloc] initWithCapacity:kNumWheelItems];
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
@@ -228,6 +233,9 @@ Texture2D* t_ModPanel;
 		if(m_pPreviewMusic) {
 			[[TMSoundEngine sharedInstance] stopMusic];			
 		}
+			
+		// Play select sound effect
+		[[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
 		
 		SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
 		TMSong* song = [selected song];
