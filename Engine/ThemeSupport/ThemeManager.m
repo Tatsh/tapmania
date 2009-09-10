@@ -163,6 +163,31 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	return [[NSString stringWithString:(NSString*)node] autorelease];
 }
 
+- (CGRect) rectMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGRectMake(0, 0, 0, 0); // Defualt value
+
+	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
+	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
+	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
+	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
+	
+	return CGRectMake(x, y, width, height);
+}
+
+- (CGPoint) pointMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGPointMake(0, 0); // Defualt value
+	
+	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
+	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
+	
+	return CGPointMake(x, y);
+}
+
+
 - (Texture2D*) texture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentThemeResources getResource:textureKey];
 	

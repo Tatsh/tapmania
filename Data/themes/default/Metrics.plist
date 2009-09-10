@@ -3,21 +3,42 @@
 <plist version="1.0">
 <dict>
 	<key>ThemeSystemVersion</key>
-	<real>0.1</real>
+	<real>0.2</real>
 	<key>MainMenu</key>
 	<dict>
-		<key>ButtonsHeight</key>
-		<integer>46</integer>
-		<key>ButtonsWidth</key>
-		<integer>200</integer>
-		<key>ButtonsX</key>
-		<integer>60</integer>
-		<key>CreditsButtonY</key>
-		<integer>100</integer>
-		<key>OptionsButtonY</key>
-		<integer>150</integer>
-		<key>PlayButtonY</key>
-		<integer>200</integer>
+		<key>PlayButton</key>
+		<dict>
+			<key>X</key>
+			<integer>60</integer>
+			<key>Y</key>
+			<integer>200</integer>
+			<key>Width</key>
+			<integer>200</integer>
+			<key>Height</key>
+			<integer>46</integer>
+		</dict>
+		<key>OptionsButton</key>
+		<dict>
+			<key>X</key>
+			<integer>60</integer>
+			<key>Y</key>
+			<integer>150</integer>
+			<key>Width</key>
+			<integer>200</integer>
+			<key>Height</key>
+			<integer>46</integer>
+		</dict>
+		<key>CreditsButton</key>
+		<dict>
+			<key>X</key>
+			<integer>60</integer>
+			<key>Y</key>
+			<integer>100</integer>
+			<key>Width</key>
+			<integer>200</integer>
+			<key>Height</key>
+			<integer>46</integer>
+		</dict>
 	</dict>
 	<key>OptionsMenu</key>
 	<dict>

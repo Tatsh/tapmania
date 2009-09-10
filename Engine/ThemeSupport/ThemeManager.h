@@ -47,6 +47,8 @@
 - (int) intMetric:(NSString*) metricKey;
 - (float) floatMetric:(NSString*) metricKey;
 - (NSString*) stringMetric:(NSString*) metricKey;
+- (CGRect) rectMetric:(NSString*) metricKey;
+- (CGPoint) pointMetric:(NSString*) metricKey;
 
 /* Theme stuff */
 - (TMSound*) sound:(NSString*) soundKey;

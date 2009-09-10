@@ -55,11 +55,8 @@
 
 @implementation MainMenuRenderer
 
-int mt_PlayButtonY, mt_OptionsButtonY, mt_CreditsButtonY, mt_MenuButtonsX;
-int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
-int mt_Mass, mt_Gravity;
-Texture2D *t_BG;
-Texture2D *t_Donate;
+CGRect mt_PlayButtonRect, mt_OptionsButtonRect, mt_CreditsButtonRect;
+Texture2D *t_BG, *t_Donate;
 TMSound   *sr_BG;
 
 - (void) dealloc {
@@ -72,22 +69,16 @@ TMSound   *sr_BG;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	// Cache metrics
-	mt_PlayButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu PlayButtonY"];
-	mt_OptionsButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu OptionsButtonY"];
-	mt_CreditsButtonY = [[ThemeManager sharedInstance] intMetric:@"MainMenu CreditsButtonY"];
-	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsX"];	
-	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsWidth"];
-	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonsHeight"];
-	
-	mt_Mass = [[ThemeManager sharedInstance] intMetric:@"MainMenu ButtonMass"];
-	mt_Gravity = [[ThemeManager sharedInstance] intMetric:@"MainMenu Gravity"];
-	
+	mt_PlayButtonRect = RECT_METRIC(@"MainMenu PlayButton");
+	mt_OptionsButtonRect = RECT_METRIC(@"MainMenu OptionsButton");
+	mt_CreditsButtonRect = RECT_METRIC(@"MainMenu CreditsButton");
+		
 	// Preload all required graphics
-	t_BG = [[ThemeManager sharedInstance] texture:@"MainMenu Background"];
-	t_Donate = [[ThemeManager sharedInstance] texture:@"Common Donate"];
+	t_BG = TEXTURE(@"MainMenu Background");
+	t_Donate = TEXTURE(@"Common Donate");
 	
 	// And sounds
-	sr_BG = [[ThemeManager sharedInstance] sound:@"MainMenu Music"];
+	sr_BG = SOUND(@"MainMenu Music");
 	
 	// No item selected by default
 	m_nSelectedMenu = (MainMenuItem)-1;
@@ -109,7 +100,7 @@ TMSound   *sr_BG;
 	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
 		m_pPlayButton = 
 		[[SlideEffect alloc] initWithRenderable:
-		  [[MenuItem alloc] initWithTitle:@"No Songs" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];						
+		  [[MenuItem alloc] initWithTitle:@"No Songs" andShape:mt_PlayButtonRect]];						
 		
 		[m_pPlayButton disable];
 	} else {
@@ -117,7 +108,7 @@ TMSound   *sr_BG;
 		m_pPlayButton = 
 		[[SlideEffect alloc] initWithRenderable:
 		 [[ZoomEffect alloc] initWithRenderable:
-		  [[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];								
+		  [[MenuItem alloc] initWithTitle:@"Play" andShape:mt_PlayButtonRect]]];								
 	}
 
 	[self pushBackControl:m_pPlayButton];
@@ -125,19 +116,19 @@ TMSound   *sr_BG;
 	m_pOptionsButton = 
 	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:
-	  [[MenuItem alloc] initWithTitle:@"Options" andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	  [[MenuItem alloc] initWithTitle:@"Options" andShape:mt_OptionsButtonRect]]];
 	[self pushBackControl:m_pOptionsButton];
 	
 	m_pCreditsButton =
 	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:
-	  [[MenuItem alloc] initWithTitle:@"Credits" andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	  [[MenuItem alloc] initWithTitle:@"Credits" andShape:mt_CreditsButtonRect]]];
 	[self pushBackControl:m_pCreditsButton];
 	
 	// Setup sliding animation
-	[(SlideEffect*)(m_pPlayButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
-	[(SlideEffect*)(m_pOptionsButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
-	[(SlideEffect*)(m_pCreditsButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_CreditsButtonY)];
+	[(SlideEffect*)(m_pPlayButton) destination: CGPointMake(-mt_PlayButtonRect.size.width, mt_PlayButtonRect.origin.y)];
+	[(SlideEffect*)(m_pOptionsButton) destination: CGPointMake(-mt_OptionsButtonRect.size.width, mt_OptionsButtonRect.origin.y)];
+	[(SlideEffect*)(m_pCreditsButton) destination: CGPointMake(-mt_CreditsButtonRect.size.width, mt_CreditsButtonRect.origin.y)];
 	
 	[(SlideEffect*)(m_pPlayButton) effectTime: 0.4f];
 	[(SlideEffect*)(m_pOptionsButton) effectTime: 0.4f];
