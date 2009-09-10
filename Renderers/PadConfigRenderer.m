@@ -31,45 +31,27 @@
 
 @implementation PadConfigRenderer
 
-Texture2D* t_PadConfigBG;
-Texture2D* t_FingerTap;
-
-TapNote* t_TapNote;
-
-int mt_ReceptorRowX, mt_ReceptorRowY;
-int mt_TapNoteHeight, mt_TapNoteWidth, mt_TapNoteSpacing;
-int mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight;
-int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
-
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	[super setupForTransition];
+	
 	// Cache graphics
-	t_PadConfigBG = [[ThemeManager sharedInstance] texture:@"PadConfig Background"];
-	t_FingerTap = [[ThemeManager sharedInstance] texture:@"Common FingerTap"];
-	t_TapNote = (TapNote*)[[ThemeManager sharedInstance] skinTexture:@"DownTapNote"];
+	t_PadConfigBG =		TEXTURE(@"PadConfig Background");
+	t_FingerTap =		TEXTURE(@"Common FingerTap");
+	t_TapNote =			(TapNote*)SKIN_TEXTURE(@"DownTapNote");
 		
 	// Cache metrics
-	mt_ReceptorRowX = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow X"];
-	mt_ReceptorRowY = [[ThemeManager sharedInstance] intMetric:@"SongPlay ReceptorRow Y"];
-	
-	mt_TapNoteWidth = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Width"];
-	mt_TapNoteHeight = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Height"];
-	mt_TapNoteSpacing = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Spacing"]; 
-	
-	mt_LifeBarX =		[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar X"];
-	mt_LifeBarY =		[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Y"];
-	mt_LifeBarWidth =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Width"];
-	mt_LifeBarHeight =	[[ThemeManager sharedInstance] intMetric:@"SongPlay LifeBar Height"];
-	
-	mt_ResetButtonX = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton X"];
-	mt_ResetButtonY = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Y"];
-	mt_ResetButtonWidth = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Width"];
-	mt_ResetButtonHeight = [[ThemeManager sharedInstance] intMetric:@"PadConfig ResetButton Height"];
+	mt_ResetButton =	RECT_METRIC(@"PadConfig ResetButton");
+	mt_ReceptorRow =	POINT_METRIC(@"SongPlay ReceptorRow");
+	mt_LifeBar	=		RECT_METRIC(@"SongPlay LifeBar");
+
+	mt_TapNoteSize =	SIZE_METRIC(@"SongPlay TapNote");
+	mt_TapNoteSpacing = INT_METRIC(@"SongPlay TapNote Spacing"); 	
 	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		m_oReceptorButtons[i] = CGRectMake(mt_ReceptorRowX + (mt_TapNoteWidth+mt_TapNoteSpacing)*i, 
-										   mt_ReceptorRowY, mt_TapNoteWidth, mt_TapNoteHeight);
+		m_oReceptorButtons[i] = CGRectMake(mt_ReceptorRow.x + (mt_TapNoteSize.width + mt_TapNoteSpacing)*i, 
+										   mt_ReceptorRow.y, mt_TapNoteSize.width, mt_TapNoteSize.height);
 	}		
 	
 	// Start with no action. means we must select a receptor arrow
@@ -80,44 +62,37 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
 	// Init the lifebar
-	m_pLifeBar = [[LifeBar alloc] initWithRect:CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight)];
+	m_pLifeBar = [[LifeBar alloc] initWithRect:mt_LifeBar];
 	
 	// Reset the joyPad to hold currently configured locations
 	[[TapMania sharedInstance].joyPad reset];
 	
 	// Create a reset button
 	m_pResetButton = [[ZoomEffect alloc] initWithRenderable:
-					  [[MenuItem alloc] initWithTitle:@"Reset" andShape:CGRectMake(mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight)]];
+					  [[MenuItem alloc] initWithTitle:@"Reset" andShape:mt_ResetButton]];
 	[m_pResetButton setActionHandler:@selector(resetButtonHit) receiver:self];
-	
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:m_pResetButton];
+
+	// Add children and subscribe for input
 	[[InputEngine sharedInstance] subscribe:self];
-	
-	// Add stuff to runloop
-	[[TapMania sharedInstance] registerObject:m_pResetButton withPriority:kRunLoopPriority_NormalLower];
-	
+	[self pushBackChild:m_pLifeBar];
+	[self pushBackChild:m_pReceptorRow];
+	[self pushBackControl:m_pResetButton];	
+		
 	// Remove ads for this time
 	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void) deinitOnTransition {
+	[super deinitOnTransition];
+		
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
-	[[InputEngine sharedInstance] unsubscribe:m_pResetButton];
-	
-	// Remove from runloop
-	[[TapMania sharedInstance] deregisterObject:m_pResetButton];
 
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void) dealloc {
-	[m_pReceptorRow release];
-	[m_pLifeBar release];
-	[m_pResetButton release];
-	
 	if(m_pFingerTap) {
 		[m_pFingerTap release];
 	}
@@ -132,12 +107,9 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 	//Draw background
 	[t_PadConfigBG drawInRect:bounds];
 
-	// Draw the lifebar (exit button)
-	[m_pLifeBar render:fDelta];
-	
-	// Draw the receptor row
-	[m_pReceptorRow render:fDelta];
-	
+	// Draw children
+	[super render:fDelta];
+		
 	// Draw the fingertap if any
 	if(m_pFingerTap) {
 		glEnable(GL_BLEND);
@@ -147,7 +119,12 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 }
 
 /* TMLogicUpdater method */
-- (void) update:(float)fDelta {
+- (void) update:(float)fDelta {	
+
+	// Show the reset button if no track is selected
+	if(m_nPadConfigAction == kPadConfigAction_None) {
+		[m_pResetButton show];	
+	}
 	
 	if(m_nPadConfigAction == kPadConfigAction_Exit) {
 		// Exit to options menu
@@ -177,7 +154,7 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 		m_nPadConfigAction = kPadConfigAction_None;
 	}
 
-	[m_pReceptorRow update:fDelta];
+	[super update:fDelta];
 }
 
 /* TMGameUIResponder methods */
@@ -191,14 +168,14 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 		for(i=0; i<kNumOfAvailableTracks; ++i) {
 			if(CGRectContainsPoint(m_oReceptorButtons[i], pointGl)) {
 				m_nPadConfigAction = kPadConfigAction_SelectedTrack;
-				m_nSelectedTrack = i;	// Save the track number we touched
+				m_nSelectedTrack = (TMAvailableTracks)i;	// Save the track number we touched
 			
 				return;
 			}
 		}
 		
 		// If none of the receptor arrows was touched
-		if(CGRectContainsPoint(CGRectMake(mt_LifeBarX, mt_LifeBarY, mt_LifeBarWidth, mt_LifeBarHeight), pointGl)) {
+		if(CGRectContainsPoint(mt_LifeBar, pointGl)) {
 			m_nPadConfigAction = kPadConfigAction_Exit;
 			
 		} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {			
@@ -206,7 +183,6 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 			[[TapMania sharedInstance].joyPad setJoyPadButton:m_nSelectedTrack onLocation:pointGl];
 			
 			m_nPadConfigAction = kPadConfigAction_None;
-			[m_pResetButton show];
 			m_pFingerTap = nil;
 		} 
 	}		
@@ -214,7 +190,8 @@ int mt_ResetButtonX, mt_ResetButtonY, mt_ResetButtonWidth, mt_ResetButtonHeight;
 
 /* Input handlers */
 - (void) resetButtonHit {
-	m_nPadConfigAction = kPadConfigAction_Reset;
+	if(m_nPadConfigAction == kPadConfigAction_None)
+		m_nPadConfigAction = kPadConfigAction_Reset;
 }
 
 

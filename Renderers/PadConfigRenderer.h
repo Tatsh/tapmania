@@ -6,15 +6,12 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
+#import "TMScreen.h"
 #import "TMGameUIResponder.h"
 
 #import "TMSteps.h"
 
-@class TMRunLoop, ReceptorRow, LifeBar, MenuItem, Vector;
+@class TMRunLoop, ReceptorRow, LifeBar, MenuItem, Vector, Texture2D, TapNote;
 
 typedef enum {
 	kPadConfigAction_None = 0,
@@ -26,7 +23,7 @@ typedef enum {
 	kNumPadConfigActions
 } TMPadConfigActions;
 
-@interface PadConfigRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface PadConfigRenderer : TMScreen <TMGameUIResponder> {
 	CGRect					m_oReceptorButtons[kNumOfAvailableTracks];
 	Vector*					m_pFingerTap;
 	
@@ -36,6 +33,17 @@ typedef enum {
 	
 	TMPadConfigActions		m_nPadConfigAction;
 	TMAvailableTracks		m_nSelectedTrack;
+	
+	/* Metrics and such */
+	Texture2D* t_PadConfigBG;
+	Texture2D* t_FingerTap;
+	
+	TapNote* t_TapNote;
+	
+	CGSize  mt_TapNoteSize;
+	int		mt_TapNoteSpacing;
+	CGRect	mt_LifeBar, mt_ResetButton;
+	CGPoint mt_ReceptorRow;
 }
 
 @end

@@ -187,6 +187,16 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	return CGPointMake(x, y);
 }
 
+- (CGSize) sizeMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGSizeMake(0, 0); // Defualt value
+	
+	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
+	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
+	
+	return CGSizeMake(width, height);
+}
 
 - (Texture2D*) texture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentThemeResources getResource:textureKey];

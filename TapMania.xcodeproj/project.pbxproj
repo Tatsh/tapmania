@@ -316,7 +316,7 @@
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
 		2472672C0EE97DDC00D501AF /* ReceptorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReceptorRow.m; path = Renderers/UIElements/ReceptorRow.m; sourceTree = "<group>"; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
-		2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PadConfigRenderer.m; path = Renderers/PadConfigRenderer.m; sourceTree = "<group>"; };
+		2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.m; path = Renderers/PadConfigRenderer.m; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
 		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMChangeSegment.m; sourceTree = "<group>"; };
 		248547590EE56C1700AD4FAB /* BasicTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicTransition.h; sourceTree = "<group>"; };
