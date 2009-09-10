@@ -29,6 +29,8 @@
 		m_nExplosion[i] = kExplosionTypeNone;
 	}
 	
+	mt_ReceptorExplosionMaxShowTime = FLOAT_METRIC(@"SongPlay ReceptorRow Explosion MaxShowTime");
+	
 	// Cache textures
 	t_GoReceptor = (Receptor*)SKIN_TEXTURE(@"DownGoReceptor");
 	t_ExplosionDim = SKIN_TEXTURE(@"DownTapExplosionDim");
