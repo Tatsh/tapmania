@@ -55,10 +55,6 @@
 
 @implementation MainMenuRenderer
 
-CGRect mt_PlayButtonRect, mt_OptionsButtonRect, mt_CreditsButtonRect;
-Texture2D *t_BG, *t_Donate;
-TMSound   *sr_BG;
-
 - (void) dealloc {
 	if(m_pDialog)
 		[m_pDialog release];
@@ -68,6 +64,8 @@ TMSound   *sr_BG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	[super setupForTransition];
+	
 	// Cache metrics
 	mt_PlayButtonRect = RECT_METRIC(@"MainMenu PlayButton");
 	mt_OptionsButtonRect = RECT_METRIC(@"MainMenu OptionsButton");

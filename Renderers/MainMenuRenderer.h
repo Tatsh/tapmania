@@ -11,7 +11,7 @@
 #import "TMGameUIResponder.h"
 #import "TMScreen.h"
 
-@class MenuItem, ImageButton, Label, DialogRenderer;
+@class MenuItem, ImageButton, Label, DialogRenderer, TMSound, Texture2D;
 
 typedef enum {
 	kMainMenuItem_Play = 0,
@@ -35,6 +35,11 @@ typedef enum {
 	DialogRenderer* m_pDialog;
 	
 	MenuItem*		m_pPlayButton, *m_pOptionsButton, *m_pCreditsButton;
+	
+	/* Metrics and such */
+	CGRect mt_PlayButtonRect, mt_OptionsButtonRect, mt_CreditsButtonRect;
+	Texture2D *t_BG, *t_Donate;
+	TMSound   *sr_BG;	
 }
 
 @end

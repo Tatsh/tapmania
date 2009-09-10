@@ -573,7 +573,7 @@
 		24F15EB70EC31E4700755788 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Renderers/UIElements/MenuItem.h; sourceTree = "<group>"; };
 		24F15EB80EC31E4700755788 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Renderers/UIElements/MenuItem.m; sourceTree = "<group>"; };
 		24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionsMenuRenderer.h; path = Renderers/OptionsMenuRenderer.h; sourceTree = "<group>"; };
-		24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionsMenuRenderer.m; path = Renderers/OptionsMenuRenderer.m; sourceTree = "<group>"; };
+		24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OptionsMenuRenderer.m; path = Renderers/OptionsMenuRenderer.m; sourceTree = "<group>"; };
 		24F161130EC348B100755788 /* CreditsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditsRenderer.h; path = Renderers/CreditsRenderer.h; sourceTree = "<group>"; };
 		24F161140EC348B100755788 /* CreditsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditsRenderer.m; path = Renderers/CreditsRenderer.m; sourceTree = "<group>"; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };

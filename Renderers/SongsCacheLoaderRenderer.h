@@ -6,16 +6,12 @@
 //  Copyright 2008-2009 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#import "TMLogicUpdater.h"
+#import "TMScreen.h"
 #import "TMSongsLoaderSupport.h"
-#import "TMTransitionSupport.h"
-#import "TMRenderable.h"
 
 @class Texture2D;
 
-@interface SongsCacheLoaderRenderer : NSObject <TMRenderable, TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
+@interface SongsCacheLoaderRenderer : TMScreen <TMSongsLoaderSupport> {
 	BOOL	m_bAllSongsLoaded;
 	BOOL	m_bTransitionIsDone;
 	BOOL	m_bGlobalError;

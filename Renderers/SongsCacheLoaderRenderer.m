@@ -73,10 +73,11 @@ TMSound*   sr_BG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
-	// Cache textures
-	t_SongsLoaderBG = [[ThemeManager sharedInstance] texture:@"SongsLoader Background"];
+	[super setupForTransition];
 	
-	sr_BG = [[ThemeManager sharedInstance] sound:@"SongsLoader Music"];
+	// Cache textures
+	t_SongsLoaderBG = TEXTURE(@"SongsLoader Background");
+	sr_BG = SOUND(@"SongsLoader Music");
 	
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
 	m_pLock = [[NSLock alloc] init];
@@ -89,9 +90,6 @@ TMSound*   sr_BG;
 	
 	// Start the song cache thread
 	[m_pThread start];
-}
-
-- (void) deinitOnTransition {
 }
 
 - (void) beforeTransition {
@@ -110,6 +108,9 @@ TMSound*   sr_BG;
 	// Draw background
 	[t_SongsLoaderBG drawInRect:bounds];
 
+	// Render children (if any will be born here someday)
+	[super render:fDelta];
+	
 	[m_pLock lock];
 	if(m_pCurrentTexture != nil) {
 		glEnable(GL_BLEND);
@@ -123,6 +124,8 @@ TMSound*   sr_BG;
 
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {	
+	[super update:fDelta];
+	
 	static double tickCounter = 0.0;
 	
 	if(m_bAllSongsLoaded && m_bTransitionIsDone) {

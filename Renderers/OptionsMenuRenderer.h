@@ -6,24 +6,9 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TMScreen.h"
 
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
-#import "TMGameUIResponder.h"
-
-@class MenuItem;
-@class Label;
-
-typedef enum {
-	kOptionsLabel_SoundMaster = 0,
-	kOptionsLabel_FingerTracking,
-	kOptionsLabel_VisiblePad,
-	kOptionsLabel_Theme,
-	kOptionsLabel_NoteSkin,
-	kNumOptionsLabels
-} OptionsLabels;
+@class MenuItem, Slider, TogglerItem;
 
 typedef enum {
 	kOptionsMenuItem_SoundMaster = 0,
@@ -44,13 +29,24 @@ typedef enum {
 	kOptionsMenuState_None
 } OptionsMenuState;
 
-@interface OptionsMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface OptionsMenuRenderer : TMScreen {
 	OptionsMenuItem		m_nSelectedMenu;
 	OptionsMenuState	m_nState;
 	double				m_dAnimationTime;
-
-	Label*				m_pLabels[kNumOptionsLabels];
-	MenuItem*			m_pOptionsMenuItems[kNumOptionsMenuItems];
+	
+	TogglerItem*		m_pThemeToggler, *m_pNoteSkinToggler, *m_pFingerTrackToggler, *m_pVisPadToggler;
+	Slider*				m_pSoundSlider;
+	MenuItem*			m_pBackButton;
+	
+	/* Metrics and such */
+	CGRect mt_PadConfigButton, mt_SongManagerButton, mt_BackButton;
+	CGRect mt_NoteSkinLabel, mt_NoteSkinToggler;
+	CGRect mt_ThemeLabel, mt_ThemeToggler;
+	CGRect mt_SoundLabel, mt_SoundSlider;
+	CGRect mt_FingerTrackingLabel, mt_VisiblePadLabel;
+	CGRect mt_FingerTrackingToggler, mt_VisiblePadToggler;
+	
+	Texture2D *t_BG;
 }
 
 @end

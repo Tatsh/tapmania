@@ -43,235 +43,150 @@
 
 @implementation OptionsMenuRenderer
 
-int mt_PadConfigButtonY, mt_SongManagerConfigButtonY;
-int mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_ThemeTogglerX, mt_ThemeTogglerY, mt_BackButtonY, mt_MenuButtonsX;
-int mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth;
-int mt_SoundLabelX, mt_SoundLabelY, mt_NoteSkinLabelX, mt_NoteSkinLabelY, mt_ThemeLabelX, mt_ThemeLabelY;
-int mt_FingerTrackingLabelX, mt_FingerTrackingLabelY, mt_VisiblePadLabelX, mt_VisiblePadLabelY;
-int mt_VisiblePadTogglerX, mt_VisiblePadTogglerY, mt_FingerTrackingTogglerX, mt_FingerTrackingTogglerY;
-int mt_MenuButtonsWidth, mt_MenuButtonsHeight;
-
-Texture2D *t_BG;
-
-- (void) dealloc {
-	// Release menu items
-	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_SongManager] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_Back] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] release];
-	[m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] release];
-	
-	[m_pLabels[kOptionsLabel_SoundMaster] release];
-	[m_pLabels[kOptionsLabel_Theme] release];
-	[m_pLabels[kOptionsLabel_NoteSkin] release];
-	[m_pLabels[kOptionsLabel_FingerTracking] release];
-	[m_pLabels[kOptionsLabel_VisiblePad] release];
-	
-	[super dealloc];
-}
-
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	[super setupForTransition];
+	
 	// Cache metrics
-	mt_PadConfigButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu PadConfigButtonY"];
-	mt_SongManagerConfigButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SongManagerButtonY"];
-	mt_NoteSkinTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerX"];
-	mt_NoteSkinTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinTogglerY"];
-	mt_ThemeTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeTogglerX"];
-	mt_ThemeTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeTogglerY"];
-	mt_BackButtonY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu BackButtonY"];
-
-	mt_SoundSliderX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderX"];
-	mt_SoundSliderY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundSliderY"];
-	
-	mt_VisiblePadTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadTogglerX"];
-	mt_VisiblePadTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadTogglerY"];
-	
-	mt_FingerTrackingTogglerX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingTogglerX"];
-	mt_FingerTrackingTogglerY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingTogglerY"];
-	
-	mt_SoundLabelX  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelX"];
-	mt_SoundLabelY  = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu SoundLabelY"];
-	mt_NoteSkinLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelX"];
-	mt_NoteSkinLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu NoteSkinLabelY"];
-	mt_ThemeLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelX"];
-	mt_ThemeLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ThemeLabelY"];
-	mt_FingerTrackingLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingLabelX"];
-	mt_FingerTrackingLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu FingerTrackingLabelY"];
-	mt_VisiblePadLabelX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadLabelX"];
-	mt_VisiblePadLabelY = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu VisiblePadLabelY"];
-	
-	mt_MenuButtonsX = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsX"];	
-	mt_MenuButtonsWidth = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsWidth"];
-	mt_MenuButtonsHeight = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu ButtonsHeight"];
-	mt_TogglersWidth = [[ThemeManager sharedInstance] intMetric:@"OptionsMenu TogglersWidth"];
+	mt_PadConfigButton =		RECT_METRIC(@"OptionsMenu PadConfigButton");
+	mt_SongManagerButton =		RECT_METRIC(@"OptionsMenu SongManagerButton");
+	mt_BackButton =				RECT_METRIC(@"OptionsMenu BackButton");
+	mt_NoteSkinLabel =			RECT_METRIC(@"OptionsMenu NoteSkinLabel");
+	mt_NoteSkinToggler =		RECT_METRIC(@"OptionsMenu NoteSkinToggler");
+	mt_ThemeLabel =				RECT_METRIC(@"OptionsMenu ThemeLabel");
+	mt_ThemeToggler =			RECT_METRIC(@"OptionsMenu ThemeToggler");
+	mt_SoundLabel =				RECT_METRIC(@"OptionsMenu SoundLabel");
+	mt_SoundSlider =			RECT_METRIC(@"OptionsMenu SoundSlider");
+	mt_FingerTrackingLabel =	RECT_METRIC(@"OptionsMenu FingerTrackingLabel");
+	mt_VisiblePadLabel =		RECT_METRIC(@"OptionsMenu VisiblePadLabel");
+	mt_FingerTrackingToggler =	RECT_METRIC(@"OptionsMenu FingerTrackingToggler");
+	mt_VisiblePadToggler =		RECT_METRIC(@"OptionsMenu VisiblePadToggler");
 	
 	// Preload all required graphics
-	t_BG = [[ThemeManager sharedInstance] texture:@"OptionsMenu Background"];
+	t_BG =						TEXTURE(@"OptionsMenu Background");
 	
 	// No item selected by default
-	m_nSelectedMenu = -1;
+	m_nSelectedMenu = (OptionsMenuItem)-1;
 	m_nState = kOptionsMenuState_Ready;
 	m_dAnimationTime = 0.0;	
-	
-	m_pLabels[kOptionsLabel_SoundMaster] = [[Label alloc] initWithTitle:@"Sound:" andShape:CGRectMake(mt_SoundLabelX, mt_SoundLabelY, 70.0f, mt_MenuButtonsHeight)];
-	m_pLabels[kOptionsLabel_Theme] = [[Label alloc] initWithTitle:@"Theme:" andShape:CGRectMake(mt_ThemeLabelX, mt_ThemeLabelY, 70.0f, mt_MenuButtonsHeight)];
-	m_pLabels[kOptionsLabel_NoteSkin] = [[Label alloc] initWithTitle:@"Noteskin:" andShape:CGRectMake(mt_NoteSkinLabelX, mt_NoteSkinLabelY, 80.0f, mt_MenuButtonsHeight)];
-	m_pLabels[kOptionsLabel_FingerTracking] = [[Label alloc] initWithTitle:@"Autotrack:" andShape:CGRectMake(mt_FingerTrackingLabelX, mt_FingerTrackingLabelY, 90.0f, mt_MenuButtonsHeight)];
-	m_pLabels[kOptionsLabel_VisiblePad] = [[Label alloc] initWithTitle:@"VisPad:" andShape:CGRectMake(mt_VisiblePadLabelX, mt_VisiblePadLabelY, 80.0f, mt_MenuButtonsHeight)];
-	
+
+	// Register labels
+	[self pushBackChild:[[Label alloc] initWithTitle:@"Sound:" andShape:mt_SoundLabel]];
+	[self pushBackChild:[[Label alloc] initWithTitle:@"Theme:" andShape:mt_ThemeLabel]];
+	[self pushBackChild:[[Label alloc] initWithTitle:@"Noteskin:" andShape:mt_NoteSkinLabel]];
+	[self pushBackChild:[[Label alloc] initWithTitle:@"Autotrack:" andShape:mt_FingerTrackingLabel]];
+	[self pushBackChild:[[Label alloc] initWithTitle:@"VisPad:" andShape:mt_VisiblePadLabel]];
+
 	// Register menu items 
-	m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] =	
-	[[ZoomEffect alloc] initWithRenderable:	
-	 [[Slider alloc] initWithShape:CGRectMake(mt_SoundSliderX, mt_SoundSliderY, mt_TogglersWidth, mt_MenuButtonsHeight) 
+	m_pSoundSlider =	
+	[[ZoomEffect alloc] initWithRenderable:[[Slider alloc] initWithShape:mt_SoundSlider 
 						andValue:[[TMSoundEngine sharedInstance] getMasterVolume]]];
 
 	// Finger tracking
-	m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] =	
+	m_pFingerTrackToggler =	
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_FingerTrackingTogglerX, mt_FingerTrackingTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
-
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
+	 [[TogglerItem alloc] initWithShape:mt_FingerTrackingToggler]];
+	
+	[m_pFingerTrackToggler addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
+	[m_pFingerTrackToggler addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
 	
 	BOOL fingerTrack = [[SettingsEngine sharedInstance] getBoolValue:@"autotrack"];
-	int iFingerTrack = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] findIndexByValue:[NSNumber numberWithBool:fingerTrack]];
+	int iFingerTrack = [m_pFingerTrackToggler findIndexByValue:[NSNumber numberWithBool:fingerTrack]];
 	iFingerTrack = iFingerTrack == -1 ? 0 : iFingerTrack;
 	
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] selectItemAtIndex:iFingerTrack];	
+	[m_pFingerTrackToggler selectItemAtIndex:iFingerTrack];	
 	
 	// PAD visibility
-	m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] =	
+	m_pVisPadToggler =	
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_VisiblePadTogglerX, mt_VisiblePadTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
+	 [[TogglerItem alloc] initWithShape:mt_VisiblePadToggler]];
 	
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
+	[m_pVisPadToggler addItem:[NSNumber numberWithBool:YES] withTitle:@"Enabled"];
+	[m_pVisPadToggler addItem:[NSNumber numberWithBool:NO] withTitle:@"Disabled"];
 
 	BOOL visPad = [[SettingsEngine sharedInstance] getBoolValue:@"vispad"];
-	int iPad = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] findIndexByValue:[NSNumber numberWithBool:visPad]];
+	int iPad = [m_pVisPadToggler findIndexByValue:[NSNumber numberWithBool:visPad]];
 	iPad = iPad == -1 ? 0 : iPad;
 	
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] selectItemAtIndex:iPad];		
+	[m_pVisPadToggler selectItemAtIndex:iPad];		
 		
 	// Theme selection
-	m_pOptionsMenuItems[kOptionsMenuItem_Theme] = 
+	m_pThemeToggler = 
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_ThemeTogglerX, mt_ThemeTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
+	 [[TogglerItem alloc] initWithShape:mt_ThemeToggler]];
 	
 	// Add all themes to the toggler list
 	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
-		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] addItem:themeName withTitle:themeName];	
+		[m_pThemeToggler addItem:themeName withTitle:themeName];	
 	}
 	
 	// Preselect the one from config
 	NSString* theme = [[SettingsEngine sharedInstance] getStringValue:@"theme"];
-	int iTheme = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] findIndexByValue:theme];
+	int iTheme = [m_pThemeToggler findIndexByValue:theme];
 	iTheme = iTheme == -1 ? 0 : iTheme;
 	
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme] selectItemAtIndex:iTheme];	
+	[m_pThemeToggler selectItemAtIndex:iTheme];	
 	
 	// NoteSkin selection
-	m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] = 		
+	m_pNoteSkinToggler = 		
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:CGRectMake(mt_NoteSkinTogglerX, mt_NoteSkinTogglerY, mt_TogglersWidth, mt_MenuButtonsHeight)]];
+	 [[TogglerItem alloc] initWithShape:mt_NoteSkinToggler]];
 	
 	// Add all noteskins to the toggler list
 	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
-		[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] addItem:skinName withTitle:skinName];	
+		[m_pNoteSkinToggler addItem:skinName withTitle:skinName];	
 	}
 	
 	// Preselect the one from config
 	NSString* noteskin = [[SettingsEngine sharedInstance] getStringValue:@"noteskin"];
-	int iSkin = [(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] findIndexByValue:noteskin];
+	int iSkin = [m_pNoteSkinToggler findIndexByValue:noteskin];
 	iSkin = iSkin == -1 ? 0 : iSkin;
 	
-	[(TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] selectItemAtIndex:iSkin];	
+	[m_pNoteSkinToggler selectItemAtIndex:iSkin];	
 	
-	m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] = 
+	MenuItem* padConfigButton = 
 	 [[ZoomEffect alloc] initWithRenderable:	
-	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:CGRectMake(mt_MenuButtonsX, mt_PadConfigButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:mt_PadConfigButton]];
 
-	m_pOptionsMenuItems[kOptionsMenuItem_SongManager] = 
+	MenuItem* songManagerButton = 
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[MenuItem alloc] initWithTitle:@"Song manager" andShape:CGRectMake(mt_MenuButtonsX, mt_SongManagerConfigButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];
+	 [[MenuItem alloc] initWithTitle:@"Song manager" andShape:mt_SongManagerButton]];
 	
-	m_pOptionsMenuItems[kOptionsMenuItem_Back] = 
+	m_pBackButton = 
 	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:	
-	  [[MenuItem alloc] initWithTitle:@"Back" andShape:CGRectMake(mt_MenuButtonsX, mt_BackButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	  [[MenuItem alloc] initWithTitle:@"Back" andShape:mt_BackButton]]];
 	
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) destination: CGPointMake(mt_MenuButtonsX, 480+mt_MenuButtonsHeight)];
-	[(SlideEffect*)(m_pOptionsMenuItems[kOptionsMenuItem_Back]) effectTime: 0.4f];
+	[(SlideEffect*)m_pBackButton destination: CGPointMake(mt_BackButton.origin.x, 480+mt_BackButton.origin.y)];
+	[(SlideEffect*)m_pBackButton effectTime: 0.4f];
 	
-	[m_pOptionsMenuItems[kOptionsMenuItem_SongManager] setActionHandler:@selector(songManagerButtonHit) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] setActionHandler:@selector(joyPadButtonHit) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_Back] setActionHandler:@selector(backButtonHit) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] setActionHandler:@selector(fingerTrackingTogglerChanged) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] setActionHandler:@selector(visiblePadTogglerChanged) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_Theme] setActionHandler:@selector(themeTogglerChanged) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] setActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
-	[m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] setChangedActionHandler:@selector(soundSliderChanged) receiver:self];	
+	// Setup action handlers
+	[songManagerButton setActionHandler:@selector(songManagerButtonHit) receiver:self];
+	[padConfigButton setActionHandler:@selector(joyPadButtonHit) receiver:self];
+	[m_pBackButton setActionHandler:@selector(backButtonHit) receiver:self];
+	[m_pFingerTrackToggler setActionHandler:@selector(fingerTrackingTogglerChanged) receiver:self];
+	[m_pVisPadToggler setActionHandler:@selector(visiblePadTogglerChanged) receiver:self];
+	[m_pThemeToggler setActionHandler:@selector(themeTogglerChanged) receiver:self];
+	[m_pNoteSkinToggler setActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
+	[m_pSoundSlider setChangedActionHandler:@selector(soundSliderChanged) receiver:self];	
 	
-	// Add the menu items to the render loop with lower priority
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pOptionsMenuItems[kOptionsMenuItem_Back] withPriority:kRunLoopPriority_NormalUpper];
+	// Add controls
+	[self pushBackControl:m_pFingerTrackToggler];
+	[self pushBackControl:m_pVisPadToggler];
+	[self pushBackControl:m_pThemeToggler];
+	[self pushBackControl:m_pNoteSkinToggler];
+	[self pushBackControl:m_pSoundSlider];
 	
-	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_FingerTracking] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_VisiblePad] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_SoundMaster] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_Theme] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pLabels[kOptionsLabel_NoteSkin] withPriority:kRunLoopPriority_NormalUpper];
-	
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
-	[[InputEngine sharedInstance] subscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
+	[self pushBackControl:songManagerButton];
+	[self pushBackControl:padConfigButton];
+	[self pushBackControl:m_pBackButton];	
 	
 	// Temporarily remove ads
 	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void) deinitOnTransition {
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
-	[[InputEngine sharedInstance] unsubscribe:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
-		
-	// Remove the menu items from the render loop
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Theme]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_JoyPad]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_SongManager]];
-	[[TapMania sharedInstance] deregisterObject:m_pOptionsMenuItems[kOptionsMenuItem_Back]];
-
-	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_VisiblePad]];
-	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_FingerTracking]];
-	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_SoundMaster]];
-	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_Theme]];
-	[[TapMania sharedInstance] deregisterObject:m_pLabels[kOptionsLabel_NoteSkin]];
+	[super deinitOnTransition];
 	
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];
@@ -283,11 +198,14 @@ Texture2D *t_BG;
 	// Draw menu background
 	[t_BG drawInRect:bounds];
 	
-	// NOTE: Items will be rendered by it self	
+	// Draw children
+	[super render:fDelta];
 }	
 
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {
+	[super update:fDelta];
+	
 	if(m_nState == kOptionsMenuState_Ready) {
 		
 		if(m_nSelectedMenu == kOptionsMenuItem_Back) {
@@ -315,16 +233,16 @@ Texture2D *t_BG;
 		
 	} else if(m_nState == kOptionsMenuState_AnimatingOut) {		
 		
-		if([(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isFinished]) {
-			m_nState = kMainMenuState_Finished;
+		if([(SlideEffect*)m_pBackButton isFinished]) {
+			m_nState = kOptionsMenuState_Finished;
 			return;
 		}
 		
 		// Start stuff with timeouts
-		if(![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isFinished] && 
-		   ![(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] isTweening])
+		if(![(SlideEffect*)m_pBackButton isFinished] && 
+		   ![(SlideEffect*)m_pBackButton isTweening])
 		{			
-			[(SlideEffect*)m_pOptionsMenuItems[kOptionsMenuItem_Back] startTweening];			
+			[(SlideEffect*)m_pBackButton startTweening];			
 		} 
 		
 		m_dAnimationTime += fDelta;
@@ -349,26 +267,26 @@ Texture2D *t_BG;
 }
 
 - (void) soundSliderChanged {
-	float value = [(Slider*)m_pOptionsMenuItems[kOptionsMenuItem_SoundMaster] currentValue];
+	float value = [m_pSoundSlider currentValue];
 	[[TMSoundEngine sharedInstance] setMasterVolume:value];
 }
 
 - (void) themeTogglerChanged {
-	[[SettingsEngine sharedInstance] setStringValue:[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_Theme]) getCurrent] m_pValue] forKey:@"theme"];
+	[[SettingsEngine sharedInstance] setStringValue:[[m_pThemeToggler getCurrent] m_pValue] forKey:@"theme"];
 }
 
 - (void) noteSkinTogglerChanged {
-	[[SettingsEngine sharedInstance] setStringValue:[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_NoteSkin]) getCurrent] m_pValue] forKey:@"noteskin"];
+	[[SettingsEngine sharedInstance] setStringValue:[[m_pNoteSkinToggler getCurrent] m_pValue] forKey:@"noteskin"];
 }
 
 - (void) visiblePadTogglerChanged {
-	NSNumber* numVal = (NSNumber*)[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_VisiblePad]) getCurrent] m_pValue];
+	NSNumber* numVal = (NSNumber*)[[m_pVisPadToggler getCurrent] m_pValue];
 	BOOL val = [numVal boolValue];
 	[[SettingsEngine sharedInstance] setBoolValue:val forKey:@"vispad"];
 }
 
 - (void) fingerTrackingTogglerChanged {
-	NSNumber* numVal = (NSNumber*)[[((TogglerItem*)m_pOptionsMenuItems[kOptionsMenuItem_FingerTracking]) getCurrent] m_pValue];
+	NSNumber* numVal = (NSNumber*)[[m_pFingerTrackToggler getCurrent] m_pValue];
 	BOOL val = [numVal boolValue];
 	
 	[[SettingsEngine sharedInstance] setBoolValue:val forKey:@"autotrack"];	
