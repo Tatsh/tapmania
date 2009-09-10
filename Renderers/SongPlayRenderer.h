@@ -6,15 +6,11 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
-
+#import "TMScreen.h"
 #import "TMSteps.h" // For kNumOfAvailableTracks
 
 @class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
+@class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 #define kReadySpriteTime 1.5
@@ -25,7 +21,7 @@
 
 #define kMinLifeToKeepAlive 0.03
 
-@interface SongPlayRenderer : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport> {
+@interface SongPlayRenderer : TMScreen {
 	TMSound*				m_pSound;	// TMSound object with sound
 	TMSong*					m_pSong;	// Currently played song
 	TMSteps*				m_pSteps;	// Currently played steps
@@ -50,6 +46,35 @@
 	BOOL					m_bAutoPlay;
 
 	JoyPad* 				m_pJoyPad; // Local pointer for easy access
+	
+	/* Metrics and such */
+	// Theme stuff
+	Judgement*	t_Judgement;
+	HoldJudgement* t_HoldJudgement;
+	
+	// Noteskin stuff
+	TapNote* t_TapNote;
+	HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
+	Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
+	Texture2D* t_FingerTap;
+	Texture2D* t_BG, *t_Failed, *t_Cleared, *t_Ready, *t_Go;
+	
+	// Sounds
+	TMSound   *sr_Failed, *sr_Cleared;
+	
+	CGPoint mt_Judgement;
+	float   mt_JudgementMaxShowTime;
+	
+	CGSize mt_HoldCap, mt_HoldBody;
+	CGRect mt_Receptors[kNumOfAvailableTracks];
+	CGRect mt_LifeBar;
+	
+	CGRect mt_TapNotes[kNumOfAvailableTracks];
+	float  mt_TapNoteRotations[kNumOfAvailableTracks];
+	
+	float mt_HalfOfArrowHeight[kNumOfAvailableTracks];
+	
+	BOOL cfg_VisPad;
 }
 
 - (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;

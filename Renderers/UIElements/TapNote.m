@@ -14,8 +14,6 @@
 - (float) calculateRotation:(TMNoteDirection)dir;
 @end
 
-static int mt_TapNoteRotations[kNumOfAvailableTracks];
-
 @implementation TapNote
 
 // Override TMAnimatable constructor
@@ -25,10 +23,9 @@ static int mt_TapNoteRotations[kNumOfAvailableTracks];
 		return nil;
 	
 	// Cache metrics	
-	mt_TapNoteRotations[kAvailableTrack_Left] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Left"];
-	mt_TapNoteRotations[kAvailableTrack_Down] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Down"];
-	mt_TapNoteRotations[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Up"];
-	mt_TapNoteRotations[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay TapNote Rotation Right"];	
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		mt_TapNoteRotations[i] = FLOAT_METRIC(([NSString stringWithFormat:@"SongPlay TapNote Rotation %d", i]));
+	}
 	
 	// We will animate every arrow at same time
 	m_nStartFrame = 0;

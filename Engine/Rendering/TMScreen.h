@@ -10,17 +10,6 @@
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 
-#define INT_METRIC(key) [[ThemeManager sharedInstance] intMetric:key]
-#define FLOAT_METRIC(key) [[ThemeManager sharedInstance] floatMetric:key]
-#define STR_METRIC(key) [[ThemeManager sharedInstance] stringMetric:key]
-#define RECT_METRIC(key) [[ThemeManager sharedInstance] rectMetric:key]
-#define POINT_METRIC(key) [[ThemeManager sharedInstance] pointMetric:key]
-#define SIZE_METRIC(key) [[ThemeManager sharedInstance] sizeMetric:key]
-
-#define TEXTURE(key) [[ThemeManager sharedInstance] texture:key]
-#define SKIN_TEXTURE(key) [[ThemeManager sharedInstance] skinTexture:key]
-#define SOUND(key) [[ThemeManager sharedInstance] sound:key]
-
 #ifdef __cplusplus
 
 #include <deque>

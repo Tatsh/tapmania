@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "JoyPad.h"
 
+#define CFG_BOOL(key)	[[SettingsEngine sharedInstance] getBoolValue:key]
+#define CFG_STR(key)	[[SettingsEngine sharedInstance] getStringValue:key]
+#define CFG_INT(key)	[[SettingsEngine sharedInstance] getIntValue:key]
+#define CFG_FLOAT(key)	[[SettingsEngine sharedInstance] getFloatValue:key]
+
 @class TMUserConfig;
 #define kUserConfigFile @"TapManiaConfig.plist"
 

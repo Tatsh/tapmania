@@ -12,8 +12,6 @@
 
 @implementation LifeBar
 
-Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
-
 - (id) initWithRect:(CGRect)rect {
 	self = [super init];
 	if(!self) 
@@ -23,10 +21,10 @@ Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
 	m_rShape = rect;
 	
 	// Preload all required graphics
-	t_LifeBarBG = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Background"];
-	t_LifeBarNormal = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Normal"];
-	t_LifeBarHot = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Hot"];
-	t_LifeBarFrame = [[ThemeManager sharedInstance] texture:@"SongPlay LifeBar Frame"];
+	t_LifeBarBG = TEXTURE(@"SongPlay LifeBar Background");
+	t_LifeBarNormal = TEXTURE(@"SongPlay LifeBar Normal");
+	t_LifeBarHot = TEXTURE(@"SongPlay LifeBar Hot");
+	t_LifeBarFrame = TEXTURE(@"SongPlay LifeBar Frame");
 		
 	return self;
 }

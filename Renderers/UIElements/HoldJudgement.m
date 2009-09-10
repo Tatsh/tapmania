@@ -13,14 +13,11 @@
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
 @end
 
-static int mt_HoldJudgementX[kNumOfAvailableTracks], mt_HoldJudgementY;
-static float mt_HoldJudgementMaxShowTime;
-
 @implementation HoldJudgement
 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
 	glEnable(GL_BLEND);
-	[self drawFrame:judgement-1 atPoint:CGPointMake( mt_HoldJudgementX[track], mt_HoldJudgementY )];
+	[self drawFrame:judgement-1 atPoint:mt_HoldJudgement[(int)track]];
 	glDisable(GL_BLEND);
 }
 
@@ -38,12 +35,11 @@ static float mt_HoldJudgementMaxShowTime;
 		return nil;
 	
 	// Cache metrics
-	mt_HoldJudgementX[kAvailableTrack_Left] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement LeftX"];
-	mt_HoldJudgementX[kAvailableTrack_Down] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement DownX"];
-	mt_HoldJudgementX[kAvailableTrack_Up] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement UpX"];
-	mt_HoldJudgementX[kAvailableTrack_Right] = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement RightX"];
-	mt_HoldJudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay HoldJudgement Y"];
-	mt_HoldJudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay HoldJudgement MaxShowTime"];
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		mt_HoldJudgement[i] = POINT_METRIC(([NSString stringWithFormat:@"SongPlay HoldJudgement %d", i]));
+	}
+
+	mt_HoldJudgementMaxShowTime = FLOAT_METRIC(@"SongPlay HoldJudgement MaxShowTime");
 	
 	[self reset];
 	

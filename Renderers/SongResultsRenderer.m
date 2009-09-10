@@ -20,8 +20,6 @@
 
 @implementation SongResultsRenderer
 
-Texture2D* t_SongResultsBG;
-
 - (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps {
 	self = [super init];
 	if(!self)
@@ -36,7 +34,6 @@ Texture2D* t_SongResultsBG;
 - (void) dealloc {
 	
 	// Here we MUST release memory used by the steps since after this place we will not need it anymore
-	TMLog(@"!!!!!!!!!!!!! Releasing steps/song...");
 	[m_pSteps release];
 	[m_pSong release];
 	
@@ -52,8 +49,10 @@ Texture2D* t_SongResultsBG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	[super setupForTransition];
+	
 	// Cache textures
-	t_SongResultsBG = [[ThemeManager sharedInstance] texture:@"SongResults Background"];
+	t_SongResultsBG = TEXTURE(@"SongResults Background");
 
 	int i, track;
 	
@@ -91,13 +90,15 @@ Texture2D* t_SongResultsBG;
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kNoteScore_W5E]+m_nCounters[kNoteScore_W5L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kNoteScore_MissE]+m_nCounters[kNoteScore_MissL]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
+//	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
 	
 	// Subscribe for input events
 	[[InputEngine sharedInstance] subscribe:self];
 }
 
 - (void) deinitOnTransition {
+	[super deinitOnTransition];
+	
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
 }
@@ -107,7 +108,8 @@ Texture2D* t_SongResultsBG;
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
 	
 	// Draw background
-	[t_SongResultsBG drawInRect:bounds];
+	[t_SongResultsBG drawInRect:bounds];	
+	[super render:fDelta];
 	
 	// Draw texts	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -124,6 +126,8 @@ Texture2D* t_SongResultsBG;
 
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {
+	[super update:fDelta];
+	
 	if(m_bReturnToSongSelection) {
 		SongPickerMenuRenderer* spRenderer = [[SongPickerMenuRenderer alloc] init];
 		[[TapMania sharedInstance] switchToScreen:spRenderer];
@@ -134,13 +138,7 @@ Texture2D* t_SongResultsBG;
 
 /* TMGameUIResponder methods */
 - (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	// UITouch *t1 = [[touches allObjects] objectAtIndex:0];
-	
-	if([touches count] == 1){
-/*		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-*/
-		
+	if([touches count] == 1){	
 		m_bReturnToSongSelection = YES;
 	}
 }

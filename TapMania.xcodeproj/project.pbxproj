@@ -284,7 +284,7 @@
 		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
 		241955EA102B08F800FC6E0F /* SongManagerRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.m; path = Renderers/SongManagerRenderer.m; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
-		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
+		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
 		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsDirectoryCache.h; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 		2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongOptions.h; sourceTree = "<group>"; };
 		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSongOptions.m; sourceTree = "<group>"; };
 		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
-		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
+		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
 		248B0C630F4B13DB005A998C /* BasicEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEffect.h; sourceTree = "<group>"; };
 		248B0C640F4B13DB005A998C /* BasicEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEffect.m; sourceTree = "<group>"; };
 		248B0CA90F4B1B00005A998C /* TMEffectSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEffectSupport.h; sourceTree = "<group>"; };

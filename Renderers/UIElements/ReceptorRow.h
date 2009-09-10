@@ -18,6 +18,8 @@ typedef enum {
 	kNumOfExplosionTypes
 } TMExplosionType;
 
+@class Receptor, Texture2D;
+
 /*
  * This class is able to render all 4 receptor arrows at their places with animation
  * Uses the Receptor class which holds the receptor arrow texture
@@ -29,6 +31,16 @@ typedef enum {
 		
 	double m_dExplosionTime[kNumOfAvailableTracks];	// Time of explosion start
 	TMExplosionType m_nExplosion[kNumOfAvailableTracks];	// Which explosion is active
+	
+	/* Metrics and such */
+	CGRect mt_Receptors[kNumOfAvailableTracks];
+	CGRect mt_ReceptorExplosions[kNumOfAvailableTracks];
+	float  mt_ReceptorRotations[kNumOfAvailableTracks];
+	float  mt_ReceptorExplosionRotations[kNumOfAvailableTracks];
+	float  mt_ReceptorExplosionMaxShowTime;
+		
+	Receptor* t_GoReceptor;
+	Texture2D* t_ExplosionDim, *t_ExplosionBright;
 }
 
 - (void) explodeDim:(TMAvailableTracks)receptor;		// Use this to start the explosion (dim)

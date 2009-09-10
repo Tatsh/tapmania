@@ -10,6 +10,7 @@
 
 #import "TMAnimatable.h"
 #import "TMNote.h"
+#import "TMSteps.h"
 
 /*
  * This class represents every original tap note on screen.
@@ -18,6 +19,8 @@
 */
 @interface TapNote : TMAnimatable {
 	
+	/* Metrics and such */
+	float mt_TapNoteRotations[kNumOfAvailableTracks];
 }
 
 // Drawing routines
