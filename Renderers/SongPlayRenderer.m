@@ -172,6 +172,7 @@ BOOL cfg_VisPad;
 	TMLog(@"first nr: %d", [m_pSteps getFirstNoteRow]);
 	
 	double now = [TimingUtil getCurrentTime];
+	m_dScreenEnterTime = now;
 	
 	if(timeOfFirstBeat <= kMinTimeTillStart){
 		m_dPlayBackStartTime = now + (kMinTimeTillStart - timeOfFirstBeat);
@@ -504,11 +505,12 @@ BOOL cfg_VisPad;
 	}
 	
 	// Check ready/go sprites
-	if(elapsedTime >= kReadySpriteTime) {
+	double elapsedTimeSinceEntrance = currentTime - m_dScreenEnterTime;
+	if(elapsedTimeSinceEntrance >= kReadySpriteTime) {
 		m_bDrawReady = NO;
 	}
 	
-	if(!m_bDrawReady && elapsedTime <= kReadySpriteTime+kGoSpriteTime) {
+	if(!m_bDrawReady && elapsedTimeSinceEntrance <= kReadySpriteTime+kGoSpriteTime) {
 		m_bDrawGo = YES;
 	} else {
 		m_bDrawGo = NO;
