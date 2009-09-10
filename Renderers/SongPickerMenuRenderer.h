@@ -11,8 +11,7 @@
 #import "TMLogicUpdater.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
-
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 
 @class SongPickerMenuItem, TMSound, TogglerItem, BasicEffect, MenuItem;
 
@@ -24,7 +23,7 @@
 #define kWheelStaticFriction	0.25f
 #define kWheelMass				80.0f
 
-@interface SongPickerMenuRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
+@interface SongPickerMenuRenderer : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	BasicEffect*			m_pSpeedToggler;
 	BasicEffect*			m_pDifficultyToggler;
 	MenuItem*				m_pBackMenuItem;

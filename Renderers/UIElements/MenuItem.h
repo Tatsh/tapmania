@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractRenderer.h"
 #import "TMGameUIResponder.h"
+#import "TMRenderable.h"
 #import "TMEffectSupport.h"
 
 @class TMFramedTexture, Texture2D;
 
-@interface MenuItem : AbstractRenderer <TMGameUIResponder, TMEffectSupport> {
+@interface MenuItem : NSObject <TMRenderable, TMGameUIResponder, TMEffectSupport> {
 	TMFramedTexture*	m_pTexture;
 	Texture2D*			m_pTitle;
 	NSString*			m_sTitle;

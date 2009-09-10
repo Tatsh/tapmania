@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
-@interface DialogRenderer : AbstractRenderer <TMLogicUpdater, TMGameUIResponder> {
+@interface DialogRenderer : NSObject <TMRenderable, TMLogicUpdater, TMGameUIResponder> {
 	BOOL	m_bShouldReturn;
 }
 

@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 #import "TMGameUIResponder.h"
 #import "TMEffectSupport.h"
 
 @class TMFramedTexture, Texture2D;
 
-@interface ImageButton : AbstractRenderer <TMGameUIResponder, TMEffectSupport> {
+@interface ImageButton : NSObject <TMRenderable, TMGameUIResponder, TMEffectSupport> {
 	Texture2D*			m_pTexture;
 	CGRect		m_rShape;	// The points where the button is drawn
 	

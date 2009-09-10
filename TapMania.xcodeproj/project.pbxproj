@@ -157,6 +157,7 @@
 		24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.m */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
+		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
 		24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.m */; };
 		24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */; };
@@ -218,7 +219,6 @@
 		24EBF55B0EC88B4400533056 /* TMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.m */; };
 		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
 		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
-		24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E6B0EC211D100755788 /* AbstractRenderer.m */; };
 		24F15EB90EC31E4700755788 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.m */; };
 		24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */; };
 		24F161150EC348B100755788 /* CreditsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.m */; };
@@ -488,6 +488,8 @@
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
 		24D029C90F45C69C00F1F0DE /* FPS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPS.m; path = Renderers/UIElements/FPS.m; sourceTree = "<group>"; };
+		24D166BF1058DED80086236B /* TMScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMScreen.h; sourceTree = "<group>"; };
+		24D166C01058DED80086236B /* TMScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMScreen.mm; sourceTree = "<group>"; };
 		24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsUtil.h; path = Util/PhysicsUtil.h; sourceTree = "<group>"; };
 		24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicsUtil.m; path = Util/PhysicsUtil.m; sourceTree = "<group>"; };
 		24D4C1460F1B3C1100643CC2 /* Judgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Judgement.h; path = Renderers/UIElements/Judgement.h; sourceTree = "<group>"; };
@@ -566,10 +568,8 @@
 		24EBF5590EC88B4400533056 /* TMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMNote.h; sourceTree = "<group>"; };
 		24EBF55A0EC88B4400533056 /* TMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNote.m; sourceTree = "<group>"; };
 		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
-		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
+		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
 		24F15E470EC2114F00755788 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		24F15E6A0EC211D100755788 /* AbstractRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractRenderer.h; path = Renderers/AbstractRenderer.h; sourceTree = "<group>"; };
-		24F15E6B0EC211D100755788 /* AbstractRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractRenderer.m; path = Renderers/AbstractRenderer.m; sourceTree = "<group>"; };
 		24F15EB70EC31E4700755788 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Renderers/UIElements/MenuItem.h; sourceTree = "<group>"; };
 		24F15EB80EC31E4700755788 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Renderers/UIElements/MenuItem.m; sourceTree = "<group>"; };
 		24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionsMenuRenderer.h; path = Renderers/OptionsMenuRenderer.h; sourceTree = "<group>"; };
@@ -658,6 +658,7 @@
 		080E96DDFE201D6D7F000001 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				24D166BE1058DE850086236B /* Rendering */,
 				24D6C1AE1030DE2000C7216A /* NewsSupport */,
 				248E92E8101797D700DB27D9 /* UploadSupport */,
 				24A709AB0F7A936C0080121C /* FontSupport */,
@@ -839,8 +840,6 @@
 			isa = PBXGroup;
 			children = (
 				2486F2A60EC0A18C00E5F9EE /* UI Elements */,
-				24F15E6B0EC211D100755788 /* AbstractRenderer.m */,
-				24F15E6A0EC211D100755788 /* AbstractRenderer.h */,
 				24F161130EC348B100755788 /* CreditsRenderer.h */,
 				24F161140EC348B100755788 /* CreditsRenderer.m */,
 				246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */,
@@ -1082,6 +1081,15 @@
 				24AF446E0F825BE200F630FD /* FontCharAliases.m */,
 			);
 			path = FontSupport;
+			sourceTree = "<group>";
+		};
+		24D166BE1058DE850086236B /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				24D166BF1058DED80086236B /* TMScreen.h */,
+				24D166C01058DED80086236B /* TMScreen.mm */,
+			);
+			path = Rendering;
 			sourceTree = "<group>";
 		};
 		24D6C1AE1030DE2000C7216A /* NewsSupport */ = {
@@ -1495,7 +1503,6 @@
 				2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */,
 				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */,
 				24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */,
-				24F15E6C0EC211D100755788 /* AbstractRenderer.m in Sources */,
 				24F15EB90EC31E4700755788 /* MenuItem.m in Sources */,
 				24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */,
 				24F161150EC348B100755788 /* CreditsRenderer.m in Sources */,
@@ -1561,6 +1568,7 @@
 				24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */,
 				24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */,
 				24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */,
+				24D166C11058DED80086236B /* TMScreen.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

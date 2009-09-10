@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AbstractRenderer.h"
 #import "TMLogicUpdater.h"
+#import "TMRenderable.h"
 #import "TMTransitionSupport.h"
 
 #import "TMSteps.h" // For kNumOfAvailableTracks
@@ -25,7 +25,7 @@
 
 #define kMinLifeToKeepAlive 0.03
 
-@interface SongPlayRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport> {
+@interface SongPlayRenderer : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport> {
 	TMSound*				m_pSound;	// TMSound object with sound
 	TMSong*					m_pSong;	// Currently played song
 	TMSteps*				m_pSteps;	// Currently played steps

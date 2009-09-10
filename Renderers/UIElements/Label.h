@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 #import "TMEffectSupport.h"
 
 @class Texture2D;
 
-@interface Label : AbstractRenderer <TMEffectSupport> {
+@interface Label : NSObject <TMRenderable, TMEffectSupport> {
 	Texture2D*			m_pTitle;
 	float				m_fFontSize;
 	NSString*			m_sTitle;

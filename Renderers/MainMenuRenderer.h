@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
+#import "TMScreen.h"
 
 @class MenuItem, ImageButton, Label, DialogRenderer;
 
@@ -29,17 +27,14 @@ typedef enum {
 	kMainMenuState_None
 } MainMenuState;
 
-@interface MainMenuRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface MainMenuRenderer : TMScreen <TMGameUIResponder> {
 	MainMenuItem	m_nSelectedMenu;
 	MainMenuState	m_nState;
 	double			m_dAnimationTime;
 	
 	DialogRenderer* m_pDialog;
 	
-	MenuItem*		m_pMainMenuItems[kNumMainMenuItems];
-	ImageButton*	m_pDonateButton;
-	Label*			m_pVersion;
-	Label*			m_pCopyright;
+	MenuItem*		m_pPlayButton, *m_pOptionsButton, *m_pCreditsButton;
 }
 
 @end

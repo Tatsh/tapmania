@@ -11,12 +11,11 @@
 #import "TMLogicUpdater.h"
 #import "TMSongsLoaderSupport.h"
 #import "TMTransitionSupport.h"
-
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 
 @class Texture2D;
 
-@interface SongsCacheLoaderRenderer : AbstractRenderer <TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
+@interface SongsCacheLoaderRenderer : NSObject <TMRenderable, TMLogicUpdater, TMSongsLoaderSupport, TMTransitionSupport> {
 	BOOL	m_bAllSongsLoaded;
 	BOOL	m_bTransitionIsDone;
 	BOOL	m_bGlobalError;

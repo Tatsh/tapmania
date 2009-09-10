@@ -63,20 +63,11 @@ Texture2D *t_Donate;
 TMSound   *sr_BG;
 
 - (void) dealloc {
-	// Release menu items
-	[m_pMainMenuItems[kMainMenuItem_Play] release];
-	[m_pMainMenuItems[kMainMenuItem_Options] release];
-	[m_pMainMenuItems[kMainMenuItem_Credits] release];
+	if(m_pDialog)
+		[m_pDialog release];
 	
-	[m_pVersion release];
-	[m_pCopyright release];
-	[m_pDonateButton release];
-	
-	[m_pDialog release];
-	
-	[super dealloc];
+	[super dealloc];	
 }
-
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
@@ -99,71 +90,64 @@ TMSound   *sr_BG;
 	sr_BG = [[ThemeManager sharedInstance] sound:@"MainMenu Music"];
 	
 	// No item selected by default
-	m_nSelectedMenu = -1;
+	m_nSelectedMenu = (MainMenuItem)-1;
 	m_nState = kMainMenuState_Ready;
 	m_dAnimationTime = 0.0;
 	
 	// Create version and copyright
-	m_pVersion = [[Label alloc] initWithTitle:TAPMANIA_VERSION_STRING fontSize:12.0f andShape:CGRectMake(212, 285, 80, 40)];
-	m_pCopyright = [[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)];
+	[self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_VERSION_STRING fontSize:12.0f andShape:CGRectMake(212, 285, 80, 40)]];
+	[self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)]];
 	
 	// Create donation button
-	m_pDonateButton = [[ZoomEffect alloc] initWithRenderable:
-					   [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
+	ImageButton* donateButton = 
+	[[ZoomEffect alloc] initWithRenderable:
+		 [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
+	[self pushBackControl:donateButton];
 	
 	// Register menu items
 	// Must disable the play button if empty catalogue
 	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
-		m_pMainMenuItems[kMainMenuItem_Play] = 
+		m_pPlayButton = 
 		[[SlideEffect alloc] initWithRenderable:
 		  [[MenuItem alloc] initWithTitle:@"No Songs" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]];						
 		
-		[m_pMainMenuItems[kMainMenuItem_Play] disable];
+		[m_pPlayButton disable];
 	} else {
 		
-		m_pMainMenuItems[kMainMenuItem_Play] = 
+		m_pPlayButton = 
 		[[SlideEffect alloc] initWithRenderable:
 		 [[ZoomEffect alloc] initWithRenderable:
 		  [[MenuItem alloc] initWithTitle:@"Play" andShape:CGRectMake(mt_MenuButtonsX, mt_PlayButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];								
 	}
+
+	[self pushBackControl:m_pPlayButton];
 	
-	m_pMainMenuItems[kMainMenuItem_Options] = 
+	m_pOptionsButton = 
 	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:
 	  [[MenuItem alloc] initWithTitle:@"Options" andShape:CGRectMake(mt_MenuButtonsX, mt_OptionsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	[self pushBackControl:m_pOptionsButton];
 	
-	m_pMainMenuItems[kMainMenuItem_Credits] = 	
+	m_pCreditsButton =
 	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:
 	  [[MenuItem alloc] initWithTitle:@"Credits" andShape:CGRectMake(mt_MenuButtonsX, mt_CreditsButtonY, mt_MenuButtonsWidth, mt_MenuButtonsHeight)]]];
+	[self pushBackControl:m_pCreditsButton];
 	
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) destination: CGPointMake(-mt_MenuButtonsWidth, mt_CreditsButtonY)];
+	// Setup sliding animation
+	[(SlideEffect*)(m_pPlayButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_PlayButtonY)];
+	[(SlideEffect*)(m_pOptionsButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_OptionsButtonY)];
+	[(SlideEffect*)(m_pCreditsButton) destination: CGPointMake(-mt_MenuButtonsWidth, mt_CreditsButtonY)];
 	
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Play]) effectTime: 0.4f];
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Options]) effectTime: 0.4f];
-	[(SlideEffect*)(m_pMainMenuItems[kMainMenuItem_Credits]) effectTime: 0.4f];	
+	[(SlideEffect*)(m_pPlayButton) effectTime: 0.4f];
+	[(SlideEffect*)(m_pOptionsButton) effectTime: 0.4f];
+	[(SlideEffect*)(m_pCreditsButton) effectTime: 0.4f];	
 	
-	[m_pMainMenuItems[kMainMenuItem_Play] setActionHandler:@selector(playButtonHit) receiver:self];
-	[m_pMainMenuItems[kMainMenuItem_Options] setActionHandler:@selector(optionsButtonHit) receiver:self];
-	[m_pMainMenuItems[kMainMenuItem_Credits] setActionHandler:@selector(creditsButtonHit) receiver:self];
-	
-	[m_pDonateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
-	
-	// Add the menu items to the render loop with lower priority
-	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Play] withPriority:kRunLoopPriority_NormalUpper];
-	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Options] withPriority:kRunLoopPriority_NormalUpper-1];
-	[[TapMania sharedInstance] registerObject:m_pMainMenuItems[kMainMenuItem_Credits] withPriority:kRunLoopPriority_NormalUpper-2];
-	
-	[[TapMania sharedInstance] registerObject:m_pDonateButton withPriority:kRunLoopPriority_NormalUpper-3];
-		
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Play]];
-	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Options]];
-	[[InputEngine sharedInstance] subscribe:m_pMainMenuItems[kMainMenuItem_Credits]];	
-	
-	[[InputEngine sharedInstance] subscribe:m_pDonateButton];
+	// Setup action handlers
+	[m_pPlayButton setActionHandler:@selector(playButtonHit) receiver:self];
+	[m_pOptionsButton setActionHandler:@selector(optionsButtonHit) receiver:self];
+	[m_pCreditsButton setActionHandler:@selector(creditsButtonHit) receiver:self];
+	[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
 	
 	// Raise a news dialog if unread news are found
 	if([[NewsFetcher sharedInstance] hasUnreadNews]) {
@@ -179,23 +163,7 @@ TMSound   *sr_BG;
 	}
 	
 	// Get ads back to place
-	[[TapMania sharedInstance] toggleAds:YES];
-}
-
-- (void) deinitOnTransition {
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Play]];
-	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Options]];
-	[[InputEngine sharedInstance] unsubscribe:m_pMainMenuItems[kMainMenuItem_Credits]];
-
-	[[InputEngine sharedInstance] unsubscribe:m_pDonateButton];
-	
-	// Remove the menu items from the render loop
-	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Play]];
-	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Options]];
-	[[TapMania sharedInstance] deregisterObject:m_pMainMenuItems[kMainMenuItem_Credits]];
-	
-	[[TapMania sharedInstance] deregisterObject:m_pDonateButton];
+	[[TapMania sharedInstance] toggleAds:YES];	 
 }
 
 /* TMRenderable method */
@@ -205,15 +173,15 @@ TMSound   *sr_BG;
 	// Draw menu background
 	[t_BG drawInRect:bounds];
 	
-	// Version and copyright
-	[m_pVersion render:fDelta];
-	[m_pCopyright render:fDelta];
-	
-	// NOTE: Items will be rendered by it self
+	// Draw children
+	[super render:fDelta];
 }
 
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {
+	
+	[super update:fDelta];
+	
 	if(m_nState == kMainMenuState_Ready) {
 		
 		if(m_nSelectedMenu == kMainMenuItem_Play) {
@@ -245,26 +213,26 @@ TMSound   *sr_BG;
 	
 	} else if(m_nState == kMainMenuState_AnimatingOut) {		
 		
-		if([(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isFinished]) {
+		if([(SlideEffect*)m_pCreditsButton isFinished]) {
 			m_nState = kMainMenuState_Finished;
 			return;
 		}
 		
 		// Start stuff with timeouts
-		if(![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] isFinished] && 
-		   ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] isTweening])
+		if(![(SlideEffect*)m_pPlayButton isFinished] && 
+		   ![(SlideEffect*)m_pPlayButton isTweening])
 		{			
-			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Play] startTweening];
+			[(SlideEffect*)m_pPlayButton startTweening];
 			
-		} else if(m_dAnimationTime >= 0.1 && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] isFinished]
-				  && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] isTweening]) 
+		} else if(m_dAnimationTime >= 0.1 && ![(SlideEffect*)m_pOptionsButton isFinished]
+				  && ![(SlideEffect*)m_pOptionsButton isTweening]) 
 		{			
-			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Options] startTweening];
+			[(SlideEffect*)m_pOptionsButton startTweening];
 			
-		} else if(m_dAnimationTime >= 0.2 && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isFinished]
-				  && ![(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] isTweening]) 
+		} else if(m_dAnimationTime >= 0.2 && ![(SlideEffect*)m_pCreditsButton isFinished]
+				  && ![(SlideEffect*)m_pCreditsButton isTweening]) 
 		{			
-			[(SlideEffect*)m_pMainMenuItems[kMainMenuItem_Credits] startTweening];
+			[(SlideEffect*)m_pCreditsButton startTweening];
 		}
 						
 		m_dAnimationTime += fDelta;

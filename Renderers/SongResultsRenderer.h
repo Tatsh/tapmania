@@ -10,14 +10,14 @@
 
 #import "TMNote.h" // For kNumNoteScores etc.
 
-#import "AbstractRenderer.h"
+#import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 #import "TMTransitionSupport.h"
 #import "TMGameUIResponder.h"
 
 @class TMSteps, TMSong;
 
-@interface SongResultsRenderer : AbstractRenderer <TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
+@interface SongResultsRenderer : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
 	TMSong*					m_pSong;	// The song we are calculating for
 	TMSteps*				m_pSteps;	// The steps we played
 	
