@@ -6,14 +6,10 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#import "TMLogicUpdater.h"
-#import "TMTransitionSupport.h"
+#import "TMScreen.h"
 #import "TMGameUIResponder.h"
-#import "TMRenderable.h"
 
-@class SongPickerMenuItem, TMSound, TogglerItem, BasicEffect, MenuItem;
+@class SongPickerMenuItem, TMSound, TogglerItem, BasicEffect, MenuItem, Texture2D;
 
 #define kNumWheelItems 10
 #define kNumSwipePositions 10
@@ -23,7 +19,7 @@
 #define kWheelStaticFriction	0.25f
 #define kWheelMass				80.0f
 
-@interface SongPickerMenuRenderer : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport, TMGameUIResponder> {
+@interface SongPickerMenuRenderer : TMScreen <TMGameUIResponder> {
 	BasicEffect*			m_pSpeedToggler;
 	BasicEffect*			m_pDifficultyToggler;
 	MenuItem*				m_pBackMenuItem;
@@ -40,6 +36,21 @@
 	double					m_dLastSwipeTime;
 	
 	BOOL					m_bStartSongPlay;
+	
+	/* Metrics and such */
+	CGRect mt_SpeedToggler, mt_DifficultyToggler, mt_BackButton, mt_ModPanel;
+	CGRect mt_ItemSong;
+	int mt_ItemSongHalfHeight;
+	
+	CGRect mt_HighlightCenter;
+	CGRect mt_Highlight;
+	int mt_HighlightHalfHeight;
+	
+	Texture2D* t_SongPickerBG;
+	Texture2D* t_Highlight;
+	Texture2D* t_ModPanel;
+	
+	TMSound* sr_SelectSong;	
 }
 
 @end

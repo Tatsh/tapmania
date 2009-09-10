@@ -6,10 +6,7 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
+#import "TMScreen.h"
 #import "TMGameUIResponder.h"
 
 @class Texture2D;
@@ -21,10 +18,14 @@ typedef enum {
 	kNumSongManagerActions
 } TMSongManagerActions;
 
-@interface SongManagerRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface SongManagerRenderer : TMScreen <TMGameUIResponder> {
 	TMSongManagerActions	m_nAction;
 	
 	Texture2D*				m_pServerUrl;
+	
+	/* Metrics and such */
+	CGPoint mt_UrlPosition;
+	Texture2D* t_SongManagerBG;
 }
 
 @end

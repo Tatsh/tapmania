@@ -21,18 +21,13 @@
 
 @implementation SongManagerRenderer
 
-Texture2D* t_SongManagerBG;
-
-int mt_UrlX, mt_UrlY;
-
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
-	// Cache graphics
-	t_SongManagerBG = [[ThemeManager sharedInstance] texture:@"SongManager Background"];
+	[super setupForTransition];
 	
-	// Cache metrics
-	mt_UrlX = [[ThemeManager sharedInstance] intMetric:@"SongManager UrlX"];
-	mt_UrlY = [[ThemeManager sharedInstance] intMetric:@"SongManager UrlY"];
+	// Cache graphics and stuff
+	t_SongManagerBG = TEXTURE(@"SongManager Background");
+	mt_UrlPosition = POINT_METRIC(@"SongManager Url");
 	
 	// Start with no action
 	m_nAction = kSongManagerAction_None;
@@ -50,9 +45,12 @@ int mt_UrlX, mt_UrlY;
 }
 
 - (void) deinitOnTransition {
+	[super deinitOnTransition];
+	
 	// Unsubscribe from input events
 	[[InputEngine sharedInstance] unsubscribe:self];
 	
+	// Stop web server
 	[[WebServer sharedInstance] stop];
 }
 
@@ -69,10 +67,13 @@ int mt_UrlX, mt_UrlY;
 	//Draw background
 	[t_SongManagerBG drawInRect:bounds];
 
+	// Rendre kids if any will born here
+	[super render:fDelta];
+	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	[m_pServerUrl drawAtPoint:CGPointMake(mt_UrlX, mt_UrlY)];	
+	[m_pServerUrl drawAtPoint:mt_UrlPosition];	
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_BLEND);
@@ -80,6 +81,8 @@ int mt_UrlX, mt_UrlY;
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {	
+	[super update:fDelta];
+	
 	if(m_nAction == kSongManagerAction_Exit) {
 		// Exit to options menu
 		[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init] usingTransition:[QuadTransition class]];

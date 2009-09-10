@@ -250,9 +250,9 @@
 		<dict>
 			<key>Highlight</key>
 			<dict>
-				<key>CenterX</key>
+				<key>X</key>
 				<integer>165</integer>
-				<key>CenterY</key>
+				<key>Y</key>
 				<integer>184</integer>
 				<key>Height</key>
 				<integer>46</integer>
@@ -261,8 +261,12 @@
 			</dict>
 			<key>ItemSong</key>
 			<dict>
-				<key>CenterX</key>
+				<key>X</key>
 				<integer>165</integer>
+				<key>Y</key>
+				<integer>0</integer>
+				<key>Width</key>
+				<integer>0</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
@@ -380,10 +384,13 @@
 	</dict>
 	<key>SongManager</key>
 	<dict>
-		<key>UrlX</key>
-		<integer>160</integer>
-		<key>UrlY</key>
-		<integer>405</integer>
+		<key>Url</key>
+		<dict>
+			<key>X</key>
+			<integer>160</integer>
+			<key>Y</key>
+			<integer>405</integer>
+		</dict>
 	</dict>
 </dict>
 </plist>
