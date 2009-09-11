@@ -551,12 +551,12 @@
 + (char*) parseSectionWithFD:(FILE*) fd {
 	int c; // Incoming char
 	int i; // Counter
-	char data[4096];	// 4k should be enough
+	char data[40960];	// 40k should be enough
 
 	c = getc(fd);
 
 	// Get all data till the ';'
-	for(i=0; i<4096 && !feof(fd) && c != ';'; i++) {
+	for(i=0; i<40960 && !feof(fd) && c != ';'; i++) {
 		data[i] = c;
 		c = getc(fd);	
 	}
