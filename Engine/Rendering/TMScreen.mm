@@ -66,6 +66,7 @@
 		[p release];
 	}
 	
+	delete m_pChildren;
 	TMLog(@"Done.");
 	
 	[super dealloc];

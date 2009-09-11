@@ -13,6 +13,8 @@
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
 #import "TapMania.h"
+#import "MessageManager.h"
+#import "TMMessage.h"
 
 @interface TMRunLoop (Private)
 - (void) worker; 
@@ -32,6 +34,9 @@
 	m_bStopRequested = NO;
 	m_bActualStopState = YES; // Initially stopped
 		
+	// Subscribe for messages
+	SUBSCRIBE(kApplicationShouldTerminateMessage);
+	
 	return self;
 }
 
@@ -49,6 +54,7 @@
 
 - (void) stop {
 	m_bStopRequested = YES;
+	UNSUBSCRIBE_ALL();
 }
 
 - (BOOL) isStopped {
@@ -174,6 +180,18 @@
 	
 	// Mark as stopped
 	m_bActualStopState = YES;
+	TMLog(@"TMRunLoop stopped!");
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	TMLog(@"TMRunLoop received message: %d", message.messageId);
+	
+	switch (message.messageId) {
+		case kApplicationShouldTerminateMessage:
+			[self stop];
+			break;
+	}
 }
 
 @end

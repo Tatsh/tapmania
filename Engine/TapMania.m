@@ -17,6 +17,8 @@
 #import "NewsFetcher.h"
 #import "EAGLView.h"
 #import "ARRollerView.h"
+#import "MessageManager.h"
+#import "TMMessage.h"
 
 #import "TMRunLoop.h"	// TMRunLoopPriority
 #import "JoyPad.h"
@@ -36,6 +38,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 	if(!self)
 		return nil;
 
+	// Start the message manager and register some basic messages
+	REG_MESSAGE(kApplicationStartedMessage, [@"ApplicationStarted" retain]);
+	REG_MESSAGE(kApplicationShouldTerminateMessage, [@"ApplicationShouldTerminate" retain]);
+	
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];
 	
@@ -89,6 +95,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 	// And run it
 	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:NO];
+	
+	TMMessage* msg = [[TMMessage alloc] initWithId:kApplicationStartedMessage andPayload:nil];
+	BROADCAST_MESSAGE(msg);
 }
 
 - (void) toggleAds:(BOOL)onOff {

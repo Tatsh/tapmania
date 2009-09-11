@@ -11,6 +11,7 @@
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 #import "TMObjectWithPriority.h"
+#import "TMMessageSupport.h"
 
 #ifdef __cplusplus
 
@@ -41,7 +42,7 @@ typedef enum {
 @end
 
 
-@interface TMRunLoop : NSObject {
+@interface TMRunLoop : NSObject <TMMessageSupport> {
 	
 	// Array to hold the objects which will be used for rendering/updating
 	// This array is always sorted from hightest to lowest priority

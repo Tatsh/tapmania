@@ -9,6 +9,8 @@
 
 #import "TapManiaAppDelegate.h"
 #import "TapMania.h"
+#import "MessageManager.h"
+#import "TMMessage.h"
 
 #define kListenerDistance			1.0  // Used for creating a realistic sound field
 
@@ -26,6 +28,11 @@
 	
 	// Start the game.
 	[[TapMania sharedInstance] startGame];
+}
+
+- (void) applicationWillTerminate:(UIApplication *)application {
+	TMMessage* msg = [[TMMessage alloc] initWithId:kApplicationShouldTerminateMessage andPayload:nil];
+	BROADCAST_MESSAGE(msg);
 }
 
 @end

@@ -218,6 +218,8 @@
 		24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF5570EC889AD00533056 /* TMTrack.mm */; };
 		24EBF55B0EC88B4400533056 /* TMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.m */; };
 		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
+		24F15E26105AA17900221550 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E25105AA17900221550 /* MessageManager.m */; };
+		24F15E29105AA2DF00221550 /* TMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E28105AA2DF00221550 /* TMMessage.m */; };
 		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
 		24F15EB90EC31E4700755788 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.m */; };
 		24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */; };
@@ -274,8 +276,8 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapManiaAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapManiaAppDelegate.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapManiaAppDelegate.h; path = Engine/TapManiaAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapManiaAppDelegate.m; path = Engine/TapManiaAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* TapMania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapMania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24079C1B0F4324260052EDB2 /* TMTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransition.h; sourceTree = "<group>"; };
@@ -287,8 +289,8 @@
 		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
-		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsDirectoryCache.h; sourceTree = "<group>"; };
-		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsDirectoryCache.m; sourceTree = "<group>"; };
+		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsDirectoryCache.h; path = Engine/SongsDirectoryCache.h; sourceTree = "<group>"; };
+		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsDirectoryCache.m; path = Engine/SongsDirectoryCache.m; sourceTree = "<group>"; };
 		243DF64B0FB1C156004C08EF /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244954B40EDD54DA00D462F0 /* TMRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRenderable.h; sourceTree = "<group>"; };
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
@@ -371,8 +373,8 @@
 		248E932B1017992B00DB27D9 /* response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = response.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/response.h"; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
 		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
-		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania.h; sourceTree = "<group>"; };
-		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapMania.m; sourceTree = "<group>"; };
+		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapMania.h; path = Engine/TapMania.h; sourceTree = "<group>"; };
+		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TapMania.m; path = Engine/TapMania.m; sourceTree = "<group>"; };
 		248F78130F77F99700AE2130 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = Renderers/UIElements/Slider.h; sourceTree = "<group>"; };
 		248F78140F77F99700AE2130 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slider.m; path = Renderers/UIElements/Slider.m; sourceTree = "<group>"; };
 		2496484E0F79134D00C9D5BC /* AbstractSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractSoundPlayer.h; sourceTree = "<group>"; };
@@ -457,8 +459,8 @@
 		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
 		249D80590FCC9AF700630646 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = Renderers/UIElements/ImageButton.m; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
-		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundEngine.h; sourceTree = "<group>"; };
-		24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TMSoundEngine.mm; sourceTree = "<group>"; };
+		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSoundEngine.h; path = ../TMSoundEngine.h; sourceTree = "<group>"; };
+		24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TMSoundEngine.mm; path = ../TMSoundEngine.mm; sourceTree = "<group>"; };
 		24A425790F713529001B0CDE /* SMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMParser.h; path = Parsers/SMParser.h; sourceTree = "<group>"; };
 		24A4257A0F713529001B0CDE /* SMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMParser.m; path = Parsers/SMParser.m; sourceTree = "<group>"; };
 		24A57AF20F4C265D0057F723 /* SlideEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideEffect.h; sourceTree = "<group>"; };
@@ -569,7 +571,13 @@
 		24EBF55A0EC88B4400533056 /* TMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNote.m; sourceTree = "<group>"; };
 		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
 		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
+		24F15E24105AA17900221550 /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
+		24F15E25105AA17900221550 /* MessageManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MessageManager.m; sourceTree = "<group>"; };
+		24F15E27105AA2DF00221550 /* TMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessage.h; sourceTree = "<group>"; };
+		24F15E28105AA2DF00221550 /* TMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMessage.m; sourceTree = "<group>"; };
+		24F15E33105AA88100221550 /* TapManiaMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapManiaMessages.h; sourceTree = "<group>"; };
 		24F15E470EC2114F00755788 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		24F15E79105AAFCE00221550 /* TMMessageSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageSupport.h; sourceTree = "<group>"; };
 		24F15EB70EC31E4700755788 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Renderers/UIElements/MenuItem.h; sourceTree = "<group>"; };
 		24F15EB80EC31E4700755788 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Renderers/UIElements/MenuItem.m; sourceTree = "<group>"; };
 		24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionsMenuRenderer.h; path = Renderers/OptionsMenuRenderer.h; sourceTree = "<group>"; };
@@ -658,32 +666,23 @@
 		080E96DDFE201D6D7F000001 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				24F15E14105AA14200221550 /* MessageSupport */,
 				24D166BE1058DE850086236B /* Rendering */,
 				24D6C1AE1030DE2000C7216A /* NewsSupport */,
 				248E92E8101797D700DB27D9 /* UploadSupport */,
 				24A709AB0F7A936C0080121C /* FontSupport */,
 				2496484D0F79131C00C9D5BC /* SoundSupport */,
 				24D762930F389FBE008B0AA0 /* ThemeSupport */,
-				248547290EE56BEB00AD4FAB /* Transitions */,
 				244954D70EDD612800D462F0 /* Objects */,
 				244954B30EDD549000D462F0 /* Protocols */,
-				29B97315FDCFA39411CA2CEA /* Global */,
 				2486F18C0EC077BA00E5F9EE /* Util */,
 				2486F1880EC0778200E5F9EE /* JoyPad */,
-				1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */,
-				1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */,
-				248EE4560EE4002000FF1D43 /* TapMania.h */,
-				248EE4570EE4002000FF1D43 /* TapMania.m */,
 				244954D10EDD5AC200D462F0 /* TMRunLoop.h */,
 				244954D20EDD5AC200D462F0 /* TMRunLoop.mm */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
-				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
-				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
 				248547F10EE6BCD300AD4FAB /* InputEngine.h */,
 				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
-				24A425490F7123D8001B0CDE /* TMSoundEngine.h */,
-				24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
 				24A586090FBADFD6000954E8 /* SettingsEngine.m */,
 			);
@@ -714,6 +713,7 @@
 				24079C1B0F4324260052EDB2 /* TMTransition.h */,
 				248B0CA90F4B1B00005A998C /* TMEffectSupport.h */,
 				24B302CC103BDA5A0044AAB2 /* TMSoundSupport.h */,
+				24F15E79105AAFCE00221550 /* TMMessageSupport.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -739,6 +739,8 @@
 				24B3027D103BD46C0044AAB2 /* TMSound.m */,
 				24B3027F103BD4A40044AAB2 /* TMLoopedSound.h */,
 				24B30280103BD4A40044AAB2 /* TMLoopedSound.m */,
+				24F15E27105AA2DF00221550 /* TMMessage.h */,
+				24F15E28105AA2DF00221550 /* TMMessage.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -753,7 +755,8 @@
 				24D028FA0F45AB5900F1F0DE /* QuadTransition.h */,
 				24D028FB0F45AB5900F1F0DE /* QuadTransition.m */,
 			);
-			path = Transitions;
+			name = Transitions;
+			path = ../Transitions;
 			sourceTree = "<group>";
 		};
 		2486F1880EC0778200E5F9EE /* JoyPad */ = {
@@ -784,37 +787,21 @@
 		2486F2A60EC0A18C00E5F9EE /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				248B0C620F4B133E005A998C /* Effects */,
 				24F15EB70EC31E4700755788 /* MenuItem.h */,
 				24F15EB80EC31E4700755788 /* MenuItem.m */,
 				249D80580FCC9AF700630646 /* ImageButton.h */,
 				249D80590FCC9AF700630646 /* ImageButton.m */,
-				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
-				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
 				24627B9C0FBF6DF9002E245D /* Label.h */,
 				24627B9D0FBF6DF9002E245D /* Label.m */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
 				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
 				248F78130F77F99700AE2130 /* Slider.h */,
 				248F78140F77F99700AE2130 /* Slider.m */,
-				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
-				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
-				2472663B0EE949A500D501AF /* TapNote.h */,
-				2472663C0EE949A500D501AF /* TapNote.m */,
-				247266520EE94D3B00D501AF /* Receptor.h */,
-				247266530EE94D3B00D501AF /* Receptor.m */,
-				2472672B0EE97DDC00D501AF /* ReceptorRow.h */,
-				2472672C0EE97DDC00D501AF /* ReceptorRow.m */,
-				24AFB4000EEFBC6800D0BF31 /* HoldNote.h */,
-				24AFB4010EEFBC6800D0BF31 /* HoldNote.m */,
-				24D4C1460F1B3C1100643CC2 /* Judgement.h */,
-				24D4C1470F1B3C1100643CC2 /* Judgement.m */,
-				246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */,
-				246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */,
 				24D029C80F45C69C00F1F0DE /* FPS.h */,
 				24D029C90F45C69C00F1F0DE /* FPS.m */,
 			);
 			name = "UI Elements";
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		2486F2AA0EC0A4FE00E5F9EE /* GameObjects */ = {
@@ -839,7 +826,7 @@
 		2486F4510EC1E0E600E5F9EE /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
-				2486F2A60EC0A18C00E5F9EE /* UI Elements */,
+				24F15E13105A9DF000221550 /* UI Elements */,
 				24F161130EC348B100755788 /* CreditsRenderer.h */,
 				24F161140EC348B100755788 /* CreditsRenderer.m */,
 				246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */,
@@ -879,7 +866,7 @@
 				24A57AF30F4C265D0057F723 /* SlideEffect.m */,
 			);
 			name = Effects;
-			path = Renderers/UIElements/Effects;
+			path = ../../Renderers/UIElements/Effects;
 			sourceTree = "<group>";
 		};
 		248E92E8101797D700DB27D9 /* UploadSupport */ = {
@@ -913,6 +900,8 @@
 		2496484D0F79131C00C9D5BC /* SoundSupport */ = {
 			isa = PBXGroup;
 			children = (
+				24A425490F7123D8001B0CDE /* TMSoundEngine.h */,
+				24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */,
 				2496484E0F79134D00C9D5BC /* AbstractSoundPlayer.h */,
 				2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */,
 				249648500F79134D00C9D5BC /* OGGSoundPlayer.h */,
@@ -1086,6 +1075,9 @@
 		24D166BE1058DE850086236B /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
+				248547290EE56BEB00AD4FAB /* Transitions */,
+				2486F2A60EC0A18C00E5F9EE /* UI Elements */,
+				248B0C620F4B133E005A998C /* Effects */,
 				24D166BF1058DED80086236B /* TMScreen.h */,
 				24D166C01058DED80086236B /* TMScreen.mm */,
 			);
@@ -1178,22 +1170,64 @@
 			name = Parsers;
 			sourceTree = "<group>";
 		};
+		24F15DF1105A9CE100221550 /* TapMania */ = {
+			isa = PBXGroup;
+			children = (
+				2486F4510EC1E0E600E5F9EE /* Renderers */,
+				2486F2AA0EC0A4FE00E5F9EE /* GameObjects */,
+				24EBF3E10EC83CED00533056 /* Parsers */,
+				29B97315FDCFA39411CA2CEA /* Global */,
+				1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */,
+				1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */,
+				248EE4560EE4002000FF1D43 /* TapMania.h */,
+				248EE4570EE4002000FF1D43 /* TapMania.m */,
+				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
+				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
+			);
+			name = TapMania;
+			sourceTree = "<group>";
+		};
+		24F15E13105A9DF000221550 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
+				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
+				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
+				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
+				2472663B0EE949A500D501AF /* TapNote.h */,
+				2472663C0EE949A500D501AF /* TapNote.m */,
+				247266520EE94D3B00D501AF /* Receptor.h */,
+				247266530EE94D3B00D501AF /* Receptor.m */,
+				2472672B0EE97DDC00D501AF /* ReceptorRow.h */,
+				2472672C0EE97DDC00D501AF /* ReceptorRow.m */,
+				24AFB4000EEFBC6800D0BF31 /* HoldNote.h */,
+				24AFB4010EEFBC6800D0BF31 /* HoldNote.m */,
+				24D4C1460F1B3C1100643CC2 /* Judgement.h */,
+				24D4C1470F1B3C1100643CC2 /* Judgement.m */,
+				246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */,
+				246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		24F15E14105AA14200221550 /* MessageSupport */ = {
+			isa = PBXGroup;
+			children = (
+				24F15E24105AA17900221550 /* MessageManager.h */,
+				24F15E25105AA17900221550 /* MessageManager.m */,
+			);
+			path = MessageSupport;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2496486B0F7913DC00C9D5BC /* External libs */,
-				24EBF3E10EC83CED00533056 /* Parsers */,
-				2486F4510EC1E0E600E5F9EE /* Renderers */,
-				2486F2AA0EC0A4FE00E5F9EE /* GameObjects */,
 				080E96DDFE201D6D7F000001 /* Engine */,
+				24F15DF1105A9CE100221550 /* TapMania */,
+				2496486B0F7913DC00C9D5BC /* External libs */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				24E3895110456EE9001B8DDE /* AddressBook.framework */,
-				24E3895510456EFA001B8DDE /* SystemConfiguration.framework */,
-				24E3895910456F13001B8DDE /* CoreLocation.framework */,
-				24E3895D10456F2B001B8DDE /* libxml2.dylib */,
-				24E3895F10456F33001B8DDE /* libsqlite3.dylib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1204,9 +1238,9 @@
 				32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				24CA104A100B4B1A001FAD18 /* VersionInfo.h */,
+				24F15E33105AA88100221550 /* TapManiaMessages.h */,
 			);
 			name = Global;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -1225,6 +1259,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24E3895110456EE9001B8DDE /* AddressBook.framework */,
+				24E3895510456EFA001B8DDE /* SystemConfiguration.framework */,
+				24E3895910456F13001B8DDE /* CoreLocation.framework */,
+				24E3895D10456F2B001B8DDE /* libxml2.dylib */,
+				24E3895F10456F33001B8DDE /* libsqlite3.dylib */,
 				24E3890510456B75001B8DDE /* libAdWhirlDevice_1.2.6.a */,
 				24E3890610456B75001B8DDE /* libAdWhirlSimulator_1.2.6.a */,
 				24D52ABD1035A4970030A6CA /* AVFoundation.framework */,
@@ -1569,6 +1608,8 @@
 				24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */,
 				24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */,
 				24D166C11058DED80086236B /* TMScreen.mm in Sources */,
+				24F15E26105AA17900221550 /* MessageManager.m in Sources */,
+				24F15E29105AA2DF00221550 /* TMMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
