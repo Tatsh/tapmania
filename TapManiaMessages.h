@@ -8,6 +8,12 @@
  */
 
 enum {
+	/* Global messages */
 	kApplicationStartedMessage = 1,
-	kApplicationShouldTerminateMessage
+	kApplicationShouldTerminateMessage,
+	
+	/* Gameplay messages */
+	kLifeBarDrainedMessage = 200,			/* Sent by LifeBar when the lifebar is drained */
+	kReceptorShouldExplodeDimMessage,		/* Sent by gameplay handler to receptorRow handler. payload = track number */
+	kReceptorShouldExplodeBrightMessage	/* Same as above */
 };

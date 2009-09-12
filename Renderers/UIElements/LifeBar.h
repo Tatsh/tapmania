@@ -10,10 +10,13 @@
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
 
+#define kMinLifeToKeepAlive 0.03	// TODO: move to metrics
+
 @class Texture2D;
 
 @interface LifeBar : NSObject <TMRenderable, TMLogicUpdater> {
 	float m_fCurrentValue;  // 0.0 -> 100.0 :: defaults to 50.0 on song start
+	BOOL   m_bIsActive;
 	CGRect m_rShape;	// The rect where the lifebar is drawn
 	
 	/* Textures */

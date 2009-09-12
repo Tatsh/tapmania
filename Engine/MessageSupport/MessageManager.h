@@ -8,10 +8,10 @@
 
 @class TMMessage;
 
-#define REG_MESSAGE(ident,name) 	[[MessageManager sharedInstance] registerMessageName:name forMessageId:ident]
-#define BROADCAST_MESSAGE(message)  [[MessageManager sharedInstance] broadcastMessage:message]
-#define SUBSCRIBE(ident)			[[MessageManager sharedInstance] subscribe:self forMessagesWithId:ident];
-#define UNSUBSCRIBE_ALL()			[[MessageManager sharedInstance] unsubscribe:self];
+#define REG_MESSAGE(ident,name)				[[MessageManager sharedInstance] registerMessageName:name forMessageId:ident]
+#define BROADCAST_MESSAGE(msgId,payload)	[[MessageManager sharedInstance] broadcastMessage:[[TMMessage alloc] initWithId:msgId andPayload:payload]]
+#define SUBSCRIBE(ident)					[[MessageManager sharedInstance] subscribe:self forMessagesWithId:ident];
+#define UNSUBSCRIBE_ALL()					[[MessageManager sharedInstance] unsubscribe:self];
 
 #ifdef __cplusplus
 
@@ -27,7 +27,7 @@ typedef multimap<int, NSObject*> TMMessageSubscribers;
 
 @interface MessageManager : NSObject {
 #ifdef __cplusplus
-	TMMessageQueue			*m_pMessageQueue;
+	// TMMessageQueue			*m_pMessageQueue; // TODO: use this queue in a separate thread for async messages
 	TMMessageMapping		*m_pRegistrature;
 	TMMessageSubscribers	*m_pSubscribers;
 #endif

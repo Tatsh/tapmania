@@ -23,38 +23,50 @@
 }
 
 -(void) pushBackChild:(NSObject*)inChild {
-	m_pChildren->push_back(inChild);	
+	@synchronized(self) {
+		m_pChildren->push_back(inChild);	
+	}
 }
 
 -(void) pushChild:(NSObject*)inChild {
-	m_pChildren->push_front(inChild);	
+	@synchronized(self) { 
+		m_pChildren->push_front(inChild);	
+	}
 }
 
 -(void) pushBackControl:(NSObject*)inChild {
 	[self pushBackChild:inChild];
-	[[InputEngine sharedInstance] subscribe:inChild];
+	
+	@synchronized(self) { 
+		[[InputEngine sharedInstance] subscribe:inChild];
+	}
 }
 
 -(NSObject*) popBackChild {
-	if(m_pChildren->empty())
-		return nil;
+	@synchronized(self) {
+		if(m_pChildren->empty())
+			return nil;
 	
-	NSObject* objPtr = m_pChildren->back();
-	m_pChildren->pop_back();
+		NSObject* objPtr = m_pChildren->back();
+		m_pChildren->pop_back();
 	
-	[[InputEngine sharedInstance] unsubscribe:objPtr];
-	return objPtr;
+		[[InputEngine sharedInstance] unsubscribe:objPtr];
+		return objPtr;
+	}
 }
 
 -(NSObject*) popChild {
-	if(m_pChildren->empty())
-		return nil;
+	@synchronized(self) {
+		if(m_pChildren->empty())
+			return nil;
 	
-	NSObject* objPtr = m_pChildren->front();
-	m_pChildren->pop_front();
+		NSObject* objPtr = m_pChildren->front();
+		m_pChildren->pop_front();
 
-	[[InputEngine sharedInstance] unsubscribe:objPtr];
-	return objPtr;	
+		[[InputEngine sharedInstance] unsubscribe:objPtr];
+
+		return objPtr;	
+	}
 }
 
 - (void) dealloc {
@@ -83,36 +95,40 @@
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	int curSize = m_pChildren->size();
+	@synchronized(self) {
+		int curSize = m_pChildren->size();
 	
-	/* Now draw all children */
-	for (int i = 0; i < curSize; ++i) {				
-		NSObject* obj = m_pChildren->at(i);
+		/* Now draw all children */
+		for (int i = 0; i < curSize; ++i) {				
+			NSObject* obj = m_pChildren->at(i);
 		
-		if([obj conformsToProtocol:@protocol(TMRenderable)]) {
-			[(id<TMRenderable>)obj render:fDelta];
+			if([obj conformsToProtocol:@protocol(TMRenderable)]) {
+				[(id<TMRenderable>)obj render:fDelta];
 			
-			// To be safe we must update the curSize everytime
-			curSize = m_pChildren->size();
+				// To be safe we must update the curSize everytime
+				curSize = m_pChildren->size();
+			}
 		}
-	}				
+	}			
 }
 
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {
-	int curSize = m_pChildren->size();
+	@synchronized(self) {
+		int curSize = m_pChildren->size();
 	
-	/* Now update all children */
-	for (int i = 0; i < curSize; ++i) {				
-		NSObject* obj = m_pChildren->at(i);
+		/* Now update all children */
+		for (int i = 0; i < curSize; ++i) {				
+			NSObject* obj = m_pChildren->at(i);
 		
-		if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
-			[(id<TMLogicUpdater>)obj update:fDelta];
+			if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
+				[(id<TMLogicUpdater>)obj update:fDelta];
 			
-			// To be safe we must update the curSize everytime
-			curSize = m_pChildren->size();
+				// To be safe we must update the curSize everytime
+				curSize = m_pChildren->size();
+			}
 		}
-	}			
+	}		
 }
 
 @end

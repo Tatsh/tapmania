@@ -10,6 +10,9 @@
 #import "Texture2D.h"
 #import "ThemeManager.h"
 
+#import "MessageManager.h"
+#import "TMMessage.h"
+
 @implementation LifeBar
 
 - (id) initWithRect:(CGRect)rect {
@@ -17,8 +20,12 @@
 	if(!self) 
 		return nil;
 	
+	// Register messages broadcasted by the lifebar handler
+	REG_MESSAGE(kLifeBarDrainedMessage, @"LifeBarDrained");
+	
 	m_fCurrentValue = 0.5f;
 	m_rShape = rect;
+	m_bIsActive = YES;
 	
 	// Preload all required graphics
 	t_LifeBarBG = TEXTURE(@"SongPlay LifeBar Background");
@@ -70,7 +77,11 @@
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
-
+	// Check current value
+	if(m_fCurrentValue < kMinLifeToKeepAlive && m_bIsActive) {
+		BROADCAST_MESSAGE(kLifeBarDrainedMessage, nil);
+		m_bIsActive = NO;
+	}
 }
 
 @end

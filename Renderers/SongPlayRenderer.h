@@ -8,6 +8,7 @@
 
 #import "TMScreen.h"
 #import "TMSteps.h" // For kNumOfAvailableTracks
+#import "TMMessageSupport.h"
 
 @class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
 @class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
@@ -19,9 +20,7 @@
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
 #define kFadeOutTime	3.0		// 3 seconds fade duration
 
-#define kMinLifeToKeepAlive 0.03
-
-@interface SongPlayRenderer : TMScreen {
+@interface SongPlayRenderer : TMScreen <TMMessageSupport> {
 	TMSound*				m_pSound;	// TMSound object with sound
 	TMSong*					m_pSong;	// Currently played song
 	TMSteps*				m_pSteps;	// Currently played steps

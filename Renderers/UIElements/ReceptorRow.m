@@ -10,6 +10,8 @@
 #import "Receptor.h"
 #import "Texture2D.h"
 #import "ThemeManager.h"
+#import "TMMessage.h"
+#import "MessageManager.h"
 
 @implementation ReceptorRow
 
@@ -17,6 +19,10 @@
 	self = [super init];
 	if(!self) 
 		return nil;
+	
+	// Subscribe to messages
+	SUBSCRIBE(kReceptorShouldExplodeDimMessage);
+	SUBSCRIBE(kReceptorShouldExplodeBrightMessage);
 	
 	// Cache metrics
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
@@ -85,6 +91,18 @@
 				m_nExplosion[i] = kExplosionTypeNone;	// Disable
 			}
 		}
+	}
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	switch (message.messageId) {
+		case kReceptorShouldExplodeDimMessage:
+			[self explodeDim:[(NSNumber*)message.payload intValue]];
+			break;
+		case kReceptorShouldExplodeBrightMessage:
+			[self explodeBright:[(NSNumber*)message.payload intValue]];
+			break;
 	}
 }
 

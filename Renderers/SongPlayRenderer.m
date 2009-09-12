@@ -36,6 +36,9 @@
 #import "HoldJudgement.h"
 #import "Judgement.h"
 
+#import "MessageManager.h"
+#import "TMMessage.h"
+
 #import <math.h>
 
 @implementation SongPlayRenderer
@@ -44,6 +47,10 @@
 	self = [super init];
 	if(!self)
 		return nil;
+		
+	// Register message types
+	REG_MESSAGE(kReceptorShouldExplodeDimMessage, @"ReceptorShouldExplodeDim");
+	REG_MESSAGE(kReceptorShouldExplodeBrightMessage, @"ReceptorShouldExplodeBright");
 	
 	// Cache metrics
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
@@ -96,6 +103,9 @@
 
 	m_bPlayingGame = NO;
 	
+	// Subscribe to messages
+	SUBSCRIBE(kLifeBarDrainedMessage);
+	
 	return self;
 }
 
@@ -113,7 +123,7 @@
 	[m_pSteps dump];
 #endif	
 	
-	m_bAutoPlay = YES;
+	m_bAutoPlay = NO;
 	
 	TMLog(@"Steps recieved by songplayrenderer");
 	
@@ -454,9 +464,9 @@
 						for(tr=0; tr<kNumOfAvailableTracks; ++tr){
 							if(timesOfHit[tr] != 0.0f) {							
 								if(noteJudgement == kJudgementW1) {
-									[m_pReceptorRow explodeBright:(TMAvailableTracks)tr];
+									BROADCAST_MESSAGE(kReceptorShouldExplodeBrightMessage, [NSNumber numberWithInt:tr]);
 								} else {
-									[m_pReceptorRow explodeDim:(TMAvailableTracks)tr];
+									BROADCAST_MESSAGE(kReceptorShouldExplodeDimMessage, [NSNumber numberWithInt:tr]);
 								}
 							}
 						}
@@ -467,12 +477,6 @@
 			prevNote = note;
 			lastNoteYPosition = noteYPosition;
 		}
-	}
-	
-	// Check lifebar
-	if([m_pLifeBar getCurrentValue] < kMinLifeToKeepAlive) {
-		TMLog(@"Life is drained! Stop gameplay.");
-		m_bFailed = YES;
 	}
 	
 	// Check ready/go sprites
@@ -630,6 +634,17 @@
 	
 	[[[TapMania sharedInstance] glView] swapBuffers];		
 	[NSThread sleepForTimeInterval:1.5f];		
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	switch (message.messageId) {
+		case kLifeBarDrainedMessage:
+			TMLog(@"Life is drained! Stop gameplay.");
+			m_bFailed = YES;
+			
+			break;
+	}
 }
 
 @end

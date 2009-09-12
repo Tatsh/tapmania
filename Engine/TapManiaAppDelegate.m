@@ -31,8 +31,7 @@
 }
 
 - (void) applicationWillTerminate:(UIApplication *)application {
-	TMMessage* msg = [[TMMessage alloc] initWithId:kApplicationShouldTerminateMessage andPayload:nil];
-	BROADCAST_MESSAGE(msg);
+	BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
 }
 
 @end

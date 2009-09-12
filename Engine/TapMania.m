@@ -96,8 +96,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// And run it
 	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:NO];
 	
-	TMMessage* msg = [[TMMessage alloc] initWithId:kApplicationStartedMessage andPayload:nil];
-	BROADCAST_MESSAGE(msg);
+	BROADCAST_MESSAGE(kApplicationStartedMessage, nil);
 }
 
 - (void) toggleAds:(BOOL)onOff {
