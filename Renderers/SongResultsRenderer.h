@@ -13,12 +13,9 @@
 
 @class TMSteps, TMSong, Texture2D;
 
-@interface SongResultsRenderer : TMScreen <TMGameUIResponder> {
-	TMSong*					m_pSong;	// The song we are calculating for
-	TMSteps*				m_pSteps;	// The steps we played
-	
-	int						m_nCounters[kNumNoteScores];
-	int						m_nOkNgCounters[kNumNoteScores];
+@interface SongResultsRenderer : TMScreen <TMGameUIResponder> {	
+	int						m_nCounters[kNumJudgementValues];
+	int						m_nOkNgCounters[kNumHoldScores];
 	
 	BOOL					m_bReturnToSongSelection;
 	
@@ -27,7 +24,5 @@
 	/* Metrics and such */	
 	Texture2D* t_SongResultsBG;
 }
-
-- (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps;
 
 @end

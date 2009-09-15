@@ -489,9 +489,9 @@
 					[DWIParser dwiCharToNoteCol:c colOut1:&col1 colOut2:&col2];					
 										
 					if(col1 != -1) {
-						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col1 onNoteRow:iIndex];
+						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original onTrack:col1] toTrack:col1 onNoteRow:iIndex];
 					} if(col2 != -1) {
-						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original] toTrack:col2 onNoteRow:iIndex];
+						[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_Original onTrack:col2] toTrack:col2 onNoteRow:iIndex];
 					}
 									
 					if(stepData[currentNote] == '!') {
@@ -502,9 +502,9 @@
 						
 						// Every note here represents a hold head
 						if(col1 != -1) {
-							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col1 onNoteRow:iIndex];
+							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead onTrack:col1] toTrack:col1 onNoteRow:iIndex];
 						} if(col2 != -1) {
-							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead] toTrack:col2 onNoteRow:iIndex];						
+							[steps setNote:[[TMNote alloc] initWithNoteRow:iIndex andType:kNoteType_HoldHead onTrack:col2] toTrack:col2 onNoteRow:iIndex];						
 						}						
 					}
 					

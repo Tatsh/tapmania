@@ -366,13 +366,13 @@
 						if(cc == '1') {
 							// it's a regular tap note. good
 							TMLog(@"Place a note on %d in panel %d", currentNoteRow, note);
-							[steps setNote:[[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_Original] toTrack:note onNoteRow:currentNoteRow];									
+							[steps setNote:[[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_Original onTrack:note] toTrack:note onNoteRow:currentNoteRow];									
 						}
 						else
 						if(cc == '2') {
 							// it's a hold note start... not bad too
 							TMLog(@"Place a holdhead on %d in panel %d", currentNoteRow, note);
-							TMNote* holdHead = [[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_HoldHead];
+							TMNote* holdHead = [[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_HoldHead onTrack:note];
 							
 							// save it in the holds array
 							holds[note] = holdHead;

@@ -24,8 +24,7 @@
 + (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song;
 + (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod;
 
-+ (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore;
-+ (TMNoteScore) getNoteScoreByDelta:(float)delta andTimingFlag:(TMTimingFlag)flag;	
-+ (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore;
++ (TMJudgement) getJudgementByDelta:(float)delta;
++ (float) getLifebarChangeByNoteScore:(TMJudgement)noteScore;
 
 @end

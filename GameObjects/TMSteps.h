@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TMSong.h"	// For TMSongDifficulty
 #import "TMTrack.h"
+#import "TMRenderable.h"
+#import "TMMessageSupport.h"
+#import "TMLogicUpdater.h"
+#import "SongPlayRenderer.h"
 
-@class TMTrack, TMNote;
+@class TMTrack, TMNote, TapNote, HoldNote, Texture2D;
 
 typedef enum {
 	kAvailableTrack_Left = 0,
@@ -20,11 +24,26 @@ typedef enum {
 	kNumOfAvailableTracks
 } TMAvailableTracks;
 
-@interface TMSteps : NSObject {
+@class SongPlayRenderer;
+
+@interface TMSteps : NSObject <TMRenderable, TMLogicUpdater, TMMessageSupport> {
 	TMSongDifficulty	m_nDifficulty;						// The difficulty. eg. Easy, Heavy etc.
 	int					m_nDifficultyLevel;					// The level. eg. 1-15.
+	int					m_nTrackPos[kNumOfAvailableTracks];
 	
 	TMTrack*			m_pTracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
+	
+	/* Metrics and such */
+	CGRect mt_TapNotes[kNumOfAvailableTracks];
+	float  mt_TapNoteRotations[kNumOfAvailableTracks];
+	CGRect mt_Receptors[kNumOfAvailableTracks];
+	float mt_HalfOfArrowHeight[kNumOfAvailableTracks];
+	CGSize mt_HoldCap, mt_HoldBody;
+	
+	// Noteskin stuff
+	TapNote* t_TapNote;
+	HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
+	Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;	
 }
 
 - (int) getDifficultyLevel;
@@ -36,7 +55,7 @@ typedef enum {
 - (BOOL) hasNoteAtRow:(int) noteRow forTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
 
-- (BOOL) checkAllNotesHitFromRow:(int) noteRow time1Out:(double*)time1Out time2Out:(double*)time2Out time3Out:(double*)time3Out time4Out:(double*)time4Out;
+- (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime;
 - (void) markAllNotesLostFromRow:(int) noteRow;
 
 - (int) getFirstNoteRow;

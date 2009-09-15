@@ -11,13 +11,13 @@
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
 #import "ARRollerProtocol.h"
 
-@class TMSong, TMSongOptions, EAGLView, JoyPad, AbstractRenderer;
+@class TMSong, TMSongOptions, EAGLView, JoyPad;
 
 @interface TapMania : NSObject <TMRunLoopDelegate, ARRollerDelegate> {	
 	TMSong*				m_pCurrentSong;	// Points to currently selected song which can be played
 	TMSongOptions*		m_pCurrentSongOptions;	// Holds current song options which are applied to the currentSong
 	
-	AbstractRenderer*	m_pCurrentScreen;	// This is set to currently rendering screen
+	NSObject*			m_pCurrentScreen;	// This is set to currently rendering screen
 	
 	UIWindow*			m_pWindow;
 	EAGLView*			m_pGlView;
@@ -37,15 +37,15 @@
 
 // Go to another screen using this method
 // This method will remove current screen and release memory. Afterwards it will switch to the specified screen.
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer;
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass;
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;	
+- (void) switchToScreen:(NSObject*)screenRenderer;
+- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass;
+- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;	
 
 - (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
 - (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAll;
 
-- (void) setCurrentScreen:(AbstractRenderer*) screenRenderer;
+- (void) setCurrentScreen:(NSObject*) screenRenderer;
 - (void) releaseCurrentScreen;
 
 - (void) toggleAds:(BOOL)onOff;

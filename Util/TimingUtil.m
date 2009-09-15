@@ -179,66 +179,37 @@
 	return tPxDistBetweenRows;
 }
 
-+ (TMJudgement) getJudgementByScore:(TMNoteScore)noteScore {
-	if(noteScore == kNoteScore_W1E || noteScore == kNoteScore_W1L) {
-		return kJudgementW1;
-	} else if(noteScore == kNoteScore_W2E || noteScore == kNoteScore_W2L) {
-		return kJudgementW2;
-	} else if(noteScore == kNoteScore_W3E || noteScore == kNoteScore_W3L) {
-		return kJudgementW3;
-	} else if(noteScore == kNoteScore_W4E || noteScore == kNoteScore_W4L) {
-		return kJudgementW4;
-	} else if(noteScore == kNoteScore_W5E || noteScore == kNoteScore_W5L) {						
-		return kJudgementW5;
-	} else {
-		return kJudgementMiss;
-	}	
-}
-
-+ (TMNoteScore) getNoteScoreByDelta:(float)delta andTimingFlag:(TMTimingFlag) flag {
++ (TMJudgement) getJudgementByDelta:(float)delta {
 	if(delta <= 0.022500) {
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_W1E;
-		return kNoteScore_W1L;
+		return kJudgementW1;
 		
 	} else if(delta <= 0.045000) {
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_W2E;
-		return kNoteScore_W2L;
+		return kJudgementW2;
 		
 	} else if(delta <= 0.090000) {
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_W3E;
-		return kNoteScore_W3L;
+		return kJudgementW3;
 		
 	} else if(delta <= 0.135000) {
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_W4E;
-		return kNoteScore_W4L;
+		return kJudgementW4;
 		
 	} else if(delta <= 0.180000) {						
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_W5E;
-		return kNoteScore_W5L;
+		return kJudgementW5;
 		
 	} else {
-		if(flag == kTimingFlagEarly)
-			return kNoteScore_MissE;
-		return kNoteScore_MissL;
-		
+		return kJudgementMiss;
 	}		
 }
 
-+ (float) getLifebarChangeByNoteScore:(TMNoteScore)noteScore {
-	if(noteScore == kNoteScore_W1E || noteScore == kNoteScore_W1L) {
++ (float) getLifebarChangeByNoteScore:(TMJudgement)noteScore {
+	if(noteScore == kJudgementW1) {
 		return 0.008f;
-	} else if(noteScore == kNoteScore_W2E || noteScore == kNoteScore_W2L) {
+	} else if(noteScore == kJudgementW2) {
 		return 0.008f;
-	} else if(noteScore == kNoteScore_W3E || noteScore == kNoteScore_W3L) {
+	} else if(noteScore == kJudgementW3) {
 		return 0.004f;
-	} else if(noteScore == kNoteScore_W4E || noteScore == kNoteScore_W4L) {
+	} else if(noteScore == kJudgementW4) {
 		return 0.000f;
-	} else if(noteScore == kNoteScore_W5E || noteScore == kNoteScore_W5L) {						
+	} else if(noteScore == kJudgementW5) {						
 		return -0.040f;
 	} else {
 		// Miss

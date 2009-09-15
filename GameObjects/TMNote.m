@@ -7,18 +7,20 @@
 //
 
 #import "TMNote.h"
-
+#import "TMMessage.h"
+#import "MessageManager.h"
 
 @implementation TMNote
 
-@synthesize m_nType, m_nBeatType, m_bIsHit, m_bIsLost, m_bIsHeld, m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nHoldScore;
+@synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bIsLost, m_bIsHeld, m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
 @synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type {
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack {
 	self = [super init];
 	if(!self)
 		return nil;
 	
+	m_nTrack = inTrack;
 	m_nStartNoteRow = noteRow;
 	m_nStopNoteRow = -1;
 	m_nBeatType = [TMNote getBeatType:noteRow];
@@ -34,7 +36,8 @@
 	m_fStartYPosition = 0.0f;
 	m_fStopYPosition = 0.0f;
 	
-	m_nScore = kNoteScore_None;	// No scoring info by default
+	m_nScore = kJudgementNone;	// No scoring info by default
+	m_nTimingFlag = kTimingFlagInvalid;
 	m_nHoldScore = kHoldScore_NG;	// NG by default
 	
 	return self;
@@ -51,8 +54,10 @@
 	m_bIsLost = YES;
 }
 
-- (void) score:(TMNoteScore)score { 
+- (void) score:(TMJudgement)score withTimingFlag:(TMTimingFlag)timingFlag { 
 	m_nScore = score;
+	m_nTimingFlag = timingFlag;
+	BROADCAST_MESSAGE(kNoteScoreMessage, self);
 }
 
 - (void) startHolding:(double)touchTime {
@@ -69,12 +74,21 @@
 	m_bIsHolding = NO;
 }
 
+- (void) markHoldHeld {
+	m_bIsHeld = YES;
+	m_bIsHoldLost = NO;
+	
+	m_nHoldScore = kHoldScore_OK;
+	BROADCAST_MESSAGE(kHoldHeldMessage, self);
+}
+
 - (void) markHoldLost {
 	m_bIsHolding = NO;
 	m_bIsHeld = NO;
 	m_bIsHoldLost = YES;
 	
 	m_nHoldScore = kHoldScore_NG;
+	BROADCAST_MESSAGE(kHoldLostMessage, self);
 }
 
 + (TMBeatType) getBeatType:(int) row {

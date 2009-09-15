@@ -18,24 +18,20 @@
 #import "TMSteps.h"
 #import "SongPickerMenuRenderer.h"
 
-@implementation SongResultsRenderer
+#import "GameState.h"
 
-- (id) initWithSong:(TMSong*)song withSteps:(TMSteps*)steps {
-	self = [super init];
-	if(!self)
-		return nil;
-			
-	m_pSteps = [steps retain];
-	m_pSong = [song retain];
-		
-	return self;
-}
+extern TMGameState* g_pGameState;
+
+@implementation SongResultsRenderer
 
 - (void) dealloc {
 	
 	// Here we MUST release memory used by the steps since after this place we will not need it anymore
-	[m_pSteps release];
-	[m_pSong release];
+	[g_pGameState->m_pSteps release];
+	[g_pGameState->m_pSong release];
+	
+	g_pGameState->m_pSong = nil;
+	g_pGameState->m_pSteps = nil;
 	
 	int i;
 	for(i=0; i<[texturesArray count]; ++i) {
@@ -57,17 +53,17 @@
 	int i, track;
 	
 	// asure we have zeros in all score counters
-	for(i=0; i<kNumNoteScores; i++) m_nCounters[i]=0;
+	for(i=0; i<kNumJudgementValues; i++) m_nCounters[i]=0;
 	for(i=0; i<kNumHoldScores; i++) m_nOkNgCounters[i]=0;
 	
 	m_bReturnToSongSelection = NO;
 	
 	// Calculate
 	for(track=0; track<kNumOfAvailableTracks; track++) {
-		int notesCount = [m_pSteps getNotesCountForTrack:track];
+		int notesCount = [g_pGameState->m_pSteps getNotesCountForTrack:track];
 		
 		for(i=0; i<notesCount; i++) {
-			TMNote* note = [m_pSteps getNote:i fromTrack:track];
+			TMNote* note = [g_pGameState->m_pSteps getNote:i fromTrack:track];
 			
 			if(note.m_nType != kNoteType_Empty) {
 				m_nCounters[ note.m_nScore ] ++;
@@ -83,12 +79,12 @@
 	texturesArray = [[NSMutableArray alloc] initWithCapacity:8];
 	
 	// Cache the textures
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", m_nCounters[kNoteScore_W1E]+m_nCounters[kNoteScore_W1L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", m_nCounters[kNoteScore_W2E]+m_nCounters[kNoteScore_W2L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Great: %d", m_nCounters[kNoteScore_W3E]+m_nCounters[kNoteScore_W3L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Good: %d", m_nCounters[kNoteScore_W4E]+m_nCounters[kNoteScore_W4L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kNoteScore_W5E]+m_nCounters[kNoteScore_W5L]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kNoteScore_MissE]+m_nCounters[kNoteScore_MissL]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", m_nCounters[kJudgementW1]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", m_nCounters[kJudgementW2]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Great: %d", m_nCounters[kJudgementW3]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Good: %d", m_nCounters[kJudgementW4]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kJudgementW5]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
+	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kJudgementMiss]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 //	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
 	

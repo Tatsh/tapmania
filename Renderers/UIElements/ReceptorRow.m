@@ -10,6 +10,7 @@
 #import "Receptor.h"
 #import "Texture2D.h"
 #import "ThemeManager.h"
+#import "TMNote.h"
 #import "TMMessage.h"
 #import "MessageManager.h"
 
@@ -21,8 +22,7 @@
 		return nil;
 	
 	// Subscribe to messages
-	SUBSCRIBE(kReceptorShouldExplodeDimMessage);
-	SUBSCRIBE(kReceptorShouldExplodeBrightMessage);
+	SUBSCRIBE(kNoteScoreMessage);
 	
 	// Cache metrics
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
@@ -43,6 +43,11 @@
 	t_ExplosionBright = SKIN_TEXTURE(@"DownTapExplosionBright");
 			
 	return self;
+}
+
+- (void) dealloc {
+	UNSUBSCRIBE_ALL();
+	[super dealloc];
 }
 
 - (void) explodeDim:(TMAvailableTracks)receptor {
@@ -97,12 +102,16 @@
 /* TMMessageSupport stuff */
 -(void) handleMessage:(TMMessage*)message {
 	switch (message.messageId) {
-		case kReceptorShouldExplodeDimMessage:
-			[self explodeDim:[(NSNumber*)message.payload intValue]];
-			break;
-		case kReceptorShouldExplodeBrightMessage:
-			[self explodeBright:[(NSNumber*)message.payload intValue]];
-			break;
+		case kNoteScoreMessage:
+
+			TMNote* note = (TMNote*)message.payload;			
+			if(note.m_nScore == kJudgementW1) {
+				[self explodeBright:note.m_nTrack];
+			} else if(note.m_nScore != kJudgementMiss) {
+				[self explodeDim:note.m_nTrack];	
+			}
+
+			break;			
 	}
 }
 

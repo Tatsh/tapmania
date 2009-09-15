@@ -6,7 +6,8 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Judgement.h"
+#import "TMSteps.h"
 
 typedef enum {
 	kNoteDirection_Left = 0,
@@ -38,28 +39,6 @@ typedef enum {
 } TMNoteType;
 
 typedef enum {
-	kNoteScore_None = 0,
-	kNoteScore_W1E,
-	kNoteScore_W1L,
-	
-	kNoteScore_W2E,
-	kNoteScore_W2L,
-	
-	kNoteScore_W3E,
-	kNoteScore_W3L,
-	
-	kNoteScore_W4E,
-	kNoteScore_W4L,
-	
-	kNoteScore_W5E,
-	kNoteScore_W5L,
-	
-	kNoteScore_MissE,
-	kNoteScore_MissL,
-	kNumNoteScores
-} TMNoteScore;
-
-typedef enum {
 	kHoldScore_OK = 0,
 	kHoldScore_NG,
 	kNumHoldScores
@@ -77,7 +56,8 @@ typedef enum {
 	TMNoteType			m_nType;		// Type of the note
 	
 	int					m_nStartNoteRow;	// Start note row in the track
-	int					m_nStopNoteRow;	// For hold notes
+	int					m_nStopNoteRow;		// For hold notes
+	TMAvailableTracks	m_nTrack;
 	
 	BOOL		m_bIsHit;			// True if the note was hit during gameplay
 	BOOL		m_bIsLost;			// True if the note was not hit in the timing window
@@ -94,10 +74,12 @@ typedef enum {
 	float		m_fStopYPosition;
 	
 	// Scoring info
-	TMNoteScore m_nScore;
-	TMHoldScore m_nHoldScore;
+	TMTimingFlag	m_nTimingFlag;
+	TMJudgement		m_nScore;
+	TMHoldScore		m_nHoldScore;
 }
 
+@property (assign, readonly) TMAvailableTracks m_nTrack;
 @property (assign) int m_nStartNoteRow;
 @property (assign) int m_nStopNoteRow;
 @property (assign, readonly) TMBeatType m_nBeatType;
@@ -118,19 +100,21 @@ typedef enum {
 @property (assign) float m_fStopYPosition;
 
 // Scoring info
-@property (assign, readonly) TMNoteScore m_nScore;
+@property (assign, readonly) TMJudgement m_nScore;
+@property (assign, readonly) TMTimingFlag m_nTimingFlag;
 @property (assign, readonly) TMHoldScore m_nHoldScore;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type;
+- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack;
 
 - (void) hit:(double)hitTime;
-- (void) score:(TMNoteScore)score;
+- (void) score:(TMJudgement)score withTimingFlag:(TMTimingFlag)timingFlag;
 
 - (void) startHolding:(double)touchTime;
 - (void) stopHolding:(double)releaseTime;
 
 - (void) markLost;
 - (void) markHoldLost;
+- (void) markHoldHeld;
 
 + (TMBeatType) getBeatType:(int) row;
 + (int) beatToNoteRow:(float) beat;

@@ -8,13 +8,15 @@
 
 #import "Judgement.h"
 #import "ThemeManager.h"
+#import "TMNote.h"
+#import "TimingUtil.h"
+#import "TMMessage.h"
+#import "MessageManager.h"
 
 @interface Judgement (Private) 
 - (void) drawJudgement:(int) frame;
+- (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag;
 @end
-
-static int mt_JudgementX, mt_JudgementY;
-static float mt_JudgementMaxShowTime;
 
 @implementation Judgement
 
@@ -27,7 +29,7 @@ static float mt_JudgementMaxShowTime;
 - (void) reset {
 	m_dElapsedTime = 0.0f;
 	m_nCurrentJudgement = kJudgementNone;
-	m_nCurrentFlag = 0;	
+	m_nCurrentFlag = kTimingFlagInvalid;	
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -36,13 +38,19 @@ static float mt_JudgementMaxShowTime;
 		return nil;
 
 	// Cache metrics
-	mt_JudgementX = [[ThemeManager sharedInstance] intMetric:@"SongPlay Judgement X"];
-	mt_JudgementY = [[ThemeManager sharedInstance] intMetric:@"SongPlay Judgement Y"];
-	mt_JudgementMaxShowTime = [[ThemeManager sharedInstance] floatMetric:@"SongPlay Judgement MaxShowTime"];
+	mt_JudgementX = INT_METRIC(@"SongPlay Judgement X");
+	mt_JudgementY = INT_METRIC(@"SongPlay Judgement Y");
+	mt_JudgementMaxShowTime = FLOAT_METRIC(@"SongPlay Judgement MaxShowTime");
 	
+	SUBSCRIBE(kNoteScoreMessage);
 	[self reset];
 	
 	return self;
+}
+
+- (void) dealloc {
+	UNSUBSCRIBE_ALL();
+	[super dealloc];
 }
 
 - (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag{
@@ -71,6 +79,18 @@ static float mt_JudgementMaxShowTime;
 			m_dElapsedTime = 0.0f;
 			m_nCurrentJudgement = kJudgementNone;
 		}
+	}
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	switch (message.messageId) {
+		case kNoteScoreMessage:			
+			
+			TMNote* note = (TMNote*)message.payload;			
+			[self setCurrentJudgement:note.m_nScore andTimingFlag:note.m_nTimingFlag];
+						
+			break;
 	}
 }
 

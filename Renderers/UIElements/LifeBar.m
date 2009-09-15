@@ -9,9 +9,15 @@
 #import "LifeBar.h"
 #import "Texture2D.h"
 #import "ThemeManager.h"
+#import "TimingUtil.h"
+#import "TMNote.h"
 
 #import "MessageManager.h"
 #import "TMMessage.h"
+
+@interface LifeBar (Private)
+- (void) updateBy:(float)value;
+@end
 
 @implementation LifeBar
 
@@ -33,7 +39,17 @@
 	t_LifeBarHot = TEXTURE(@"SongPlay LifeBar Hot");
 	t_LifeBarFrame = TEXTURE(@"SongPlay LifeBar Frame");
 		
+	// Subscribe to messages
+	SUBSCRIBE(kNoteScoreMessage);
+	SUBSCRIBE(kHoldHeldMessage);
+	SUBSCRIBE(kHoldLostMessage);
+	
 	return self;
+}
+
+- (void) dealloc {
+	UNSUBSCRIBE_ALL();
+	[super dealloc];
 }
 
 - (float) getCurrentValue {
@@ -81,6 +97,30 @@
 	if(m_fCurrentValue < kMinLifeToKeepAlive && m_bIsActive) {
 		BROADCAST_MESSAGE(kLifeBarDrainedMessage, nil);
 		m_bIsActive = NO;
+	}
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	switch (message.messageId) {
+		case kNoteScoreMessage:			
+			
+			TMNote* note = (TMNote*)message.payload;			
+			[self updateBy:[TimingUtil getLifebarChangeByNoteScore:note.m_nScore]];			
+			
+			break;
+			
+		case kHoldHeldMessage:
+			
+			[self updateBy:0.008];	// OK judgement
+			
+			break;
+			
+		case kHoldLostMessage:
+			
+			[self updateBy:-0.080];	// NG judgement
+			
+			break;
 	}
 }
 

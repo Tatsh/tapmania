@@ -10,6 +10,7 @@
 #import "TMFramedTexture.h"
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
+#import "TMMessageSupport.h"
 #import "TMSteps.h"	// For kNumOfAvailableTracks
 
 #define HOLD_JUDGEMENT_MAX_SHOW_TIME 0.4	// Seconds 
@@ -21,7 +22,7 @@ typedef enum {
 	kNumHoldJudgementValues
 } TMHoldJudgement;
 
-@interface HoldJudgement : TMFramedTexture <TMLogicUpdater, TMRenderable> {
+@interface HoldJudgement : TMFramedTexture <TMLogicUpdater, TMRenderable, TMMessageSupport> {
 	TMHoldJudgement m_nCurrentJudgement[kNumOfAvailableTracks];	// Currently displayed judgements for every track
 	double			m_dElapsedTime[kNumOfAvailableTracks];	// Time elapsed since last renew of the judgement in every track
 
@@ -31,6 +32,5 @@ typedef enum {
 }
 
 - (void) reset;
-- (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
 
 @end

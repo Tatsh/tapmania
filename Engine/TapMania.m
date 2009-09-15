@@ -24,7 +24,10 @@
 #import "JoyPad.h"
 #import "SongsCacheLoaderRenderer.h"
 
+#import "GameState.h"
 #import "FPS.h"
+
+TMGameState* g_pGameState;
 
 // This is a singleton class, see below
 static TapMania *sharedTapManiaDelegate = nil;
@@ -50,18 +53,20 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
 	
+	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
+	
 	return self;
 }
 
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer {
+- (void) switchToScreen:(NSObject*)screenRenderer {
 	[m_pGameRunLoop registerObject:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
 }
 
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass {
+- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass {
 	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
 }
 
-- (void) switchToScreen:(AbstractRenderer*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
+- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
 	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut] 
 					  withPriority:kRunLoopPriority_Lowest];
 }
@@ -78,7 +83,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGameRunLoop deregisterAllObjects];
 }
 
-- (void) setCurrentScreen:(AbstractRenderer*)screenRenderer {
+- (void) setCurrentScreen:(NSObject*)screenRenderer {
 	m_pCurrentScreen = screenRenderer;
 }
 

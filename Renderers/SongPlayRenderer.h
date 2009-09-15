@@ -22,28 +22,18 @@
 
 @interface SongPlayRenderer : TMScreen <TMMessageSupport> {
 	TMSound*				m_pSound;	// TMSound object with sound
-	TMSong*					m_pSong;	// Currently played song
-	TMSteps*				m_pSteps;	// Currently played steps
 
 	ReceptorRow*			m_pReceptorRow;
 	LifeBar*				m_pLifeBar;
 	
-	int						m_nTrackPos[kNumOfAvailableTracks];	// Current element of each track
-	
-	double					m_dSpeedModValue;	
 	double					m_dScreenEnterTime;					// The time when we invoked playSong
-	double					m_dPlayBackStartTime;				// The time to start music
 	double					m_dPlayBackScheduledEndTime;		// The time to stop music and stop gameplay
 	double					m_dPlayBackScheduledFadeOutTime;	// The time to start fading music out
 	
-	BOOL					m_bPlayingGame;
-	BOOL					m_bFailed;
 	BOOL					m_bDrawReady, m_bDrawGo;
 	BOOL					m_bIsFading;
 	BOOL					m_bMusicPlaybackStarted;
 	
-	BOOL					m_bAutoPlay;
-
 	JoyPad* 				m_pJoyPad; // Local pointer for easy access
 	
 	/* Metrics and such */
@@ -51,10 +41,7 @@
 	Judgement*	t_Judgement;
 	HoldJudgement* t_HoldJudgement;
 	
-	// Noteskin stuff
-	TapNote* t_TapNote;
-	HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
-	Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;
+	// Other
 	Texture2D* t_FingerTap;
 	Texture2D* t_BG, *t_Failed, *t_Cleared, *t_Ready, *t_Go;
 	
@@ -64,15 +51,8 @@
 	CGPoint mt_Judgement;
 	float   mt_JudgementMaxShowTime;
 	
-	CGSize mt_HoldCap, mt_HoldBody;
-	CGRect mt_Receptors[kNumOfAvailableTracks];
 	CGRect mt_LifeBar;
-	
-	CGRect mt_TapNotes[kNumOfAvailableTracks];
-	float  mt_TapNoteRotations[kNumOfAvailableTracks];
-	
-	float mt_HalfOfArrowHeight[kNumOfAvailableTracks];
-	
+		
 	BOOL cfg_VisPad;
 }
 

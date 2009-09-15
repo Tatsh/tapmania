@@ -283,6 +283,7 @@
 		24079C1B0F4324260052EDB2 /* TMTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransition.h; sourceTree = "<group>"; };
 		24079D8A0F4333300052EDB2 /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
 		24079D8B0F4333300052EDB2 /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
+		2409199C105FCD3600927F28 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
 		241955EA102B08F800FC6E0F /* SongManagerRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.m; path = Renderers/SongManagerRenderer.m; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
@@ -310,13 +311,13 @@
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
 		246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldJudgement.h; path = Renderers/UIElements/HoldJudgement.h; sourceTree = "<group>"; };
-		246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldJudgement.m; path = Renderers/UIElements/HoldJudgement.m; sourceTree = "<group>"; };
+		246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HoldJudgement.m; path = Renderers/UIElements/HoldJudgement.m; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
 		2472663C0EE949A500D501AF /* TapNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapNote.m; path = Renderers/UIElements/TapNote.m; sourceTree = "<group>"; };
 		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
 		247266530EE94D3B00D501AF /* Receptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Receptor.m; path = Renderers/UIElements/Receptor.m; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
-		2472672C0EE97DDC00D501AF /* ReceptorRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReceptorRow.m; path = Renderers/UIElements/ReceptorRow.m; sourceTree = "<group>"; };
+		2472672C0EE97DDC00D501AF /* ReceptorRow.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.m; path = Renderers/UIElements/ReceptorRow.m; sourceTree = "<group>"; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
 		2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.m; path = Renderers/PadConfigRenderer.m; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
@@ -340,11 +341,11 @@
 		2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2486F2A70EC0A2D600E5F9EE /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeBar.h; path = Renderers/UIElements/LifeBar.h; sourceTree = "<group>"; };
-		2486F2A80EC0A2D600E5F9EE /* LifeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LifeBar.m; path = Renderers/UIElements/LifeBar.m; sourceTree = "<group>"; };
+		2486F2A80EC0A2D600E5F9EE /* LifeBar.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = LifeBar.m; path = Renderers/UIElements/LifeBar.m; sourceTree = "<group>"; };
 		2486F2AB0EC0A51100E5F9EE /* TMSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSong.h; sourceTree = "<group>"; };
 		2486F2AC0EC0A51100E5F9EE /* TMSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSong.m; sourceTree = "<group>"; };
 		2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSteps.h; sourceTree = "<group>"; };
-		2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSteps.m; sourceTree = "<group>"; };
+		2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TMSteps.m; sourceTree = "<group>"; };
 		2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongOptions.h; sourceTree = "<group>"; };
 		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSongOptions.m; sourceTree = "<group>"; };
 		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
@@ -495,7 +496,7 @@
 		24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsUtil.h; path = Util/PhysicsUtil.h; sourceTree = "<group>"; };
 		24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicsUtil.m; path = Util/PhysicsUtil.m; sourceTree = "<group>"; };
 		24D4C1460F1B3C1100643CC2 /* Judgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Judgement.h; path = Renderers/UIElements/Judgement.h; sourceTree = "<group>"; };
-		24D4C1470F1B3C1100643CC2 /* Judgement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Judgement.m; path = Renderers/UIElements/Judgement.m; sourceTree = "<group>"; };
+		24D4C1470F1B3C1100643CC2 /* Judgement.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Judgement.m; path = Renderers/UIElements/Judgement.m; sourceTree = "<group>"; };
 		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
 		24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelSoundPlayer.m; sourceTree = "<group>"; };
 		24D52ABD1035A4970030A6CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -819,6 +820,7 @@
 				24EBF5570EC889AD00533056 /* TMTrack.mm */,
 				24EBF5590EC88B4400533056 /* TMNote.h */,
 				24EBF55A0EC88B4400533056 /* TMNote.m */,
+				2409199C105FCD3600927F28 /* GameState.h */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";

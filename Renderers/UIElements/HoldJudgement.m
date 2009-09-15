@@ -8,9 +8,13 @@
 
 #import "HoldJudgement.h"
 #import "ThemeManager.h"
+#import "TMNote.h"
+#import "TMMessage.h"
+#import "MessageManager.h"
 
 @interface HoldJudgement (Private) 
 - (void) drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
+- (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
 @end
 
 @implementation HoldJudgement
@@ -41,9 +45,18 @@
 
 	mt_HoldJudgementMaxShowTime = FLOAT_METRIC(@"SongPlay HoldJudgement MaxShowTime");
 	
+	// Subscribe for messages
+	SUBSCRIBE(kHoldHeldMessage);
+	SUBSCRIBE(kHoldLostMessage);
+	
 	[self reset];
 	
 	return self;
+}
+
+- (void) dealloc {
+	UNSUBSCRIBE_ALL();
+	[super dealloc];
 }
 
 - (void) setCurrentHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track {
@@ -57,7 +70,7 @@
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {			
 		if(m_nCurrentJudgement[i] != kHoldJudgementNone) {
-			[self drawHoldJudgement:m_nCurrentJudgement[i] forTrack:i];
+			[self drawHoldJudgement:m_nCurrentJudgement[i] forTrack:(TMAvailableTracks)i];
 		}
 	}
 }
@@ -77,6 +90,27 @@
 				m_nCurrentJudgement[i] = kHoldJudgementNone;
 			}
 		}
+	}
+}
+
+/* TMMessageSupport stuff */
+-(void) handleMessage:(TMMessage*)message {
+	TMNote* note = nil;
+	
+	switch (message.messageId) {
+		case kHoldLostMessage:			
+			
+			note = (TMNote*)message.payload;			
+			[self setCurrentHoldJudgement:kHoldJudgementNG forTrack:note.m_nTrack];		
+			
+			break;
+
+		case kHoldHeldMessage:			
+			
+			note = (TMNote*)message.payload;			
+			[self setCurrentHoldJudgement:kHoldJudgementOK forTrack:note.m_nTrack];		
+			
+			break;			
 	}
 }
 

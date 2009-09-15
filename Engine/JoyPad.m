@@ -12,6 +12,8 @@
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"
 #import "EAGLView.h"
+#import "TMMessage.h"
+#import "MessageManager.h"
 
 @interface JoyPad (Private)
 - (void) createSpreadJoy;
@@ -28,6 +30,10 @@
 	if(!self)
 		return nil;
 
+	// Register message types
+	REG_MESSAGE(kJoyPadTapMessage, @"PadTap");
+	REG_MESSAGE(kJoyPadReleaseMessage, @"PadRelease");
+	
 	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithX:80 andY:160];
 	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithX:160 andY:80];
 	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithX:160 andY:240];
@@ -121,6 +127,7 @@
 			// This means we want to exit the song (force fail)
 			m_bJoyButtonStates[kJoyButtonExit] = YES;
 			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp;
+			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 			
 		} else {
 			int i;
@@ -149,6 +156,7 @@
 
 			m_bJoyButtonStates[closestButton] = YES;
 			m_dJoyButtonTimeTouch[closestButton] = touch.timestamp;
+			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:closestButton]);
 		}
 	}
 }
@@ -193,6 +201,7 @@
 		
 		m_bJoyButtonStates[closestButton] = NO;
 		m_dJoyButtonTimeRelease[closestButton] = touch.timestamp;			
+		BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:closestButton]);
 	}
 }
 
