@@ -26,16 +26,16 @@
 	
 	// Cache metrics
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
-		mt_Receptors[i]	=					RECT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow %d", i]));
-		mt_ReceptorExplosions[i] =			RECT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow Explosion %d", i]));
-		mt_ReceptorRotations[i] =			FLOAT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow Rotation %d", i]));
-		mt_ReceptorExplosionRotations[i] =  FLOAT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow Explosion Rotation %d", i]));		
+		mt_Receptors[i]	=					RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
+		mt_ReceptorExplosions[i] =			RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow Explosion %d", i]));
+		mt_ReceptorRotations[i] =			FLOAT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow Rotation %d", i]));
+		mt_ReceptorExplosionRotations[i] =  FLOAT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow Explosion Rotation %d", i]));		
 		
 		m_dExplosionTime[i] = 0.0f;
 		m_nExplosion[i] = kExplosionTypeNone;
 	}
 	
-	mt_ReceptorExplosionMaxShowTime = FLOAT_METRIC(@"SongPlay ReceptorRow Explosion MaxShowTime");
+	mt_ReceptorExplosionMaxShowTime = FLOAT_SKIN_METRIC(@"ReceptorRow Explosion MaxShowTime");
 	
 	// Cache textures
 	t_GoReceptor = (Receptor*)SKIN_TEXTURE(@"DownGoReceptor");

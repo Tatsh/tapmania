@@ -7,7 +7,7 @@
 //
 
 #import "ThemeManager.h"
-#import "ThemeMetrics.h"
+#import "Metrics.h"
 #import "ResourcesLoader.h"
 #import "TMSound.h"
 #import "VersionInfo.h"
@@ -16,7 +16,7 @@
 static ThemeManager *sharedThemeManagerDelegate = nil;
 
 @interface ThemeManager (Private)
-- (NSObject*) lookUpNode:(NSString*) key;
+- (NSObject*) lookUpNode:(NSString*) key from:(NSObject*) rootObj;
 @end
 
 
@@ -104,7 +104,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
 		
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
-			m_pCurrentThemeMetrics	 = [[ThemeMetrics alloc] initWithContentsOfFile:filePath];
+			m_pCurrentThemeMetrics	 = [[Metrics alloc] initWithContentsOfFile:filePath];
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
 			m_pCurrentThemeSoundResources = [[ResourcesLoader alloc] initWithPath:themeSoundsPath type:kResourceLoaderSounds andDelegate:self];
 			m_pCurrentThemeWebResources = [[ResourcesLoader alloc] initWithPath:themeWebPath type:kResourceLoaderWeb andDelegate:self];
@@ -131,7 +131,9 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 
 		NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
 		NSString* skinPath =	 [noteskinsDir stringByAppendingPathComponent:skinName];
-		
+		NSString* filePath =	 [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentNoteskinName];
+				
+		m_pCurrentNoteSkinMetrics	= [[Metrics alloc] initWithContentsOfFile:filePath];
 		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
 	} else {
 		TMLog(@"NoteSkin '%@' is no longer available. Switch to default.", skinName);
@@ -140,7 +142,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (int) intMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node) 
 		return 0; // Defualt value
 	
@@ -148,7 +150,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (float) floatMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node) 
 		return 0.0f; // Defualt value
 	
@@ -156,7 +158,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (NSString*) stringMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node) 
 		return @"EMPTY"; // Defualt value
 	
@@ -164,7 +166,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (CGRect) rectMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
 		return CGRectMake(0, 0, 0, 0); // Defualt value
 
@@ -177,7 +179,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (CGPoint) pointMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
 		return CGPointMake(0, 0); // Defualt value
 	
@@ -188,7 +190,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 - (CGSize) sizeMetric:(NSString*) metricKey {
-	NSObject* node = [self lookUpNode:metricKey];
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
 		return CGSizeMake(0, 0); // Defualt value
 	
@@ -197,6 +199,67 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	
 	return CGSizeMake(width, height);
 }
+
+/* Same for skin metrics */
+- (int) intSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node) 
+		return 0; // Defualt value
+	
+	return [(NSNumber*)node	intValue];
+}
+
+- (float) floatSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node) 
+		return 0.0f; // Defualt value
+	
+	return [(NSNumber*)node	floatValue];
+}
+
+- (NSString*) stringSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node) 
+		return @"EMPTY"; // Defualt value
+	
+	return [[NSString stringWithString:(NSString*)node] autorelease];
+}
+
+- (CGRect) rectSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGRectMake(0, 0, 0, 0); // Defualt value
+	
+	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
+	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
+	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
+	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
+	
+	return CGRectMake(x, y, width, height);
+}
+
+- (CGPoint) pointSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGPointMake(0, 0); // Defualt value
+	
+	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
+	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
+	
+	return CGPointMake(x, y);
+}
+
+- (CGSize) sizeSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return CGSizeMake(0, 0); // Defualt value
+	
+	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
+	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
+	
+	return CGSizeMake(width, height);
+}
+
 
 - (Texture2D*) texture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentThemeResources getResource:textureKey];
@@ -233,12 +296,12 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 }
 
 // This is the private method which searches through the metrics tree to get the metric
-- (NSObject*) lookUpNode:(NSString*) key {
+- (NSObject*) lookUpNode:(NSString*) key from:(NSObject*) rootObj {
 	
 	// Key is of format: "SomeRootElement SomeInnerElement SomeEvenMoreInnerElement TheMetric"
 	NSArray* pathChunks = [key componentsSeparatedByString:@" "];
 	
-	NSObject* tmp = m_pCurrentThemeMetrics;
+	NSObject* tmp = rootObj;
 	int i;
 	
 	for(i=0; i<[pathChunks count]-1; ++i) {

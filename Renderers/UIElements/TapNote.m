@@ -24,7 +24,7 @@
 	
 	// Cache metrics	
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
-		mt_TapNoteRotations[i] = FLOAT_METRIC(([NSString stringWithFormat:@"SongPlay TapNote Rotation %d", i]));
+		mt_TapNoteRotations[i] = FLOAT_SKIN_METRIC(([NSString stringWithFormat:@"TapNote Rotation %d", i]));
 	}
 	
 	// We will animate every arrow at same time

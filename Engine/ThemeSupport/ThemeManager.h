@@ -11,7 +11,7 @@
 #import "FontManager.h"
 #import "ResourcesLoader.h"
 
-@class ThemeMetrics, ResourcesLoader, Texture2D, TMSound;
+@class Metrics, ResourcesLoader, Texture2D, TMSound;
 
 #define INT_METRIC(key) [[ThemeManager sharedInstance] intMetric:key]
 #define FLOAT_METRIC(key) [[ThemeManager sharedInstance] floatMetric:key]
@@ -19,6 +19,13 @@
 #define RECT_METRIC(key) [[ThemeManager sharedInstance] rectMetric:key]
 #define POINT_METRIC(key) [[ThemeManager sharedInstance] pointMetric:key]
 #define SIZE_METRIC(key) [[ThemeManager sharedInstance] sizeMetric:key]
+
+#define INT_SKIN_METRIC(key) [[ThemeManager sharedInstance] intSkinMetric:key]
+#define FLOAT_SKIN_METRIC(key) [[ThemeManager sharedInstance] floatSkinMetric:key]
+#define STR_SKIN_METRIC(key) [[ThemeManager sharedInstance] stringSkinMetric:key]
+#define RECT_SKIN_METRIC(key) [[ThemeManager sharedInstance] rectSkinMetric:key]
+#define POINT_SKIN_METRIC(key) [[ThemeManager sharedInstance] pointSkinMetric:key]
+#define SIZE_SKIN_METRIC(key) [[ThemeManager sharedInstance] sizeSkinMetric:key]
 
 #define TEXTURE(key) [[ThemeManager sharedInstance] texture:key]
 #define SKIN_TEXTURE(key) [[ThemeManager sharedInstance] skinTexture:key]
@@ -31,7 +38,9 @@
 	NSString*			m_sCurrentThemeName;		// Current theme
 	NSString*			m_sCurrentNoteskinName;
 	
-	ThemeMetrics*		m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
+	Metrics*			m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
+	Metrics*			m_pCurrentNoteSkinMetrics;		// The currently loaded noteskin metrics object
+	
 	ResourcesLoader*	m_pCurrentThemeResources;		// Current theme's resources (graphics)
 	ResourcesLoader*	m_pCurrentThemeSoundResources;	// Current theme's sounds
 	ResourcesLoader*	m_pCurrentThemeWebResources;
@@ -61,6 +70,14 @@
 - (CGRect) rectMetric:(NSString*) metricKey;
 - (CGPoint) pointMetric:(NSString*) metricKey;
 - (CGSize) sizeMetric:(NSString*) metricKey;
+
+/* Same for noteskin metrics */
+- (int) intSkinMetric:(NSString*) metricKey;
+- (float) floatSkinMetric:(NSString*) metricKey;
+- (NSString*) stringSkinMetric:(NSString*) metricKey;
+- (CGRect) rectSkinMetric:(NSString*) metricKey;
+- (CGPoint) pointSkinMetric:(NSString*) metricKey;
+- (CGSize) sizeSkinMetric:(NSString*) metricKey;
 
 /* Theme stuff */
 - (TMSound*) sound:(NSString*) soundKey;

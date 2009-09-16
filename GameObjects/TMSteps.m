@@ -37,15 +37,15 @@ extern TMGameState* g_pGameState;
 		m_pTracks[i] = [[TMTrack alloc] init];
 	
 		// Cache metrics
-		mt_TapNotes[i] =					RECT_METRIC(([NSString stringWithFormat:@"SongPlay TapNote %d", i]));
-		mt_TapNoteRotations[i] =			FLOAT_METRIC(([NSString stringWithFormat:@"SongPlay TapNote Rotation %d", i]));		
+		mt_TapNotes[i] =					RECT_SKIN_METRIC(([NSString stringWithFormat:@"TapNote %d", i]));
+		mt_TapNoteRotations[i] =			FLOAT_SKIN_METRIC(([NSString stringWithFormat:@"TapNote Rotation %d", i]));		
 		mt_HalfOfArrowHeight[i] =			mt_TapNotes[i].size.height/2;
 		
-		mt_Receptors[i]	=					RECT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow %d", i]));
+		mt_Receptors[i]	=					RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
 	}
 	
-	mt_HoldCap =							SIZE_METRIC(@"SongPlay HoldNote Cap");
-	mt_HoldBody =							SIZE_METRIC(@"SongPlay HoldNote Body");
+	mt_HoldCap =							SIZE_SKIN_METRIC(@"HoldNote Cap");
+	mt_HoldBody =							SIZE_SKIN_METRIC(@"HoldNote Body");
 	
 	// Cache textures
 	t_TapNote = (TapNote*)SKIN_TEXTURE(@"DownTapNote");
