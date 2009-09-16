@@ -127,6 +127,10 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 
 - (void) selectNoteskin:(NSString*) skinName {
 	if([m_aNoteskinsList containsObject:skinName]) {
+		
+		if(m_pCurrentNoteSkinMetrics) [m_pCurrentNoteSkinMetrics release];
+		if(m_pCurrentNoteSkinResources) [m_pCurrentNoteSkinResources release];
+		
 		m_sCurrentNoteskinName = skinName;		
 
 		NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	

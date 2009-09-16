@@ -38,6 +38,13 @@
 	return self;
 }
 
+- (void) dealloc {
+// TODO: 	[self unLoadAll];
+	[m_pRoot release];
+	
+	[super dealloc];
+}
+
 - (TMResource*) getResource:(NSString*) path {
 	NSObject* node = [self lookUpNode:path];
 	
@@ -89,10 +96,15 @@
 		TMLog(@"The resources on path '%@' are not loaded...", path);
 	}
 	
-	// TODO: release resources
+	if([node isKindOfClass:[NSDictionary class]]) {
+		// Release all sub elements
+	} else {
+		[node release];
+	}
 }
 
 - (void) unLoadAll {
+	[self unLoad:m_pRoot];
 }
 
 /* Private methods */

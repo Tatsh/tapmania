@@ -276,7 +276,9 @@
 }
 
 - (void) noteSkinTogglerChanged {
-	[[SettingsEngine sharedInstance] setStringValue:[[m_pNoteSkinToggler getCurrent] m_pValue] forKey:@"noteskin"];
+	NSString* skinName = [[m_pNoteSkinToggler getCurrent] m_pValue];
+	[[SettingsEngine sharedInstance] setStringValue:skinName forKey:@"noteskin"];
+	[[ThemeManager sharedInstance] selectNoteskin:skinName];
 }
 
 - (void) visiblePadTogglerChanged {
