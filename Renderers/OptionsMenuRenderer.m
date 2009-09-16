@@ -92,7 +92,7 @@
 	
 	BOOL fingerTrack = [[SettingsEngine sharedInstance] getBoolValue:@"autotrack"];
 	int iFingerTrack = [m_pFingerTrackToggler findIndexByValue:[NSNumber numberWithBool:fingerTrack]];
-	iFingerTrack = iFingerTrack == -1 ? 0 : iFingerTrack;
+	iFingerTrack = iFingerTrack == -1 ? 1 : iFingerTrack;
 	
 	[m_pFingerTrackToggler selectItemAtIndex:iFingerTrack];	
 	
@@ -106,7 +106,7 @@
 
 	BOOL visPad = [[SettingsEngine sharedInstance] getBoolValue:@"vispad"];
 	int iPad = [m_pVisPadToggler findIndexByValue:[NSNumber numberWithBool:visPad]];
-	iPad = iPad == -1 ? 0 : iPad;
+	iPad = iPad == -1 ? 1 : iPad;
 	
 	[m_pVisPadToggler selectItemAtIndex:iPad];		
 		

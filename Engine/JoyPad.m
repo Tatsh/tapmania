@@ -42,6 +42,9 @@
 	
 	// Reset states (to saved if any)
 	[self reset];
+	
+	// Restore config value of autoTracking feature
+	m_bAutoTrackEnabled =	CFG_BOOL(@"autotrack");
 
 	return self;
 }
