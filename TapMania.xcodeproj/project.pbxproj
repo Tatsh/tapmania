@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.m */; };
 		241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.m */; };
+		241F10F310610AEE00F5D1BB /* TMControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 241F10F210610AEE00F5D1BB /* TMControl.m */; };
 		242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.m */; };
 		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
 		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
@@ -21,7 +22,6 @@
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.mm */; };
-		244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
 		244E56150F3C6C680004C921 /* TMResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.m */; };
 		244E5AB50F41CB490004C921 /* LoggerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.m */; };
@@ -286,6 +286,8 @@
 		2409199C105FCD3600927F28 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
 		241955EA102B08F800FC6E0F /* SongManagerRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.m; path = Renderers/SongManagerRenderer.m; sourceTree = "<group>"; };
+		241F10F110610AEE00F5D1BB /* TMControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMControl.h; path = Renderers/UIElements/TMControl.h; sourceTree = "<group>"; };
+		241F10F210610AEE00F5D1BB /* TMControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMControl.m; path = Renderers/UIElements/TMControl.m; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
 		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
@@ -297,8 +299,6 @@
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
 		244954D10EDD5AC200D462F0 /* TMRunLoop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TMRunLoop.h; sourceTree = "<group>"; };
 		244954D20EDD5AC200D462F0 /* TMRunLoop.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMRunLoop.mm; sourceTree = "<group>"; };
-		244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMObjectWithPriority.h; sourceTree = "<group>"; };
-		244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMObjectWithPriority.m; sourceTree = "<group>"; };
 		244E56050F3C5D1D0004C921 /* ResourcesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesLoader.h; path = ThemeSupport/ResourcesLoader.h; sourceTree = "<group>"; };
 		244E56060F3C5D1D0004C921 /* ResourcesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesLoader.m; path = ThemeSupport/ResourcesLoader.m; sourceTree = "<group>"; };
 		244E56130F3C6C680004C921 /* TMResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMResource.h; sourceTree = "<group>"; };
@@ -724,8 +724,6 @@
 			children = (
 				24854AD70EE8066800AD4FAB /* Texture2D.h */,
 				24854AD80EE8066800AD4FAB /* Texture2D.m */,
-				244954F30EDD61C200D462F0 /* TMObjectWithPriority.h */,
-				244954F40EDD61C200D462F0 /* TMObjectWithPriority.m */,
 				2485499C0EE7C75800AD4FAB /* TMAnimatable.h */,
 				2485499D0EE7C75800AD4FAB /* TMAnimatable.m */,
 				24854A830EE8015500AD4FAB /* TMFramedTexture.h */,
@@ -800,6 +798,8 @@
 				248F78140F77F99700AE2130 /* Slider.m */,
 				24D029C80F45C69C00F1F0DE /* FPS.h */,
 				24D029C90F45C69C00F1F0DE /* FPS.m */,
+				241F10F110610AEE00F5D1BB /* TMControl.h */,
+				241F10F210610AEE00F5D1BB /* TMControl.m */,
 			);
 			name = "UI Elements";
 			path = ../..;
@@ -1557,7 +1557,6 @@
 				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
 				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
 				244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */,
-				244954F50EDD61C200D462F0 /* TMObjectWithPriority.m in Sources */,
 				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */,
 				248EE4580EE4002000FF1D43 /* TapMania.m in Sources */,
 				2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */,
@@ -1612,6 +1611,7 @@
 				24D166C11058DED80086236B /* TMScreen.mm in Sources */,
 				24F15E26105AA17900221550 /* MessageManager.m in Sources */,
 				24F15E29105AA2DF00221550 /* TMMessage.m in Sources */,
+				241F10F310610AEE00F5D1BB /* TMControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

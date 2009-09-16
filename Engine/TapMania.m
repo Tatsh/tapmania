@@ -59,28 +59,31 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) switchToScreen:(NSObject*)screenRenderer {
-	[m_pGameRunLoop registerObject:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
+	[self registerObjectAtBegin:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
 - (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass {
-	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer] withPriority:kRunLoopPriority_Lowest];
+	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
 - (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
-	[m_pGameRunLoop registerObject:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut] 
-					  withPriority:kRunLoopPriority_Lowest];
+	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut]];
 }
 
-- (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority {
-	[m_pGameRunLoop registerObject:obj withPriority:priority];
+- (void) registerObjectAtEnd:(NSObject*) obj {
+	[m_pGameRunLoop pushBackChild:obj];
+}
+
+- (void) registerObjectAtBegin:(NSObject*) obj {
+	[m_pGameRunLoop pushChild:obj];
 }
 
 - (void) deregisterObject:(NSObject*) obj {
-	[m_pGameRunLoop deregisterObject:obj];
+	[m_pGameRunLoop removeObject:obj];
 }
 
 - (void) deregisterAll {
-	[m_pGameRunLoop deregisterAllObjects];
+	[m_pGameRunLoop removeAllObjects];
 }
 
 - (void) setCurrentScreen:(NSObject*)screenRenderer {
@@ -188,7 +191,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 - (void) runLoopInitializedNotification {
 	// Show FPS in debug mode only. FPS rendering slows things a lot.
 #ifdef DEBUG 
-	[[TapMania sharedInstance] registerObject:[[FPS alloc] init] withPriority:kRunLoopPriority_Lowest];	// FPS drawing
+	[[TapMania sharedInstance] registerObjectAtEnd:[[FPS alloc] init]];	// FPS drawing
 #endif
 	
 	// Will start with main menu

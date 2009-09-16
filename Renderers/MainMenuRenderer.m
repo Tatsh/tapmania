@@ -142,7 +142,7 @@
 	if([[NewsFetcher sharedInstance] hasUnreadNews]) {
 		// Raise the dialog
 		m_pDialog = [[NewsDialog alloc] init];
-		[[TapMania sharedInstance] registerObject:m_pDialog withPriority:kRunLoopPriority_Lowest];
+		[[TapMania sharedInstance] registerObjectAtEnd:m_pDialog];
 		[[InputEngine sharedInstance] subscribeDialog:m_pDialog];
 	}
 	

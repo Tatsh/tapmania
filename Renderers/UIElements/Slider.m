@@ -21,7 +21,7 @@
 @implementation Slider
 
 - (id) initWithShape:(CGRect)shape andValue:(float)xValue {	
-	self = [super initWithTitle:@"Not used" andShape:shape];
+	self = [super initWithShape:shape];
 	if(!self)
 		return nil;
 	

@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "MenuItem.h"
 
 @class MenuItem, Texture2D;
@@ -33,7 +32,6 @@
 	int					m_nCurrentSelection;	// Index of currently selected element
 }
 
-- (id) initWithShape:(CGRect) shape;
 - (void) addItem:(NSObject*)value withTitle:(NSString*)title;
 - (void) removeItemAtIndex:(int) index;
 - (void) removeAll;

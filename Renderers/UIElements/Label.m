@@ -13,13 +13,12 @@
 @implementation Label
 
 - (id) initWithTitle:(NSString*)title fontSize:(float)fontSize andShape:(CGRect) shape {
-	self = [super init];
+	self = [super initWithShape:shape];
 	if(!self) 
 		return nil;
 	
 	m_fFontSize = fontSize;
 	
-	m_rShape = shape;
 	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
 	m_sTitle = title;
 	
@@ -29,10 +28,6 @@
 - (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [self initWithTitle:title fontSize:21.0f andShape:shape];
 	return self;
-}
-
-- (BOOL) containsPoint:(CGPoint)point {
-	return CGRectContainsPoint(m_rShape, point);
 }
 
 /* TMRenderable stuff */
@@ -55,25 +50,6 @@
 	 */
 	
 	glDisable(GL_BLEND);
-}
-
-/* TMEffectSupport stuff */
-- (CGPoint) getPosition {
-	return m_rShape.origin;
-}
-
-- (void) updatePosition:(CGPoint)point {
-	m_rShape.origin.x = point.x;
-	m_rShape.origin.y = point.y;
-}
-
-- (CGRect) getShape {
-	return m_rShape;
-}
-
-- (void) updateShape:(CGRect)shape {
-	m_rShape.origin = shape.origin;
-	m_rShape.size = shape.size;
 }
 
 @end

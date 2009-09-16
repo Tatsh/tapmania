@@ -7,17 +7,18 @@
 //
 
 #import "FPS.h"
+#import "Texture2D.h"
 
 @implementation FPS
 
 - (id) init {
-	self = [super init];
+	self = [super initWithShape:CGRectMake(0, 0, 320, 20)];
 	if(!self) return nil;
 	
 	m_lFpsCounter = 0;
 	m_dTimeCounter = 0.0;
 	
-	m_pCurrentTexture = [[Texture2D alloc] initWithString:@"FPS: 0" dimensions:CGSizeMake(320.0f, 20.0f) alignment:UITextAlignmentRight fontName:@"Arial" fontSize:16];
+	m_pCurrentTexture = [[Texture2D alloc] initWithString:@"FPS: 0" dimensions:m_rShape.size alignment:UITextAlignmentRight fontName:@"Arial" fontSize:16];
 	
 	return self;
 }
@@ -35,7 +36,7 @@
 		}
 		
 		m_pCurrentTexture = [[Texture2D alloc] initWithString:[NSString stringWithFormat:@"FPS: %d", m_lFpsCounter]
-												   dimensions:CGSizeMake(320.0f, 20.0f) alignment:UITextAlignmentRight fontName:@"Arial" fontSize:16];
+												   dimensions:m_rShape.size alignment:UITextAlignmentRight fontName:@"Arial" fontSize:16];
 		
 		m_dTimeCounter = 0.0;
 		m_lFpsCounter = 0;
@@ -46,7 +47,7 @@
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
-	[m_pCurrentTexture drawInRect:CGRectMake(0.0f, 0.0f, 320.0f, 20.0f)];
+	[m_pCurrentTexture drawInRect:m_rShape];
 	
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_BLEND);

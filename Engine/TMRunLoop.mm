@@ -8,7 +8,6 @@
 
 #import "TMRunLoop.h"
 
-#import "TMObjectWithPriority.h"
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 #import "TimingUtil.h"
@@ -61,48 +60,28 @@
 	return m_bActualStopState;
 }
 
-/* Add stuff to the arrays and sort them on the fly */
-- (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority {
-	// Wrapping of priority
-	if (priority < kRunLoopPriority_Lowest) {
-		priority = kRunLoopPriority_Lowest;
-	} else if (priority > kRunLoopPriority_Highest) {
-		priority = kRunLoopPriority_Highest;
-	}
-	
-	TMObjList::iterator it;
-		
-	if( ! m_aObjects->empty() ) {
-		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
-			if([(TMObjectWithPriority*)*it m_uPriority] <= priority) {
-				break;
-			}
-		}
-	}
-	
-	// Add new object at 'i' and shift others if required
-	TMObjectWithPriority* wrapper = [[TMObjectWithPriority alloc] initWithObj:obj andPriority:priority];
-	if(!m_aObjects->empty() && it != m_aObjects->end()) {
-		m_aObjects->insert(it, wrapper);
-	} else {
-		m_aObjects->push_back(wrapper);
-	}
+- (void) pushBackChild:(NSObject*)inChild {
+	m_aObjects->push_back(inChild);
 }
 
-- (void) deregisterObject:(NSObject*) obj {
+- (void) pushChild:(NSObject*)inChild {
+	m_aObjects->push_front(inChild);
+}
+
+- (void) removeObject:(NSObject*) obj {
 	TMObjList::iterator it;
 	
 	if( ! m_aObjects->empty() ) {
 		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
-			if([(TMObjectWithPriority*)*it m_pObj] == obj) {
+			if( *it == obj ) {
 				m_aObjects->erase(it);
 				return;
 			}
 		}
-	}
+	}	
 }
 
-- (void) deregisterAllObjects {
+- (void) removeAllObjects {
 	TMObjList::iterator it;
 		
 	if( ! m_aObjects->empty() ) {
@@ -146,28 +125,18 @@
 			int curSize = m_aObjects->size();
 			
 			for (int i = 0; i < curSize; ++i) {				
-				TMObjectWithPriority* wrapper = (TMObjectWithPriority*)(m_aObjects->at(i));
-				NSObject* obj = [wrapper m_pObj];
-
-				if([obj conformsToProtocol:@protocol(TMLogicUpdater)]) {
-					// Ignore this warning.
-					[(id<TMLogicUpdater>)obj update:delta];
-					curSize = m_aObjects->size();	// To be safe
-				}
+				NSObject* obj = m_aObjects->at(i);
+				[(id<TMLogicUpdater>)obj update:delta];
+				curSize = m_aObjects->size();	// To be safe
 			}	
 				
 			curSize = m_aObjects->size();
 			
 			/* Now draw all objects */
 			for (int i = 0; i < curSize; ++i) {				
-				TMObjectWithPriority* wrapper = (TMObjectWithPriority*)(m_aObjects->at(i));
-				NSObject* obj = [wrapper m_pObj];
-				
-				if([obj conformsToProtocol:@protocol(TMRenderable)]) {
-					// Ignore this warning.				
-					[(id<TMRenderable>)obj render:delta];
-					curSize = m_aObjects->size();
-				}
+				NSObject* obj = m_aObjects->at(i);				
+				[(id<TMRenderable>)obj render:delta];
+				curSize = m_aObjects->size();
 			}			
 		}
 		
@@ -185,8 +154,6 @@
 
 /* TMMessageSupport stuff */
 -(void) handleMessage:(TMMessage*)message {
-	TMLog(@"TMRunLoop received message: %d", message.messageId);
-	
 	switch (message.messageId) {
 		case kApplicationShouldTerminateMessage:
 			[self stop];

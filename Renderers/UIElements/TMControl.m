@@ -1,28 +1,49 @@
 //
-//  ImageButton.m
+//  TMControl.m
 //  TapMania
 //
-//  Created by Alex Kremer on 5/27/09.
+//  Created by Alex Kremer on 16.09.09.
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import "ImageButton.h"
-#import "TMFramedTexture.h"
-#import "ThemeManager.h"
-#import "Texture2D.h"
+#import "TMControl.h"
 #import "TapMania.h"
 #import "EAGLView.h"
 
-@implementation ImageButton
+@implementation TMControl
 
-- (id) initWithTexture:(Texture2D*) tex andShape:(CGRect) shape {
-	self = [super initWithShape:shape];
+- (id) initWithShape:(CGRect)inShape {
+	self = [super init];
 	if(!self) 
 		return nil;
-
-	m_pTexture = tex;
+	
+	m_rShape = inShape;
+	
+	m_idActionDelegate = nil;
+	m_idChangedDelegate = nil;
+	m_oActionHandler = nil;
+	m_oChangedActionHandler = nil;
+	
+	m_bVisible = YES;
+	m_bEnabled = YES;
 	
 	return self;
+}
+
+- (void) show {
+	m_bVisible = YES;
+}
+
+- (void) hide {
+	m_bVisible = NO;
+}
+
+- (void) disable {
+	m_bEnabled = NO;
+}
+
+- (void) enable {
+	m_bEnabled = YES;
 }
 
 - (BOOL) containsPoint:(CGPoint)point {
@@ -41,9 +62,10 @@
 
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
-	glEnable(GL_BLEND);
-	[m_pTexture drawInRect:m_rShape];
-	glDisable(GL_BLEND);
+}
+
+/* TMLogicUpdater stuff */
+- (void) update:(float)fDelta {
 }
 
 /* TMGameUIResponder stuff */
@@ -54,7 +76,9 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			TMLog(@"Image button hit!");
+			if(m_bEnabled && m_bVisible) {
+				TMLog(@"Control, start touching.");
+			}
 		}
 	}
 }
@@ -66,7 +90,9 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+			if(m_bEnabled && m_bVisible && m_idChangedDelegate != nil) {
+				[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+			}
 		}
 	}
 }
@@ -78,8 +104,10 @@
 						 [touch locationInView:[TapMania sharedInstance].glView]];
 		
 		if(CGRectContainsPoint(m_rShape, point)) {
-			TMLog(@"Image button finger raised!");
-			[m_idActionDelegate performSelector:m_oActionHandler];
+			if(m_bEnabled && m_bVisible && m_idActionDelegate != nil) {
+				TMLog(@"Control, finger raised!");
+				[m_idActionDelegate performSelector:m_oActionHandler];
+			}
 		}
 	}
 }

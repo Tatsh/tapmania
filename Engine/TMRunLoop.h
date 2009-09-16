@@ -10,26 +10,16 @@
 
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
-#import "TMObjectWithPriority.h"
 #import "TMMessageSupport.h"
 
 #ifdef __cplusplus
 
-#include <vector>
+#include <deque>
 using namespace std;
 
-typedef vector<TMObjectWithPriority*> TMObjList;
+typedef deque<NSObject*> TMObjList;
 
 #endif
-
-/* Gradation between NormalLower and NormalUpper is possible */
-typedef enum {
-	kRunLoopPriority_Lowest = 0,
-	kRunLoopPriority_NormalLower = 1,
-	kRunLoopPriority_NormalMid = 512,
-	kRunLoopPriority_NormalUpper = 1023,
-	kRunLoopPriority_Highest = 1024	
-} TMRunLoopPriority;
 
 @protocol TMRunLoopDelegate
 @optional
@@ -70,8 +60,9 @@ typedef enum {
 - (BOOL) isStopped;
 
 // The next routine is used to add renderables or logic updaters to the corresponding array
-- (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
-- (void) deregisterObject:(NSObject*) obj;
-- (void) deregisterAllObjects;
+- (void) pushBackChild:(NSObject*)inChild;
+- (void) pushChild:(NSObject*)inChild;
+- (void) removeObject:(NSObject*) obj;
+- (void) removeAllObjects;
 
 @end

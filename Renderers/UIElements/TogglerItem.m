@@ -48,7 +48,7 @@ TMSound*	sr_TogglerEffect;
 
 - (id) initWithShape:(CGRect) shape {
 	
-	self = [super initWithTitle:@"Not used" andShape:shape];
+	self = [super initWithShape:shape];
 	if(!self)
 		return nil;
 

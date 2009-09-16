@@ -6,11 +6,11 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "TMRenderable.h"
-#import "Texture2D.h"
+#import "TMControl.h"
 
-@interface FPS : NSObject <TMRenderable> {
+@class Texture2D;
+
+@interface FPS : TMControl {
 	long	m_lFpsCounter;
 	double	m_dTimeCounter;
 	

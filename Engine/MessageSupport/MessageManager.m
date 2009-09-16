@@ -43,7 +43,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 
 - (int) broadcastMessage:(TMMessage*)message {
 	
-	@synchronized(self) {
+//	@synchronized(self) {
 		// Don't check for message id because can slow down the system
 		if(m_pSubscribers->empty())
 			return 0;
@@ -59,7 +59,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 	
 		[message release];
 		return subscribersCount;
-	}
+//	}
 	
 	return 0;
 }
@@ -71,7 +71,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 		return NO;
 	}
 	
-	@synchronized(self) {
+	//@synchronized(self) {
 	
 		if(!m_pSubscribers->empty() && m_pSubscribers->count(inMessageId) > 0) {
 			// Check whether the given class is already subscribed to the requested message
@@ -88,13 +88,13 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 		// Ok, subscribe
 		m_pSubscribers->insert( pair<int, NSObject*>(inMessageId, inClass) );
 		TMLog(@"Subscribe '%@' for message '%@'. success.", inClass, [self messageNameFromId:inMessageId]);
-	}
+	//}
 	
 	return YES;
 }
 
 - (void) unsubscribe:(NSObject*)inClass fromMessagesWithId:(int)inMessageId {
-	@synchronized(self) {
+//	@synchronized(self) {
 		if(m_pSubscribers->count(inMessageId) > 0) {
 			TMMessageSubscribers::iterator it;
 			for(it = m_pSubscribers->equal_range(inMessageId).first; it != m_pSubscribers->equal_range(inMessageId).second; ++it) {
@@ -104,11 +104,11 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 				}
 			}
 		}
-	}
+//	}
 }
 
 - (void) unsubscribe:(NSObject*)inClass {
-	@synchronized(self) {
+//	@synchronized(self) {
 		TMMessageSubscribers::iterator it;
 		for(it = m_pSubscribers->begin(); it != m_pSubscribers->end(); ++it) {
 			if( ((*it).second) == inClass ) {
@@ -116,7 +116,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 				m_pSubscribers->erase(it);
 			}
 		}
-	}	
+//	}	
 }
 
 - (BOOL) registerMessageName:(NSString*)inName forMessageId:(int)inId {
@@ -126,30 +126,30 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 		return NO;
 	}
 	
-	@synchronized(self) {	
+//	@synchronized(self) {	
 		// Allow to register it
 		m_pRegistrature->insert(pair<int, NSString*>(inId, inName));
 		TMLog(@"New message type '%@' registered under id '%d'.", inName, inId);
-	}
+//	}
 	
 	return YES;
 }
 
 // Private methods
 - (BOOL) messageTypeIsRegistered:(int) inId {
-	@synchronized(self) {
+//	@synchronized(self) {
 		if(!m_pRegistrature->empty() && m_pRegistrature->count(inId) > 0) 
 			return YES;
-	}
+//	}
 	
 	return NO;
 }
 
 - (NSString*) messageNameFromId:(int) inId {
 	if([self messageTypeIsRegistered:inId]) {
-		@synchronized(self) { 
+//		@synchronized(self) { 
 			return m_pRegistrature->find(inId)->second;
-		}
+//		}
 	} 
 	
 	return @"Message_Not_Registered";

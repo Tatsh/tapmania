@@ -41,7 +41,9 @@
 - (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass;
 - (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;	
 
-- (void) registerObject:(NSObject*) obj withPriority:(TMRunLoopPriority) priority;
+- (void) registerObjectAtEnd:(NSObject*) obj;
+- (void) registerObjectAtBegin:(NSObject*) obj;
+
 - (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAll;
 
