@@ -42,17 +42,12 @@
 		
 	// Cache metrics
 	mt_ResetButton =	RECT_METRIC(@"PadConfig ResetButton");
-	mt_ReceptorRow =	POINT_METRIC(@"SongPlay ReceptorRow");
 	mt_LifeBar	=		RECT_METRIC(@"SongPlay LifeBar");
-
-	mt_TapNoteSize =	SIZE_METRIC(@"SongPlay TapNote");
-	mt_TapNoteSpacing = INT_METRIC(@"SongPlay TapNote Spacing"); 	
 	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		m_oReceptorButtons[i] = CGRectMake(mt_ReceptorRow.x + (mt_TapNoteSize.width + mt_TapNoteSpacing)*i, 
-										   mt_ReceptorRow.y, mt_TapNoteSize.width, mt_TapNoteSize.height);
-	}		
+		mt_ReceptorButtons[i] =	RECT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow %d", i]));
+	}
 	
 	// Start with no action. means we must select a receptor arrow
 	m_nPadConfigAction = kPadConfigAction_None;
@@ -166,7 +161,7 @@
 		
 		int i;
 		for(i=0; i<kNumOfAvailableTracks; ++i) {
-			if(CGRectContainsPoint(m_oReceptorButtons[i], pointGl)) {
+			if(CGRectContainsPoint(mt_ReceptorButtons[i], pointGl)) {
 				m_nPadConfigAction = kPadConfigAction_SelectedTrack;
 				m_nSelectedTrack = (TMAvailableTracks)i;	// Save the track number we touched
 			

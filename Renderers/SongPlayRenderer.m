@@ -110,7 +110,7 @@ extern TMGameState* g_pGameState;
 	[g_pGameState->m_pSteps dump];
 #endif	
 	
-	g_pGameState->m_bAutoPlay = YES;
+	g_pGameState->m_bAutoPlay = NO;
 	g_pGameState->m_bFailed = NO;
 	g_pGameState->m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 		
@@ -144,9 +144,6 @@ extern TMGameState* g_pGameState;
 	m_bIsFading = NO;
 	m_dPlayBackScheduledEndTime = g_pGameState->m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	m_dPlayBackScheduledFadeOutTime = m_dPlayBackScheduledEndTime - kFadeOutTime;
-
-	// Most likely we must start animating on a calculated time.. FIXME
-//	[t_TapNote startAnimation];
 	
 	// Enable joypad
 	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];

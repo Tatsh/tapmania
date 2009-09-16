@@ -24,7 +24,6 @@ typedef enum {
 } TMPadConfigActions;
 
 @interface PadConfigRenderer : TMScreen <TMGameUIResponder> {
-	CGRect					m_oReceptorButtons[kNumOfAvailableTracks];
 	Vector*					m_pFingerTap;
 	
 	ReceptorRow*			m_pReceptorRow;
@@ -40,10 +39,8 @@ typedef enum {
 	
 	TapNote* t_TapNote;
 	
-	CGSize  mt_TapNoteSize;
-	int		mt_TapNoteSpacing;
+	CGRect  mt_ReceptorButtons[kNumOfAvailableTracks];
 	CGRect	mt_LifeBar, mt_ResetButton;
-	CGPoint mt_ReceptorRow;
 }
 
 @end
