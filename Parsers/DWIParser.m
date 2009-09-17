@@ -598,7 +598,6 @@
 
 // This one is used to parse the BPMCHANGE and the FREEZE variable into the array
 + (NSMutableArray*) getChangesArray:(char*) data {
-	char *token, *value;
 	int i;
 
 	// data is '1288=666,1312=333,1316=166.5,1320=83.25,1356=333'

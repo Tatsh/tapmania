@@ -87,16 +87,7 @@ extern TMGameState* g_pGameState;
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kJudgementMiss]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
 //	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
-	
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:self];
-}
 
-- (void) deinitOnTransition {
-	[super deinitOnTransition];
-	
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:self];
 }
 
 /* TMRenderable method */
@@ -133,10 +124,12 @@ extern TMGameState* g_pGameState;
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1){	
 		m_bReturnToSongSelection = YES;
 	}
+	
+	return YES;
 }
 
 @end

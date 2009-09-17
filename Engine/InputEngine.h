@@ -6,12 +6,11 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TMGameUIResponder.h"
 
 @interface InputEngine : NSObject {
 	NSMutableArray * m_aSubscribers;
 	
-	NSObject	   * m_pDialog;
 	BOOL			 m_bDispatcherEnabled;
 }
 
@@ -20,9 +19,8 @@
 - (void) enableDispatcher;
 
 // One can subscribe to receive touch events by implementing the TMGameUIResponder protocol and calling subscribe method
-- (void) subscribe:(NSObject*) handler;
-- (void) subscribeDialog:(NSObject*) handler;
-- (void) unsubscribe:(NSObject*) handler;
+- (void) subscribe:(id<TMGameUIResponder>) handler;
+- (void) unsubscribe:(id<TMGameUIResponder>) handler;
 
 - (void) dispatchTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;
 - (void) dispatchTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event;

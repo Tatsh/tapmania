@@ -20,20 +20,17 @@
 
 @implementation SongPickerMenuItem
 
-Texture2D* t_WheelItem;
-
 @synthesize m_pSong;
 
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point {
-	self = [super init];
+	self = [super initWithShape:CGRectMake(point.x, point.y, 0, 0)];
 	if(!self) 
 		return nil;
 	
-	m_rShape.origin = point; // We don't really use the size here
 	m_pSong = song;	
 	
 	// Cache texture
-	t_WheelItem = [[ThemeManager sharedInstance] texture:@"SongPicker Wheel ItemSong"];
+	t_WheelItem = TEXTURE(@"SongPicker Wheel ItemSong");
 	[self generateTextures];
 	
 	return self;

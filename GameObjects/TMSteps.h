@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "TMSong.h"	// For TMSongDifficulty
 #import "TMTrack.h"
 #import "TMRenderable.h"

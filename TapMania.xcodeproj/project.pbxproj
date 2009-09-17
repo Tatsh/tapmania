@@ -7,34 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* TapManiaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D3623260D0F684500981E51 /* TapManiaAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* TapManiaAppDelegate.mm */; };
+		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.m */; };
-		241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.m */; };
-		241F10F310610AEE00F5D1BB /* TMControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 241F10F210610AEE00F5D1BB /* TMControl.m */; };
-		242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.m */; };
-		242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.m */; };
-		242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.m */; };
+		241955EB102B08F800FC6E0F /* SongManagerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */; };
+		241F10F310610AEE00F5D1BB /* TMControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241F10F210610AEE00F5D1BB /* TMControl.mm */; };
+		242327BB0F273B630013AC23 /* SongResultsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.mm */; };
+		242946390EC474D900B88828 /* SongPickerMenuRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 242946380EC474D900B88828 /* SongPickerMenuRenderer.mm */; };
+		242946A00EC480F200B88828 /* SongsDirectoryCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2429469F0EC480F200B88828 /* SongsDirectoryCache.mm */; };
 		243DF6400FB1C0CA004C08EF /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
 		243DF6410FB1C0CA004C08EF /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C540F7921A200C9D5BC /* libvorbis.a */; };
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.mm */; };
-		244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.m */; };
+		244E56070F3C5D1D0004C921 /* ResourcesLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.mm */; };
 		244E56150F3C6C680004C921 /* TMResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.m */; };
-		244E5AB50F41CB490004C921 /* LoggerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.m */; };
-		24627B9E0FBF6DF9002E245D /* Label.m in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.m */; };
-		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */; };
-		246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */; };
-		2472663D0EE949A500D501AF /* TapNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.m */; };
-		247266540EE94D3B00D501AF /* Receptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.m */; };
-		2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.m */; };
-		2479A3810FE6EDFF00688640 /* PadConfigRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */; };
-		247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.m */; };
+		244E5AB50F41CB490004C921 /* LoggerUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.mm */; };
+		24627B9E0FBF6DF9002E245D /* Label.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.mm */; };
+		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */; };
+		246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */; };
+		2472663D0EE949A500D501AF /* TapNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.mm */; };
+		247266540EE94D3B00D501AF /* Receptor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.mm */; };
+		2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.mm */; };
+		2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
+		247E857A0ECC5AE500B21A77 /* TMChangeSegment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */; };
 		2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.m */; };
-		248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 248547F20EE6BCD300AD4FAB /* InputEngine.m */; };
+		248547F30EE6BCD300AD4FAB /* InputEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248547F20EE6BCD300AD4FAB /* InputEngine.mm */; };
 		2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2485499D0EE7C75800AD4FAB /* TMAnimatable.m */; };
 		24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854A840EE8015500AD4FAB /* TMFramedTexture.m */; };
 		24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 24854AD80EE8066800AD4FAB /* Texture2D.m */; };
@@ -43,11 +43,11 @@
 		2486F1C00EC08CC600E5F9EE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */; };
 		2486F1C40EC08CF300E5F9EE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */; };
 		2486F1C60EC08CFD00E5F9EE /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */; };
-		2486F2A90EC0A2D600E5F9EE /* LifeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2A80EC0A2D600E5F9EE /* LifeBar.m */; };
+		2486F2A90EC0A2D600E5F9EE /* LifeBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2A80EC0A2D600E5F9EE /* LifeBar.mm */; };
 		2486F2AD0EC0A51100E5F9EE /* TMSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AC0EC0A51100E5F9EE /* TMSong.m */; };
-		2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */; };
-		2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */; };
-		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */; };
+		2486F2B00EC0A8A700E5F9EE /* TMSteps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2486F2AF0EC0A8A700E5F9EE /* TMSteps.mm */; };
+		2486F3030EC0AB7500E5F9EE /* TMSongOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2486F3020EC0AB7500E5F9EE /* TMSongOptions.mm */; };
+		2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.mm */; };
 		248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0C640F4B13DB005A998C /* BasicEffect.m */; };
 		248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D210F4B24B4005A998C /* ZoomEffect.m */; };
 		248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 248B0D910F4B3750005A998C /* BlinkEffect.m */; };
@@ -65,9 +65,9 @@
 		248E93361017992B00DB27D9 /* response.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E932A1017992B00DB27D9 /* response.c */; };
 		248E93371017992B00DB27D9 /* response.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E932B1017992B00DB27D9 /* response.h */; };
 		248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 248E931C101798BC00DB27D9 /* libmicrohttpd.a */; };
-		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */; };
-		248EE4580EE4002000FF1D43 /* TapMania.m in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.m */; };
-		248F78150F77F99700AE2130 /* Slider.m in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.m */; };
+		248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.mm */; };
+		248EE4580EE4002000FF1D43 /* TapMania.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248EE4570EE4002000FF1D43 /* TapMania.mm */; };
+		248F78150F77F99700AE2130 /* Slider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.mm */; };
 		249648520F79134D00C9D5BC /* AbstractSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */; };
 		249648530F79134D00C9D5BC /* OGGSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 249648510F79134D00C9D5BC /* OGGSoundPlayer.m */; };
 		24964C3B0F79209E00C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964C370F79209E00C9D5BC /* config.h */; };
@@ -138,35 +138,37 @@
 		24964CF10F79223C00C9D5BC /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964CB10F79223C00C9D5BC /* window.h */; };
 		24964D130F79231100C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964D120F79231100C9D5BC /* config.h */; };
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
-		24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.m */; };
+		24966C7F0ECB3B6100D367E3 /* TogglerItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */; };
 		249D80540FCC9A2200630646 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 249D7FFD0FCC9A2200630646 /* themes */; };
-		249D805A0FCC9AF700630646 /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.m */; };
+		249D805A0FCC9AF700630646 /* ImageButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.mm */; };
 		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
 		24A4254B0F7123D8001B0CDE /* TMSoundEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */; };
 		24A4257B0F713529001B0CDE /* SMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.m */; };
 		24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.m */; };
 		24A586000FBADCE6000954E8 /* TMUserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A585FF0FBADCE6000954E8 /* TMUserConfig.m */; };
-		24A5860A0FBADFD6000954E8 /* SettingsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A586090FBADFD6000954E8 /* SettingsEngine.m */; };
+		24A5860A0FBADFD6000954E8 /* SettingsEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A586090FBADFD6000954E8 /* SettingsEngine.mm */; };
 		24A709AE0F7A93B40080121C /* FontCharmaps.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A709AD0F7A93B40080121C /* FontCharmaps.m */; };
 		24A709C60F7AA2760080121C /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.m */; };
 		24A70B3F0F7AB3C00080121C /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.m */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.m */; };
-		24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.m */; };
+		24AFB4020EEFBC6800D0BF31 /* HoldNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.mm */; };
 		24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B3027D103BD46C0044AAB2 /* TMSound.m */; };
 		24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.m */; };
+		24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E3B510626B8D004DDC4B /* TMView.mm */; };
+		24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E4C610627C92004DDC4B /* TMModalView.mm */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
-		24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.m */; };
+		24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.mm */; };
 		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */; };
-		24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.m */; };
+		24D4C1480F1B3C1100643CC2 /* Judgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.mm */; };
 		24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */; };
 		24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D52ABD1035A4970030A6CA /* AVFoundation.framework */; };
-		24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1041030D1EA00C7216A /* DialogRenderer.m */; };
-		24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.m */; };
+		24D6C1051030D1EA00C7216A /* DialogRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1041030D1EA00C7216A /* DialogRenderer.mm */; };
+		24D6C1901030DC5400C7216A /* NewsDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.mm */; };
 		24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.m */; };
-		24D762960F38A078008B0AA0 /* Metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.m */; };
-		24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.m */; };
+		24D762960F38A078008B0AA0 /* Metrics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.mm */; };
+		24D762990F38A38D008B0AA0 /* ThemeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.mm */; };
 		24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
 		24DC0DE2101E93E800F2B046 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCC101E93E800F2B046 /* adler32.c */; };
 		24DC0DE3101E93E800F2B046 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCD101E93E800F2B046 /* compress.c */; };
@@ -213,18 +215,18 @@
 		24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895D10456F2B001B8DDE /* libxml2.dylib */; };
 		24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E3895F10456F33001B8DDE /* libsqlite3.dylib */; };
 		24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF3E30EC83D0100533056 /* DWIParser.m */; };
-		24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.m */; };
-		24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.m */; };
+		24EBF4120EC8446900533056 /* SongPickerMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4110EC8446900533056 /* SongPickerMenuItem.mm */; };
+		24EBF4E10EC8780600533056 /* TimingUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF4E00EC8780600533056 /* TimingUtil.mm */; };
 		24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF5570EC889AD00533056 /* TMTrack.mm */; };
-		24EBF55B0EC88B4400533056 /* TMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.m */; };
-		24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */; };
+		24EBF55B0EC88B4400533056 /* TMNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EBF55A0EC88B4400533056 /* TMNote.mm */; };
+		24F15E0E0EC20EC800755788 /* MainMenuRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E0D0EC20EC800755788 /* MainMenuRenderer.mm */; };
 		24F15E26105AA17900221550 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E25105AA17900221550 /* MessageManager.m */; };
 		24F15E29105AA2DF00221550 /* TMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15E28105AA2DF00221550 /* TMMessage.m */; };
 		24F15E480EC2114F00755788 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
-		24F15EB90EC31E4700755788 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.m */; };
-		24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */; };
-		24F161150EC348B100755788 /* CreditsRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.m */; };
-		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
+		24F15EB90EC31E4700755788 /* MenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.mm */; };
+		24F15FE10EC3372100755788 /* OptionsMenuRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.mm */; };
+		24F161150EC348B100755788 /* CreditsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.mm */; };
+		28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.mm */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -277,7 +279,7 @@
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapManiaAppDelegate.h; path = Engine/TapManiaAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapManiaAppDelegate.m; path = Engine/TapManiaAppDelegate.m; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* TapManiaAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapManiaAppDelegate.mm; path = Engine/TapManiaAppDelegate.mm; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* TapMania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapMania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24079C1B0F4324260052EDB2 /* TMTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransition.h; sourceTree = "<group>"; };
@@ -285,47 +287,47 @@
 		24079D8B0F4333300052EDB2 /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
 		2409199C105FCD3600927F28 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
-		241955EA102B08F800FC6E0F /* SongManagerRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.m; path = Renderers/SongManagerRenderer.m; sourceTree = "<group>"; };
+		241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.mm; path = Renderers/SongManagerRenderer.mm; sourceTree = "<group>"; };
 		241F10F110610AEE00F5D1BB /* TMControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMControl.h; path = Renderers/UIElements/TMControl.h; sourceTree = "<group>"; };
-		241F10F210610AEE00F5D1BB /* TMControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMControl.m; path = Renderers/UIElements/TMControl.m; sourceTree = "<group>"; };
+		241F10F210610AEE00F5D1BB /* TMControl.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TMControl.mm; path = Renderers/UIElements/TMControl.mm; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
-		242327BA0F273B630013AC23 /* SongResultsRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.m; path = Renderers/SongResultsRenderer.m; sourceTree = "<group>"; };
+		242327BA0F273B630013AC23 /* SongResultsRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.mm; path = Renderers/SongResultsRenderer.mm; sourceTree = "<group>"; };
 		242946370EC474D900B88828 /* SongPickerMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuRenderer.h; path = Renderers/SongPickerMenuRenderer.h; sourceTree = "<group>"; };
-		242946380EC474D900B88828 /* SongPickerMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPickerMenuRenderer.m; path = Renderers/SongPickerMenuRenderer.m; sourceTree = "<group>"; };
+		242946380EC474D900B88828 /* SongPickerMenuRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPickerMenuRenderer.mm; path = Renderers/SongPickerMenuRenderer.mm; sourceTree = "<group>"; };
 		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsDirectoryCache.h; path = Engine/SongsDirectoryCache.h; sourceTree = "<group>"; };
-		2429469F0EC480F200B88828 /* SongsDirectoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongsDirectoryCache.m; path = Engine/SongsDirectoryCache.m; sourceTree = "<group>"; };
+		2429469F0EC480F200B88828 /* SongsDirectoryCache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongsDirectoryCache.mm; path = Engine/SongsDirectoryCache.mm; sourceTree = "<group>"; };
 		243DF64B0FB1C156004C08EF /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244954B40EDD54DA00D462F0 /* TMRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRenderable.h; sourceTree = "<group>"; };
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
 		244954D10EDD5AC200D462F0 /* TMRunLoop.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TMRunLoop.h; sourceTree = "<group>"; };
 		244954D20EDD5AC200D462F0 /* TMRunLoop.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMRunLoop.mm; sourceTree = "<group>"; };
 		244E56050F3C5D1D0004C921 /* ResourcesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesLoader.h; path = ThemeSupport/ResourcesLoader.h; sourceTree = "<group>"; };
-		244E56060F3C5D1D0004C921 /* ResourcesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesLoader.m; path = ThemeSupport/ResourcesLoader.m; sourceTree = "<group>"; };
+		244E56060F3C5D1D0004C921 /* ResourcesLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ResourcesLoader.mm; path = ThemeSupport/ResourcesLoader.mm; sourceTree = "<group>"; };
 		244E56130F3C6C680004C921 /* TMResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMResource.h; sourceTree = "<group>"; };
 		244E56140F3C6C680004C921 /* TMResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMResource.m; sourceTree = "<group>"; };
 		244E5AB30F41CB490004C921 /* LoggerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerUtil.h; path = Util/LoggerUtil.h; sourceTree = "<group>"; };
-		244E5AB40F41CB490004C921 /* LoggerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerUtil.m; path = Util/LoggerUtil.m; sourceTree = "<group>"; };
+		244E5AB40F41CB490004C921 /* LoggerUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LoggerUtil.mm; path = Util/LoggerUtil.mm; sourceTree = "<group>"; };
 		24627B9C0FBF6DF9002E245D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Renderers/UIElements/Label.h; sourceTree = "<group>"; };
-		24627B9D0FBF6DF9002E245D /* Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Label.m; path = Renderers/UIElements/Label.m; sourceTree = "<group>"; };
+		24627B9D0FBF6DF9002E245D /* Label.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Label.mm; path = Renderers/UIElements/Label.mm; sourceTree = "<group>"; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
-		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongsCacheLoaderRenderer.m; path = Renderers/SongsCacheLoaderRenderer.m; sourceTree = "<group>"; };
+		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongsCacheLoaderRenderer.mm; path = Renderers/SongsCacheLoaderRenderer.mm; sourceTree = "<group>"; };
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
 		246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldJudgement.h; path = Renderers/UIElements/HoldJudgement.h; sourceTree = "<group>"; };
-		246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HoldJudgement.m; path = Renderers/UIElements/HoldJudgement.m; sourceTree = "<group>"; };
+		246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HoldJudgement.mm; path = Renderers/UIElements/HoldJudgement.mm; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
-		2472663C0EE949A500D501AF /* TapNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TapNote.m; path = Renderers/UIElements/TapNote.m; sourceTree = "<group>"; };
+		2472663C0EE949A500D501AF /* TapNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapNote.mm; path = Renderers/UIElements/TapNote.mm; sourceTree = "<group>"; };
 		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
-		247266530EE94D3B00D501AF /* Receptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Receptor.m; path = Renderers/UIElements/Receptor.m; sourceTree = "<group>"; };
+		247266530EE94D3B00D501AF /* Receptor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Receptor.mm; path = Renderers/UIElements/Receptor.mm; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
-		2472672C0EE97DDC00D501AF /* ReceptorRow.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.m; path = Renderers/UIElements/ReceptorRow.m; sourceTree = "<group>"; };
+		2472672C0EE97DDC00D501AF /* ReceptorRow.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.mm; path = Renderers/UIElements/ReceptorRow.mm; sourceTree = "<group>"; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
-		2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.m; path = Renderers/PadConfigRenderer.m; sourceTree = "<group>"; };
+		2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.mm; path = Renderers/PadConfigRenderer.mm; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
-		247E85790ECC5AE500B21A77 /* TMChangeSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMChangeSegment.m; sourceTree = "<group>"; };
+		247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMChangeSegment.mm; sourceTree = "<group>"; };
 		248547590EE56C1700AD4FAB /* BasicTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicTransition.h; sourceTree = "<group>"; };
 		2485475A0EE56C1700AD4FAB /* BasicTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTransition.m; sourceTree = "<group>"; };
 		248547F10EE6BCD300AD4FAB /* InputEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputEngine.h; sourceTree = "<group>"; };
-		248547F20EE6BCD300AD4FAB /* InputEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputEngine.m; sourceTree = "<group>"; };
+		248547F20EE6BCD300AD4FAB /* InputEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputEngine.mm; sourceTree = "<group>"; };
 		248548B30EE6D80000AD4FAB /* TMTransitionSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTransitionSupport.h; sourceTree = "<group>"; };
 		248548E20EE6D9E600AD4FAB /* TMGameUIResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGameUIResponder.h; sourceTree = "<group>"; };
 		2485499C0EE7C75800AD4FAB /* TMAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAnimatable.h; sourceTree = "<group>"; };
@@ -341,15 +343,15 @@
 		2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2486F2A70EC0A2D600E5F9EE /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeBar.h; path = Renderers/UIElements/LifeBar.h; sourceTree = "<group>"; };
-		2486F2A80EC0A2D600E5F9EE /* LifeBar.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = LifeBar.m; path = Renderers/UIElements/LifeBar.m; sourceTree = "<group>"; };
+		2486F2A80EC0A2D600E5F9EE /* LifeBar.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = LifeBar.mm; path = Renderers/UIElements/LifeBar.mm; sourceTree = "<group>"; };
 		2486F2AB0EC0A51100E5F9EE /* TMSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSong.h; sourceTree = "<group>"; };
 		2486F2AC0EC0A51100E5F9EE /* TMSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSong.m; sourceTree = "<group>"; };
 		2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSteps.h; sourceTree = "<group>"; };
-		2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TMSteps.m; sourceTree = "<group>"; };
+		2486F2AF0EC0A8A700E5F9EE /* TMSteps.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TMSteps.mm; sourceTree = "<group>"; };
 		2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongOptions.h; sourceTree = "<group>"; };
-		2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSongOptions.m; sourceTree = "<group>"; };
+		2486F3020EC0AB7500E5F9EE /* TMSongOptions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMSongOptions.mm; sourceTree = "<group>"; };
 		2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPlayRenderer.h; path = Renderers/SongPlayRenderer.h; sourceTree = "<group>"; };
-		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPlayRenderer.m; path = Renderers/SongPlayRenderer.m; sourceTree = "<group>"; };
+		2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPlayRenderer.mm; path = Renderers/SongPlayRenderer.mm; sourceTree = "<group>"; };
 		248B0C630F4B13DB005A998C /* BasicEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEffect.h; sourceTree = "<group>"; };
 		248B0C640F4B13DB005A998C /* BasicEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEffect.m; sourceTree = "<group>"; };
 		248B0CA90F4B1B00005A998C /* TMEffectSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEffectSupport.h; sourceTree = "<group>"; };
@@ -373,11 +375,11 @@
 		248E932A1017992B00DB27D9 /* response.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = response.c; path = "ext/libmicrohttpd-0.4.2/src/daemon/response.c"; sourceTree = "<group>"; };
 		248E932B1017992B00DB27D9 /* response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = response.h; path = "ext/libmicrohttpd-0.4.2/src/daemon/response.h"; sourceTree = "<group>"; };
 		248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BenchmarkUtil.h; path = Util/BenchmarkUtil.h; sourceTree = "<group>"; };
-		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BenchmarkUtil.m; path = Util/BenchmarkUtil.m; sourceTree = "<group>"; };
+		248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BenchmarkUtil.mm; path = Util/BenchmarkUtil.mm; sourceTree = "<group>"; };
 		248EE4560EE4002000FF1D43 /* TapMania.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapMania.h; path = Engine/TapMania.h; sourceTree = "<group>"; };
-		248EE4570EE4002000FF1D43 /* TapMania.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TapMania.m; path = Engine/TapMania.m; sourceTree = "<group>"; };
+		248EE4570EE4002000FF1D43 /* TapMania.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TapMania.mm; path = Engine/TapMania.mm; sourceTree = "<group>"; };
 		248F78130F77F99700AE2130 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = Renderers/UIElements/Slider.h; sourceTree = "<group>"; };
-		248F78140F77F99700AE2130 /* Slider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slider.m; path = Renderers/UIElements/Slider.m; sourceTree = "<group>"; };
+		248F78140F77F99700AE2130 /* Slider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Slider.mm; path = Renderers/UIElements/Slider.mm; sourceTree = "<group>"; };
 		2496484E0F79134D00C9D5BC /* AbstractSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractSoundPlayer.h; sourceTree = "<group>"; };
 		2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractSoundPlayer.m; sourceTree = "<group>"; };
 		249648500F79134D00C9D5BC /* OGGSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGGSoundPlayer.h; sourceTree = "<group>"; };
@@ -455,10 +457,10 @@
 		24964CB10F79223C00C9D5BC /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 		24964D120F79231100C9D5BC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = "ext/libvorbis-1.2.0/config.h"; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
-		24966C7E0ECB3B6100D367E3 /* TogglerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TogglerItem.m; path = Renderers/UIElements/TogglerItem.m; sourceTree = "<group>"; };
+		24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TogglerItem.mm; path = Renderers/UIElements/TogglerItem.mm; sourceTree = "<group>"; };
 		249D7FFD0FCC9A2200630646 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
-		249D80590FCC9AF700630646 /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageButton.m; path = Renderers/UIElements/ImageButton.m; sourceTree = "<group>"; };
+		249D80590FCC9AF700630646 /* ImageButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageButton.mm; path = Renderers/UIElements/ImageButton.mm; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
 		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSoundEngine.h; path = ../TMSoundEngine.h; sourceTree = "<group>"; };
 		24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TMSoundEngine.mm; path = ../TMSoundEngine.mm; sourceTree = "<group>"; };
@@ -469,7 +471,7 @@
 		24A585FE0FBADCE6000954E8 /* TMUserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMUserConfig.h; sourceTree = "<group>"; };
 		24A585FF0FBADCE6000954E8 /* TMUserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMUserConfig.m; sourceTree = "<group>"; };
 		24A586080FBADFD6000954E8 /* SettingsEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsEngine.h; sourceTree = "<group>"; };
-		24A586090FBADFD6000954E8 /* SettingsEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsEngine.m; sourceTree = "<group>"; };
+		24A586090FBADFD6000954E8 /* SettingsEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsEngine.mm; sourceTree = "<group>"; };
 		24A709AC0F7A93B40080121C /* FontCharmaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharmaps.h; sourceTree = "<group>"; };
 		24A709AD0F7A93B40080121C /* FontCharmaps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCharmaps.m; sourceTree = "<group>"; };
 		24A709C40F7AA2760080121C /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
@@ -480,36 +482,40 @@
 		24AF446D0F825BE200F630FD /* FontCharAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharAliases.h; sourceTree = "<group>"; };
 		24AF446E0F825BE200F630FD /* FontCharAliases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCharAliases.m; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
-		24AFB4010EEFBC6800D0BF31 /* HoldNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HoldNote.m; path = Renderers/UIElements/HoldNote.m; sourceTree = "<group>"; };
+		24AFB4010EEFBC6800D0BF31 /* HoldNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = HoldNote.mm; path = Renderers/UIElements/HoldNote.mm; sourceTree = "<group>"; };
 		24B3027C103BD46C0044AAB2 /* TMSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSound.h; sourceTree = "<group>"; };
 		24B3027D103BD46C0044AAB2 /* TMSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSound.m; sourceTree = "<group>"; };
 		24B3027F103BD4A40044AAB2 /* TMLoopedSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLoopedSound.h; sourceTree = "<group>"; };
 		24B30280103BD4A40044AAB2 /* TMLoopedSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLoopedSound.m; sourceTree = "<group>"; };
 		24B302CC103BDA5A0044AAB2 /* TMSoundSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundSupport.h; sourceTree = "<group>"; };
+		24B5E3B410626B8D004DDC4B /* TMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMView.h; sourceTree = "<group>"; };
+		24B5E3B510626B8D004DDC4B /* TMView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMView.mm; sourceTree = "<group>"; };
+		24B5E4C510627C92004DDC4B /* TMModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMModalView.h; sourceTree = "<group>"; };
+		24B5E4C610627C92004DDC4B /* TMModalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMModalView.mm; sourceTree = "<group>"; };
 		24CA104A100B4B1A001FAD18 /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
-		24D029C90F45C69C00F1F0DE /* FPS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPS.m; path = Renderers/UIElements/FPS.m; sourceTree = "<group>"; };
+		24D029C90F45C69C00F1F0DE /* FPS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FPS.mm; path = Renderers/UIElements/FPS.mm; sourceTree = "<group>"; };
 		24D166BF1058DED80086236B /* TMScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMScreen.h; sourceTree = "<group>"; };
 		24D166C01058DED80086236B /* TMScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMScreen.mm; sourceTree = "<group>"; };
 		24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsUtil.h; path = Util/PhysicsUtil.h; sourceTree = "<group>"; };
 		24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhysicsUtil.m; path = Util/PhysicsUtil.m; sourceTree = "<group>"; };
 		24D4C1460F1B3C1100643CC2 /* Judgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Judgement.h; path = Renderers/UIElements/Judgement.h; sourceTree = "<group>"; };
-		24D4C1470F1B3C1100643CC2 /* Judgement.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Judgement.m; path = Renderers/UIElements/Judgement.m; sourceTree = "<group>"; };
+		24D4C1470F1B3C1100643CC2 /* Judgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Judgement.mm; path = Renderers/UIElements/Judgement.mm; sourceTree = "<group>"; };
 		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
 		24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelSoundPlayer.m; sourceTree = "<group>"; };
 		24D52ABD1035A4970030A6CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		24D6C1031030D1EA00C7216A /* DialogRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DialogRenderer.h; path = Renderers/DialogRenderer.h; sourceTree = "<group>"; };
-		24D6C1041030D1EA00C7216A /* DialogRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DialogRenderer.m; path = Renderers/DialogRenderer.m; sourceTree = "<group>"; };
+		24D6C1041030D1EA00C7216A /* DialogRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DialogRenderer.mm; path = Renderers/DialogRenderer.mm; sourceTree = "<group>"; };
 		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
-		24D6C18F1030DC5400C7216A /* NewsDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsDialog.m; path = Renderers/NewsDialog.m; sourceTree = "<group>"; };
+		24D6C18F1030DC5400C7216A /* NewsDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NewsDialog.mm; path = Renderers/NewsDialog.mm; sourceTree = "<group>"; };
 		24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFetcher.h; sourceTree = "<group>"; };
 		24D6C1B01030DE4E00C7216A /* NewsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsFetcher.m; sourceTree = "<group>"; };
 		24D762940F38A078008B0AA0 /* Metrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metrics.h; path = ThemeSupport/Metrics.h; sourceTree = "<group>"; };
-		24D762950F38A078008B0AA0 /* Metrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metrics.m; path = ThemeSupport/Metrics.m; sourceTree = "<group>"; };
+		24D762950F38A078008B0AA0 /* Metrics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Metrics.mm; path = ThemeSupport/Metrics.mm; sourceTree = "<group>"; };
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
-		24D762980F38A38D008B0AA0 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThemeManager.m; path = ThemeSupport/ThemeManager.m; sourceTree = "<group>"; };
+		24D762980F38A38D008B0AA0 /* ThemeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ThemeManager.mm; path = ThemeSupport/ThemeManager.mm; sourceTree = "<group>"; };
 		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
 		24DC0DC8101E939C00F2B046 /* libzlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DC0DCC101E93E800F2B046 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = "ext/zlib-1.2.3/adler32.c"; sourceTree = "<group>"; };
@@ -563,15 +569,15 @@
 		24EBF3E20EC83D0100533056 /* DWIParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIParser.h; path = Parsers/DWIParser.h; sourceTree = "<group>"; };
 		24EBF3E30EC83D0100533056 /* DWIParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIParser.m; path = Parsers/DWIParser.m; sourceTree = "<group>"; };
 		24EBF4100EC8446900533056 /* SongPickerMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerMenuItem.h; path = Renderers/UIElements/SongPickerMenuItem.h; sourceTree = "<group>"; };
-		24EBF4110EC8446900533056 /* SongPickerMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongPickerMenuItem.m; path = Renderers/UIElements/SongPickerMenuItem.m; sourceTree = "<group>"; };
+		24EBF4110EC8446900533056 /* SongPickerMenuItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongPickerMenuItem.mm; path = Renderers/UIElements/SongPickerMenuItem.mm; sourceTree = "<group>"; };
 		24EBF4DF0EC8780600533056 /* TimingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingUtil.h; path = Util/TimingUtil.h; sourceTree = "<group>"; };
-		24EBF4E00EC8780600533056 /* TimingUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimingUtil.m; path = Util/TimingUtil.m; sourceTree = "<group>"; };
+		24EBF4E00EC8780600533056 /* TimingUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingUtil.mm; path = Util/TimingUtil.mm; sourceTree = "<group>"; };
 		24EBF5560EC889AD00533056 /* TMTrack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = TMTrack.h; sourceTree = "<group>"; };
 		24EBF5570EC889AD00533056 /* TMTrack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMTrack.mm; sourceTree = "<group>"; };
 		24EBF5590EC88B4400533056 /* TMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMNote.h; sourceTree = "<group>"; };
-		24EBF55A0EC88B4400533056 /* TMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMNote.m; sourceTree = "<group>"; };
+		24EBF55A0EC88B4400533056 /* TMNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMNote.mm; sourceTree = "<group>"; };
 		24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuRenderer.h; path = Renderers/MainMenuRenderer.h; sourceTree = "<group>"; };
-		24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MainMenuRenderer.m; path = Renderers/MainMenuRenderer.m; sourceTree = "<group>"; };
+		24F15E0D0EC20EC800755788 /* MainMenuRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MainMenuRenderer.mm; path = Renderers/MainMenuRenderer.mm; sourceTree = "<group>"; };
 		24F15E24105AA17900221550 /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
 		24F15E25105AA17900221550 /* MessageManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MessageManager.m; sourceTree = "<group>"; };
 		24F15E27105AA2DF00221550 /* TMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessage.h; sourceTree = "<group>"; };
@@ -580,16 +586,16 @@
 		24F15E470EC2114F00755788 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		24F15E79105AAFCE00221550 /* TMMessageSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMessageSupport.h; sourceTree = "<group>"; };
 		24F15EB70EC31E4700755788 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Renderers/UIElements/MenuItem.h; sourceTree = "<group>"; };
-		24F15EB80EC31E4700755788 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Renderers/UIElements/MenuItem.m; sourceTree = "<group>"; };
+		24F15EB80EC31E4700755788 /* MenuItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MenuItem.mm; path = Renderers/UIElements/MenuItem.mm; sourceTree = "<group>"; };
 		24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionsMenuRenderer.h; path = Renderers/OptionsMenuRenderer.h; sourceTree = "<group>"; };
-		24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OptionsMenuRenderer.m; path = Renderers/OptionsMenuRenderer.m; sourceTree = "<group>"; };
+		24F15FE00EC3372100755788 /* OptionsMenuRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OptionsMenuRenderer.mm; path = Renderers/OptionsMenuRenderer.mm; sourceTree = "<group>"; };
 		24F161130EC348B100755788 /* CreditsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditsRenderer.h; path = Renderers/CreditsRenderer.h; sourceTree = "<group>"; };
-		24F161140EC348B100755788 /* CreditsRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditsRenderer.m; path = Renderers/CreditsRenderer.m; sourceTree = "<group>"; };
+		24F161140EC348B100755788 /* CreditsRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CreditsRenderer.mm; path = Renderers/CreditsRenderer.mm; sourceTree = "<group>"; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
-		28FD14FD0DC6FC130079059D /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -681,11 +687,11 @@
 				244954D10EDD5AC200D462F0 /* TMRunLoop.h */,
 				244954D20EDD5AC200D462F0 /* TMRunLoop.mm */,
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
-				28FD14FD0DC6FC130079059D /* EAGLView.m */,
+				28FD14FD0DC6FC130079059D /* EAGLView.mm */,
 				248547F10EE6BCD300AD4FAB /* InputEngine.h */,
-				248547F20EE6BCD300AD4FAB /* InputEngine.m */,
+				248547F20EE6BCD300AD4FAB /* InputEngine.mm */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
-				24A586090FBADFD6000954E8 /* SettingsEngine.m */,
+				24A586090FBADFD6000954E8 /* SettingsEngine.mm */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -773,11 +779,11 @@
 				24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */,
 				24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */,
 				248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */,
-				248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.m */,
+				248EE4510EE3F3B200FF1D43 /* BenchmarkUtil.mm */,
 				24EBF4DF0EC8780600533056 /* TimingUtil.h */,
-				24EBF4E00EC8780600533056 /* TimingUtil.m */,
+				24EBF4E00EC8780600533056 /* TimingUtil.mm */,
 				244E5AB30F41CB490004C921 /* LoggerUtil.h */,
-				244E5AB40F41CB490004C921 /* LoggerUtil.m */,
+				244E5AB40F41CB490004C921 /* LoggerUtil.mm */,
 			);
 			name = Util;
 			path = ..;
@@ -787,19 +793,19 @@
 			isa = PBXGroup;
 			children = (
 				24F15EB70EC31E4700755788 /* MenuItem.h */,
-				24F15EB80EC31E4700755788 /* MenuItem.m */,
+				24F15EB80EC31E4700755788 /* MenuItem.mm */,
 				249D80580FCC9AF700630646 /* ImageButton.h */,
-				249D80590FCC9AF700630646 /* ImageButton.m */,
+				249D80590FCC9AF700630646 /* ImageButton.mm */,
 				24627B9C0FBF6DF9002E245D /* Label.h */,
-				24627B9D0FBF6DF9002E245D /* Label.m */,
+				24627B9D0FBF6DF9002E245D /* Label.mm */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
-				24966C7E0ECB3B6100D367E3 /* TogglerItem.m */,
+				24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */,
 				248F78130F77F99700AE2130 /* Slider.h */,
-				248F78140F77F99700AE2130 /* Slider.m */,
+				248F78140F77F99700AE2130 /* Slider.mm */,
 				24D029C80F45C69C00F1F0DE /* FPS.h */,
-				24D029C90F45C69C00F1F0DE /* FPS.m */,
+				24D029C90F45C69C00F1F0DE /* FPS.mm */,
 				241F10F110610AEE00F5D1BB /* TMControl.h */,
-				241F10F210610AEE00F5D1BB /* TMControl.m */,
+				241F10F210610AEE00F5D1BB /* TMControl.mm */,
 			);
 			name = "UI Elements";
 			path = ../..;
@@ -809,17 +815,17 @@
 			isa = PBXGroup;
 			children = (
 				247E85780ECC5AE500B21A77 /* TMChangeSegment.h */,
-				247E85790ECC5AE500B21A77 /* TMChangeSegment.m */,
+				247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */,
 				2486F2AB0EC0A51100E5F9EE /* TMSong.h */,
 				2486F2AC0EC0A51100E5F9EE /* TMSong.m */,
 				2486F2AE0EC0A8A700E5F9EE /* TMSteps.h */,
-				2486F2AF0EC0A8A700E5F9EE /* TMSteps.m */,
+				2486F2AF0EC0A8A700E5F9EE /* TMSteps.mm */,
 				2486F3010EC0AB7500E5F9EE /* TMSongOptions.h */,
-				2486F3020EC0AB7500E5F9EE /* TMSongOptions.m */,
+				2486F3020EC0AB7500E5F9EE /* TMSongOptions.mm */,
 				24EBF5560EC889AD00533056 /* TMTrack.h */,
 				24EBF5570EC889AD00533056 /* TMTrack.mm */,
 				24EBF5590EC88B4400533056 /* TMNote.h */,
-				24EBF55A0EC88B4400533056 /* TMNote.m */,
+				24EBF55A0EC88B4400533056 /* TMNote.mm */,
 				2409199C105FCD3600927F28 /* GameState.h */,
 			);
 			path = GameObjects;
@@ -830,27 +836,27 @@
 			children = (
 				24F15E13105A9DF000221550 /* UI Elements */,
 				24F161130EC348B100755788 /* CreditsRenderer.h */,
-				24F161140EC348B100755788 /* CreditsRenderer.m */,
+				24F161140EC348B100755788 /* CreditsRenderer.mm */,
 				246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */,
-				246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m */,
+				246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */,
 				24F15E0C0EC20EC800755788 /* MainMenuRenderer.h */,
-				24F15E0D0EC20EC800755788 /* MainMenuRenderer.m */,
+				24F15E0D0EC20EC800755788 /* MainMenuRenderer.mm */,
 				242946370EC474D900B88828 /* SongPickerMenuRenderer.h */,
-				242946380EC474D900B88828 /* SongPickerMenuRenderer.m */,
+				242946380EC474D900B88828 /* SongPickerMenuRenderer.mm */,
 				2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */,
-				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.m */,
+				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.mm */,
 				242327B90F273B630013AC23 /* SongResultsRenderer.h */,
-				242327BA0F273B630013AC23 /* SongResultsRenderer.m */,
+				242327BA0F273B630013AC23 /* SongResultsRenderer.mm */,
 				24F15FDF0EC3372100755788 /* OptionsMenuRenderer.h */,
-				24F15FE00EC3372100755788 /* OptionsMenuRenderer.m */,
+				24F15FE00EC3372100755788 /* OptionsMenuRenderer.mm */,
 				2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */,
-				2479A3800FE6EDFF00688640 /* PadConfigRenderer.m */,
+				2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */,
 				241955E9102B08F800FC6E0F /* SongManagerRenderer.h */,
-				241955EA102B08F800FC6E0F /* SongManagerRenderer.m */,
+				241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */,
 				24D6C1031030D1EA00C7216A /* DialogRenderer.h */,
-				24D6C1041030D1EA00C7216A /* DialogRenderer.m */,
+				24D6C1041030D1EA00C7216A /* DialogRenderer.mm */,
 				24D6C18E1030DC5400C7216A /* NewsDialog.h */,
-				24D6C18F1030DC5400C7216A /* NewsDialog.m */,
+				24D6C18F1030DC5400C7216A /* NewsDialog.mm */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -1082,6 +1088,10 @@
 				248B0C620F4B133E005A998C /* Effects */,
 				24D166BF1058DED80086236B /* TMScreen.h */,
 				24D166C01058DED80086236B /* TMScreen.mm */,
+				24B5E3B410626B8D004DDC4B /* TMView.h */,
+				24B5E3B510626B8D004DDC4B /* TMView.mm */,
+				24B5E4C510627C92004DDC4B /* TMModalView.h */,
+				24B5E4C610627C92004DDC4B /* TMModalView.mm */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -1099,11 +1109,11 @@
 			isa = PBXGroup;
 			children = (
 				24D762940F38A078008B0AA0 /* Metrics.h */,
-				24D762950F38A078008B0AA0 /* Metrics.m */,
+				24D762950F38A078008B0AA0 /* Metrics.mm */,
 				24D762970F38A38D008B0AA0 /* ThemeManager.h */,
-				24D762980F38A38D008B0AA0 /* ThemeManager.m */,
+				24D762980F38A38D008B0AA0 /* ThemeManager.mm */,
 				244E56050F3C5D1D0004C921 /* ResourcesLoader.h */,
-				244E56060F3C5D1D0004C921 /* ResourcesLoader.m */,
+				244E56060F3C5D1D0004C921 /* ResourcesLoader.mm */,
 			);
 			name = ThemeSupport;
 			sourceTree = "<group>";
@@ -1180,11 +1190,11 @@
 				24EBF3E10EC83CED00533056 /* Parsers */,
 				29B97315FDCFA39411CA2CEA /* Global */,
 				1D3623240D0F684500981E51 /* TapManiaAppDelegate.h */,
-				1D3623250D0F684500981E51 /* TapManiaAppDelegate.m */,
+				1D3623250D0F684500981E51 /* TapManiaAppDelegate.mm */,
 				248EE4560EE4002000FF1D43 /* TapMania.h */,
-				248EE4570EE4002000FF1D43 /* TapMania.m */,
+				248EE4570EE4002000FF1D43 /* TapMania.mm */,
 				2429469E0EC480F200B88828 /* SongsDirectoryCache.h */,
-				2429469F0EC480F200B88828 /* SongsDirectoryCache.m */,
+				2429469F0EC480F200B88828 /* SongsDirectoryCache.mm */,
 			);
 			name = TapMania;
 			sourceTree = "<group>";
@@ -1193,21 +1203,21 @@
 			isa = PBXGroup;
 			children = (
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
-				24EBF4110EC8446900533056 /* SongPickerMenuItem.m */,
+				24EBF4110EC8446900533056 /* SongPickerMenuItem.mm */,
 				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
-				2486F2A80EC0A2D600E5F9EE /* LifeBar.m */,
+				2486F2A80EC0A2D600E5F9EE /* LifeBar.mm */,
 				2472663B0EE949A500D501AF /* TapNote.h */,
-				2472663C0EE949A500D501AF /* TapNote.m */,
+				2472663C0EE949A500D501AF /* TapNote.mm */,
 				247266520EE94D3B00D501AF /* Receptor.h */,
-				247266530EE94D3B00D501AF /* Receptor.m */,
+				247266530EE94D3B00D501AF /* Receptor.mm */,
 				2472672B0EE97DDC00D501AF /* ReceptorRow.h */,
-				2472672C0EE97DDC00D501AF /* ReceptorRow.m */,
+				2472672C0EE97DDC00D501AF /* ReceptorRow.mm */,
 				24AFB4000EEFBC6800D0BF31 /* HoldNote.h */,
-				24AFB4010EEFBC6800D0BF31 /* HoldNote.m */,
+				24AFB4010EEFBC6800D0BF31 /* HoldNote.mm */,
 				24D4C1460F1B3C1100643CC2 /* Judgement.h */,
-				24D4C1470F1B3C1100643CC2 /* Judgement.m */,
+				24D4C1470F1B3C1100643CC2 /* Judgement.mm */,
 				246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */,
-				246FB1ED0F28E03E00B3F641 /* HoldJudgement.m */,
+				246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1238,7 +1248,7 @@
 			isa = PBXGroup;
 			children = (
 				32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
+				29B97316FDCFA39411CA2CEA /* main.mm */,
 				24CA104A100B4B1A001FAD18 /* VersionInfo.h */,
 				24F15E33105AA88100221550 /* TapManiaMessages.h */,
 			);
@@ -1534,60 +1544,60 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* TapManiaAppDelegate.m in Sources */,
-				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
+				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				1D3623260D0F684500981E51 /* TapManiaAppDelegate.mm in Sources */,
+				28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */,
 				2486F18B0EC077A300E5F9EE /* JoyPad.m in Sources */,
-				2486F2A90EC0A2D600E5F9EE /* LifeBar.m in Sources */,
+				2486F2A90EC0A2D600E5F9EE /* LifeBar.mm in Sources */,
 				2486F2AD0EC0A51100E5F9EE /* TMSong.m in Sources */,
-				2486F2B00EC0A8A700E5F9EE /* TMSteps.m in Sources */,
-				2486F3030EC0AB7500E5F9EE /* TMSongOptions.m in Sources */,
-				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.m in Sources */,
-				24F15E0E0EC20EC800755788 /* MainMenuRenderer.m in Sources */,
-				24F15EB90EC31E4700755788 /* MenuItem.m in Sources */,
-				24F15FE10EC3372100755788 /* OptionsMenuRenderer.m in Sources */,
-				24F161150EC348B100755788 /* CreditsRenderer.m in Sources */,
-				242946390EC474D900B88828 /* SongPickerMenuRenderer.m in Sources */,
-				242946A00EC480F200B88828 /* SongsDirectoryCache.m in Sources */,
+				2486F2B00EC0A8A700E5F9EE /* TMSteps.mm in Sources */,
+				2486F3030EC0AB7500E5F9EE /* TMSongOptions.mm in Sources */,
+				2486F4540EC1E13E00E5F9EE /* SongPlayRenderer.mm in Sources */,
+				24F15E0E0EC20EC800755788 /* MainMenuRenderer.mm in Sources */,
+				24F15EB90EC31E4700755788 /* MenuItem.mm in Sources */,
+				24F15FE10EC3372100755788 /* OptionsMenuRenderer.mm in Sources */,
+				24F161150EC348B100755788 /* CreditsRenderer.mm in Sources */,
+				242946390EC474D900B88828 /* SongPickerMenuRenderer.mm in Sources */,
+				242946A00EC480F200B88828 /* SongsDirectoryCache.mm in Sources */,
 				24EBF3E40EC83D0100533056 /* DWIParser.m in Sources */,
-				24EBF4120EC8446900533056 /* SongPickerMenuItem.m in Sources */,
-				24EBF4E10EC8780600533056 /* TimingUtil.m in Sources */,
+				24EBF4120EC8446900533056 /* SongPickerMenuItem.mm in Sources */,
+				24EBF4E10EC8780600533056 /* TimingUtil.mm in Sources */,
 				24EBF5580EC889AD00533056 /* TMTrack.mm in Sources */,
-				24EBF55B0EC88B4400533056 /* TMNote.m in Sources */,
-				24966C7F0ECB3B6100D367E3 /* TogglerItem.m in Sources */,
-				247E857A0ECC5AE500B21A77 /* TMChangeSegment.m in Sources */,
+				24EBF55B0EC88B4400533056 /* TMNote.mm in Sources */,
+				24966C7F0ECB3B6100D367E3 /* TogglerItem.mm in Sources */,
+				247E857A0ECC5AE500B21A77 /* TMChangeSegment.mm in Sources */,
 				244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */,
-				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.m in Sources */,
-				248EE4580EE4002000FF1D43 /* TapMania.m in Sources */,
+				248EE4520EE3F3B200FF1D43 /* BenchmarkUtil.mm in Sources */,
+				248EE4580EE4002000FF1D43 /* TapMania.mm in Sources */,
 				2485475B0EE56C1700AD4FAB /* BasicTransition.m in Sources */,
-				248547F30EE6BCD300AD4FAB /* InputEngine.m in Sources */,
+				248547F30EE6BCD300AD4FAB /* InputEngine.mm in Sources */,
 				2485499E0EE7C75800AD4FAB /* TMAnimatable.m in Sources */,
 				24854A850EE8015500AD4FAB /* TMFramedTexture.m in Sources */,
 				24854AD90EE8066800AD4FAB /* Texture2D.m in Sources */,
-				2472663D0EE949A500D501AF /* TapNote.m in Sources */,
-				247266540EE94D3B00D501AF /* Receptor.m in Sources */,
-				2472672D0EE97DDC00D501AF /* ReceptorRow.m in Sources */,
-				24AFB4020EEFBC6800D0BF31 /* HoldNote.m in Sources */,
+				2472663D0EE949A500D501AF /* TapNote.mm in Sources */,
+				247266540EE94D3B00D501AF /* Receptor.mm in Sources */,
+				2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */,
+				24AFB4020EEFBC6800D0BF31 /* HoldNote.mm in Sources */,
 				24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.m in Sources */,
-				24D4C1480F1B3C1100643CC2 /* Judgement.m in Sources */,
-				242327BB0F273B630013AC23 /* SongResultsRenderer.m in Sources */,
-				246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.m in Sources */,
-				246FB1EE0F28E03E00B3F641 /* HoldJudgement.m in Sources */,
-				24D762960F38A078008B0AA0 /* Metrics.m in Sources */,
-				24D762990F38A38D008B0AA0 /* ThemeManager.m in Sources */,
-				244E56070F3C5D1D0004C921 /* ResourcesLoader.m in Sources */,
+				24D4C1480F1B3C1100643CC2 /* Judgement.mm in Sources */,
+				242327BB0F273B630013AC23 /* SongResultsRenderer.mm in Sources */,
+				246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */,
+				246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */,
+				24D762960F38A078008B0AA0 /* Metrics.mm in Sources */,
+				24D762990F38A38D008B0AA0 /* ThemeManager.mm in Sources */,
+				244E56070F3C5D1D0004C921 /* ResourcesLoader.mm in Sources */,
 				244E56150F3C6C680004C921 /* TMResource.m in Sources */,
-				244E5AB50F41CB490004C921 /* LoggerUtil.m in Sources */,
+				244E5AB50F41CB490004C921 /* LoggerUtil.mm in Sources */,
 				24079D8C0F4333300052EDB2 /* FadeTransition.m in Sources */,
 				24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */,
-				24D029CA0F45C69C00F1F0DE /* FPS.m in Sources */,
+				24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */,
 				248B0C650F4B13DB005A998C /* BasicEffect.m in Sources */,
 				248B0D220F4B24B4005A998C /* ZoomEffect.m in Sources */,
 				248B0D920F4B3750005A998C /* BlinkEffect.m in Sources */,
 				24A57AF40F4C265D0057F723 /* SlideEffect.m in Sources */,
 				24A4254B0F7123D8001B0CDE /* TMSoundEngine.mm in Sources */,
 				24A4257B0F713529001B0CDE /* SMParser.m in Sources */,
-				248F78150F77F99700AE2130 /* Slider.m in Sources */,
+				248F78150F77F99700AE2130 /* Slider.mm in Sources */,
 				249648520F79134D00C9D5BC /* AbstractSoundPlayer.m in Sources */,
 				249648530F79134D00C9D5BC /* OGGSoundPlayer.m in Sources */,
 				24A709AE0F7A93B40080121C /* FontCharmaps.m in Sources */,
@@ -1595,15 +1605,15 @@
 				24A70B3F0F7AB3C00080121C /* Font.m in Sources */,
 				24AF446F0F825BE200F630FD /* FontCharAliases.m in Sources */,
 				24A586000FBADCE6000954E8 /* TMUserConfig.m in Sources */,
-				24A5860A0FBADFD6000954E8 /* SettingsEngine.m in Sources */,
-				24627B9E0FBF6DF9002E245D /* Label.m in Sources */,
-				249D805A0FCC9AF700630646 /* ImageButton.m in Sources */,
-				2479A3810FE6EDFF00688640 /* PadConfigRenderer.m in Sources */,
+				24A5860A0FBADFD6000954E8 /* SettingsEngine.mm in Sources */,
+				24627B9E0FBF6DF9002E245D /* Label.mm in Sources */,
+				249D805A0FCC9AF700630646 /* ImageButton.mm in Sources */,
+				2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */,
 				248E92EC1017982400DB27D9 /* WebServer.m in Sources */,
 				24DC0E34101E969200F2B046 /* TMZipFile.m in Sources */,
-				241955EB102B08F800FC6E0F /* SongManagerRenderer.m in Sources */,
-				24D6C1051030D1EA00C7216A /* DialogRenderer.m in Sources */,
-				24D6C1901030DC5400C7216A /* NewsDialog.m in Sources */,
+				241955EB102B08F800FC6E0F /* SongManagerRenderer.mm in Sources */,
+				24D6C1051030D1EA00C7216A /* DialogRenderer.mm in Sources */,
+				24D6C1901030DC5400C7216A /* NewsDialog.mm in Sources */,
 				24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */,
 				24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */,
 				24B3027E103BD46C0044AAB2 /* TMSound.m in Sources */,
@@ -1611,7 +1621,9 @@
 				24D166C11058DED80086236B /* TMScreen.mm in Sources */,
 				24F15E26105AA17900221550 /* MessageManager.m in Sources */,
 				24F15E29105AA2DF00221550 /* TMMessage.m in Sources */,
-				241F10F310610AEE00F5D1BB /* TMControl.m in Sources */,
+				241F10F310610AEE00F5D1BB /* TMControl.mm in Sources */,
+				24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */,
+				24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,9 +31,6 @@
 	
 	// Start with no action
 	m_nAction = kSongManagerAction_None;
-		
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:self];
 	
 	// Now start the web server
 	[[WebServer sharedInstance] start];
@@ -46,9 +43,6 @@
 
 - (void) deinitOnTransition {
 	[super deinitOnTransition];
-	
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:self];
 	
 	// Stop web server
 	[[WebServer sharedInstance] stop];
@@ -92,11 +86,13 @@
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1 && m_nAction != kSongManagerAction_None){		
 		// Exit
 		m_nAction = kSongManagerAction_Exit;
-	}		
+	}	
+	
+	return YES;
 }
 
 @end

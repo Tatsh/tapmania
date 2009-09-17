@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "MenuItem.h"
 
 @class Texture2D, TMSong;
@@ -14,6 +13,8 @@
 @interface SongPickerMenuItem : MenuItem {
 	TMSong* m_pSong;	// The song object bound to this menu item
 	Texture2D* m_pArtist;
+	
+	Texture2D* t_WheelItem;
 }
 
 @property (readonly, retain, nonatomic, getter=song) TMSong* m_pSong;

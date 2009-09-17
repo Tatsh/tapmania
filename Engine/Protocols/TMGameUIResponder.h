@@ -10,9 +10,9 @@
 @protocol TMGameUIResponder 
 
 // All methods are optional
-@optional
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event;
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event;
+@required
+- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;
+- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event;
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event;
 
 @end

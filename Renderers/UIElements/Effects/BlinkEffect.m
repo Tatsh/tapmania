@@ -75,7 +75,7 @@
 }
 
 /* TMGameUIResponder stuff */
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
 	UITouch * touch = [touches anyObject];
 	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 					 [touch locationInView:[TapMania sharedInstance].glView]];
@@ -85,10 +85,11 @@
 		m_fBlinkTime = 0.0f;
 	}
 	
-	[m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
+	
 }
 
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
 	UITouch * touch = [touches anyObject];
 	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 					 [touch locationInView:[TapMania sharedInstance].glView]];
@@ -99,10 +100,10 @@
 		m_nState = kBlinkOff;
 	}
 	
-	[m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
 }
 
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {		
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {		
 	UITouch * touch = [touches anyObject];
 	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
 					 [touch locationInView:[TapMania sharedInstance].glView]];
@@ -111,7 +112,7 @@
 		m_nState = kBlinkOff;
 	}
 	
-	[m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
 }
 
 @end

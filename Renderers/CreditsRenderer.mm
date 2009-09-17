@@ -35,10 +35,12 @@ Texture2D* t_CreditsBG;
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
+	[super setupForTransition];
+	
 	int i;
 	
 	// Cache graphics
-	t_CreditsBG = [[ThemeManager sharedInstance] texture:@"Credits Background"];
+	t_CreditsBG = TEXTURE(@"Credits Background");
 	
 	// We will show the credits until this set to YES
 	m_bShouldReturn = NO;
@@ -58,15 +60,7 @@ Texture2D* t_CreditsBG;
 	
 	// Set starting pos
 	m_fCurrentPos = ([m_aTexturesArray count]*15);
-	m_fCurrentPos = -m_fCurrentPos;			
-	
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:self];
-}
-
-- (void) deinitOnTransition {
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:self];
+	m_fCurrentPos = -m_fCurrentPos;				
 }
 
 /* TMRenderable methods */
@@ -76,6 +70,8 @@ Texture2D* t_CreditsBG;
 	
 	//Draw background
 	[t_CreditsBG drawInRect:bounds];
+	
+	[super render:fDelta];
 	
 	// Draw the texts
 	glEnable(GL_BLEND);
@@ -91,6 +87,8 @@ Texture2D* t_CreditsBG;
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
+	[super update:fDelta];
+	
 	if(m_fCurrentPos > 460) {
 		m_fCurrentPos = ([m_aTexturesArray count]*15);
 		m_fCurrentPos = -m_fCurrentPos;
@@ -107,8 +105,10 @@ Texture2D* t_CreditsBG;
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	m_bShouldReturn = YES;
+	
+	return YES;
 }
 
 @end

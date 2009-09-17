@@ -54,7 +54,7 @@
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
 		// Check whether we have a value in config or not
-		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:i];
+		CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:(JPButton)i];
 		
 		if(m_pJoyCurrentButtonLocation[i]) 
 			[m_pJoyCurrentButtonLocation[i] release];		
@@ -68,7 +68,7 @@
 		
 		if(m_pJoyCurrentButtonLocation[i] != nil) {
 			// Save into config
-			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:i];
+			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:(JPButton)i];
 		}
 		
 		m_bJoyButtonStates[i] = NO;
@@ -84,7 +84,7 @@
 		
 		m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:m_pJoyDefaultLocations[i].m_fX andY:m_pJoyDefaultLocations[i].m_fY];
 		if(m_pJoyCurrentButtonLocation[i] != nil) {
-			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:i];
+			[[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:(JPButton)i];
 		}
 	}
 }
@@ -117,7 +117,7 @@
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	int touchIdx;
 	
 	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
@@ -162,15 +162,15 @@
 			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:closestButton]);
 		}
 	}
+	
+	return NO; // Always pretend as of we didn't receive the touches
 }
 
-/*
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
-	[self tmTouchesBegan:touches withEvent:event];
+- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+// 	[self tmTouchesBegan:touches withEvent:event];
 }
-*/
 
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	int touchIdx;
 
 	for(touchIdx=0; touchIdx<[touches count]; ++touchIdx) {
@@ -206,6 +206,8 @@
 		m_dJoyButtonTimeRelease[closestButton] = touch.timestamp;			
 		BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:closestButton]);
 	}
+	
+	return NO;
 }
 
 @end

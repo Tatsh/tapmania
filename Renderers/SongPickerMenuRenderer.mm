@@ -140,19 +140,13 @@
 	// Populate difficulty toggler with current song
 	[self selectSong];	
 	
-	// Subscribe for input events
-	[[InputEngine sharedInstance] subscribe:self];
-		
 	// Get ads back to place if removed
 	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void) deinitOnTransition {
 	[super deinitOnTransition];
-	
-	// Unsubscribe from input events
-	[[InputEngine sharedInstance] unsubscribe:self];
-		
+			
 	// Remove ads
 	[[TapMania sharedInstance] toggleAds:NO];
 }
@@ -242,7 +236,7 @@
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
 	// Handle wheel
 	switch ([touches count]) {
 		case 1:
@@ -260,9 +254,11 @@
 			break;
 		}
 	}
+	
+	return YES;
 }
 
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
 	// Handle wheel
 	switch ([touches count]) {
 		case 1:
@@ -286,9 +282,11 @@
 			break;
 		}
 	}
+	
+	return YES;
 }
 
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1){		
 		UITouch* touch = [touches anyObject];
 		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
@@ -297,7 +295,7 @@
 		// Should start song?
 		if([touch tapCount] > 1 && CGRectContainsPoint(mt_Highlight, pointGl)) {
 			[self playSong];
-			return;
+			return YES;
 		}
 		
 		// Now the fun part - swipes
@@ -308,6 +306,8 @@
 		
 		[self clearSwipes];
 	}
+	
+	return YES;
 }
 
 - (void) clearSwipes {	

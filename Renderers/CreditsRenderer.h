@@ -6,15 +6,10 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "TMLogicUpdater.h"
-#import "TMRenderable.h"
-#import "TMTransitionSupport.h"
-#import "TMGameUIResponder.h"
-
+#import "TMScreen.h"
 @class TMRunLoop;
 
-@interface CreditsRenderer : NSObject <TMLogicUpdater, TMRenderable, TMTransitionSupport, TMGameUIResponder> {
+@interface CreditsRenderer : TMScreen {
 	NSMutableArray* m_aTexturesArray;
 	
 	BOOL			m_bShouldReturn;

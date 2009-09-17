@@ -6,7 +6,6 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "JoyPad.h"
 
 #define CFG_BOOL(key)	[[SettingsEngine sharedInstance] getBoolValue:key]

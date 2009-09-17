@@ -8,12 +8,15 @@
 
 #import "TMControl.h"
 
-@class TMFramedTexture, Texture2D;
+@class TMFramedTexture, Texture2D, TMSound;
 
 @interface MenuItem : TMControl {
 	TMFramedTexture*	m_pTexture;
 	Texture2D*			m_pTitle;
 	NSString*			m_sTitle;
+	
+	/* Sound effect */
+	TMSound*	sr_MenuButtonEffect;
 }
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;

@@ -6,13 +6,9 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TMRenderable.h"
-#import "TMLogicUpdater.h"
-#import "TMTransitionSupport.h"
-#import "TMGameUIResponder.h"
+#import "TMModalView.h"
 
-@interface DialogRenderer : NSObject <TMRenderable, TMLogicUpdater, TMGameUIResponder> {
+@interface DialogRenderer : TMModalView {
 	BOOL	m_bShouldReturn;
 }
 

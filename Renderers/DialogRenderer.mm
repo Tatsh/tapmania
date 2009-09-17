@@ -18,12 +18,12 @@
 Texture2D* t_DialogBG;
 
 - (id) init {
-	self = [super init];
+	self = [super initWithShape:CGRectMake(40, 40, 200, 300)];
 	if(!self)
 		return nil;
 	
 	// Cache graphics
-	t_DialogBG = [[ThemeManager sharedInstance] texture:@"Common DialogBackground"];
+	t_DialogBG = TEXTURE(@"Common DialogBackground");
 	
 	m_bShouldReturn = NO;
 	
@@ -41,7 +41,6 @@ Texture2D* t_DialogBG;
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
 	if(m_bShouldReturn) {
-		[[InputEngine sharedInstance] unsubscribe:self];
 		[[TapMania sharedInstance] deregisterObject:self];
 		
 		m_bShouldReturn = NO;
@@ -49,8 +48,13 @@ Texture2D* t_DialogBG;
 }
 
 /* TMGameUIResponder methods */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	m_bShouldReturn = YES;
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	if([super tmTouchesEnded:touches withEvent:event]) {
+		m_bShouldReturn = YES;
+		return YES;
+	}
+	
+	return NO;
 }
 
 @end

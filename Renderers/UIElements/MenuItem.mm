@@ -17,8 +17,6 @@
 
 @implementation MenuItem
 
-TMSound*	sr_MenuButtonEffect;
-
 - (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [super initWithShape:shape];
 	if(!self) 
@@ -67,20 +65,15 @@ TMSound*	sr_MenuButtonEffect;
 }
 
 /* Override for sound effect */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
-	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-		UITouch * touch = [touches anyObject];
-		CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
-						 [touch locationInView:[TapMania sharedInstance].glView]];
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
+	if([super tmTouchesEnded:touches withEvent:event]) {
+		TMLog(@"Menu item raised. play sound!");
+		[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];
 		
-		if(CGRectContainsPoint(m_rShape, point)) {
-			if(m_bEnabled && m_bVisible && m_idActionDelegate != nil) {
-				TMLog(@"MenuItem, finger raised!");
-				[m_idActionDelegate performSelector:m_oActionHandler];
-				[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];
-			}
-		}
+		return YES;
 	}
+	
+	return NO;
 }
 
 

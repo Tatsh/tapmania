@@ -7,31 +7,10 @@
 //
 
 #import "TMTransitionSupport.h"
-#import "TMRenderable.h"
-#import "TMLogicUpdater.h"
+#import "TMView.h"
 
-#ifdef __cplusplus
-
-#include <deque>
-// #include <memory>
-using namespace std;
-
-typedef deque<NSObject* > TMScreenChildren;
-// typedef auto_ptr<TMScreenChildren > TMScreenChildrenPtr;
-
-#endif
-
-@interface TMScreen : NSObject <TMRenderable, TMLogicUpdater, TMTransitionSupport> {
-	#ifdef __cplusplus
-	@protected TMScreenChildren* m_pChildren;
-	#endif
+/* A screen is a fullscreen view with transition support */
+@interface TMScreen : TMView <TMTransitionSupport> {
 }
-
--(void) pushBackChild:(NSObject*)inChild;
--(void) pushChild:(NSObject*)inChild;
--(NSObject*) popBackChild;
--(NSObject*) popChild;
-
--(void) pushBackControl:(NSObject*)inChild;
 
 @end

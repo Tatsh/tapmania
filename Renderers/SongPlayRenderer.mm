@@ -102,6 +102,13 @@ extern TMGameState* g_pGameState;
 	[super dealloc];
 }
 
+- (void) setupForTransition {
+	[super setupForTransition];
+	
+	// Enable joypad
+	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];	
+}
+
 - (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
 	g_pGameState->m_pSong = [song retain];
 	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:options.m_nDifficulty];
@@ -145,9 +152,6 @@ extern TMGameState* g_pGameState;
 	m_dPlayBackScheduledEndTime = g_pGameState->m_dPlayBackStartTime + timeOfLastBeat + kTimeTillMusicStop;
 	m_dPlayBackScheduledFadeOutTime = m_dPlayBackScheduledEndTime - kFadeOutTime;
 	
-	// Enable joypad
-	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];
-
 	g_pGameState->m_bPlayingGame = YES;	
 	m_bDrawReady = YES;
 	m_bDrawGo = NO;

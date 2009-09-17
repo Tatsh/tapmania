@@ -30,6 +30,9 @@
 @interface TogglerItem : MenuItem {
 	NSMutableArray*		m_aElements;			// All the elements which are available in this toggler item (TogglerItemObjects)
 	int					m_nCurrentSelection;	// Index of currently selected element
+		
+	/* Sound effects */
+	TMSound*	sr_TogglerEffect;
 }
 
 - (void) addItem:(NSObject*)value withTitle:(NSString*)title;

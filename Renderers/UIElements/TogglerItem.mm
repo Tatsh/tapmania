@@ -44,8 +44,6 @@
 
 @implementation TogglerItem
 
-TMSound*	sr_TogglerEffect;
-
 - (id) initWithShape:(CGRect) shape {
 	
 	self = [super initWithShape:shape];
@@ -54,10 +52,10 @@ TMSound*	sr_TogglerEffect;
 
 	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common Toggler"];	
+	m_pTexture = (TMFramedTexture*) TEXTURE(@"Common Toggler");	
 	
 	// Load effect sound
-	sr_TogglerEffect = [[ThemeManager sharedInstance] sound:@"Common TogglerChange"];
+	sr_TogglerEffect = SOUND(@"Common TogglerChange");
 	
 	return self;
 }
@@ -150,21 +148,25 @@ TMSound*	sr_TogglerEffect;
 }
 
 /* TMGameUIResponder method */
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	UITouch *t1 = [[touches allObjects] objectAtIndex:0];
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	UITouch * touch = [touches anyObject];
+	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
+					 [touch locationInView:[TapMania sharedInstance].glView]];
 	
-	if([touches count] == 1){
-		
-		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-				
-		if([self containsPoint:pointGl]) {
+	if(CGRectContainsPoint(m_rShape, point)) {
+		if(m_bEnabled && m_bVisible) {
+			TMLog(@"TogglerItem, finger raised!");
 			[self toggle];
-			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {			
+			
+			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 				[m_idActionDelegate performSelector:m_oActionHandler];
-			}
-		}
+			}	
+			
+			return YES;			
+		}		
 	}
+	
+	return NO;
 }
 
 
