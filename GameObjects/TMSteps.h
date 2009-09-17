@@ -24,6 +24,9 @@ typedef enum {
 	kNumOfAvailableTracks
 } TMAvailableTracks;
 
+#define kHitSearchEpsilon 0.1f
+#define kHoldLostEpsilon 0.2f
+
 @class SongPlayRenderer;
 
 @interface TMSteps : NSObject <TMRenderable, TMLogicUpdater, TMMessageSupport> {

@@ -60,6 +60,7 @@ typedef enum {
 	TMAvailableTracks	m_nTrack;
 	
 	BOOL		m_bIsHit;			// True if the note was hit during gameplay
+	BOOL		m_bMultiHit;		// If this note must be hit with other notes on same noteRow
 	BOOL		m_bIsLost;			// True if the note was not hit in the timing window
 	BOOL		m_bIsHolding;
 	BOOL		m_bIsHeld;		// True if the note is hit and held till end
@@ -86,6 +87,7 @@ typedef enum {
 @property (assign) TMNoteType m_nType;
 
 @property (assign, readonly) BOOL m_bIsHit;
+@property (assign, readonly) BOOL m_bMultiHit;
 @property (assign, readonly) BOOL m_bIsLost;
 @property (assign, readonly) BOOL m_bIsHolding;
 @property (assign, readonly) BOOL m_bIsHeld;

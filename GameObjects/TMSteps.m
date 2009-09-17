@@ -101,7 +101,6 @@ extern TMGameState* g_pGameState;
 	return [m_pTracks[trackIndex] getNotesCount];
 }
 
-// Time out stuff should be a pointer to array of kNumOfAvailableTracks elements but obj-c doesn't like the C syntax. FIXME
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime {
 	// Check whether other tracks has any notes which are not hit yet and are on the same noterow
 	BOOL allNotesHit = YES;
@@ -113,7 +112,7 @@ extern TMGameState* g_pGameState;
 		TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
 		
 		// If found - check
-		if(n != nil) {
+		if(n != nil && n.m_nType != kNoteType_Empty) {
 			if(!n.m_bIsHit) {
 				allNotesHit = NO;
 			} else {
@@ -259,8 +258,6 @@ extern TMGameState* g_pGameState;
 		[t_TapNote continueAnimation];
 	}
 	
-	double searchHitFromTime = g_pGameState->m_dElapsedTime - 0.1f;
-	double searchHitTillTime = g_pGameState->m_dElapsedTime + 0.1f;
 	int i;
 	
 	// For every track
@@ -276,11 +273,6 @@ extern TMGameState* g_pGameState;
 		
 		double lastHitTime = [[TapMania sharedInstance].joyPad getTouchTimeForButton:(JPButton)i] - g_pGameState->m_dPlayBackStartTime;		
 		BOOL testHit = NO;
-		
-		// Check for hit?
-		if(lastHitTime >= searchHitFromTime && lastHitTime <= searchHitTillTime) {
-			testHit = YES;
-		}
 		
 		// For all interesting notes in the track
 		for(j=startIndex; j<[self getNotesCountForTrack:i] ; ++j) {
@@ -308,6 +300,10 @@ extern TMGameState* g_pGameState;
 				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= 0.03f) {
 					testHit = YES;
 					lastHitTime = g_pGameState->m_dElapsedTime;
+				}
+			} else {
+				if(!note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon) {
+					testHit = YES;
 				}
 			}
 			
@@ -385,26 +381,19 @@ extern TMGameState* g_pGameState;
 				break; // Start another track coz this note is out of screen
 			}				
 			
-			// Check old hit first
-			if(testHit && note.m_bIsHit){
-				// This note was hit already (maybe using the same tap as we still hold)
-				if(note.m_dHitTime == lastHitTime) {
-					// Bingo! prevent further notes in this track from being hit
-					testHit = NO;
-				} 
-			}
-			
 			// If we are at a hold arrow we must check it anyway
 			if(note.m_nType == kNoteType_HoldHead) {
-				double lastReleaseTime = [[TapMania sharedInstance].joyPad getReleaseTimeForButton:(JPButton)i] - g_pGameState->m_dPlayBackStartTime;
+				double lastReleaseTime;
 				
 				if(g_pGameState->m_bAutoPlay) {
 					lastReleaseTime = lastHitTime-0.01f;
+				} else {
+					lastReleaseTime = [[TapMania sharedInstance].joyPad getReleaseTimeForButton:(JPButton)i] - g_pGameState->m_dPlayBackStartTime;
 				}
 				
 				if(note.m_bIsHit && !note.m_bIsHoldLost && !note.m_bIsHolding) {
 					// This means we released the hold but we still can catch it again
-					if(fabsf(g_pGameState->m_dElapsedTime - note.m_dLastHoldReleaseTime) >= 0.4f) {
+					if(fabsf(g_pGameState->m_dElapsedTime - note.m_dLastHoldReleaseTime) >= kHoldLostEpsilon) {
 						[note markHoldLost];						
 					}
 					
@@ -420,25 +409,23 @@ extern TMGameState* g_pGameState;
 			}
 			
 			// Check hit
-			if(testHit && !note.m_bIsLost && !note.m_bIsHit){
-				if(noteTime >= searchHitFromTime && noteTime <= searchHitTillTime) {
-					
-					// Mark note as hit
-					[note hit:lastHitTime];
-					testHit = NO; // Don't want to test hit on other notes on the track in this run
-					
-					if(note.m_nType == kNoteType_HoldHead) {
-						[note startHolding:lastHitTime];
-					}
-					
-					// Check whether other tracks has any notes which are not hit yet and are on the same noterow
-					// The routine below will automatically broadcast all required messages to make things work (hit notes)
-					[self checkAllNotesHitFromRow:note.m_nStartNoteRow withNoteTime:noteTime];					
+			if(testHit && !note.m_bIsHit && !note.m_bIsLost){				
+				// Mark this one as hit
+				[note hit:lastHitTime];
+				
+				// Check whether other tracks has any notes which are not hit yet and are on the same noterow
+				// The routine below will automatically broadcast all required messages to make things work (hit notes)
+				[self checkAllNotesHitFromRow:note.m_nStartNoteRow withNoteTime:noteTime];									
+				
+				// Also, should start holding if this is a hold note
+				if(note.m_nType == kNoteType_HoldHead) {
+					[note startHolding:lastHitTime];
 				}
 			}
 			
 			prevNote = note;
 			lastNoteYPosition = noteYPosition;
+			testHit = NO;	// Only ones for a run
 		}
 	}
 }
@@ -465,7 +452,7 @@ extern TMGameState* g_pGameState;
 				continue;
 			
 			// We will draw the note only if it wasn't hit yet
-			if(note.m_nType == kNoteType_HoldHead || !note.m_bIsHit) {
+			if(note.m_nType == kNoteType_HoldHead || !note.m_bMultiHit) {
 				if(note.m_fStartYPosition <= -mt_TapNotes[i].size.height) {
 					break; // Start another track coz this note is out of screen
 				}

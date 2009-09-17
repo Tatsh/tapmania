@@ -46,7 +46,7 @@
 	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
-		mt_ReceptorButtons[i] =	RECT_METRIC(([NSString stringWithFormat:@"SongPlay ReceptorRow %d", i]));
+		mt_ReceptorButtons[i] =	RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
 	}
 	
 	// Start with no action. means we must select a receptor arrow

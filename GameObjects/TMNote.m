@@ -12,7 +12,8 @@
 
 @implementation TMNote
 
-@synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bIsLost, m_bIsHeld, m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
+@synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bMultiHit, m_bIsLost, m_bIsHeld;
+@synthesize m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
 @synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack {
@@ -28,6 +29,7 @@
 	
 	m_bIsLost = NO;
 	m_bIsHit = NO;
+	m_bMultiHit = NO;
 	m_bIsHolding = NO;
 	m_bIsHeld = NO;
 	m_bIsHoldLost = NO;
@@ -55,6 +57,7 @@
 }
 
 - (void) score:(TMJudgement)score withTimingFlag:(TMTimingFlag)timingFlag { 
+	m_bMultiHit = YES;
 	m_nScore = score;
 	m_nTimingFlag = timingFlag;
 	BROADCAST_MESSAGE(kNoteScoreMessage, self);
