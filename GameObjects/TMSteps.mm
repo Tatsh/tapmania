@@ -310,7 +310,7 @@ extern TMGameState* g_pGameState;
 			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:g_pGameState->m_pSong];
 			
 			// A mine will explode if we are touching the corresponding pad button at the time it passes
-			if(note.m_nType == kNoteType_Mine && !note.m_bIsMineHit) {
+			if(!g_pGameState->m_bAutoPlay && note.m_nType == kNoteType_Mine && !note.m_bIsMineHit) {
 				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= kMineHitSearchEpsilon) {
 					// Ok. this mine seems to be close enough to the receptors
 					double lastReleaseTime = [[TapMania sharedInstance].joyPad getReleaseTimeForButton:(JPButton)i] - g_pGameState->m_dPlayBackStartTime;
@@ -326,8 +326,10 @@ extern TMGameState* g_pGameState;
 						
 			if(g_pGameState->m_bAutoPlay) {
 				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= 0.03f) {
-					testHit = YES;
-					lastHitTime = g_pGameState->m_dElapsedTime;
+					if(note.m_nType != kNoteType_Mine && !note.m_bIsHit) {
+						lastHitTime = g_pGameState->m_dElapsedTime;
+						testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
+					}
 				}
 			} else {
 				if(note.m_nType != kNoteType_Mine && !note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon) {
