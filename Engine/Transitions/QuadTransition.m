@@ -9,10 +9,11 @@
 #import "QuadTransition.h"
 #import "TapMania.h"
 #import "EAGLView.h"
+#import "TMScreen.h"
 
 @implementation QuadTransition
 
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen {
 	self = [super initFromScreen:fromScreen toScreen:toScreen];
 	if (!self)
 		return nil;

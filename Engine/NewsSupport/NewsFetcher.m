@@ -9,6 +9,9 @@
 #import "NewsFetcher.h"
 #import "SettingsEngine.h"
 #import "VersionInfo.h"
+#import "GameState.h"
+#import "NewsDialog.h"
+#import "TapMania.h"
 
 // This is a singleton class, see below
 static NewsFetcher *sharedNewsFetcherDelegate = nil;
@@ -17,8 +20,10 @@ static NewsFetcher *sharedNewsFetcherDelegate = nil;
 - (void) checkForNews;
 - (void) stopChecking;
 - (void) startChecking;
+- (void) raiseNewsDialog;
 @end
 
+extern TMGameState* g_pGameState;
 
 @implementation NewsFetcher
 
@@ -31,24 +36,32 @@ static NewsFetcher *sharedNewsFetcherDelegate = nil;
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		@synchronized (self) {
-			NSString* currentNewsVersion = [NSString stringWithContentsOfURL:[NSURL URLWithString:[TAPMANIA_URL stringByAppendingString:TAPMANIA_NEWS_VERSION_PAGE]]];
-			if(currentNewsVersion != nil) {
-				TMLog(@"Found news version: %@", currentNewsVersion);
-				
-				if(! [currentNewsVersion isEqualToString:[[SettingsEngine sharedInstance] getStringValue:@"newsversion"]]) {
-					TMLog(@"Should fetch news!");
-					m_sNews = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[TAPMANIA_URL stringByAppendingString:TAPMANIA_NEWS_PAGE]]] retain];
+			if(!m_bGotNews) {
+				NSString* currentNewsVersion = [NSString stringWithContentsOfURL:[NSURL URLWithString:[TAPMANIA_URL stringByAppendingString:TAPMANIA_NEWS_VERSION_PAGE]]];
+				if(currentNewsVersion != nil) {
+					TMLog(@"Found news version: %@", currentNewsVersion);
 					
-					if(m_sNews != nil) {				
-						m_bGotNews = YES;
-						m_sNewsVersion = [currentNewsVersion retain];
+					if(! [currentNewsVersion isEqualToString:[[SettingsEngine sharedInstance] getStringValue:@"newsversion"]]) {
+						TMLog(@"Should fetch news!");
+						m_sNews = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[TAPMANIA_URL stringByAppendingString:TAPMANIA_NEWS_PAGE]]] retain];
+						
+						if(m_sNews != nil) {				
+							m_bGotNews = YES;
+							m_sNewsVersion = [currentNewsVersion retain];
+						}
 					}
-				}
-			} else {
-				m_bGotNews = NO;
-				m_sNews = @"";
-			}	
+				} else {
+					m_bGotNews = NO;
+					m_sNews = @"";
+				}	
+			}
 			
+			// If we got news
+			if(m_bGotNews) {				
+				if(!g_pGameState->m_bPlayingGame) {
+					[self performSelectorOnMainThread:@selector(raiseNewsDialog) withObject:nil waitUntilDone:NO];
+				}				
+			}			
 		}
 		
 		[pool release];
@@ -99,6 +112,12 @@ static NewsFetcher *sharedNewsFetcherDelegate = nil;
 	}
 	
 	return @"";
+}
+
+- (void) raiseNewsDialog {
+
+	[[TapMania sharedInstance] addOverlay:[[NewsDialog alloc] init]];
+	
 }
 
 #pragma mark Singleton stuff

@@ -7,7 +7,6 @@
 //
 
 #import "TMScreen.h"
-#import "TMGameUIResponder.h"
 
 #import "TMSteps.h"
 
@@ -23,7 +22,7 @@ typedef enum {
 	kNumPadConfigActions
 } TMPadConfigActions;
 
-@interface PadConfigRenderer : TMScreen <TMGameUIResponder> {
+@interface PadConfigRenderer : TMScreen {
 	Vector*					m_pFingerTap;
 	
 	ReceptorRow*			m_pReceptorRow;

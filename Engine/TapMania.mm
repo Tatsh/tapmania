@@ -19,6 +19,8 @@
 #import "ARRollerView.h"
 #import "MessageManager.h"
 #import "TMMessage.h"
+#import "TMScreen.h"
+#import "TMModalView.h"
 
 #import "TMRunLoop.h"	// TMRunLoopPriority
 #import "JoyPad.h"
@@ -58,16 +60,25 @@ static TapMania *sharedTapManiaDelegate = nil;
 	return self;
 }
 
-- (void) switchToScreen:(NSObject*)screenRenderer {
+- (void) switchToScreen:(TMScreen*)screenRenderer {
 	[self registerObjectAtBegin:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
-- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass {
+- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass {
 	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
 }
 
-- (void) switchToScreen:(NSObject*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
+- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
 	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut]];
+}
+
+- (void) addOverlay:(TMModalView*)modalView {
+	[self registerObjectAtEnd:modalView];
+}
+
+- (void) removeOverlay:(TMModalView*)modalView {
+	[self deregisterObject:modalView];
+	[modalView release];
 }
 
 - (void) registerObjectAtEnd:(NSObject*) obj {

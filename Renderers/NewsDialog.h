@@ -6,12 +6,15 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-#import "DialogRenderer.h"
+#import "TMModalView.h"
 
 @class Texture2D;
 
-@interface NewsDialog : DialogRenderer {
+@interface NewsDialog : TMModalView {
 	Texture2D	*m_pNewsText;
+	
+	/* Textures */
+	Texture2D* t_DialogBG;
 }
 
 @end

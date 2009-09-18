@@ -8,6 +8,7 @@
 
 #import "BasicTransition.h"
 #import "TMTransitionSupport.h"
+#import "TMScreen.h"
 #import "TapMania.h"
 #import "InputEngine.h"
 #import "TMRunLoop.h"	// For TMRunLoopPriority
@@ -15,7 +16,7 @@
 
 @implementation BasicTransition
 
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut {
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut {
 	self = [self initFromScreen:fromScreen toScreen:toScreen];
 	if(!self)
 		return nil;
@@ -26,7 +27,7 @@
 	return self;
 }
 
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen {
 	self = [super init];
 	if (!self)
 		return nil;

@@ -7,10 +7,11 @@
 //
 
 #import "TMView.h"
-#import "TMTransitionSupport.h"
 
 /* A modal view is a floating view (popup, dialog etc.) */
-@interface TMModalView : TMView <TMTransitionSupport> {
+@interface TMModalView : TMView {
 }
+
+- (void) close;
 
 @end

@@ -11,13 +11,17 @@
 #import "EAGLView.h"
 #import "NewsFetcher.h"
 #import "Texture2D.h"
+#import "ThemeManager.h"
 
 @implementation NewsDialog
 
 - (id) init {
-	self = [super init];
+	self = [super initWithShape:CGRectMake(40, 80, 200, 320)];
 	if(!self)
 		return nil;
+	
+	// Cache graphics
+	t_DialogBG = TEXTURE(@"Common DialogBackground");
 	
 	// Fetch news text and generate texture text from it
 	NSString* news = [[NewsFetcher sharedInstance] getUnreadNews];
@@ -39,8 +43,10 @@
 /* TMRenderable methods */
 - (void) render:(float) fDelta {
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
-	[super render:fDelta];
-	
+	glEnable(GL_BLEND);
+	[t_DialogBG drawInRect:bounds];
+	glDisable(GL_BLEND);	
+
 	if(m_pNewsText) {
 		// Draw the text
 		glEnable(GL_BLEND);
@@ -51,6 +57,17 @@
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		glDisable(GL_BLEND);
 	}
+}
+
+
+/* TMGameUIResponder methods */
+- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	if([super tmTouchesEnded:touches withEvent:event]) {
+		[self close];
+		return YES;
+	}
+	
+	return NO;
 }
 
 @end

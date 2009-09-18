@@ -42,6 +42,7 @@
 #import "TMSoundEngine.h"
 #import "TMSound.h"
 
+#import "GameState.h"
 #import "VersionInfo.h"
 
 @interface MainMenuRenderer (InputHandling)
@@ -52,6 +53,7 @@
 - (void) donateButtonHit;
 @end
 
+extern TMGameState* g_pGameState;
 
 @implementation MainMenuRenderer
 
@@ -137,16 +139,7 @@
 	[m_pOptionsButton setActionHandler:@selector(optionsButtonHit) receiver:self];
 	[m_pCreditsButton setActionHandler:@selector(creditsButtonHit) receiver:self];
 	[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
-	
-	/*
-	// Raise a news dialog if unread news are found
-	if([[NewsFetcher sharedInstance] hasUnreadNews]) {
-		// Raise the dialog
-		m_pDialog = [[NewsDialog alloc] init];
-		[[TapMania sharedInstance] registerObjectAtEnd:m_pDialog];
-		[[InputEngine sharedInstance] subscribeDialog:m_pDialog];
-	}*/
-	
+		
 	// Play music
 	if( ! sr_BG.playing ) {
 		[[TMSoundEngine sharedInstance] addToQueue:sr_BG];
@@ -154,6 +147,9 @@
 	
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];	 
+	
+	// A little hack for the news popup. now it can raise if it has something
+	g_pGameState->m_bPlayingGame = NO;
 }
 
 /* TMRenderable method */

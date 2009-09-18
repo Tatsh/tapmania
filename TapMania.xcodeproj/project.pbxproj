@@ -164,7 +164,6 @@
 		24D4C1480F1B3C1100643CC2 /* Judgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.mm */; };
 		24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */; };
 		24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D52ABD1035A4970030A6CA /* AVFoundation.framework */; };
-		24D6C1051030D1EA00C7216A /* DialogRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1041030D1EA00C7216A /* DialogRenderer.mm */; };
 		24D6C1901030DC5400C7216A /* NewsDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.mm */; };
 		24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.m */; };
 		24D762960F38A078008B0AA0 /* Metrics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.mm */; };
@@ -506,8 +505,6 @@
 		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
 		24D52AA71035A1970030A6CA /* AccelSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelSoundPlayer.m; sourceTree = "<group>"; };
 		24D52ABD1035A4970030A6CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		24D6C1031030D1EA00C7216A /* DialogRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DialogRenderer.h; path = Renderers/DialogRenderer.h; sourceTree = "<group>"; };
-		24D6C1041030D1EA00C7216A /* DialogRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DialogRenderer.mm; path = Renderers/DialogRenderer.mm; sourceTree = "<group>"; };
 		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
 		24D6C18F1030DC5400C7216A /* NewsDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NewsDialog.mm; path = Renderers/NewsDialog.mm; sourceTree = "<group>"; };
 		24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFetcher.h; sourceTree = "<group>"; };
@@ -853,8 +850,6 @@
 				2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */,
 				241955E9102B08F800FC6E0F /* SongManagerRenderer.h */,
 				241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */,
-				24D6C1031030D1EA00C7216A /* DialogRenderer.h */,
-				24D6C1041030D1EA00C7216A /* DialogRenderer.mm */,
 				24D6C18E1030DC5400C7216A /* NewsDialog.h */,
 				24D6C18F1030DC5400C7216A /* NewsDialog.mm */,
 			);
@@ -1612,7 +1607,6 @@
 				248E92EC1017982400DB27D9 /* WebServer.m in Sources */,
 				24DC0E34101E969200F2B046 /* TMZipFile.m in Sources */,
 				241955EB102B08F800FC6E0F /* SongManagerRenderer.mm in Sources */,
-				24D6C1051030D1EA00C7216A /* DialogRenderer.mm in Sources */,
 				24D6C1901030DC5400C7216A /* NewsDialog.mm in Sources */,
 				24D6C1B11030DE4E00C7216A /* NewsFetcher.m in Sources */,
 				24D52AA81035A1970030A6CA /* AccelSoundPlayer.m in Sources */,

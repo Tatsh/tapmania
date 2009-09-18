@@ -22,10 +22,10 @@ typedef enum {
 	kNumTransitionStates
 } TMTransitionState;
 
-@class AbstractRenderer;
+@class TMScreen;
 
 @interface BasicTransition : NSObject <TMTransition, TMRenderable, TMLogicUpdater> {
-	AbstractRenderer *m_pFrom, 
+	TMScreen *m_pFrom, 
 					 *m_pTo;
 	
 	double			  m_dTimeStart;
@@ -35,8 +35,8 @@ typedef enum {
 	double			  m_dTimeIn, m_dTimeOut;
 }
 
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen;
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut;
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen;
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut;
 
 - (BOOL) updateTransitionIn;
 - (BOOL) updateTransitionOut;

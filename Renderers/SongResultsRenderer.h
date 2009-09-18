@@ -9,11 +9,10 @@
 #import "TMNote.h" // For kNumNoteScores etc.
 
 #import "TMScreen.h"
-#import "TMGameUIResponder.h"
 
 @class TMSteps, TMSong, Texture2D;
 
-@interface SongResultsRenderer : TMScreen <TMGameUIResponder> {	
+@interface SongResultsRenderer : TMScreen {	
 	int						m_nCounters[kNumJudgementValues];
 	int						m_nOkNgCounters[kNumHoldScores];
 	

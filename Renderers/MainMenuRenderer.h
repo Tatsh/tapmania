@@ -6,9 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#import "TMGameUIResponder.h"
 #import "TMScreen.h"
 
 @class MenuItem, ImageButton, Label, DialogRenderer, TMSound, Texture2D;
@@ -27,7 +24,7 @@ typedef enum {
 	kMainMenuState_None
 } MainMenuState;
 
-@interface MainMenuRenderer : TMScreen <TMGameUIResponder> {
+@interface MainMenuRenderer : TMScreen {
 	MainMenuItem	m_nSelectedMenu;
 	MainMenuState	m_nState;
 	double			m_dAnimationTime;

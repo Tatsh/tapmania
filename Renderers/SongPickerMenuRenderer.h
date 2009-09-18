@@ -7,7 +7,6 @@
 //
 
 #import "TMScreen.h"
-#import "TMGameUIResponder.h"
 
 @class SongPickerMenuItem, TMSound, TogglerItem, BasicEffect, MenuItem, Texture2D;
 
@@ -19,7 +18,7 @@
 #define kWheelStaticFriction	0.25f
 #define kWheelMass				80.0f
 
-@interface SongPickerMenuRenderer : TMScreen <TMGameUIResponder> {
+@interface SongPickerMenuRenderer : TMScreen {
 	BasicEffect*			m_pSpeedToggler;
 	BasicEffect*			m_pDifficultyToggler;
 	MenuItem*				m_pBackMenuItem;

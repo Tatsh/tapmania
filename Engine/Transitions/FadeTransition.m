@@ -10,10 +10,11 @@
 #import "TapMania.h"
 #import "ThemeManager.h"
 #import "EAGLView.h"
+#import "TMScreen.h"
 
 @implementation FadeTransition
 
-- (id) initFromScreen:(AbstractRenderer*)fromScreen toScreen:(AbstractRenderer*)toScreen {
+- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen {
 	self = [super initFromScreen:fromScreen toScreen:toScreen];
 	if (!self)
 		return nil;

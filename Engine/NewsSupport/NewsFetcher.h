@@ -12,8 +12,8 @@
 @interface NewsFetcher : NSObject {
 	BOOL		m_bGotNews;
 	BOOL		m_bRunning;
-	NSString   *m_sNews;
-	NSString   *m_sNewsVersion;
+	NSString	*m_sNews;
+	NSString	*m_sNewsVersion;
 	
 	NSThread   *m_pThread;
 }

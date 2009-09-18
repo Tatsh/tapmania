@@ -8,16 +8,23 @@
 
 #import "TMModalView.h"
 #import "InputEngine.h"
+#import "TapMania.h"
 
 @implementation TMModalView
 
-/* TMTransitionSupport methods */
-- (void) setupForTransition {
+- (id) initWithShape:(CGRect)inShape {
+	self = [super initWithShape:inShape];
+	if(!self) 
+		return nil;
+	
 	[[InputEngine sharedInstance] subscribe:self];
+	
+	return self;
 }
 
-- (void) deinitOnTransition {
+- (void) close {
 	[[InputEngine sharedInstance] unsubscribe:self];
+	[[TapMania sharedInstance] performSelectorOnMainThread:@selector(removeOverlay:) withObject:self waitUntilDone:NO];	
 }
 
 @end

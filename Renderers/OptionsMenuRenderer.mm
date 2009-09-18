@@ -272,11 +272,11 @@
 }
 
 - (void) themeTogglerChanged {
-	[[SettingsEngine sharedInstance] setStringValue:[[m_pThemeToggler getCurrent] m_pValue] forKey:@"theme"];
+	[[SettingsEngine sharedInstance] setStringValue:(NSString*)[[m_pThemeToggler getCurrent] m_pValue] forKey:@"theme"];
 }
 
 - (void) noteSkinTogglerChanged {
-	NSString* skinName = [[m_pNoteSkinToggler getCurrent] m_pValue];
+	NSString* skinName = (NSString*)[[m_pNoteSkinToggler getCurrent] m_pValue];
 	[[SettingsEngine sharedInstance] setStringValue:skinName forKey:@"noteskin"];
 	[[ThemeManager sharedInstance] selectNoteskin:skinName];
 }

@@ -7,7 +7,6 @@
 //
 
 #import "TMScreen.h"
-#import "TMGameUIResponder.h"
 
 @class Texture2D;
 
@@ -18,7 +17,7 @@ typedef enum {
 	kNumSongManagerActions
 } TMSongManagerActions;
 
-@interface SongManagerRenderer : TMScreen <TMGameUIResponder> {
+@interface SongManagerRenderer : TMScreen {
 	TMSongManagerActions	m_nAction;
 	
 	Texture2D*				m_pServerUrl;
