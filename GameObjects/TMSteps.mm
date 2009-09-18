@@ -42,6 +42,8 @@ extern TMGameState* g_pGameState;
 		mt_HalfOfArrowHeight[i] =			mt_TapNotes[i].size.height/2;
 		
 		mt_Receptors[i]	=					RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
+		
+		m_dLastHitTimes[i] =				0.0f;
 	}
 	
 	mt_HoldCap =							SIZE_SKIN_METRIC(@"HoldNote Cap");
@@ -303,7 +305,7 @@ extern TMGameState* g_pGameState;
 				}
 			} else {
 				if(!note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon) {
-					testHit = YES;
+					testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
 				}
 			}
 			
@@ -379,8 +381,8 @@ extern TMGameState* g_pGameState;
 			// If the Y position is at the floor - jump to next track
 			if(note.m_fStartYPosition <= -mt_TapNotes[i].size.height){
 				break; // Start another track coz this note is out of screen
-			}				
-			
+			}		
+						
 			// If we are at a hold arrow we must check it anyway
 			if(note.m_nType == kNoteType_HoldHead) {
 				double lastReleaseTime;
@@ -406,15 +408,21 @@ extern TMGameState* g_pGameState;
 						[note stopHolding:lastReleaseTime];
 					}
 				} 
-			}
+			}				
 			
 			// Check hit
 			if(testHit && !note.m_bIsHit && !note.m_bIsLost){				
 				// Mark this one as hit
 				[note hit:lastHitTime];
 				
+				// Save this hit time for later checking
+				m_dLastHitTimes[i] = lastHitTime;
+				
+				// Only ones for a run
+				testHit = NO;
+				
 				// Check whether other tracks has any notes which are not hit yet and are on the same noterow
-				// The routine below will automatically broadcast all required messages to make things work (hit notes)
+				// The routine below will automatically broadcast all required messages to make things work (score notes)
 				[self checkAllNotesHitFromRow:note.m_nStartNoteRow withNoteTime:noteTime];									
 				
 				// Also, should start holding if this is a hold note
@@ -425,7 +433,6 @@ extern TMGameState* g_pGameState;
 			
 			prevNote = note;
 			lastNoteYPosition = noteYPosition;
-			testHit = NO;	// Only ones for a run
 		}
 	}
 }
@@ -452,7 +459,7 @@ extern TMGameState* g_pGameState;
 				continue;
 			
 			// We will draw the note only if it wasn't hit yet
-			if(note.m_nType == kNoteType_HoldHead || !note.m_bMultiHit) {
+			if(note.m_nType == kNoteType_HoldHead || !note.m_bMultiHit || note.m_bIsLost) {
 				if(note.m_fStartYPosition <= -mt_TapNotes[i].size.height) {
 					break; // Start another track coz this note is out of screen
 				}

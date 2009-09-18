@@ -23,8 +23,8 @@ typedef enum {
 	kNumOfAvailableTracks
 } TMAvailableTracks;
 
-#define kHitSearchEpsilon 0.1f
-#define kHoldLostEpsilon 0.2f
+#define kHitSearchEpsilon 0.185f
+#define kHoldLostEpsilon 0.3f
 
 @class SongPlayRenderer;
 
@@ -32,6 +32,7 @@ typedef enum {
 	TMSongDifficulty	m_nDifficulty;						// The difficulty. eg. Easy, Heavy etc.
 	int					m_nDifficultyLevel;					// The level. eg. 1-15.
 	int					m_nTrackPos[kNumOfAvailableTracks];
+	double				m_dLastHitTimes[kNumOfAvailableTracks];
 	
 	TMTrack*			m_pTracks[kNumOfAvailableTracks];	// We have 4 tracks which represent 4 different positions of feet
 	
