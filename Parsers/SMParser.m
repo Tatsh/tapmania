@@ -392,8 +392,14 @@
 								TMLog(@"Closed the hold in panel %d", note);
 							}
 						}
+						else
+						if(cc == 'M') {
+							// it's a mine
+							TMLog(@"Place a mine on %d in panel %d", currentNoteRow, note);
+							[steps setNote:[[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_Mine onTrack:note] toTrack:note onNoteRow:currentNoteRow];									
+						}
 						
-						// TODO: add mines and rolls support
+						// TODO: add rolls support
 					}
 				}
 			}

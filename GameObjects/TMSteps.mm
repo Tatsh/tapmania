@@ -10,6 +10,7 @@
 #import "TMTrack.h"
 #import "TMNote.h"
 #import "TapNote.h"
+#import "TapMine.h"
 #import "HoldNote.h"
 
 #import "TimingUtil.h"
@@ -51,6 +52,7 @@ extern TMGameState* g_pGameState;
 	
 	// Cache textures
 	t_TapNote = (TapNote*)SKIN_TEXTURE(@"DownTapNote");
+	t_TapMine = (TapMine*)SKIN_TEXTURE(@"TapMine");
 	t_HoldNoteActive = (HoldNote*)SKIN_TEXTURE(@"HoldBody DownActive");
 	t_HoldNoteInactive = (HoldNote*)SKIN_TEXTURE(@"HoldBody DownInactive");
 	
@@ -162,7 +164,7 @@ extern TMGameState* g_pGameState;
 		TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
 		
 		// If found - check
-		if(n != nil) {
+		if(n != nil && n.m_nType != kNoteType_Mine) {
 			[n markLost];
 			[n score:kJudgementMiss withTimingFlag:kTimingFlagLate];
 			
@@ -225,6 +227,9 @@ extern TMGameState* g_pGameState;
 					c = '*';
 					holdActive = NO;
 					break;
+				case kNoteType_Mine:
+					c = 'm';					
+					break;
 				case kNoteType_Empty:
 					c = '0';
 					break;
@@ -250,14 +255,20 @@ extern TMGameState* g_pGameState;
 	[TimingUtil getBeatAndBPSFromElapsedTime:g_pGameState->m_dElapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:g_pGameState->m_pSong]; 
 	
 	// Calculate animation of the tap notes. The speed of the animation is actually one frame per beat
-	[t_TapNote setM_fFrameTime:[TimingUtil getTimeInBeatForBPS:currentBps]];
+	float timeInBeat = [TimingUtil getTimeInBeatForBPS:currentBps];
+	[t_TapNote setM_fFrameTime:timeInBeat];
+	[t_TapMine setM_fFrameTime:timeInBeat/2.0f];
+	
 	[t_TapNote update:fDelta];
+	[t_TapMine update:fDelta];
 	
 	// If freeze - stop animating the notes but still check for hits etc.
 	if(hasFreeze) {
 		[t_TapNote pauseAnimation];
+		[t_TapMine pauseAnimation];
 	} else {
 		[t_TapNote continueAnimation];
+		[t_TapMine continueAnimation];
 	}
 	
 	int i;
@@ -298,13 +309,28 @@ extern TMGameState* g_pGameState;
 			
 			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:g_pGameState->m_pSong];
 			
+			// A mine will explode if we are touching the corresponding pad button at the time it passes
+			if(note.m_nType == kNoteType_Mine && !note.m_bIsMineHit) {
+				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= kMineHitSearchEpsilon) {
+					// Ok. this mine seems to be close enough to the receptors
+					double lastReleaseTime = [[TapMania sharedInstance].joyPad getReleaseTimeForButton:(JPButton)i] - g_pGameState->m_dPlayBackStartTime;
+					
+					if(lastHitTime > lastReleaseTime) {
+						// seems like we are holding now so should explode here
+						TMLog(@"BOOM!");
+						[note mineHit];
+						[note score:kJudgementMineHit withTimingFlag:kTimingFlagInvalid];
+					}
+				}
+			}
+						
 			if(g_pGameState->m_bAutoPlay) {
 				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= 0.03f) {
 					testHit = YES;
 					lastHitTime = g_pGameState->m_dElapsedTime;
 				}
 			} else {
-				if(!note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon) {
+				if(note.m_nType != kNoteType_Mine && !note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon) {
 					testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
 				}
 			}
@@ -352,7 +378,7 @@ extern TMGameState* g_pGameState;
 			}
 			
 			// Check whether we already missed a note (hold head too)
-			if(!note.m_bIsLost && !note.m_bIsHit && (g_pGameState->m_dElapsedTime-noteTime)>=0.1f) {
+			if(note.m_nType != kNoteType_Mine && !note.m_bIsLost && !note.m_bIsHit && (g_pGameState->m_dElapsedTime-noteTime)>=kHitSearchEpsilon) {
 				[self markAllNotesLostFromRow:note.m_nStartNoteRow];						
 			}
 			
@@ -516,6 +542,8 @@ extern TMGameState* g_pGameState;
 					} else { 
 						[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];	
 					}
+				} else if(note.m_nType == kNoteType_Mine) {
+					[t_TapMine drawTapMineInRect:arrowRect];					
 				} else {
 					[t_TapNote drawTapNote:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];
 				}			

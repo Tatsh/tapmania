@@ -117,7 +117,7 @@ extern TMGameState* g_pGameState;
 	[g_pGameState->m_pSteps dump];
 #endif	
 	
-	g_pGameState->m_bAutoPlay = NO;
+	g_pGameState->m_bAutoPlay = YES;
 	g_pGameState->m_bFailed = NO;
 	g_pGameState->m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 		
@@ -283,7 +283,7 @@ extern TMGameState* g_pGameState;
 	switch (message.messageId) {
 		case kLifeBarDrainedMessage:
 			TMLog(@"Life is drained! Stop gameplay.");
-			g_pGameState->m_bFailed = YES;
+		//	g_pGameState->m_bFailed = YES;
 			
 			break;
 	}

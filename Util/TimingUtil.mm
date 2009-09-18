@@ -211,6 +211,8 @@
 		return 0.000f;
 	} else if(noteScore == kJudgementW5) {						
 		return -0.040f;
+	} else if(noteScore == kJudgementMineHit) {
+		return -0.160f;
 	} else {
 		// Miss
 		return -0.080f;

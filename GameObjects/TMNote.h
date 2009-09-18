@@ -35,6 +35,7 @@ typedef enum {
 	kNoteType_Empty = 0,
 	kNoteType_Original,
 	kNoteType_HoldHead,
+	kNoteType_Mine,
 	kNumNoteTypes
 } TMNoteType;
 
@@ -65,6 +66,8 @@ typedef enum {
 	BOOL		m_bIsHolding;
 	BOOL		m_bIsHeld;		// True if the note is hit and held till end
 	BOOL		m_bIsHoldLost;	// True if the hold is lost
+	BOOL		m_bIsMineHit;
+	BOOL		m_bIsMineAvoided;
 	
 	double		m_dHitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
 	double		m_dLastHoldTouchTime;		// Last time when the player layed his finger on the hold arrow
@@ -92,6 +95,8 @@ typedef enum {
 @property (assign, readonly) BOOL m_bIsHolding;
 @property (assign, readonly) BOOL m_bIsHeld;
 @property (assign, readonly) BOOL m_bIsHoldLost;
+@property (assign, readonly) BOOL m_bIsMineHit;
+@property (assign, readonly) BOOL m_bIsMineAvoided;
 
 @property (assign, readonly) double m_dHitTime;
 @property (assign, readonly) double m_dLastHoldTouchTime;
@@ -109,6 +114,10 @@ typedef enum {
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack;
 
 - (void) hit:(double)hitTime;
+
+- (void) mineHit;
+- (void) mineAvoided;
+
 - (void) score:(TMJudgement)score withTimingFlag:(TMTimingFlag)timingFlag;
 
 - (void) startHolding:(double)touchTime;

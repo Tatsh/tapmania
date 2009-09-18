@@ -157,6 +157,7 @@
 		24B30281103BD4A40044AAB2 /* TMLoopedSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.m */; };
 		24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E3B510626B8D004DDC4B /* TMView.mm */; };
 		24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E4C610627C92004DDC4B /* TMModalView.mm */; };
+		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.mm */; };
 		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
@@ -491,6 +492,8 @@
 		24B5E3B510626B8D004DDC4B /* TMView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMView.mm; sourceTree = "<group>"; };
 		24B5E4C510627C92004DDC4B /* TMModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMModalView.h; sourceTree = "<group>"; };
 		24B5E4C610627C92004DDC4B /* TMModalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMModalView.mm; sourceTree = "<group>"; };
+		24C696C61063B7800049C299 /* TapMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapMine.h; path = Renderers/UIElements/TapMine.h; sourceTree = "<group>"; };
+		24C696C71063B7800049C299 /* TapMine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapMine.mm; path = Renderers/UIElements/TapMine.mm; sourceTree = "<group>"; };
 		24CA104A100B4B1A001FAD18 /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
@@ -1213,6 +1216,8 @@
 				24D4C1470F1B3C1100643CC2 /* Judgement.mm */,
 				246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */,
 				246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */,
+				24C696C61063B7800049C299 /* TapMine.h */,
+				24C696C71063B7800049C299 /* TapMine.mm */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1618,6 +1623,7 @@
 				241F10F310610AEE00F5D1BB /* TMControl.mm in Sources */,
 				24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */,
 				24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */,
+				24C696C81063B7800049C299 /* TapMine.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

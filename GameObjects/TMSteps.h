@@ -13,7 +13,7 @@
 #import "TMLogicUpdater.h"
 #import "SongPlayRenderer.h"
 
-@class TMTrack, TMNote, TapNote, HoldNote, Texture2D;
+@class TMTrack, TMNote, TapMine, TapNote, HoldNote, Texture2D;
 
 typedef enum {
 	kAvailableTrack_Left = 0,
@@ -24,6 +24,7 @@ typedef enum {
 } TMAvailableTracks;
 
 #define kHitSearchEpsilon 0.185f
+#define kMineHitSearchEpsilon 0.01f
 #define kHoldLostEpsilon 0.3f
 
 @class SongPlayRenderer;
@@ -45,6 +46,7 @@ typedef enum {
 	
 	// Noteskin stuff
 	TapNote* t_TapNote;
+	TapMine* t_TapMine;
 	HoldNote* t_HoldNoteInactive, *t_HoldNoteActive;
 	Texture2D* t_HoldBottomCapActive, *t_HoldBottomCapInactive;	
 }

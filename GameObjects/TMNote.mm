@@ -12,7 +12,7 @@
 
 @implementation TMNote
 
-@synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bMultiHit, m_bIsLost, m_bIsHeld;
+@synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bMultiHit, m_bIsLost, m_bIsHeld, m_bIsMineHit, m_bIsMineAvoided;
 @synthesize m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
 @synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
@@ -33,6 +33,10 @@
 	m_bIsHolding = NO;
 	m_bIsHeld = NO;
 	m_bIsHoldLost = NO;
+	
+	m_bIsMineHit = NO;
+	m_bIsMineAvoided = YES;
+	
 	m_dHitTime = 0.0f;
 	
 	m_fStartYPosition = 0.0f;
@@ -49,6 +53,21 @@
 	if(!m_bIsHit){
 		m_bIsHit = YES;
 		m_dHitTime = hitTime;
+	}
+}
+
+- (void) mineHit {
+	if(!m_bIsMineHit) {
+		m_bIsHit = YES;
+		m_bIsMineHit = YES;
+		m_bIsMineAvoided = NO;
+	}
+}
+
+- (void) mineAvoided {
+	if(!m_bIsMineAvoided) {
+		m_bIsMineHit = NO;
+		m_bIsMineAvoided = YES;
 	}
 }
 

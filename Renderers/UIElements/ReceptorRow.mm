@@ -12,6 +12,8 @@
 #import "ThemeManager.h"
 #import "TMNote.h"
 #import "TMMessage.h"
+#import "TMSound.h"
+#import "TMSoundEngine.h"
 #import "MessageManager.h"
 
 @implementation ReceptorRow
@@ -41,7 +43,11 @@
 	t_GoReceptor = (Receptor*)SKIN_TEXTURE(@"DownGoReceptor");
 	t_ExplosionDim = SKIN_TEXTURE(@"DownTapExplosionDim");
 	t_ExplosionBright = SKIN_TEXTURE(@"DownTapExplosionBright");
-			
+	t_MineExplosion = SKIN_TEXTURE(@"HitMineExplosion");
+	
+	// Sounds
+	sr_ExplosionMine = SOUND(@"SongPlay HitMine"); 
+	
 	return self;
 }
 
@@ -60,6 +66,11 @@
 	m_nExplosion[receptor] = kExplosionTypeBright;
 }
 
+- (void) explodeMine:(TMAvailableTracks)receptor {
+	m_dExplosionTime[receptor] = 0.0f;
+	m_nExplosion[receptor] = kExplosionTypeMine;
+}
+
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	// Here we will render all receptors at their places
@@ -72,15 +83,24 @@
 		if(m_nExplosion[i] != kExplosionTypeNone) {
 			Texture2D* tex = nil;
 			
-			if(m_nExplosion[i] == kExplosionTypeDim) {
-				tex = t_ExplosionDim;
+			if(m_nExplosion[i] == kExplosionTypeMine) {
+				tex = t_MineExplosion;
+				
+				glEnable(GL_BLEND);
+				[tex drawInRect:mt_ReceptorExplosions[i]];
+				glDisable(GL_BLEND);
 			} else {
-				tex = t_ExplosionBright;
-			}
+					
+				if(m_nExplosion[i] == kExplosionTypeDim) {
+					tex = t_ExplosionDim;
+				} else {
+					tex = t_ExplosionBright;
+				}
 
-			glEnable(GL_BLEND);
-			[tex drawInRect:mt_ReceptorExplosions[i] rotation:mt_ReceptorExplosionRotations[i]];
-			glDisable(GL_BLEND);
+				glEnable(GL_BLEND);
+				[tex drawInRect:mt_ReceptorExplosions[i] rotation:mt_ReceptorExplosionRotations[i]];
+				glDisable(GL_BLEND);
+			}
 		}
 	}
 }
@@ -105,8 +125,14 @@
 		case kNoteScoreMessage:
 
 			TMNote* note = (TMNote*)message.payload;			
-			if(note.m_nScore == kJudgementW1) {
+			
+			if(note.m_nType == kNoteType_Mine) {
+				[self explodeMine:note.m_nTrack];
+				[[TMSoundEngine sharedInstance] playEffect:sr_ExplosionMine];
+				
+			} else if(note.m_nScore == kJudgementW1) {
 				[self explodeBright:note.m_nTrack];
+				
 			} else if(note.m_nScore != kJudgementMiss) {
 				[self explodeDim:note.m_nTrack];	
 			}

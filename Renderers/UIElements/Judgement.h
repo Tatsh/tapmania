@@ -18,6 +18,7 @@ typedef enum {
 	kJudgementW4,
 	kJudgementW5,
 	kJudgementMiss,
+	kJudgementMineHit,
 	kNumJudgementValues,
 	kJudgementNone
 } TMJudgement;
