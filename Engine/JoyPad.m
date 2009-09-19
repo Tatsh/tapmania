@@ -34,10 +34,10 @@
 	REG_MESSAGE(kJoyPadTapMessage, @"PadTap");
 	REG_MESSAGE(kJoyPadReleaseMessage, @"PadRelease");
 	
-	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithX:80 andY:160];
-	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithX:160 andY:80];
-	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithX:160 andY:240];
-	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithX:240 andY:160];
+	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithX:70 andY:122];
+	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithX:160 andY:62];
+	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithX:160 andY:182];
+	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithX:250 andY:122];
 	m_pJoyDefaultLocations[kJoyButtonExit] =  nil;
 	
 	// Reset states (to saved if any)

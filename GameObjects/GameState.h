@@ -10,6 +10,7 @@
  */
 
 @class TMSong, TMSteps;
+#import "TMSongOptions.h"
 
 typedef struct TapManiaGameState {
 		
@@ -18,8 +19,12 @@ typedef struct TapManiaGameState {
 	
 	double					m_dElapsedTime;			// Elapsed time since start of beats counting
 	double					m_dPlayBackStartTime;	// Time of gameplay start
+	
+	/* Global modifiers */
 	double					m_dSpeedModValue;		// Speed modifier value
 	BOOL					m_bAutoPlay;			// Autoplay setting
+	TMFailType				m_nFailType;			// Fail type (off, on, at end)
+	
 	
 	BOOL					m_bPlayingGame;
 	BOOL					m_bFailed;

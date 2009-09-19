@@ -116,7 +116,7 @@ extern TMGameState* g_pGameState;
 		TMNote* n = [self getNoteFromRow:noteRow forTrack:tr];
 		
 		// If found - check
-		if(n != nil && n.m_nType != kNoteType_Empty) {
+		if(n != nil && n.m_nType != kNoteType_Empty && n.m_nType != kNoteType_Mine) {
 			if(!n.m_bIsHit) {
 				allNotesHit = NO;
 			} else {

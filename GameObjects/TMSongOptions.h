@@ -6,7 +6,6 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "TMSong.h"	// For TMSongDifficulty
 
 // Define available speed modifiers
@@ -20,6 +19,12 @@ typedef enum {
 	kNumSpeedMods
 } TMSpeedModifiers;
 
+typedef enum {
+	kFailOn = 0,	// Default. fail when lifebar drained
+	kFailOff,		// No fail. always clear a song
+	kFailAtEnd,		// Fail at end if lifebar was drained
+	kNumFailTypes
+} TMFailType;
 
 @interface TMSongOptions: NSObject {
 	TMSpeedModifiers m_nSpeedMod;

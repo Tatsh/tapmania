@@ -117,7 +117,9 @@ extern TMGameState* g_pGameState;
 	[g_pGameState->m_pSteps dump];
 #endif	
 	
-	g_pGameState->m_bAutoPlay = YES;
+	g_pGameState->m_bAutoPlay = NO;
+	g_pGameState->m_nFailType = kFailAtEnd;
+	
 	g_pGameState->m_bFailed = NO;
 	g_pGameState->m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 		
@@ -183,7 +185,9 @@ extern TMGameState* g_pGameState;
 			m_bMusicPlaybackStarted = YES;
 			[[TMSoundEngine sharedInstance] playMusic];
 		}
-	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit] || g_pGameState->m_bFailed) {
+	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit] 
+			  || (g_pGameState->m_bFailed && g_pGameState->m_nFailType == kFailOn)) 
+	{
 		// Should stop music and stop gameplay now
 		[[TMSoundEngine sharedInstance] stopMusic];
 
@@ -283,7 +287,9 @@ extern TMGameState* g_pGameState;
 	switch (message.messageId) {
 		case kLifeBarDrainedMessage:
 			TMLog(@"Life is drained! Stop gameplay.");
-		//	g_pGameState->m_bFailed = YES;
+			if(g_pGameState->m_nFailType == kFailOn || g_pGameState->m_nFailType == kFailAtEnd) {
+				g_pGameState->m_bFailed = YES;
+			}
 			
 			break;
 	}
