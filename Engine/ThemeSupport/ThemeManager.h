@@ -19,6 +19,7 @@
 #define RECT_METRIC(key) [[ThemeManager sharedInstance] rectMetric:key]
 #define POINT_METRIC(key) [[ThemeManager sharedInstance] pointMetric:key]
 #define SIZE_METRIC(key) [[ThemeManager sharedInstance] sizeMetric:key]
+#define ARRAY_METRIC(key) [[ThemeManager sharedInstance] arrayMetric:key];
 
 #define INT_SKIN_METRIC(key) [[ThemeManager sharedInstance] intSkinMetric:key]
 #define FLOAT_SKIN_METRIC(key) [[ThemeManager sharedInstance] floatSkinMetric:key]
@@ -26,6 +27,7 @@
 #define RECT_SKIN_METRIC(key) [[ThemeManager sharedInstance] rectSkinMetric:key]
 #define POINT_SKIN_METRIC(key) [[ThemeManager sharedInstance] pointSkinMetric:key]
 #define SIZE_SKIN_METRIC(key) [[ThemeManager sharedInstance] sizeSkinMetric:key]
+#define ARRAY_SKIN_METRIC(key) [[ThemeManager sharedInstance] arraySkinMetric:key];
 
 #define TEXTURE(key) [[ThemeManager sharedInstance] texture:key]
 #define SKIN_TEXTURE(key) [[ThemeManager sharedInstance] skinTexture:key]
@@ -70,6 +72,7 @@
 - (CGRect) rectMetric:(NSString*) metricKey;
 - (CGPoint) pointMetric:(NSString*) metricKey;
 - (CGSize) sizeMetric:(NSString*) metricKey;
+- (NSArray*) arrayMetric:(NSString*) metricKey;
 
 /* Same for noteskin metrics */
 - (int) intSkinMetric:(NSString*) metricKey;
@@ -78,6 +81,7 @@
 - (CGRect) rectSkinMetric:(NSString*) metricKey;
 - (CGPoint) pointSkinMetric:(NSString*) metricKey;
 - (CGSize) sizeSkinMetric:(NSString*) metricKey;
+- (NSArray*) arraySkinMetric:(NSString*) metricKey;
 
 /* Theme stuff */
 - (TMSound*) sound:(NSString*) soundKey;

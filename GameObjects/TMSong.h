@@ -26,6 +26,13 @@ typedef enum {
 	kNumSongDifficulties
 } TMSongDifficulty;
 
+typedef enum {
+	kFailOn = 0,
+	kFailOff,
+	kFailAtEnd,
+	kNumFailTypes
+} TMFailType;
+
 @class TMSteps;
 @class TMChangeSegment;
 

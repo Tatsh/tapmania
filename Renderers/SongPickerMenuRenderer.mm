@@ -9,7 +9,6 @@
 #import "SongPickerMenuRenderer.h"
 
 #import "TMSong.h"
-#import "TMSongOptions.h"
 
 #import "TapManiaAppDelegate.h"
 #import "SongsDirectoryCache.h"
@@ -33,6 +32,9 @@
 #import "MainMenuRenderer.h"
 
 #import "QuadTransition.h"
+#import "GameState.h"
+
+extern TMGameState * g_pGameState;
 
 @interface SongPickerMenuRenderer (Private)
 
@@ -118,13 +120,8 @@
 	}
 	
 	// Speed mod toggler	
-	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1x]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_1_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_1_5x]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_2x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_2x]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_3x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_3x]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_5x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_5x]];
-	[(TogglerItem*)m_pSpeedToggler addItem:[NSNumber numberWithInt:kSpeedMod_8x] withTitle:[TMSongOptions speedModAsString:kSpeedMod_8x]];
+	NSArray* speedMods = ARRAY_METRIC(@"SongPickerMenu SpeedToggler Elements");
+	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler andCommands:speedMods]];
 	[self pushBackControl:m_pSpeedToggler];
 	
 	// Difficulty toggler
@@ -190,16 +187,12 @@
 		
 		SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pWheelItems objectAtIndex:kSelectedWheelItemId];
 		TMSong* song = [selected song];
-		TMSongOptions* options = [[TMSongOptions alloc] init];
-		
-		// Assign speed modifier
-		[options setSpeedMod:(TMSpeedModifiers)[(NSNumber*)[(TogglerItem*)m_pSpeedToggler getCurrent].m_pValue intValue]]; 
 		
 		// Assign difficulty
-		[options setDifficulty:(TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue]];
+		g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
 		
 		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
-		[songPlayRenderer playSong:song withOptions:options];
+		[songPlayRenderer playSong:song];
 		
 		[[TapMania sharedInstance] switchToScreen:songPlayRenderer];
 		

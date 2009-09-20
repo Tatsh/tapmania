@@ -56,6 +56,6 @@
 	BOOL cfg_VisPad;
 }
 
-- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options;
+- (void) playSong:(TMSong*) song;
 
 @end

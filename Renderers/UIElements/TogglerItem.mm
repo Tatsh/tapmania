@@ -10,6 +10,7 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
+#import "CommandParser.h"
 #import "TMSound.h"
 #import "TMSoundEngine.h"
 
@@ -20,22 +21,63 @@
 @synthesize m_pValue, m_sTitle, m_pText;
 
 - (id) initWithTitle:(NSString*)lTitle value:(NSObject*)lValue size:(CGSize)size andFontSize:(float)fontSize {
-	self = [super init];
+	self = [self initWithSize:size andFontSize:fontSize];
 	if(!self) 
 		return nil;
 		
 	m_sTitle = [lTitle retain];
 	m_pValue = [lValue retain];
 	
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:fontSize];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
 	
 	return self;
+}
+
+- (id) initWithSize:(CGSize)size andFontSize:(float)fontSize {
+	self = [super init];
+	if(!self) 
+		return nil;
+	
+	m_pCmdList = nil;
+	m_sTitle = nil;
+	m_pValue = nil;
+	
+	m_oSize = size;
+	m_fFontSize = fontSize;
+	
+	m_pText = nil;
+	
+	return self;
+}
+
+// For the NameCommand
+- (void) setName:(NSString*)inName {
+	if(m_sTitle) {
+		[m_sTitle release];
+	}
+	
+	m_sTitle = [inName retain];
+	
+	if(m_pText) {
+		[m_pText release];
+	}
+	
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
+}
+
+- (void) setCmdList:(NSArray*)inCmdList {
+	m_pCmdList = inCmdList;
+}
+
+- (void) onSelect { 
+	[[CommandParser sharedInstance] runCommandList:m_pCmdList forRequestingObject:self];
 }
 
 - (void) dealloc {
 	[m_pText release];
 	[m_sTitle release];
 	[m_pValue release];
+	[m_pCmdList release];
 	[super dealloc];
 }
 
@@ -56,6 +98,22 @@
 	
 	// Load effect sound
 	sr_TogglerEffect = SOUND(@"Common TogglerChange");
+	
+	return self;
+}
+
+- (id) initWithShape:(CGRect)shape andCommands:(NSArray*) inCmds {
+	self = [self initWithShape:shape];
+	if(!self)
+		return nil;
+	
+	for(NSString* cmdStr in inCmds) {
+		TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
+		NSArray* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
+		[obj setCmdList:[cmdList retain]];
+		
+		[m_aElements addObject:obj];
+	}
 	
 	return self;
 }
@@ -105,6 +163,7 @@
 - (void) selectItemAtIndex:(int) index {
 	if(index >= 0 && index < [m_aElements count]) {
 		m_nCurrentSelection = index;
+		[[m_aElements objectAtIndex:index] onSelect];
 	}
 }
 
@@ -115,6 +174,7 @@
 		m_nCurrentSelection++;
 	}
 	
+	[[m_aElements objectAtIndex:m_nCurrentSelection] onSelect];
 	[[TMSoundEngine sharedInstance] playEffect:sr_TogglerEffect];
 }
 

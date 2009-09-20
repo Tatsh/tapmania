@@ -9,8 +9,8 @@
  *  It's done as a plain C struct for faster access
  */
 
+#import "TMSong.h"
 @class TMSong, TMSteps;
-#import "TMSongOptions.h"
 
 typedef struct TapManiaGameState {
 		
@@ -24,7 +24,7 @@ typedef struct TapManiaGameState {
 	double					m_dSpeedModValue;		// Speed modifier value
 	BOOL					m_bAutoPlay;			// Autoplay setting
 	TMFailType				m_nFailType;			// Fail type (off, on, at end)
-	
+	TMSongDifficulty        m_nSelectedDifficulty;	// Difficulty setting
 	
 	BOOL					m_bPlayingGame;
 	BOOL					m_bFailed;

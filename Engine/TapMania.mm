@@ -26,6 +26,10 @@
 #import "JoyPad.h"
 #import "SongsCacheLoaderRenderer.h"
 
+#import "CommandParser.h"
+#import "NameCommand.h"
+#import "ModCommand.h"
+
 #import "GameState.h"
 #import "FPS.h"
 
@@ -46,6 +50,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Start the message manager and register some basic messages
 	REG_MESSAGE(kApplicationStartedMessage, [@"ApplicationStarted" retain]);
 	REG_MESSAGE(kApplicationShouldTerminateMessage, [@"ApplicationShouldTerminate" retain]);
+	
+	// Start command engine and register system commands
+	REG_COMMAND([@"name" retain], [NameCommand class]);
+	REG_COMMAND([@"mod" retain], [ModCommand class]);
+	// REG_COMMAND([@"" retain], );
 	
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];

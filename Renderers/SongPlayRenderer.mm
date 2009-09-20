@@ -19,7 +19,6 @@
 
 #import "TMSong.h"
 #import "TMTrack.h"
-#import "TMSongOptions.h"
 #import "TMChangeSegment.h"
 
 #import "ReceptorRow.h"
@@ -109,9 +108,9 @@ extern TMGameState* g_pGameState;
 	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];	
 }
 
-- (void) playSong:(TMSong*) song withOptions:(TMSongOptions*) options {
+- (void) playSong:(TMSong*) song {
 	g_pGameState->m_pSong = [song retain];
-	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:options.m_nDifficulty];
+	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:g_pGameState->m_nSelectedDifficulty];
 	
 #ifdef DEBUG 
 	[g_pGameState->m_pSteps dump];
@@ -121,7 +120,6 @@ extern TMGameState* g_pGameState;
 	g_pGameState->m_nFailType = kFailAtEnd;
 	
 	g_pGameState->m_bFailed = NO;
-	g_pGameState->m_dSpeedModValue = [TMSongOptions speedModToValue:options.m_nSpeedMod];
 		
 	[t_Judgement reset];
 	[t_HoldJudgement reset];

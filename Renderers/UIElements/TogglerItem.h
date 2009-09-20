@@ -14,6 +14,10 @@
 @interface TogglerItemObject : NSObject {
 	NSString * m_sTitle;
 	NSObject * m_pValue;
+	CGSize     m_oSize;
+	float	   m_fFontSize;
+	
+	NSArray *  m_pCmdList;
 	
 	Texture2D * m_pText;	// The title as texture
 }
@@ -22,7 +26,11 @@
 @property (retain, nonatomic, readonly) Texture2D* m_pText;
 @property (retain, nonatomic) NSObject* m_pValue;
 
+- (id) initWithSize:(CGSize)size andFontSize:(float)fontSize;
 - (id) initWithTitle:(NSString*)lTitle value:(NSObject*)lValue size:(CGSize)size andFontSize:(float)fontSize;
+- (void) setName:(NSString*)inName;
+- (void) setCmdList:(NSArray*)inCmdList;
+- (void) onSelect;
 
 @end
 
@@ -34,6 +42,8 @@
 	/* Sound effects */
 	TMSound*	sr_TogglerEffect;
 }
+
+- (id) initWithShape:(CGRect)shape andCommands:(NSArray*) inCmds;
 
 - (void) addItem:(NSObject*)value withTitle:(NSString*)title;
 - (void) removeItemAtIndex:(int) index;

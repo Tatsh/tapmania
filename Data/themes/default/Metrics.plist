@@ -4,14 +4,6 @@
 <dict>
 	<key>ThemeSystemVersion</key>
 	<real>0.3</real>
-	<key>Modifiers</key>
-	<dict>
-		<key>Speed</key>
-		<array>
-			<string>mod,1x;name,x1</string>
-			<string>mod,1.5x;name,x1.5</string>
-		</array>
-	</dict>
 	<key>MainMenu</key>
 	<dict>
 		<key>PlayButton</key>
@@ -245,6 +237,16 @@
 		</dict>
 		<key>SpeedToggler</key>
 		<dict>
+			<key>Elements</key>
+			<array>
+				<string>mod,0.25x;name,x0.25</string>
+				<string>mod,0.5x;name,x0.5</string>
+				<string>mod,1x;name,x1</string>
+				<string>mod,1.5x;name,x1.5</string>
+				<string>mod,2x;name,x2</string>
+				<string>mod,2.5x;name,x2.5</string>
+				<string>mod,3x;name,x3</string>
+			</array>
 			<key>Height</key>
 			<integer>46</integer>
 			<key>Width</key>
