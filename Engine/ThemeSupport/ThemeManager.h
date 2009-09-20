@@ -19,7 +19,7 @@
 #define RECT_METRIC(key) [[ThemeManager sharedInstance] rectMetric:key]
 #define POINT_METRIC(key) [[ThemeManager sharedInstance] pointMetric:key]
 #define SIZE_METRIC(key) [[ThemeManager sharedInstance] sizeMetric:key]
-#define ARRAY_METRIC(key) [[ThemeManager sharedInstance] arrayMetric:key];
+#define ARRAY_METRIC(key) [[ThemeManager sharedInstance] arrayMetric:key]
 
 #define INT_SKIN_METRIC(key) [[ThemeManager sharedInstance] intSkinMetric:key]
 #define FLOAT_SKIN_METRIC(key) [[ThemeManager sharedInstance] floatSkinMetric:key]

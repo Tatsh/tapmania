@@ -120,8 +120,9 @@ extern TMGameState * g_pGameState;
 	}
 	
 	// Speed mod toggler	
-	NSArray* speedMods = ARRAY_METRIC(@"SongPickerMenu SpeedToggler Elements");
-	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler andCommands:speedMods]];
+	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler 
+											andCommands:ARRAY_METRIC(@"SongPickerMenu SpeedToggler Elements")]];
+	[(TogglerItem*) m_pSpeedToggler selectItemAtIndex:INT_METRIC(@"SongPickerMenu SpeedToggler DefaultElement")];
 	[self pushBackControl:m_pSpeedToggler];
 	
 	// Difficulty toggler
