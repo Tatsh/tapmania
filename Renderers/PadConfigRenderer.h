@@ -23,7 +23,7 @@ typedef enum {
 } TMPadConfigActions;
 
 @interface PadConfigRenderer : TMScreen {
-	Vector*					m_pFingerTap;
+	Vector*					m_pFingerTap[kNumOfAvailableTracks];
 	
 	ReceptorRow*			m_pReceptorRow;
 	LifeBar*				m_pLifeBar;
@@ -34,7 +34,7 @@ typedef enum {
 	
 	/* Metrics and such */
 	Texture2D* t_PadConfigBG;
-	Texture2D* t_FingerTap;
+	Texture2D* t_FingerTap, *t_FingerTapBright;
 	
 	TapNote* t_TapNote;
 	

@@ -22,6 +22,7 @@
 #import "TapNote.h"
 #import "ReceptorRow.h"
 #import "LifeBar.h"
+#import "JoyPad.h"
 
 #import "PhysicsUtil.h"
 
@@ -38,30 +39,31 @@
 	// Cache graphics
 	t_PadConfigBG =		TEXTURE(@"PadConfig Background");
 	t_FingerTap =		TEXTURE(@"Common FingerTap");
+	t_FingerTapBright = TEXTURE(@"Common FingerTapBright");
 	t_TapNote =			(TapNote*)SKIN_TEXTURE(@"DownTapNote");
 		
 	// Cache metrics
 	mt_ResetButton =	RECT_METRIC(@"PadConfig ResetButton");
 	mt_LifeBar	=		RECT_METRIC(@"SongPlay LifeBar");
 	
+	// Reset the joyPad to hold currently configured locations
+	[[TapMania sharedInstance].joyPad reset];
+	
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
 		mt_ReceptorButtons[i] =	RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
+		m_pFingerTap[i] = [[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i];
 	}
 	
 	// Start with no action. means we must select a receptor arrow
 	m_nPadConfigAction = kPadConfigAction_None;
-	m_pFingerTap = nil;
 	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
 	// Init the lifebar
 	m_pLifeBar = [[LifeBar alloc] initWithRect:mt_LifeBar];
-	
-	// Reset the joyPad to hold currently configured locations
-	[[TapMania sharedInstance].joyPad reset];
-	
+		
 	// Create a reset button
 	m_pResetButton = [[ZoomEffect alloc] initWithRenderable:
 					  [[MenuItem alloc] initWithTitle:@"Reset" andShape:mt_ResetButton]];
@@ -83,14 +85,6 @@
 	[[TapMania sharedInstance] toggleAds:YES];
 }
 
-- (void) dealloc {
-	if(m_pFingerTap) {
-		[m_pFingerTap release];
-	}
-	
-	[super dealloc];
-}
-
 /* TMRenderable methods */
 - (void) render:(float) fDelta {
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
@@ -101,10 +95,14 @@
 	// Draw children
 	[super render:fDelta];
 		
-	// Draw the fingertap if any
-	if(m_pFingerTap) {
+	// Draw the fingertaps
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
 		glEnable(GL_BLEND);
-		[t_FingerTap drawAtPoint:CGPointMake(m_pFingerTap.m_fX, m_pFingerTap.m_fY)];
+		if(i==m_nSelectedTrack && m_nPadConfigAction == kPadConfigAction_SelectLocation) {
+			[t_FingerTapBright drawAtPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
+		} else {
+			[t_FingerTap drawAtPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
+		}
 		glDisable(GL_BLEND);
 	}
 }
@@ -130,10 +128,7 @@
 		[m_pResetButton hide];
 		
 		m_nPadConfigAction = kPadConfigAction_SelectLocation;	// Must select a location now
-		
-		// Must also plot a fingertap graphic on current location
-		m_pFingerTap = [[TapMania sharedInstance].joyPad getJoyPadButton:m_nSelectedTrack];
-		
+				
 	} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {
 		// Must light the selected receptor while user decides
 		[m_pReceptorRow explodeBright:m_nSelectedTrack];
@@ -149,6 +144,26 @@
 }
 
 /* TMGameUIResponder methods */
+- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+	if(m_nPadConfigAction != kPadConfigAction_SelectLocation)
+		return YES;	// We handled the touch.. just don't bother with it
+	
+	if([touches count] == 1){		
+		UITouch* touch = [touches anyObject];
+		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
+		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
+					
+		m_pFingerTap[m_nSelectedTrack].m_fX = pointGl.x;
+		m_pFingerTap[m_nSelectedTrack].m_fY = pointGl.y;
+	}		
+	
+	return YES;
+}
+
+- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+	return [self tmTouchesBegan:touches withEvent:event];
+}
+
 - (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
 	if([touches count] == 1){		
 		UITouch* touch = [touches anyObject];
@@ -171,10 +186,9 @@
 			
 		} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {			
 			TMLog(@"Select location for track %d: x:%f y:%f", m_nSelectedTrack, pointGl.x, pointGl.y);
-			[[TapMania sharedInstance].joyPad setJoyPadButton:m_nSelectedTrack onLocation:pointGl];
+			[[TapMania sharedInstance].joyPad setJoyPadButton:(JPButton)m_nSelectedTrack onLocation:pointGl];
 			
 			m_nPadConfigAction = kPadConfigAction_None;
-			m_pFingerTap = nil;
 		} 
 	}		
 	
