@@ -12,14 +12,9 @@
 #import "MessageManager.h"
 #import "TMMessage.h"
 
-#define kListenerDistance			1.0  // Used for creating a realistic sound field
-
 @implementation TapManiaAppDelegate
 
-- (void) applicationDidFinishLaunching:(UIApplication*)application {
-	//Setup the game
-	m_nState = kState_StandBy;
-					
+- (void) applicationDidFinishLaunching:(UIApplication*)application {				
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 
 	// Get rid of the accelerometer

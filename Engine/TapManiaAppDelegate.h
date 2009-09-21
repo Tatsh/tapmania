@@ -9,16 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-	kState_StandBy = 0,		// Menu or entrance screen
-	kState_Play,			// When you play a song
-	kState_Success,			// When you successfully cleared a song
-	kState_Failure			// When you failed a song
-} State;
-
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
 {
-	State					m_nState;
 }
 
 @end
