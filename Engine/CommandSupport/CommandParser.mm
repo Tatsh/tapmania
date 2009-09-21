@@ -54,7 +54,7 @@ static CommandParser *sharedCommandParserDelegate = nil;
 	// Split by ';' to get separate commands
 	// Split each by ',' to get cmd name and arguments
 	
-	NSMutableArray* resultingCommandList = [[NSMutableArray alloc] initWithCapacity:1];
+	NSMutableArray* resultingCommandList = [NSMutableArray arrayWithCapacity:1];
 	NSArray* commands = [inCmdList componentsSeparatedByString:@";"];
 	
 	for(NSString* cmd in commands) {

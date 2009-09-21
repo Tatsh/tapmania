@@ -37,7 +37,7 @@
 	BOOL					m_bStartSongPlay;
 	
 	/* Metrics and such */
-	CGRect mt_SpeedToggler, mt_DifficultyToggler, mt_BackButton, mt_ModPanel;
+	CGRect mt_SpeedToggler, mt_DifficultyToggler, mt_ModPanel;
 	CGRect mt_ItemSong;
 	int mt_ItemSongHalfHeight;
 	

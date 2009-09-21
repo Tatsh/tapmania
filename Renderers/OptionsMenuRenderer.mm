@@ -31,8 +31,6 @@
 #import "TMSoundEngine.h"
 
 @interface OptionsMenuRenderer (InputHandling)
-- (void) joyPadButtonHit;
-- (void) songManagerButtonHit;
 - (void) backButtonHit;
 - (void) soundSliderChanged;
 - (void) themeTogglerChanged;
@@ -48,9 +46,6 @@
 	[super setupForTransition];
 	
 	// Cache metrics
-	mt_PadConfigButton =		RECT_METRIC(@"OptionsMenu PadConfigButton");
-	mt_SongManagerButton =		RECT_METRIC(@"OptionsMenu SongManagerButton");
-	mt_BackButton =				RECT_METRIC(@"OptionsMenu BackButton");
 	mt_NoteSkinLabel =			RECT_METRIC(@"OptionsMenu NoteSkinLabel");
 	mt_NoteSkinToggler =		RECT_METRIC(@"OptionsMenu NoteSkinToggler");
 	mt_ThemeLabel =				RECT_METRIC(@"OptionsMenu ThemeLabel");
@@ -65,11 +60,6 @@
 	// Preload all required graphics
 	t_BG =						TEXTURE(@"OptionsMenu Background");
 	
-	// No item selected by default
-	m_nSelectedMenu = (OptionsMenuItem)-1;
-	m_nState = kOptionsMenuState_Ready;
-	m_dAnimationTime = 0.0;	
-
 	// Register labels
 	[self pushBackChild:[[Label alloc] initWithTitle:@"Sound:" andShape:mt_SoundLabel]];
 	[self pushBackChild:[[Label alloc] initWithTitle:@"Theme:" andShape:mt_ThemeLabel]];
@@ -146,23 +136,17 @@
 	
 	MenuItem* padConfigButton = 
 	 [[ZoomEffect alloc] initWithRenderable:	
-	  [[MenuItem alloc] initWithTitle:@"Pad config" andShape:mt_PadConfigButton]];
+	  [[MenuItem alloc] initWithMetrics:@"OptionsMenu PadConfigButton"]];
 
 	MenuItem* songManagerButton = 
 	[[ZoomEffect alloc] initWithRenderable:	
-	 [[MenuItem alloc] initWithTitle:@"Song manager" andShape:mt_SongManagerButton]];
+	  [[MenuItem alloc] initWithMetrics:@"OptionsMenu SongManagerButton"]];
 	
 	m_pBackButton = 
-	[[SlideEffect alloc] initWithRenderable:
 	 [[ZoomEffect alloc] initWithRenderable:	
-	  [[MenuItem alloc] initWithTitle:@"Back" andShape:mt_BackButton]]];
-	
-	[(SlideEffect*)m_pBackButton destination: CGPointMake(mt_BackButton.origin.x, 480+mt_BackButton.origin.y)];
-	[(SlideEffect*)m_pBackButton effectTime: 0.4f];
-	
+	  [[MenuItem alloc] initWithMetrics:@"OptionsMenu BackButton"]];
+		
 	// Setup action handlers
-	[songManagerButton setActionHandler:@selector(songManagerButtonHit) receiver:self];
-	[padConfigButton setActionHandler:@selector(joyPadButtonHit) receiver:self];
 	[m_pBackButton setActionHandler:@selector(backButtonHit) receiver:self];
 	[m_pFingerTrackToggler setActionHandler:@selector(fingerTrackingTogglerChanged) receiver:self];
 	[m_pVisPadToggler setActionHandler:@selector(visiblePadTogglerChanged) receiver:self];
@@ -202,66 +186,8 @@
 	[super render:fDelta];
 }	
 
-/* TMLogicUpdater stuff */
-- (void) update:(float)fDelta {
-	[super update:fDelta];
-	
-	if(m_nState == kOptionsMenuState_Ready) {
-		
-		if(m_nSelectedMenu == kOptionsMenuItem_Back) {
-			TMLog(@"Getting back to main menu....");		
-			m_nState = kOptionsMenuState_AnimatingOut;
-		} else if(m_nSelectedMenu == kOptionsMenuItem_JoyPad) {
-			[[TapMania sharedInstance] switchToScreen:[[PadConfigRenderer alloc] init]];
-
-			m_nState = kOptionsMenuState_None;	// Do nothing more
-			return;
-		} else if(m_nSelectedMenu == kOptionsMenuItem_SongManager) {
-			[[TapMania sharedInstance] switchToScreen:[[SongManagerRenderer alloc] init]];
-			
-			m_nState = kOptionsMenuState_None;	// Do nothing more
-			return;
-		}
-		
-	} else if(m_nState == kOptionsMenuState_Finished) {
-		
-		if(m_nSelectedMenu == kOptionsMenuItem_Back) {
-			[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
-		}
-		
-		m_nState = kOptionsMenuState_None;	// Do nothing more
-		
-	} else if(m_nState == kOptionsMenuState_AnimatingOut) {		
-		
-		if([(SlideEffect*)m_pBackButton isFinished]) {
-			m_nState = kOptionsMenuState_Finished;
-			return;
-		}
-		
-		// Start stuff with timeouts
-		if(![(SlideEffect*)m_pBackButton isFinished] && 
-		   ![(SlideEffect*)m_pBackButton isTweening])
-		{			
-			[(SlideEffect*)m_pBackButton startTweening];			
-		} 
-		
-		m_dAnimationTime += fDelta;
-	}
-	
-}
-
 /* Input handlers */
-- (void) joyPadButtonHit {
-	m_nSelectedMenu = kOptionsMenuItem_JoyPad;
-}
-
-- (void) songManagerButtonHit {
-	m_nSelectedMenu = kOptionsMenuItem_SongManager;
-}
-
 - (void) backButtonHit {
-	m_nSelectedMenu = kOptionsMenuItem_Back;
-	
 	// Hack. This is slow so we do this on exit... save the sound setting only once (FIXME!!!!)
 	[[SettingsEngine sharedInstance] setFloatValue:	[[TMSoundEngine sharedInstance] getMasterVolume] forKey:@"sound"];
 }

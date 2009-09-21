@@ -160,6 +160,7 @@
 		24C44005106583CB0003EF60 /* TMCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44004106583CB0003EF60 /* TMCommand.mm */; };
 		24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44009106584FC0003EF60 /* NameCommand.mm */; };
 		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
+		24CAF7CD1067C80500141318 /* ScreenCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CAF7CC1067C80500141318 /* ScreenCommand.mm */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.m */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.mm */; };
 		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
@@ -502,6 +503,8 @@
 		24C696C61063B7800049C299 /* TapMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapMine.h; path = Renderers/UIElements/TapMine.h; sourceTree = "<group>"; };
 		24C696C71063B7800049C299 /* TapMine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapMine.mm; path = Renderers/UIElements/TapMine.mm; sourceTree = "<group>"; };
 		24CA104A100B4B1A001FAD18 /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
+		24CAF7CB1067C80500141318 /* ScreenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCommand.h; sourceTree = "<group>"; };
+		24CAF7CC1067C80500141318 /* ScreenCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScreenCommand.mm; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTransition.m; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
@@ -1100,6 +1103,8 @@
 			children = (
 				24C44008106584FC0003EF60 /* NameCommand.h */,
 				24C44009106584FC0003EF60 /* NameCommand.mm */,
+				24CAF7CB1067C80500141318 /* ScreenCommand.h */,
+				24CAF7CC1067C80500141318 /* ScreenCommand.mm */,
 			);
 			name = SystemCommands;
 			sourceTree = "<group>";
@@ -1666,6 +1671,7 @@
 				24C44005106583CB0003EF60 /* TMCommand.mm in Sources */,
 				24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */,
 				24B2A6211066BA4B00F307EB /* ModCommand.m in Sources */,
+				24CAF7CD1067C80500141318 /* ScreenCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

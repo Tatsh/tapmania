@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>ThemeSystemVersion</key>
-	<real>0.3</real>
+	<real>0.5</real>
 	<key>MainMenu</key>
 	<dict>
 		<key>PlayButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Play;screen,SongPickerMenu</string>
 			<key>X</key>
 			<integer>60</integer>
 			<key>Y</key>
@@ -19,6 +21,8 @@
 		</dict>
 		<key>OptionsButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Options;screen,OptionsMenu</string>
 			<key>X</key>
 			<integer>60</integer>
 			<key>Y</key>
@@ -30,6 +34,8 @@
 		</dict>
 		<key>CreditsButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Credits;screen,Credits</string>
 			<key>X</key>
 			<integer>60</integer>
 			<key>Y</key>
@@ -44,6 +50,8 @@
 	<dict>
 		<key>BackButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Back;screen,MainMenu</string>
 			<key>X</key>
 			<integer>20</integer>
 			<key>Y</key>
@@ -55,6 +63,8 @@
 		</dict>
 		<key>PadConfigButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Pad config;screen,PadConfig</string>
 			<key>X</key>
 			<integer>20</integer>
 			<key>Y</key>
@@ -66,6 +76,8 @@
 		</dict>
 		<key>SongManagerButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Song manager;screen,SongManager</string>
 			<key>X</key>
 			<integer>20</integer>
 			<key>Y</key>
@@ -204,6 +216,8 @@
 	<dict>
 		<key>BackButton</key>
 		<dict>
+			<key>OnCommand</key>
+			<string>name,Back;screen,MainMenu</string>
 			<key>Height</key>
 			<integer>46</integer>
 			<key>Width</key>
@@ -352,5 +366,7 @@
 			<integer>405</integer>
 		</dict>
 	</dict>
+	<key>Credits</key>
+	<dict/>
 </dict>
 </plist>

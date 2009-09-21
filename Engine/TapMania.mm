@@ -28,6 +28,7 @@
 
 #import "CommandParser.h"
 #import "NameCommand.h"
+#import "ScreenCommand.h"
 #import "ModCommand.h"
 
 #import "GameState.h"
@@ -54,6 +55,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Start command engine and register system commands
 	REG_COMMAND([@"name" retain], [NameCommand class]);
 	REG_COMMAND([@"mod" retain], [ModCommand class]);
+	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
 	// REG_COMMAND([@"" retain], );
 	
 	// Load up user configuration and cache

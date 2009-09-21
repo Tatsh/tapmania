@@ -16,9 +16,15 @@
 	
 	id			m_idChangedDelegate;		// delegate to invoke the selector on
 	SEL			m_oChangedActionHandler;	// selector which should be invoked on finger drag over the control	
+	
+	NSArray*	m_pCommandList;				// used if non-nil
 }
+
+- (id) initWithMetrics:(NSString*)inMetricsKey;
 
 - (void) setActionHandler:(SEL)selector receiver:(id)receiver;
 - (void) setChangedActionHandler:(SEL)selector receiver:(id)receiver;
+
+- (void) setCommandList:(NSArray*)inCmdList;
 
 @end

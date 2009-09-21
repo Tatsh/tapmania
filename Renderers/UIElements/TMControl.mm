@@ -8,21 +8,44 @@
 
 #import "TMControl.h"
 #import "TapMania.h"
+#import "ThemeManager.h"
+#import "CommandParser.h"
 #import "EAGLView.h"
 
 @implementation TMControl
+
+- (id) initWithMetrics:(NSString*)inMetricsKey {
+	self = [self initWithShape:RECT_METRIC(inMetricsKey)];
+	if(!self)
+		return nil;
+	
+	// Try to get the command list
+	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
+	if([commandList length] > 0) {
+		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
+	}
+	
+	return self;
+}
 
 - (id) initWithShape:(CGRect)inShape {
 	self = [super initWithShape:inShape];
 	if(!self) 
 		return nil;
 	
+	m_pCommandList = nil;
 	m_idActionDelegate = nil;
 	m_idChangedDelegate = nil;
 	m_oActionHandler = nil;
 	m_oChangedActionHandler = nil;
 	
 	return self;
+}
+
+- (void) dealloc {
+	if(m_pCommandList)
+		[m_pCommandList release];
+	[super dealloc];
 }
 
 - (void) setActionHandler:(SEL)selector receiver:(id)receiver {
@@ -33,6 +56,10 @@
 - (void) setChangedActionHandler:(SEL)selector receiver:(id)receiver {
 	m_idChangedDelegate = receiver;
 	m_oChangedActionHandler = selector;
+}
+
+- (void) setCommandList:(NSArray*)inCmdList {
+	m_pCommandList = inCmdList;
 }
 
 /* TMGameUIResponder stuff */
@@ -62,16 +89,26 @@
 }
 
 - (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
+	BOOL res = NO;
+	
+	if(m_pCommandList != nil) {
+		if([super tmTouchesEnded:touches withEvent:event]) {
+			TMLog(@"Running control's OnCommand...");
+			[[CommandParser sharedInstance] runCommandList:m_pCommandList forRequestingObject:self];
+			res = YES;
+		}
+	}
+	
 	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 		if([super tmTouchesEnded:touches withEvent:event]) {
 			TMLog(@"Control, finger raised!");
 			[m_idActionDelegate performSelector:m_oActionHandler];
 
-			return YES;
+			res = YES;
 		}
 	}
 	
-	return NO;
+	return res;
 }
 
 /* TMEffectSupport stuff */

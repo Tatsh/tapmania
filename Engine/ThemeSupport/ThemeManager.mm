@@ -212,6 +212,14 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	return (NSArray*)node;
 }
 
+- (NSDictionary*) dictMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return nil;
+	
+	return (NSDictionary*)node;	
+}
+
 /* Same for skin metrics */
 - (int) intSkinMetric:(NSString*) metricKey {
 	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
@@ -278,6 +286,14 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 		return nil;
 	
 	return (NSArray*)node;
+}
+
+- (NSDictionary*) dictSkinMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
+	if(!node || ![node isKindOfClass:[NSDictionary class]]) 
+		return nil;
+	
+	return (NSDictionary*)node;	
 }
 
 - (Texture2D*) texture:(NSString*) textureKey {

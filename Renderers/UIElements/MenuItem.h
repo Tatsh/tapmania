@@ -21,4 +21,6 @@
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
 
+- (void) setName:(NSString*)inName;	// For name command
+
 @end

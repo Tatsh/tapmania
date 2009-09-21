@@ -23,13 +23,33 @@
 		return nil;
 	
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
-	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
-	m_sTitle = title;
-		
+	[self setName:title];
+	
 	// Load effect sound
 	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
 	
 	return self;
+}
+
+- (id) initWithMetrics:(NSString*)inMetrics {
+	self = [super initWithMetrics:inMetrics];
+	if(!self) 
+		return nil;
+	
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
+	
+	// Load effect sound
+	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
+	
+	return self;	
+}
+
+- (void) setName:(NSString*)inName {
+	if(m_sTitle) [m_sTitle release];
+	if(m_pTitle) [m_pTitle release];
+	
+	m_sTitle = [inName copy];
+	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
 }
 
 /* TMRenderable stuff */

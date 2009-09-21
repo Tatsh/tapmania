@@ -76,7 +76,6 @@ extern TMGameState * g_pGameState;
 	// Cache metrics
 	mt_SpeedToggler =		RECT_METRIC(@"SongPickerMenu SpeedToggler");	
 	mt_DifficultyToggler =  RECT_METRIC(@"SongPickerMenu DifficultyToggler");
-	mt_BackButton =			RECT_METRIC(@"SongPickerMenu BackButton");
 	mt_ModPanel =			RECT_METRIC(@"SongPickerMenu ModPanel");	
 	
 	mt_ItemSong =			RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
@@ -131,7 +130,7 @@ extern TMGameState * g_pGameState;
 	[self pushBackControl:m_pDifficultyToggler];
 	
 	// Back button
-	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithTitle:@"Back" andShape:mt_BackButton]];
+	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithMetrics:@"SongPickerMenu BackButton"]];
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	[self pushBackControl:m_pBackMenuItem];
 		
@@ -461,8 +460,6 @@ extern TMGameState * g_pGameState;
 	if(m_pPreviewMusic) {
 		[[TMSoundEngine sharedInstance] stopMusic];			
 	}
-	
-	[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
 }
 
 @end
