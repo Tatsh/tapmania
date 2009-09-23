@@ -95,6 +95,26 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	return self;
 }
 
+- (id) initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight contentSize:(CGSize)inSize {
+	GLint					saveName;
+	if((self = [super init])) {
+		glGenTextures(1, &m_unName);
+		glGetIntegerv(GL_TEXTURE_BINDING_2D, &saveName);
+		glBindTexture(GL_TEXTURE_2D, m_unName);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, inWidth, inHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glBindTexture(GL_TEXTURE_2D, saveName);
+		
+		m_oSize = inSize;
+		m_unWidth = inWidth;
+		m_unHeight = inHeight;
+		m_nFormat = kTexture2DPixelFormat_RGBA8888;
+		m_fMaxS = inSize.width / (float)inWidth;
+		m_fMaxT = inSize.height / (float)inHeight;
+	}					
+	return self;
+}
+
 - (void) dealloc
 {
 	if(m_unName)

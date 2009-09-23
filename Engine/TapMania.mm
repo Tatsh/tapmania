@@ -194,6 +194,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Clear
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	// No lighting/depth testing
+	glDisable( GL_DEPTH_TEST );
+	glDisable( GL_LIGHTING );
 	
 	// Add the gl view to our main window
 	[m_pWindow addSubview:m_pGlView];		

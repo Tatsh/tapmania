@@ -76,6 +76,7 @@ Be aware that the content of the generated textures will be upside-down!
 	GLfloat						m_fMaxS,
 								m_fMaxT;
 }
+- (id) initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight contentSize:(CGSize)inSize;
 - (id) initWithData:(const void*)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size;
 
 @property(readonly) Texture2DPixelFormat pixelFormat;

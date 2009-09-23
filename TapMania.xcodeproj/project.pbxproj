@@ -230,6 +230,8 @@
 		24F15EB90EC31E4700755788 /* MenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F15EB80EC31E4700755788 /* MenuItem.mm */; };
 		24F15FE10EC3372100755788 /* OptionsMenuRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F15FE00EC3372100755788 /* OptionsMenuRenderer.mm */; };
 		24F161150EC348B100755788 /* CreditsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.mm */; };
+		24F1AA0E106A2EC200A63B96 /* Quad.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F1AA0D106A2EC200A63B96 /* Quad.mm */; };
+		24F1AA1D106A44DC00A63B96 /* SongPickerWheel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */; };
 		28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.mm */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -603,6 +605,10 @@
 		24F15FE00EC3372100755788 /* OptionsMenuRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OptionsMenuRenderer.mm; path = Renderers/OptionsMenuRenderer.mm; sourceTree = "<group>"; };
 		24F161130EC348B100755788 /* CreditsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditsRenderer.h; path = Renderers/CreditsRenderer.h; sourceTree = "<group>"; };
 		24F161140EC348B100755788 /* CreditsRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CreditsRenderer.mm; path = Renderers/CreditsRenderer.mm; sourceTree = "<group>"; };
+		24F1AA0C106A2EC200A63B96 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
+		24F1AA0D106A2EC200A63B96 /* Quad.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Quad.mm; sourceTree = "<group>"; };
+		24F1AA1B106A44DC00A63B96 /* SongPickerWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerWheel.h; path = Renderers/UIElements/SongPickerWheel.h; sourceTree = "<group>"; };
+		24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongPickerWheel.mm; path = Renderers/UIElements/SongPickerWheel.mm; sourceTree = "<group>"; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -759,6 +765,8 @@
 				24B30280103BD4A40044AAB2 /* TMLoopedSound.m */,
 				24F15E27105AA2DF00221550 /* TMMessage.h */,
 				24F15E28105AA2DF00221550 /* TMMessage.m */,
+				24F1AA0C106A2EC200A63B96 /* Quad.h */,
+				24F1AA0D106A2EC200A63B96 /* Quad.mm */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1246,6 +1254,8 @@
 			children = (
 				24EBF4100EC8446900533056 /* SongPickerMenuItem.h */,
 				24EBF4110EC8446900533056 /* SongPickerMenuItem.mm */,
+				24F1AA1B106A44DC00A63B96 /* SongPickerWheel.h */,
+				24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */,
 				2486F2A70EC0A2D600E5F9EE /* LifeBar.h */,
 				2486F2A80EC0A2D600E5F9EE /* LifeBar.mm */,
 				2472663B0EE949A500D501AF /* TapNote.h */,
@@ -1672,6 +1682,8 @@
 				24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */,
 				24B2A6211066BA4B00F307EB /* ModCommand.m in Sources */,
 				24CAF7CD1067C80500141318 /* ScreenCommand.mm in Sources */,
+				24F1AA0E106A2EC200A63B96 /* Quad.mm in Sources */,
+				24F1AA1D106A44DC00A63B96 /* SongPickerWheel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
