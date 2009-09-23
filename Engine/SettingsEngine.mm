@@ -130,6 +130,11 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	[self writeUserConfig];
 }
 
+- (void) setIntValue:(int)value forKey:(NSString*)key {
+	[m_pUserConfig setObject:[NSNumber numberWithInt:value] forKey:key];
+	[self writeUserConfig];
+}
+
 - (void) setBoolValue:(BOOL)value forKey:(NSString*)key {
 	[m_pUserConfig setObject:[NSNumber numberWithBool:value] forKey:key];
 	[self writeUserConfig];

@@ -33,6 +33,7 @@
 
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key;
 - (void) setFloatValue:(float)value forKey:(NSString*)key;
+- (void) setIntValue:(int)value forKey:(NSString*)key;
 - (void) setBoolValue:(BOOL)value forKey:(NSString*)key;
 
 + (SettingsEngine *) sharedInstance;

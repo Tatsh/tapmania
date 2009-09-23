@@ -26,6 +26,7 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
+#import "SettingsEngine.h"
 
 #import "ZoomEffect.h"
 #import "SongPlayRenderer.h"
@@ -44,6 +45,7 @@ extern TMGameState * g_pGameState;
 
 - (void) rollWheel:(float) pixels;
 - (void) backButtonHit;
+- (void) difficultyChanged;
 
 - (float) findClosest;
 - (void) selectSong;
@@ -127,6 +129,7 @@ extern TMGameState * g_pGameState;
 	// Difficulty toggler
 	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_DifficultyToggler]];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
+	[(TogglerItem*)m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
 	[self pushBackControl:m_pDifficultyToggler];
 	
 	// Back button
@@ -422,16 +425,26 @@ extern TMGameState * g_pGameState;
 	
 	TMLog(@"Selected song is %@", song.title);
 	
+	// Get the preffered difficulty level
+	int prefDiff = [[SettingsEngine sharedInstance] getIntValue:@"prefdiff"];
+	int closestDiffAvailable = 0;
+	
 	// Go through all possible difficulties
-	int dif = (int)kSongDifficulty_Invalid;
-	for(; dif < kNumSongDifficulties; ++dif) {
+	for(int dif = (int)kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif) {
 		if([song isDifficultyAvailable:(TMSongDifficulty)dif]){
 			NSString* title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:(TMSongDifficulty)dif], [song getDifficultyLevel:(TMSongDifficulty)dif]];
 			
 			TMLog(@"Add dif %d to toggler as [%@]", dif, title);
 			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
+			
+			if(dif-prefDiff < dif-closestDiffAvailable) {
+				closestDiffAvailable = dif;
+			}
 		}
 	}
+	
+	// Set the diff to closest found
+	[(TogglerItem*)m_pDifficultyToggler selectItemAtIndex:[(TogglerItem*)m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
 	
 	// Stop current previewMusic if any
 	if(m_pPreviewMusic) {
@@ -452,6 +465,14 @@ extern TMGameState * g_pGameState;
 
 - (void) playSong {
 	m_bStartSongPlay = YES;
+}
+
+/* Support last difficulty setting saving */
+- (void) difficultyChanged {
+	int curDiff = [(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
+	TMLog(@"Changed difficulty. save.");
+	
+	[[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
 }
 
 /* Handle back button */
