@@ -21,6 +21,7 @@
 
 #import "SongPickerWheel.h"
 #import "TogglerItem.h"
+#import "ImageButton.h"
 
 #import "InputEngine.h"
 #import "TapMania.h"
@@ -42,16 +43,12 @@ extern TMGameState * g_pGameState;
 - (void) backButtonHit;
 - (void) difficultyChanged;
 
-- (void) playSong;
+- (void) songSelectionChanged;
+- (void) songShouldStart;
 
 @end
 
 @implementation SongPickerMenuRenderer
-
-- (void) dealloc {	
-	[m_pSongWheel release];
-	[super dealloc];
-}
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
@@ -85,11 +82,13 @@ extern TMGameState * g_pGameState;
 
 	// Create the wheel
 	m_pSongWheel = [[SongPickerWheel alloc] init];
-	
-	m_bStartSongPlay = NO;
-
-	m_pSongWheel = [[SongPickerWheel alloc] init];
+	[m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
+	[m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
 	[self pushBackControl:m_pSongWheel];
+	
+	// Mod panel 
+	ImageButton* modPanel = [[ImageButton alloc] initWithTexture:t_ModPanel andShape:mt_ModPanel];
+	[self pushBackChild:modPanel];
 	
 	// Speed mod toggler	
 	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler 
@@ -108,6 +107,9 @@ extern TMGameState * g_pGameState;
 	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
 	[self pushBackControl:m_pBackMenuItem];
 		
+	// Select current song (populate difficulty toggler with it's difficulties)
+	[self songSelectionChanged];
+	
 	// Get ads back to place if removed
 	[[TapMania sharedInstance] toggleAds:YES];
 }
@@ -130,39 +132,8 @@ extern TMGameState * g_pGameState;
 	[super render:fDelta];
 }
 
-/* TMLogicUpdater stuff */
-- (void) update:(float)fDelta {	
-	[super update:fDelta];
-	
-	// Check whether we should start playing
-	if(m_bStartSongPlay){
-		
-		// Stop current previewMusic if any
-		if(m_pPreviewMusic) {
-			[[TMSoundEngine sharedInstance] stopMusic];			
-		}
-			
-		// Play select sound effect
-		[[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
-		
-		SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pSongWheel getSelected];
-		TMSong* song = [selected song];
-		
-		// Assign difficulty
-		g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
-		
-		SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
-		[songPlayRenderer playSong:song];
-		
-		[[TapMania sharedInstance] switchToScreen:songPlayRenderer];
-		
-		m_bStartSongPlay = NO;	// Ensure we are doing this only once
-	}
-}
-
-
-
-- (void) selectSong {
+/* Wheel actions */
+- (void) songSelectionChanged {
 	[(TogglerItem*)m_pDifficultyToggler removeAll];
 	
 	SongPickerMenuItem* selected = (SongPickerMenuItem*)[[m_pSongWheel getSelected] retain];
@@ -205,11 +176,28 @@ extern TMGameState * g_pGameState;
 	[[TMSoundEngine sharedInstance] playMusic];
 	
 	// Mark released to prevent memleaks
-	[selected release];
+	[selected release];	
 }
 
-- (void) playSong {
-	m_bStartSongPlay = YES;
+- (void) songShouldStart {
+	// Stop current previewMusic if any
+	if(m_pPreviewMusic) {
+		[[TMSoundEngine sharedInstance] stopMusic];			
+	}
+	
+	// Play select sound effect
+	[[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
+	
+	SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pSongWheel getSelected];
+	TMSong* song = [selected song];
+	
+	// Assign difficulty
+	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
+	
+	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
+	[songPlayRenderer playSong:song];
+	
+	[[TapMania sharedInstance] switchToScreen:songPlayRenderer];	
 }
 
 /* Support last difficulty setting saving */

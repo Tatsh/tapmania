@@ -63,6 +63,8 @@
 	// Disable the dispatcher so that we don't mess around with random taps
 	[[InputEngine sharedInstance] disableDispatcher];
 	
+	TMLog(@"Check for beforeTransition method support...");
+	
 	if([m_pFrom conformsToProtocol:@protocol(TMTransitionSupport)]  && [m_pFrom respondsToSelector:@selector(beforeTransition)]){
 		[m_pFrom performSelector:@selector(beforeTransition)];
 	}		
@@ -93,10 +95,13 @@
 		}	
 	
 		// Remove the current screen from rendering/logic runloop.
-		[[TapMania sharedInstance] deregisterObject:(NSObject*)m_pFrom];	
+		TMLog(@"Remove current screen from runLoop");
+		[[TapMania sharedInstance] deregisterObject:m_pFrom];	
 	
 		// Drop current screen
+		TMLog(@"Release current screen...");
 		[[TapMania sharedInstance] releaseCurrentScreen];
+		TMLog(@"Finished releasing current screen.");
 	}
 }
 
@@ -139,8 +144,11 @@
 			if( [self updateTransitionIn] ) {
 			
 				// Switch to Out transition part
+				TMLog(@"TransitionInFinished...");
 				[self transitionInFinished];
+				TMLog(@"TransitionOutStarted...");
 				[self transitionOutStarted];
+				TMLog(@"TransitionOutStarted done.");
 				m_nState = kTransitionStateOut;
 				m_dTimeStart = [TimingUtil getCurrentTime];
 			}			

@@ -17,8 +17,6 @@
 	MenuItem*				m_pBackMenuItem;
 	TMSound*				m_pPreviewMusic;
 	
-	BOOL					m_bStartSongPlay;
-	
 	/* Metrics and such */
 	CGRect mt_SpeedToggler, mt_DifficultyToggler, mt_ModPanel;
 	CGRect mt_ItemSong;

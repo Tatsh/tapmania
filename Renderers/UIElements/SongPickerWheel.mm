@@ -23,8 +23,6 @@
 
 - (void) rollWheel:(float) pixels;
 - (float) findClosest;
-
-- (void) selectSong;
 @end
 
 
@@ -112,7 +110,11 @@
 			float closestY = [self findClosest];
 			if(closestY != 0.0f) {
 				[self rollWheel: -closestY];
-				[self selectSong];
+
+				TMLog(@"Double tapped the wheel select item!");
+				if(m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
+					[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+				}				
 			}
 			
 			return;
@@ -131,6 +133,9 @@
 
 /* TMGameUIResponder methods */
 - (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+	if(!m_bEnabled)
+		return NO;
+	
 	switch ([touches count]) {
 		case 1:
 		{
@@ -153,7 +158,9 @@
 }
 
 - (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
-	// Handle wheel
+	if(!m_bEnabled)
+		return NO;
+	
 	switch ([touches count]) {
 		case 1:
 		{
@@ -181,6 +188,9 @@
 }
 
 - (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	if(!m_bEnabled)
+		return NO;
+	
 	if([touches count] == 1){		
 		UITouch* touch = [touches anyObject];
 		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
@@ -188,7 +198,12 @@
 		
 		// Should start song?
 		if([touch tapCount] > 1 && CGRectContainsPoint(mt_Highlight, pointGl)) {
-			// [self playSong];
+			TMLog(@"Double tapped the wheel select item!");
+			if(m_bEnabled && m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {			
+				[self disable];	// Disable the song list as we already picked a song to start
+				[m_idActionDelegate performSelector:m_oActionHandler];
+			}
+			
 			return YES;
 		}
 		
@@ -312,10 +327,6 @@
 	}
 	
 	return tmp;
-}
-
-- (void) selectSong {
-	
 }
 
 - (SongPickerMenuItem*) getSelected {
