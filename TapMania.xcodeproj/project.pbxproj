@@ -494,6 +494,7 @@
 		24B3027F103BD4A40044AAB2 /* TMLoopedSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLoopedSound.h; sourceTree = "<group>"; };
 		24B30280103BD4A40044AAB2 /* TMLoopedSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLoopedSound.m; sourceTree = "<group>"; };
 		24B302CC103BDA5A0044AAB2 /* TMSoundSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSoundSupport.h; sourceTree = "<group>"; };
+		24B3F866107AA1FB001E7DBB /* ObjCPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjCPtr.h; path = Util/ObjCPtr.h; sourceTree = "<group>"; };
 		24B5E3B410626B8D004DDC4B /* TMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMView.h; sourceTree = "<group>"; };
 		24B5E3B510626B8D004DDC4B /* TMView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMView.mm; sourceTree = "<group>"; };
 		24B5E4C510627C92004DDC4B /* TMModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMModalView.h; sourceTree = "<group>"; };
@@ -797,6 +798,7 @@
 		2486F18C0EC077BA00E5F9EE /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				24B3F866107AA1FB001E7DBB /* ObjCPtr.h */,
 				24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */,
 				24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.m */,
 				248EE4500EE3F3B200FF1D43 /* BenchmarkUtil.h */,

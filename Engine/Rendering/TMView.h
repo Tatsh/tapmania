@@ -13,9 +13,11 @@
 #ifdef __cplusplus
 
 #include <deque>
+#import "ObjCPtr.h"
 using namespace std;
 
-typedef deque<NSObject* > TMViewChildren;
+typedef ObjCPtr<NSObject> TMViewChildPtr;
+typedef deque<TMViewChildPtr> TMViewChildren;
 
 #endif
 
@@ -39,12 +41,12 @@ typedef deque<NSObject* > TMViewChildren;
 - (void) show;
 - (void) hide;
 
-
 -(void) pushBackChild:(NSObject*)inChild;
 -(void) pushChild:(NSObject*)inChild;
 -(NSObject*) popBackChild;
 -(NSObject*) popChild;
 
 -(void) pushBackControl:(NSObject*)inChild;
+
 
 @end

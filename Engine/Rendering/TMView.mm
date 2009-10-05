@@ -48,11 +48,11 @@
 }
 
 -(void) pushBackChild:(NSObject*)inChild {
-	m_pChildren->push_back(inChild);	
+	m_pChildren->push_back( TMViewChildPtr( inChild ) );	
 }
 
 -(void) pushChild:(NSObject*)inChild {
-	m_pChildren->push_front(inChild);	
+	m_pChildren->push_front( TMViewChildPtr( inChild ) );	
 }
 
 -(void) pushBackControl:(NSObject*)inChild {
@@ -65,34 +65,27 @@
 	if(m_pChildren->empty())
 		return nil;
 	
-	NSObject* objPtr = m_pChildren->back();
+	TMViewChildPtr objPtr = m_pChildren->back();
 	m_pChildren->pop_back();
 	
-	[[InputEngine sharedInstance] unsubscribe:objPtr];
-	return objPtr;
+	[[InputEngine sharedInstance] unsubscribe:*objPtr];
+	return *objPtr;
 }
 
 -(NSObject*) popChild {
 	if(m_pChildren->empty())
 		return nil;
 	
-	NSObject* objPtr = m_pChildren->front();
+	TMViewChildPtr objPtr = m_pChildren->front();
 	m_pChildren->pop_front();
 	
-	[[InputEngine sharedInstance] unsubscribe:objPtr];
+	[[InputEngine sharedInstance] unsubscribe:*objPtr];
 	
-	return objPtr;	
+	return *objPtr;	
 }
 
 - (void) dealloc {
 	TMLog(@"Deallocating TMView instance...");
-	NSObject* p = nil;
-	
-	while( nil != ( p = [self popChild] ) ) {
-		TMLog(@"Releasing %@", p);
-		[p release];
-	}
-	
 	delete m_pChildren;
 	TMLog(@"Done.");
 	
@@ -105,9 +98,9 @@
 	
 	/* Now draw all children */
 	for (int i = 0; i < curSize; ++i) {				
-		NSObject* obj = m_pChildren->at(i);
+		TMViewChildPtr& obj = m_pChildren->at(i);
 		
-		[(id<TMRenderable>)obj render:fDelta];
+		[(id<TMRenderable>)*obj render:fDelta];
 		
 		// To be safe we must update the curSize everytime
 		curSize = m_pChildren->size();
@@ -120,9 +113,9 @@
 	
 	/* Now update all children */
 	for (int i = 0; i < curSize; ++i) {				
-		NSObject* obj = m_pChildren->at(i);
+		TMViewChildPtr& obj = m_pChildren->at(i);
 		
-		[(id<TMLogicUpdater>)obj update:fDelta];
+		[(id<TMLogicUpdater>)*obj update:fDelta];
 		
 		// To be safe we must update the curSize everytime
 		curSize = m_pChildren->size();
