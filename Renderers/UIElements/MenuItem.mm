@@ -85,7 +85,7 @@
 }
 
 /* Override for sound effect */
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	if([super tmTouchesEnded:touches withEvent:event]) {
 		TMLog(@"Menu item raised. play sound!");
 		[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];

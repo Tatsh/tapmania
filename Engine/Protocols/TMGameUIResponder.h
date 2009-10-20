@@ -6,13 +6,15 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
+#include "TMTouch.h"
+
 // This protocol must be implemented by ui input handlers which wish to receive input events
 @protocol TMGameUIResponder 
 
 // All methods are optional
 @required
-- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;
-- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event;
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event;
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event;
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event;
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event;
 
 @end

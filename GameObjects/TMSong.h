@@ -6,7 +6,10 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#ifdef __cplusplus
+#import "ObjCPtr.h"
+#include <vector>
+#endif
 
 #define kDefaultChangesCapacity 16
 
@@ -36,6 +39,11 @@ typedef enum {
 @class TMSteps;
 @class TMChangeSegment;
 
+#ifdef __cplusplus
+typedef ObjCPtr<TMChangeSegment>			TMChangeSegmentPtr;
+typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
+#endif
+
 @interface TMSong : NSObject <NSCoding> {
 	
 	// Disk info
@@ -55,14 +63,11 @@ typedef enum {
 	NSString* 	m_sArtist;
 	float	  	m_fBpm;
 	double		m_dGap;
-	
-	int					m_nBpmChangeCount;
-	int					m_nFreezeCount;
-	int					m_nBpmCapacity;
-	int					m_nFreezeCapacity;
-	
-	TMChangeSegment**	m_aBpmChangeArray;
-	TMChangeSegment**	m_aFreezeArray;
+		
+	#ifdef __cplusplus
+	TMChangeSegmentVec	m_aBpmChangeArray;
+	TMChangeSegmentVec	m_aFreezeArray;
+	#endif
 
 	// Every difficulty which is available is set to the difficulty level (1+). set to -1 otherwise.
 	int					m_nAvailableDifficultyLevels[kNumSongDifficulties];
@@ -83,12 +88,6 @@ typedef enum {
 @property (assign) float m_fBpm;
 @property (assign) double m_dGap;
 
-@property (assign, readonly) int m_nFreezeCount;
-@property (assign, readonly) int m_nBpmChangeCount;
-
-@property (retain, nonatomic) TMChangeSegment** m_aBpmChangeArray;
-@property (retain, nonatomic) TMChangeSegment** m_aFreezeArray;
-
 // The constructor which is used. will parse the original stepmania file to determine song info.
 - (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir;
 
@@ -101,6 +100,12 @@ typedef enum {
 // Change arrays
 - (void) addBpmSegment:(TMChangeSegment*)segment;
 - (void) addFreezeSegment:(TMChangeSegment*)segment;
+
+- (TMChangeSegment*) getBpmChangeAt:(int)inIndex;
+- (int) getBpmChangeCount;
+
+- (TMChangeSegment*) getFreezeAt:(int)inIndex;
+- (int) getFreezeCount;
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
 

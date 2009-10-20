@@ -124,8 +124,8 @@ extern TMGameState* g_pGameState;
 }
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	if([touches count] == 1){	
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
+	if(touches.size() == 1) {		
 		m_bReturnToSongSelection = YES;
 	}
 	

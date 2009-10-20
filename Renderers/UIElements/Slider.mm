@@ -67,16 +67,14 @@
 }
 
 /* TMGameUIResponder method */
-- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
-	UITouch *t1 = [[touches allObjects] objectAtIndex:0];
-	
-	if([touches count] == 1){
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
+	if(touches.size() == 1){
+		TMTouch touch = touches.at(0);
+			
+		CGPoint point = CGPointMake(touch.x(), touch.y());
 		
-		CGPoint pos = [t1 locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-		
-		if([self containsPoint:pointGl]) {
-			[self setValueFromPoint:pointGl];
+		if([self containsPoint:point]) {
+			[self setValueFromPoint:point];
 			[super tmTouchesMoved:touches withEvent:event];			
 			
 			return YES;
@@ -86,7 +84,7 @@
 	return NO;
 }
 
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if([self tmTouchesMoved:touches withEvent:event]) {
 		[super tmTouchesEnded:touches withEvent:event];
 		

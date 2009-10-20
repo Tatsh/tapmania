@@ -54,22 +54,20 @@
 }
 
 /* TMGameUIResponder stuff */
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
-	UITouch * touch = [touches anyObject];
-	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
-					 [touch locationInView:[TapMania sharedInstance].glView]];
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	TMTouch touch = touches.at(0);
+	CGPoint point = CGPointMake(touch.x(), touch.y());
 	
 	if(CGRectContainsPoint(m_rShape, point)) {
 		m_nState = kZoomIn;
 	}
 	
-	[m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
 }
 
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
-	UITouch * touch = [touches anyObject];
-	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
-					 [touch locationInView:[TapMania sharedInstance].glView]];
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	TMTouch touch = touches.at(0);
+	CGPoint point = CGPointMake(touch.x(), touch.y());
 	
 	if(CGRectContainsPoint(m_rShape, point)) {
 		m_nState = kZoomIn;
@@ -77,19 +75,18 @@
 		m_nState = kZoomOut;
 	}
 
-	[m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
 }
 
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {		
-	UITouch * touch = [touches anyObject];
-	CGPoint point = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:
-					 [touch locationInView:[TapMania sharedInstance].glView]];
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {		
+	TMTouch touch = touches.at(0);
+	CGPoint point = CGPointMake(touch.x(), touch.y());
 	
 	if(CGRectContainsPoint(m_rShape, point)) {
 		m_nState = kZoomOut;
 	}
 	
-	[m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
+	return [m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
 }
 
 @end

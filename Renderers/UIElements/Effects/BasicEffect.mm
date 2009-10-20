@@ -114,16 +114,16 @@
 }
 
 /* TMGameUIResponder stuff */
-- (void) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
-	[m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	return [m_idDecoratedObject tmTouchesBegan:touches withEvent:event];
 }
 
-- (void) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
-	[m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	return [m_idDecoratedObject tmTouchesMoved:touches withEvent:event];
 }
 
-- (void) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
-	[m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	return [m_idDecoratedObject tmTouchesEnded:touches withEvent:event];
 }
 
 @end

@@ -69,7 +69,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 		}
 		numPacketsToRead = gBufferSizeBytes / maxPacketSize;
 		// will need a packet description for each packet since this is VBR data, so allocate space accordingly
-		packetDescs = malloc(sizeof(AudioStreamPacketDescription) * numPacketsToRead);
+		packetDescs = (AudioStreamPacketDescription*)malloc(sizeof(AudioStreamPacketDescription) * numPacketsToRead);
 	}
 	else
 	{
@@ -83,7 +83,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	if (size > 0)
 	{
 		// copy the cookie data from the file into the audio queue
-		cookie = malloc(sizeof(char) * size);
+		cookie = (char*)malloc(sizeof(char) * size);
 		AudioFileGetProperty(audioFile, kAudioFilePropertyMagicCookieData, &size, cookie);
 		AudioQueueSetProperty(queue, kAudioQueueProperty_MagicCookie, cookie, size);
 		free(cookie);
@@ -204,7 +204,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 - (void) primeBuffers {
 	// allocate and prime buffers with some data
-	int i;
+	UInt32 i;
 	for (i = 0; i < NUM_QUEUE_BUFFERS; i++) {
 		AudioQueueAllocateBuffer(queue, gBufferSizeBytes, &buffers[i]);
 		if ([self readPacketsIntoBuffer:buffers[i]] == 0)
@@ -215,7 +215,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	}
 	
 	// we would like to prime some frames so we are prepared to start directly
-	int framesPrimed;
+	UInt32 framesPrimed;
 	AudioQueuePrime(queue, i, &framesPrimed);
 	
 	TMLog(@"Primed %d frames", framesPrimed);	

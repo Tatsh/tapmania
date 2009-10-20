@@ -105,7 +105,7 @@ Texture2D* t_CreditsBG;
 }
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	m_bShouldReturn = YES;
 	
 	return YES;

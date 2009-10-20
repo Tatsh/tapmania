@@ -7,11 +7,13 @@
 //
 
 #import "TMGameUIResponder.h"
+#import "TMTouch.h"
 
 @interface InputEngine : NSObject {
-	NSMutableArray * m_aSubscribers;
+	NSMutableArray *	m_aSubscribers;
 	
-	BOOL			 m_bDispatcherEnabled;
+	BOOL				m_bDispatcherEnabled;
+	CGAffineTransform	m_Transform;
 }
 
 // The dispatcher can be temporarily disabled to avoid random taps from messing around

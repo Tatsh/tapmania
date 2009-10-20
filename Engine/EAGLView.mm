@@ -209,7 +209,6 @@
 
 # pragma mark Touch events dispatch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	TMLog(@"Touch!");
 	[[InputEngine sharedInstance] dispatchTouchesBegan:touches withEvent:event];
 }
 

@@ -132,22 +132,20 @@
 }
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(!m_bEnabled)
 		return NO;
 	
-	switch ([touches count]) {
+	switch (touches.size()) {
 		case 1:
 		{
-			UITouch* touch = [touches anyObject];
-			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
+			TMTouch touch = touches.at(0);
 			
 			// FIXME!
-			if(pointGl.y < 400) {
-				m_fLastSwipeY = pointGl.y;
+			if(touch.y() < 400) {
+				m_fLastSwipeY = touch.y();
 				m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
-				m_dLastSwipeTime = [touch timestamp];
+				m_dLastSwipeTime = touch.timestamp();
 			}
 			
 			break;
@@ -157,23 +155,21 @@
 	return YES;
 }
 
-- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(!m_bEnabled)
 		return NO;
 	
-	switch ([touches count]) {
+	switch (touches.size()) {
 		case 1:
 		{
-			UITouch* touch = [touches anyObject];
-			CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-			CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
+			TMTouch touch = touches.at(0);
 			
-			if(pointGl.y < 400) {
-				float yDelta = pointGl.y-m_fLastSwipeY;
+			if(touch.y() < 400) {
+				float yDelta = touch.y()-m_fLastSwipeY;
 				
-				[self saveSwipeElement:yDelta withTime:[touch timestamp]-m_dLastSwipeTime];
-				m_fLastSwipeY = pointGl.y;
-				m_dLastSwipeTime = [touch timestamp];
+				[self saveSwipeElement:yDelta withTime:touch.timestamp()-m_dLastSwipeTime];
+				m_fLastSwipeY = touch.y();
+				m_dLastSwipeTime = touch.timestamp();
 				
 				[self rollWheel:yDelta];	// Roll the wheel				
 			} else {
@@ -187,17 +183,17 @@
 	return YES;
 }
 
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(!m_bEnabled)
 		return NO;
 	
-	if([touches count] == 1){		
-		UITouch* touch = [touches anyObject];
-		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
+	if(touches.size() == 1){		
+		TMTouch touch = touches.at(0);
+		CGPoint point = CGPointMake(touch.x(), touch.y());
+
 		
 		// Should start song?
-		if([touch tapCount] > 1 && CGRectContainsPoint(mt_Highlight, pointGl)) {
+		if(touch.tapCount() > 1 && CGRectContainsPoint(mt_Highlight, point)) {
 			TMLog(@"Double tapped the wheel select item!");
 			if(m_bEnabled && m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {			
 				[self disable];	// Disable the song list as we already picked a song to start
@@ -208,7 +204,7 @@
 		}
 		
 		// Now the fun part - swipes
-		if(pointGl.y < 400) {
+		if(point.y < 400) {
 			m_fVelocity = [self calculateSwipeVelocity];
 			if(m_fVelocity == 0.0f) m_fVelocity = 0.01f;	// Make it jump to closest anyway
 		}

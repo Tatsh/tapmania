@@ -44,12 +44,12 @@
 	
 	Vector* startPos = [[Vector alloc] initWithX:m_rShape.origin.x andY:m_rShape.origin.y];		
 	Vector* endPos = [[Vector alloc] initWithX:m_oDestination.x andY:m_oDestination.y];	
-	Vector* diffIdent = [Vector normalize:[Vector sub:endPos and:startPos] withTolerance:0.01f];
+	Vector* diffIdent = [Vector normalize:[Vector sub:endPos And:startPos] withTolerance:0.01f];
 	
-	float dist = [Vector dist:startPos and:endPos];
+	float dist = [Vector dist:startPos And:endPos];
 	float accel = (2.0f*dist) / (m_dEffectTime*m_dEffectTime);
 	
-	m_pAcceleration = [[Vector mulScalar:diffIdent and:accel] retain];	
+	m_pAcceleration = [[Vector mulScalar:diffIdent And:accel] retain];	
 	m_pCurrentPos = [[Vector alloc] init];	// 0 vector
 	
 	[endPos release];
@@ -65,8 +65,8 @@
 	m_rShape = [m_idDecoratedObject getShape];
 	
 	if(m_nState == kSlideTweening) {
-		[m_pVelocity sum:[Vector mulScalar:m_pAcceleration and:fDelta]];
-		[m_pCurrentPos sum:[Vector mulScalar:m_pVelocity and:fDelta]];
+		[m_pVelocity sum:[Vector mulScalar:m_pAcceleration And:fDelta]];
+		[m_pCurrentPos sum:[Vector mulScalar:m_pVelocity And:fDelta]];
 		
 		m_rShape.origin.x +=  m_pCurrentPos.x;
 		m_rShape.origin.y +=  m_pCurrentPos.y;

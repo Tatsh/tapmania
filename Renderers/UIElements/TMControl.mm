@@ -63,7 +63,7 @@
 }
 
 /* TMGameUIResponder stuff */
-- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 		if([super tmTouchesBegan:touches withEvent:event]) {
 			TMLog(@"Control touched");
@@ -75,7 +75,7 @@
 	return NO;
 }
 
-- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	if(m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
 		if([super tmTouchesMoved:touches withEvent:event]) {
 			TMLog(@"Control touches moved");
@@ -88,7 +88,7 @@
 	return NO;
 }
 
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {	
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	BOOL res = NO;
 	
 	if(m_pCommandList != nil) {

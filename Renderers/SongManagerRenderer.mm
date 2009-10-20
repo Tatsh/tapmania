@@ -86,8 +86,8 @@
 }
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	if([touches count] == 1 && m_nAction != kSongManagerAction_None){		
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
+	if(touches.size() == 1 && m_nAction != kSongManagerAction_None){		
 		// Exit
 		m_nAction = kSongManagerAction_Exit;
 	}	

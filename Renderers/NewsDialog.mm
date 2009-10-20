@@ -61,7 +61,7 @@
 
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if([super tmTouchesEnded:touches withEvent:event]) {
 		[self close];
 		return YES;

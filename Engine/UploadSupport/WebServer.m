@@ -215,7 +215,7 @@ iterate_post (void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
 		}
 		
 		// Store file path
-		con_info->file_path = malloc(sizeof(char) * (strlen(buffer) + 1));
+		con_info->file_path = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
 		strncpy(con_info->file_path, buffer, strlen(buffer));
 		con_info->file_path[strlen(buffer)] = 0;
     }

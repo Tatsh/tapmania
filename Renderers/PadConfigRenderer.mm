@@ -144,35 +144,33 @@
 }
 
 /* TMGameUIResponder methods */
-- (BOOL) tmTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(m_nPadConfigAction != kPadConfigAction_SelectLocation)
 		return YES;	// We handled the touch.. just don't bother with it
 	
-	if([touches count] == 1){		
-		UITouch* touch = [touches anyObject];
-		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
-					
-		m_pFingerTap[m_nSelectedTrack].m_fX = pointGl.x;
-		m_pFingerTap[m_nSelectedTrack].m_fY = pointGl.y;
+	if(touches.size() == 1){		
+		TMTouch touch = touches.at(0);
+		CGPoint point = CGPointMake(touch.x(), touch.y());
+			
+		m_pFingerTap[m_nSelectedTrack].m_fX = point.x;
+		m_pFingerTap[m_nSelectedTrack].m_fY = point.y;
 	}		
 	
 	return YES;
 }
 
-- (BOOL) tmTouchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+- (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	return [self tmTouchesBegan:touches withEvent:event];
 }
 
-- (BOOL) tmTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-	if([touches count] == 1){		
-		UITouch* touch = [touches anyObject];
-		CGPoint pos = [touch locationInView:[TapMania sharedInstance].glView];
-		CGPoint pointGl = [[TapMania sharedInstance].glView convertPointFromViewToOpenGL:pos];
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
+	if(touches.size() == 1){		
+		TMTouch touch = touches.at(0);
+		CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 		int i;
 		for(i=0; i<kNumOfAvailableTracks; ++i) {
-			if(CGRectContainsPoint(mt_ReceptorButtons[i], pointGl)) {
+			if(CGRectContainsPoint(mt_ReceptorButtons[i], point)) {
 				m_nPadConfigAction = kPadConfigAction_SelectedTrack;
 				m_nSelectedTrack = (TMAvailableTracks)i;	// Save the track number we touched
 			
@@ -181,12 +179,12 @@
 		}
 		
 		// If none of the receptor arrows was touched
-		if(CGRectContainsPoint(mt_LifeBar, pointGl)) {
+		if(CGRectContainsPoint(mt_LifeBar, point)) {
 			m_nPadConfigAction = kPadConfigAction_Exit;
 			
 		} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {			
-			TMLog(@"Select location for track %d: x:%f y:%f", m_nSelectedTrack, pointGl.x, pointGl.y);
-			[[TapMania sharedInstance].joyPad setJoyPadButton:(JPButton)m_nSelectedTrack onLocation:pointGl];
+			TMLog(@"Select location for track %d: x:%f y:%f", m_nSelectedTrack, point.x, point.y);
+			[[TapMania sharedInstance].joyPad setJoyPadButton:(JPButton)m_nSelectedTrack onLocation:point];
 			
 			m_nPadConfigAction = kPadConfigAction_None;
 		} 

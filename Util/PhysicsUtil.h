@@ -33,15 +33,15 @@
 + (float) normSquared:(Vector*)v0;
 + (Vector*) normalize:(Vector*)v0 withTolerance:(float)tolerance;
 
-+ (float) dist:(Vector*)v0 and:(Vector*)v1;
-+ (float) distSquared:(Vector*)v0 and:(Vector*)v1;
-+ (Vector*) sum:(Vector*)v0 and:(Vector*)v1;
-+ (Vector*) sub:(Vector*)v0 and:(Vector*)v1;
-+ (Vector*) div:(Vector*)v0 and:(Vector*)v1;
-+ (Vector*) mul:(Vector*)v0 and:(Vector*)v1;
-+ (Vector*) divScalar:(Vector*)v0 and:(float)op;
-+ (Vector*) mulScalar:(Vector*)v0 and:(float)op;
-+ (float) dot:(Vector*)v0 and:(Vector*)v1;
++ (float) dist:(Vector*)v0 And:(Vector*)v1;
++ (float) distSquared:(Vector*)v0 And:(Vector*)v1;
++ (Vector*) sum:(Vector*)v0 And:(Vector*)v1;
++ (Vector*) sub:(Vector*)v0 And:(Vector*)v1;
++ (Vector*) div:(Vector*)v0 And:(Vector*)v1;
++ (Vector*) mul:(Vector*)v0 And:(Vector*)v1;
++ (Vector*) divScalar:(Vector*)v0 And:(float)op;
++ (Vector*) mulScalar:(Vector*)v0 And:(float)op;
++ (float) dot:(Vector*)v0 And:(Vector*)v1;
 
 @end
 
