@@ -37,7 +37,11 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	m_Transform = CGAffineTransformTranslate(m_Transform, 0, -480.0f);
 */
 	
-	m_Transform = CGAffineTransformIdentity;
+	m_Transform = CGAffineTransformMakeTranslation(0.0f, 480.0f);
+	m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);
+
+	
+//	m_Transform = CGAffineTransformIdentity;
 	
 	return self;
 }
@@ -72,7 +76,6 @@ static InputEngine *sharedInputEngineDelegate = nil;
 		pos = CGPointApplyAffineTransform(pos, m_Transform);
 		
 		tmTouches.push_back(TMTouch(pos.x, pos.y, touch.tapCount, touch.timestamp));		
-		TMLog(@"Touch at %f/%f", pos.x, pos.y);
 	}
 	
 	return tmTouches;

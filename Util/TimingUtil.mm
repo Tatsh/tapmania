@@ -52,10 +52,7 @@
 	}
 	
 	TMChangeSegment* seg = [song getBpmChangeAt:i];
-	if( seg && seg.m_fNoteRow > noteRow)
-		return seg.m_fChangeValue;
-
-	return 0.0f;
+	return seg.m_fChangeValue;
 }
 
 + (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song {

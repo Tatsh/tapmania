@@ -48,7 +48,7 @@
 	}
 }
 
-- (int) getNoteIndexFromRow:(int)noteRow {
+- (int) getNoteIndexFromRow:(int)noteRow {	
 	int low = 0;
 	int high = m_aNotesArray->size();
 	int mid;
