@@ -385,6 +385,7 @@ extern TMGameState* g_pGameState;
 			}
 			
 			// Check whether this note is already out of scope
+			// TODO: 480 no good here!
 			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= 480.0f) {
 				++m_nTrackPos[i];				
 				continue; // Skip this note

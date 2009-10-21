@@ -30,7 +30,7 @@
 
 - (id) init {
 	// FIXME: metrics please!
-	self = [super initWithShape:CGRectMake(0, 0, 320, 480)];
+	self = [super initWithShape:CGRectMake(160, 0, 320, 320)];
 	if(!self) return nil;
 	
 	m_pWheelItems = new TMWheelItems();	
@@ -71,6 +71,7 @@
 
 - (void) dealloc {	
 	// Explicitly deallocate memory
+	// TODO: move to objcPtr
 	for(int i = 0; i < m_pWheelItems->size(); i++) {
 		[m_pWheelItems->at(i) release];
 	}	

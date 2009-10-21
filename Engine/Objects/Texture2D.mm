@@ -207,19 +207,19 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	switch(pixelFormat) {		
 		case kTexture2DPixelFormat_RGBA8888:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
-			data = malloc(height * width * 4);
+			data = calloc(height * width, 4);
 			context = CGBitmapContextCreate(data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
 			break;
 		case kTexture2DPixelFormat_RGB565:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
-			data = malloc(height * width * 4);
+			data = calloc(height * width, 4);
 			context = CGBitmapContextCreate(data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
 			break;
 			
 		case kTexture2DPixelFormat_A8:
-			data = malloc(height * width);
+			data = calloc(height * width, 1);
 			context = CGBitmapContextCreate(data, width, height, 8, width, NULL, kCGImageAlphaOnly);
 			break;				
 		default:
@@ -235,7 +235,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	CGContextDrawImage(context, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
 	//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGGBBBBB"
 	if(pixelFormat == kTexture2DPixelFormat_RGB565) {
-		tempData = malloc(height * width * 2);
+		tempData = calloc(height * width, 2);
 		inPixel32 = (unsigned int*)data;
 		outPixel16 = (unsigned short*)tempData;
 		for(i = 0; i < width * height; ++i, ++inPixel32)

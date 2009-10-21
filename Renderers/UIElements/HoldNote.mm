@@ -7,14 +7,24 @@
 //
 
 #import "HoldNote.h"
-
+#import "ThemeManager.h"
 
 @implementation HoldNote
+
+- (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
+	self = [super initWithImage:uiImage columns:columns andRows:rows];
+	if(!self)
+		return nil;
+	
+	mt_HoldBody =							SIZE_SKIN_METRIC(@"HoldNote Body");
+	
+	return self;
+}	
 
 - (void) drawBodyPieceWithSize:(CGFloat)size atPoint:(CGPoint)point {
 	// Size is the size in pixels to crop the texture from the bottom of it
 	
-	float minTextureFromSize = m_fMaxT - (m_fMaxT * (size / m_unHeight));
+	float minTextureFromSize = m_fMaxT - (m_fMaxT * (size / mt_HoldBody.height));
 	
 	GLfloat		coordinates[] = { 
 		0,		m_fMaxT,
@@ -23,7 +33,7 @@
 		m_fMaxS,	minTextureFromSize 
 	};
 	
-	GLfloat		width = (GLfloat)m_unWidth * m_fMaxS,
+	GLfloat		width = mt_HoldBody.width,
 				height = size;
 
 	GLfloat		vertices[] = {	

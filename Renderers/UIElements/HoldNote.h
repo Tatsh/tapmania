@@ -14,7 +14,8 @@
  * The body of the hold is drawn using this class
  */
 @interface HoldNote : TapNote {
-
+	/* Metrics and such */
+	CGSize mt_HoldBody;
 }
 
 // Drawing routines
