@@ -10,10 +10,13 @@
 #import "Metrics.h"
 #import "ResourcesLoader.h"
 #import "TMSound.h"
+#import "TapMania.h"
 #import "VersionInfo.h"
+#import "GameState.h"
 
 // This is a singleton class, see below
 static ThemeManager *sharedThemeManagerDelegate = nil;
+extern TMGameState*	g_pGameState;
 
 @interface ThemeManager (Private)
 - (NSObject*) lookUpNode:(NSString*) key from:(NSObject*) rootObj;
@@ -84,6 +87,13 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 				TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
 			}
 		}
+	}
+	
+	// Set mode
+	if(g_pGameState->m_bLandscape) {
+		m_sCurrentMode = [@"Landscape" retain];
+	} else {
+		m_sCurrentMode = [kDefaultMode retain];
 	}
 	
 	return self;
@@ -179,7 +189,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
 	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
 	
-	return CGRectMake(x, y, width, height);
+	return CGRectApplyAffineTransform( CGRectMake(x, y, width, height), [TapMania sharedInstance].m_Transform);
 }
 
 - (CGPoint) pointMetric:(NSString*) metricKey {
@@ -190,7 +200,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
 	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
 	
-	return CGPointMake(x, y);
+	return CGPointApplyAffineTransform( CGPointMake(x, y), [TapMania sharedInstance].m_Transform);
 }
 
 - (CGSize) sizeMetric:(NSString*) metricKey {
@@ -255,7 +265,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	int width = [[(NSDictionary*)node objectForKey:@"Width"] intValue];
 	int height = [[(NSDictionary*)node objectForKey:@"Height"] intValue];
 	
-	return CGRectMake(x, y, width, height);
+	return CGRectApplyAffineTransform( CGRectMake(x, y, width, height), [TapMania sharedInstance].m_Transform);
 }
 
 - (CGPoint) pointSkinMetric:(NSString*) metricKey {
@@ -266,7 +276,7 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 	int x = [[(NSDictionary*)node objectForKey:@"X"] intValue];
 	int y = [[(NSDictionary*)node objectForKey:@"Y"] intValue];
 	
-	return CGPointMake(x, y);
+	return CGPointApplyAffineTransform( CGPointMake(x, y), [TapMania sharedInstance].m_Transform);
 }
 
 - (CGSize) sizeSkinMetric:(NSString*) metricKey {
@@ -334,7 +344,8 @@ static ThemeManager *sharedThemeManagerDelegate = nil;
 - (NSObject*) lookUpNode:(NSString*) key from:(NSObject*) rootObj {
 	
 	// Key is of format: "SomeRootElement SomeInnerElement SomeEvenMoreInnerElement TheMetric"
-	NSArray* pathChunks = [key componentsSeparatedByString:@" "];
+	NSMutableArray* pathChunks = [NSMutableArray arrayWithArray:[key componentsSeparatedByString:@" "]];
+	[pathChunks insertObject:m_sCurrentMode atIndex:0];
 	
 	NSObject* tmp = rootObj;
 	int i;

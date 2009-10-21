@@ -37,10 +37,12 @@
 
 #define kDefaultThemeName		@"default"
 #define kDefaultNoteSkinName	@"default"
+#define kDefaultMode			@"Skyscraper"
 
 @interface ThemeManager : NSObject <ResourcesLoaderSupport> {
 	NSString*			m_sCurrentThemeName;		// Current theme
 	NSString*			m_sCurrentNoteskinName;
+	NSString*			m_sCurrentMode;				// Current view mode; skyscraper or landscape
 	
 	Metrics*			m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
 	Metrics*			m_pCurrentNoteSkinMetrics;		// The currently loaded noteskin metrics object

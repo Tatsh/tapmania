@@ -39,9 +39,11 @@ TMGameState* g_pGameState;
 // This is a singleton class, see below
 static TapMania *sharedTapManiaDelegate = nil;
 
+#define DEGTORAD(x) x*(3.14/180)
+
 @implementation TapMania
 
-@synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop;
+@synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop, m_Transform, m_InputTransform;
 
 - (id) init {
 	self = [super init];
@@ -60,13 +62,28 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];
+	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
+	g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
 	
 	// Defaults
 	m_pCurrentSong = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
 	
-	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
+	if(g_pGameState->m_bLandscape) {
+		m_Transform = CGAffineTransformMakeTranslation(0.0f, 320.0f);	// For landscape
+		m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);	
+	
+		m_InputTransform = CGAffineTransformMakeRotation(DEGTORAD(-90.0f));
+		m_InputTransform = CGAffineTransformScale(m_InputTransform, 1.0f, -1.0f);	
+		m_InputTransform = CGAffineTransformTranslate(m_InputTransform, -320.0f, -480.0f);		
+		
+		[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+	} else {		
+		m_Transform = CGAffineTransformMakeTranslation(0.0f, 480.0f);	// For skyscraper
+		m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);			
+		m_InputTransform = m_Transform;
+	}
 	
 	return self;
 }
@@ -108,7 +125,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGameRunLoop removeAllObjects];
 }
 
-- (void) setCurrentScreen:(NSObject*)screenRenderer {
+- (void) setCurrentScreen:(TMScreen*)screenRenderer {
 	m_pCurrentScreen = screenRenderer;
 }
 
@@ -160,9 +177,18 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Init global joypad
 	m_pJoyPad = [[JoyPad alloc] init];
-
+	
 	// Init opengl
-	m_pGlView = [[EAGLView alloc] initWithFrame:rect];	
+	if(g_pGameState->m_bLandscape) {	
+		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 480.0f, 320.0f)];	
+		
+		m_pGlView.transform = CGAffineTransformIdentity;
+		m_pGlView.transform = CGAffineTransformMakeRotation(DEGTORAD(-90.0f));
+		m_pGlView.center = CGPointMake(160.0f, 240.0f);
+	} else {
+		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];			
+	}
+
 	m_pGlView.multipleTouchEnabled = YES;	
 	
 	// Init sound system and set the master volume from settings
@@ -178,7 +204,13 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
-	glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
+
+	if(g_pGameState->m_bLandscape) {
+		glOrthof(0, rect.size.height, 0, rect.size.width, -1, 1);
+	} else {
+		glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
+	}
+	
 	glMatrixMode(GL_MODELVIEW);
 	
 	// Initialize OpenGL states

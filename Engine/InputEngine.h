@@ -13,7 +13,6 @@
 	NSMutableArray *	m_aSubscribers;
 	
 	BOOL				m_bDispatcherEnabled;
-	CGAffineTransform	m_Transform;
 }
 
 // The dispatcher can be temporarily disabled to avoid random taps from messing around

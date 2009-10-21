@@ -19,7 +19,8 @@
 	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
 						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithBool:NO], @"autotrack", 
 						[NSNumber numberWithBool:NO], @"vispad", @"NONEXISTING", @"newsversion",
-						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff", nil];
+						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff",
+						[NSNumber numberWithBool:NO], @"landscape", nil];
 	
 	return self;
 }
@@ -69,6 +70,11 @@
 		
 	if(! [m_pConfigDict valueForKey:@"prefdiff"]) {
 		[m_pConfigDict setObject:[NSNumber numberWithInt:(int)kSongDifficulty_Beginner] forKey:@"prefdiff"];
+		++errCount;
+	}
+
+	if(! [m_pConfigDict valueForKey:@"landscape"]) {
+		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"landscape"];
 		++errCount;
 	}
 	

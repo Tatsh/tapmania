@@ -24,7 +24,10 @@
 	ARRollerView*		m_pAdsView;
 		
 	TMRunLoop*			m_pGameRunLoop;
-	JoyPad*				m_pJoyPad;  // The joypad
+	JoyPad*				m_pJoyPad;			// The joypad
+	
+	CGAffineTransform	m_Transform;		// Affine transformation used for metrics system
+	CGAffineTransform	m_InputTransform;	// Affine transformation used for input engine
 }
 
 @property (retain, nonatomic, readonly, getter=glView) EAGLView* m_pGlView;
@@ -32,6 +35,9 @@
 
 @property (retain, nonatomic, readonly, getter=joyPad) JoyPad* m_pJoyPad;
 @property (retain, nonatomic, readonly) TMRunLoop* m_pGameRunLoop;
+
+@property (nonatomic, readonly) CGAffineTransform m_Transform;
+@property (nonatomic, readonly) CGAffineTransform m_InputTransform;
 
 - (void) startGame;
 
@@ -50,7 +56,7 @@
 - (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAll;
 
-- (void) setCurrentScreen:(NSObject*) screenRenderer;
+- (void) setCurrentScreen:(TMScreen*) screenRenderer;
 - (void) releaseCurrentScreen;
 
 - (void) toggleAds:(BOOL)onOff;

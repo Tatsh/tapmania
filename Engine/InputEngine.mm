@@ -9,11 +9,10 @@
 #import "InputEngine.h"
 #import "TMGameUIResponder.h"
 #import "TMTouch.h"
+#import "TapMania.h"
 
 // This is a singleton class, see below
 static InputEngine *sharedInputEngineDelegate = nil;
-
-#define DEGTORAD(x) x*(3.14/180)
 
 @interface InputEngine (Private)
 - (TMTouchesVec) applyTransform:(NSSet*)touches;
@@ -29,20 +28,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	
 	m_aSubscribers = [[NSMutableArray alloc] initWithCapacity:5];
 	m_bDispatcherEnabled = YES;
-	
-	// Flip
-/*
-	This below is a good transformation for landscape mode
-	m_Transform = CGAffineTransformMakeRotation(DEGTORAD(90.0f));
-	m_Transform = CGAffineTransformTranslate(m_Transform, 0, -480.0f);
-*/
-	
-	m_Transform = CGAffineTransformMakeTranslation(0.0f, 480.0f);
-	m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);
-
-	
-//	m_Transform = CGAffineTransformIdentity;
-	
+		
 	return self;
 }
 
@@ -73,7 +59,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	
 	for( UITouch* touch in touches) {
 		CGPoint pos = [touch locationInView:nil];
-		pos = CGPointApplyAffineTransform(pos, m_Transform);
+		pos = CGPointApplyAffineTransform(pos, [TapMania sharedInstance].m_InputTransform);
 		
 		tmTouches.push_back(TMTouch(pos.x, pos.y, touch.tapCount, touch.timestamp));		
 	}
