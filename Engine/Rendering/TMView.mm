@@ -23,6 +23,7 @@
 	m_bEnabled = YES;
 	
 	m_pChildren = new TMViewChildren();
+	m_pControls = new TMViewChildren();
 	
 	return self;
 }
@@ -47,47 +48,44 @@
 	return CGRectContainsPoint(m_rShape, point);
 }
 
--(void) pushBackChild:(NSObject*)inChild {
+-(void) pushBackChild:(TMView*)inChild {
 	m_pChildren->push_back( TMViewChildPtr( inChild ) );	
 }
 
--(void) pushChild:(NSObject*)inChild {
+-(void) pushChild:(TMView*)inChild {
 	m_pChildren->push_front( TMViewChildPtr( inChild ) );	
 }
 
--(void) pushBackControl:(NSObject*)inChild {
-	[self pushBackChild:inChild];
-	
-	[[InputEngine sharedInstance] subscribe:inChild];
+-(void) pushBackControl:(TMControl*)inChild {
+	TMViewChildPtr ptr = TMViewChildPtr( reinterpret_cast<TMView*>(inChild) );
+	m_pChildren->push_back( ptr );	
+	m_pControls->push_back( ptr );
 }
 
--(NSObject*) popBackChild {
+-(TMView*) popBackChild {
 	if(m_pChildren->empty())
 		return nil;
 	
 	TMViewChildPtr objPtr = m_pChildren->back();
 	m_pChildren->pop_back();
 	
-	[[InputEngine sharedInstance] unsubscribe:*objPtr];
-	return *objPtr;
+	return reinterpret_cast<TMView*> (*objPtr);
 }
 
--(NSObject*) popChild {
+-(TMView*) popChild {
 	if(m_pChildren->empty())
 		return nil;
 	
 	TMViewChildPtr objPtr = m_pChildren->front();
 	m_pChildren->pop_front();
 	
-	[[InputEngine sharedInstance] unsubscribe:*objPtr];
-	
-	return *objPtr;	
+	return reinterpret_cast<TMView*> (*objPtr);
 }
 
 - (void) dealloc {
-	TMLog(@"Deallocating TMView instance...");
+	TMLog(@"Deallocating TMView instance.. %@", self);
+	delete m_pControls;
 	delete m_pChildren;
-	TMLog(@"Done.");
 	
 	[super dealloc];
 }
@@ -128,8 +126,21 @@
 	CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 	if(CGRectContainsPoint(m_rShape, point)) {
-		if(m_bEnabled && m_bVisible) 
+		if(m_bEnabled && m_bVisible) {
+
+			// Forward to children
+			if(! m_pControls->empty() ) {			
+				int curSize = m_pControls->size();
+				
+				for (int i = 0; i < curSize; ++i) {				
+					NSObject* obj = *(m_pControls->at(i));
+					[(id<TMGameUIResponder>)obj tmTouchesBegan:touches withEvent:event];
+					curSize = m_pControls->size();	// To be safe
+				}	
+			}				
+			
 			return YES;
+		}
 	}
 	
 	return NO;
@@ -140,8 +151,21 @@
 	CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 	if(CGRectContainsPoint(m_rShape, point)) {
-		if(m_bEnabled && m_bVisible) 
+		if(m_bEnabled && m_bVisible) {
+			
+			// Forward to children
+			if(! m_pControls->empty() ) {			
+				int curSize = m_pControls->size();
+				
+				for (int i = 0; i < curSize; ++i) {				
+					NSObject* obj = *(m_pControls->at(i));
+					[(id<TMGameUIResponder>)obj tmTouchesMoved:touches withEvent:event];
+					curSize = m_pControls->size();	// To be safe
+				}	
+			}				
+			
 			return YES;
+		}
 	}
 	
 	return NO;
@@ -152,8 +176,21 @@
 	CGPoint point = CGPointMake(touch.x(), touch.y());
 	
 	if(CGRectContainsPoint(m_rShape, point)) {
-		if(m_bEnabled && m_bVisible) 
+		if(m_bEnabled && m_bVisible) {
+			
+			// Forward to children
+			if(! m_pControls->empty() ) {			
+				int curSize = m_pControls->size();
+				
+				for (int i = 0; i < curSize; ++i) {				
+					NSObject* obj = *(m_pControls->at(i));
+					[(id<TMGameUIResponder>)obj tmTouchesEnded:touches withEvent:event];
+					curSize = m_pControls->size();	// To be safe
+				}	
+			}				
+			
 			return YES;
+		}
 	}
 	
 	return NO;

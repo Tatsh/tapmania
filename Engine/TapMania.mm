@@ -63,7 +63,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];
 	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
-	g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
+	g_pGameState->m_bLandscape = YES; //[[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
 	
 	// Defaults
 	m_pCurrentSong = nil;

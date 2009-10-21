@@ -39,7 +39,43 @@
 	glTranslatef(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2, 0.0);
 	glRotatef(rotation, 0, 0, 1);
 	
-	[self drawFrame:frameId atPoint:CGPointZero];
+	// Sanity check
+	if(frameId >= m_nTotalFrames || frameId < 0)
+		frameId = 0;
+	
+	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
+	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
+	
+	int textureRow = frameId/m_nFramesToLoad[0];
+	frameId -= textureRow*m_nFramesToLoad[0];
+	
+	float yOffset = textureRow*textureMaxT;
+	float xOffset = frameId*textureMaxS;
+	float widthOffset = xOffset + textureMaxS;
+	float heightOffset = yOffset + textureMaxT;
+	
+	float width = rect.size.width;	
+	float height = rect.size.height;
+	
+	GLfloat	 coordinates[] = {  
+		xOffset,		heightOffset,
+		widthOffset,	heightOffset,
+		xOffset,		yOffset,
+		widthOffset,	yOffset  
+	};	
+	
+	GLfloat		vertices[] = {	
+		-width / 2,	-height / 2,	0.0,
+		width / 2,	-height / 2,	0.0,
+		-width / 2,	height / 2,	0.0,
+		width / 2,	height / 2,	0.0 
+	};
+	
+	glBindTexture(GL_TEXTURE_2D, m_unName);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
+	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
 	glPopMatrix();
 }
 

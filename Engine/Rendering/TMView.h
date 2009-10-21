@@ -15,6 +15,7 @@
 #include <deque>
 #import "ObjCPtr.h"
 using namespace std;
+@class TMView, TMControl;
 
 typedef ObjCPtr<NSObject> TMViewChildPtr;
 typedef deque<TMViewChildPtr> TMViewChildren;
@@ -27,7 +28,8 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 	BOOL		m_bVisible;		// Whether this view is visible or hidden
 	
 #ifdef __cplusplus
-	TMViewChildren* m_pChildren;
+	TMViewChildren* m_pChildren;	// All children
+	TMViewChildren*	m_pControls;	// Input delegation
 #endif
 }
 
@@ -41,12 +43,12 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 - (void) show;
 - (void) hide;
 
--(void) pushBackChild:(NSObject*)inChild;
--(void) pushChild:(NSObject*)inChild;
--(NSObject*) popBackChild;
--(NSObject*) popChild;
+-(void) pushBackChild:(TMView*)inChild;
+-(void) pushChild:(TMView*)inChild;
+-(TMView*) popBackChild;
+-(TMView*) popChild;
 
--(void) pushBackControl:(NSObject*)inChild;
+-(void) pushBackControl:(TMControl*)inChild;
 
 
 @end

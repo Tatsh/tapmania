@@ -73,7 +73,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
 		
 		int i;
 		for(i=[m_aSubscribers count]-1; i>=0; --i){
-			id<TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
+			id<TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];			
 			
 			if( [handler tmTouchesBegan:tmTouches withEvent:event] ) {
 				return;

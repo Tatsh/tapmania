@@ -23,6 +23,7 @@ private:
 		Container(const Container& r) 
 		: m_pObj(r.m_pObj), m_uiRefCounter(r.m_uiRefCounter) {};
 		~Container() {
+			TMLog(@"Call release on %@", m_pObj);
 			[m_pObj release];
 		};
 	};
