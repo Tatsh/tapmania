@@ -304,6 +304,20 @@
 		</dict>
 		<key>SongPlay</key>
 		<dict>
+			<key>NotesStartPosition</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>480</integer>
+			</dict>
+			<key>NotesOutOfScopePosition</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>0</integer>
+			</dict>
 			<key>HoldJudgement</key>
 			<dict>
 				<key>0</key>
@@ -373,6 +387,8 @@
 	</dict>
 	<key>Landscape</key>
 	<dict>
+		<key>SongsCacheLoader</key>
+		<dict/>
 		<key>MainMenu</key>
 		<dict>
 			<key>PlayButton</key>
@@ -466,6 +482,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Text</key>
+				<string>Noteskin:</string>
 			</dict>
 			<key>ThemeLabel</key>
 			<dict>
@@ -477,6 +495,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Text</key>
+				<string>Theme:</string>
 			</dict>
 			<key>SoundLabel</key>
 			<dict>
@@ -488,6 +508,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Text</key>
+				<string>Sound:</string>
 			</dict>
 			<key>FingerTrackingLabel</key>
 			<dict>
@@ -499,6 +521,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Text</key>
+				<string>Finger tracking:</string>
 			</dict>
 			<key>VisiblePadLabel</key>
 			<dict>
@@ -510,8 +534,14 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Text</key>
+				<string>Visible pad:</string>
+				<key>FontSize</key>
+				<integer>16</integer>
+				<key>Font</key>
+				<string>Marker Felt</string>
 			</dict>
-			<key>NoteSkinToggler</key>
+			<key>NoteSkinTogglerCustom</key>
 			<dict>
 				<key>X</key>
 				<integer>110</integer>
@@ -522,7 +552,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
-			<key>ThemeToggler</key>
+			<key>ThemeTogglerCustom</key>
 			<dict>
 				<key>X</key>
 				<integer>110</integer>
@@ -543,6 +573,10 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:sound};setting,sound,{value};sound</string>
+				<key>OnSlideCommand</key>
+				<string>sound,{value}</string>
 			</dict>
 			<key>FingerTrackingToggler</key>
 			<dict>
@@ -554,6 +588,11 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>name,Enabled;setting,autotrack,YES</string>
+					<string>name,Disabled;setting,autotrack,NO</string>
+				</array>
 			</dict>
 			<key>VisiblePadToggler</key>
 			<dict>
@@ -565,6 +604,22 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+			</dict>
+			<key>ModeTogglerDisabled</key>
+			<dict>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>280</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>name,Landscape;setting,landscape,YES</string>
+					<string>name,Skyscraper;setting,landscape,NO</string>
+				</array>
 			</dict>
 		</dict>
 		<key>PadConfig</key>
@@ -671,6 +726,20 @@
 		</dict>
 		<key>SongPlay</key>
 		<dict>
+			<key>NotesStartPosition</key>
+			<dict>
+				<key>X</key>
+				<integer>240</integer>
+				<key>Y</key>
+				<integer>320</integer>
+			</dict>
+			<key>NotesOutOfScopePosition</key>
+			<dict>
+				<key>X</key>
+				<integer>240</integer>
+				<key>Y</key>
+				<integer>0</integer>
+			</dict>
 			<key>HoldJudgement</key>
 			<dict>
 				<key>0</key>

@@ -29,6 +29,9 @@
 #import "CommandParser.h"
 #import "NameCommand.h"
 #import "ScreenCommand.h"
+#import "ValueCommand.h"
+#import "SettingCommand.h"
+#import "SoundCommand.h"
 #import "ModCommand.h"
 
 #import "GameState.h"
@@ -58,12 +61,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 	REG_COMMAND([@"name" retain], [NameCommand class]);
 	REG_COMMAND([@"mod" retain], [ModCommand class]);
 	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
+	REG_COMMAND([@"value" retain], [ValueCommand class]);
+	REG_COMMAND([@"setting" retain], [SettingCommand class]);
+	REG_COMMAND([@"sound" retain], [SoundCommand class]);
+	
 	// REG_COMMAND([@"" retain], );
 	
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];
 	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
-	g_pGameState->m_bLandscape = YES; //[[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
+	g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
 	
 	// Defaults
 	m_pCurrentSong = nil;

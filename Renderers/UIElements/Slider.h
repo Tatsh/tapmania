@@ -9,10 +9,16 @@
 #import "MenuItem.h"
 
 @interface Slider : MenuItem {
-	float	m_fCurrentValue;	// 0.0 -- 1.0
+	float		m_fCurrentValue;		// 0.0 -- 1.0
+	NSArray*	m_pSlideCommandList;	// Commands to perform when sliding
 }
 
 - (id) initWithShape:(CGRect)shape andValue:(float)xValue;
-- (float) currentValue;
+
+// Available by commands as {value}
+- (NSNumber*) currentValue;
+
+// Used by the value,VAL command to set current value
+- (void) setValue:(NSObject*)value;
 
 @end

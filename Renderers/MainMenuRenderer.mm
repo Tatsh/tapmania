@@ -63,6 +63,7 @@ extern TMGameState* g_pGameState;
 	
 	// Register menu items
 	// Must disable the play button if empty catalogue
+	/*
 	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
 		m_pPlayButton = 
 		[[MenuItem alloc] initWithTitle:@"No Songs" andShape:RECT_METRIC(@"MainMenu PlayButton")];
@@ -86,7 +87,8 @@ extern TMGameState* g_pGameState;
 	 [[ZoomEffect alloc] initWithRenderable:
 	  [[MenuItem alloc] initWithMetrics:@"MainMenu CreditsButton"]];
 	[self pushBackControl:m_pCreditsButton];
-	
+	*/
+	 
 	// Setup input handlers
 	[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
 		

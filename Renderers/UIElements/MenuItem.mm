@@ -14,42 +14,96 @@
 #import "TMSoundEngine.h"
 #import "TapMania.h"
 #import "EAGLView.h"
+#import "CommandParser.h"
 
 @implementation MenuItem
 
-- (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
+- (id) initWithShape:(CGRect) shape {
 	self = [super initWithShape:shape];
 	if(!self) 
 		return nil;
-	
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
-	[self setName:title];
-	
+
 	// Load effect sound
-	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
+	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];		
 	
 	return self;
 }
+	
 
-- (id) initWithMetrics:(NSString*)inMetrics {
-	self = [super initWithMetrics:inMetrics];
+- (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
+	self = [self initWithShape:shape];
 	if(!self) 
 		return nil;
 	
+	m_fFontSize = 21.0f;
+	m_sFontName = [@"Marker Felt" retain];
+	m_Align = UITextAlignmentCenter;
+	
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
+	[self setName:title];
+			
+	return self;
+}
+
+- (id) initWithMetrics:(NSString*)inMetricsKey {
+	self = [self initWithShape:RECT_METRIC(inMetricsKey)];
+	if(!self) 
+		return nil;
+
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
 	
-	// Load effect sound
-	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];
+	// Handle Font, FontSize, Align, Text
+	m_fFontSize = FLOAT_METRIC(([NSString stringWithFormat:@"%@ FontSize", inMetricsKey]));
+	if(m_fFontSize == 0.0f) {
+		m_fFontSize = 21.0f;
+	}
+	
+	NSString* align = STR_METRIC(([NSString stringWithFormat:@"%@ Align", inMetricsKey]));
+	m_Align = UITextAlignmentCenter;	// Default
+	
+	if(align != nil) {
+		if([align isEqualToString:@"Center"]) {
+			m_Align = UITextAlignmentCenter;
+		} else if([align isEqualToString:@"Left"]) {
+			m_Align = UITextAlignmentLeft;
+		} else if([align isEqualToString:@"Right"]) {
+			m_Align = UITextAlignmentRight;
+		}
+	}	
+	
+	NSString* font = STR_METRIC(([NSString stringWithFormat:@"%@ Font", inMetricsKey]));
+	if(font != nil) {
+		m_sFontName = [font retain];
+	} else {
+		// TODO: change to default font name when will use font system
+		m_sFontName = [@"Marker Felt" retain];
+	}
+	
+	// Add commands support
+	// Try to get the command list. can be omitted
+	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
+	if([commandList length] > 0) {
+		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
+	}
 	
 	return self;	
 }
+
+- (void) dealloc {
+	if(m_sFontName) [m_sFontName release];
+	if(m_sTitle) [m_sTitle release];
+	if(m_pTitle) [m_pTitle release];
+	
+	[super dealloc];
+}
+
 
 - (void) setName:(NSString*)inName {
 	if(m_sTitle) [m_sTitle release];
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName copy];
-	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:21.0f];
+	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
 }
 
 /* TMRenderable stuff */

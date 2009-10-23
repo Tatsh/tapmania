@@ -43,6 +43,7 @@ typedef enum {
 	CGRect mt_Receptors[kNumOfAvailableTracks];
 	float mt_HalfOfArrowHeight[kNumOfAvailableTracks];
 	CGSize mt_HoldCap, mt_HoldBody;
+	CGPoint	mt_NotesStartPos, mt_NotesOutOfScopePos;
 	
 	// Noteskin stuff
 	TapNote* t_TapNote;

@@ -13,4 +13,6 @@
 @interface TMScreen : TMView <TMTransitionSupport> {
 }
 
+- (id) initWithMetrics:(NSString*)inMetricsKey;
+
 @end

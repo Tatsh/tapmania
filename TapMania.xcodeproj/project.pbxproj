@@ -158,6 +158,9 @@
 		24B30281103BD4A40044AAB2 /* TMLoopedSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.mm */; };
 		24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E3B510626B8D004DDC4B /* TMView.mm */; };
 		24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E4C610627C92004DDC4B /* TMModalView.mm */; };
+		24BE1BEF10919EA000E1B8D8 /* ValueCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */; };
+		24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */; };
+		24BE1CAE1091AE8600E1B8D8 /* SoundCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1CAD1091AE8600E1B8D8 /* SoundCommand.mm */; };
 		24C44005106583CB0003EF60 /* TMCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44004106583CB0003EF60 /* TMCommand.mm */; };
 		24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44009106584FC0003EF60 /* NameCommand.mm */; };
 		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
@@ -502,6 +505,12 @@
 		24B5E3B510626B8D004DDC4B /* TMView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMView.mm; sourceTree = "<group>"; };
 		24B5E4C510627C92004DDC4B /* TMModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMModalView.h; sourceTree = "<group>"; };
 		24B5E4C610627C92004DDC4B /* TMModalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMModalView.mm; sourceTree = "<group>"; };
+		24BE1BED10919EA000E1B8D8 /* ValueCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCommand.h; sourceTree = "<group>"; };
+		24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ValueCommand.mm; sourceTree = "<group>"; };
+		24BE1C2E1091A11D00E1B8D8 /* SettingCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCommand.h; sourceTree = "<group>"; };
+		24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingCommand.mm; sourceTree = "<group>"; };
+		24BE1CAC1091AE8600E1B8D8 /* SoundCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCommand.h; sourceTree = "<group>"; };
+		24BE1CAD1091AE8600E1B8D8 /* SoundCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundCommand.mm; sourceTree = "<group>"; };
 		24C44003106583CB0003EF60 /* TMCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCommand.h; sourceTree = "<group>"; };
 		24C44004106583CB0003EF60 /* TMCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMCommand.mm; sourceTree = "<group>"; };
 		24C44008106584FC0003EF60 /* NameCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCommand.h; sourceTree = "<group>"; };
@@ -1120,6 +1129,12 @@
 				24C44009106584FC0003EF60 /* NameCommand.mm */,
 				24CAF7CB1067C80500141318 /* ScreenCommand.h */,
 				24CAF7CC1067C80500141318 /* ScreenCommand.mm */,
+				24BE1BED10919EA000E1B8D8 /* ValueCommand.h */,
+				24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */,
+				24BE1C2E1091A11D00E1B8D8 /* SettingCommand.h */,
+				24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */,
+				24BE1CAC1091AE8600E1B8D8 /* SoundCommand.h */,
+				24BE1CAD1091AE8600E1B8D8 /* SoundCommand.mm */,
 			);
 			name = SystemCommands;
 			sourceTree = "<group>";
@@ -1692,6 +1707,9 @@
 				24F1AA0E106A2EC200A63B96 /* Quad.mm in Sources */,
 				24F1AA1D106A44DC00A63B96 /* SongPickerWheel.mm in Sources */,
 				248076F9108DE77E0093FDAE /* TMTouch.cpp in Sources */,
+				24BE1BEF10919EA000E1B8D8 /* ValueCommand.mm in Sources */,
+				24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */,
+				24BE1CAE1091AE8600E1B8D8 /* SoundCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

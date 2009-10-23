@@ -29,7 +29,7 @@
 		return NO;
 	}
 	
-	[[TapMania sharedInstance] switchToScreen:[[cls alloc] init]];
+	[[TapMania sharedInstance] switchToScreen:[[cls alloc] initWithMetrics:screenName]];
 	
 	return YES;
 }

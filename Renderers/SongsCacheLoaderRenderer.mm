@@ -27,7 +27,7 @@ Texture2D* t_SongsLoaderBG;
 TMSound*   sr_BG;
 
 - (id) init {
-	self = [super init];
+	self = [super initWithMetrics:@"SongsCacheLoader"];
 	if(!self)
 		return nil;
 	
@@ -130,7 +130,7 @@ TMSound*   sr_BG;
 	
 	if(m_bAllSongsLoaded && m_bTransitionIsDone) {
 		TMLog(@"Requesting switch to main screen!");
-		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] initWithMetrics:@"MainMenu"]];
 		m_bAllSongsLoaded = NO; // Do this only once
 		
 	} else if(m_bGlobalError) {

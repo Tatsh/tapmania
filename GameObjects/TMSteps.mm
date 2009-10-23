@@ -50,6 +50,9 @@ extern TMGameState* g_pGameState;
 	mt_HoldCap =							SIZE_SKIN_METRIC(@"HoldNote Cap");
 	mt_HoldBody =							SIZE_SKIN_METRIC(@"HoldNote Body");
 	
+	mt_NotesStartPos =						POINT_METRIC(@"SongPlay NotesStartPosition");
+	mt_NotesOutOfScopePos =					POINT_METRIC(@"SongPlay NotesOutOfScopePosition");
+	
 	// Cache textures
 	t_TapNote = (TapNote*)SKIN_TEXTURE(@"DownTapNote");
 	t_TapMine = (TapMine*)SKIN_TEXTURE(@"TapMine");
@@ -302,7 +305,7 @@ extern TMGameState* g_pGameState;
 			float noteBps = [TimingUtil getBpsAtBeat:beat inSong:g_pGameState->m_pSong];
 			
 			float noteYPosition = lastNoteYPosition;
-			float holdBottomCapYPosition = 0.0f;
+			float holdBottomCapYPosition = mt_NotesStartPos.y;
 			
 			int lastNoteRow = prevNote ? prevNote.m_nStartNoteRow : [TMNote beatToNoteRow:currentBeat];
 			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:g_pGameState->m_pSong];
@@ -385,8 +388,7 @@ extern TMGameState* g_pGameState;
 			}
 			
 			// Check whether this note is already out of scope
-			// TODO: 480 no good here!
-			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= 480.0f) {
+			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= mt_NotesOutOfScopePos.y) {
 				++m_nTrackPos[i];				
 				continue; // Skip this note
 			}
@@ -400,7 +402,7 @@ extern TMGameState* g_pGameState;
 					
 					++m_nTrackPos[i];
 					continue; // Skip this hold already
-				} else if (!note.m_bIsHit && holdBottomCapYPosition >= 480.0f) {
+				} else if (!note.m_bIsHit && holdBottomCapYPosition >= mt_NotesOutOfScopePos.y) {
 					// Let the hold go till the end of the screen. The lifebar and the NG graphic is done already when the hold was lost
 					++m_nTrackPos[i];
 					continue; // Skip
@@ -511,7 +513,7 @@ extern TMGameState* g_pGameState;
 						float sizeOfPiece = totalBodyHeight > mt_HoldBody.height ? mt_HoldBody.height : totalBodyHeight;
 						
 						// Don't draw if we are out of screen
-						if(offset+sizeOfPiece > 0.0f) {					
+						if(offset+sizeOfPiece > mt_NotesStartPos.y) {					
 							if(note.m_bIsHolding) {
 								[t_HoldNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
 							} else {
@@ -524,7 +526,7 @@ extern TMGameState* g_pGameState;
 					} while(totalBodyHeight > 0.0f);					
 					
 					// determine the position of the cap and draw it if needed
-					if(bodyBottomY > 0.0f) {
+					if(bodyBottomY > mt_NotesStartPos.y) {
 						// Ok. must draw the cap
 						glEnable(GL_BLEND);
 						

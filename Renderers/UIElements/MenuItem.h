@@ -13,7 +13,10 @@
 @interface MenuItem : TMControl {
 	TMFramedTexture*	m_pTexture;
 	Texture2D*			m_pTitle;
-	NSString*			m_sTitle;
+	NSString*			m_sTitle;	
+	float				m_fFontSize;
+	NSString*			m_sFontName;
+	UITextAlignment		m_Align;
 	
 	/* Sound effect */
 	TMSound*	sr_MenuButtonEffect;

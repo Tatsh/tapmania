@@ -9,8 +9,49 @@
 #import "Label.h"
 
 #import "Texture2D.h"
+#import "ThemeManager.h"
 
 @implementation Label
+
+- (id) initWithMetrics:(NSString*)inMetricsKey {
+	self = [super initWithMetrics:inMetricsKey];
+	if(!self)
+		return nil;
+	
+	// Handle Font, FontSize, Align, Text
+	m_fFontSize = FLOAT_METRIC(([NSString stringWithFormat:@"%@ FontSize", inMetricsKey]));
+	if(m_fFontSize == 0.0f) {
+		m_fFontSize = 21.0f;
+	}
+	
+	NSString* align = STR_METRIC(([NSString stringWithFormat:@"%@ Align", inMetricsKey]));
+	m_Align = UITextAlignmentLeft;	// Default
+	
+	if(align != nil) {
+		if([align isEqualToString:@"Center"]) {
+			m_Align = UITextAlignmentCenter;
+		} else if([align isEqualToString:@"Left"]) {
+			m_Align = UITextAlignmentLeft;
+		} else if([align isEqualToString:@"Right"]) {
+			m_Align = UITextAlignmentRight;
+		}
+	}	
+	
+	NSString* font = STR_METRIC(([NSString stringWithFormat:@"%@ Font", inMetricsKey]));
+	if(font != nil) {
+		m_sFontName = [font retain];
+	} else {
+		// TODO: change to default font name when will use font system
+		m_sFontName = [@"Marker Felt" retain];
+	}
+	
+	m_sTitle = [ STR_METRIC(([NSString stringWithFormat:@"%@ Text", inMetricsKey])) retain];
+
+	// Generate texture
+	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	
+	return self;
+}
 
 - (id) initWithTitle:(NSString*)title fontSize:(float)fontSize andShape:(CGRect) shape {
 	self = [super initWithShape:shape];
@@ -28,6 +69,14 @@
 - (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [self initWithTitle:title fontSize:21.0f andShape:shape];
 	return self;
+}
+
+- (void) dealloc {
+	[m_sTitle release];
+	[m_sFontName release];
+	[m_pTitle release];
+	
+	[super dealloc];
 }
 
 /* TMRenderable stuff */

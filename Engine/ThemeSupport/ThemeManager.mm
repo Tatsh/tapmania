@@ -174,7 +174,7 @@ extern TMGameState*	g_pGameState;
 - (NSString*) stringMetric:(NSString*) metricKey {
 	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node) 
-		return @"EMPTY"; // Defualt value
+		return nil;
 	
 	return [[NSString stringWithString:(NSString*)node] autorelease];
 }
@@ -250,7 +250,7 @@ extern TMGameState*	g_pGameState;
 - (NSString*) stringSkinMetric:(NSString*) metricKey {
 	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
 	if(!node) 
-		return @"EMPTY"; // Defualt value
+		return nil;
 	
 	return [[NSString stringWithString:(NSString*)node] autorelease];
 }

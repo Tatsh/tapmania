@@ -19,7 +19,7 @@
 	if(!self)
 		return nil;
 	
-	// Try to get the command list
+	// Try to get the command list. can be omitted
 	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
 	if([commandList length] > 0) {
 		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];

@@ -13,6 +13,8 @@
 @interface Label : TMControl {
 	Texture2D*			m_pTitle;
 	float				m_fFontSize;
+	NSString*			m_sFontName;
+	UITextAlignment		m_Align;
 	NSString*			m_sTitle;
 }
 

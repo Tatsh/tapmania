@@ -90,11 +90,13 @@ extern TMGameState * g_pGameState;
 	ImageButton* modPanel = [[ImageButton alloc] initWithTexture:t_ModPanel andShape:mt_ModPanel];
 	[self pushBackChild:modPanel];
 	
-	// Speed mod toggler	
+	// Speed mod toggler
+	/*
 	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler 
 											andCommands:ARRAY_METRIC(@"SongPickerMenu SpeedToggler Elements")]];
 	[(TogglerItem*) m_pSpeedToggler selectItemAtIndex:INT_METRIC(@"SongPickerMenu SpeedToggler DefaultElement")];
 	[self pushBackControl:m_pSpeedToggler];
+	 */
 	
 	// Difficulty toggler
 	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_DifficultyToggler]];

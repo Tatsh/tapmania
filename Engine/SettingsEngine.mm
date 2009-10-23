@@ -75,6 +75,14 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	return @"";
 }
 
+- (NSObject*) getObjectValue:(NSString*)key {	
+	if( [m_pUserConfig valueForKey:key] != nil ) {
+		return [m_pUserConfig valueForKey:key];
+	}	
+	
+	return nil;
+}
+
 - (int) getIntValue:(NSString*)key {
 	if( [m_pUserConfig valueForKey:key] != nil ) {
 		return [(NSNumber*)[m_pUserConfig valueForKey:key] intValue];
@@ -118,6 +126,11 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 	}
 	
 	return CGPointMake(-1, -1);
+}
+
+- (void) setValueFromObject:(NSObject*)value forKey:(NSString*)key {
+	[m_pUserConfig setObject:value forKey:key];
+	[self writeUserConfig];
 }
 
 - (void) setStringValue:(NSString*)value forKey:(NSString*)key {

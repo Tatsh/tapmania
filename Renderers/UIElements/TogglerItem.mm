@@ -102,18 +102,26 @@
 	return self;
 }
 
-- (id) initWithShape:(CGRect)shape andCommands:(NSArray*) inCmds {
-	self = [self initWithShape:shape];
+- (id) initWithMetrics:(NSString*)inMetricsKey {
+	self = [super initWithMetrics:inMetricsKey];
 	if(!self)
-		return nil;
+		return nil;	
 	
-	for(NSString* cmdStr in inCmds) {
-		TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
-		NSArray* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
-		[obj setCmdList:[cmdList retain]];
+	// Also handle Elements, DefaultElement
+	NSArray* elements = ARRAY_METRIC(([NSString stringWithFormat:@"%@ Elements", inMetricsKey]));
+	if( elements != nil ) {
+	
+		for(NSString* cmdStr in elements) {
+			TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
+			NSArray* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
+			[obj setCmdList:[cmdList retain]];
 		
-		[m_aElements addObject:obj];
+			[m_aElements addObject:obj];
+		}
 	}
+	
+	int def = INT_METRIC(([NSString stringWithFormat:@"%@ DefaultElement", inMetricsKey]));
+	[self selectItemAtIndex:def];	
 	
 	return self;
 }
