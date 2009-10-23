@@ -32,6 +32,7 @@
 #import "ValueCommand.h"
 #import "SettingCommand.h"
 #import "VolumeCommand.h"
+#import "SleepCommand.h"
 #import "ModCommand.h"
 
 #import "GameState.h"
@@ -59,6 +60,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Start command engine and register system commands
 	REG_COMMAND([@"name" retain], [NameCommand class]);
+	REG_COMMAND([@"sleep" retain], [SleepCommand class]);
 	REG_COMMAND([@"mod" retain], [ModCommand class]);
 	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
 	REG_COMMAND([@"value" retain], [ValueCommand class]);

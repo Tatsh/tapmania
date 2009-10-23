@@ -8,6 +8,7 @@
 
 #import "CommandParser.h"
 #import "TMCommand.h"
+#import "TapMania.h"
 
 // This is a singleton class, see below
 static CommandParser *sharedCommandParserDelegate = nil;
@@ -83,7 +84,7 @@ static CommandParser *sharedCommandParserDelegate = nil;
 			continue;
 		}
 		
-		command = [[commandClass alloc] initWithArguments:args];
+		command = [[commandClass alloc] initWithArguments:args andInvocationObject:inObj];
 		[command invokeAtConstructionOnObject:inObj];
 		
 		[resultingCommandList addObject:command];
@@ -103,8 +104,14 @@ static CommandParser *sharedCommandParserDelegate = nil;
 	BOOL result = YES;
 	
 	for(TMCommand* cmd in inCmdList) {
+		/*
 		BOOL tmpRes = [cmd invokeOnObject:inObj];
 		if(tmpRes == NO) result = NO;
+		*/
+		
+		// Just put copies of all commands on the runloop for now
+		[cmd setInvocationObject:inObj];
+		[[TapMania sharedInstance] registerObjectAtEnd:[cmd copy]];
 	}
 	
 	return result;

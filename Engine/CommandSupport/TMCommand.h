@@ -6,11 +6,15 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-@interface TMCommand : NSObject {
+#import "TMLogicUpdater.h"
+#import "TMRenderable.h"
+
+@interface TMCommand : NSObject <TMLogicUpdater, TMRenderable, NSCopying> {
 	NSArray*	m_aArguments;
+	NSObject*	m_pInvocationObject;
 }
 
-- (id) initWithArguments:(NSArray*) inArgs;
+- (id) initWithArguments:(NSArray*) inArgs andInvocationObject:(NSObject*) inObj;
 
 // This is invoked when the command is being parsed (constructed)
 - (BOOL) invokeAtConstructionOnObject:(NSObject*)inObj;
@@ -20,5 +24,7 @@
 
 // Value getters
 - (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj;
+
+- (void) setInvocationObject:(NSObject*)inObj;
 
 @end

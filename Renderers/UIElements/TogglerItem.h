@@ -32,6 +32,9 @@
 - (void) setCmdList:(NSArray*)inCmdList;
 - (void) onSelect;
 
+// Used by the value,VAL command to set current value
+- (void) setValue:(NSObject*)value;
+
 @end
 
 /* The toggler self */
@@ -53,5 +56,8 @@
 - (void) selectItemAtIndex:(int) index;
 - (void) toggle;
 - (TogglerItemObject*) getCurrent;
+
+// Used by the value,VAL command to set current value
+- (void) setValue:(NSObject*)value;
 
 @end

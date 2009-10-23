@@ -580,6 +580,8 @@
 			</dict>
 			<key>FingerTrackingToggler</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>value,{setting:autotrack}</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -590,12 +592,14 @@
 				<integer>46</integer>
 				<key>Elements</key>
 				<array>
-					<string>name,Enabled;setting,autotrack,YES</string>
-					<string>name,Disabled;setting,autotrack,NO</string>
+					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
+					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
 				</array>
 			</dict>
 			<key>VisiblePadToggler</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>value,{setting:vispad}</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -606,8 +610,8 @@
 				<integer>46</integer>
 				<key>Elements</key>
 				<array>
-					<string>name,Enabled;setting,vispad,YES</string>
-					<string>name,Disabled;setting,vispad,NO</string>
+					<string>value,YES;name,Enabled;setting,vispad,YES</string>
+					<string>value,NO;name,Disabled;setting,vispad,NO</string>
 				</array>
 			</dict>
 			<key>ModeTogglerDisabled</key>
@@ -680,6 +684,8 @@
 			</dict>
 			<key>SpeedToggler</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>value,x1</string>
 				<key>Elements</key>
 				<array>
 					<string>mod,0.25x;name,x0.25</string>
@@ -692,8 +698,6 @@
 					<string>mod,5x;name,x5</string>
 					<string>mod,8x;name,x8</string>
 				</array>
-				<key>DefaultElement</key>
-				<integer>2</integer>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>Width</key>

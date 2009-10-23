@@ -62,7 +62,18 @@
 		[m_pText release];
 	}
 	
+	// TODO: Font should be set using command
 	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
+	
+	// If the value isn't set yet - set it to the same as name
+	if(!m_pValue) {
+		m_pValue = [m_sTitle copy];
+	}
+}
+
+- (void) setValue:(NSObject*)value {
+	if(m_pValue) [m_pValue release];
+	m_pValue = value;
 }
 
 - (void) setCmdList:(NSArray*)inCmdList {
@@ -76,7 +87,7 @@
 - (void) dealloc {
 	[m_pText release];
 	[m_sTitle release];
-	[m_pValue release];
+	if(m_pValue) [m_pValue release];
 	[m_pCmdList release];
 	[super dealloc];
 }
@@ -103,7 +114,7 @@
 }
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
-	self = [super initWithMetrics:inMetricsKey];
+	self = [self initWithShape:RECT_METRIC(inMetricsKey)];
 	if(!self)
 		return nil;	
 	
@@ -120,8 +131,17 @@
 		}
 	}
 	
+	/*
 	int def = INT_METRIC(([NSString stringWithFormat:@"%@ DefaultElement", inMetricsKey]));
 	[self selectItemAtIndex:def];	
+	 */
+	
+	// Add commands support
+	// Try to get the command list. can be omitted
+	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
+	if([commandList length] > 0) {
+		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
+	}	
 	
 	return self;
 }
@@ -194,6 +214,22 @@
 	
 	return nil;
 }
+
+- (void) setValue:(NSObject*)value {
+	m_nCurrentSelection = 0;
+	int tmp = 0;
+	
+	for(TogglerItemObject* obj in m_aElements) {
+		if( [obj.m_pValue isEqualTo:value] ) {
+			m_nCurrentSelection = tmp;
+			TMLog(@"Found matching value in toggler at %d", m_nCurrentSelection);
+			break;
+		}
+
+		++tmp;
+	}
+}
+
 
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {

@@ -25,6 +25,9 @@
 
 	// Load effect sound
 	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];		
+
+	// Load texture
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
 	
 	return self;
 }
@@ -39,7 +42,6 @@
 	m_sFontName = [@"Marker Felt" retain];
 	m_Align = UITextAlignmentCenter;
 	
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
 	[self setName:title];
 			
 	return self;
@@ -49,8 +51,6 @@
 	self = [self initWithShape:RECT_METRIC(inMetricsKey)];
 	if(!self) 
 		return nil;
-
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
 	
 	// Handle Font, FontSize, Align, Text
 	m_fFontSize = FLOAT_METRIC(([NSString stringWithFormat:@"%@ FontSize", inMetricsKey]));

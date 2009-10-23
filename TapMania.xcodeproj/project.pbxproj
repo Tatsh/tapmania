@@ -161,6 +161,7 @@
 		24BE1BEF10919EA000E1B8D8 /* ValueCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */; };
 		24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */; };
 		24BE1D611091CF3D00E1B8D8 /* VolumeCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1D601091CF3D00E1B8D8 /* VolumeCommand.mm */; };
+		24BE1DEA1092062200E1B8D8 /* SleepCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1DE91092062200E1B8D8 /* SleepCommand.mm */; };
 		24C44005106583CB0003EF60 /* TMCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44004106583CB0003EF60 /* TMCommand.mm */; };
 		24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44009106584FC0003EF60 /* NameCommand.mm */; };
 		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
@@ -511,6 +512,8 @@
 		24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingCommand.mm; sourceTree = "<group>"; };
 		24BE1D5F1091CF3D00E1B8D8 /* VolumeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeCommand.h; sourceTree = "<group>"; };
 		24BE1D601091CF3D00E1B8D8 /* VolumeCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeCommand.mm; sourceTree = "<group>"; };
+		24BE1DE81092062200E1B8D8 /* SleepCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleepCommand.h; sourceTree = "<group>"; };
+		24BE1DE91092062200E1B8D8 /* SleepCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SleepCommand.mm; sourceTree = "<group>"; };
 		24C44003106583CB0003EF60 /* TMCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCommand.h; sourceTree = "<group>"; };
 		24C44004106583CB0003EF60 /* TMCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMCommand.mm; sourceTree = "<group>"; };
 		24C44008106584FC0003EF60 /* NameCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCommand.h; sourceTree = "<group>"; };
@@ -1135,6 +1138,8 @@
 				24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */,
 				24BE1C2E1091A11D00E1B8D8 /* SettingCommand.h */,
 				24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */,
+				24BE1DE81092062200E1B8D8 /* SleepCommand.h */,
+				24BE1DE91092062200E1B8D8 /* SleepCommand.mm */,
 			);
 			name = SystemCommands;
 			sourceTree = "<group>";
@@ -1710,6 +1715,7 @@
 				24BE1BEF10919EA000E1B8D8 /* ValueCommand.mm in Sources */,
 				24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */,
 				24BE1D611091CF3D00E1B8D8 /* VolumeCommand.mm in Sources */,
+				24BE1DEA1092062200E1B8D8 /* SleepCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
