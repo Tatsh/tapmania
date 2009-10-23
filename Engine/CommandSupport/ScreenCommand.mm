@@ -12,10 +12,23 @@
 
 @implementation ScreenCommand
 
+- (id) initWithArguments:(NSArray*) inArgs {
+	self = [super initWithArguments:inArgs];
+	if(!self)
+		return nil;
+	
+	if([inArgs count] != 1) {
+		TMLog(@"Wrong argument count for command 'screen'. abort.");
+		return nil;
+	}
+	
+	return self;
+}
+
 - (BOOL) invokeOnObject:(NSObject*)inObj {
 	
 	// Get the screen name to switch
-	NSString* screenName = [m_aArguments objectAtIndex:0];
+	NSString* screenName = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];
 	
 	// Every screen has a root metric dictionary in the root of the theme metrics
 	// So just get that metric dictionary. The screen class is called $SCREENNAME+Renderer

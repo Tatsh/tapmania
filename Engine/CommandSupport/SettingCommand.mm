@@ -11,30 +11,29 @@
 
 @implementation SettingCommand
 
+- (id) initWithArguments:(NSArray*) inArgs {
+	self = [super initWithArguments:inArgs];
+	if(!self)
+		return nil;
+	
+	if([inArgs count] != 2) {
+		TMLog(@"Wrong argument count for command 'setting'. abort.");
+		return nil;
+	}
+	
+	return self;
+}
+
 - (BOOL) invokeOnObject:(NSObject*)inObj {
 	
 	// Get the setting name to tune
-	NSString* settingName = [m_aArguments objectAtIndex:0];
+	NSString* settingName = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];
 	if(!settingName || ![settingName length]) {
 		return NO;
 	}
 	
 	// Get new value to set
-	NSObject* value = nil;
-	NSString* tmp = [m_aArguments objectAtIndex:1];
-	
-	if([tmp isEqualTo:@"{value}"]) {
-		if([inObj respondsToSelector:@selector(currentValue)]) {
-			value = [inObj performSelector:@selector(currentValue)];
-			TMLog(@"Got current value: %@", value);
-		}
-	} else {
-		if([tmp length]) {
-			// TODO: add int/float etc. conversions
-			value = tmp;
-			TMLog(@"Setting value: %@", value);
-		}
-	}	
+	NSObject* value = [self getValueFromString:[m_aArguments objectAtIndex:1] withObject:inObj];
 	
 	if(value) {
 		[[SettingsEngine sharedInstance] setValueFromObject:value forKey:settingName]; 

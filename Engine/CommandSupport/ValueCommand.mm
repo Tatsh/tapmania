@@ -7,25 +7,27 @@
 //
 
 #import "ValueCommand.h"
-#import "SettingsEngine.h"
 
 @implementation ValueCommand
+
+- (id) initWithArguments:(NSArray*) inArgs {
+	self = [super initWithArguments:inArgs];
+	if(!self)
+		return nil;
+	
+	if([inArgs count] != 1) {
+		TMLog(@"Wrong argument count for command 'value'. abort.");
+		return nil;
+	}
+	
+	return self;
+}
 
 - (BOOL) invokeAtConstructionOnObject:(NSObject*)inObj {
 	if([inObj respondsToSelector:@selector(setValue:)]) {
 		
-		NSString* tmp = [m_aArguments objectAtIndex:0];
-		NSObject* value = nil;
-		
-		if([tmp hasPrefix:@"{setting:"]) {
-			tmp = [tmp stringByReplacingOccurrencesOfString:@"{setting:" withString:@""];
-			tmp = [tmp stringByReplacingOccurrencesOfString:@"}" withString:@""];
-			
-			value = [[SettingsEngine sharedInstance] getObjectValue:tmp];
-		} else {
-			value = tmp;
-		}
-		
+		NSObject* value = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];
+				
 		if(value) {
 			[inObj performSelector:@selector(setValue:) withObject:value];
 			return YES;

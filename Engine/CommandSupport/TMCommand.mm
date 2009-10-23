@@ -7,6 +7,7 @@
 //
 
 #import "TMCommand.h"
+#import "SettingsEngine.h"
 
 @implementation TMCommand
 
@@ -32,5 +33,28 @@
 - (BOOL) invokeOnObject:(NSObject*)inObj {
 	return NO;
 }
+
+
+- (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj {
+	
+	if([str hasPrefix:@"{setting:"]) {
+		NSString* tmp = [str stringByReplacingOccurrencesOfString:@"{setting:" withString:@""];
+		tmp = [tmp stringByReplacingOccurrencesOfString:@"}" withString:@""];
+		
+		return [[SettingsEngine sharedInstance] getObjectValue:tmp];
+	}
+	else if([str isEqualToString:@"{value}"]) {
+		if([inObj respondsToSelector:@selector(currentValue)]) {
+			return [inObj performSelector:@selector(currentValue)];
+		} else {
+			TMLog(@"CurrentValue method not supported by this object: %@", inObj);
+			return nil;
+		}
+	}
+	else {
+		return str;
+	}
+}
+
 
 @end

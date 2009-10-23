@@ -574,9 +574,9 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:sound};setting,sound,{value};sound</string>
+				<string>value,{setting:sound};setting,sound,{value}</string>
 				<key>OnSlideCommand</key>
-				<string>sound,{value}</string>
+				<string>volume,{value}</string>
 			</dict>
 			<key>FingerTrackingToggler</key>
 			<dict>
@@ -604,6 +604,11 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>name,Enabled;setting,vispad,YES</string>
+					<string>name,Disabled;setting,vispad,NO</string>
+				</array>
 			</dict>
 			<key>ModeTogglerDisabled</key>
 			<dict>

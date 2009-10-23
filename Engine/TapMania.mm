@@ -1,9 +1,9 @@
 //
-//  LogicEngine.m
+//  TapMania.mm
 //  TapMania
 //
-//  Created by Alex Kremer on 01.12.08.
-//  Copyright 2008 Godexsoft. All rights reserved.
+//  Created by Alex Kremer on 02.01.09.
+//  Copyright 2008-2009 Godexsoft. All rights reserved.
 //
 
 #import "TapMania.h"
@@ -31,7 +31,7 @@
 #import "ScreenCommand.h"
 #import "ValueCommand.h"
 #import "SettingCommand.h"
-#import "SoundCommand.h"
+#import "VolumeCommand.h"
 #import "ModCommand.h"
 
 #import "GameState.h"
@@ -63,14 +63,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
 	REG_COMMAND([@"value" retain], [ValueCommand class]);
 	REG_COMMAND([@"setting" retain], [SettingCommand class]);
-	REG_COMMAND([@"sound" retain], [SoundCommand class]);
+	REG_COMMAND([@"volume" retain], [VolumeCommand class]);
 	
 	// REG_COMMAND([@"" retain], );
 	
 	// Load up user configuration and cache
 	[[SettingsEngine sharedInstance] loadUserConfig];
 	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
-	g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
+	g_pGameState->m_bLandscape = YES; // [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
 	
 	// Defaults
 	m_pCurrentSong = nil;

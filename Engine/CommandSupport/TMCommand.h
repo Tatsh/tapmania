@@ -18,4 +18,7 @@
 // This is invoked when it's time to fire the command
 - (BOOL) invokeOnObject:(NSObject*)inObj;
 
+// Value getters
+- (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj;
+
 @end

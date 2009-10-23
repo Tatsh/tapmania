@@ -32,19 +32,19 @@
 	for(NSObject* element in conf) {
 		TMLog(@"Got elem: %@", element);
 		
-		if([element isCaseInsensitiveLike:@"*button"]) {
+		if([element hasSuffix:@"Button"]) {
 			TMControl* ctrl = [[MenuItem alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
 			[self pushBackControl:ctrl];
 		}
-		else if([element isCaseInsensitiveLike:@"*label"]) {
+		else if([element hasSuffix:@"Label"]) {
 			TMControl* ctrl = [[Label alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
 			[self pushBackControl:ctrl];
 		}
-		else if([element isCaseInsensitiveLike:@"*slider"]) {
+		else if([element hasSuffix:@"Slider"]) {
 			TMControl* ctrl = [[Slider alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
 			[self pushBackControl:ctrl];
 		}
-		else if([element isCaseInsensitiveLike:@"*toggler"]) {
+		else if([element hasSuffix:@"Toggler"]) {
 			TMControl* ctrl = [[TogglerItem alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
 			[self pushBackControl:ctrl];
 		}

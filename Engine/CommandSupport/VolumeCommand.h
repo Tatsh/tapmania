@@ -1,5 +1,5 @@
 //
-//  SoundCommand.h
+//  VolumeCommand.h
 //  TapMania
 //
 //  Created by Alex Kremer on 23.10.09.
@@ -8,7 +8,7 @@
 
 #import "TMCommand.h"
 
-@interface SoundCommand : TMCommand {
+@interface VolumeCommand : TMCommand {
 }
 
 @end
