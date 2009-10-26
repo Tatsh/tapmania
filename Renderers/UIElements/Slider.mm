@@ -28,7 +28,8 @@
 	
 	// limit the value to 0.0-1.0 range
 	m_fCurrentValue = fminf(1.0f, fmaxf(xValue, 0.0f));
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common Slider"];	
+	
+	[self initGraphicsAndSounds:@"Common Slider"];
 	
 	return self;
 }
@@ -38,27 +39,24 @@
 	if(!self) 
 		return nil;
 	
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common Slider"];	
+	[self initGraphicsAndSounds:inMetricsKey];
 	m_fCurrentValue = 0.0f;
 	
 	// Add commands support
-	// Try to get the command list. can be omitted
-	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
-	if(commandList && [commandList length] > 0) {
-		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
-	}
-
-	NSString* slideCommandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnSlideCommand"]);
-	if(slideCommandList && [slideCommandList length] > 0) {
-		m_pSlideCommandList = [[[CommandParser sharedInstance] createCommandListFromString:slideCommandList forRequestingObject:self] retain];
-	}
+	[super initCommands:inMetricsKey];
 	
 	return self;
 }	
 
-- (void) dealloc {
-	if(m_pSlideCommandList) [m_pSlideCommandList release];
-	[super dealloc];
+- (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
+	[super initGraphicsAndSounds:inMetricsKey];
+	NSString* inFb = @"Common Slider";
+	
+	// Load texture
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inMetricsKey];
+	if(!m_pTexture) {
+		m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inFb];		
+	}
 }
 
 - (void) setValueFromPoint:(CGPoint)point {
@@ -108,13 +106,7 @@
 		CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 		if([self containsPoint:point]) {
-			[self setValueFromPoint:point];
-			
-			if(m_pSlideCommandList) {
-				TMLog(@"Running slider's OnSlideCommand...");
-				[[CommandParser sharedInstance] runCommandList:m_pSlideCommandList forRequestingObject:self];	
-			}
-			
+			[self setValueFromPoint:point];			
 			[super tmTouchesMoved:touches withEvent:event];						
 			return YES;
 		}

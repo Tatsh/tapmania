@@ -10,7 +10,6 @@
 
 @interface Slider : MenuItem {
 	float		m_fCurrentValue;		// 0.0 -- 1.0
-	NSArray*	m_pSlideCommandList;	// Commands to perform when sliding
 }
 
 - (id) initWithShape:(CGRect)shape andValue:(float)xValue;

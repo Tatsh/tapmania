@@ -9,6 +9,8 @@
 #import "TMEffectSupport.h"
 #import "TMView.h"
 
+@class TMCommand;
+
 /* A control is a view that can be pressed and that supports all kind of control effects */
 @interface TMControl : TMView <TMEffectSupport> {
 	id			m_idActionDelegate;			// delegate to invoke the selector on
@@ -17,14 +19,21 @@
 	id			m_idChangedDelegate;		// delegate to invoke the selector on
 	SEL			m_oChangedActionHandler;	// selector which should be invoked on finger drag over the control	
 	
-	NSArray*	m_pCommandList;				// used if non-nil
+	TMCommand*	m_pOnCommand;				// used if non-nil; commands to perform when touched
+	TMCommand*	m_pOffCommand;				// used if non-nil; commands to perform when released
+	TMCommand*	m_pSlideCommand;			// used if non-nil; commands to perform when sliding
 }
 
 - (id) initWithMetrics:(NSString*)inMetricsKey;
+- (void) initCommands:(NSString*)inMetricsKey;
 
 - (void) setActionHandler:(SEL)selector receiver:(id)receiver;
 - (void) setChangedActionHandler:(SEL)selector receiver:(id)receiver;
 
-- (void) setCommandList:(NSArray*)inCmdList;
+- (void) setOnCommand:(TMCommand*)inCmd;
+- (void) setOffCommand:(TMCommand*)inCmd;
+- (void) setSlideCommand:(TMCommand*)inCmd;
+
+- (void) initGraphicsAndSounds:(NSString*)inMetricsKey;
 
 @end

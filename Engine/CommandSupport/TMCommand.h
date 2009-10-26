@@ -11,6 +11,8 @@
 
 @interface TMCommand : NSObject <TMLogicUpdater, TMRenderable, NSCopying> {
 	NSArray*	m_aArguments;
+
+	TMCommand*	m_pNextCmd;				// This is for chaining commands into lists
 	NSObject*	m_pInvocationObject;
 }
 
@@ -26,5 +28,6 @@
 - (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj;
 
 - (void) setInvocationObject:(NSObject*)inObj;
+- (void) setNextCommand:(TMCommand*)inCmd;
 
 @end

@@ -166,6 +166,9 @@
 		24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44009106584FC0003EF60 /* NameCommand.mm */; };
 		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
 		24CAF7CD1067C80500141318 /* ScreenCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CAF7CC1067C80500141318 /* ScreenCommand.mm */; };
+		24CB0E9C10959C350035A079 /* FontCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0E9B10959C350035A079 /* FontCommand.mm */; };
+		24CB0EA010959CB60035A079 /* FontSizeCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */; };
+		24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.mm */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.mm */; };
 		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
@@ -523,6 +526,12 @@
 		24CA104A100B4B1A001FAD18 /* VersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInfo.h; sourceTree = "<group>"; };
 		24CAF7CB1067C80500141318 /* ScreenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenCommand.h; sourceTree = "<group>"; };
 		24CAF7CC1067C80500141318 /* ScreenCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScreenCommand.mm; sourceTree = "<group>"; };
+		24CB0E9A10959C350035A079 /* FontCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCommand.h; sourceTree = "<group>"; };
+		24CB0E9B10959C350035A079 /* FontCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontCommand.mm; sourceTree = "<group>"; };
+		24CB0E9E10959CB60035A079 /* FontSizeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontSizeCommand.h; sourceTree = "<group>"; };
+		24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontSizeCommand.mm; sourceTree = "<group>"; };
+		24CB0EA510959D4C0035A079 /* AlignmentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlignmentCommand.h; sourceTree = "<group>"; };
+		24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AlignmentCommand.mm; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QuadTransition.mm; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
@@ -1140,6 +1149,12 @@
 				24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */,
 				24BE1DE81092062200E1B8D8 /* SleepCommand.h */,
 				24BE1DE91092062200E1B8D8 /* SleepCommand.mm */,
+				24CB0E9A10959C350035A079 /* FontCommand.h */,
+				24CB0E9B10959C350035A079 /* FontCommand.mm */,
+				24CB0E9E10959CB60035A079 /* FontSizeCommand.h */,
+				24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */,
+				24CB0EA510959D4C0035A079 /* AlignmentCommand.h */,
+				24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */,
 			);
 			name = SystemCommands;
 			sourceTree = "<group>";
@@ -1716,6 +1731,9 @@
 				24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */,
 				24BE1D611091CF3D00E1B8D8 /* VolumeCommand.mm in Sources */,
 				24BE1DEA1092062200E1B8D8 /* SleepCommand.mm in Sources */,
+				24CB0E9C10959C350035A079 /* FontCommand.mm in Sources */,
+				24CB0EA010959CB60035A079 /* FontSizeCommand.mm in Sources */,
+				24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

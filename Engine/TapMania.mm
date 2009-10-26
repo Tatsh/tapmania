@@ -28,6 +28,9 @@
 
 #import "CommandParser.h"
 #import "NameCommand.h"
+#import "FontCommand.h"
+#import "FontSizeCommand.h"
+#import "AlignmentCommand.h"
 #import "ScreenCommand.h"
 #import "ValueCommand.h"
 #import "SettingCommand.h"
@@ -60,12 +63,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Start command engine and register system commands
 	REG_COMMAND([@"name" retain], [NameCommand class]);
+	REG_COMMAND([@"font" retain], [FontCommand class]);
+	REG_COMMAND([@"fontsize" retain], [FontSizeCommand class]);
+	REG_COMMAND([@"alignment" retain], [AlignmentCommand class]);
 	REG_COMMAND([@"sleep" retain], [SleepCommand class]);
 	REG_COMMAND([@"mod" retain], [ModCommand class]);
 	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
 	REG_COMMAND([@"value" retain], [ValueCommand class]);
 	REG_COMMAND([@"setting" retain], [SettingCommand class]);
 	REG_COMMAND([@"volume" retain], [VolumeCommand class]);
+	
 	
 	// REG_COMMAND([@"" retain], );
 	

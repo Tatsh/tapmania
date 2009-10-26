@@ -18,14 +18,16 @@ typedef map<string, Class> TMCommandDictionary;
 
 #endif
 
+@class TMCommand;
+
 @interface CommandParser : NSObject {
 	TMCommandDictionary*	m_pDictionary;
 }
 
 - (void) registerCommand:(Class)inCls withName:(NSString*)inName;
 
-- (NSArray*) createCommandListFromString:(NSString*)inCmdList forRequestingObject:(NSObject*)inObj;
-- (BOOL) runCommandList:(NSArray*)inCmdList forRequestingObject:(NSObject*)inObj;
+- (TMCommand*) createCommandListFromString:(NSString*)inCmdList forRequestingObject:(NSObject*)inObj;
+- (BOOL) runCommandList:(TMCommand*)inCmdList forRequestingObject:(NSObject*)inObj;
 
 + (CommandParser *) sharedInstance;
 

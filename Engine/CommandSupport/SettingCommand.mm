@@ -25,6 +25,7 @@
 }
 
 - (BOOL) invokeOnObject:(NSObject*)inObj {
+	[super invokeOnObject:inObj];
 	
 	// Get the setting name to tune
 	NSString* settingName = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];

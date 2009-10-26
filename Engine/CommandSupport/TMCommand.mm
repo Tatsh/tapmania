@@ -19,12 +19,16 @@
 	
 	m_aArguments = [inArgs copy];
 	m_pInvocationObject = inObj;
+	m_pNextCmd = nil;		// No next command by default
 	
 	return self;
 }
 
 - (void) dealloc {
 	[m_aArguments release];
+	if(m_pNextCmd) 
+		[m_pNextCmd release];
+	
 	[super dealloc];
 }
 
@@ -33,7 +37,12 @@
 }
 
 - (BOOL) invokeOnObject:(NSObject*)inObj {
-	return NO;
+	if(m_pNextCmd) {
+		// Must put it onto the runloop
+		[m_pNextCmd setInvocationObject:inObj];
+		[[TapMania sharedInstance] registerObjectAtEnd:m_pNextCmd];
+	}
+	return YES;
 }
 
 - (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj {
@@ -61,6 +70,10 @@
 	m_pInvocationObject = inObj;
 }
 
+- (void) setNextCommand:(TMCommand*)inCmd {
+	m_pNextCmd = inCmd;
+}
+
 /* TMLogicUpdater stuff */
 - (void) update:(float)fDelta {
 	// The simplest case is actually invoke the command and finish in one iteration
@@ -73,7 +86,13 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	return [[[self class] alloc] initWithArguments:m_aArguments andInvocationObject:m_pInvocationObject];
+	TMCommand* cmd = [[[self class] alloc] initWithArguments:m_aArguments andInvocationObject:m_pInvocationObject];
+	if(m_pNextCmd != nil) {
+		// Make copy too
+		[cmd setNextCommand:[m_pNextCmd copy]];
+	}
+	
+	return cmd;
 }
 
 

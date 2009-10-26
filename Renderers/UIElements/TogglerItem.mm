@@ -28,7 +28,7 @@
 	m_sTitle = [lTitle retain];
 	m_pValue = [lValue retain];
 	
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
 	
 	return self;
 }
@@ -44,7 +44,8 @@
 	
 	m_oSize = size;
 	m_fFontSize = fontSize;
-	
+	m_Align = UITextAlignmentCenter;
+	m_sFontName = [@"Marker Felt" retain];
 	m_pText = nil;
 	
 	return self;
@@ -62,8 +63,7 @@
 		[m_pText release];
 	}
 	
-	// TODO: Font should be set using command
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
+	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
 	
 	// If the value isn't set yet - set it to the same as name
 	if(!m_pValue) {
@@ -76,7 +76,28 @@
 	m_pValue = value;
 }
 
-- (void) setCmdList:(NSArray*)inCmdList {
+- (void) setFont:(NSString*)inName {
+	if(m_sFontName) [m_sFontName release];
+	m_sFontName = [inName retain];	
+}
+
+- (void) setFontSize:(NSNumber*)inSize {
+	m_fFontSize = [inSize floatValue];
+}
+
+- (void) setAlignment:(NSString*)inAlign {
+	if(inAlign != nil) {
+		if([[inAlign lowercaseString] isEqualToString:@"center"]) {
+			m_Align = UITextAlignmentCenter;
+		} else if([[inAlign lowercaseString] isEqualToString:@"left"]) {
+			m_Align = UITextAlignmentLeft;
+		} else if([[inAlign lowercaseString] isEqualToString:@"right"]) {
+			m_Align = UITextAlignmentRight;
+		}
+	}	
+}
+
+- (void) setCmdList:(TMCommand*)inCmdList {
 	m_pCmdList = inCmdList;
 }
 
@@ -105,10 +126,8 @@
 
 	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
-	m_pTexture = (TMFramedTexture*) TEXTURE(@"Common Toggler");	
-	
-	// Load effect sound
-	sr_TogglerEffect = SOUND(@"Common TogglerChange");
+
+	[self initGraphicsAndSounds:@"Common Toggler"];
 	
 	return self;
 }
@@ -118,32 +137,46 @@
 	if(!self)
 		return nil;	
 	
+	// Get graphics/sounds
+	[self initGraphicsAndSounds:inMetricsKey];
+	
+	// Add fonts stuff
+	[super initTextualProperties:inMetricsKey];
+	
 	// Also handle Elements, DefaultElement
 	NSArray* elements = ARRAY_METRIC(([NSString stringWithFormat:@"%@ Elements", inMetricsKey]));
 	if( elements != nil ) {
 	
 		for(NSString* cmdStr in elements) {
 			TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
-			NSArray* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
+			TMCommand* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
 			[obj setCmdList:[cmdList retain]];
 		
 			[m_aElements addObject:obj];
 		}
 	}
 	
-	/*
-	int def = INT_METRIC(([NSString stringWithFormat:@"%@ DefaultElement", inMetricsKey]));
-	[self selectItemAtIndex:def];	
-	 */
-	
 	// Add commands support
-	// Try to get the command list. can be omitted
-	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
-	if([commandList length] > 0) {
-		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
-	}	
+	[super initCommands:inMetricsKey];
 	
 	return self;
+}
+
+- (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
+	[super initGraphicsAndSounds:inMetricsKey];
+	NSString* inFb = @"Common Toggler";
+	
+	// Load effect sound
+	sr_TogglerEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Change", inMetricsKey]];		
+	if(!sr_TogglerEffect) {
+		sr_TogglerEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Change", inFb]];				
+	}
+	
+	// Load texture
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inMetricsKey];
+	if(!m_pTexture) {
+		m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inFb];		
+	}
 }
 
 - (void) dealloc {

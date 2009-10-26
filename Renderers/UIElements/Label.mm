@@ -14,38 +14,15 @@
 @implementation Label
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
-	self = [super initWithMetrics:inMetricsKey];
+	self = [super initWithShape:RECT_METRIC(inMetricsKey)];
 	if(!self)
 		return nil;
 	
-	// Handle Font, FontSize, Align, Text
-	m_fFontSize = FLOAT_METRIC(([NSString stringWithFormat:@"%@ FontSize", inMetricsKey]));
-	if(m_fFontSize == 0.0f) {
-		m_fFontSize = 21.0f;
-	}
+	// Text props
+	[self initTextualProperties:inMetricsKey];
 	
-	NSString* align = STR_METRIC(([NSString stringWithFormat:@"%@ Align", inMetricsKey]));
-	m_Align = UITextAlignmentLeft;	// Default
-	
-	if(align != nil) {
-		if([align isEqualToString:@"Center"]) {
-			m_Align = UITextAlignmentCenter;
-		} else if([align isEqualToString:@"Left"]) {
-			m_Align = UITextAlignmentLeft;
-		} else if([align isEqualToString:@"Right"]) {
-			m_Align = UITextAlignmentRight;
-		}
-	}	
-	
-	NSString* font = STR_METRIC(([NSString stringWithFormat:@"%@ Font", inMetricsKey]));
-	if(font != nil) {
-		m_sFontName = [font retain];
-	} else {
-		// TODO: change to default font name when will use font system
-		m_sFontName = [@"Marker Felt" retain];
-	}
-	
-	m_sTitle = [ STR_METRIC(([NSString stringWithFormat:@"%@ Text", inMetricsKey])) retain];
+	// Add commands
+	[super initCommands:inMetricsKey];
 
 	// Generate texture
 	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
@@ -71,12 +48,50 @@
 	return self;
 }
 
+- (void) initTextualProperties:(NSString*)inMetricsKey {
+	// Handle Font, FontSize, Align defaults
+	m_fFontSize = 21.0f;
+	m_Align = UITextAlignmentCenter;
+	
+	// TODO: change to default font name when will use font system
+	m_sFontName = [@"Marker Felt" retain];
+}
+
 - (void) dealloc {
 	[m_sTitle release];
 	[m_sFontName release];
 	[m_pTitle release];
 	
 	[super dealloc];
+}
+
+- (void) setName:(NSString*)inName {
+	if(m_sTitle) [m_sTitle release];
+	if(m_pTitle) [m_pTitle release];
+	
+	m_sTitle = [inName retain];
+	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+}
+
+- (void) setFont:(NSString*)inName {
+	if(m_sFontName) [m_sFontName release];
+	m_sFontName = [inName retain];	
+}
+
+- (void) setFontSize:(NSNumber*)inSize {
+	m_fFontSize = [inSize floatValue];
+}
+
+- (void) setAlignment:(NSString*)inAlign {
+	if(inAlign != nil) {
+		if([[inAlign lowercaseString] isEqualToString:@"center"]) {
+			m_Align = UITextAlignmentCenter;
+		} else if([[inAlign lowercaseString] isEqualToString:@"left"]) {
+			m_Align = UITextAlignmentLeft;
+		} else if([[inAlign lowercaseString] isEqualToString:@"right"]) {
+			m_Align = UITextAlignmentRight;
+		}
+	}	
 }
 
 /* TMRenderable stuff */

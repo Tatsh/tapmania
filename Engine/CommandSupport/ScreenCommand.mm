@@ -26,6 +26,7 @@
 }
 
 - (BOOL) invokeOnObject:(NSObject*)inObj {
+	[super invokeOnObject:inObj];
 	
 	// Get the screen name to switch
 	NSString* screenName = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];

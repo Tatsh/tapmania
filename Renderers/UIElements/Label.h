@@ -21,4 +21,11 @@
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
 - (id) initWithTitle:(NSString*)title fontSize:(float)fontSize andShape:(CGRect) shape;
 
+- (void) initTextualProperties:(NSString*)inMetricsKey;
+
+- (void) setName:(NSString*)inName;	// For name command
+- (void) setFont:(NSString*)inName;	// For font command
+- (void) setFontSize:(NSNumber*)inSize;	// For fontsize command
+- (void) setAlignment:(NSString*)inAlign;	// For alignment command
+
 @end

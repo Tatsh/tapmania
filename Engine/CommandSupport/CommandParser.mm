@@ -51,11 +51,13 @@ static CommandParser *sharedCommandParserDelegate = nil;
 	return (Class)0;
 }
 
-- (NSArray*) createCommandListFromString:(NSString*)inCmdList forRequestingObject:(NSObject*)inObj {
+// Returns the first command in the chain
+- (TMCommand*) createCommandListFromString:(NSString*)inCmdList forRequestingObject:(NSObject*)inObj {
 	// Split by ';' to get separate commands
 	// Split each by ',' to get cmd name and arguments
 	
-	NSMutableArray* resultingCommandList = [NSMutableArray arrayWithCapacity:1];
+	TMCommand* topCmd = nil;
+	TMCommand* prevCmd = nil;
 	NSArray* commands = [inCmdList componentsSeparatedByString:@";"];
 	
 	for(NSString* cmd in commands) {
@@ -87,32 +89,37 @@ static CommandParser *sharedCommandParserDelegate = nil;
 		command = [[commandClass alloc] initWithArguments:args andInvocationObject:inObj];
 		[command invokeAtConstructionOnObject:inObj];
 		
-		[resultingCommandList addObject:command];
+		// Update the chain
+		if(prevCmd != nil) {
+			[prevCmd setNextCommand:command];
+		}
 		
+		// Set topCmd
+		if(topCmd == nil) {
+			topCmd = command;
+		}
+	
+		// Set the prevCmd to this one
+		prevCmd = command;
+			
+#ifdef DEBUG 
 		if(args) {
 			TMLog(@"Arguments: ");
 			for(NSString* arg in args) {
 				TMLog(@"'%@'", arg);
 			}
 		}
+#endif
 	}
 	
-	return resultingCommandList;
+	return topCmd;
 }
 
-- (BOOL) runCommandList:(NSArray*)inCmdList forRequestingObject:(NSObject*)inObj {
-	BOOL result = YES;
-	
-	for(TMCommand* cmd in inCmdList) {
-		/*
-		BOOL tmpRes = [cmd invokeOnObject:inObj];
-		if(tmpRes == NO) result = NO;
-		*/
-		
-		// Just put copies of all commands on the runloop for now
-		[cmd setInvocationObject:inObj];
-		[[TapMania sharedInstance] registerObjectAtEnd:[cmd copy]];
-	}
+- (BOOL) runCommandList:(TMCommand*)inCmdList forRequestingObject:(NSObject*)inObj {
+	BOOL result = YES;	
+	// Just put copy of the first command on the runloop for now
+	[inCmdList setInvocationObject:inObj];
+	[[TapMania sharedInstance] registerObjectAtEnd:[inCmdList copy]];
 	
 	return result;
 }

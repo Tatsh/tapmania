@@ -402,14 +402,18 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:sound};setting,sound,{value}</string>
-				<key>OnSlideCommand</key>
+				<string>value,{setting:sound}</string>
+				<key>OffCommand</key>
+				<string>setting,sound,{value}</string>
+				<key>SlideCommand</key>
 				<string>volume,{value}</string>
 			</dict>
 			<key>PlayButton</key>
 			<dict>
+				<key>OffCommand</key>
+				<string>fontsize,18;alignment,Right;name,Play;screen,SongPickerMenu</string>
 				<key>OnCommand</key>
-				<string>name,Play;screen,SongPickerMenu</string>
+				<string>sleep,1.2;volume,0.1;sleep,1.0;volume,0.5;setting,sound,0.5</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -421,8 +425,8 @@
 			</dict>
 			<key>OptionsButton</key>
 			<dict>
-				<key>OnCommand</key>
-				<string>name,Options;screen,OptionsMenu</string>
+				<key>OffCommand</key>
+				<string>fontsize,20;alignment,left;name,Options;screen,OptionsMenu</string>
 				<key>X</key>
 				<integer>40</integer>
 				<key>Y</key>
@@ -434,7 +438,7 @@
 			</dict>
 			<key>CreditsButton</key>
 			<dict>
-				<key>OnCommand</key>
+				<key>OffCommand</key>
 				<string>name,Credits;screen,Credits</string>
 				<key>X</key>
 				<integer>60</integer>
@@ -450,7 +454,7 @@
 		<dict>
 			<key>BackButton</key>
 			<dict>
-				<key>OnCommand</key>
+				<key>OffCommand</key>
 				<string>name,Back;screen,MainMenu</string>
 				<key>X</key>
 				<integer>20</integer>
@@ -497,8 +501,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>Text</key>
-				<string>Noteskin:</string>
+				<key>OffCommand</key>
+				<string>name,Noteskin:</string>
 			</dict>
 			<key>ThemeLabel</key>
 			<dict>
@@ -510,8 +514,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>Text</key>
-				<string>Theme:</string>
+				<key>OffCommand</key>
+				<string>name,Theme:</string>
 			</dict>
 			<key>SoundLabel</key>
 			<dict>
@@ -523,8 +527,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>Text</key>
-				<string>Sound:</string>
+				<key>OffCommand</key>
+				<string>name,Sound:</string>
 			</dict>
 			<key>FingerTrackingLabel</key>
 			<dict>
@@ -536,8 +540,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>Text</key>
-				<string>Finger tracking:</string>
+				<key>OffCommand</key>
+				<string>fontsize,16;name,Finger tracking:</string>
 			</dict>
 			<key>VisiblePadLabel</key>
 			<dict>
@@ -549,12 +553,8 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>Text</key>
-				<string>Visible pad:</string>
-				<key>FontSize</key>
-				<integer>16</integer>
-				<key>Font</key>
-				<string>Marker Felt</string>
+				<key>OffCommand</key>
+				<string>fontsize,16;name,Visible pad:</string>
 			</dict>
 			<key>NoteSkinTogglerCustom</key>
 			<dict>
@@ -588,9 +588,9 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OnCommand</key>
+				<key>OffCommand</key>
 				<string>value,{setting:sound};setting,sound,{value}</string>
-				<key>OnSlideCommand</key>
+				<key>SlideCommand</key>
 				<string>volume,{value}</string>
 			</dict>
 			<key>FingerTrackingToggler</key>
@@ -607,8 +607,8 @@
 				<integer>46</integer>
 				<key>Elements</key>
 				<array>
-					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
-					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
+					<string>fontsize,14;alignment,right;value,YES;name,Enabled;setting,autotrack,YES</string>
+					<string>alignment,left;value,NO;name,Disabled;setting,autotrack,NO</string>
 				</array>
 			</dict>
 			<key>VisiblePadToggler</key>

@@ -18,21 +18,6 @@
 
 @implementation MenuItem
 
-- (id) initWithShape:(CGRect) shape {
-	self = [super initWithShape:shape];
-	if(!self) 
-		return nil;
-
-	// Load effect sound
-	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:@"Common ButtonHit"];		
-
-	// Load texture
-	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:@"Common MenuItem"];
-	
-	return self;
-}
-	
-
 - (id) initWithTitle:(NSString*) title andShape:(CGRect) shape {
 	self = [self initWithShape:shape];
 	if(!self) 
@@ -42,68 +27,44 @@
 	m_sFontName = [@"Marker Felt" retain];
 	m_Align = UITextAlignmentCenter;
 	
+	[self initGraphicsAndSounds:@"Common MenuItem"];
 	[self setName:title];
 			
 	return self;
 }
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
-	self = [self initWithShape:RECT_METRIC(inMetricsKey)];
+	self = [super initWithShape:RECT_METRIC(inMetricsKey)];
 	if(!self) 
 		return nil;
 	
-	// Handle Font, FontSize, Align, Text
-	m_fFontSize = FLOAT_METRIC(([NSString stringWithFormat:@"%@ FontSize", inMetricsKey]));
-	if(m_fFontSize == 0.0f) {
-		m_fFontSize = 21.0f;
-	}
+	// Get graphics and sounds used by this control
+	[self initGraphicsAndSounds:inMetricsKey];
 	
-	NSString* align = STR_METRIC(([NSString stringWithFormat:@"%@ Align", inMetricsKey]));
-	m_Align = UITextAlignmentCenter;	// Default
-	
-	if(align != nil) {
-		if([align isEqualToString:@"Center"]) {
-			m_Align = UITextAlignmentCenter;
-		} else if([align isEqualToString:@"Left"]) {
-			m_Align = UITextAlignmentLeft;
-		} else if([align isEqualToString:@"Right"]) {
-			m_Align = UITextAlignmentRight;
-		}
-	}	
-	
-	NSString* font = STR_METRIC(([NSString stringWithFormat:@"%@ Font", inMetricsKey]));
-	if(font != nil) {
-		m_sFontName = [font retain];
-	} else {
-		// TODO: change to default font name when will use font system
-		m_sFontName = [@"Marker Felt" retain];
-	}
+	// Add font stuff
+	[super initTextualProperties:inMetricsKey];
 	
 	// Add commands support
-	// Try to get the command list. can be omitted
-	NSString* commandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
-	if([commandList length] > 0) {
-		m_pCommandList = [[[CommandParser sharedInstance] createCommandListFromString:commandList forRequestingObject:self] retain];
-	}
+	[super initCommands:inMetricsKey];
 	
 	return self;	
 }
 
-- (void) dealloc {
-	if(m_sFontName) [m_sFontName release];
-	if(m_sTitle) [m_sTitle release];
-	if(m_pTitle) [m_pTitle release];
+- (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
+	[super initGraphicsAndSounds:inMetricsKey];
+	NSString* inFb = @"Common MenuItem";
 	
-	[super dealloc];
-}
+	// Load effect sound
+	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Hit", inMetricsKey]];		
+	if(!sr_MenuButtonEffect) {
+		sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Hit", inFb]];				
+	}
 
-
-- (void) setName:(NSString*)inName {
-	if(m_sTitle) [m_sTitle release];
-	if(m_pTitle) [m_pTitle release];
-	
-	m_sTitle = [inName copy];
-	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	// Load texture
+	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inMetricsKey];
+	if(!m_pTexture) {
+		m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inFb];		
+	}
 }
 
 /* TMRenderable stuff */

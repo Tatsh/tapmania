@@ -25,6 +25,7 @@
 }
 
 - (BOOL) invokeOnObject:(NSObject*)inObj {
+	[super invokeOnObject:inObj];
 	
 	// Get new value to set
 	NSObject* value = [self getValueFromString:[m_aArguments objectAtIndex:0] withObject:inObj];

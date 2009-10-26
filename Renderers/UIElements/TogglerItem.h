@@ -8,18 +8,20 @@
 
 #import "MenuItem.h"
 
-@class MenuItem, Texture2D;
+@class MenuItem, Texture2D, TMCommand;
 
 /* This object is a pair with title=>value */
 @interface TogglerItemObject : NSObject {
-	NSString * m_sTitle;
-	NSObject * m_pValue;
-	CGSize     m_oSize;
-	float	   m_fFontSize;
+	NSString*			m_sTitle;
+	NSObject*			m_pValue;
+	CGSize				m_oSize;
+
+	float				m_fFontSize;
+	NSString*			m_sFontName;
+	UITextAlignment		m_Align;
 	
-	NSArray *  m_pCmdList;
-	
-	Texture2D * m_pText;	// The title as texture
+	TMCommand*			m_pCmdList;	
+	Texture2D*			m_pText;	// The title as texture
 }
 
 @property (retain, nonatomic, readonly) NSString* m_sTitle;
@@ -28,8 +30,12 @@
 
 - (id) initWithSize:(CGSize)size andFontSize:(float)fontSize;
 - (id) initWithTitle:(NSString*)lTitle value:(NSObject*)lValue size:(CGSize)size andFontSize:(float)fontSize;
-- (void) setName:(NSString*)inName;
-- (void) setCmdList:(NSArray*)inCmdList;
+- (void) setName:(NSString*)inName;	// For name command (sets value automatically if none set)
+- (void) setValue:(NSObject*)inVal;	// For value command
+- (void) setFont:(NSString*)inName;	// For font command
+- (void) setFontSize:(NSNumber*)inSize;	// For fontsize command
+- (void) setAlignment:(NSString*)inAlign;	// For alignment command
+- (void) setCmdList:(TMCommand*)inCmdList;
 - (void) onSelect;
 
 // Used by the value,VAL command to set current value

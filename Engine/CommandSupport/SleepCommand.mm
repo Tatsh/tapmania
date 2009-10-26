@@ -39,6 +39,7 @@
 	
 	if(m_fElapsedTime >= m_fTimeToWait) {	
 		TMLog(@"TIMER DONE... sleep,%f", m_fTimeToWait);
+		[self invokeOnObject:m_pInvocationObject];
 		[[TapMania sharedInstance] deregisterObject:self];
 	}
 }
