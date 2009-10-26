@@ -391,29 +391,10 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
-			<key>SexySlider</key>
-			<dict>
-				<key>X</key>
-				<integer>1</integer>
-				<key>Y</key>
-				<integer>1</integer>
-				<key>Width</key>
-				<integer>320</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>OnCommand</key>
-				<string>value,{setting:sound}</string>
-				<key>OffCommand</key>
-				<string>setting,sound,{value}</string>
-				<key>SlideCommand</key>
-				<string>volume,{value}</string>
-			</dict>
 			<key>PlayButton</key>
 			<dict>
 				<key>OffCommand</key>
 				<string>fontsize,18;alignment,Right;name,Play;screen,SongPickerMenu</string>
-				<key>OnCommand</key>
-				<string>sleep,1.2;volume,0.1;sleep,1.0;volume,0.5;setting,sound,0.5</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -537,7 +518,7 @@
 				<key>Y</key>
 				<integer>225</integer>
 				<key>Width</key>
-				<integer>80</integer>
+				<integer>90</integer>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OffCommand</key>
@@ -629,8 +610,10 @@
 					<string>value,NO;name,Disabled;setting,vispad,NO</string>
 				</array>
 			</dict>
-			<key>ModeTogglerDisabled</key>
+			<key>ModeToggler</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>value,{setting:landscape}</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -641,8 +624,8 @@
 				<integer>46</integer>
 				<key>Elements</key>
 				<array>
-					<string>name,Landscape;setting,landscape,YES</string>
-					<string>name,Skyscraper;setting,landscape,NO</string>
+					<string>value,YES;name,Landscape;setting,landscape,YES</string>
+					<string>value,NO;name,Skyscraper;setting,landscape,NO</string>
 				</array>
 			</dict>
 		</dict>
