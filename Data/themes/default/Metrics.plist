@@ -391,6 +391,21 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
+			<key>SexySlider</key>
+			<dict>
+				<key>X</key>
+				<integer>1</integer>
+				<key>Y</key>
+				<integer>1</integer>
+				<key>Width</key>
+				<integer>320</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:sound};setting,sound,{value}</string>
+				<key>OnSlideCommand</key>
+				<string>volume,{value}</string>
+			</dict>
 			<key>PlayButton</key>
 			<dict>
 				<key>OnCommand</key>
@@ -798,7 +813,7 @@
 				<key>Width</key>
 				<integer>270</integer>
 				<key>X</key>
-				<integer>208</integer>
+				<integer>0</integer>
 				<key>Y</key>
 				<integer>2</integer>
 			</dict>

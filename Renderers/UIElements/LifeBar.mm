@@ -103,24 +103,25 @@
 /* TMMessageSupport stuff */
 -(void) handleMessage:(TMMessage*)message {
 	switch (message.messageId) {
-		case kNoteScoreMessage:			
+		case kNoteScoreMessage:	{
 			
 			TMNote* note = (TMNote*)message.payload;			
 			[self updateBy:[TimingUtil getLifebarChangeByNoteScore:note.m_nScore]];			
 			
 			break;
-			
-		case kHoldHeldMessage:
+		}
+		case kHoldHeldMessage: {
 			
 			[self updateBy:0.008];	// OK judgement
 			
 			break;
-			
-		case kHoldLostMessage:
+		}
+		case kHoldLostMessage: {
 			
 			[self updateBy:-0.080];	// NG judgement
 			
 			break;
+		}
 	}
 }
 
