@@ -27,10 +27,6 @@ typedef enum {
  * Uses the Receptor class which holds the receptor arrow texture
 */
 @interface ReceptorRow : TMAnimatable <TMMessageSupport> {
-	float m_fExplosionYPosition;
-	float m_fExplosionXPositions[kNumOfAvailableTracks];
-	float m_fReceptorXPositions[kNumOfAvailableTracks];	// Final positions on the X axis of the receptor arrows
-		
 	double m_dExplosionTime[kNumOfAvailableTracks];	// Time of explosion start
 	TMExplosionType m_nExplosion[kNumOfAvailableTracks];	// Which explosion is active
 	

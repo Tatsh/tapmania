@@ -47,9 +47,6 @@ extern TMGameState* g_pGameState;
 - (void) setupForTransition {
 	[super setupForTransition];
 	
-	// Cache textures
-	t_SongResultsBG = TEXTURE(@"SongResults Background");
-
 	int i, track;
 	
 	// asure we have zeros in all score counters
@@ -92,10 +89,7 @@ extern TMGameState* g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	
-	// Draw background
-	[t_SongResultsBG drawInRect:bounds];	
+	CGRect bounds = [TapMania sharedInstance].glView.bounds;	
 	[super render:fDelta];
 	
 	// Draw texts	

@@ -9,8 +9,12 @@
 #import "TMTransitionSupport.h"
 #import "TMView.h"
 
+@class Texture2D;
+
 /* A screen is a fullscreen view with transition support */
 @interface TMScreen : TMView <TMTransitionSupport> {
+	// A screen most likely has a background image
+	Texture2D*		t_BG;
 }
 
 - (id) initWithMetrics:(NSString*)inMetricsKey;

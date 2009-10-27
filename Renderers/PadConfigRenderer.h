@@ -33,7 +33,6 @@ typedef enum {
 	TMAvailableTracks		m_nSelectedTrack;
 	
 	/* Metrics and such */
-	Texture2D* t_PadConfigBG;
 	Texture2D* t_FingerTap, *t_FingerTapBright;
 	
 	TapNote* t_TapNote;

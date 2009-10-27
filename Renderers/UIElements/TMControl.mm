@@ -29,7 +29,7 @@
 	if(!self) 
 		return nil;
 	
-	m_pOnCommand = m_pOffCommand = m_pSlideCommand = nil;
+	m_pOnCommand = m_pOffCommand = m_pHitCommand = m_pSlideCommand = nil;
 	m_idActionDelegate = nil;
 	m_idChangedDelegate = nil;
 	m_oActionHandler = nil;
@@ -50,6 +50,11 @@
 		m_pOffCommand = [[[CommandParser sharedInstance] createCommandListFromString:offCommandList forRequestingObject:self] retain];
 	}
 	
+	NSString* hitCommandList = STR_METRIC([inMetricsKey stringByAppendingString:@" HitCommand"]);
+	if([hitCommandList length] > 0) {
+		m_pHitCommand = [[[CommandParser sharedInstance] createCommandListFromString:hitCommandList forRequestingObject:self] retain];
+	}
+	
 	NSString* slideCommandList = STR_METRIC([inMetricsKey stringByAppendingString:@" SlideCommand"]);
 	if([slideCommandList length] > 0) {
 		m_pSlideCommand = [[[CommandParser sharedInstance] createCommandListFromString:slideCommandList forRequestingObject:self] retain];
@@ -65,6 +70,8 @@
 		[m_pOnCommand release];
 	if(m_pOffCommand)
 		[m_pOffCommand release];
+	if(m_pHitCommand)
+		[m_pHitCommand release];
 	if(m_pSlideCommand)
 		[m_pSlideCommand release];
 	
@@ -89,6 +96,10 @@
 	m_pOffCommand = inCmd;
 }
 
+- (void) setHitCommand:(TMCommand*)inCmd {
+	m_pHitCommand = inCmd;
+}
+
 - (void) setSlideCommand:(TMCommand*)inCmd {
 	m_pSlideCommand = inCmd;
 }
@@ -97,43 +108,73 @@
 - (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	BOOL res = NO;
 	
-	if(m_pOnCommand != nil) {
-		if([super tmTouchesBegan:touches withEvent:event]) {
-			TMLog(@"Running control's OnCommand...");
-			[[CommandParser sharedInstance] runCommandList:m_pOnCommand forRequestingObject:self];
-			res = YES;
-		}
-	}	
-	
-	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-		if([super tmTouchesBegan:touches withEvent:event]) {
-			TMLog(@"Control touched");
-			
-			res = YES;
+	// Controls are singletouch. always
+	if(touches.size() == 1){
+		
+		if(m_pOnCommand != nil) {
+			if([super tmTouchesBegan:touches withEvent:event]) {
+				TMLog(@"Running control's OnCommand...");
+				[[CommandParser sharedInstance] runCommandList:m_pOnCommand forRequestingObject:self];
+				res = YES;
+			}
+		}	
+		
+		if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
+			if([super tmTouchesBegan:touches withEvent:event]) {
+				TMLog(@"Control touched");
+				
+				res = YES;
+			}
 		}
 	}
-	
+		
 	return res;
 }
 
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	BOOL res = NO;
 	
-	if(m_pSlideCommand != nil) {
-		if([super tmTouchesMoved:touches withEvent:event]) {
-			TMLog(@"Running control's SlideCommand...");
-			[[CommandParser sharedInstance] runCommandList:m_pSlideCommand forRequestingObject:self];
-			res = YES;
-		}
-	}	
+	// Controls are singletouch. always
+	if(touches.size() == 1){
 	
-	if(m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
-		if([super tmTouchesMoved:touches withEvent:event]) {
-			TMLog(@"Control touches moved");
-			[m_idChangedDelegate performSelector:m_oChangedActionHandler];			
-			
-			res = YES;
+		CGPoint oldPos = CGPointMake(touches.at(0).px(), touches.at(0).py());
+		BOOL inView = [super tmTouchesMoved:touches withEvent:event];
+		
+		// Check whether we need a On command here
+		if( !CGRectContainsPoint(m_rShape, oldPos) && inView ) {
+			TMLog(@"Slided into the control! run OnCommand...");
+			if(m_pOnCommand != nil) {
+				[[CommandParser sharedInstance] runCommandList:m_pOnCommand forRequestingObject:self];
+				res = YES;	
+			}
 		}
+		
+		// Or maybe a Off command?
+		if( CGRectContainsPoint(m_rShape, oldPos) && !inView ) {
+			TMLog(@"Slided out of the control! run OffCommand...");
+			if(m_pOffCommand != nil) {
+				[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];
+				res = YES;	
+			}	
+		}
+		
+		// We are moving the finger over the control?
+		if(m_pSlideCommand != nil && inView) {
+			if(inView) {
+				TMLog(@"Running control's SlideCommand...");
+				[[CommandParser sharedInstance] runCommandList:m_pSlideCommand forRequestingObject:self];
+				res = YES;
+			}
+		}	
+		
+		if(m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
+			if([super tmTouchesMoved:touches withEvent:event]) {
+				TMLog(@"Control touches moved");
+				[m_idChangedDelegate performSelector:m_oChangedActionHandler];			
+				
+				res = YES;
+			}
+		}		
 	}
 	
 	return res;
@@ -141,21 +182,35 @@
 
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	BOOL res = NO;
-	
-	if(m_pOffCommand != nil) {
-		if([super tmTouchesEnded:touches withEvent:event]) {
-			TMLog(@"Running control's OffCommand...");
-			[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];
-			res = YES;
-		}
-	}
-	
-	if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-		if([super tmTouchesEnded:touches withEvent:event]) {
-			TMLog(@"Control, finger raised!");
-			[m_idActionDelegate performSelector:m_oActionHandler];
 
-			res = YES;
+	// Controls are singletouch. always
+	if(touches.size() == 1){
+		
+		// Focus lost on release inside the area?
+		if([super tmTouchesEnded:touches withEvent:event]) {
+
+			// Off command because the focus is lost now
+			if(m_pOffCommand != nil) {
+				TMLog(@"Running control's OffCommand...");
+				[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];
+				res = YES;			
+			}
+
+			// Run the Hit command
+			if(m_pHitCommand != nil) {
+				TMLog(@"Running control's HitCommand...");
+				[[CommandParser sharedInstance] runCommandList:m_pHitCommand forRequestingObject:self];
+				res = YES;
+			}		
+		} 
+		
+		if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
+			if([super tmTouchesEnded:touches withEvent:event]) {
+				TMLog(@"Control, finger raised!");
+				[m_idActionDelegate performSelector:m_oActionHandler];
+
+				res = YES;
+			}
 		}
 	}
 	

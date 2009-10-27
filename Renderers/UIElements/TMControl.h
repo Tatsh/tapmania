@@ -19,8 +19,9 @@
 	id			m_idChangedDelegate;		// delegate to invoke the selector on
 	SEL			m_oChangedActionHandler;	// selector which should be invoked on finger drag over the control	
 	
-	TMCommand*	m_pOnCommand;				// used if non-nil; commands to perform when touched
-	TMCommand*	m_pOffCommand;				// used if non-nil; commands to perform when released
+	TMCommand*	m_pOnCommand;				// used if non-nil; commands to perform when focused
+	TMCommand*	m_pOffCommand;				// used if non-nil; commands to perform when focus lost
+	TMCommand*	m_pHitCommand;				// used if non-nil; commands to perform when touch released in the control area
 	TMCommand*	m_pSlideCommand;			// used if non-nil; commands to perform when sliding
 }
 
@@ -32,6 +33,7 @@
 
 - (void) setOnCommand:(TMCommand*)inCmd;
 - (void) setOffCommand:(TMCommand*)inCmd;
+- (void) setHitCommand:(TMCommand*)inCmd;
 - (void) setSlideCommand:(TMCommand*)inCmd;
 
 - (void) initGraphicsAndSounds:(NSString*)inMetricsKey;

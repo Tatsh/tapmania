@@ -14,7 +14,8 @@
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 
-#define kFullScreenSize 380.0f
+// #define kFullScreenSize 380.0f
+#define kFullScreenSize 222.0f
 
 @implementation TimingUtil
 
@@ -174,15 +175,14 @@
 	return -1;
 }
 
-+ (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod {
-	
++ (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod {	
 	double tFullScreenTime = kFullScreenSize/bps/60.0f;
-		
+	
 	// Apply speedmod
-	if(sMod != 1) {
+	if(sMod > 0.0f) {
 		tFullScreenTime /= sMod;
 	}				
-		
+
 	double tTimePerBeat = [TimingUtil getTimeInBeatForBPS:bps];	
 	float tNoteRowsOnScr = (tFullScreenTime/tTimePerBeat)*kRowsPerBeat;
 	float tPxDistBetweenRows = kFullScreenSize/tNoteRowsOnScr;				

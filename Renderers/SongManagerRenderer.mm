@@ -25,8 +25,6 @@
 - (void) setupForTransition {
 	[super setupForTransition];
 	
-	// Cache graphics and stuff
-	t_SongManagerBG = TEXTURE(@"SongManager Background");
 	mt_UrlPosition = POINT_METRIC(@"SongManager Url");
 	
 	// Start with no action
@@ -56,12 +54,7 @@
 
 /* TMRenderable methods */
 - (void) render:(float) fDelta {
-	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
-	
-	//Draw background
-	[t_SongManagerBG drawInRect:bounds];
-
-	// Rendre kids if any will born here
+	// Render kids and bg
 	[super render:fDelta];
 	
 	glEnable(GL_BLEND);

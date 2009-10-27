@@ -43,10 +43,10 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 - (void) show;
 - (void) hide;
 
--(void) pushBackChild:(TMView*)inChild;
--(void) pushChild:(TMView*)inChild;
--(TMView*) popBackChild;
--(TMView*) popChild;
+-(void) pushBackChild:(NSObject*)inChild;
+-(void) pushChild:(NSObject*)inChild;
+-(NSObject*) popBackChild;
+-(NSObject*) popChild;
 
 -(void) pushBackControl:(TMControl*)inChild;
 

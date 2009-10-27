@@ -11,6 +11,7 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
+#import "Texture2D.h"
 
 #import "TMControl.h"
 #import "MenuItem.h"
@@ -27,6 +28,13 @@
 		return nil;
 		
 	NSDictionary* conf = DICT_METRIC(inMetricsKey);
+	
+	// Load Background texture
+	t_BG = TEXTURE( ([NSString stringWithFormat:@"%@ Background", inMetricsKey]) );
+	if(!t_BG) {
+		// Load default
+		t_BG = TEXTURE(@"Common SharedBackground");
+	}
 	
 	// Go through all the elements defined for the screen and look for buttons, labels, togglers etc.
 	for(NSObject* element in conf) {
@@ -53,6 +61,15 @@
 	return self;
 }
 
+/* TMRenderable method */
+- (void) render:(float)fDelta {
+	// Render BG
+	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+	[t_BG drawInRect:bounds];	
+	
+	// Render children
+	[super render:fDelta];
+}
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {

@@ -43,7 +43,7 @@
 	
 	// Other
 	Texture2D* t_FingerTap;
-	Texture2D* t_BG, *t_Failed, *t_Cleared, *t_Ready, *t_Go;
+	Texture2D* t_Failed, *t_Cleared, *t_Ready, *t_Go;
 	
 	// Sounds
 	TMSound   *sr_Failed, *sr_Cleared;

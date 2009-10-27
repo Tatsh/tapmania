@@ -58,8 +58,7 @@ extern TMGameState * g_pGameState;
 	[[TMSoundEngine sharedInstance] stopMusic]; // Fading:0.5f];
 	
 	// Cache metrics
-	mt_SpeedToggler =		RECT_METRIC(@"SongPickerMenu SpeedToggler");	
-	mt_DifficultyToggler =  RECT_METRIC(@"SongPickerMenu DifficultyToggler");
+	mt_DifficultyToggler =  RECT_METRIC(@"SongPickerMenu DifficultyTogglerCustom");
 	mt_ModPanel =			RECT_METRIC(@"SongPickerMenu ModPanel");	
 	
 	mt_ItemSong =			RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
@@ -73,7 +72,6 @@ extern TMGameState * g_pGameState;
 	mt_HighlightHalfHeight = mt_Highlight.size.height/2;
 	
 	// Cache graphics
-	t_SongPickerBG = TEXTURE(@"SongPicker Background");
 	t_Highlight = TEXTURE(@"SongPicker Wheel Highlight");
 	t_ModPanel = TEXTURE(@"SongPicker Top");
 	
@@ -90,25 +88,12 @@ extern TMGameState * g_pGameState;
 	ImageButton* modPanel = [[ImageButton alloc] initWithTexture:t_ModPanel andShape:mt_ModPanel];
 	[self pushBackChild:modPanel];
 	
-	// Speed mod toggler
-	/*
-	m_pSpeedToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_SpeedToggler 
-											andCommands:ARRAY_METRIC(@"SongPickerMenu SpeedToggler Elements")]];
-	[(TogglerItem*) m_pSpeedToggler selectItemAtIndex:INT_METRIC(@"SongPickerMenu SpeedToggler DefaultElement")];
-	[self pushBackControl:m_pSpeedToggler];
-	 */
-	
 	// Difficulty toggler
 	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_DifficultyToggler]];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	[(TogglerItem*)m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
 	[self pushBackControl:m_pDifficultyToggler];
-	
-	// Back button
-	m_pBackMenuItem = [[ZoomEffect alloc] initWithRenderable:[[MenuItem alloc] initWithMetrics:@"SongPickerMenu BackButton"]];
-	[m_pBackMenuItem setActionHandler:@selector(backButtonHit) receiver:self];
-	[self pushBackControl:m_pBackMenuItem];
-		
+			
 	// Select current song (populate difficulty toggler with it's difficulties)
 	[self songSelectionChanged];
 	
@@ -125,12 +110,7 @@ extern TMGameState * g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	
-	// Draw menu background
-	[t_SongPickerBG drawInRect:bounds];
-		
-	// Draw kids
+	// Draw kids and bg
 	[super render:fDelta];
 }
 
@@ -195,6 +175,11 @@ extern TMGameState * g_pGameState;
 	
 	// Assign difficulty
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
+	
+	// Check speedmod to be sure
+	if(g_pGameState->m_dSpeedModValue == 0) { 
+		g_pGameState->m_dSpeedModValue = 1.0; 
+	}
 	
 	SongPlayRenderer* songPlayRenderer = [[SongPlayRenderer alloc] init];
 	[songPlayRenderer playSong:song];

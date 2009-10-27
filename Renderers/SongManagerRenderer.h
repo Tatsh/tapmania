@@ -24,7 +24,6 @@ typedef enum {
 	
 	/* Metrics and such */
 	CGPoint mt_UrlPosition;
-	Texture2D* t_SongManagerBG;
 }
 
 @end

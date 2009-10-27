@@ -59,9 +59,11 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	
 	for( UITouch* touch in touches) {
 		CGPoint pos = [touch locationInView:nil];
+		CGPoint opos = [touch previousLocationInView:nil];
 		pos = CGPointApplyAffineTransform(pos, [TapMania sharedInstance].m_InputTransform);
+		opos = CGPointApplyAffineTransform(opos, [TapMania sharedInstance].m_InputTransform);
 		
-		tmTouches.push_back(TMTouch(pos.x, pos.y, touch.tapCount, touch.timestamp));		
+		tmTouches.push_back(TMTouch(pos.x, pos.y, opos.x, opos.y, touch.tapCount, touch.timestamp));		
 	}
 	
 	return tmTouches;

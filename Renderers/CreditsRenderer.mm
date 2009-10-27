@@ -20,8 +20,6 @@
 
 @implementation CreditsRenderer
 
-Texture2D* t_CreditsBG;
-
 - (void) dealloc {
 	int i;
 
@@ -38,9 +36,6 @@ Texture2D* t_CreditsBG;
 	[super setupForTransition];
 	
 	int i;
-	
-	// Cache graphics
-	t_CreditsBG = TEXTURE(@"Credits Background");
 	
 	// We will show the credits until this set to YES
 	m_bShouldReturn = NO;
@@ -67,9 +62,6 @@ Texture2D* t_CreditsBG;
 - (void) render:(float) fDelta {
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
 	int i, j;
-	
-	//Draw background
-	[t_CreditsBG drawInRect:bounds];
 	
 	[super render:fDelta];
 	
@@ -99,7 +91,7 @@ Texture2D* t_CreditsBG;
 	/* Check whether we should leave the credits screen already */
 	if(m_bShouldReturn){
 		// Back to main menu
-		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] init]];
+		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] initWithMetrics:@"MainMenu"]];
 		m_bShouldReturn = NO; // To be sure we not do the transition more than once
 	}
 }

@@ -61,7 +61,7 @@
 		}
 		
 		TMSong *song = [songList objectAtIndex:j++];				
-		m_pWheelItems->push_back([[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)]);
+		m_pWheelItems->push_back( TMWheelItemPtr( [[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)] ) );
 		
 		curYOffset += mt_ItemSong.size.height;
 	}	
@@ -69,16 +69,10 @@
 	return self;
 }
 
-- (void) dealloc {	
-	// Explicitly deallocate memory
-	// TODO: move to objcPtr
-	for(int i = 0; i < m_pWheelItems->size(); i++) {
-		[m_pWheelItems->at(i) release];
-	}	
-	
+- (void) dealloc {
+	delete m_pWheelItems;
 	[super dealloc];
-}	
-
+}
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
@@ -86,7 +80,7 @@
 	
 	int i;
 	for(i=0; i<m_pWheelItems->size(); i++){
-		[(SongPickerMenuItem*)(m_pWheelItems->at(i)) render:fDelta];
+		[(SongPickerMenuItem*)(m_pWheelItems->at(i).get()) render:fDelta];
 	}
 	
 	// Highlight selection and draw top element
@@ -265,50 +259,50 @@
 - (void) rollWheel:(float) pixels {
 	int i;
 	for(i=0; i<m_pWheelItems->size(); ++i) {
-		SongPickerMenuItem* item = (SongPickerMenuItem*)m_pWheelItems->at(i);		
+		SongPickerMenuItem* item = (SongPickerMenuItem*)m_pWheelItems->at(i).get();		
 		[item updateYPosition:pixels];
 	}
 	
 	// Check last object
-	SongPickerMenuItem* item = (SongPickerMenuItem*)m_pWheelItems->at(0);
+	SongPickerMenuItem* item = (SongPickerMenuItem*)m_pWheelItems->at(0).get();
 	float lastWheelItemY = [item getPosition].y;
 	
 	do {
 		
 		if (lastWheelItemY <= -mt_ItemSongHalfHeight ) {		
-			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)m_pWheelItems->at(0);
+			TMWheelItemPtr itemToRemove = m_pWheelItems->at(0);
 			m_pWheelItems->pop_front();
 			
 			// Now we must add one on top of the wheel (last element of the array)
 			float firstWheelItemY = lastWheelItemY + mt_ItemSong.size.height*kNumWheelItems;
 			
 			// Get current song on top of the wheel
-			SongPickerMenuItem* lastItem = (SongPickerMenuItem*)*(m_pWheelItems->rbegin());
+			SongPickerMenuItem* lastItem = (SongPickerMenuItem*)m_pWheelItems->rbegin()->get();
 			TMSong* searchSong = [lastItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
 			
-			[itemToRemove updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, firstWheelItemY)];
+			[itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, firstWheelItemY)];
 			m_pWheelItems->push_back(itemToRemove);			
 			
 		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {		
 			// Explicitly deallocate the object. autorelease didn't work for some reason.
-			SongPickerMenuItem* itemToRemove = (SongPickerMenuItem*)*(m_pWheelItems->rbegin());
+			TMWheelItemPtr itemToRemove = *m_pWheelItems->rbegin();
 			m_pWheelItems->pop_back();
 			
 			// Now we must add one on the bottom of the wheel (first element of the array)
 			float newLastWheelItemY = lastWheelItemY - mt_ItemSong.size.height;
 			
 			// Get current song on bottom of the wheel
-			SongPickerMenuItem* firstItem = (SongPickerMenuItem*)m_pWheelItems->at(0);
+			SongPickerMenuItem* firstItem = (SongPickerMenuItem*)m_pWheelItems->at(0).get();
 			TMSong* searchSong = [firstItem song];				
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
 			
-			[itemToRemove updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, newLastWheelItemY)];
+			[itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, newLastWheelItemY)];
 			m_pWheelItems->push_front(itemToRemove);
 		}
 		
 		// get possibly new first item
-		SongPickerMenuItem* firstItem = (SongPickerMenuItem*)m_pWheelItems->at(0);
+		SongPickerMenuItem* firstItem = (SongPickerMenuItem*)m_pWheelItems->at(0).get();
 		lastWheelItemY = [firstItem getPosition].y;
 		
 	} while (lastWheelItemY < -mt_ItemSongHalfHeight || lastWheelItemY > mt_ItemSongHalfHeight);
@@ -319,7 +313,7 @@
 	int i;
 	
 	for(i=kSelectedWheelItemId-2; i<kSelectedWheelItemId+2; ++i) {
-		float t = [(SongPickerMenuItem*)(m_pWheelItems->at(i)) getPosition].y - mt_HighlightCenter.origin.y;
+		float t = [(SongPickerMenuItem*)(m_pWheelItems->at(i).get()) getPosition].y - mt_HighlightCenter.origin.y;
 		if(fabsf(t) < fabsf(tmp)) { tmp = t; }
 	}
 	
@@ -327,7 +321,7 @@
 }
 
 - (SongPickerMenuItem*) getSelected {
-	return m_pWheelItems->at(kSelectedWheelItemId);
+	return m_pWheelItems->at(kSelectedWheelItemId).get();
 }
 
 @end

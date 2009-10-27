@@ -48,38 +48,38 @@
 	return CGRectContainsPoint(m_rShape, point);
 }
 
--(void) pushBackChild:(TMView*)inChild {
+-(void) pushBackChild:(NSObject*)inChild {
 	m_pChildren->push_back( TMViewChildPtr( inChild ) );	
 }
 
--(void) pushChild:(TMView*)inChild {
+-(void) pushChild:(NSObject*)inChild {
 	m_pChildren->push_front( TMViewChildPtr( inChild ) );	
 }
 
 -(void) pushBackControl:(TMControl*)inChild {
-	TMViewChildPtr ptr = TMViewChildPtr( reinterpret_cast<TMView*>(inChild) );
+	TMViewChildPtr ptr = TMViewChildPtr( reinterpret_cast<NSObject*>(inChild) );
 	m_pChildren->push_back( ptr );	
 	m_pControls->push_back( ptr );
 }
 
--(TMView*) popBackChild {
+-(NSObject*) popBackChild {
 	if(m_pChildren->empty())
 		return nil;
 	
 	TMViewChildPtr objPtr = m_pChildren->back();
 	m_pChildren->pop_back();
 	
-	return reinterpret_cast<TMView*> (*objPtr);
+	return reinterpret_cast<NSObject*> (*objPtr);
 }
 
--(TMView*) popChild {
+-(NSObject*) popChild {
 	if(m_pChildren->empty())
 		return nil;
 	
 	TMViewChildPtr objPtr = m_pChildren->front();
 	m_pChildren->pop_front();
 	
-	return reinterpret_cast<TMView*> (*objPtr);
+	return reinterpret_cast<NSObject*> (*objPtr);
 }
 
 - (void) dealloc {

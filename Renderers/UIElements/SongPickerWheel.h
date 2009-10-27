@@ -20,12 +20,14 @@
 
 #ifdef __cplusplus
 	#include <deque>
-	typedef deque<SongPickerMenuItem*> TMWheelItems;
+	#include "ObjCPtr.h"
+	typedef ObjCPtr<SongPickerMenuItem> TMWheelItemPtr;
+	typedef deque<TMWheelItemPtr> TMWheelItems;
 #endif
 
 @interface SongPickerWheel : TMControl {
 #ifdef __cplusplus
-	TMWheelItems*	m_pWheelItems;
+	TMWheelItems*			m_pWheelItems;
 #endif	
 	
 	int						m_nCurrentSongId;	// Selected song index

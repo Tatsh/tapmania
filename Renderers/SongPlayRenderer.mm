@@ -47,7 +47,7 @@ extern TMGameState* g_pGameState;
 @implementation SongPlayRenderer
 
 - (id) init {
-	self = [super init];
+	self = [super initWithShape:[TapMania sharedInstance].glView.bounds];
 	if(!self)
 		return nil;
 		
@@ -196,7 +196,7 @@ extern TMGameState* g_pGameState;
 		[[TapMania sharedInstance] disableJoyPad];
 	
 		// request transition
-		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] init];
+		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] initWithMetrics:@"SongResults"];
 		
 		[[TapMania sharedInstance] switchToScreen:srScreen];
 		g_pGameState->m_bPlayingGame = NO;
@@ -223,9 +223,7 @@ extern TMGameState* g_pGameState;
 // Renders one scene of the gameplay
 - (void)render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	
-	[t_BG drawInRect:bounds];
-	
+
 	if(!g_pGameState->m_bPlayingGame) return;
 
 	// Draw kids

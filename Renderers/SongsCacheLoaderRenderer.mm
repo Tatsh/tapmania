@@ -23,9 +23,6 @@
 
 @implementation SongsCacheLoaderRenderer
 
-Texture2D* t_SongsLoaderBG;
-TMSound*   sr_BG;
-
 - (id) init {
 	self = [super initWithMetrics:@"SongsCacheLoader"];
 	if(!self)
@@ -75,8 +72,7 @@ TMSound*   sr_BG;
 - (void) setupForTransition {
 	[super setupForTransition];
 	
-	// Cache textures
-	t_SongsLoaderBG = TEXTURE(@"SongsLoader Background");
+	// Cache textures / sounds
 	sr_BG = SOUND(@"SongsLoader Music");
 	
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
@@ -103,12 +99,6 @@ TMSound*   sr_BG;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	
-	// Draw background
-	[t_SongsLoaderBG drawInRect:bounds];
-
-	// Render children (if any will be born here someday)
 	[super render:fDelta];
 	
 	[m_pLock lock];

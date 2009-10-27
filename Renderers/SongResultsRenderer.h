@@ -18,10 +18,7 @@
 	
 	BOOL					m_bReturnToSongSelection;
 	
-	NSMutableArray* texturesArray;
-	
-	/* Metrics and such */	
-	Texture2D* t_SongResultsBG;
+	NSMutableArray*			texturesArray;
 }
 
 @end

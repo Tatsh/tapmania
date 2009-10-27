@@ -37,7 +37,6 @@
 }
 
 - (void) dealloc {
-	[m_pTitle release];
 	[m_pArtist release];
 	
 	// Don't release the song

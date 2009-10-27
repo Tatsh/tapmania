@@ -393,7 +393,7 @@
 		<dict>
 			<key>PlayButton</key>
 			<dict>
-				<key>OffCommand</key>
+				<key>HitCommand</key>
 				<string>fontsize,18;alignment,Right;name,Play;screen,SongPickerMenu</string>
 				<key>X</key>
 				<integer>20</integer>
@@ -406,7 +406,7 @@
 			</dict>
 			<key>OptionsButton</key>
 			<dict>
-				<key>OffCommand</key>
+				<key>HitCommand</key>
 				<string>fontsize,20;alignment,left;name,Options;screen,OptionsMenu</string>
 				<key>X</key>
 				<integer>40</integer>
@@ -419,7 +419,7 @@
 			</dict>
 			<key>CreditsButton</key>
 			<dict>
-				<key>OffCommand</key>
+				<key>HitCommand</key>
 				<string>name,Credits;screen,Credits</string>
 				<key>X</key>
 				<integer>60</integer>
@@ -435,7 +435,7 @@
 		<dict>
 			<key>BackButton</key>
 			<dict>
-				<key>OffCommand</key>
+				<key>HitCommand</key>
 				<string>name,Back;screen,MainMenu</string>
 				<key>X</key>
 				<integer>20</integer>
@@ -448,7 +448,7 @@
 			</dict>
 			<key>PadConfigButton</key>
 			<dict>
-				<key>OnCommand</key>
+				<key>HitCommand</key>
 				<string>name,Pad config;screen,PadConfig</string>
 				<key>X</key>
 				<integer>20</integer>
@@ -461,7 +461,7 @@
 			</dict>
 			<key>SongManagerButton</key>
 			<dict>
-				<key>OnCommand</key>
+				<key>HitCommand</key>
 				<string>name,Song manager;screen,SongManager</string>
 				<key>X</key>
 				<integer>20</integer>
@@ -482,7 +482,7 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OffCommand</key>
+				<key>OnCommand</key>
 				<string>name,Noteskin:</string>
 			</dict>
 			<key>ThemeLabel</key>
@@ -495,7 +495,7 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OffCommand</key>
+				<key>OnCommand</key>
 				<string>name,Theme:</string>
 			</dict>
 			<key>SoundLabel</key>
@@ -508,7 +508,7 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OffCommand</key>
+				<key>OnCommand</key>
 				<string>name,Sound:</string>
 			</dict>
 			<key>FingerTrackingLabel</key>
@@ -521,7 +521,7 @@
 				<integer>90</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OffCommand</key>
+				<key>OnCommand</key>
 				<string>fontsize,16;name,Finger tracking:</string>
 			</dict>
 			<key>VisiblePadLabel</key>
@@ -534,7 +534,7 @@
 				<integer>80</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>OffCommand</key>
+				<key>OnCommand</key>
 				<string>fontsize,16;name,Visible pad:</string>
 			</dict>
 			<key>NoteSkinTogglerCustom</key>
@@ -569,6 +569,8 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>HitCommand</key>
+				<string>value,{setting:sound};setting,sound,{value}</string>
 				<key>OffCommand</key>
 				<string>value,{setting:sound};setting,sound,{value}</string>
 				<key>SlideCommand</key>
@@ -647,7 +649,7 @@
 		<dict>
 			<key>BackButton</key>
 			<dict>
-				<key>OnCommand</key>
+				<key>HitCommand</key>
 				<string>name,Back;screen,MainMenu</string>
 				<key>Height</key>
 				<integer>46</integer>
@@ -658,7 +660,7 @@
 				<key>Y</key>
 				<integer>2</integer>
 			</dict>
-			<key>DifficultyToggler</key>
+			<key>DifficultyTogglerCustom</key>
 			<dict>
 				<key>Height</key>
 				<integer>46</integer>
@@ -796,7 +798,7 @@
 				<key>Width</key>
 				<integer>270</integer>
 				<key>X</key>
-				<integer>0</integer>
+				<integer>208</integer>
 				<key>Y</key>
 				<integer>2</integer>
 			</dict>

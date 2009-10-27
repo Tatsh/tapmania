@@ -45,7 +45,6 @@ extern TMGameState* g_pGameState;
 	[super setupForTransition];
 			
 	// Preload all required graphics
-	t_BG = TEXTURE(@"MainMenu Background");
 	t_Donate = TEXTURE(@"Common Donate");
 	
 	// And sounds
@@ -60,34 +59,6 @@ extern TMGameState* g_pGameState;
 	[[ZoomEffect alloc] initWithRenderable:
 		 [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
 	[self pushBackControl:donateButton];
-	
-	// Register menu items
-	// Must disable the play button if empty catalogue
-	/*
-	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
-		m_pPlayButton = 
-		[[MenuItem alloc] initWithTitle:@"No Songs" andShape:RECT_METRIC(@"MainMenu PlayButton")];
-		
-		[m_pPlayButton disable];
-	} else {
-		
-		m_pPlayButton = 
-		 [[ZoomEffect alloc] initWithRenderable:
-			 [[MenuItem alloc] initWithMetrics:@"MainMenu PlayButton"]];
-	}
-
-	[self pushBackControl:m_pPlayButton];
-	
-	m_pOptionsButton = 
-	 [[ZoomEffect alloc] initWithRenderable:
-	 [[MenuItem alloc] initWithMetrics:@"MainMenu OptionsButton"]];
-	[self pushBackControl:m_pOptionsButton];
-	
-	m_pCreditsButton =
-	 [[ZoomEffect alloc] initWithRenderable:
-	  [[MenuItem alloc] initWithMetrics:@"MainMenu CreditsButton"]];
-	[self pushBackControl:m_pCreditsButton];
-	*/
 	 
 	// Setup input handlers
 	[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
@@ -110,12 +81,7 @@ extern TMGameState* g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	
-	// Draw menu background
-	[t_BG drawInRect:bounds];
-	
-	// Draw children
+	// Draw children and bg
 	[super render:fDelta];
 }
 

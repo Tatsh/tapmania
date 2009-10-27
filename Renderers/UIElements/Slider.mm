@@ -101,15 +101,17 @@
 /* TMGameUIResponder method */
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(touches.size() == 1){
-		TMTouch touch = touches.at(0);
-			
+		TMTouch touch = touches.at(0);			
 		CGPoint point = CGPointMake(touch.x(), touch.y());
-		
+
+		// Set the current value of the slider (0.0-1.0)
 		if([self containsPoint:point]) {
 			[self setValueFromPoint:point];			
-			[super tmTouchesMoved:touches withEvent:event];						
-			return YES;
 		}
+
+		// Run commands etc.
+		[super tmTouchesMoved:touches withEvent:event];								
+		return YES;
 	}
 	
 	return NO;

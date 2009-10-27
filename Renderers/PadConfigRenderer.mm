@@ -37,7 +37,6 @@
 	[super setupForTransition];
 	
 	// Cache graphics
-	t_PadConfigBG =		TEXTURE(@"PadConfig Background");
 	t_FingerTap =		TEXTURE(@"Common FingerTap");
 	t_FingerTapBright = TEXTURE(@"Common FingerTapBright");
 	t_TapNote =			(TapNote*)SKIN_TEXTURE(@"DownTapNote");
@@ -88,9 +87,6 @@
 /* TMRenderable methods */
 - (void) render:(float) fDelta {
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
-	
-	//Draw background
-	[t_PadConfigBG drawInRect:bounds];
 
 	// Draw children
 	[super render:fDelta];

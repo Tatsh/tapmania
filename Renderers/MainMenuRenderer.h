@@ -14,7 +14,7 @@
 	MenuItem*		m_pPlayButton, *m_pOptionsButton, *m_pCreditsButton;
 	
 	/* Metrics and such */
-	Texture2D *t_BG, *t_Donate;
+	Texture2D *t_Donate;
 	TMSound   *sr_BG;	
 }
 

@@ -60,7 +60,7 @@
 - (void) dealloc {
 	[m_sTitle release];
 	[m_sFontName release];
-	[m_pTitle release];
+	if(m_pTitle) [m_pTitle release];
 	
 	[super dealloc];
 }

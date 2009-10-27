@@ -9,7 +9,7 @@
 #import "TMScreen.h"
 #import "TMSongsLoaderSupport.h"
 
-@class Texture2D;
+@class Texture2D, TMSound;
 
 @interface SongsCacheLoaderRenderer : TMScreen <TMSongsLoaderSupport> {
 	BOOL	m_bAllSongsLoaded;
@@ -22,6 +22,9 @@
 	
 	NSThread* m_pThread;
 	NSLock*   m_pLock;
+	
+	// Resources
+	TMSound*   sr_BG;
 }
 
 @end
