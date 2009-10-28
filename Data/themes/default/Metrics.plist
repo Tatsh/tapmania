@@ -394,7 +394,11 @@
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>fontsize,18;alignment,Right;name,Play;screen,SongPickerMenu</string>
+				<string>name,Play;screen,SongPickerMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -407,7 +411,11 @@
 			<key>OptionsButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>fontsize,20;alignment,left;name,Options;screen,OptionsMenu</string>
+				<string>name,Options;screen,OptionsMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>40</integer>
 				<key>Y</key>
@@ -421,6 +429,10 @@
 			<dict>
 				<key>HitCommand</key>
 				<string>name,Credits;screen,Credits</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>

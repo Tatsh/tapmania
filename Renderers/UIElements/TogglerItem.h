@@ -52,8 +52,6 @@
 	TMSound*	sr_TogglerEffect;
 }
 
-- (id) initWithShape:(CGRect)shape andCommands:(NSArray*) inCmds;
-
 - (void) addItem:(NSObject*)value withTitle:(NSString*)title;
 - (void) removeItemAtIndex:(int) index;
 - (void) removeAll;

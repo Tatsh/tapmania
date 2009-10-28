@@ -17,6 +17,7 @@
 - (void) updatePosition:(CGPoint)point;
 
 - (CGRect) getShape;
+- (CGRect) getOriginalShape;
 - (void) updateShape:(CGRect)shape;
 
 @end

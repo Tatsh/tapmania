@@ -37,6 +37,7 @@
 #import "VolumeCommand.h"
 #import "SleepCommand.h"
 #import "ModCommand.h"
+#import "ZoomCommand.h"
 
 #import "GameState.h"
 #import "FPS.h"
@@ -72,7 +73,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	REG_COMMAND([@"value" retain], [ValueCommand class]);
 	REG_COMMAND([@"setting" retain], [SettingCommand class]);
 	REG_COMMAND([@"volume" retain], [VolumeCommand class]);
-	
+	REG_COMMAND([@"zoom" retain], [ZoomCommand class]);	
 	
 	// REG_COMMAND([@"" retain], );
 	

@@ -70,10 +70,14 @@
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
 	if(m_bVisible) {
-		// FIXME: 46 no good here!
-		CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-		CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-		CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
+		// Calculate the width of the cap rects for the current height of the button
+		float frameWidth = [m_pTexture contentSize].width  / [m_pTexture cols];
+		float ratio = m_rShape.size.height / [m_pTexture contentSize].height;
+		frameWidth *= ratio;
+		
+		CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, frameWidth, m_rShape.size.height);
+		CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-frameWidth, m_rShape.origin.y, frameWidth, m_rShape.size.height);
+		CGRect bodyRect = CGRectMake(m_rShape.origin.x+frameWidth, m_rShape.origin.y, m_rShape.size.width-frameWidth*2, m_rShape.size.height); 
 		
 		glEnable(GL_BLEND);
 		[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
@@ -81,6 +85,7 @@
 		[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
 		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		// TODO: fix font issues (12 is no good here)
 		[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		

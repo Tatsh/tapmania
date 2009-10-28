@@ -23,9 +23,10 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 #endif
 
 @interface TMView : NSObject <TMRenderable, TMLogicUpdater, TMGameUIResponder> {
-	CGRect		m_rShape;		// The points where the view is drawn
-	BOOL		m_bEnabled;		// Whether this view is enabled for input
-	BOOL		m_bVisible;		// Whether this view is visible or hidden
+	CGRect		m_rShape;			// The points where the view is drawn
+	CGRect		m_rOriginalShape;	// A copy of rShape
+	BOOL		m_bEnabled;			// Whether this view is enabled for input
+	BOOL		m_bVisible;			// Whether this view is visible or hidden
 	
 #ifdef __cplusplus
 	TMViewChildren* m_pChildren;	// All children

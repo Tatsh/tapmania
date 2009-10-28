@@ -231,6 +231,10 @@
 	return m_rShape;
 }
 
+- (CGRect) getOriginalShape {
+	return m_rOriginalShape;
+}
+
 - (void) updateShape:(CGRect)shape {
 	m_rShape.origin = shape.origin;
 	m_rShape.size = shape.size;

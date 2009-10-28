@@ -265,18 +265,15 @@
 
 
 /* TMRenderable stuff */
-- (void) render:(float)fDelta {
-	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
-
+- (void) render:(float)fDelta {	
+	// Let the MenuItem class handle the drawing of the button shape
+	[super render:fDelta];
+	
+	// But draw the current item title here
 	glEnable(GL_BLEND);
-	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
-	[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
-	[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
-	 
 	if([self getCurrent]) {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		// FIXME: 12 no good here!
 		[[self getCurrent].m_pText drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	}

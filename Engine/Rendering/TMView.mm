@@ -19,6 +19,7 @@
 		return nil;
 	
 	m_rShape = inShape;	
+	m_rOriginalShape = inShape;
 	m_bVisible = YES;
 	m_bEnabled = YES;
 	
