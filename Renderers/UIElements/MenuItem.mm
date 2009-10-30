@@ -54,12 +54,6 @@
 	[super initGraphicsAndSounds:inMetricsKey];
 	NSString* inFb = @"Common MenuItem";
 	
-	// Load effect sound
-	sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Hit", inMetricsKey]];		
-	if(!sr_MenuButtonEffect) {
-		sr_MenuButtonEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Hit", inFb]];				
-	}
-
 	// Load texture
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inMetricsKey];
 	if(!m_pTexture) {
@@ -104,18 +98,5 @@
 		glDisable(GL_BLEND);
 	}
 }
-
-/* Override for sound effect */
-- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
-	if([super tmTouchesEnded:touches withEvent:event]) {
-		TMLog(@"Menu item raised. play sound!");
-		[[TMSoundEngine sharedInstance] playEffect:sr_MenuButtonEffect];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-
 
 @end

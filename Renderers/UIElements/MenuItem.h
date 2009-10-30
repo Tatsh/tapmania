@@ -8,13 +8,10 @@
 
 #import "Label.h"
 
-@class TMFramedTexture, Texture2D, TMSound;
+@class TMFramedTexture, Texture2D;
 
 @interface MenuItem : Label {
 	TMFramedTexture*	m_pTexture;
-	
-	/* Sound effect */
-	TMSound*	sr_MenuButtonEffect;
 }
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;

@@ -64,5 +64,6 @@ typedef deque<NSObject*> TMObjList;
 - (void) pushChild:(NSObject*)inChild;
 - (void) removeObject:(NSObject*) obj;
 - (void) removeAllObjects;
+- (void) removeCommandsForObject:(NSObject*) obj;
 
 @end

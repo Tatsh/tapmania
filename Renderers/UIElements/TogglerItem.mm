@@ -11,8 +11,6 @@
 #import "EAGLView.h"
 #import "ThemeManager.h"
 #import "CommandParser.h"
-#import "TMSound.h"
-#import "TMSoundEngine.h"
 
 #import "TMFramedTexture.h"
 
@@ -102,6 +100,7 @@
 }
 
 - (void) onSelect { 
+	TMLog(@"Run onSelect command list for selected item with name: '%@'", m_sTitle);
 	[[CommandParser sharedInstance] runCommandList:m_pCmdList forRequestingObject:self];
 }
 
@@ -165,12 +164,6 @@
 - (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
 	[super initGraphicsAndSounds:inMetricsKey];
 	NSString* inFb = @"Common Toggler";
-	
-	// Load effect sound
-	sr_TogglerEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Change", inMetricsKey]];		
-	if(!sr_TogglerEffect) {
-		sr_TogglerEffect = [[ThemeManager sharedInstance] sound:[NSString stringWithFormat:@"%@Change", inFb]];				
-	}
 	
 	// Load texture
 	m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inMetricsKey];
@@ -236,7 +229,6 @@
 	}
 	
 	[[m_aElements objectAtIndex:m_nCurrentSelection] onSelect];
-	[[TMSoundEngine sharedInstance] playEffect:sr_TogglerEffect];
 }
 
 - (TogglerItemObject*) getCurrent {
@@ -294,20 +286,11 @@
 
 /* TMGameUIResponder method */
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
-	TMTouch touch = touches.at(0);
-	CGPoint point = CGPointMake(touch.x(), touch.y());
-	
-	if(CGRectContainsPoint(m_rShape, point)) {
-		if(m_bEnabled && m_bVisible) {
-			TMLog(@"TogglerItem, finger raised!");
-			[self toggle];
+	if(	[super tmTouchesEnded:touches withEvent:event] ) {
+		TMLog(@"TogglerItem, finger raised!");
+		[self toggle];
 			
-			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-				[m_idActionDelegate performSelector:m_oActionHandler];
-			}	
-			
-			return YES;			
-		}		
+		return YES;			
 	}
 	
 	return NO;

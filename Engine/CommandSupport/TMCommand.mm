@@ -70,6 +70,10 @@
 	m_pInvocationObject = inObj;
 }
 
+- (NSObject*) getInvocationObject {
+	return m_pInvocationObject;
+}
+
 - (void) setNextCommand:(TMCommand*)inCmd {
 	m_pNextCmd = inCmd;
 }

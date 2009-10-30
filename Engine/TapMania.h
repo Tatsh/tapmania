@@ -55,6 +55,7 @@
 
 - (void) deregisterObject:(NSObject*) obj;
 - (void) deregisterAll;
+- (void) deregisterCommandsForObject:(NSObject*) obj;
 
 - (void) setCurrentScreen:(TMScreen*) screenRenderer;
 - (void) releaseCurrentScreen;

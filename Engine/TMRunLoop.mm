@@ -14,6 +14,7 @@
 #import "TapMania.h"
 #import "MessageManager.h"
 #import "TMMessage.h"
+#import "TMCommand.h"
 
 @interface TMRunLoop (Private)
 - (void) worker; 
@@ -88,6 +89,23 @@
 		for (it = m_aObjects->begin(); it != m_aObjects->end(); ++it) {
 			[*it release];
 			m_aObjects->erase(it);
+		}
+	}
+}
+
+/**
+ * This method removes all the TMCommands which are working with the
+ * object specified as argument.
+ */
+- (void) removeCommandsForObject:(NSObject*) obj {
+	TMObjList::iterator it;
+	
+	if( ! m_aObjects->empty() ) {
+		for (it = m_aObjects->begin(); it != m_aObjects->end();) {
+			if([*it isKindOfClass:[TMCommand class]] && [(TMCommand*)*it getInvocationObject]==obj) {
+				TMLog(@"Found command which works with the object.. remove.");
+				it = m_aObjects->erase(it);
+			} else ++it;
 		}
 	}
 }

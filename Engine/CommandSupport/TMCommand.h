@@ -28,6 +28,7 @@
 - (NSObject*) getValueFromString:(NSString*)str withObject:(NSObject*)inObj;
 
 - (void) setInvocationObject:(NSObject*)inObj;
+- (NSObject*) getInvocationObject;
 - (void) setNextCommand:(TMCommand*)inCmd;
 
 @end

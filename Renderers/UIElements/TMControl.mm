@@ -106,29 +106,24 @@
 
 /* TMGameUIResponder stuff */
 - (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
-	BOOL res = NO;
-	
 	// Controls are singletouch. always
 	if(touches.size() == 1){
-		
-		if(m_pOnCommand != nil) {
-			if([super tmTouchesBegan:touches withEvent:event]) {
+		if([super tmTouchesBegan:touches withEvent:event]) {		
+
+			if(m_pOnCommand != nil) {
 				TMLog(@"Running control's OnCommand...");
-				[[CommandParser sharedInstance] runCommandList:m_pOnCommand forRequestingObject:self];
-				res = YES;
+				[[CommandParser sharedInstance] runCommandList:m_pOnCommand forRequestingObject:self];				
 			}
-		}	
 		
-		if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-			if([super tmTouchesBegan:touches withEvent:event]) {
-				TMLog(@"Control touched");
-				
-				res = YES;
+			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
+				TMLog(@"Control touched");				
 			}
+			
+			return YES;
 		}
 	}
 		
-	return res;
+	return NO;
 }
 
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
@@ -153,6 +148,7 @@
 		if( CGRectContainsPoint(m_rShape, oldPos) && !inView ) {
 			TMLog(@"Slided out of the control! run OffCommand...");
 			if(m_pOffCommand != nil) {
+				[[TapMania sharedInstance] deregisterCommandsForObject:self];
 				[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];
 				res = YES;	
 			}	
@@ -181,40 +177,39 @@
 }
 
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
-	BOOL res = NO;
-
 	// Controls are singletouch. always
 	if(touches.size() == 1){
 		
 		// Focus lost on release inside the area?
 		if([super tmTouchesEnded:touches withEvent:event]) {
 
+			// Discard all previous running commands if we are going to do Off/Hit commands here
+			if(m_pOffCommand != nil || m_pHitCommand != nil) {
+				[[TapMania sharedInstance] deregisterCommandsForObject:self];	
+			}
+			
 			// Off command because the focus is lost now
 			if(m_pOffCommand != nil) {
 				TMLog(@"Running control's OffCommand...");
-				[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];
-				res = YES;			
+				[[CommandParser sharedInstance] runCommandList:m_pOffCommand forRequestingObject:self];		
 			}
 
 			// Run the Hit command
 			if(m_pHitCommand != nil) {
 				TMLog(@"Running control's HitCommand...");
 				[[CommandParser sharedInstance] runCommandList:m_pHitCommand forRequestingObject:self];
-				res = YES;
 			}		
-		} 
-		
-		if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
-			if([super tmTouchesEnded:touches withEvent:event]) {
+			
+			if(m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler]) {
 				TMLog(@"Control, finger raised!");
 				[m_idActionDelegate performSelector:m_oActionHandler];
-
-				res = YES;
 			}
+			
+			return YES;
 		}
 	}
 	
-	return res;
+	return NO;
 }
 
 /* TMEffectSupport stuff */

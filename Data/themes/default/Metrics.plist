@@ -8,10 +8,32 @@
 	<dict>
 		<key>MainMenu</key>
 		<dict>
-			<key>PlayButton</key>
+			<key>ModeToggler</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>name,Play;screen,SongPickerMenu</string>
+				<string>value,{setting:landscape}</string>
+				<key>X</key>
+				<integer>220</integer>
+				<key>Y</key>
+				<integer>50</integer>
+				<key>Width</key>
+				<integer>80</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>fontsize,14;value,YES;name,Landscape;setting,landscape,YES</string>
+					<string>fontsize,14;value,NO;name,Skyscraper;setting,landscape,NO</string>
+				</array>
+			</dict>
+			<key>PlayButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Play;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
@@ -23,8 +45,12 @@
 			</dict>
 			<key>OptionsButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Options;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
 				<key>OnCommand</key>
-				<string>name,Options;screen,OptionsMenu</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
@@ -36,8 +62,12 @@
 			</dict>
 			<key>CreditsButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Credits;playsoundeffect,Common ButtonHit;screen,Credits</string>
 				<key>OnCommand</key>
-				<string>name,Credits;screen,Credits</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
@@ -52,8 +82,12 @@
 		<dict>
 			<key>BackButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>OnCommand</key>
-				<string>name,Back;screen,MainMenu</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -65,8 +99,12 @@
 			</dict>
 			<key>PadConfigButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Pad config;playsoundeffect,Common ButtonHit;screen,PadConfig</string>
 				<key>OnCommand</key>
-				<string>name,Pad config;screen,PadConfig</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -78,8 +116,12 @@
 			</dict>
 			<key>SongManagerButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Song manager;playsoundeffect,Common ButtonHit;screen,SongManager</string>
 				<key>OnCommand</key>
-				<string>name,Song manager;screen,SongManager</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -91,6 +133,8 @@
 			</dict>
 			<key>NoteSkinLabel</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>name,Noteskin:</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -102,6 +146,8 @@
 			</dict>
 			<key>ThemeLabel</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>name,Theme:</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -113,6 +159,8 @@
 			</dict>
 			<key>SoundLabel</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>name,Sound:</string>
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
@@ -124,28 +172,34 @@
 			</dict>
 			<key>FingerTrackingLabel</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>fontsize,16;name,Auto tracking:</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>0</integer>
 				<key>Y</key>
 				<integer>209</integer>
 				<key>Width</key>
-				<integer>80</integer>
+				<integer>100</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
 			<key>VisiblePadLabel</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>fontsize,16;name,Visible pad:</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>10</integer>
 				<key>Y</key>
 				<integer>157</integer>
 				<key>Width</key>
-				<integer>80</integer>
+				<integer>100</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
-			<key>NoteSkinToggler</key>
+			<key>NoteSkinTogglerCustom</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>name,Noteskin:</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -155,7 +209,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
-			<key>ThemeToggler</key>
+			<key>ThemeTogglerCustom</key>
 			<dict>
 				<key>X</key>
 				<integer>110</integer>
@@ -176,6 +230,14 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>HitCommand</key>
+				<string>value,{setting:sound};setting,sound,{value}</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>value,{setting:sound};volume,{value};setting,sound,{value};zoom,1.0,0.3</string>
+				<key>SlideCommand</key>
+				<string>volume,{value}</string>
 			</dict>
 			<key>FingerTrackingToggler</key>
 			<dict>
@@ -187,6 +249,17 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
+					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
+				</array>
 			</dict>
 			<key>VisiblePadToggler</key>
 			<dict>
@@ -198,6 +271,17 @@
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:vispad};zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>value,YES;name,Enabled;setting,vispad,YES</string>
+					<string>value,NO;name,Disabled;setting,vispad,NO</string>
+				</array>
 			</dict>
 		</dict>
 		<key>PadConfig</key>
@@ -583,8 +667,10 @@
 				<integer>46</integer>
 				<key>HitCommand</key>
 				<string>value,{setting:sound};setting,sound,{value}</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
-				<string>value,{setting:sound};setting,sound,{value}</string>
+				<string>value,{setting:sound};setting,sound,{value};zoom,1.0,0.3</string>
 				<key>SlideCommand</key>
 				<string>volume,{value}</string>
 			</dict>

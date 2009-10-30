@@ -159,6 +159,7 @@
 		24B5E3B610626B8D004DDC4B /* TMView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E3B510626B8D004DDC4B /* TMView.mm */; };
 		24B5E4C710627C92004DDC4B /* TMModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B5E4C610627C92004DDC4B /* TMModalView.mm */; };
 		24B762F6109837F40030890F /* ZoomCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B762F5109837F40030890F /* ZoomCommand.mm */; };
+		24BD5F39109AE1900095931F /* PlaySoundEffectCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BD5F38109AE1900095931F /* PlaySoundEffectCommand.mm */; };
 		24BE1BEF10919EA000E1B8D8 /* ValueCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */; };
 		24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */; };
 		24BE1D611091CF3D00E1B8D8 /* VolumeCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1D601091CF3D00E1B8D8 /* VolumeCommand.mm */; };
@@ -512,6 +513,8 @@
 		24B5E4C610627C92004DDC4B /* TMModalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMModalView.mm; sourceTree = "<group>"; };
 		24B762F4109837F40030890F /* ZoomCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCommand.h; sourceTree = "<group>"; };
 		24B762F5109837F40030890F /* ZoomCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZoomCommand.mm; sourceTree = "<group>"; };
+		24BD5F37109AE1900095931F /* PlaySoundEffectCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaySoundEffectCommand.h; sourceTree = "<group>"; };
+		24BD5F38109AE1900095931F /* PlaySoundEffectCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaySoundEffectCommand.mm; sourceTree = "<group>"; };
 		24BE1BED10919EA000E1B8D8 /* ValueCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCommand.h; sourceTree = "<group>"; };
 		24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ValueCommand.mm; sourceTree = "<group>"; };
 		24BE1C2E1091A11D00E1B8D8 /* SettingCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCommand.h; sourceTree = "<group>"; };
@@ -1167,6 +1170,8 @@
 				24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */,
 				24CB0EA510959D4C0035A079 /* AlignmentCommand.h */,
 				24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */,
+				24BD5F37109AE1900095931F /* PlaySoundEffectCommand.h */,
+				24BD5F38109AE1900095931F /* PlaySoundEffectCommand.mm */,
 			);
 			name = SystemCommands;
 			sourceTree = "<group>";
@@ -1748,6 +1753,7 @@
 				24CB0EA010959CB60035A079 /* FontSizeCommand.mm in Sources */,
 				24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */,
 				24B762F6109837F40030890F /* ZoomCommand.mm in Sources */,
+				24BD5F39109AE1900095931F /* PlaySoundEffectCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
