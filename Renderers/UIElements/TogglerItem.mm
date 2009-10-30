@@ -253,7 +253,18 @@
 	int tmp = 0;
 	
 	for(TogglerItemObject* obj in m_aElements) {
-		if( [obj.m_pValue isEqualTo:value] ) {
+		BOOL found = NO;
+		if([obj.m_pValue isKindOfClass:[NSString class]]) {
+			if( [obj.m_pValue isEqualToString:value] ) 
+				found = YES;
+		} else if([obj.m_pValue isKindOfClass:[NSNumber class]]) {
+			if( [obj.m_pValue isEqualToNumber:value] )
+				found = YES;
+		} else {
+			TMLog(@"Class not supported by TogglerItem: %@", [obj.m_pValue name]);			
+		}
+		   
+		if(found) {
 			m_nCurrentSelection = tmp;
 			TMLog(@"Found matching value in toggler at %d", m_nCurrentSelection);
 			break;
