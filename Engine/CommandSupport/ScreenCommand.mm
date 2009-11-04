@@ -7,6 +7,7 @@
 //
 
 #import "ScreenCommand.h"
+#import "TMScreen.h"
 #import "ThemeManager.h"
 #import "TapMania.h"
 
@@ -33,14 +34,30 @@
 	
 	// Every screen has a root metric dictionary in the root of the theme metrics
 	// So just get that metric dictionary. The screen class is called $SCREENNAME+Renderer
-	NSString* screenClass = [screenName stringByAppendingString:@"Renderer"];
-	Class cls = [[NSBundle mainBundle] classNamed:screenClass];
+	// If the screen class is not found will use TMScreen as the default one
+	// It can also happen that the screen class is defined in the Class atribute of the metrics dict.
 	
 	NSDictionary* screenMetrics = DICT_METRIC(screenName);
-	
-	if(!cls || !screenMetrics) {
-		TMLog(@"Invalid screen. Class '%@' or metrics for '%@' not found!", screenClass, screenName);
+	if(!screenMetrics) {
+		TMLog(@"Invalid screen. Metrics for '%@' not found!", screenName);
 		return NO;
+	}
+	
+	Class cls;
+	
+	NSString* screenClass = [screenMetrics objectForKey:@"Class"];
+	if(screenClass != nil) {
+		screenClass = [screenClass stringByAppendingString:@"Renderer"];
+		cls = [[NSBundle mainBundle] classNamed:screenClass];
+	} else {
+		// Try Name + Renderer
+		screenClass = [screenName stringByAppendingString:@"Renderer"];
+		cls = [[NSBundle mainBundle] classNamed:screenClass];
+	}
+	
+	// If neither works. go for default
+	if (!cls) {
+		cls = [TMScreen class];
 	}
 	
 	[[TapMania sharedInstance] switchToScreen:[[cls alloc] initWithMetrics:screenName]];

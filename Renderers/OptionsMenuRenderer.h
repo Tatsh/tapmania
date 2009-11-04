@@ -8,14 +8,10 @@
 
 #import "TMScreen.h"
 
-@class MenuItem, Slider, TogglerItem;
+@class TogglerItem;
 
 @interface OptionsMenuRenderer : TMScreen {
 	TogglerItem*		m_pThemeToggler, *m_pNoteSkinToggler;
-	
-	/* Metrics and such */
-	CGRect mt_NoteSkinToggler;
-	CGRect mt_ThemeToggler;
 }
 
 @end

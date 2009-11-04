@@ -26,6 +26,23 @@
 					<string>fontsize,14;value,NO;name,Skyscraper;setting,landscape,NO</string>
 				</array>
 			</dict>
+			<key>TestButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,TEST;playsoundeffect,Common ButtonHit;screen,Test</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
+				<key>X</key>
+				<integer>60</integer>
+				<key>Y</key>
+				<integer>100</integer>
+				<key>Width</key>
+				<integer>200</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
@@ -198,8 +215,12 @@
 			</dict>
 			<key>NoteSkinTogglerCustom</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
-				<string>name,Noteskin:</string>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -211,6 +232,12 @@
 			</dict>
 			<key>ThemeTogglerCustom</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
@@ -468,6 +495,26 @@
 		</dict>
 		<key>Credits</key>
 		<dict/>
+		<key>Test</key>
+		<dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>20</integer>
+				<key>Y</key>
+				<integer>200</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+		</dict>
 	</dict>
 	<key>Landscape</key>
 	<dict>

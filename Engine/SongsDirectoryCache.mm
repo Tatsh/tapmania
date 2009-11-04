@@ -397,7 +397,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	}
 	
 	if (fileModDate = [fileAttributes objectForKey:NSFileModificationDate]) {
-		result = [result stringByAppendingString:[fileSize stringValue]];
+		result = [result stringByAppendingString:[fileModDate description]];
 	}
 	
 	CC_MD5_Update(&md5, [result UTF8String], [result length]);

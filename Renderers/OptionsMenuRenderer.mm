@@ -13,20 +13,8 @@
 #import "Texture2D.h"
 #import "SettingsEngine.h"
 
-#import "MenuItem.h"
-#import "ZoomEffect.h"
-#import "SlideEffect.h"
-
-#import "QuadTransition.h"
-
 #import "TogglerItem.h"
-#import "Label.h"
-#import "Slider.h"
-
 #import "OptionsMenuRenderer.h"
-#import "MainMenuRenderer.h"
-#import "PadConfigRenderer.h"
-#import "SongManagerRenderer.h"
 
 #import "TMSoundEngine.h"
 
@@ -41,15 +29,9 @@
 - (void) setupForTransition {
 	[super setupForTransition];
 	
-	// Cache metrics
-	mt_NoteSkinToggler =		RECT_METRIC(@"OptionsMenu NoteSkinTogglerCustom");
-	mt_ThemeToggler =			RECT_METRIC(@"OptionsMenu ThemeTogglerCustom");
-	
 	// Register menu items 
 	// Theme selection
-	m_pThemeToggler = 
-	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:mt_ThemeToggler]];
+	m_pThemeToggler = [[TogglerItem alloc] initWithMetrics:@"OptionsMenu ThemeTogglerCustom"];
 	
 	// Add all themes to the toggler list
 	for (NSString* themeName in [[ThemeManager sharedInstance] themeList]) {
@@ -64,9 +46,7 @@
 	[m_pThemeToggler selectItemAtIndex:iTheme];	
 	
 	// NoteSkin selection
-	m_pNoteSkinToggler = 		
-	[[ZoomEffect alloc] initWithRenderable:	
-	 [[TogglerItem alloc] initWithShape:mt_NoteSkinToggler]];
+	m_pNoteSkinToggler =  [[TogglerItem alloc] initWithMetrics:@"OptionsMenu NoteSkinTogglerCustom"];
 	
 	// Add all noteskins to the toggler list
 	for (NSString* skinName in [[ThemeManager sharedInstance] noteskinList]) {
@@ -98,11 +78,6 @@
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];
 }
-
-- (void)render:(float) fDelta {
-	// Draw children
-	[super render:fDelta];
-}	
 
 /* Input handlers */
 - (void) themeTogglerChanged {
