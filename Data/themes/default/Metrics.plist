@@ -522,6 +522,24 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
+			<key>ModeToggler</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>value,{setting:landscape}</string>
+				<key>X</key>
+				<integer>376</integer>
+				<key>Y</key>
+				<integer>77</integer>
+				<key>Width</key>
+				<integer>80</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>fontsize,14;value,YES;name,Landscape;setting,landscape,YES</string>
+					<string>fontsize,14;value,NO;name,Skyscraper;setting,landscape,NO</string>
+				</array>
+			</dict>
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
@@ -531,9 +549,9 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>256</integer>
 				<key>Y</key>
-				<integer>100</integer>
+				<integer>126</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
@@ -548,9 +566,9 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>40</integer>
+				<integer>256</integer>
 				<key>Y</key>
-				<integer>150</integer>
+				<integer>176</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
@@ -565,9 +583,9 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>60</integer>
+				<integer>256</integer>
 				<key>Y</key>
-				<integer>200</integer>
+				<integer>226</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
