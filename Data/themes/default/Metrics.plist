@@ -8,6 +8,23 @@
 	<dict>
 		<key>MainMenu</key>
 		<dict>
+			<key>TapDBButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,TapDB;screen,TapDBMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>204</integer>
+				<key>Width</key>
+				<integer>100</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>ModeToggler</key>
 			<dict>
 				<key>OnCommand</key>
@@ -54,7 +71,7 @@
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
-				<integer>234</integer>
+				<integer>254</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
@@ -71,7 +88,7 @@
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
-				<integer>284</integer>
+				<integer>304</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
@@ -88,7 +105,7 @@
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
-				<integer>334</integer>
+				<integer>354</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
@@ -495,6 +512,26 @@
 		</dict>
 		<key>Credits</key>
 		<dict/>
+		<key>TapDBMenu</key>
+		<dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>20</integer>
+				<key>Y</key>
+				<integer>378</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+		</dict>
 		<key>Test</key>
 		<dict>
 			<key>BackButton</key>
@@ -522,10 +559,27 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
+			<key>TapDBButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,TapDB;screen,TapDBMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>148</integer>
+				<key>Y</key>
+				<integer>226</integer>
+				<key>Width</key>
+				<integer>100</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>ModeToggler</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>value,{setting:landscape}</string>
+				<string>value,{setting:skyscraper}</string>
 				<key>X</key>
 				<integer>376</integer>
 				<key>Y</key>
@@ -978,6 +1032,26 @@
 		</dict>
 		<key>Credits</key>
 		<dict/>
+		<key>TapDBMenu</key>
+		<dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>30</integer>
+				<key>Y</key>
+				<integer>268</integer>
+				<key>Width</key>
+				<integer>420</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+		</dict>
 	</dict>
 </dict>
 </plist>
