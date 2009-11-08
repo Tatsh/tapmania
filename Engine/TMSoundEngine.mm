@@ -131,6 +131,14 @@ Exit:
 	if(!self)
 		return nil;
 	
+	NSError *err;
+	BOOL    bSuccess = FALSE;
+
+	// Enable audio
+	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+	[audioSession setCategory:AVAudioSessionCategoryPlayback error:&err];
+	bSuccess = [audioSession setActive: YES error: &err];  
+
 	if(![self initOpenAL]) 
 		return nil;
 	
