@@ -18,6 +18,7 @@
 #import "Label.h"
 #import "TogglerItem.h"
 #import "Slider.h"
+#import "ImageButton.h"
 
 @implementation TMScreen
 
@@ -54,6 +55,10 @@
 		}
 		else if([element hasSuffix:@"Toggler"]) {
 			TMControl* ctrl = [[TogglerItem alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
+			[self pushBackControl:ctrl];
+		}		
+		else if([element hasSuffix:@"Img"]) {
+			TMControl* ctrl = [[ImageButton alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];
 			[self pushBackControl:ctrl];
 		}
 	}

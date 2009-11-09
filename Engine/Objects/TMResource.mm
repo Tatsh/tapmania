@@ -11,6 +11,9 @@
 #import "TMFramedTexture.h"
 #import "TMSound.h"
 #import "TMLoopedSound.h"
+#import "GameState.h"
+
+extern TMGameState*	g_pGameState;
 
 @interface TMResource (Private)
 - (void) parseDimensions:(NSString*)str;
@@ -86,6 +89,7 @@
 	// 3) ItemName_(loop).ext - for sounds
 	// 4) ItemName_DxD.ext
 	// 5) ItemName.ext
+	// 6) ItemName_(mode).ext where mode is landscape or skyscraper
 	if( [nameSpecificator count] == 3 ) {		
 		// Got a page and dimension
 		NSString* pageName = [nameSpecificator objectAtIndex:1];
@@ -99,16 +103,37 @@
 		m_oClass = [TMFramedTexture class];
 		
 	} else if( [nameSpecificator count] == 2 ) {
-		// Tricky! can have only page name, sound loop specifier or only dimension
+		// Tricky! can have only page name, sound loop or mode specifier or only dimension
 	
 		NSString* unknown = [nameSpecificator objectAtIndex:1];
 		if([unknown hasPrefix:@"("]) {
-			// Sound specifier
+			// Sound specifier or mode
 			componentName = [nameSpecificator objectAtIndex:0];
 			
 			if([unknown isEqualToString:@"(loop)"]) {
 				TMLog(@"Looping sound specifier found. Setting resource type to looped sound.");
 				m_oClass = [TMLoopedSound class];
+				
+			} else if([unknown isEqualToString:@"(skyscraper)"]) {
+				TMLog(@"Detected a specific SKYSCRAPER version of %@ resource", componentName);
+
+				if(g_pGameState->m_bLandscape) {											
+					return nil;	// Don't use this specification now
+				}
+				
+				// Use this specification
+				TMLog(@"Using this specific version since in Skyscraper mode...");
+				
+			} else if([unknown isEqualToString:@"(landscape)"]) {
+
+				TMLog(@"Detected a specific LANDSCAPE version of %@ resource", componentName);				
+
+				if(!g_pGameState->m_bLandscape) {											
+					return nil;	// Don't use this specification now
+				}
+				
+				// Use this specification
+				TMLog(@"Using this specific version since in Landscape mode...");				
 			}
 			
 		} else if(![unknown hasPrefix:@"["]) {

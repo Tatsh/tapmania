@@ -7,11 +7,8 @@
 //
 
 #import "ImageButton.h"
-#import "TMFramedTexture.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
-#import "TapMania.h"
-#import "EAGLView.h"
 
 @implementation ImageButton
 
@@ -25,11 +22,35 @@
 	return self;
 }
 
+- (id) initWithMetrics:(NSString*)inMetricsKey {
+	self = [super initWithShape:RECT_METRIC(inMetricsKey)];
+	if(!self) 
+		return nil;
+	
+	// Get graphics and sounds used by this control
+	[self initGraphicsAndSounds:inMetricsKey];
+		
+	// Add commands support
+	[super initCommands:inMetricsKey];
+	
+	return self;	
+}
+
+- (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
+	[super initGraphicsAndSounds:inMetricsKey];
+	
+	// Load texture
+	m_pTexture = (Texture2D*)[[ThemeManager sharedInstance] texture:inMetricsKey];
+}
+
+
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
-	glEnable(GL_BLEND);
-	[m_pTexture drawInRect:m_rShape];
-	glDisable(GL_BLEND);
+	if(m_bVisible) {
+		glEnable(GL_BLEND);
+		[m_pTexture drawInRect:m_rShape];
+		glDisable(GL_BLEND);
+	}
 }
 
 @end

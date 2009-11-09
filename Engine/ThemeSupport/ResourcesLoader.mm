@@ -173,9 +173,11 @@
 										
 					TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
 						
-					// Add that resource
-					[node setValue:resource forKey:resource.componentName];										
-					TMLog(@"Added it to current node at key = '%@'", resource.componentName);						
+					// Add that resource if is valid
+					if(resource) {
+						[node setValue:resource forKey:resource.componentName];										
+						TMLog(@"Added it to current node at key = '%@'", resource.componentName);						
+					}
 				}
 			}
 		}

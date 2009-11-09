@@ -8,7 +8,7 @@
 
 #import "TMControl.h"
 
-@class TMFramedTexture, Texture2D;
+@class Texture2D;
 
 @interface ImageButton : TMControl {
 	Texture2D*			m_pTexture;
