@@ -259,7 +259,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 	// Create the AdWhirl thing
 	m_pAdsView = [ARRollerView requestRollerViewWithDelegate:self];
-	[m_pAdsView setFrame:CGRectMake(0,430, 320, 50)];
+	m_pAdsView.clipsToBounds = YES;
+	
+	if(g_pGameState->m_bLandscape) {
+		[m_pAdsView setFrame:CGRectMake(80,270, 320, 50)];
+	} else {
+		[m_pAdsView setFrame:CGRectMake(0,430, 320, 50)];
+	}
+	
 	[m_pGlView addSubview:m_pAdsView];
 	TMLog(@"Added the AdWhirl view.");
 	
