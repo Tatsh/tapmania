@@ -48,7 +48,7 @@
 	mt_HighlightHalfHeight = mt_Highlight.size.height/2;
 	
 	// Cache graphics
-	t_Highlight = TEXTURE(@"SongPicker Wheel Highlight");
+	t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
 	
 	m_fVelocity = 0.0f;	
 	[self clearSwipes];

@@ -60,7 +60,7 @@
 		cls = [TMScreen class];
 	}
 	
-	[[TapMania sharedInstance] switchToScreen:[[cls alloc] initWithMetrics:screenName]];
+	[[TapMania sharedInstance] switchToScreen:cls withMetrics:screenName];
 	
 	return YES;
 }

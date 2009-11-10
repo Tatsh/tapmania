@@ -57,6 +57,12 @@
 	m_pChildren->push_front( TMViewChildPtr( inChild ) );	
 }
 
+-(void) pushControl:(TMControl*)inChild {
+	TMViewChildPtr ptr = TMViewChildPtr( reinterpret_cast<NSObject*>(inChild) );
+	m_pChildren->push_front( ptr );	
+	m_pControls->push_front( ptr );
+}
+
 -(void) pushBackControl:(TMControl*)inChild {
 	TMViewChildPtr ptr = TMViewChildPtr( reinterpret_cast<NSObject*>(inChild) );
 	m_pChildren->push_back( ptr );	

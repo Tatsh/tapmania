@@ -107,16 +107,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 	return self;
 }
 
-- (void) switchToScreen:(TMScreen*)screenRenderer {
-	[self registerObjectAtBegin:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics {
+	[self registerObjectAtBegin:[[FadeTransition alloc] initFromScreen:m_pCurrentScreen toClass:screenClass withMetrics:inMetrics]];
 }
 
-- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass {
-	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer]];
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass {
+	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toClass:screenClass withMetrics:inMetrics]];
 }
 
-- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
-	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toScreen:screenRenderer timeIn:timeIn timeOut:timeOut]];
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut {
+	[self registerObjectAtBegin:[[transitionClass alloc] initFromScreen:m_pCurrentScreen toClass:screenClass withMetrics:inMetrics timeIn:timeIn timeOut:timeOut]];
 }
 
 - (void) addOverlay:(TMModalView*)modalView {
@@ -282,8 +282,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[[TapMania sharedInstance] registerObjectAtEnd:[[FPS alloc] init]];	// FPS drawing
 #endif
 	
-	// Will start with main menu
-	[[TapMania sharedInstance] switchToScreen:[[SongsCacheLoaderRenderer alloc] init] usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
+	// Will start with song loader
+	[[TapMania sharedInstance] switchToScreen:[SongsCacheLoaderRenderer class] withMetrics:@"SongsCacheLoader" usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
 		
 	TMLog(@"Game run loop initialized...");
 }

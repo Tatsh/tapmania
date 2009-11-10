@@ -240,6 +240,10 @@
 	return nil;
 }
 
+- (void) invokeCurrentCommand {
+	[[self getCurrent] onSelect];
+}
+
 - (void) setValue:(NSObject*)value {
 	m_nCurrentSelection = 0;
 	int tmp = 0;

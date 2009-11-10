@@ -16,30 +16,33 @@
 
 @implementation BasicTransition
 
-- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut {
-	self = [self initFromScreen:fromScreen toScreen:toScreen];
+- (id) initFromScreen:(TMScreen*)fromScreen toClass:(Class)screenClass withMetrics:(NSString*)inMetrics {
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	m_pFrom = fromScreen;
+	m_pTo = nil;	// Will be constructed when screen is black
+	m_sToScreenMetrics = [inMetrics retain];
+	m_toScreenClass = screenClass;
+	
+	m_dElapsedTime = 0.0;
+	m_nState = kTransitionStateInitializing;
+	
+	m_dTimeIn = kDefaultTransitionInTime;
+	m_dTimeOut = kDefaultTransitionOutTime;
+	
+	return self;
+}
+
+- (id) initFromScreen:(TMScreen*)fromScreen toClass:(Class)screenClass withMetrics:(NSString*)inMetrics timeIn:(double)timeIn timeOut:(double)timeOut {
+	self = [self initFromScreen:fromScreen toClass:screenClass withMetrics:inMetrics];
 	if(!self)
 		return nil;
 	
 	m_dTimeIn = timeIn;
 	m_dTimeOut = timeOut;
 	
-	return self;
-}
-
-- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen {
-	self = [super init];
-	if (!self)
-		return nil;
-	
-	m_pFrom = fromScreen;
-	m_pTo = toScreen;
-	m_dElapsedTime = 0.0;
-	m_nState = kTransitionStateInitializing;
-	
-	m_dTimeIn = kDefaultTransitionInTime;
-	m_dTimeOut = kDefaultTransitionOutTime;
-
 	return self;
 }
 
@@ -102,6 +105,11 @@
 		TMLog(@"Release current screen...");
 		[[TapMania sharedInstance] releaseCurrentScreen];
 		TMLog(@"Finished releasing current screen.");
+	}
+	
+	if(m_pTo == nil) {
+		// Time to initialize the new screen
+		m_pTo = [[m_toScreenClass alloc] initWithMetrics:m_sToScreenMetrics];
 	}
 }
 

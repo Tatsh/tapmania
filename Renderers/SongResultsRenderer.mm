@@ -111,7 +111,7 @@ extern TMGameState* g_pGameState;
 	
 	if(m_bReturnToSongSelection) {
 		SongPickerMenuRenderer* spRenderer = [[SongPickerMenuRenderer alloc] init];
-		[[TapMania sharedInstance] switchToScreen:spRenderer];
+		[[TapMania sharedInstance] switchToScreen:[SongPickerMenuRenderer class] withMetrics:@"SongPickerMenu"];
 		
 		m_bReturnToSongSelection = NO;
 	}

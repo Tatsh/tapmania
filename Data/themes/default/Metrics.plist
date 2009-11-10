@@ -6,6 +6,8 @@
 	<real>0.5</real>
 	<key>Skyscraper</key>
 	<dict>
+		<key>SongsCacheLoader</key>
+		<dict/>
 		<key>MainMenu</key>
 		<dict>
 			<key>TestImg</key>
@@ -396,31 +398,7 @@
 		</dict>
 		<key>SongPickerMenu</key>
 		<dict>
-			<key>BackButton</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Back;screen,MainMenu</string>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>60</integer>
-				<key>X</key>
-				<integer>5</integer>
-				<key>Y</key>
-				<integer>1</integer>
-			</dict>
-			<key>DifficultyToggler</key>
-			<dict>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>180</integer>
-				<key>X</key>
-				<integer>70</integer>
-				<key>Y</key>
-				<integer>1</integer>
-			</dict>
-			<key>ModPanel</key>
+			<key>TopImg</key>
 			<dict>
 				<key>Height</key>
 				<integer>70</integer>
@@ -431,8 +409,36 @@
 				<key>Y</key>
 				<integer>0</integer>
 			</dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;screen,MainMenu</string>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>60</integer>
+				<key>X</key>
+				<integer>5</integer>
+				<key>Y</key>
+				<integer>1</integer>
+			</dict>
+			<key>DifficultyTogglerCustom</key>
+			<dict>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>180</integer>
+				<key>X</key>
+				<integer>70</integer>
+				<key>Y</key>
+				<integer>1</integer>
+			</dict>
 			<key>SpeedToggler</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>value,x1</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
 				<key>Elements</key>
 				<array>
 					<string>mod,0.25x;name,x0.25</string>
@@ -445,8 +451,6 @@
 					<string>mod,5x;name,x5</string>
 					<string>mod,8x;name,x8</string>
 				</array>
-				<key>DefaultElement</key>
-				<integer>2</integer>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>Width</key>
@@ -552,6 +556,8 @@
 				<integer>0</integer>
 			</dict>
 		</dict>
+		<key>SongResults</key>
+		<dict/>
 		<key>SongManager</key>
 		<dict>
 			<key>Url</key>
@@ -940,17 +946,6 @@
 				<key>Y</key>
 				<integer>100</integer>
 			</dict>
-			<key>ModPanel</key>
-			<dict>
-				<key>Height</key>
-				<integer>70</integer>
-				<key>Width</key>
-				<integer>320</integer>
-				<key>X</key>
-				<integer>0</integer>
-				<key>Y</key>
-				<integer>-70</integer>
-			</dict>
 			<key>SpeedToggler</key>
 			<dict>
 				<key>OnCommand</key>
@@ -1072,6 +1067,8 @@
 				<integer>2</integer>
 			</dict>
 		</dict>
+		<key>SongResults</key>
+		<dict/>
 		<key>SongManager</key>
 		<dict>
 			<key>Url</key>

@@ -51,5 +51,6 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 
 -(TMControl*) findControl:(NSString*)inPath;
 -(void) pushBackControl:(TMControl*)inChild;
+-(void) pushControl:(TMControl*)inChild;
 
 @end

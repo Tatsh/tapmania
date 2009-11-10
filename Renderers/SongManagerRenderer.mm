@@ -72,7 +72,7 @@
 	
 	if(m_nAction == kSongManagerAction_Exit) {
 		// Exit to options menu
-		[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
+		[[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu" usingTransition:[QuadTransition class]];
 		
 		m_nAction = kSongManagerAction_None;
 	}

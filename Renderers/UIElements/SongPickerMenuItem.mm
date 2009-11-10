@@ -30,7 +30,7 @@
 	m_pSong = song;	
 	
 	// Cache texture
-	t_WheelItem = TEXTURE(@"SongPicker Wheel ItemSong");
+	t_WheelItem = TEXTURE(@"SongPickerMenu Wheel ItemSong");
 	[self generateTextures];
 	
 	return self;

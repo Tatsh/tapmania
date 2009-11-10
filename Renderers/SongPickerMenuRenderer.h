@@ -16,7 +16,7 @@
 	TMSound*				m_pPreviewMusic;
 	
 	/* Metrics and such */
-	CGRect mt_DifficultyToggler, mt_ModPanel;
+	CGRect mt_DifficultyToggler;
 	CGRect mt_ItemSong;
 	int mt_ItemSongHalfHeight;
 	
@@ -26,7 +26,6 @@
 
 	// Resources
 	Texture2D* t_Highlight;
-	Texture2D* t_ModPanel;
 	
 	TMSound* sr_SelectSong;	
 }

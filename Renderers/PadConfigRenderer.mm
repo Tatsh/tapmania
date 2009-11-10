@@ -113,7 +113,7 @@
 	
 	if(m_nPadConfigAction == kPadConfigAction_Exit) {
 		// Exit to options menu
-		[[TapMania sharedInstance] switchToScreen:[[OptionsMenuRenderer alloc] init] usingTransition:[QuadTransition class]];
+		[[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu" usingTransition:[QuadTransition class]];
 		
 		m_nPadConfigAction = kPadConfigAction_None;
 	}

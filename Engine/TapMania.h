@@ -43,9 +43,9 @@
 
 // Go to another screen using this method
 // This method will remove current screen and release memory. Afterwards it will switch to the specified screen.
-- (void) switchToScreen:(TMScreen*)screenRenderer;
-- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass;
-- (void) switchToScreen:(TMScreen*)screenRenderer usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;	
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics;
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass;
+- (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;
 
 - (void) addOverlay:(TMModalView*)modalView;
 - (void) removeOverlay:(TMModalView*)modalView;

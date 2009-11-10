@@ -46,8 +46,8 @@ extern TMGameState* g_pGameState;
 
 @implementation SongPlayRenderer
 
-- (id) init {
-	self = [super initWithShape:[TapMania sharedInstance].glView.bounds];
+- (id) initWithMetrics:(NSString*)inMetrics {
+	self = [super initWithMetrics:inMetrics];
 	if(!self)
 		return nil;
 		
@@ -106,10 +106,12 @@ extern TMGameState* g_pGameState;
 	
 	// Enable joypad
 	m_pJoyPad = [[TapMania sharedInstance] enableJoyPad];	
+	
+	// Trigger song play
+	[self playSong];
 }
 
-- (void) playSong:(TMSong*) song {
-	g_pGameState->m_pSong = [song retain];
+- (void) playSong {
 	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:g_pGameState->m_nSelectedDifficulty];
 	
 #ifdef DEBUG 
@@ -195,10 +197,8 @@ extern TMGameState* g_pGameState;
 		// Disable the joypad
 		[[TapMania sharedInstance] disableJoyPad];
 	
-		// request transition
-		SongResultsRenderer *srScreen = [[SongResultsRenderer alloc] initWithMetrics:@"SongResults"];
-		
-		[[TapMania sharedInstance] switchToScreen:srScreen];
+		// request transition		
+		[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
 		g_pGameState->m_bPlayingGame = NO;
 	} else if(currentTime >= m_dPlayBackScheduledFadeOutTime) {
 		if(!m_bIsFading) {

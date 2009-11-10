@@ -25,8 +25,9 @@ typedef enum {
 @class TMScreen;
 
 @interface BasicTransition : NSObject <TMTransition, TMRenderable, TMLogicUpdater> {
-	TMScreen *m_pFrom, 
-					 *m_pTo;
+	TMScreen		 *m_pFrom, *m_pTo;
+	Class			  m_toScreenClass;
+	NSString*		  m_sToScreenMetrics;
 	
 	double			  m_dTimeStart;
 	double			  m_dElapsedTime;
@@ -35,8 +36,8 @@ typedef enum {
 	double			  m_dTimeIn, m_dTimeOut;
 }
 
-- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen;
-- (id) initFromScreen:(TMScreen*)fromScreen toScreen:(TMScreen*)toScreen timeIn:(double)timeIn timeOut:(double)timeOut;
+- (id) initFromScreen:(TMScreen*)fromScreen toClass:(Class)screenClass withMetrics:(NSString*)inMetrics;
+- (id) initFromScreen:(TMScreen*)fromScreen toClass:(Class)screenClass withMetrics:(NSString*)inMetrics timeIn:(double)timeIn timeOut:(double)timeOut;
 
 - (BOOL) updateTransitionIn;
 - (BOOL) updateTransitionOut;

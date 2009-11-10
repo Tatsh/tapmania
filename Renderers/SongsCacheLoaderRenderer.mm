@@ -120,7 +120,7 @@
 	
 	if(m_bAllSongsLoaded && m_bTransitionIsDone) {
 		TMLog(@"Requesting switch to main screen!");
-		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] initWithMetrics:@"MainMenu"]];
+		[[TapMania sharedInstance] switchToScreen:[MainMenuRenderer class] withMetrics:@"MainMenu"];
 		m_bAllSongsLoaded = NO; // Do this only once
 		
 	} else if(m_bGlobalError) {
