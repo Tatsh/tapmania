@@ -23,41 +23,6 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 			</dict>
-			<key>TapDBButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,TapDB;screen,TapDBMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>204</integer>
-				<key>Width</key>
-				<integer>100</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-			<key>ModeToggler</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>value,{setting:landscape}</string>
-				<key>X</key>
-				<integer>220</integer>
-				<key>Y</key>
-				<integer>50</integer>
-				<key>Width</key>
-				<integer>80</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Elements</key>
-				<array>
-					<string>fontsize,14;value,YES;name,Landscape;setting,landscape,YES</string>
-					<string>fontsize,14;value,NO;name,Skyscraper;setting,landscape,NO</string>
-				</array>
-			</dict>
 			<key>TestButtonDisabled</key>
 			<dict>
 				<key>HitCommand</key>
@@ -129,6 +94,23 @@
 		</dict>
 		<key>OptionsMenu</key>
 		<dict>
+			<key>MoreButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,More;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>220</integer>
+				<key>Y</key>
+				<integer>419</integer>
+				<key>Width</key>
+				<integer>84</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>BackButton</key>
 			<dict>
 				<key>HitCommand</key>
@@ -138,11 +120,11 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>18</integer>
 				<key>Y</key>
 				<integer>419</integer>
 				<key>Width</key>
-				<integer>280</integer>
+				<integer>196</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
@@ -343,6 +325,61 @@
 				</array>
 			</dict>
 		</dict>
+		<key>OptionsExtendedMenu</key>
+		<dict>
+			<key>ModeToggler</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>value,{setting:landscape}</string>
+				<key>X</key>
+				<integer>120</integer>
+				<key>Y</key>
+				<integer>50</integer>
+				<key>Width</key>
+				<integer>80</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Elements</key>
+				<array>
+					<string>fontsize,14;value,YES;name,Landscape;setting,landscape,YES</string>
+					<string>fontsize,14;value,NO;name,Skyscraper;setting,landscape,NO</string>
+				</array>
+			</dict>
+			<key>TapDBImg</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>screen,TapDBMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>18</integer>
+				<key>Y</key>
+				<integer>168</integer>
+				<key>Width</key>
+				<integer>288</integer>
+				<key>Height</key>
+				<integer>139</integer>
+			</dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>20</integer>
+				<key>Y</key>
+				<integer>378</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+		</dict>
 		<key>PadConfig</key>
 		<dict>
 			<key>ResetButton</key>
@@ -532,7 +569,7 @@
 			<key>BackButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
 				<key>OnCommand</key>
 				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
