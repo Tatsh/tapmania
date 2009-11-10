@@ -23,6 +23,8 @@
 	TMCommand*	m_pOffCommand;				// used if non-nil; commands to perform when focus lost
 	TMCommand*	m_pHitCommand;				// used if non-nil; commands to perform when touch released in the control area
 	TMCommand*	m_pSlideCommand;			// used if non-nil; commands to perform when sliding
+	
+	NSString*	m_sControlPath;				// Control full qualified name (e.g. "MainMenu PlayButton")
 }
 
 - (id) initWithMetrics:(NSString*)inMetricsKey;
@@ -37,5 +39,6 @@
 - (void) setSlideCommand:(TMCommand*)inCmd;
 
 - (void) initGraphicsAndSounds:(NSString*)inMetricsKey;
+- (NSString*) getControlPath;
 
 @end

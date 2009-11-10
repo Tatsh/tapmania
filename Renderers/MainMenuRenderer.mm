@@ -71,6 +71,15 @@ extern TMGameState* g_pGameState;
 	// Get ads back to place
 	[[TapMania sharedInstance] toggleAds:YES];	 
 	
+	// Enable/disable play button
+	if([SongsDirectoryCache sharedInstance].catalogueIsEmpty) {
+		MenuItem* playButton = (MenuItem*)[self findControl:@"MainMenu PlayButton"];
+		if(playButton != nil) {
+			[playButton disable];
+			[playButton setName:@"No Songs"];
+		}
+	}
+	
 	// A little hack for the news popup. now it can raise if it has something
 	g_pGameState->m_bPlayingGame = NO;
 }

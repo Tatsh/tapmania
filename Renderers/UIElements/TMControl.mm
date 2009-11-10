@@ -34,11 +34,15 @@
 	m_idChangedDelegate = nil;
 	m_oActionHandler = nil;
 	m_oChangedActionHandler = nil;
+	m_sControlPath = nil;	// Made from code without metrics usage
 	
 	return self;
 }
 
 - (void) initCommands:(NSString*)inMetricsKey {
+	// Store the control path
+	m_sControlPath = [inMetricsKey retain];
+	
 	// Try to get the commands. can be omitted
 	NSString* onCommandList = STR_METRIC([inMetricsKey stringByAppendingString:@" OnCommand"]);
 	if([onCommandList length] > 0) {
@@ -65,7 +69,14 @@
 	// Override this
 }
 
+- (NSString*) getControlPath {
+	return m_sControlPath;
+}
+
 - (void) dealloc {
+	if(m_sControlPath) 
+		[m_sControlPath release];
+	
 	if(m_pOnCommand)
 		[m_pOnCommand release];
 	if(m_pOffCommand)

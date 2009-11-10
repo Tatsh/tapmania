@@ -83,6 +83,27 @@
 	return reinterpret_cast<NSObject*> (*objPtr);
 }
 
+-(TMControl*) findControl:(NSString*)inPath {
+	if(inPath == nil) return nil;
+	if(m_pControls->empty()) return nil;
+	
+	int curSize = m_pControls->size();
+	
+	for (int i = 0; i < curSize; ++i) {				
+		TMControl* obj = (TMControl*)*(m_pControls->at(i));
+		NSString* path = [obj getControlPath];
+		
+		if(path != nil && [path isEqualToString:inPath]) {
+			return obj;
+		}
+		
+		curSize = m_pControls->size();	// To be safe
+	}	
+	
+	// Not found
+	return nil;
+}
+
 - (void) dealloc {
 	TMLog(@"Deallocating TMView instance.. %@", self);
 	delete m_pControls;
