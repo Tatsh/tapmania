@@ -47,7 +47,7 @@
 				<key>HitCommand</key>
 				<string>name,Play;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -64,7 +64,7 @@
 				<key>HitCommand</key>
 				<string>name,Options;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -81,7 +81,7 @@
 				<key>HitCommand</key>
 				<string>name,Credits;playsoundeffect,Common ButtonHit;screen,Credits</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -118,7 +118,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -135,7 +135,7 @@
 				<key>HitCommand</key>
 				<string>name,Pad config;playsoundeffect,Common ButtonHit;screen,PadConfig</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -152,7 +152,7 @@
 				<key>HitCommand</key>
 				<string>name,Song manager;playsoundeffect,Common ButtonHit;screen,SongManager</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -234,7 +234,7 @@
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -251,7 +251,7 @@
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
+				<string>zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -293,7 +293,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
+				<string>value,{setting:autotrack};zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
@@ -315,7 +315,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:vispad};zoom,1.1,0.5</string>
+				<string>value,{setting:vispad};zoom,0.9,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
