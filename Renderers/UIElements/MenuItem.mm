@@ -10,6 +10,7 @@
 #import "TMFramedTexture.h"
 #import "ThemeManager.h"
 #import "Texture2D.h"
+#import "Quad.h"
 #import "TMSound.h"
 #import "TMSoundEngine.h"
 #import "TapMania.h"
@@ -77,23 +78,13 @@
 		[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];
 		[(TMFramedTexture*)m_pTexture drawFrame:1 inRect:bodyRect];
 		[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
+
+		CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
+		leftCorner.x -= m_pTitle.contentSize.width*ratio/2;
+		leftCorner.y -= m_pTitle.contentSize.height*ratio/2;
 		
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		// TODO: fix font issues (12 is no good here)
-		[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-		
-		/*
-		 TODO: Use our fonts later
-		float vCenter = m_rShape.origin.y + m_rShape.size.height/2;
-		float hCenter = m_rShape.origin.x + m_rShape.size.width/2;
-		float strWidth = [[FontManager sharedInstance] getStringWidth:m_sTitle usingFont:@"MainMenuButtons"];
-		float xPos = hCenter-strWidth/2;
-		float yPos = vCenter;
-			
-		[[FontManager sharedInstance] print:m_sTitle
-					  usingFont:@"MainMenuButtons" atPoint:CGPointMake(xPos, yPos)];
-		*/
+		CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width*ratio, m_pTitle.contentSize.height*ratio);
+		[m_pTitle drawInRect:rect];		
 		
 		glDisable(GL_BLEND);
 	}

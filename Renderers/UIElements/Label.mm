@@ -10,6 +10,7 @@
 
 #import "Texture2D.h"
 #import "ThemeManager.h"
+#import "Quad.h"
 
 @implementation Label
 
@@ -25,7 +26,7 @@
 	[super initCommands:inMetricsKey];
 
 	// Generate texture
-	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];	
 	
 	return self;
 }
@@ -37,8 +38,8 @@
 	
 	m_fFontSize = fontSize;
 	
-	m_pTitle = [[Texture2D alloc] initWithString:title dimensions:m_rShape.size alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:m_fFontSize];
 	m_sTitle = title;
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];	
 	
 	return self;	
 }
@@ -70,7 +71,7 @@
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName retain];
-	m_pTitle = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_rShape.size alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];
 }
 
 - (void) setFont:(NSString*)inName {
@@ -97,22 +98,14 @@
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
 	glEnable(GL_BLEND);	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[m_pTitle drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	
-	/*
-	 TODO: Use our fonts later
-	 float vCenter = m_rShape.origin.y + m_rShape.size.height/2;
-	 float hCenter = m_rShape.origin.x + m_rShape.size.width/2;
-	 float strWidth = [[FontManager sharedInstance] getStringWidth:m_sTitle usingFont:@"MainMenuButtons"];
-	 float xPos = hCenter-strWidth/2;
-	 float yPos = vCenter;
-	 
-	 [[FontManager sharedInstance] print:m_sTitle
-	 usingFont:@"MainMenuButtons" atPoint:CGPointMake(xPos, yPos)];
-	 */
+	CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
+	leftCorner.x -= m_pTitle.contentSize.width/2;
+	leftCorner.y -= m_pTitle.contentSize.height/2;
 	
+	CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width, m_pTitle.contentSize.height);
+	[m_pTitle drawInRect:rect];		
+
 	glDisable(GL_BLEND);
 }
 

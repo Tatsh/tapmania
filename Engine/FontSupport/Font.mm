@@ -12,6 +12,7 @@
 #import "FontCharmaps.h"
 #import "FontCharAliases.h"
 #import "TMFramedTexture.h"
+#import "Quad.h"
 
 @implementation Glyph
 @synthesize m_pFontPage, m_nHorizAdvance, m_fWidth; 
@@ -566,36 +567,44 @@
 	return g;
 }
 
-- (float) getStringWidth:(NSString*)str {
+- (CGSize) getStringWidthAndHeight:(NSString*)str {
 	float width = 0.0f;
+	float height = 0.0f;
 	int i;
 	
 	for(i=0; i<[str length]; ++i) {
 		unichar c = [str characterAtIndex:i];
 		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
 		
-		width+=[g m_fWidth]+[g m_nHorizAdvance];
+		width += [g m_fWidth]+[g m_nHorizAdvance];
+		TMLog(@"Added %f to width = %f", [g m_fWidth]+[g m_nHorizAdvance], width);
+		
+		height = fmaxf(height, [g m_fHeight]);
 	}
 		
-	return width;
+	return CGSizeMake(width, height);
 }
 
-- (void) drawText:(NSString*)str atPoint:(CGPoint)point {
+- (Quad*) createQuadFromText:(NSString*)str {
 	int curCharacter = 0;
-	CGPoint curPoint = point;
+	float curPoint = 0.0f;
+	CGSize strSize = [self getStringWidthAndHeight:str];
+	TMLog(@"Calculated str width = %f and height = %f", strSize.width, strSize.height);
+	
+	Quad* result = [[Quad alloc] initWithWidth:strSize.width andHeight:strSize.height];
 	
 	for(; curCharacter < [str length]; curCharacter++) {
 		unichar c = [str characterAtIndex:curCharacter];
 		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
 		
-		Glyph* g = [self getGlyph:mapTester];
-					
-		glEnable(GL_BLEND);
-		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(curPoint.x+[g m_fWidth]/2, curPoint.y+[g m_fHeight]/2+[[g m_pFontPage] m_fVertShift])];
-		glDisable(GL_BLEND);
-			
-		curPoint = CGPointMake(curPoint.x+[g m_fWidth]+[g m_nHorizAdvance], point.y);
-	}
+		Glyph* g = [self getGlyph:mapTester];		
+		[result copyFrame:[g m_nTextureFrame] toPoint:CGPointMake(curPoint+[g m_fWidth]/2, [g m_fHeight]/2+[[g m_pFontPage] m_fVertShift]) 
+			  fromTexture:[[g m_pFontPage] texture]];
+		
+		curPoint += [g m_fWidth]+[g m_nHorizAdvance];
+	}	
+	
+	return result;
 }
 
 @end

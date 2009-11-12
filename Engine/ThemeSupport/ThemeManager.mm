@@ -120,8 +120,7 @@ extern TMGameState*	g_pGameState;
 			m_pCurrentThemeWebResources = [[ResourcesLoader alloc] initWithPath:themeWebPath type:kResourceLoaderWeb andDelegate:self];
 			
 			// Use font manager to load up fonts
-			// TODO: Use our fonts in a later release
-			// [[FontManager sharedInstance] loadFonts:themeFontsPath];
+			[[FontManager sharedInstance] loadFonts:themeFontsPath];
 						
 			TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 			

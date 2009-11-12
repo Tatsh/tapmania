@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class TMResource;
-@class TMFramedTexture;
+@class TMFramedTexture, Quad;
 @class FontPage;
 
 const static unichar DEFAULT_GLYPH = 0xF8FF;
@@ -106,8 +106,8 @@ const static unichar INVALID_CHAR = 0xFFFD;
 - (void) load;
 - (void) cacheMapsFromPage:(FontPage*)page;
 
-- (float) getStringWidth:(NSString*)str;
+- (CGSize) getStringWidthAndHeight:(NSString*)str;
 - (Glyph*) getGlyph:(NSString*)inChar;
-- (void) drawText:(NSString*)str atPoint:(CGPoint)point;
+- (Quad*) createQuadFromText:(NSString*)str;
 
 @end

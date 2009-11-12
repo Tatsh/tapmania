@@ -25,6 +25,7 @@
 
 #import "FontManager.h"
 #import "Font.h"
+#import "Quad.h"
 
 #import "TMSoundEngine.h"
 #import "TMSound.h"
@@ -43,10 +44,10 @@ extern TMGameState* g_pGameState;
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[super setupForTransition];
-			
+				
 	// Preload all required graphics
 	t_Donate = TEXTURE(@"Common Donate");
-	
+		
 	// And sounds
 	sr_BG = SOUND(@"MainMenu Music");
 	

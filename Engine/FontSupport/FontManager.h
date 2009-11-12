@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ResourcesLoader.h"
 
-@class Font;
+@class Font, Quad;
 
 @interface FontManager : NSObject <ResourcesLoaderSupport> {
 	ResourcesLoader*		m_pCurrentFontResources;		// Current theme's font textures
@@ -29,10 +29,10 @@
 - (void) addRedirect:(NSString*)alias to:(NSString*)real;
 
 - (Font*) getFont:(NSString*)fontName;
-- (float) getStringWidth:(NSString*)str usingFont:(NSString*)fontName;
+- (CGSize) getStringWidthAndHeight:(NSString*)str usingFont:(NSString*)fontName;
 
 // Drawing text
-- (void) print:(NSString*)text usingFont:(NSString*)fontName atPoint:(CGPoint)point;
+- (Quad*) getTextQuad:(NSString*)text usingFont:(NSString*)fontName;
 
 + (FontManager *) sharedInstance;
 
