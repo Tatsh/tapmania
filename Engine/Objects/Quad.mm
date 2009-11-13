@@ -8,12 +8,9 @@
 
 #import "Quad.h"
 #import <OpenGLES/ES1/glext.h>
-#import "Texture2D.h"
 #import "TMFramedTexture.h"
 
 @implementation Quad
-
-@synthesize contentSize=m_oSize, pixelsWide=m_unWidth, pixelsHigh=m_unHeight;
 
 - (id) initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight {
 	GLint					saveName;
@@ -45,8 +42,6 @@
 			m_unHeight = i;
 		}
 	
-		TMLog(@"Quad requested for %d/%d => %d/%d", inWidth, inHeight, m_unWidth, m_unHeight);
-		
 		// empty data
 		void* data = (void*) calloc( m_unWidth*m_unHeight*4 , sizeof(GLubyte) );
 		
@@ -60,30 +55,6 @@
 	}			
 	
 	return self;
-}
-
-// Copy the whole texture resized to the given size at the given location of the quad
-- (void) copyTextureSize:(CGSize)inSize toPoint:(CGPoint)inPoint fromTexture:(Texture2D*)texture {
-	
-//	GLuint oldFramebuffer, framebuffer;
-//	
-//	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);	
-//	glGenFramebuffersOES(1, &framebuffer);
-//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
-
-	// Copy texels to framebuffer and then to our quad
-	glBindTexture(GL_TEXTURE_2D, texture.name);
-	
-	glEnable(GL_BLEND);
-	[texture drawInRect:CGRectMake(0,0,inSize.width, inSize.height)];
-	glDisable(GL_BLEND);
-	
-	glBindTexture(GL_TEXTURE_2D, m_unName);
-	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, inPoint.x, inPoint.y, 0, 0, inSize.width, inSize.height);		
-	
-	// restore
-//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, oldFramebuffer);
-//	glDeleteFramebuffersOES(1, &framebuffer);
 }
 
 // Copy a frame of the texture to the given location in the quad
@@ -124,9 +95,7 @@
 }
 
 
-/* 
- * Drawing of the quad 
- */
+// Drawing of the quad 
 - (void) drawAtPoint:(CGPoint)point {
 	GLfloat	 coordinates[] = {
 		0,			0,
@@ -158,10 +127,12 @@
 		m_fMaxS,	m_fMaxT  
 	};	
 	
-	GLfloat	vertices[] = {	rect.origin.x,							rect.origin.y,							0.0,
+	GLfloat	vertices[] = {	
+		rect.origin.x,							rect.origin.y,							0.0,
 		rect.origin.x + rect.size.width,		rect.origin.y,							0.0,
 		rect.origin.x,							rect.origin.y + rect.size.height,		0.0,
-	rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 };
+		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
+	};
 	
 	glBindTexture(GL_TEXTURE_2D, m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);

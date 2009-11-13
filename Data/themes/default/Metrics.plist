@@ -24,6 +24,8 @@
 				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>screen,Test</string>
 			</dict>
 			<key>TestButtonDisabled</key>
 			<dict>
@@ -592,6 +594,33 @@
 		</dict>
 		<key>Test</key>
 		<dict>
+			<key>F1Label</key>
+			<dict>
+				<key>X</key>
+				<integer>2</integer>
+				<key>Y</key>
+				<integer>20</integer>
+				<key>OnCommand</key>
+				<string>alignment,left;name,Default font test</string>
+			</dict>
+			<key>F2Label</key>
+			<dict>
+				<key>X</key>
+				<integer>318</integer>
+				<key>Y</key>
+				<integer>60</integer>
+				<key>OnCommand</key>
+				<string>alignment,right;font,Common Shared1;name,Shared1 test</string>
+			</dict>
+			<key>F3Label</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>120</integer>
+				<key>OnCommand</key>
+				<string>font,Common Shared2;name,Shared2 testing</string>
+			</dict>
 			<key>BackButton</key>
 			<dict>
 				<key>HitCommand</key>
@@ -603,7 +632,7 @@
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
-				<integer>200</integer>
+				<integer>400</integer>
 				<key>Width</key>
 				<integer>280</integer>
 				<key>Height</key>

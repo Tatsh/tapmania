@@ -25,7 +25,7 @@
 		return nil;
 	
 	m_fFontSize = 21.0f;
-	m_sFontName = [@"Marker Felt" retain];
+	m_sFontName = [@"Default" retain];
 	m_Align = UITextAlignmentCenter;
 	
 	[self initGraphicsAndSounds:@"Common MenuItem"];
@@ -61,6 +61,16 @@
 		m_pTexture = (TMFramedTexture*)[[ThemeManager sharedInstance] texture:inFb];		
 	}
 }
+
+// Override label's setName method
+- (void) setName:(NSString*)inName {
+	if(m_sTitle) [m_sTitle release];
+	if(m_pTitle) [m_pTitle release];
+	
+	m_sTitle = [inName retain];
+	m_pTitle = [[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];
+}
+
 
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {

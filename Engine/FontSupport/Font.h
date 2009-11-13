@@ -48,7 +48,7 @@ const static unichar INVALID_CHAR = 0xFFFD;
 @interface FontPage : NSObject {
 	NSString*	m_sPageName;
 	
-	int			m_nLineSpacing;
+	int			m_nLineSpacing,	m_nExtraLeft, m_nExtraRight;
 	float		m_fVertShift;
 	float		m_fHeight;
 	
@@ -62,6 +62,8 @@ const static unichar INVALID_CHAR = 0xFFFD;
 
 @property(retain, nonatomic) NSString* m_sPageName;
 @property(assign) int m_nLineSpacing;
+@property(assign) int m_nExtraLeft;
+@property(assign) int m_nExtraRight;
 @property(assign) float m_fVertShift;
 @property(assign) float m_fHeight;
 

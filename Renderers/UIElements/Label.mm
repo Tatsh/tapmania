@@ -15,7 +15,8 @@
 @implementation Label
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
-	self = [super initWithShape:RECT_METRIC(inMetricsKey)];
+	CGPoint point = POINT_METRIC(inMetricsKey);
+	self = [super initWithShape:CGRectMake(point.x, point.y, 0, 0)];
 	if(!self)
 		return nil;
 	
@@ -26,7 +27,9 @@
 	[super initCommands:inMetricsKey];
 
 	// Generate texture
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];	
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];	
+	m_rShape.size.width = m_pTitle.contentSize.width;
+	m_rShape.size.height = m_pTitle.contentSize.height;
 	
 	return self;
 }
@@ -39,7 +42,9 @@
 	m_fFontSize = fontSize;
 	
 	m_sTitle = title;
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];	
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];	
+	m_rShape.size.width = m_pTitle.contentSize.width;
+	m_rShape.size.height = m_pTitle.contentSize.height;
 	
 	return self;	
 }
@@ -55,7 +60,7 @@
 	m_Align = UITextAlignmentCenter;
 	
 	// TODO: change to default font name when will use font system
-	m_sFontName = [@"Marker Felt" retain];
+	m_sFontName = [@"Default" retain];
 }
 
 - (void) dealloc {
@@ -71,7 +76,9 @@
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName retain];
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:@"Common Shared1"];
+	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];
+	m_rShape.size.width = m_pTitle.contentSize.width;
+	m_rShape.size.height = m_pTitle.contentSize.height;
 }
 
 - (void) setFont:(NSString*)inName {
@@ -99,11 +106,23 @@
 - (void) render:(float)fDelta {
 	glEnable(GL_BLEND);	
 	
-	CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
-	leftCorner.x -= m_pTitle.contentSize.width/2;
-	leftCorner.y -= m_pTitle.contentSize.height/2;
+	// The position is determined by the alignment
+	CGPoint point;
 	
-	CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width, m_pTitle.contentSize.height);
+	switch(m_Align) {
+		case UITextAlignmentLeft:
+			point = CGPointMake(m_rShape.origin.x, m_rShape.origin.y-m_rShape.size.height/2);			
+			break;
+		case UITextAlignmentRight:
+			point = CGPointMake(m_rShape.origin.x-m_rShape.size.width, m_rShape.origin.y-m_rShape.size.height/2);
+			break;
+		case UITextAlignmentCenter:
+		default:
+			point = CGPointMake(m_rShape.origin.x-m_rShape.size.width/2, m_rShape.origin.y-m_rShape.size.height/2);
+			break;
+	}
+	
+	CGRect rect = CGRectMake(point.x, point.y, m_rShape.size.width, m_rShape.size.height);
 	[m_pTitle drawInRect:rect];		
 
 	glDisable(GL_BLEND);

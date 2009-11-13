@@ -40,7 +40,7 @@
 @end
 
 @implementation FontPage
-@synthesize m_sPageName, m_nLineSpacing, m_fVertShift, m_fHeight;
+@synthesize m_sPageName, m_nLineSpacing, m_fVertShift, m_fHeight, m_nExtraLeft, m_nExtraRight;
 @synthesize m_aGlyphs, m_pCharToGlyphNo;
 @synthesize m_pTexture;
 
@@ -125,10 +125,13 @@
 		}
 	}
 	
+	m_nExtraLeft = m_nExtraRight = 0;
 	if([conf objectForKey:@"DrawExtraPixelsLeft"]) {
+		m_nExtraLeft = [[conf objectForKey:@"DrawExtraPixelsLeft"] intValue];
 	}
 	
 	if([conf objectForKey:@"DrawExtraPixelsRight"]) {
+		m_nExtraRight = [[conf objectForKey:@"DrawExtraPixelsRight"] intValue];
 	}
 	
 	if([conf objectForKey:@"LineSpacing"]) {
@@ -155,9 +158,7 @@
 	}
 	
 	m_fHeight = iBaseline-iTop;
-	// TODO extra pixels
-	
-	m_fVertShift = (float) -iBaseline;
+	m_fVertShift = -iBaseline;
 	
 	if([conf objectForKey:@"AdvanceExtraPixels"]) {
 		int extra = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
@@ -576,9 +577,7 @@
 		unichar c = [str characterAtIndex:i];
 		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
 		
-		width += [g m_fWidth]+[g m_nHorizAdvance];
-		TMLog(@"Added %f to width = %f", [g m_fWidth]+[g m_nHorizAdvance], width);
-		
+		width += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft]+[[g m_pFontPage] m_nExtraRight];
 		height = fmaxf(height, [g m_fHeight]);
 	}
 		
@@ -598,10 +597,11 @@
 		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
 		
 		Glyph* g = [self getGlyph:mapTester];		
-		[result copyFrame:[g m_nTextureFrame] toPoint:CGPointMake(curPoint+[g m_fWidth]/2, [g m_fHeight]/2+[[g m_pFontPage] m_fVertShift]) 
-			  fromTexture:[[g m_pFontPage] texture]];
+		[result copyFrame:[g m_nTextureFrame] 
+			toPoint:CGPointMake(curPoint + ([g m_fWidth]/2) + [[g m_pFontPage] m_nExtraLeft], 0) 
+			fromTexture:[[g m_pFontPage] texture]];
 		
-		curPoint += [g m_fWidth]+[g m_nHorizAdvance];
+		curPoint += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft] + [[g m_pFontPage] m_nExtraRight];
 	}	
 	
 	return result;
