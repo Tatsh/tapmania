@@ -114,6 +114,16 @@
 			g.m_fWidth += (float)iAdd;
 		}
 	}
+
+	if([conf objectForKey:@"AddToAllHeights"]) {	
+		int iAdd = [[conf objectForKey:@"AddToAllHeights"] intValue];
+		
+		int glyph = 0;
+		for(; glyph <  [m_aGlyphs count]; ++glyph) {
+			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
+			g.m_fHeight += (float)iAdd;
+		}
+	}
 	
 	if([conf objectForKey:@"ScaleAllWidthsBy"]) {
 		int fScale = [[conf objectForKey:@"ScaleAllWidthsBy"] floatValue];
