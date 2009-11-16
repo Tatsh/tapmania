@@ -8,7 +8,7 @@
 
 #import "MenuItem.h"
 
-@class MenuItem, Texture2D, TMCommand;
+@class Font, MenuItem, Texture2D, TMCommand, Quad;
 
 /* This object is a pair with title=>value */
 @interface TogglerItemObject : NSObject {
@@ -17,15 +17,15 @@
 	CGSize				m_oSize;
 
 	float				m_fFontSize;
-	NSString*			m_sFontName;
+	Font*				m_pFont;
 	UITextAlignment		m_Align;
 	
 	TMCommand*			m_pCmdList;	
-	Texture2D*			m_pText;	// The title as texture
+	Quad*				m_pText;	// The title as texture
 }
 
 @property (retain, nonatomic, readonly) NSString* m_sTitle;
-@property (retain, nonatomic, readonly) Texture2D* m_pText;
+@property (retain, nonatomic, readonly) Quad* m_pText;
 @property (retain, nonatomic) NSObject* m_pValue;
 
 - (id) initWithSize:(CGSize)size andFontSize:(float)fontSize;

@@ -571,32 +571,55 @@
 - (CGSize) getStringWidthAndHeight:(NSString*)str {
 	float width = 0.0f;
 	float height = 0.0f;
+	float totalWidth = 0.0f;
+	float totalHeight = 0.0f;
+	
 	int i;
+	unichar c;	// Last char
 	
 	for(i=0; i<[str length]; ++i) {
-		unichar c = [str characterAtIndex:i];
-		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
+		c = [str characterAtIndex:i];
+		if(c == '\n') {
+			totalWidth = fmaxf(totalWidth, width);
+			totalHeight += height;
+			width = height = 0.0f;
+			continue;
+		}
 		
+		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
 		width += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft]+[[g m_pFontPage] m_nExtraRight];
-		height = fmaxf(height, [g m_fHeight]);
+		height = fmaxf( height, [g m_fHeight]);
 	}
 		
-	return CGSizeMake(width, height);
+	if(c != '\n') {
+		totalHeight += height;
+	}
+	totalWidth = fmaxf(totalWidth, width);	
+	
+	return CGSizeMake(totalWidth, totalHeight);
 }
 
 - (Quad*) createQuadFromText:(NSString*)str {
 	int curCharacter = 0;
+	int lineNum = 1;
 	float curPoint = 0.0f;
 	CGSize strSize = [self getStringWidthAndHeight:str];
-	TMLog(@"Calculated str width = %f and height = %f", strSize.width, strSize.height);
 	
 	Quad* result = [[Quad alloc] initWithWidth:strSize.width andHeight:strSize.height];
 	
 	for(; curCharacter < [str length]; curCharacter++) {
 		unichar c = [str characterAtIndex:curCharacter];
-		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
+		if(c == '\n') {
+			++lineNum;
+			curPoint = 0.0f;
+			continue;
+		}
 		
+		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
 		Glyph* g = [self getGlyph:mapTester];		
+		// TODO: support multiline textures
+//		float yOffset = strSize.height-strSize.height/linuNum;
+		
 		[result copyFrame:[g m_nTextureFrame] 
 			toPoint:CGPointMake(curPoint + ([g m_fWidth]/2) + [[g m_pFontPage] m_nExtraLeft], 0) 
 			fromTexture:[[g m_pFontPage] texture]];

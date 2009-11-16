@@ -79,8 +79,8 @@ static FontManager *sharedFontManagerDelegate = nil;
 	
 	// Still not found?
 	if(!f) {
-		TMLog(@"Requested font '%@' is missing. returning default.", fontName);
-		return m_pDefaultFont;
+		TMLog(@"Requested font '%@' is missing. returning nil.", fontName);
+		return nil;
 	}
 	
 	return f;

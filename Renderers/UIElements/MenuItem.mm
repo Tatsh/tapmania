@@ -11,6 +11,7 @@
 #import "ThemeManager.h"
 #import "Texture2D.h"
 #import "Quad.h"
+#import "Font.h"
 #import "TMSound.h"
 #import "TMSoundEngine.h"
 #import "TapMania.h"
@@ -24,11 +25,9 @@
 	if(!self) 
 		return nil;
 	
-	m_fFontSize = 21.0f;
-	m_sFontName = [@"Default" retain];
-	m_Align = UITextAlignmentCenter;
 	
 	[self initGraphicsAndSounds:@"Common MenuItem"];
+	[self initTextualProperties:@"Common MenuItem"];
 	[self setName:title];
 			
 	return self;
@@ -62,13 +61,24 @@
 	}
 }
 
+- (void) initTextualProperties:(NSString*)inMetricsKey {
+	[super initTextualProperties:inMetricsKey];
+	NSString* inFb = @"Common MenuItem";
+		
+	// Get font
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
+	if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
+}
+
 // Override label's setName method
 - (void) setName:(NSString*)inName {
 	if(m_sTitle) [m_sTitle release];
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName retain];
-	m_pTitle = [[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];
+	m_pTitle = [m_pFont createQuadFromText:m_sTitle];
 }
 
 

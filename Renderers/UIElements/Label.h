@@ -8,12 +8,12 @@
 
 #import "TMControl.h"
 
-@class Texture2D, Quad;
+@class Texture2D, Quad, Font;
 
 @interface Label : TMControl {
 	Quad*				m_pTitle;
 	float				m_fFontSize;
-	NSString*			m_sFontName;
+	Font*				m_pFont;
 	UITextAlignment		m_Align;
 	NSString*			m_sTitle;
 }

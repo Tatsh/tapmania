@@ -601,7 +601,7 @@
 				<key>Y</key>
 				<integer>20</integer>
 				<key>OnCommand</key>
-				<string>alignment,left;name,Default font test</string>
+				<string>font,Default;alignment,left;name,Default font test</string>
 			</dict>
 			<key>F2Label</key>
 			<dict>
@@ -620,6 +620,15 @@
 				<integer>120</integer>
 				<key>OnCommand</key>
 				<string>font,Common Shared2;name,Shared2 testing</string>
+			</dict>
+			<key>F4Label</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>160</integer>
+				<key>OnCommand</key>
+				<string>font,Common Blaster;name,This is blaster!</string>
 			</dict>
 			<key>BackButton</key>
 			<dict>

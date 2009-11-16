@@ -9,6 +9,8 @@
 #import "Label.h"
 
 #import "Texture2D.h"
+#import "FontManager.h"
+#import "Font.h"
 #import "ThemeManager.h"
 #import "Quad.h"
 
@@ -27,7 +29,7 @@
 	[super initCommands:inMetricsKey];
 
 	// Generate texture
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];	
+	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];	
 	m_rShape.size.width = m_pTitle.contentSize.width;
 	m_rShape.size.height = m_pTitle.contentSize.height;
 	
@@ -42,7 +44,7 @@
 	m_fFontSize = fontSize;
 	
 	m_sTitle = title;
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];	
+	m_pTitle = 	[m_pFont createQuadFromText:title];	
 	m_rShape.size.width = m_pTitle.contentSize.width;
 	m_rShape.size.height = m_pTitle.contentSize.height;
 	
@@ -55,17 +57,21 @@
 }
 
 - (void) initTextualProperties:(NSString*)inMetricsKey {
+	NSString* inFb = @"Common Label";
+
 	// Handle Font, FontSize, Align defaults
-	m_fFontSize = 21.0f;
+	m_fFontSize = 21.0f;	// TODO: change and use
 	m_Align = UITextAlignmentCenter;
 	
-	// TODO: change to default font name when will use font system
-	m_sFontName = [@"Default" retain];
+	// Get font
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
+	if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
 }
 
 - (void) dealloc {
 	[m_sTitle release];
-	[m_sFontName release];
 	if(m_pTitle) [m_pTitle release];
 	
 	[super dealloc];
@@ -76,14 +82,13 @@
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName retain];
-	m_pTitle = 	[[FontManager sharedInstance] getTextQuad:m_sTitle usingFont:m_sFontName];
+	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];
 	m_rShape.size.width = m_pTitle.contentSize.width;
 	m_rShape.size.height = m_pTitle.contentSize.height;
 }
 
 - (void) setFont:(NSString*)inName {
-	if(m_sFontName) [m_sFontName release];
-	m_sFontName = [inName retain];	
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inName];
 }
 
 - (void) setFontSize:(NSNumber*)inSize {

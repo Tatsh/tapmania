@@ -11,7 +11,10 @@
 #import "EAGLView.h"
 #import "ThemeManager.h"
 #import "CommandParser.h"
+#import "FontManager.h"
+#import "Font.h"
 
+#import "Quad.h"
 #import "TMFramedTexture.h"
 
 @implementation TogglerItemObject
@@ -24,9 +27,8 @@
 		return nil;
 		
 	m_sTitle = [lTitle retain];
-	m_pValue = [lValue retain];
-	
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	m_pValue = [lValue retain];	
+	m_pText = [m_pFont createQuadFromText:m_sTitle];
 	
 	return self;
 }
@@ -43,7 +45,7 @@
 	m_oSize = size;
 	m_fFontSize = fontSize;
 	m_Align = UITextAlignmentCenter;
-	m_sFontName = [@"Marker Felt" retain];
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:@"Common Toggler"];
 	m_pText = nil;
 	
 	return self;
@@ -61,7 +63,7 @@
 		[m_pText release];
 	}
 	
-	m_pText = [[Texture2D alloc] initWithString:m_sTitle dimensions:m_oSize alignment:m_Align fontName:m_sFontName fontSize:m_fFontSize];
+	m_pText = [m_pFont createQuadFromText:m_sTitle];
 	
 	// If the value isn't set yet - set it to the same as name
 	if(!m_pValue) {
@@ -75,8 +77,7 @@
 }
 
 - (void) setFont:(NSString*)inName {
-	if(m_sFontName) [m_sFontName release];
-	m_sFontName = [inName retain];	
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inName];
 }
 
 - (void) setFontSize:(NSNumber*)inSize {
@@ -126,8 +127,9 @@
 	m_aElements = [[NSMutableArray alloc] initWithCapacity:10];
 	m_nCurrentSelection = 0;
 
+	[self initTextualProperties:@"Common Toggler"];
 	[self initGraphicsAndSounds:@"Common Toggler"];
-	
+		
 	return self;
 }
 
@@ -159,6 +161,17 @@
 	[super initCommands:inMetricsKey];
 	
 	return self;
+}
+
+- (void) initTextualProperties:(NSString*)inMetricsKey {
+	[super initTextualProperties:inMetricsKey];
+	NSString* inFb = @"Common Toggler";
+	
+	// Get font
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
+	if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
 }
 
 - (void) initGraphicsAndSounds:(NSString*)inMetricsKey {
@@ -276,16 +289,19 @@
 	// Let the MenuItem class handle the drawing of the button shape
 	[super render:fDelta];
 	
-	// But draw the current item title here
-	glEnable(GL_BLEND);
-	if([self getCurrent]) {
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		// FIXME: 12 no good here!
-		[[self getCurrent].m_pText drawInRect:CGRectMake(m_rShape.origin.x, m_rShape.origin.y-12, m_rShape.size.width, m_rShape.size.height)];
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	}
-	
-	glDisable(GL_BLEND);
+	if(m_bVisible) {
+		Quad* texture = [self getCurrent].m_pText;
+		float ratio = m_rShape.size.height / [m_pTexture contentSize].height;
+		
+		glEnable(GL_BLEND);
+		CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
+		leftCorner.x -= texture.contentSize.width*ratio/2;
+		leftCorner.y -= texture.contentSize.height*ratio/2;
+		
+		CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, texture.contentSize.width*ratio, texture.contentSize.height*ratio);
+		[texture drawInRect:rect];				
+		glDisable(GL_BLEND);		
+	}	
 }
 
 /* TMGameUIResponder method */
