@@ -169,67 +169,47 @@
 			<key>NoteSkinLabel</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>name,Noteskin:</string>
+				<string>name,Noteskin:;alignment,right</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>100</integer>
 				<key>Y</key>
-				<integer>259</integer>
-				<key>Width</key>
-				<integer>80</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<integer>282</integer>
 			</dict>
 			<key>ThemeLabel</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>name,Theme:</string>
+				<string>name,Theme:;alignment,right</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>100</integer>
 				<key>Y</key>
-				<integer>309</integer>
-				<key>Width</key>
-				<integer>80</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<integer>332</integer>
 			</dict>
 			<key>SoundLabel</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>name,Sound:</string>
+				<string>name,Sound:;alignment,right</string>
 				<key>X</key>
-				<integer>20</integer>
+				<integer>100</integer>
 				<key>Y</key>
-				<integer>366</integer>
-				<key>Width</key>
-				<integer>80</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<integer>389</integer>
 			</dict>
 			<key>FingerTrackingLabel</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>fontsize,16;name,Auto tracking:</string>
+				<string>name,Auto tracking:;alignment,right</string>
 				<key>X</key>
-				<integer>0</integer>
-				<key>Y</key>
-				<integer>209</integer>
-				<key>Width</key>
 				<integer>100</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<key>Y</key>
+				<integer>232</integer>
 			</dict>
 			<key>VisiblePadLabel</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>fontsize,16;name,Visible pad:</string>
+				<string>name,Visible pad:;alignment,right</string>
 				<key>X</key>
-				<integer>10</integer>
-				<key>Y</key>
-				<integer>157</integer>
-				<key>Width</key>
 				<integer>100</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<key>Y</key>
+				<integer>180</integer>
 			</dict>
 			<key>NoteSkinTogglerCustom</key>
 			<dict>
