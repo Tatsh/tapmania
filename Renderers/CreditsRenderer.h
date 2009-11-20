@@ -1,4 +1,5 @@
 //
+//  $Id$
 //  CreditsRenderer.h
 //  TapMania
 //

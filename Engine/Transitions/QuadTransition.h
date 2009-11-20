@@ -1,4 +1,5 @@
 //
+//  $Id$
 //  QuadTransition.h
 //  TapMania
 //

@@ -1,4 +1,5 @@
-/*
+/*  
+ *  $Id$
  *  VersionInfo.h
  *  TapMania
  *

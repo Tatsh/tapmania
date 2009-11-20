@@ -1,6 +1,6 @@
 //
+//  $Id$
 //  LoggerUtil.h
-//  TapMania
 //
 //  Created by Alex Kremer on 10.02.09.
 //  Copyright 2008-2009 Godexsoft. All rights reserved.

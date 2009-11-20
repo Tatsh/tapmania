@@ -1,6 +1,6 @@
 //
+//  $Id$
 //  TMUserConfig.m
-//  TapMania
 //
 //  Created by Alex Kremer on 13.05.09.
 //  Copyright 2009 Godexsoft. All rights reserved.

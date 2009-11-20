@@ -1,4 +1,5 @@
 //
+//  $Id$
 //  AlignmentCommand.h
 //  TapMania
 //

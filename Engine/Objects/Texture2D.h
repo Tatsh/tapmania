@@ -1,4 +1,5 @@
 /*
+ *  $Id$
 
 File: Texture2D.h
 Abstract: Creates OpenGL 2D textures from images or text.

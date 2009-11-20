@@ -1,6 +1,6 @@
 //
+//  $Id$
 //  SharedPtr.h
-//  TapMania
 //
 //  Created by Alex Kremer on 5.10.09.
 //  Copyright 2008-2009 Godexsoft. All rights reserved.

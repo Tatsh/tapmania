@@ -1,4 +1,5 @@
 //
+//  $Id$
 //  SettingCommand.h
 //  TapMania
 //

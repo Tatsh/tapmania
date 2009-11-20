@@ -1,6 +1,6 @@
 //
+//  $Id$
 //  TMEffectSupport.h
-//  TapMania
 //
 //  Created by Alex Kremer on 17.02.09.
 //  Copyright 2009 Godexsoft. All rights reserved.

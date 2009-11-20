@@ -1,6 +1,6 @@
 //
+//  $Id$
 //  SongManagerRenderer.m
-//  TapMania
 //
 //  Created by Alex Kremer on 06.08.09.
 //  Copyright 2009 Godexsoft. All rights reserved.
