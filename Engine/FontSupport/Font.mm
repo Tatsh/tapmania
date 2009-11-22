@@ -26,7 +26,7 @@
 		return nil;
 
 	m_nTextureFrame = frameId;
-	m_nHorizAdvance = 0;
+	m_nHorizAdvance = 1;
 	
 	return self;
 }
@@ -172,15 +172,15 @@
 	m_fVertShift = -iBaseline;
 	
 	if([conf objectForKey:@"AdvanceExtraPixels"]) {
-		int extra = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
-		int glyph = 0;
+		int advancePixels = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
 		
+		// Set advance on all
+		int glyph = 0;
 		for(; glyph <  [m_aGlyphs count]; ++glyph) {
 			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
-			g.m_nHorizAdvance = extra;
+			g.m_nHorizAdvance = advancePixels;
 		}
 	}
-	
 }
 
 - (void) doRange:(NSString*)setting {

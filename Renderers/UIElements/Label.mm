@@ -15,6 +15,11 @@
 #import "ThemeManager.h"
 #import "Quad.h"
 
+@interface Label (Private)
+- (void) updateTitleTexture;
+@end
+
+
 @implementation Label
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
@@ -23,6 +28,9 @@
 	if(!self)
 		return nil;
 	
+	// Try to fetch extra width property
+	m_FixedWidth =  FLOAT_METRIC( ([inMetricsKey stringByAppendingString:@" FixedWidth"]) );	// This is optional. will be 0 if not specified
+	
 	// Text props
 	[self initTextualProperties:inMetricsKey];
 	
@@ -30,9 +38,7 @@
 	[super initCommands:inMetricsKey];
 
 	// Generate texture
-	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];	
-	m_rShape.size.width = m_pTitle.contentSize.width;
-	m_rShape.size.height = m_pTitle.contentSize.height;
+	[self updateTitleTexture];
 	
 	return self;
 }
@@ -45,9 +51,7 @@
 	m_fFontSize = fontSize;
 	
 	m_sTitle = title;
-	m_pTitle = 	[m_pFont createQuadFromText:title];	
-	m_rShape.size.width = m_pTitle.contentSize.width;
-	m_rShape.size.height = m_pTitle.contentSize.height;
+	[self updateTitleTexture];
 	
 	return self;	
 }
@@ -71,6 +75,19 @@
 	}
 }
 
+- (void) updateTitleTexture {
+	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];	
+	m_rShape.size.width = m_pTitle.contentSize.width;
+	m_rShape.size.height = m_pTitle.contentSize.height;	
+	
+	// Calculate height for fixed width if specified
+	if(m_FixedWidth > 0.0f) {
+		float ratio = m_FixedWidth / m_rShape.size.width;
+		m_rShape.size.height *= ratio;
+		m_rShape.size.width = m_FixedWidth;
+	}
+}
+
 - (void) dealloc {
 	[m_sTitle release];
 	if(m_pTitle) [m_pTitle release];
@@ -83,9 +100,7 @@
 	if(m_pTitle) [m_pTitle release];
 	
 	m_sTitle = [inName retain];
-	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];
-	m_rShape.size.width = m_pTitle.contentSize.width;
-	m_rShape.size.height = m_pTitle.contentSize.height;
+	[self updateTitleTexture];
 }
 
 - (void) setFont:(NSString*)inName {

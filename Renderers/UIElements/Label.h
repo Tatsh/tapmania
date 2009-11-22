@@ -17,6 +17,8 @@
 	Font*				m_pFont;
 	UITextAlignment		m_Align;
 	NSString*			m_sTitle;
+
+	float				m_FixedWidth;
 }
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
