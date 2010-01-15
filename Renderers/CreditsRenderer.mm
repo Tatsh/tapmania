@@ -92,7 +92,7 @@
 	/* Check whether we should leave the credits screen already */
 	if(m_bShouldReturn){
 		// Back to main menu
-		[[TapMania sharedInstance] switchToScreen:[[MainMenuRenderer alloc] initWithMetrics:@"MainMenu"]];
+		[[TapMania sharedInstance] switchToScreen:[MainMenuRenderer class] withMetrics:@"MainMenu"];
 		m_bShouldReturn = NO; // To be sure we not do the transition more than once
 	}
 }
