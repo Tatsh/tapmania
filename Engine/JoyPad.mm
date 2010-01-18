@@ -126,14 +126,14 @@
 		CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 		// Check general touch position
-/*		if(point.y >= 420.0) {
+		if(point.y >= 420.0) {
 			// This means we want to exit the song (force fail)
 			m_bJoyButtonStates[kJoyButtonExit] = YES;
 			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
 			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 			
 		} else {
-*/			int i;
+			int i;
 			int closestButton = -1;
 			float minDist = MAXFLOAT;
 
@@ -160,7 +160,7 @@
 			m_bJoyButtonStates[closestButton] = YES;
 			m_dJoyButtonTimeTouch[closestButton] = touch.timestamp();
 			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:closestButton]);
-	//	}
+		}
 	}
 	
 	return NO; // Always pretend as of we didn't receive the touches

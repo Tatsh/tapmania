@@ -181,7 +181,7 @@ extern TMGameState * g_pGameState;
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
 	
 	// Check speedmod to be sure
-	TogglerItem* toggler = [self findControl:@"SongPickerMenu SpeedToggler"];
+	TogglerItem* toggler = (TogglerItem*)[self findControl:@"SongPickerMenu SpeedToggler"];
 	if(toggler != nil) {
 		[toggler invokeCurrentCommand];
 	}
