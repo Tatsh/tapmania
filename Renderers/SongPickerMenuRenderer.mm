@@ -30,7 +30,6 @@
 #import "ThemeManager.h"
 #import "SettingsEngine.h"
 
-#import "ZoomEffect.h"
 #import "SongPlayRenderer.h"
 #import "MainMenuRenderer.h"
 
@@ -75,18 +74,24 @@ extern TMGameState * g_pGameState;
 	// And sounds
 	sr_SelectSong = SOUND(@"SongPickerMenu SelectSong");
 
+	// Push the underlay thing above the wheel
+	// TODO: fix this as this is a hack! this should go to a special folder called underlays
+	// and automatically be under everything (except the wheel which we programmatically add below it)
+	ImageButton* topImg = [[ImageButton alloc] initWithMetrics:@"SongPickerMenu TopImgUnderlay"];
+	[self pushChild:topImg];
+	
 	// Create the wheel
 	m_pSongWheel = [[SongPickerWheel alloc] init];
 	[m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
 	[m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
 	[self pushControl:m_pSongWheel];
-		
+	
 	// Difficulty toggler
-	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"]];
+	m_pDifficultyToggler = [[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	[(TogglerItem*)m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
 	[self pushBackControl:m_pDifficultyToggler];
-			
+	
 	// Back button action
 	MenuItem* backButton = (MenuItem*)[self findControl:@"SongPickerMenu BackButton"];
 	if(backButton != nil) {

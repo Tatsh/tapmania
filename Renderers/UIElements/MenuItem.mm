@@ -39,6 +39,9 @@
 	if(!self) 
 		return nil;
 	
+	// Try to fetch extra width property
+	m_FixedWidth =  FLOAT_METRIC( ([inMetricsKey stringByAppendingString:@" FixedWidth"]) );	// This is optional. will be 0 if not specified
+	
 	// Get graphics and sounds used by this control
 	[self initGraphicsAndSounds:inMetricsKey];
 	
@@ -101,10 +104,21 @@
 		[(TMFramedTexture*)m_pTexture drawFrame:2 inRect:rightCapRect];
 
 		CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
-		leftCorner.x -= m_pTitle.contentSize.width*ratio/2;
+		if(m_FixedWidth > 0.0f) {
+			leftCorner.x -= m_FixedWidth*ratio/2;
+		} else {
+			leftCorner.x -= m_pTitle.contentSize.width*ratio/2;
+		}
+		
 		leftCorner.y -= m_pTitle.contentSize.height*ratio/2;
 		
-		CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width*ratio, m_pTitle.contentSize.height*ratio);
+		CGRect rect;
+		if(m_FixedWidth > 0.0f) {
+			rect = CGRectMake(leftCorner.x, leftCorner.y, m_FixedWidth*ratio, m_pTitle.contentSize.height*ratio);
+		} else {
+			rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width*ratio, m_pTitle.contentSize.height*ratio);
+		}
+	
 		[m_pTitle drawInRect:rect];		
 		
 		glDisable(GL_BLEND);

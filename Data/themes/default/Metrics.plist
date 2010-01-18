@@ -373,7 +373,7 @@
 		</dict>
 		<key>SongPickerMenu</key>
 		<dict>
-			<key>TopImg</key>
+			<key>TopImgUnderlay</key>
 			<dict>
 				<key>Height</key>
 				<integer>70</integer>
@@ -386,8 +386,12 @@
 			</dict>
 			<key>BackButton</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
-				<string>name,Back;screen,MainMenu</string>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>Width</key>
@@ -396,9 +400,15 @@
 				<integer>5</integer>
 				<key>Y</key>
 				<integer>1</integer>
+				<key>FixedWidth</key>
+				<integer>45</integer>
 			</dict>
 			<key>DifficultyTogglerCustom</key>
 			<dict>
+				<key>OnCommand</key>
+				<string>zoom,1.04,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>Width</key>
@@ -413,7 +423,9 @@
 			<key>SpeedToggler</key>
 			<dict>
 				<key>OnCommand</key>
-				<string>value,x1</string>
+				<string>value,x1;zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common TogglerChange</string>
 				<key>Elements</key>
