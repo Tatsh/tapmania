@@ -139,6 +139,9 @@
 	if(!self)
 		return nil;	
 	
+	// Try to fetch extra width property
+	m_FixedWidth =  FLOAT_METRIC( ([inMetricsKey stringByAppendingString:@" FixedWidth"]) );	// This is optional. will be 0 if not specified
+	
 	// Get graphics/sounds
 	[self initGraphicsAndSounds:inMetricsKey];
 	
@@ -296,10 +299,21 @@
 		
 		glEnable(GL_BLEND);
 		CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
-		leftCorner.x -= texture.contentSize.width*ratio/2;
+		if(m_FixedWidth > 0.0f) {
+			leftCorner.x -= m_FixedWidth/2;
+		} else {
+			leftCorner.x -= texture.contentSize.width*ratio/2;
+		}
+		
 		leftCorner.y -= texture.contentSize.height*ratio/2;
 		
-		CGRect rect = CGRectMake(leftCorner.x, leftCorner.y, texture.contentSize.width*ratio, texture.contentSize.height*ratio);
+		CGRect rect;
+		if(m_FixedWidth > 0.0f) {
+			rect = CGRectMake(leftCorner.x, leftCorner.y, m_FixedWidth, texture.contentSize.height*ratio);
+		} else {
+			rect = CGRectMake(leftCorner.x, leftCorner.y, texture.contentSize.width*ratio, texture.contentSize.height*ratio);
+		}
+		
 		[texture drawInRect:rect];				
 		glDisable(GL_BLEND);		
 	}	

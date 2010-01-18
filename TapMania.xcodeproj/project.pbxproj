@@ -153,6 +153,7 @@
 		24A8AF9A10A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A8AF9810A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a */; };
 		24A8AF9B10A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A8AF9910A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
+		24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.mm */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.mm */; };
 		24B2A6211066BA4B00F307EB /* ModCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B2A6201066BA4B00F307EB /* ModCommand.mm */; };
@@ -495,6 +496,8 @@
 		24A8AF9810A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.7_OS3.0.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.7_OS3.0.a; sourceTree = "<group>"; };
 		24A8AF9910A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.7_OS3.0.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.7_OS3.0.a; sourceTree = "<group>"; };
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
+		24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLabel.h; path = Renderers/UIElements/DynamicLabel.h; sourceTree = "<group>"; };
+		24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicLabel.mm; path = Renderers/UIElements/DynamicLabel.mm; sourceTree = "<group>"; };
 		24AF446D0F825BE200F630FD /* FontCharAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharAliases.h; sourceTree = "<group>"; };
 		24AF446E0F825BE200F630FD /* FontCharAliases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontCharAliases.mm; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
@@ -847,8 +850,6 @@
 				24F15EB80EC31E4700755788 /* MenuItem.mm */,
 				249D80580FCC9AF700630646 /* ImageButton.h */,
 				249D80590FCC9AF700630646 /* ImageButton.mm */,
-				24627B9C0FBF6DF9002E245D /* Label.h */,
-				24627B9D0FBF6DF9002E245D /* Label.mm */,
 				24966C7D0ECB3B6100D367E3 /* TogglerItem.h */,
 				24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */,
 				248F78130F77F99700AE2130 /* Slider.h */,
@@ -857,6 +858,10 @@
 				24D029C90F45C69C00F1F0DE /* FPS.mm */,
 				241F10F110610AEE00F5D1BB /* TMControl.h */,
 				241F10F210610AEE00F5D1BB /* TMControl.mm */,
+				24627B9C0FBF6DF9002E245D /* Label.h */,
+				24627B9D0FBF6DF9002E245D /* Label.mm */,
+				24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */,
+				24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */,
 			);
 			name = "UI Elements";
 			path = ../..;
@@ -1750,6 +1755,7 @@
 				24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */,
 				24B762F6109837F40030890F /* ZoomCommand.mm in Sources */,
 				24BD5F39109AE1900095931F /* PlaySoundEffectCommand.mm in Sources */,
+				24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,7 +83,7 @@
 	// Calculate height for fixed width if specified
 	if(m_FixedWidth > 0.0f) {
 		float ratio = m_FixedWidth / m_rShape.size.width;
-		m_rShape.size.height *= ratio;
+//		m_rShape.size.height *= ratio;
 		m_rShape.size.width = m_FixedWidth;
 	}
 }

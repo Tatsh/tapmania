@@ -10,23 +10,6 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
-			<key>TestImg</key>
-			<dict>
-				<key>X</key>
-				<integer>1</integer>
-				<key>Y</key>
-				<integer>1</integer>
-				<key>Width</key>
-				<integer>60</integer>
-				<key>Height</key>
-				<integer>60</integer>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>screen,Test</string>
-			</dict>
 			<key>TestButtonDisabled</key>
 			<dict>
 				<key>HitCommand</key>
@@ -98,7 +81,7 @@
 		</dict>
 		<key>OptionsMenu</key>
 		<dict>
-			<key>MoreButton</key>
+			<key>MoreButtonDisabled</key>
 			<dict>
 				<key>HitCommand</key>
 				<string>name,More;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
@@ -128,7 +111,7 @@
 				<key>Y</key>
 				<integer>419</integer>
 				<key>Width</key>
-				<integer>196</integer>
+				<integer>280</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
@@ -424,6 +407,8 @@
 				<integer>70</integer>
 				<key>Y</key>
 				<integer>1</integer>
+				<key>FixedWidth</key>
+				<integer>150</integer>
 			</dict>
 			<key>SpeedToggler</key>
 			<dict>
@@ -451,6 +436,8 @@
 				<integer>255</integer>
 				<key>Y</key>
 				<integer>1</integer>
+				<key>FixedWidth</key>
+				<integer>45</integer>
 			</dict>
 			<key>Wheel</key>
 			<dict>

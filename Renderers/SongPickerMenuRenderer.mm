@@ -59,8 +59,6 @@ extern TMGameState * g_pGameState;
 	[[TMSoundEngine sharedInstance] stopMusic]; // Fading:0.5f];
 	
 	// Cache metrics
-	mt_DifficultyToggler =  RECT_METRIC(@"SongPickerMenu DifficultyTogglerCustom");
-	
 	mt_ItemSong =			RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
 	mt_ItemSongHalfHeight = mt_ItemSong.size.height/2;
 	
@@ -84,7 +82,7 @@ extern TMGameState * g_pGameState;
 	[self pushControl:m_pSongWheel];
 		
 	// Difficulty toggler
-	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithShape:mt_DifficultyToggler]];
+	m_pDifficultyToggler = [[ZoomEffect alloc] initWithRenderable:[[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"]];
 	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
 	[(TogglerItem*)m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
 	[self pushBackControl:m_pDifficultyToggler];

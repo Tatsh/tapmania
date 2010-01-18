@@ -20,6 +20,7 @@
 	float				m_fFontSize;
 	Font*				m_pFont;
 	UITextAlignment		m_Align;
+	float				m_FixedWidth;
 	
 	TMCommand*			m_pCmdList;	
 	Quad*				m_pText;	// The title as texture

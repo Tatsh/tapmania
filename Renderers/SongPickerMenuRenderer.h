@@ -17,7 +17,6 @@
 	TMSound*				m_pPreviewMusic;
 	
 	/* Metrics and such */
-	CGRect mt_DifficultyToggler;
 	CGRect mt_ItemSong;
 	int mt_ItemSongHalfHeight;
 	
