@@ -50,6 +50,7 @@ ALvoid  alBufferDataStaticProc(const ALint bid, ALenum format, ALvoid* data, ALs
     return;
 }
 
+
 void* getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDataFormat, ALsizei* outSampleRate) {
 	OSStatus err = noErr;
 	SInt64 theFileLengthInBytes = 0;
@@ -131,10 +132,7 @@ Exit:
 	self = [super init];
 	if(!self)
 		return nil;
-		
-	if(![self initOpenAL]) 
-		return nil;
-		
+					
 	m_fMusicVolume = 1.0f;
 	m_fEffectsVolume = 1.0f;
 	m_bManualStart = NO;
@@ -155,14 +153,10 @@ Exit:
 	m_bStopRequested = YES;
 }
 
-- (void) worker {
-	// Enable audio
-	OSStatus result = NULL;	
-	result = AudioSessionSetActive (true);
+- (void) worker {	
+	if(![self initOpenAL]) 
+		return;
 
-	UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;			
-	AudioSessionSetProperty (kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
-	
 	while(! m_bStopRequested) {
 
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];

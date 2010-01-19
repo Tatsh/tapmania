@@ -150,6 +150,7 @@
 		24A709AE0F7A93B40080121C /* FontCharmaps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709AD0F7A93B40080121C /* FontCharmaps.mm */; };
 		24A709C60F7AA2760080121C /* FontManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.mm */; };
 		24A70B3F0F7AB3C00080121C /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.mm */; };
+		24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AA17A311053DC800436F5A /* AVFoundation.framework */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.mm */; };
@@ -178,7 +179,6 @@
 		24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.mm */; };
 		24D4C1480F1B3C1100643CC2 /* Judgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D4C1470F1B3C1100643CC2 /* Judgement.mm */; };
 		24D52AA81035A1970030A6CA /* AccelSoundPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */; };
-		24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D52ABD1035A4970030A6CA /* AVFoundation.framework */; };
 		24D6C1901030DC5400C7216A /* NewsDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.mm */; };
 		24D6C1B11030DE4E00C7216A /* NewsFetcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.mm */; };
 		24D762960F38A078008B0AA0 /* Metrics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.mm */; };
@@ -493,6 +493,7 @@
 		24A709C50F7AA2760080121C /* FontManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontManager.mm; sourceTree = "<group>"; };
 		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		24A70B3E0F7AB3C00080121C /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
+		24AA17A311053DC800436F5A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLabel.h; path = Renderers/UIElements/DynamicLabel.h; sourceTree = "<group>"; };
 		24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicLabel.mm; path = Renderers/UIElements/DynamicLabel.mm; sourceTree = "<group>"; };
@@ -551,7 +552,6 @@
 		24D4C1470F1B3C1100643CC2 /* Judgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Judgement.mm; path = Renderers/UIElements/Judgement.mm; sourceTree = "<group>"; };
 		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
 		24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccelSoundPlayer.mm; sourceTree = "<group>"; };
-		24D52ABD1035A4970030A6CA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
 		24D6C18F1030DC5400C7216A /* NewsDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NewsDialog.mm; path = Renderers/NewsDialog.mm; sourceTree = "<group>"; };
 		24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFetcher.h; sourceTree = "<group>"; };
@@ -668,7 +668,6 @@
 				243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */,
 				248E934910179A4800DB27D9 /* libmicrohttpd.a in Frameworks */,
 				24DC0E55101E9D3A00F2B046 /* libzlib.a in Frameworks */,
-				24D52ABE1035A4970030A6CA /* AVFoundation.framework in Frameworks */,
 				24E3895210456EE9001B8DDE /* AddressBook.framework in Frameworks */,
 				24E3895610456EFA001B8DDE /* SystemConfiguration.framework in Frameworks */,
 				24E3895A10456F13001B8DDE /* CoreLocation.framework in Frameworks */,
@@ -676,6 +675,7 @@
 				24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */,
 				24D93C901105305300D131CA /* libAdWhirlDevice_1.2.6.a in Frameworks */,
 				24D93C911105305300D131CA /* libAdWhirlSimulator_1.2.6.a in Frameworks */,
+				24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,6 +1386,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24AA17A311053DC800436F5A /* AVFoundation.framework */,
 				24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */,
 				24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */,
 				24E3895110456EE9001B8DDE /* AddressBook.framework */,
@@ -1393,7 +1394,6 @@
 				24E3895910456F13001B8DDE /* CoreLocation.framework */,
 				24E3895D10456F2B001B8DDE /* libxml2.dylib */,
 				24E3895F10456F33001B8DDE /* libsqlite3.dylib */,
-				24D52ABD1035A4970030A6CA /* AVFoundation.framework */,
 				2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */,
 				2486F1C30EC08CF300E5F9EE /* AudioToolbox.framework */,
 				2486F1BF0EC08CC600E5F9EE /* CoreAudio.framework */,
@@ -1935,7 +1935,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos2.2;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -2127,7 +2127,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos2.2;
 			};
 			name = Release;
 		};
