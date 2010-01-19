@@ -131,18 +131,10 @@ Exit:
 	self = [super init];
 	if(!self)
 		return nil;
-	
-	NSError *err;
-	BOOL    bSuccess = FALSE;
-
-	// Enable audio
-	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-	[audioSession setCategory:AVAudioSessionCategoryPlayback error:&err];
-	bSuccess = [audioSession setActive: YES error: &err];  
-
+		
 	if(![self initOpenAL]) 
 		return nil;
-	
+		
 	m_fMusicVolume = 1.0f;
 	m_fEffectsVolume = 1.0f;
 	m_bManualStart = NO;
@@ -164,6 +156,13 @@ Exit:
 }
 
 - (void) worker {
+	// Enable audio
+	OSStatus result = NULL;	
+	result = AudioSessionSetActive (true);
+
+	UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;			
+	AudioSessionSetProperty (kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
+	
 	while(! m_bStopRequested) {
 
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];

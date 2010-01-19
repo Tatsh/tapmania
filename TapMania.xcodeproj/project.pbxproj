@@ -150,8 +150,6 @@
 		24A709AE0F7A93B40080121C /* FontCharmaps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709AD0F7A93B40080121C /* FontCharmaps.mm */; };
 		24A709C60F7AA2760080121C /* FontManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.mm */; };
 		24A70B3F0F7AB3C00080121C /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.mm */; };
-		24A8AF9A10A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A8AF9810A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a */; };
-		24A8AF9B10A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A8AF9910A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a */; };
 		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
 		24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.mm */; };
@@ -186,6 +184,8 @@
 		24D762960F38A078008B0AA0 /* Metrics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.mm */; };
 		24D762990F38A38D008B0AA0 /* ThemeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.mm */; };
 		24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
+		24D93C901105305300D131CA /* libAdWhirlDevice_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */; };
+		24D93C911105305300D131CA /* libAdWhirlSimulator_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */; };
 		24DC0DE2101E93E800F2B046 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCC101E93E800F2B046 /* adler32.c */; };
 		24DC0DE3101E93E800F2B046 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCD101E93E800F2B046 /* compress.c */; };
 		24DC0DE4101E93E800F2B046 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCE101E93E800F2B046 /* crc32.c */; };
@@ -493,8 +493,6 @@
 		24A709C50F7AA2760080121C /* FontManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontManager.mm; sourceTree = "<group>"; };
 		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		24A70B3E0F7AB3C00080121C /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
-		24A8AF9810A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.7_OS3.0.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.7_OS3.0.a; sourceTree = "<group>"; };
-		24A8AF9910A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.7_OS3.0.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.7_OS3.0.a; sourceTree = "<group>"; };
 		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
 		24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLabel.h; path = Renderers/UIElements/DynamicLabel.h; sourceTree = "<group>"; };
 		24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicLabel.mm; path = Renderers/UIElements/DynamicLabel.mm; sourceTree = "<group>"; };
@@ -563,6 +561,8 @@
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
 		24D762980F38A38D008B0AA0 /* ThemeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ThemeManager.mm; path = ThemeSupport/ThemeManager.mm; sourceTree = "<group>"; };
 		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
+		24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.6.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.6.a; sourceTree = "<group>"; };
+		24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.6.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.6.a; sourceTree = "<group>"; };
 		24DC0DC8101E939C00F2B046 /* libzlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DC0DCC101E93E800F2B046 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = "ext/zlib-1.2.3/adler32.c"; sourceTree = "<group>"; };
 		24DC0DCD101E93E800F2B046 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = "ext/zlib-1.2.3/compress.c"; sourceTree = "<group>"; };
@@ -674,8 +674,8 @@
 				24E3895A10456F13001B8DDE /* CoreLocation.framework in Frameworks */,
 				24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */,
 				24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */,
-				24A8AF9A10A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a in Frameworks */,
-				24A8AF9B10A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a in Frameworks */,
+				24D93C901105305300D131CA /* libAdWhirlDevice_1.2.6.a in Frameworks */,
+				24D93C911105305300D131CA /* libAdWhirlSimulator_1.2.6.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,8 +1386,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				24A8AF9810A6C61C008ED22D /* libAdWhirlDevice_1.2.7_OS3.0.a */,
-				24A8AF9910A6C61C008ED22D /* libAdWhirlSimulator_1.2.7_OS3.0.a */,
+				24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */,
+				24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */,
 				24E3895110456EE9001B8DDE /* AddressBook.framework */,
 				24E3895510456EFA001B8DDE /* SystemConfiguration.framework */,
 				24E3895910456F13001B8DDE /* CoreLocation.framework */,

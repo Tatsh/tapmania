@@ -38,9 +38,10 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 	if (path == nil) return nil;
 	
 	// try to open up the file using the specified path
-	if (noErr != AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:path], 0x01, kAudioFileCAFType, &audioFile))
+	OSStatus res = AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:path], 0x01, 0, &audioFile);
+	if (noErr != res)
 	{
-		TMLog(@"AccelSoundPlayer Error - initWithPath: could not open audio file. Path given was: %@", path);
+		TMLog(@"AccelSoundPlayer Error [%d] - initWithPath: could not open audio file. Path given was: %@", res, path);
 		return nil;
 	}
 	
