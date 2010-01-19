@@ -30,7 +30,7 @@
 		TMLog(@"Problems initializing audio session.");
 	}
 		
-	UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
+	UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;
 	result = AudioSessionSetProperty (kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
 	if(result) {
 		TMLog(@"Problems setting category for audio session.");

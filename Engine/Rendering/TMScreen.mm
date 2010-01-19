@@ -39,8 +39,19 @@
 	}
 	
 	// Go through all the elements defined for the screen and look for buttons, labels, togglers etc.
-	for(NSObject* element in conf) {
+	for(NSString* element in conf) {
 		TMLog(@"Got elem: %@", element);
+		//
+//		NSArray* arr = [element componentsSeparatedByString:@"_"];
+//		if([arr count] > 1) {
+//			for(int i=1; i<[arr count]; ++i) {
+//				if(i!=1) {
+//					element = [element stringByAppendingString:@"_"];					
+//				}
+//				
+//				element = [element stringByAppendingString:[arr objectAtIndex:i]];
+//			}
+//		}
 		
 		if([element hasSuffix:@"Button"]) {
 			TMControl* ctrl = [[MenuItem alloc] initWithMetrics:[NSString stringWithFormat:@"%@ %@", inMetricsKey, element]];

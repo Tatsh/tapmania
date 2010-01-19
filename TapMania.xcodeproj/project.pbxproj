@@ -151,8 +151,6 @@
 		24A709C60F7AA2760080121C /* FontManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.mm */; };
 		24A70B3F0F7AB3C00080121C /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.mm */; };
 		24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AA17A311053DC800436F5A /* AVFoundation.framework */; };
-		24AABD690F55B45D00908E43 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24AABD560F55B45D00908E43 /* noteskins */; };
-		24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */; };
 		24AF446F0F825BE200F630FD /* FontCharAliases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AF446E0F825BE200F630FD /* FontCharAliases.mm */; };
 		24AFB4020EEFBC6800D0BF31 /* HoldNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AFB4010EEFBC6800D0BF31 /* HoldNote.mm */; };
 		24B2A6211066BA4B00F307EB /* ModCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B2A6201066BA4B00F307EB /* ModCommand.mm */; };
@@ -173,6 +171,7 @@
 		24CB0E9C10959C350035A079 /* FontCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0E9B10959C350035A079 /* FontCommand.mm */; };
 		24CB0EA010959CB60035A079 /* FontSizeCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */; };
 		24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */; };
+		24CF7F7C1105B7E20010A321 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24CF7F7B1105B7E20010A321 /* noteskins */; };
 		24D028FC0F45AB5900F1F0DE /* QuadTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D028FB0F45AB5900F1F0DE /* QuadTransition.mm */; };
 		24D029CA0F45C69C00F1F0DE /* FPS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D029C90F45C69C00F1F0DE /* FPS.mm */; };
 		24D166C11058DED80086236B /* TMScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D166C01058DED80086236B /* TMScreen.mm */; };
@@ -494,9 +493,6 @@
 		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		24A70B3E0F7AB3C00080121C /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
 		24AA17A311053DC800436F5A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		24AABD560F55B45D00908E43 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = SOURCE_ROOT; };
-		24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLabel.h; path = Renderers/UIElements/DynamicLabel.h; sourceTree = "<group>"; };
-		24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicLabel.mm; path = Renderers/UIElements/DynamicLabel.mm; sourceTree = "<group>"; };
 		24AF446D0F825BE200F630FD /* FontCharAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharAliases.h; sourceTree = "<group>"; };
 		24AF446E0F825BE200F630FD /* FontCharAliases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontCharAliases.mm; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
@@ -540,6 +536,7 @@
 		24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontSizeCommand.mm; sourceTree = "<group>"; };
 		24CB0EA510959D4C0035A079 /* AlignmentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlignmentCommand.h; sourceTree = "<group>"; };
 		24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AlignmentCommand.mm; sourceTree = "<group>"; };
+		24CF7F7B1105B7E20010A321 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QuadTransition.mm; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
@@ -860,8 +857,6 @@
 				241F10F210610AEE00F5D1BB /* TMControl.mm */,
 				24627B9C0FBF6DF9002E245D /* Label.h */,
 				24627B9D0FBF6DF9002E245D /* Label.mm */,
-				24AE50DE1104EDF3004CCAB1 /* DynamicLabel.h */,
-				24AE50DF1104EDF3004CCAB1 /* DynamicLabel.mm */,
 			);
 			name = "UI Elements";
 			path = ../..;
@@ -1373,9 +1368,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24CF7F7B1105B7E20010A321 /* noteskins */,
 				249D7FFD0FCC9A2200630646 /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
-				24AABD560F55B45D00908E43 /* noteskins */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
@@ -1646,9 +1641,9 @@
 			files = (
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
-				24AABD690F55B45D00908E43 /* noteskins in Resources */,
 				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
 				249D80540FCC9A2200630646 /* themes in Resources */,
+				24CF7F7C1105B7E20010A321 /* noteskins in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1755,7 +1750,6 @@
 				24CB0EA710959D4C0035A079 /* AlignmentCommand.mm in Sources */,
 				24B762F6109837F40030890F /* ZoomCommand.mm in Sources */,
 				24BD5F39109AE1900095931F /* PlaySoundEffectCommand.mm in Sources */,
-				24AE50E01104EDF3004CCAB1 /* DynamicLabel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

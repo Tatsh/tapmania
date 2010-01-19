@@ -233,6 +233,9 @@ Exit:
 		pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
 	}	
 		
+	if(!pSoundPlayer)
+		return NO;
+	
 	// Set delegate
 	[pSoundPlayer delegate:inObj];
 	
@@ -410,9 +413,15 @@ Exit:
 
 // Effect support (short sounds)
 - (BOOL) playEffect:(TMSound*)inSound {
+	NSError* err;
 	AVAudioPlayer *avSound = [[AVAudioPlayer alloc] initWithContentsOfURL:
-							[NSURL fileURLWithPath:inSound.path] error:NULL];
-	if(!avSound) return NO;
+							[NSURL fileURLWithPath:inSound.path] error:&err];
+	
+	if(!avSound) {
+		TMLog(@"PlayEffect err: %@", [err localizedDescription]);
+		return NO;
+	}
+	
 	return [avSound play];
 }
 
