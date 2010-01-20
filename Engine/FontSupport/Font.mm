@@ -583,59 +583,60 @@
 	float width = 0.0f;
 	float height = 0.0f;
 	float totalWidth = 0.0f;
-	float totalHeight = 0.0f;
 	
 	int i;
 	unichar c;	// Last char
 	
 	for(i=0; i<[str length]; ++i) {
 		c = [str characterAtIndex:i];
+		/*
 		if(c == '\n') {
 			totalWidth = fmaxf(totalWidth, width);
 			totalHeight += height;
 			width = height = 0.0f;
 			continue;
-		}
+		}*/
 		
 		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
 		width += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft]+[[g m_pFontPage] m_nExtraRight];
 		height = fmaxf( height, [g m_fHeight]);
 	}
 		
-	if(c != '\n') {
-		totalHeight += height;
-	}
 	totalWidth = fmaxf(totalWidth, width);	
 	
-	return CGSizeMake(totalWidth, totalHeight);
+	return CGSizeMake(totalWidth, height);
 }
 
 - (Quad*) createQuadFromText:(NSString*)str {
-	int curCharacter = 0;
-	int lineNum = 1;
+//	int lineNum = 1;
 	float curPoint = 0.0f;
 	CGSize strSize = [self getStringWidthAndHeight:str];
 	
 	Quad* result = [[Quad alloc] initWithWidth:strSize.width andHeight:strSize.height];
 	
-	for(; curCharacter < [str length]; curCharacter++) {
+	for(int curCharacter=0; curCharacter < [str length]; ++curCharacter) {
 		unichar c = [str characterAtIndex:curCharacter];
+/*
 		if(c == '\n') {
 			++lineNum;
 			curPoint = 0.0f;
 			continue;
 		}
+*/
 		
-		NSString* mapTester = [NSString stringWithCharacters:&c length:1];
+		NSString* mapTester = [NSString stringWithFormat:@"%C", c];
 		Glyph* g = [self getGlyph:mapTester];		
+		
 		// TODO: support multiline textures
 //		float yOffset = strSize.height-strSize.height/linuNum;
 		
+		curPoint += [[g m_pFontPage] m_nExtraLeft] + [g m_fWidth]/2;
+		
 		[result copyFrame:[g m_nTextureFrame] 
-			toPoint:CGPointMake(curPoint + ([g m_fWidth]/2) + [[g m_pFontPage] m_nExtraLeft], 0) 
+			toPoint:CGPointMake(curPoint, 0) 
 			fromTexture:[[g m_pFontPage] texture]];
 		
-		curPoint += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft] + [[g m_pFontPage] m_nExtraRight];
+		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance] + [[g m_pFontPage] m_nExtraRight];
 	}	
 	
 	return result;

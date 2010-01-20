@@ -9,6 +9,9 @@
 
 #import "SongPickerMenuItem.h"
 #import "Texture2D.h"
+#import "Quad.h"
+#import "Font.h"
+#import "FontManager.h"
 
 #import "TMSong.h"
 #import "ThemeManager.h"
@@ -29,6 +32,9 @@
 		return nil;
 	
 	m_pSong = song;	
+
+	// Add font stuff
+	[self initTextualProperties:@"SongPickerMenu Wheel ItemSong"];
 	
 	// Cache texture
 	t_WheelItem = TEXTURE(@"SongPickerMenu Wheel ItemSong");
@@ -36,6 +42,18 @@
 	
 	return self;
 }
+
+- (void) initTextualProperties:(NSString*)inMetricsKey {
+	[super initTextualProperties:inMetricsKey];
+	NSString* inFb = @"Common MenuItem";
+	
+	// Get font
+	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
+	if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
+}
+
 
 - (void) dealloc {
 	[m_pArtist release];
@@ -49,18 +67,13 @@
 - (void) generateTextures {		
 	// The title must be taken from the song file
 	NSString *titleStr = [NSString stringWithFormat:@"%@", m_pSong.m_sTitle];	
-	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
+//	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
 
-	// TODO from metrics!
-	float titleWidth = 280.0f;
-	float titleHeight = 34.0f;
-	float artistHeight = 12.0f;
-
-	CGSize titleSize = CGSizeMake(titleWidth, titleHeight);
-	CGSize artistSize = CGSizeMake(titleWidth, artistHeight); 
-
-	m_pTitle = [[Texture2D alloc] initWithString:titleStr dimensions:titleSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
-	m_pArtist = [[Texture2D alloc] initWithString:artistStr dimensions:artistSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:12.0f];
+	m_pTitle = [m_pFont createQuadFromText:titleStr];
+	
+	// [[Texture2D alloc] initWithString:titleStr dimensions:titleSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
+//	m_pArtist = 
+	//[[Texture2D alloc] initWithString:artistStr dimensions:artistSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:12.0f];
 }
 
 /* TMRenderable stuff */
@@ -68,10 +81,19 @@
 	glEnable(GL_BLEND);
 	[t_WheelItem drawAtPoint:m_rShape.origin];
 	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	[m_pTitle drawInRect:CGRectMake(15.0f, m_rShape.origin.y-20, 280.0f, 34.0f)];
-	[m_pArtist drawInRect:CGRectMake(18.0f, m_rShape.origin.y-18, 280.0f, 12.0f)];
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);		
+	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y-m_pTitle.contentSize.height/2 + 8);
+	CGRect rect;
+	
+	if(200.0f < m_pTitle.contentSize.width) {
+		rect = CGRectMake(leftCorner.x, leftCorner.y, 200.0f, m_pTitle.contentSize.height);
+		
+	} else {
+		rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width, m_pTitle.contentSize.height);
+		
+	}
+		
+	[m_pTitle drawInRect:rect];		
+	
 	glDisable(GL_BLEND);
 }
 

@@ -9,11 +9,11 @@
 
 #import "MenuItem.h"
 
-@class Texture2D, TMSong;
+@class Quad, Texture2D, TMSong;
 
 @interface SongPickerMenuItem : MenuItem {
 	TMSong* m_pSong;	// The song object bound to this menu item
-	Texture2D* m_pArtist;
+	Quad* m_pArtist;
 	
 	Texture2D* t_WheelItem;
 }
