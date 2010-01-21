@@ -8,6 +8,7 @@
 //
 
 #import "TMFramedTexture.h"
+#include "GLUtil.h"
 
 
 @implementation TMFramedTexture
@@ -72,7 +73,7 @@
 		width / 2,	height / 2,	0.0 
 	};
 	
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -114,7 +115,7 @@
 		width / 2 + point.x,	height / 2 + point.y,	0.0 
 	};
 
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	
@@ -151,7 +152,7 @@
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
 		
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	

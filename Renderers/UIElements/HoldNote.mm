@@ -9,6 +9,7 @@
 
 #import "HoldNote.h"
 #import "ThemeManager.h"
+#include "GLUtil.h"
 
 @implementation HoldNote
 
@@ -45,7 +46,7 @@
 	};
 	
 	glEnable(GL_BLEND);
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);	

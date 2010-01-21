@@ -10,6 +10,7 @@
 #import "Quad.h"
 #import <OpenGLES/ES1/glext.h>
 #import "TMFramedTexture.h"
+#include "GLUtil.h"
 
 @implementation Quad
 
@@ -21,7 +22,8 @@
 	if((self = [super init])) {
 		glGenTextures(1, &m_unName);
 		glGetIntegerv(GL_TEXTURE_BINDING_2D, &saveName);
-		glBindTexture(GL_TEXTURE_2D, m_unName);
+		TMBindTexture(m_unName);
+		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		
 		m_oSize = CGSizeMake(inWidth, inHeight);
@@ -47,7 +49,7 @@
 		void* data = (void*) calloc( m_unWidth*m_unHeight*4 , sizeof(GLubyte) );
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_unWidth, m_unHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, (void*)data);
-		glBindTexture(GL_TEXTURE_2D, saveName);
+		TMBindTexture(saveName);
 		
 		m_fMaxS = m_oSize.width / (float)m_unWidth;
 		m_fMaxT = m_oSize.height / (float)m_unHeight;
@@ -137,7 +139,7 @@
 		width / 2 + point.x,	height / 2 + point.y,	0.0 
 	};
 	
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -158,7 +160,7 @@
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
 	
-	glBindTexture(GL_TEXTURE_2D, m_unName);
+	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
