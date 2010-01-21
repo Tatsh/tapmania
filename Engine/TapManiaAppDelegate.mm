@@ -19,13 +19,19 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
+void MyInterruptionListener (void     *inClientData,
+							 UInt32   inInterruptionState) 
+{
+	printf("INTERUPTION OF AUDIO!!!\n");	
+}
+
 @implementation TapManiaAppDelegate
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application {				
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 	
 	// Enable audio
-	OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
+	OSStatus result = AudioSessionInitialize(NULL, NULL, MyInterruptionListener, NULL);
 	if(result) {
 		TMLog(@"Problems initializing audio session.");
 	}

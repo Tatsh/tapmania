@@ -218,7 +218,7 @@ Exit:
 
 // Methods
 - (BOOL) addToQueue:(TMSound*)inObj {
-	
+
 	// Get a sound player for the track
 	AbstractSoundPlayer* pSoundPlayer = nil;
 	
