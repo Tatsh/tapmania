@@ -10,6 +10,7 @@
 #import "SongPickerMenuItem.h"
 #import "Texture2D.h"
 #import "Quad.h"
+#import "FontString.h"
 #import "Font.h"
 #import "FontManager.h"
 
@@ -56,7 +57,8 @@
 
 
 - (void) dealloc {
-	[m_pArtist release];
+	[m_pTitleStr release];
+	[m_pArtistStr release];
 	
 	// Don't release the song
 	TMLog(@"DEALLOC SONG PICKER MENU ITEM");
@@ -67,13 +69,10 @@
 - (void) generateTextures {		
 	// The title must be taken from the song file
 	NSString *titleStr = [NSString stringWithFormat:@"%@", m_pSong.m_sTitle];	
-//	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
+	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
 
-	m_pTitle = [m_pFont createQuadFromText:titleStr];
-	
-	// [[Texture2D alloc] initWithString:titleStr dimensions:titleSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:24.0f];
-//	m_pArtist = 
-	//[[Texture2D alloc] initWithString:artistStr dimensions:artistSize alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:12.0f];
+	m_pTitleStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItem" andText:titleStr];
+	m_pArtistStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItem Artist" andText:artistStr]; 
 }
 
 /* TMRenderable stuff */
@@ -81,18 +80,21 @@
 	glEnable(GL_BLEND);
 	[t_WheelItem drawAtPoint:m_rShape.origin];
 	
-	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y-m_pTitle.contentSize.height/2 + 8);
-	CGRect rect;
+	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y+m_pTitleStr.contentSize.height/2-10);
+	CGRect rectTitle, rectArtist;
 	
-	if(200.0f < m_pTitle.contentSize.width) {
-		rect = CGRectMake(leftCorner.x, leftCorner.y, 200.0f, m_pTitle.contentSize.height);
+	if(200.0f < m_pTitleStr.contentSize.width) {
+		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, 200.0f, m_pTitleStr.contentSize.height);
 		
 	} else {
-		rect = CGRectMake(leftCorner.x, leftCorner.y, m_pTitle.contentSize.width, m_pTitle.contentSize.height);
 		
+		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, m_pTitleStr.contentSize.width, m_pTitleStr.contentSize.height);
 	}
+	
+	rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
 		
-	[m_pTitle drawInRect:rect];		
+	[m_pTitleStr drawInRect:rectTitle];		
+	[m_pArtistStr drawInRect:rectArtist];
 	
 	glDisable(GL_BLEND);
 }
@@ -104,12 +106,9 @@
 - (void) updateWithSong:(TMSong*)song atPoint:(CGPoint)point {
 	m_rShape.origin = point; // We don't really use the size here
 	m_pSong = song;	
-	
-	// Redo the texture
-	[m_pTitle release];
-	[m_pArtist release];
 
-	[self generateTextures];	
+	[m_pTitleStr updateText:m_pSong.m_sTitle];
+	[m_pArtistStr updateText:[NSString stringWithFormat:@"/%@",m_pSong.m_sArtist]];
 }
 
 @end
