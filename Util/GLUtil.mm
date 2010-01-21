@@ -9,17 +9,12 @@
  */
 
 #include "GLUtil.h"
-#include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
 
 /// Cache aware version of glBindTexture
-void TMBindTexture(unsigned int tex) {
-	static unsigned int currentBind = 0;
-
-	if(currentBind != tex) {
-		glBindTexture(GL_TEXTURE_2D, tex);
-	}
-	
-	currentBind = tex;
+void TMBindTexture(GLuint tex) {
+	static GLuint currentId=0;
+	// if(currentId!=tex) 
+	glBindTexture(GL_TEXTURE_2D,currentId=tex);
 }
