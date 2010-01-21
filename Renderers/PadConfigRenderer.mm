@@ -43,7 +43,6 @@
 	t_TapNote =			(TapNote*)SKIN_TEXTURE(@"DownTapNote");
 		
 	// Cache metrics
-	mt_ResetButton =	RECT_METRIC(@"PadConfig ResetButton");
 	mt_LifeBar	=		RECT_METRIC(@"SongPlay LifeBar");
 	
 	// Reset the joyPad to hold currently configured locations
@@ -64,15 +63,15 @@
 	// Init the lifebar
 	m_pLifeBar = [[LifeBar alloc] initWithRect:mt_LifeBar];
 		
-	// Create a reset button
-	m_pResetButton = [[ZoomEffect alloc] initWithRenderable:
-					  [[MenuItem alloc] initWithTitle:@"Reset" andShape:mt_ResetButton]];
-	[m_pResetButton setActionHandler:@selector(resetButtonHit) receiver:self];
+	// Link the reset button
+	m_pResetButton = (MenuItem*) [self findControl:@"PadConfig ResetButton"];
+	if(m_pResetButton != nil) {
+		[m_pResetButton setActionHandler:@selector(resetButtonHit) receiver:self];
+	}
 
 	// Add children
 	[self pushBackChild:m_pLifeBar];
 	[self pushBackChild:m_pReceptorRow];
-	[self pushBackControl:m_pResetButton];	
 		
 	// Remove ads for this time
 	[[TapMania sharedInstance] toggleAds:NO];
@@ -143,7 +142,7 @@
 /* TMGameUIResponder methods */
 - (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	if(m_nPadConfigAction != kPadConfigAction_SelectLocation)
-		return YES;	// We handled the touch.. just don't bother with it
+		return [super tmTouchesBegan:touches withEvent:event];
 	
 	if(touches.size() == 1){		
 		TMTouch touch = touches.at(0);
@@ -157,7 +156,10 @@
 }
 
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
-	return [self tmTouchesBegan:touches withEvent:event];
+	if(m_nPadConfigAction != kPadConfigAction_SelectLocation)
+		return [super tmTouchesMoved:touches withEvent:event];
+	
+	return [self tmTouchesBegan:touches withEvent:event];	// Do the positioning
 }
 
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
@@ -184,7 +186,9 @@
 			[[TapMania sharedInstance].joyPad setJoyPadButton:(JPButton)m_nSelectedTrack onLocation:point];
 			
 			m_nPadConfigAction = kPadConfigAction_None;
-		} 
+		} else {
+			return [super tmTouchesEnded:touches withEvent:event];			
+		}
 	}		
 	
 	return YES;

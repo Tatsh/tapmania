@@ -361,6 +361,12 @@
 		<dict>
 			<key>ResetButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Reset;playsoundeffect,Common ButtonHit</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
