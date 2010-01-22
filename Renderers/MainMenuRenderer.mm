@@ -53,8 +53,11 @@ extern TMGameState* g_pGameState;
 	sr_BG = SOUND(@"MainMenu Music");
 	
 	// Create version and copyright
-	[self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_VERSION_STRING fontSize:12.0f andShape:CGRectMake(212, 285, 80, 40)]];
-	[self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)]];
+	Label* version = [[Label alloc] initWithMetrics:@"MainMenu Version"];
+	[version setName:TAPMANIA_VERSION_STRING];
+	[self pushBackChild:version];
+	
+	// [self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)]];
 	
 	// Create donation button
 	ImageButton* donateButton = 

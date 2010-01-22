@@ -87,8 +87,10 @@
 
 - (void) noteSkinTogglerChanged {
 	NSString* skinName = (NSString*)[[m_pNoteSkinToggler getCurrent] m_pValue];
-	[[SettingsEngine sharedInstance] setStringValue:skinName forKey:@"noteskin"];
-	[[ThemeManager sharedInstance] selectNoteskin:skinName];
+	if(! [skinName isEqualToString: [ThemeManager sharedInstance].m_sCurrentThemeName] ) {
+		[[SettingsEngine sharedInstance] setStringValue:skinName forKey:@"noteskin"];
+		[[ThemeManager sharedInstance] selectNoteskin:skinName];
+	}
 }
 
 @end

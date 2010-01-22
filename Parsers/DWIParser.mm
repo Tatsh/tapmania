@@ -82,7 +82,7 @@
 				TMLog(@"Title...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_sTitle = [[NSString stringWithCString:data] retain];
+				song.m_sTitle = [[NSString stringWithUTF8String:data] retain];
 				
 				free(data);
 			} 
@@ -90,7 +90,7 @@
 				TMLog(@"Artist...");
 				char* data = [DWIParser parseSectionWithFD:fd];
 				TMLog(@"is '%s'", data);
-				song.m_sArtist = [[NSString stringWithCString:data] retain];
+				song.m_sArtist = [[NSString stringWithUTF8String:data] retain];
 
 				free(data);
 			}

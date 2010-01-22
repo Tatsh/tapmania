@@ -10,6 +10,15 @@
 		<dict/>
 		<key>MainMenu</key>
 		<dict>
+			<key>Version</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>alignment,left</string>
+				<key>X</key>
+				<integer>205</integer>
+				<key>Y</key>
+				<integer>175</integer>
+			</dict>
 			<key>TestButtonDisabled</key>
 			<dict>
 				<key>HitCommand</key>
