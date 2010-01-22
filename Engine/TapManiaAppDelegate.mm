@@ -19,19 +19,13 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
-void MyInterruptionListener (void     *inClientData,
-							 UInt32   inInterruptionState) 
-{
-	printf("INTERUPTION OF AUDIO!!!\n");	
-}
-
 @implementation TapManiaAppDelegate
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application {				
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 	
 	// Enable audio
-	OSStatus result = AudioSessionInitialize(NULL, NULL, MyInterruptionListener, NULL);
+	OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
 	if(result) {
 		TMLog(@"Problems initializing audio session.");
 	}
@@ -45,7 +39,7 @@ void MyInterruptionListener (void     *inClientData,
 	result = AudioSessionSetActive (true);
 	if(result) {
 		TMLog(@"Problems activating audio session.");
-	}	
+	}
 	
 	// Get rid of the accelerometer
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];

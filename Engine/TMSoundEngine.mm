@@ -156,7 +156,7 @@ Exit:
 - (void) worker {	
 	if(![self initOpenAL]) 
 		return;
-
+	
 	while(! m_bStopRequested) {
 
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
