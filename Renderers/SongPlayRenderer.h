@@ -11,7 +11,7 @@
 #import "TMSteps.h" // For kNumOfAvailableTracks
 #import "TMMessageSupport.h"
 
-@class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad;
+@class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad, ComboMeter;
 @class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
@@ -41,6 +41,7 @@
 	// Theme stuff
 	Judgement*	t_Judgement;
 	HoldJudgement* t_HoldJudgement;
+	ComboMeter*		t_ComboMeter;
 	
 	// Other
 	Texture2D* t_FingerTap;

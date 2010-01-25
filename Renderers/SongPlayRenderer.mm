@@ -24,6 +24,7 @@
 
 #import "ReceptorRow.h"
 #import "LifeBar.h"
+#import "ComboMeter.h"
 
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
@@ -86,6 +87,9 @@ extern TMGameState* g_pGameState;
 	
 	// Init the lifebar
 	m_pLifeBar = [[LifeBar alloc] initWithRect:mt_LifeBar];
+	
+	// Init a combometer
+	t_ComboMeter = [[ComboMeter alloc] initWithMetrics:@"SongPlay Combo"];
 	
 	g_pGameState->m_bPlayingGame = NO;
 	
@@ -164,6 +168,7 @@ extern TMGameState* g_pGameState;
 	[self pushBackChild:[g_pGameState->m_pSteps retain]];	
 	[self pushBackChild:[t_Judgement retain]];
 	[self pushBackChild:[t_HoldJudgement retain]];
+	[self pushBackChild:[t_ComboMeter retain]];
 	[self pushBackChild:m_pLifeBar];	
 }
 

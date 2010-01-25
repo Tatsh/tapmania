@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.mm */; };
+		240A1AD8110DD60200D36585 /* ComboMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 240A1AD7110DD60200D36585 /* ComboMeter.mm */; };
 		241955EB102B08F800FC6E0F /* SongManagerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */; };
 		241F10F310610AEE00F5D1BB /* TMControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241F10F210610AEE00F5D1BB /* TMControl.mm */; };
 		242327BB0F273B630013AC23 /* SongResultsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.mm */; };
@@ -302,6 +303,8 @@
 		24079D8A0F4333300052EDB2 /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
 		24079D8B0F4333300052EDB2 /* FadeTransition.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FadeTransition.mm; sourceTree = "<group>"; };
 		2409199C105FCD3600927F28 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
+		240A1AD6110DD60200D36585 /* ComboMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComboMeter.h; path = Renderers/UIElements/ComboMeter.h; sourceTree = "<group>"; };
+		240A1AD7110DD60200D36585 /* ComboMeter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ComboMeter.mm; path = Renderers/UIElements/ComboMeter.mm; sourceTree = "<group>"; };
 		241955E9102B08F800FC6E0F /* SongManagerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongManagerRenderer.h; path = Renderers/SongManagerRenderer.h; sourceTree = "<group>"; };
 		241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongManagerRenderer.mm; path = Renderers/SongManagerRenderer.mm; sourceTree = "<group>"; };
 		241F10F110610AEE00F5D1BB /* TMControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMControl.h; path = Renderers/UIElements/TMControl.h; sourceTree = "<group>"; };
@@ -1338,6 +1341,8 @@
 				246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */,
 				24C696C61063B7800049C299 /* TapMine.h */,
 				24C696C71063B7800049C299 /* TapMine.mm */,
+				240A1AD6110DD60200D36585 /* ComboMeter.h */,
+				240A1AD7110DD60200D36585 /* ComboMeter.mm */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -1762,6 +1767,7 @@
 				24BD5F39109AE1900095931F /* PlaySoundEffectCommand.mm in Sources */,
 				24BC9EE91107EEB100F1ADEC /* GLUtil.mm in Sources */,
 				24BC9F481107F21D00F1ADEC /* FontString.mm in Sources */,
+				240A1AD8110DD60200D36585 /* ComboMeter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
