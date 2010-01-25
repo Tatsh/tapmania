@@ -33,9 +33,6 @@
 		return nil;
 	
 	m_pSong = song;	
-
-	// Add font stuff
-	[self initTextualProperties:@"SongPickerMenu Wheel ItemSong"];
 	
 	// Cache texture
 	t_WheelItem = TEXTURE(@"SongPickerMenu Wheel ItemSong");
@@ -43,18 +40,6 @@
 	
 	return self;
 }
-
-- (void) initTextualProperties:(NSString*)inMetricsKey {
-	[super initTextualProperties:inMetricsKey];
-	NSString* inFb = @"Common MenuItem";
-	
-	// Get font
-	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
-	if(!m_pFont) {
-		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
-	}
-}
-
 
 - (void) dealloc {
 	[m_pTitleStr release];
@@ -72,7 +57,7 @@
 	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
 
 	m_pTitleStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItem" andText:titleStr];
-	m_pArtistStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItem Artist" andText:artistStr]; 
+	m_pArtistStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItemArtist" andText:artistStr]; 
 }
 
 /* TMRenderable stuff */
