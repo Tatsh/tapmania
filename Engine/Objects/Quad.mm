@@ -63,7 +63,7 @@
 }
 
 // Copy a frame of the texture to the given location in the quad
-- (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture {
+- (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture {	
 	CGSize frameSize = CGSizeMake( texture.contentSize.width/[texture cols], texture.contentSize.height/[texture rows] );
 	GLuint oldFramebuffer, fbo;
 
@@ -117,7 +117,6 @@
 	glMatrixMode(GL_PROJECTION); 
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
-	
 }
 
 

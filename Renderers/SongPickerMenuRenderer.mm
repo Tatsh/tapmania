@@ -36,6 +36,8 @@
 #import "QuadTransition.h"
 #import "GameState.h"
 
+#import "GLUtil.h"
+
 extern TMGameState * g_pGameState;
 
 @interface SongPickerMenuRenderer (Private)
@@ -120,6 +122,9 @@ extern TMGameState * g_pGameState;
 
 /* Wheel actions */
 - (void) songSelectionChanged {
+	// Drop the texture bind cache as we are going to switch contexts
+	TMBindTexture(0);
+
 	[(TogglerItem*)m_pDifficultyToggler removeAll];
 	
 	SongPickerMenuItem* selected = (SongPickerMenuItem*)[[m_pSongWheel getSelected] retain];

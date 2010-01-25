@@ -15,6 +15,9 @@
 /// Cache aware version of glBindTexture
 void TMBindTexture(GLuint tex) {
 	static GLuint currentId=0;
-	// if(currentId!=tex) 
-	glBindTexture(GL_TEXTURE_2D,currentId=tex);
+
+	if(currentId != tex) {
+		currentId = tex;
+		glBindTexture(GL_TEXTURE_2D,currentId);
+	}
 }

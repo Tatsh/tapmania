@@ -15,6 +15,8 @@
 #import "TMRunLoop.h"	// For TMRunLoopPriority
 #import "TimingUtil.h"
 
+#import "GLUtil.h"
+
 @implementation BasicTransition
 
 - (id) initFromScreen:(TMScreen*)fromScreen toClass:(Class)screenClass withMetrics:(NSString*)inMetrics {
@@ -110,6 +112,8 @@
 	
 	if(m_pTo == nil) {
 		// Time to initialize the new screen
+		// Also drop the current bound texture cache to prevent crazyness
+		TMBindTexture(0);
 		m_pTo = [[m_toScreenClass alloc] initWithMetrics:m_sToScreenMetrics];
 	}
 }
