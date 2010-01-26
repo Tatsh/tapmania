@@ -302,7 +302,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 #pragma mark ARRollerDelegate required delegate method implementation
 - (NSString*)adWhirlApplicationKey
 {
-    return @"c7b13290e38c102c96dc5b26aef5c1e9";
+	// 0.1.7 version
+	return @"839677085bd3102d81f0fcd5368d21fc";
+	
+	// 0.1.6 -   return @"c7b13290e38c102c96dc5b26aef5c1e9";
 }
 
 #pragma mark ARRollerDelegate optional delegate method implementations
