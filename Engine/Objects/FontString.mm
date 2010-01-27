@@ -13,6 +13,7 @@
 
 @implementation FontString
 @synthesize contentSize=m_oSize;
+@synthesize alignment=m_Align;
 
 -(id) initWithFont:(NSString*)font andText:(NSString*)str {
 	self = [super init];
@@ -59,6 +60,12 @@
 // Drawing
 - (void) drawAtPoint:(CGPoint)point {
 	if(m_Glyphs->empty()) return;
+	
+	if(m_Align == UITextAlignmentCenter) {
+		point.x -= m_oSize.width/2;
+	} else if(m_Align == UITextAlignmentRight) {
+		point.x -= m_oSize.width;
+	}
 	
 	for(GlyphInfoVec::iterator it = m_Glyphs->begin(); it!=m_Glyphs->end(); ++it) {
 		Glyph* g = it->m_pGlyph;

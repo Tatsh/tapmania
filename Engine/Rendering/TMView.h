@@ -38,6 +38,7 @@ typedef deque<TMViewChildPtr> TMViewChildren;
 - (id) initWithShape:(CGRect)inShape;
 
 - (BOOL) containsPoint:(CGPoint)point;
+- (BOOL) isTouchInside:(const TMTouch&)touch;
 
 - (void) disable;
 - (void) enable;

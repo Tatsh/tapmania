@@ -134,7 +134,7 @@ extern TMGameState * g_pGameState;
 	
 	// Get the preffered difficulty level
 	int prefDiff = [[SettingsEngine sharedInstance] getIntValue:@"prefdiff"];
-	int closestDiffAvailable = 0;
+	int closestDiffAvailable = -1024;
 	
 	// Go through all possible difficulties
 	for(int dif = (int)kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif) {
@@ -144,8 +144,9 @@ extern TMGameState * g_pGameState;
 			TMLog(@"Add dif %d to toggler as [%@]", dif, title);
 			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
 			
-			if(dif-prefDiff < dif-closestDiffAvailable) {
+			if(dif == prefDiff || abs(prefDiff-dif) < abs(prefDiff-closestDiffAvailable)) {
 				closestDiffAvailable = dif;
+				TMLog(@"Selected [%d <= %d] %@", dif, prefDiff, [TMSong difficultyToString:(TMSongDifficulty)dif]);
 			}
 		}
 	}
@@ -198,7 +199,7 @@ extern TMGameState * g_pGameState;
 /* Support last difficulty setting saving */
 - (void) difficultyChanged {
 	int curDiff = [(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
-	TMLog(@"Changed difficulty. save.");
+	TMLog(@"Changed difficulty. save. [%d => %@]", curDiff, [TMSong difficultyToString:(TMSongDifficulty)curDiff]);
 	
 	[[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
 }

@@ -204,23 +204,32 @@
 	TMTouch touch = touches.at(0);
 	CGPoint point = CGPointMake(touch.x(), touch.y());
 	
+	if([self isTouchInside:touch]) {			
+		// Forward to children
+		if(! m_pControls->empty() ) {			
+			int curSize = m_pControls->size();
+				
+			for (int i = 0; i < curSize; ++i) {				
+				NSObject* obj = *(m_pControls->at(i));
+				[(id<TMGameUIResponder>)obj tmTouchesEnded:touches withEvent:event];
+				curSize = m_pControls->size();	// To be safe
+			}	
+		}				
+			
+		return YES;
+	}
+	
+	return NO;
+}
+
+- (BOOL) isTouchInside:(const TMTouch&)touch {
+	CGPoint point = CGPointMake(touch.x(), touch.y());
+	
 	if(CGRectContainsPoint(m_rShape, point)) {
 		if(m_bEnabled && m_bVisible) {
-			
-			// Forward to children
-			if(! m_pControls->empty() ) {			
-				int curSize = m_pControls->size();
-				
-				for (int i = 0; i < curSize; ++i) {				
-					NSObject* obj = *(m_pControls->at(i));
-					[(id<TMGameUIResponder>)obj tmTouchesEnded:touches withEvent:event];
-					curSize = m_pControls->size();	// To be safe
-				}	
-			}				
-			
 			return YES;
 		}
-	}
+	} 
 	
 	return NO;
 }

@@ -11,11 +11,12 @@
 #import "TapMania.h"
 #import "MainMenuRenderer.h"
 #import "SongsDirectoryCache.h"
-#import "Texture2D.h"
+#import "FontString.h"
 #import "EAGLView.h"
 #import "ThemeManager.h"
 #import "TMSoundEngine.h"
 #import "TMSound.h"
+#import "GLUtil.h"
 
 @interface SongsCacheLoaderRenderer (Private)
 - (void) worker;
@@ -33,9 +34,7 @@
 	m_bAllSongsLoaded = NO;
 	m_bGlobalError = NO;
 	
-	m_pCurrentTexture = nil;
 	m_sCurrentMessage = @"Start loading songs...";
-	m_bTextureShouldChange = YES;
 	
 	return self;
 }
@@ -52,11 +51,7 @@
 
 - (void) generateTexture {
 	if(	m_bTextureShouldChange ) { 
-		if( m_pCurrentTexture != nil ) {
-			[m_pCurrentTexture release];
-		}
-		
-		m_pCurrentTexture = [[Texture2D alloc] initWithString:m_sCurrentMessage dimensions:CGSizeMake(320,20) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:16];
+		[m_pCurrentStr updateText:m_sCurrentMessage];
 	}
 }
 
@@ -64,7 +59,7 @@
 	[m_pThread release];
 	[m_pLock release];
 	
-	[m_pCurrentTexture release];
+	[m_pCurrentStr release];
 	
 	[super dealloc];
 }
@@ -74,13 +69,19 @@
 	[super setupForTransition];
 	
 	// Cache textures / sounds
-	sr_BG = SOUND(@"SongsLoader Music");
+	sr_BG = SOUND(@"SongsCacheLoader Music");
 	
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
 	m_pLock = [[NSLock alloc] init];
 	
 	// Start the music
 	[[TMSoundEngine sharedInstance] addToQueue:sr_BG];
+	
+	// Create a dynamic font string
+	m_pCurrentStr = [[FontString alloc] initWithFont:@"SongsCacheLoader" andText:m_sCurrentMessage];
+	m_pCurrentStr.alignment = UITextAlignmentCenter;
+	
+	m_bTextureShouldChange = YES;
 	
 	// Make sure we have the instance initialized on the main pool
 	[SongsDirectoryCache sharedInstance];
@@ -101,15 +102,13 @@
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	[super render:fDelta];
+	TMBindTexture(0);
 	
 	[m_pLock lock];
-	if(m_pCurrentTexture != nil) {
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		[m_pCurrentTexture drawInRect:CGRectMake(0, 50, 320, 15)];		
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-		glDisable(GL_BLEND);
-	}
+	glEnable(GL_BLEND);
+	[m_pCurrentStr drawAtPoint:CGPointMake(160, 240)];		
+	TMLog(@"RENDER STRING '%@'", m_sCurrentMessage);
+	glDisable(GL_BLEND);
 	[m_pLock unlock];
 }
 

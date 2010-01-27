@@ -44,14 +44,14 @@
 	// Reset states (to saved if any)
 	[self reset];
 	
-	// Restore config value of autoTracking feature
-	m_bAutoTrackEnabled =	CFG_BOOL(@"autotrack");
-
 	return self;
 }
 
 /* Public methods */
-- (void) reset {	
+- (void) reset {
+	// Restore config value of autoTracking feature
+	m_bAutoTrackEnabled =	CFG_BOOL(@"autotrack");
+	
 	int i;
 	for(i=0; i<kNumJoyButtons; ++i) {
 		// Check whether we have a value in config or not

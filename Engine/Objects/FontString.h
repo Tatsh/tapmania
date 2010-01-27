@@ -35,7 +35,7 @@ typedef std::vector<GlyphInfo>	GlyphInfoVec;
 @interface FontString : NSObject {
 	Font*	m_pFont;			// The font used to render this string
 	CGSize	m_oSize;			// Original size of the string using the given font
-	
+	UITextAlignment	m_Align;
 	
 #ifdef __cplusplus
 	GlyphInfoVec*	m_Glyphs;	// A collection of glyph pointers plus offset information
@@ -43,6 +43,7 @@ typedef std::vector<GlyphInfo>	GlyphInfoVec;
 }
 
 @property (assign, readonly) CGSize contentSize;
+@property (assign) UITextAlignment alignment;
 
 // The constructor
 -(id) initWithFont:(NSString*)font andText:(NSString*)str;

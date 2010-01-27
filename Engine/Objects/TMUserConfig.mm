@@ -17,7 +17,8 @@
 		return nil;
 		
 	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
-						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithBool:NO], @"autotrack", 
+						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:1.0f], @"effectssound",
+						[NSNumber numberWithBool:NO], @"autotrack", 
 						[NSNumber numberWithBool:NO], @"vispad", @"NONEXISTING", @"newsversion",
 						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff",
 						[NSNumber numberWithBool:NO], @"landscape", nil];
@@ -52,6 +53,11 @@
 		[m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
 		++errCount;
 	}
+
+	if(! [m_pConfigDict valueForKey:@"effectssound"]) {
+		[m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"effectssound"];
+		++errCount;
+	}	
 	
 	if(! [m_pConfigDict valueForKey:@"autotrack"]) {
 		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"autotrack"];

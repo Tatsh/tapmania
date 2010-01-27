@@ -54,17 +54,18 @@
 	m_fVelocity = 0.0f;	
 	[self clearSwipes];
 	
-	float curYOffset = 0.0f;
-	int i,j;
-	for(i=j=0; i<kNumWheelItems; i++) {		
+	float curYOffset = mt_ItemSong.size.height*(kNumWheelItems-1);
+	int i = 0,
+		j = 0;
+	for(; i<kNumWheelItems; i++) {		
 		if(j == [songList count]) {
 			j = 0;
 		}
 		
 		TMSong *song = [songList objectAtIndex:j++];				
-		m_pWheelItems->push_back( TMWheelItemPtr( [[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)] ) );
+		m_pWheelItems->push_front( TMWheelItemPtr( [[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)] ) );
 		
-		curYOffset += mt_ItemSong.size.height;
+		curYOffset -= mt_ItemSong.size.height;
 	}	
 	
 	return self;

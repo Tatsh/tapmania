@@ -72,6 +72,9 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 // Volume control
 - (void) setMasterVolume:(float)gain;
 - (float) getMasterVolume;
+- (void) setEffectsVolume:(float)gain;
+- (float) getEffectsVolume;
+
 
 // Effects stuff
 - (BOOL) playEffect:(TMSound*)inSound;

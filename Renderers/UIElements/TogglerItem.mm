@@ -321,9 +321,11 @@
 
 /* TMGameUIResponder method */
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
-	if(	[super tmTouchesEnded:touches withEvent:event] ) {
+	if( [super isTouchInside:touches.at(0)] ) {
 		TMLog(@"TogglerItem, finger raised!");
-		[self toggle];
+		
+		[self toggle];		
+		[super tmTouchesEnded:touches withEvent:event];
 			
 		return YES;			
 	}

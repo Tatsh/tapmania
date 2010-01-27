@@ -10,7 +10,7 @@
 #import "TMScreen.h"
 #import "TMSongsLoaderSupport.h"
 
-@class Texture2D, TMSound;
+@class FontString, TMSound;
 
 @interface SongsCacheLoaderRenderer : TMScreen <TMSongsLoaderSupport> {
 	BOOL	m_bAllSongsLoaded;
@@ -19,7 +19,7 @@
 	BOOL	m_bTextureShouldChange;
 	
 	NSString*	m_sCurrentMessage;
-	Texture2D*	m_pCurrentTexture;
+	FontString*	m_pCurrentStr;
 	
 	NSThread* m_pThread;
 	NSLock*   m_pLock;

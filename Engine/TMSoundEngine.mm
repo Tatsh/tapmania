@@ -388,6 +388,15 @@ Exit:
 	return m_fMusicVolume;
 }
 
+- (void) setEffectsVolume:(float)gain {
+	m_fEffectsVolume = gain;
+}
+
+- (float) getEffectsVolume {
+	return m_fEffectsVolume;
+}
+
+
 /* TMSoundSupport delegate work */
 - (void) playBackStartedNotification {
 		TMLog(@"SOUNDENGINE: got notification about current track playback Started");
@@ -421,6 +430,9 @@ Exit:
 		TMLog(@"PlayEffect err: %@", [err localizedDescription]);
 		return NO;
 	}
+	
+	// Set gain
+	[avSound setVolume:m_fEffectsVolume];
 	
 	return [avSound play];
 }

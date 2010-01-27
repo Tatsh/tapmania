@@ -180,17 +180,6 @@
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
-			<key>SoundLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Sound:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>389</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
 			<key>FingerTrackingLabel</key>
 			<dict>
 				<key>OnCommand</key>
@@ -247,24 +236,22 @@
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
-			<key>SoundSlider</key>
+			<key>SoundOptionsButton</key>
 			<dict>
+				<key>HitCommand</key>
+				<string>name,Sound Settings;playsoundeffect,Common ButtonHit;screen,SoundOptionsMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>110</integer>
+				<integer>20</integer>
 				<key>Y</key>
 				<integer>366</integer>
 				<key>Width</key>
-				<integer>190</integer>
+				<integer>280</integer>
 				<key>Height</key>
 				<integer>46</integer>
-				<key>HitCommand</key>
-				<string>value,{setting:sound};setting,sound,{value}</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>value,{setting:sound};volume,{value};setting,sound,{value};zoom,1.0,0.3</string>
-				<key>SlideCommand</key>
-				<string>volume,{value}</string>
 			</dict>
 			<key>FingerTrackingToggler</key>
 			<dict>
@@ -309,6 +296,86 @@
 					<string>value,YES;name,Enabled;setting,vispad,YES</string>
 					<string>value,NO;name,Disabled;setting,vispad,NO</string>
 				</array>
+			</dict>
+		</dict>
+		<key>SoundOptionsMenu</key>
+		<dict>
+			<key>MusicLevelLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Music:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>189</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>EffectsLevelLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Effects:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>249</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>MusicLevelSlider</key>
+			<dict>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>166</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>HitCommand</key>
+				<string>value,{setting:sound};setting,sound,{value}</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>value,{setting:sound};volume,music,{value};setting,sound,{value};zoom,1.0,0.3</string>
+				<key>SlideCommand</key>
+				<string>volume,music,{value}</string>
+			</dict>
+			<key>EffectsLevelSlider</key>
+			<dict>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>226</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>HitCommand</key>
+				<string>value,{setting:effectssound};setting,effectssound,{value};playsoundeffect,Common ButtonHit</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>value,{setting:effectssound};volume,effects,{value};setting,effectssound,{value};zoom,1.0,0.3</string>
+				<key>SlideCommand</key>
+				<string>volume,effects,{value}</string>
+			</dict>
+			<key>BackButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,0.9,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>18</integer>
+				<key>Y</key>
+				<integer>289</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>46</integer>
 			</dict>
 		</dict>
 		<key>OptionsExtendedMenu</key>
@@ -424,6 +491,8 @@
 				<string>zoom,1.04,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
 				<key>Height</key>
 				<integer>46</integer>
 				<key>Width</key>
@@ -473,7 +542,7 @@
 					<key>X</key>
 					<integer>165</integer>
 					<key>Y</key>
-					<integer>248</integer>
+					<integer>250</integer>
 					<key>Height</key>
 					<integer>46</integer>
 					<key>Width</key>
