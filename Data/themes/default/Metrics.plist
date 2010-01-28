@@ -90,6 +90,15 @@
 		</dict>
 		<key>OptionsMenu</key>
 		<dict>
+			<key>TitleLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Options;alignment,center</string>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>24</integer>
+			</dict>
 			<key>MoreButtonDisabled</key>
 			<dict>
 				<key>HitCommand</key>
@@ -300,6 +309,15 @@
 		</dict>
 		<key>SoundOptionsMenu</key>
 		<dict>
+			<key>TitleLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Sound Settings;alignment,center</string>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>24</integer>
+			</dict>
 			<key>MusicLevelLabel</key>
 			<dict>
 				<key>OnCommand</key>
