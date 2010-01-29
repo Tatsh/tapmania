@@ -22,7 +22,7 @@
 	CGRect m_rShape;	// The rect where the lifebar is drawn
 	
 	/* Textures */
-	Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarHot, *t_LifeBarFrame;
+	Texture2D	*t_LifeBarBG, *t_LifeBarNormal, *t_LifeBarPassing, *t_LifeBarHot, *t_LifeBarFrame;
 }
 
 - (id) initWithRect:(CGRect)rect;

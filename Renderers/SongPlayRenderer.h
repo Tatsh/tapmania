@@ -26,12 +26,14 @@
 
 	ReceptorRow*			m_pReceptorRow;
 	LifeBar*				m_pLifeBar;
+	ComboMeter*				m_pComboMeter;
 	
 	double					m_dScreenEnterTime;					// The time when we invoked playSong
 	double					m_dPlayBackScheduledEndTime;		// The time to stop music and stop gameplay
 	double					m_dPlayBackScheduledFadeOutTime;	// The time to start fading music out
+	double					m_dFailedTime, m_dClearedTime;
 	
-	BOOL					m_bDrawReady, m_bDrawGo;
+	BOOL					m_bDrawReady, m_bDrawGo, m_bDrawFailed, m_bDrawCleared;
 	BOOL					m_bIsFading;
 	BOOL					m_bMusicPlaybackStarted;
 	
@@ -41,7 +43,6 @@
 	// Theme stuff
 	Judgement*	t_Judgement;
 	HoldJudgement* t_HoldJudgement;
-	ComboMeter*		t_ComboMeter;
 	
 	// Other
 	Texture2D* t_FingerTap;
@@ -52,6 +53,8 @@
 	
 	CGPoint mt_Judgement;
 	float   mt_JudgementMaxShowTime;
+	float   mt_FailedMaxShowTime;
+	float   mt_ClearedMaxShowTime;
 	
 	CGRect mt_LifeBar;
 		

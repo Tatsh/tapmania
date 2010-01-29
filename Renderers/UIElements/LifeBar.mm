@@ -37,6 +37,7 @@
 	// Preload all required graphics
 	t_LifeBarBG = TEXTURE(@"SongPlay LifeBar Background");
 	t_LifeBarNormal = TEXTURE(@"SongPlay LifeBar Normal");
+	t_LifeBarPassing = TEXTURE(@"SongPlay LifeBar Passing");
 	t_LifeBarHot = TEXTURE(@"SongPlay LifeBar Hot");
 	t_LifeBarFrame = TEXTURE(@"SongPlay LifeBar Frame");
 		
@@ -77,8 +78,7 @@
 	
 	if(m_fCurrentValue < 0.3) {
 		// Show passing bar
-		// TODO: get the image for passing (redir?)
-		[t_LifeBarNormal drawInRect:fillRect];
+		[t_LifeBarPassing drawInRect:fillRect];
 	} else if(m_fCurrentValue < 1.0f) {
 		// Show normal bar
 		[t_LifeBarNormal drawInRect:fillRect];
@@ -103,6 +103,9 @@
 
 /* TMMessageSupport stuff */
 -(void) handleMessage:(TMMessage*)message {
+	if(!m_bIsActive)
+		return;
+	
 	switch (message.messageId) {
 		case kNoteScoreMessage:	{
 			

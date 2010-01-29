@@ -65,6 +65,9 @@ extern TMGameState* g_pGameState;
 	mt_LifeBar =							RECT_METRIC(@"SongPlay LifeBar");
 	
 	cfg_VisPad =							CFG_BOOL(@"vispad");
+	
+	mt_FailedMaxShowTime =					FLOAT_METRIC(@"SongPlay Failed MaxShowTime");
+	mt_ClearedMaxShowTime =					FLOAT_METRIC(@"SongPlay Cleared MaxShowTime");
 
 	// Cache graphics
 	t_Judgement = (Judgement*)TEXTURE(@"SongPlay Judgement");
@@ -89,7 +92,7 @@ extern TMGameState* g_pGameState;
 	m_pLifeBar = [[LifeBar alloc] initWithRect:mt_LifeBar];
 	
 	// Init a combometer
-	t_ComboMeter = [[ComboMeter alloc] initWithMetrics:@"SongPlay Combo"];
+	m_pComboMeter = [[ComboMeter alloc] initWithMetrics:@"SongPlay Combo"];
 	
 	g_pGameState->m_bPlayingGame = NO;
 	
@@ -163,12 +166,14 @@ extern TMGameState* g_pGameState;
 	m_bDrawReady = YES;
 	m_bDrawGo = NO;
 	
+	m_bDrawFailed = m_bDrawCleared = NO;
+	
 	// Setup kids to render in right order
 	[self pushBackChild:m_pReceptorRow];
 	[self pushBackChild:[g_pGameState->m_pSteps retain]];	
 	[self pushBackChild:[t_Judgement retain]];
 	[self pushBackChild:[t_HoldJudgement retain]];
-	[self pushBackChild:[t_ComboMeter retain]];
+	[self pushBackChild:[m_pComboMeter retain]];
 	[self pushBackChild:m_pLifeBar];	
 }
 
@@ -181,6 +186,29 @@ extern TMGameState* g_pGameState;
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
 	g_pGameState->m_dElapsedTime = currentTime - g_pGameState->m_dPlayBackStartTime;
+	
+	if(m_bDrawFailed) {
+		double elapsedTime = currentTime - m_dFailedTime;
+		if(elapsedTime >= 3 ) { // mt_FailedMaxShowTime) {
+			
+			// request transition		
+			[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+			g_pGameState->m_bPlayingGame = NO;		
+		}
+		
+		return;
+		
+	} else if(m_bDrawCleared) {
+		double elapsedTime = currentTime - m_dClearedTime;
+		if(elapsedTime >= 3 ) { // mt_ClearedMaxShowTime) {
+			
+			// request transition		
+			[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+			g_pGameState->m_bPlayingGame = NO;							
+		}
+		
+		return;
+	}	
 	
 	// Update all kids
 	[super update:fDelta];
@@ -197,15 +225,24 @@ extern TMGameState* g_pGameState;
 		// Should stop music and stop gameplay now
 		[[TMSoundEngine sharedInstance] stopMusic];
 
-		// Stop animating the arrows
-		// [t_TapNote stopAnimation];
-	
+		if(g_pGameState->m_bFailed) {
+			[[TMSoundEngine sharedInstance] playEffect:sr_Failed];
+			m_bDrawFailed = YES;
+			m_dFailedTime = [TimingUtil getCurrentTime];				
+
+		} else {
+			[[TMSoundEngine sharedInstance] playEffect:sr_Cleared];
+			m_bDrawCleared = YES;
+			m_dClearedTime = [TimingUtil getCurrentTime];				
+		}
+		
 		// Disable the joypad
 		[[TapMania sharedInstance] disableJoyPad];
-	
-		// request transition		
-		[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
-		g_pGameState->m_bPlayingGame = NO;
+					
+		// Drop other flags like ready/go
+		m_bDrawGo = m_bDrawReady = NO;
+		return;
+		
 	} else if(currentTime >= m_dPlayBackScheduledFadeOutTime) {
 		if(!m_bIsFading) {
 			m_bIsFading = YES;
@@ -229,9 +266,9 @@ extern TMGameState* g_pGameState;
 // Renders one scene of the gameplay
 - (void)render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-
+		
 	if(!g_pGameState->m_bPlayingGame) return;
-
+	
 	// Draw kids
 	[super render:fDelta];	
 			
@@ -257,31 +294,24 @@ extern TMGameState* g_pGameState;
 		[t_Go drawAtPoint:CGPointMake(160, 240)];
 		glDisable(GL_BLEND);		
 	}
-}
-
-/* TMTransitionSupport methods */
-- (void) beforeTransition {
-	// Before we start the transition to the results screen.
-	// Good place to play some sounds and show some effects
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
-	[t_BG drawInRect:bounds];
 	
-	if(g_pGameState->m_bFailed) {
-		[[TMSoundEngine sharedInstance] playEffect:sr_Failed];
-
+	// Check fail status and draw failed/cleared
+	if(m_bDrawFailed) {		
 		glEnable(GL_BLEND);
 		[t_Failed drawAtPoint:CGPointMake(160, 240)];
 		glDisable(GL_BLEND);
-	} else {
-		[[TMSoundEngine sharedInstance] playEffect:sr_Cleared];
-		
+
+	} else if(m_bDrawCleared) {
 		glEnable(GL_BLEND);
 		[t_Cleared drawAtPoint:CGPointMake(160, 240)];
 		glDisable(GL_BLEND);
 	}
 	
-	[[[TapMania sharedInstance] glView] swapBuffers];		
-	[NSThread sleepForTimeInterval:1.5f];		
+}
+
+/* TMTransitionSupport methods */
+- (void) beforeTransition {
+	
 }
 
 /* TMMessageSupport stuff */
