@@ -71,6 +71,11 @@ extern TMGameState* g_pGameState;
 	
 	cfg_VisPad =							CFG_BOOL(@"vispad");
 	
+	mt_Cleared =							POINT_METRIC(@"SongPlay Cleared");
+	mt_Failed =								POINT_METRIC(@"SongPlay Failed");
+	mt_Ready =								POINT_METRIC(@"SongPlay Ready");
+	mt_Go	=								POINT_METRIC(@"SongPlay Go");
+	
 	mt_FailedMaxShowTime =					FLOAT_METRIC(@"SongPlay Failed MaxShowTime");
 	mt_ClearedMaxShowTime =					FLOAT_METRIC(@"SongPlay Cleared MaxShowTime");
 
@@ -85,6 +90,8 @@ extern TMGameState* g_pGameState;
 	
 	t_Ready = TEXTURE(@"SongPlay Ready");
 	t_Go = TEXTURE(@"SongPlay Go");
+	mt_ReadyShowTime = FLOAT_METRIC(@"SongPlay Ready ShowTime");
+	mt_GoShowTime = FLOAT_METRIC(@"SongPlay Go ShowTime");
 	
 	// And sounds
 	sr_Failed = SOUND(@"SongPlay Failed");
@@ -257,11 +264,11 @@ extern TMGameState* g_pGameState;
 		
 	// Check ready/go sprites
 	double elapsedTimeSinceEntrance = currentTime - m_dScreenEnterTime;
-	if(elapsedTimeSinceEntrance >= kReadySpriteTime) {
+	if(elapsedTimeSinceEntrance >= mt_ReadyShowTime) {
 		m_bDrawReady = NO;
 	}
 	
-	if(!m_bDrawReady && elapsedTimeSinceEntrance <= kReadySpriteTime+kGoSpriteTime) {
+	if(!m_bDrawReady && elapsedTimeSinceEntrance <= mt_ReadyShowTime+mt_GoShowTime) {
 		m_bDrawGo = YES;
 	} else {
 		m_bDrawGo = NO;
@@ -292,11 +299,11 @@ extern TMGameState* g_pGameState;
 	// Draw the ready/go sprites if necesarry
 	if(m_bDrawReady) {
 		glEnable(GL_BLEND);
-		[t_Ready drawAtPoint:CGPointMake(160, 240)];		
+		[t_Ready drawAtPoint:mt_Ready];		
 		glDisable(GL_BLEND);		
 	} else if(m_bDrawGo) {
 		glEnable(GL_BLEND);
-		[t_Go drawAtPoint:CGPointMake(160, 240)];
+		[t_Go drawAtPoint:mt_Go];
 		glDisable(GL_BLEND);		
 	}
 	
@@ -305,7 +312,7 @@ extern TMGameState* g_pGameState;
 		[self fade];
 		
 		glEnable(GL_BLEND);
-		[t_Failed drawAtPoint:CGPointMake(160, 240)];
+		[t_Failed drawAtPoint:mt_Failed];
 		glDisable(GL_BLEND);
 
 	} else if(m_bDrawCleared) {
@@ -313,7 +320,7 @@ extern TMGameState* g_pGameState;
 		
 		glEnable(GL_BLEND);
 		glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
-		[t_Cleared drawAtPoint:CGPointMake(160, 240)];
+		[t_Cleared drawAtPoint:mt_Cleared];
 		glDisable(GL_BLEND);
 	}
 	

@@ -655,15 +655,41 @@
 				<key>Y</key>
 				<integer>0</integer>
 			</dict>
+			<key>Ready</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>240</integer>
+				<key>ShowTime</key>
+				<real>1.5</real>
+			</dict>
+			<key>Go</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>240</integer>
+				<key>ShowTime</key>
+				<real>1.3</real>
+			</dict>
 			<key>Cleared</key>
 			<dict>
 				<key>MaxShowTime</key>
 				<real>3</real>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>240</integer>
 			</dict>
 			<key>Failed</key>
 			<dict>
 				<key>MaxShowTime</key>
 				<real>3</real>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>240</integer>
 			</dict>
 		</dict>
 		<key>SongResults</key>

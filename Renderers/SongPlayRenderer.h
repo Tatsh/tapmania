@@ -15,8 +15,6 @@
 @class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
-#define kReadySpriteTime 1.5
-#define kGoSpriteTime 1.2
 
 #define kTimeTillMusicStop 3.0  // 3 seconds from last beat hit the receptor row
 #define kFadeOutTime	3.0		// 3 seconds fade duration
@@ -55,8 +53,11 @@
 	float   mt_JudgementMaxShowTime;
 	float   mt_FailedMaxShowTime;
 	float   mt_ClearedMaxShowTime;
+	float	mt_GoShowTime, mt_ReadyShowTime;
 	
 	CGRect mt_LifeBar;
+	
+	CGPoint mt_Go, mt_Ready, mt_Failed, mt_Cleared;
 		
 	BOOL cfg_VisPad;
 }
