@@ -97,6 +97,8 @@
 	// Check current value
 	if(m_fCurrentValue < kMinLifeToKeepAlive && m_bIsActive) {
 		BROADCAST_MESSAGE(kLifeBarDrainedMessage, nil);
+
+		m_fCurrentValue = 0.0f;	// Drop to zero
 		m_bIsActive = NO;
 	}
 }

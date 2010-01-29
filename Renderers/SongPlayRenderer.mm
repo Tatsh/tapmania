@@ -31,6 +31,7 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "JoyPad.h"
+#import "GLUtil.h"
 
 #import "TapNote.h"
 #import "HoldNote.h"
@@ -45,6 +46,10 @@
 #import <math.h>
 
 extern TMGameState* g_pGameState;
+
+@interface SongPlayRenderer (Private)
+-(void) fade;
+@end
 
 @implementation SongPlayRenderer
 
@@ -297,12 +302,17 @@ extern TMGameState* g_pGameState;
 	
 	// Check fail status and draw failed/cleared
 	if(m_bDrawFailed) {		
+		[self fade];
+		
 		glEnable(GL_BLEND);
 		[t_Failed drawAtPoint:CGPointMake(160, 240)];
 		glDisable(GL_BLEND);
 
 	} else if(m_bDrawCleared) {
+		[self fade];
+		
 		glEnable(GL_BLEND);
+		glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
 		[t_Cleared drawAtPoint:CGPointMake(160, 240)];
 		glDisable(GL_BLEND);
 	}
@@ -326,5 +336,27 @@ extern TMGameState* g_pGameState;
 			break;
 	}
 }
+
+-(void) fade {
+	
+	CGRect	rect = [TapMania sharedInstance].glView.bounds;
+	GLfloat	vertices[] = {	
+		rect.origin.x,							rect.origin.y,							
+		rect.origin.x + rect.size.width,		rect.origin.y,							
+		rect.origin.x,							rect.origin.y + rect.size.height,		
+		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height 
+	};
+	
+	glColor4f(0, 0, 0, 0.7);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);	
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDisable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);		
+	glColor4f(1, 1, 1, 1);
+	TMBindTexture(0);
+	
+}	
 
 @end
