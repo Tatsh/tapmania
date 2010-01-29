@@ -11,15 +11,21 @@
 
 #import "TMScreen.h"
 
-@class TMSteps, TMSong, Texture2D;
+@class TMSteps, TMSong, FontString, TMFramedTexture;
 
 @interface SongResultsRenderer : TMScreen {	
 	int						m_nCounters[kNumJudgementValues];
 	int						m_nOkNgCounters[kNumHoldScores];
 	
 	BOOL					m_bReturnToSongSelection;
+
+	FontString*				m_pJudgeScores[kNumJudgementValues];
+
+	// Metrics and cache
+	CGPoint					mt_JudgeLabels[kNumJudgementValues];
+	CGPoint					mt_JudgeScores[kNumJudgementValues];
 	
-	NSMutableArray*			texturesArray;
+	TMFramedTexture*		t_JudgeLabels;
 }
 
 @end

@@ -13,7 +13,7 @@
 #import "InputEngine.h"
 #import "EAGLView.h"
 
-#import "Texture2D.h"
+#import "FontString.h"
 #import "ThemeManager.h"
 
 #import "TMSteps.h"
@@ -33,20 +33,31 @@ extern TMGameState* g_pGameState;
 	
 	g_pGameState->m_pSong = nil;
 	g_pGameState->m_pSteps = nil;
-	
-	int i;
-	for(i=0; i<[texturesArray count]; ++i) {
-		[[texturesArray objectAtIndex:i] release];
+		
+	for(int i=0; i<kNumJudgementValues; ++i) {
+		[m_pJudgeScores[i] release];
 	}
-	
-	[texturesArray release];
-	
+		
 	[super dealloc];
 }
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[super setupForTransition];
+	
+	// Textures
+	t_JudgeLabels = TEXTURE(@"SongResults JudgeLabels");
+	
+	// Get metrics
+	for(int i=0; i<kNumJudgementValues; ++i) {
+		NSString* k = [NSString stringWithFormat:@"SongResults JudgeLabelPositions %d",i];
+		mt_JudgeLabels[i] = POINT_METRIC(k);
+	}
+
+	for(int i=0; i<kNumJudgementValues; ++i) {
+		NSString* k = [NSString stringWithFormat:@"SongResults JudgeScorePositions %d",i];
+		mt_JudgeScores[i] = POINT_METRIC(k);
+	}
 	
 	int i, track;
 	
@@ -73,36 +84,32 @@ extern TMGameState* g_pGameState;
 		}
 	}
 	
-	// Alloc the textures array
-	texturesArray = [[NSMutableArray alloc] initWithCapacity:8];
-	
-	// Cache the textures
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Marvelous: %d", m_nCounters[kJudgementW1]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Perfect: %d", m_nCounters[kJudgementW2]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Great: %d", m_nCounters[kJudgementW3]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Good: %d", m_nCounters[kJudgementW4]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Boo: %d", m_nCounters[kJudgementW5]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"Miss: %d", m_nCounters[kJudgementMiss]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"OK: %d", m_nOkNgCounters[kHoldScore_OK]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];
-//	[texturesArray addObject:[[Texture2D alloc] initWithString:[NSString stringWithFormat:@"NG: %d", m_nOkNgCounters[kHoldScore_NG]] dimensions:CGSizeMake(320,30) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:24]];	
-
+	// Create font strings
+	for(int i=0; i<kNumJudgementValues; ++i) {
+		if(i==6) {
+			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers"
+														 andText:[NSString stringWithFormat:@"%4d",
+															m_nOkNgCounters[kHoldScore_OK]]];
+		} else {
+			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+														 andText:[NSString stringWithFormat:@"%4d",m_nCounters[i]]];
+		}
+	}
 }
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	CGRect bounds = [TapMania sharedInstance].glView.bounds;	
 	[super render:fDelta];
-	
-	// Draw texts	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Draw stuff
 	glEnable(GL_BLEND);
-	int i;
-	
-	for(i=0; i<[texturesArray count]; i++){
-		[[texturesArray objectAtIndex:i] drawInRect:CGRectMake(0, 320-(i*30), 320, 30)];
+
+	for(int i=0; i<kNumJudgementValues; ++i) {
+		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
+		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
 	}
 	
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);	
 	glDisable(GL_BLEND);
 }
 
@@ -111,7 +118,6 @@ extern TMGameState* g_pGameState;
 	[super update:fDelta];
 	
 	if(m_bReturnToSongSelection) {
-		SongPickerMenuRenderer* spRenderer = [[SongPickerMenuRenderer alloc] init];
 		[[TapMania sharedInstance] switchToScreen:[SongPickerMenuRenderer class] withMetrics:@"SongPickerMenu"];
 		
 		m_bReturnToSongSelection = NO;

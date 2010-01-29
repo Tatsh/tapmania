@@ -17,7 +17,7 @@
 @implementation NewsDialog
 
 - (id) init {
-	self = [super initWithShape:CGRectMake(40, 80, 200, 320)];
+	self = [super initWithShape:CGRectMake(0, 0, 320, 480)];
 	if(!self)
 		return nil;
 	
