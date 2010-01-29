@@ -125,7 +125,7 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>18</integer>
+				<integer>20</integer>
 				<key>Y</key>
 				<integer>419</integer>
 				<key>Width</key>
@@ -654,6 +654,16 @@
 				<integer>0</integer>
 				<key>Y</key>
 				<integer>0</integer>
+			</dict>
+			<key>Cleared</key>
+			<dict>
+				<key>MaxShowTime</key>
+				<real>3</real>
+			</dict>
+			<key>Failed</key>
+			<dict>
+				<key>MaxShowTime</key>
+				<real>3</real>
 			</dict>
 		</dict>
 		<key>SongResults</key>
