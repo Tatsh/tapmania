@@ -14,6 +14,7 @@
 
 #import "TMRunLoop.h"
 #import "TMRenderable.h"
+#import "NewsFetcher.h"
 
 #import "EAGLView.h"
 #import "InputEngine.h"
@@ -86,6 +87,7 @@ extern TMGameState* g_pGameState;
 	}
 	
 	// A little hack for the news popup. now it can raise if it has something
+	[NewsFetcher sharedInstance];
 	g_pGameState->m_bPlayingGame = NO;
 }
 

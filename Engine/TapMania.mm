@@ -223,10 +223,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Load theme graphics, sounds, fonts, etc.
 	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
 	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
-		
-	// Start fetching news
-	[NewsFetcher sharedInstance];
-	
+			
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
 
