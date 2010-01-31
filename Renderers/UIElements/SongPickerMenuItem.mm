@@ -65,7 +65,7 @@
 	glEnable(GL_BLEND);
 	[t_WheelItem drawAtPoint:m_rShape.origin];
 	
-	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y+m_pTitleStr.contentSize.height/2-10);
+	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y+m_pTitleStr.contentSize.height/2-8);
 	CGRect rectTitle, rectArtist;
 	
 	if(200.0f < m_pTitleStr.contentSize.width) {
@@ -76,7 +76,15 @@
 		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, m_pTitleStr.contentSize.width, m_pTitleStr.contentSize.height);
 	}
 	
-	rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
+	if(200.0f < m_pArtistStr.contentSize.width) {
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, 200.0f, m_pArtistStr.contentSize.height);
+		
+	} else {
+		
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
+	}
+	
+
 		
 	[m_pTitleStr drawInRect:rectTitle];		
 	[m_pArtistStr drawInRect:rectArtist];
