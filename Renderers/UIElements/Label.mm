@@ -144,7 +144,13 @@
 	}
 	
 	CGRect rect = CGRectMake(point.x, point.y, m_rShape.size.width, m_rShape.size.height);
+
+	// TODO: support colorization
+//	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+//	glColor4f(0.5f, 0.3f, 0.8f, 1.0f);
 	[m_pTitle drawInRect:rect];		
+
+//	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	glDisable(GL_BLEND);
 }

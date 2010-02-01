@@ -75,6 +75,7 @@
 }
 
 - (void) dealloc {
+	UNSUBSCRIBE_ALL();
 	[m_pComboStr release];
 	[super dealloc];
 }

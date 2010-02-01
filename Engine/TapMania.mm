@@ -173,7 +173,13 @@ static TapMania *sharedTapManiaDelegate = nil;
 - (void) toggleAds:(BOOL)onOff {
 	if(! onOff) {
 		[m_pAdsView removeFromSuperview];
+		[m_pAdsView ignoreNewAdRequests];
+		[m_pAdsView ignoreAutoRefreshTimer];
+
 	} else {
+		[m_pAdsView doNotIgnoreAutoRefreshTimer];
+		[m_pAdsView doNotIgnoreNewAdRequests];
+		
 		[m_pGlView addSubview:m_pAdsView];
 		[m_pAdsView getNextAd];
 	}

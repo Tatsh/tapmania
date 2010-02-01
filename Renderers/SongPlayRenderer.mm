@@ -123,8 +123,7 @@ extern TMGameState* g_pGameState;
 	[m_pSound release];
 
 	// Allow news system updates
-	[[NewsFetcher sharedInstance] stopChecking];
-	
+	[[NewsFetcher sharedInstance] startChecking];	
 	
 	[super dealloc];
 }
@@ -193,7 +192,7 @@ extern TMGameState* g_pGameState;
 	[self pushBackChild:[g_pGameState->m_pSteps retain]];	
 	[self pushBackChild:[t_Judgement retain]];
 	[self pushBackChild:[t_HoldJudgement retain]];
-	[self pushBackChild:[m_pComboMeter retain]];
+	[self pushBackChild:m_pComboMeter];
 	[self pushBackChild:m_pLifeBar];	
 }
 
@@ -205,11 +204,15 @@ extern TMGameState* g_pGameState;
 	
 	// Calculate current elapsed time
 	double currentTime = [TimingUtil getCurrentTime];
+	
+	// Double check we have something normal as time. this is a workaround
+	if(currentTime < 0.0) currentTime = [TimingUtil getCurrentTime];
+	
 	g_pGameState->m_dElapsedTime = currentTime - g_pGameState->m_dPlayBackStartTime;
 	
 	if(m_bDrawFailed) {
 		double elapsedTime = currentTime - m_dFailedTime;
-		if(elapsedTime >= 3 ) { // mt_FailedMaxShowTime) {
+		if(elapsedTime >= mt_FailedMaxShowTime) {
 			
 			// request transition		
 			[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
@@ -220,7 +223,7 @@ extern TMGameState* g_pGameState;
 		
 	} else if(m_bDrawCleared) {
 		double elapsedTime = currentTime - m_dClearedTime;
-		if(elapsedTime >= 3 ) { // mt_ClearedMaxShowTime) {
+		if(elapsedTime >= mt_ClearedMaxShowTime) {
 			
 			// request transition		
 			[[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
@@ -327,7 +330,6 @@ extern TMGameState* g_pGameState;
 		[self fade];
 		
 		glEnable(GL_BLEND);
-		glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
 		[t_Cleared drawAtPoint:mt_Cleared];
 		glDisable(GL_BLEND);
 	}

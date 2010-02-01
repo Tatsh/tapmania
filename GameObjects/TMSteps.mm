@@ -175,7 +175,7 @@ extern TMGameState* g_pGameState;
 			// Extra judgement for hold notes..
 			if(n.m_nType == kNoteType_HoldHead) {
 				[n markHoldLost];
-			}				
+			}
 		}
 	}
 }
@@ -384,12 +384,14 @@ extern TMGameState* g_pGameState;
 			}
 			
 			// Check whether we already missed a note (hold head too)
-			if(note.m_nType != kNoteType_Mine && !note.m_bIsLost && !note.m_bIsHit && (g_pGameState->m_dElapsedTime-noteTime)>=kHitSearchEpsilon) {
+			double passedTime = g_pGameState->m_dElapsedTime-noteTime;
+			if(note.m_nType != kNoteType_Mine && !note.m_bIsLost && !note.m_bIsHit && passedTime >= kHitSearchEpsilon) {
 				[self markAllNotesLostFromRow:note.m_nStartNoteRow];						
 			}
 			
 			// Check whether this note is already out of scope
-			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= mt_NotesOutOfScopePos.y) {
+			if(note.m_nType != kNoteType_HoldHead && noteYPosition >= mt_NotesOutOfScopePos.y && passedTime >= kHitSearchEpsilon) {
+				
 				++m_nTrackPos[i];				
 				continue; // Skip this note
 			}

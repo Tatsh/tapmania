@@ -19,8 +19,6 @@ static NewsFetcher *sharedNewsFetcherDelegate = nil;
 
 @interface NewsFetcher (Private)
 - (void) checkForNews;
-- (void) stopChecking;
-- (void) startChecking;
 - (void) raiseNewsDialog;
 @end
 

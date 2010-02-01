@@ -22,6 +22,9 @@
 - (BOOL) hasUnreadNews;
 - (NSString*) getUnreadNews;
 
+- (void) stopChecking;
+- (void) startChecking;
+
 + (NewsFetcher *)sharedInstance;
 
 @end

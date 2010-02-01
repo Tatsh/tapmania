@@ -132,7 +132,7 @@
 		
 		float currentTime = [TimingUtil getCurrentTime];
 		
-		float delta = currentTime-prevTime;		
+		float delta = fmaxf(0.0001, fminf(0.25f, currentTime-prevTime));
 		prevTime = currentTime;
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
