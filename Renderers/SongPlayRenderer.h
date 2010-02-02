@@ -11,7 +11,7 @@
 #import "TMSteps.h" // For kNumOfAvailableTracks
 #import "TMMessageSupport.h"
 
-@class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad, ComboMeter;
+@class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad, ComboMeter, ScoreMeter;
 @class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
@@ -25,6 +25,7 @@
 	ReceptorRow*			m_pReceptorRow;
 	LifeBar*				m_pLifeBar;
 	ComboMeter*				m_pComboMeter;
+	ScoreMeter*				m_pScoreMeter;
 	
 	double					m_dScreenEnterTime;					// The time when we invoked playSong
 	double					m_dPlayBackScheduledEndTime;		// The time to stop music and stop gameplay

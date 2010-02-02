@@ -62,6 +62,8 @@
 				forDifficulty:difficulty forSong:self];	
 	}
 
+	[steps setDifficultyLevel:[self getDifficultyLevel:difficulty]];
+	
 	return steps;
 }
 

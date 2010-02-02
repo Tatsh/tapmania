@@ -85,6 +85,10 @@ extern TMGameState* g_pGameState;
 	return m_nDifficultyLevel;
 }
 
+- (void) setDifficultyLevel:(int)level {
+	m_nDifficultyLevel = level;
+}
+
 - (TMSongDifficulty) getDifficulty {
 	return m_nDifficulty;
 }
@@ -107,6 +111,16 @@ extern TMGameState* g_pGameState;
 
 - (int) getNotesCountForTrack:(int) trackIndex {
 	return [m_pTracks[trackIndex] getNotesCount];
+}
+
+- (int) getTotalNotes {
+	int total = 0;
+	
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		total += [m_pTracks[i] getNotesCount];
+	}
+	
+	return total;
 }
 
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime {

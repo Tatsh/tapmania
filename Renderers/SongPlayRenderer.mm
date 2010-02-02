@@ -26,6 +26,7 @@
 #import "ReceptorRow.h"
 #import "LifeBar.h"
 #import "ComboMeter.h"
+#import "ScoreMeter.h"
 
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
@@ -100,7 +101,9 @@ extern TMGameState* g_pGameState;
 	// And sounds
 	sr_Failed = SOUND(@"SongPlay Failed");
 	sr_Cleared = SOUND(@"SongPlay Cleared");
-		
+	
+	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:g_pGameState->m_nSelectedDifficulty];
+	
 	// Init the receptor row
 	m_pReceptorRow = [[ReceptorRow alloc] init];
 	
@@ -109,6 +112,9 @@ extern TMGameState* g_pGameState;
 	
 	// Init a combometer
 	m_pComboMeter = [[ComboMeter alloc] initWithMetrics:@"SongPlay Combo"];
+	
+	// Init the score counter
+	m_pScoreMeter = [[ScoreMeter alloc] initWithMetrics:@"SongPlay Score" forSteps:g_pGameState->m_pSteps];
 	
 	g_pGameState->m_bPlayingGame = NO;
 	
@@ -138,14 +144,12 @@ extern TMGameState* g_pGameState;
 	[self playSong];
 }
 
-- (void) playSong {
-	g_pGameState->m_pSteps = [g_pGameState->m_pSong getStepsForDifficulty:g_pGameState->m_nSelectedDifficulty];
-	
+- (void) playSong {	
 #ifdef DEBUG 
 	[g_pGameState->m_pSteps dump];
 #endif	
 	
-	g_pGameState->m_bAutoPlay = NO;
+	g_pGameState->m_bAutoPlay = YES;
 	g_pGameState->m_nFailType = kFailAtEnd;
 	
 	g_pGameState->m_bFailed = NO;
@@ -194,6 +198,7 @@ extern TMGameState* g_pGameState;
 	[self pushBackChild:[t_HoldJudgement retain]];
 	[self pushBackChild:m_pComboMeter];
 	[self pushBackChild:m_pLifeBar];	
+	[self pushBackChild:m_pScoreMeter];
 }
 
 // Updates one frame of the gameplay

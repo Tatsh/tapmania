@@ -11,7 +11,7 @@
 #import "TMRenderable.h"
 #import "TMMessageSupport.h"
 
-@class Font, FontString, Texture2D;
+@class FontString, Texture2D;
 
 @interface ComboMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
 	int				m_nCombo;

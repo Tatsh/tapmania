@@ -54,6 +54,7 @@ typedef enum {
 }
 
 - (int) getDifficultyLevel;
+- (void) setDifficultyLevel:(int)level;
 - (TMSongDifficulty) getDifficulty;
 
 - (void) setNote:(TMNote*) note toTrack:(int) trackIndex onNoteRow:(int) idx;
@@ -61,6 +62,7 @@ typedef enum {
 - (TMNote*) getNoteFromRow:(int) noteRow forTrack:(int) trackIndex;
 - (BOOL) hasNoteAtRow:(int) noteRow forTrack:(int) trackIndex;
 - (int) getNotesCountForTrack:(int) trackIndex;
+- (int) getTotalNotes;
 
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime;
 - (void) markAllNotesLostFromRow:(int) noteRow;
