@@ -19,7 +19,7 @@
 	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
 						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:1.0f], @"effectssound",
 						[NSNumber numberWithBool:NO], @"autotrack", 
-						[NSNumber numberWithBool:NO], @"vispad", @"NONEXISTING", @"newsversion",
+						[NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
 						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff",
 						[NSNumber numberWithBool:NO], @"landscape", nil];
 	
@@ -65,7 +65,7 @@
 	}
 
 	if(! [m_pConfigDict valueForKey:@"vispad"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"vispad"];
+		[m_pConfigDict setObject:[NSNumber numberWithBool:YES] forKey:@"vispad"];
 		++errCount;
 	}
 	
