@@ -20,6 +20,8 @@
 	int				m_nTapNotesHit;
 	int				m_nDifficulty;
 	int				m_nMaxPossiblePoints;
+	int				m_nRoundTo;
+	int				m_nScoreRemainder;
 	
 	FontString*		m_pScoreStr;
 	Texture2D*		m_pScoreFrame;

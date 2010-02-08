@@ -64,6 +64,11 @@ typedef enum {
 - (int) getNotesCountForTrack:(int) trackIndex;
 - (int) getTotalNotes;
 
+- (int) getTapAndHoldNotesCountForTrack:(int) trackIndex;
+- (int) getTotalTapAndHoldNotes;
+
+- (int) getTotalHolds;
+
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime;
 - (void) markAllNotesLostFromRow:(int) noteRow;
 

@@ -22,7 +22,8 @@
 		return nil;
 
 	m_aNotesArray = new TMNoteList();
-
+	m_nTapAndHoldNotesCnt = 0;
+	
 	return self;
 }
 
@@ -93,5 +94,37 @@
 - (int) getNotesCount {
 	return m_aNotesArray->size();
 }
+
+- (int) getHoldsCount {
+	if(m_nHoldsCnt == 0) {
+		
+		// Calculate and store
+		for(TMNoteList::iterator it = m_aNotesArray->begin(); it!=m_aNotesArray->end(); ++it) {
+			
+			if( [(TMNote*)*it m_nType] == kNoteType_HoldHead ) {
+				++m_nHoldsCnt;
+			}
+		}
+	}
+	
+	return m_nHoldsCnt;
+}
+
+- (int) getTapAndHoldNotesCount {
+	if(m_nTapAndHoldNotesCnt == 0) {
+
+		// Calculate and store
+		for(TMNoteList::iterator it = m_aNotesArray->begin(); it!=m_aNotesArray->end(); ++it) {
+			
+			if( [(TMNote*)*it m_nType] == kNoteType_HoldHead ||
+				[(TMNote*)*it m_nType] == kNoteType_Original ) {
+				++m_nTapAndHoldNotesCnt;
+			}
+		}
+	}
+	
+	return m_nTapAndHoldNotesCnt;
+}
+
 
 @end

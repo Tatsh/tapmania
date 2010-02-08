@@ -25,6 +25,9 @@ typedef vector<TMNote*> TMNoteList;
 #ifdef __cplusplus
 	TMNoteList*		m_aNotesArray;
 #endif
+	
+	int m_nHoldsCnt;
+	int m_nTapAndHoldNotesCnt;
 
 }
 
@@ -36,5 +39,7 @@ typedef vector<TMNote*> TMNoteList;
 - (BOOL) hasNoteAtRow:(int)noteRow;
 
 - (int) getNotesCount;
+- (int) getHoldsCount;
+- (int) getTapAndHoldNotesCount;
 
 @end

@@ -123,6 +123,30 @@ extern TMGameState* g_pGameState;
 	return total;
 }
 
+- (int) getTotalHolds {
+	int total = 0;
+	
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		total += [m_pTracks[i] getHoldsCount];
+	}
+	
+	return total;	
+}
+
+- (int) getTapAndHoldNotesCountForTrack:(int) trackIndex {
+	return [m_pTracks[trackIndex] getTapAndHoldNotesCount];
+}
+
+- (int) getTotalTapAndHoldNotes {
+	int total = 0;
+	
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		total += [m_pTracks[i] getTapAndHoldNotesCount];
+	}
+	
+	return total;	
+}
+
 - (BOOL) checkAllNotesHitFromRow:(int) noteRow withNoteTime:(double)inNoteTime {
 	// Check whether other tracks has any notes which are not hit yet and are on the same noterow
 	BOOL allNotesHit = YES;
