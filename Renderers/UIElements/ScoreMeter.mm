@@ -19,7 +19,7 @@
 #import "FontString.h"
 
 @interface ScoreMeter (ScoringSystem)
-+ (int) GetScore:(int)p :(int)B :(int)S :(int)n;
++ (long) GetScore:(int)p :(int)B :(int)S :(int)n;
 - (void) AddScore:(TMJudgement)judge;
 - (void) updateScore:(TMJudgement)judge;
 @end
@@ -77,7 +77,7 @@
 
 - (void) updateScore:(TMJudgement)judge {
 	[self AddScore:judge];
-	[m_pScoreStr updateText:[NSString stringWithFormat:@"%9d", m_nCurrentScore]];	
+	[m_pScoreStr updateText:[NSString stringWithFormat:@"%9ld", m_nCurrentScore]];	
 }
 
 /* TMRenderable method */
@@ -100,9 +100,9 @@
 
 
 #pragma mark Stepmania scoring system algo below
-+ (int) GetScore:(int)p :(int)B :(int)S :(int)n {
++ (long) GetScore:(int)p :(int)B :(int)S :(int)n {
 //	return int(int64_t(p) * n * B / S);	
-	return int(p * n * (float(B) / S));
+	return long(p * n * (float(B) / S));
 }
 
 - (void) AddScore:(TMJudgement)judge {
@@ -118,13 +118,13 @@
 	}
 	
 	// To test a full marv score
-	p = 10;
+	// p = 10;
 	
 	const int N = m_nTotalSteps;
 	const int sum = (N * (N + 1)) / 2;
 	const int B = m_nMaxPossiblePoints/10;
 	
-	int score = [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit];
+	long score = [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit];
 	m_nCurrentScore += score;
 	
 	// Reround
