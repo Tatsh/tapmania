@@ -108,7 +108,6 @@
 			if(closestY != 0.0f) {
 				[self rollWheel: -closestY];
 
-				TMLog(@"Double tapped the wheel select item!");
 				if(m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
 					[m_idChangedDelegate performSelector:m_oChangedActionHandler];
 				}				

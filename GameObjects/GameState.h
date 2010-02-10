@@ -33,4 +33,8 @@ typedef struct TapManiaGameState {
 	
 	BOOL					m_bLandscape;
 	
+	/* Score and combo results */
+	long					m_nScore;
+	int						m_nCombo;
+	
 } TMGameState;

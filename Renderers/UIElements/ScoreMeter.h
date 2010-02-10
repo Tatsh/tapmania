@@ -32,5 +32,6 @@
 }
 
 -(id) initWithMetrics:(NSString*)metricsKey forSteps:(TMSteps*)steps;
+-(long) getScore;
 
 @end

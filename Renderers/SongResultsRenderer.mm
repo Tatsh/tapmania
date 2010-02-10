@@ -23,6 +23,11 @@
 
 extern TMGameState* g_pGameState;
 
+@interface SongResultsRenderer(Private)
+- (TMGrade) gradeFromScore:(long)score fromMaxScore:(long)maxScore;
+@end
+
+
 @implementation SongResultsRenderer
 
 - (void) dealloc {
@@ -37,7 +42,11 @@ extern TMGameState* g_pGameState;
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		[m_pJudgeScores[i] release];
 	}
-		
+	
+	[m_pScore release];
+	[m_pMaxCombo release];
+	g_pGameState->m_nScore = g_pGameState->m_nCombo = 0;
+	
 	[super dealloc];
 }
 
@@ -47,6 +56,7 @@ extern TMGameState* g_pGameState;
 	
 	// Textures
 	t_JudgeLabels = TEXTURE(@"SongResults JudgeLabels");
+	t_Grades	= TEXTURE(@"SongResults Grades");
 	
 	// Get metrics
 	for(int i=0; i<kNumJudgementValues; ++i) {
@@ -58,6 +68,12 @@ extern TMGameState* g_pGameState;
 		NSString* k = [NSString stringWithFormat:@"SongResults JudgeScorePositions %d",i];
 		mt_JudgeScores[i] = POINT_METRIC(k);
 	}
+	
+	mt_MaxCombo = POINT_METRIC(@"SongResults MaxCombo");
+	mt_MaxComboLabel = POINT_METRIC(@"SongResults MaxComboLabelPosition");
+	
+	mt_Score = POINT_METRIC(@"SongResults Score");
+	mt_Grade = POINT_METRIC(@"SongResults Grade");
 	
 	int i, track;
 	
@@ -95,6 +111,34 @@ extern TMGameState* g_pGameState;
 														 andText:[NSString stringWithFormat:@"%4d",m_nCounters[i]]];
 		}
 	}
+	
+	m_pScore = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+								andText:[NSString stringWithFormat:@"%9ld",
+									g_pGameState->m_nScore]];
+	[m_pScore setAlignment:UITextAlignmentCenter];
+	
+	m_pMaxCombo = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+										   andText:[NSString stringWithFormat:@"%4d",
+													g_pGameState->m_nCombo]];
+	
+	if(g_pGameState->m_bFailed) {
+		m_Grade = kGradeE;
+		
+	} else if(m_nCounters[kJudgementW1] == [g_pGameState->m_pSteps getTotalTapAndHoldNotes]) {
+		
+		m_Grade = kGradeAAAA;
+		
+	} else if(m_nCounters[kJudgementW3] == 0 && m_nCounters[kJudgementW4] == 0
+			  && m_nCounters[kJudgementW5] == 0 && m_nCounters[kJudgementMiss] == 0) {
+		
+		m_Grade = kGradeAAA;
+		
+	} else {
+		
+		m_Grade = [self gradeFromScore:g_pGameState->m_nScore 
+						  fromMaxScore:[g_pGameState->m_pSteps getDifficultyLevel]*10000000];
+	}
+		
 }
 
 /* TMRenderable method */
@@ -109,6 +153,11 @@ extern TMGameState* g_pGameState;
 		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
 		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
 	}
+	
+	[t_JudgeLabels drawFrame:kNumJudgementValues atPoint:mt_MaxComboLabel];
+	[m_pMaxCombo drawAtPoint:mt_MaxCombo];
+	[m_pScore drawAtPoint:mt_Score];
+	[t_Grades drawFrame:(int)m_Grade atPoint:mt_Grade];
 	
 	glDisable(GL_BLEND);
 }
@@ -132,5 +181,26 @@ extern TMGameState* g_pGameState;
 	
 	return YES;
 }
+
+
+- (TMGrade) gradeFromScore:(long)score fromMaxScore:(long)maxScore {
+	float percent = (float)score/(float)maxScore;
+	
+	if(percent >= .95f) {
+		return kGradeAA;
+	}
+	else if(percent >= .80f) {
+		return kGradeA;
+	}
+	else if(percent >= .70f) {
+		return kGradeB;
+	}
+	else if(percent >= .60f) {
+		return kGradeC;
+	}
+	else 
+		return kGradeD;
+}
+
 
 @end

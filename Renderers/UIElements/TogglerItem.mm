@@ -299,7 +299,7 @@
 		
 		glEnable(GL_BLEND);
 		CGPoint leftCorner = CGPointMake(m_rShape.origin.x+m_rShape.size.width/2, m_rShape.origin.y+m_rShape.size.height/2);
-		if(m_FixedWidth > 0.0f) {
+		if(m_FixedWidth > 0.0f && m_FixedWidth < texture.contentSize.width) {
 			leftCorner.x -= m_FixedWidth*ratio/2;
 		} else {
 			leftCorner.x -= texture.contentSize.width*ratio/2;
@@ -308,7 +308,7 @@
 		leftCorner.y -= texture.contentSize.height*ratio/2;
 		
 		CGRect rect;
-		if(m_FixedWidth > 0.0f) {
+		if(m_FixedWidth > 0.0f && m_FixedWidth < texture.contentSize.width) {
 			rect = CGRectMake(leftCorner.x, leftCorner.y, m_FixedWidth*ratio, texture.contentSize.height*ratio);
 		} else {
 			rect = CGRectMake(leftCorner.x, leftCorner.y, texture.contentSize.width*ratio, texture.contentSize.height*ratio);

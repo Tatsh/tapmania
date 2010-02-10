@@ -343,7 +343,9 @@ extern TMGameState* g_pGameState;
 
 /* TMTransitionSupport methods */
 - (void) beforeTransition {
-	
+	// Save the combo and the score
+	g_pGameState->m_nCombo = [m_pComboMeter getMaxCombo];
+	g_pGameState->m_nScore = [m_pScoreMeter getScore];
 }
 
 /* TMMessageSupport stuff */

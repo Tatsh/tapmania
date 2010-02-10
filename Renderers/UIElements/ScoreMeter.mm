@@ -80,6 +80,10 @@
 	[m_pScoreStr updateText:[NSString stringWithFormat:@"%9ld", m_nCurrentScore]];	
 }
 
+- (long) getScore {
+	return m_nCurrentScore;
+}
+
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	glEnable(GL_BLEND);		

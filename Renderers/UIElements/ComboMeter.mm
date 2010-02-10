@@ -29,7 +29,7 @@
 	mt_ComboMeter = POINT_METRIC(metricsKey);
 	
 	SUBSCRIBE(kNoteScoreMessage);
-	m_nCombo = 0;
+	m_nCombo = m_nMaxComboSoFar = 0;
 	
 	// Get the font
 	m_pComboStr = [[FontString alloc] initWithFont:@"Combo numbers" andText:@"0"];
@@ -39,6 +39,10 @@
 	mt_ComboStr = CGPointMake(mt_ComboMeter.x - m_pComboTexture.contentSize.width/2, mt_ComboMeter.y);
 	
 	return self;
+}
+
+-(int) getMaxCombo {
+	return m_nMaxComboSoFar;
 }
 
 /* TMMessageSupport stuff */
@@ -51,7 +55,8 @@
 			if(note.m_nScore > kJudgementW3) {
 				m_nCombo = 0;
 			} else {
-				++m_nCombo;
+				m_nMaxComboSoFar = (++m_nCombo>m_nMaxComboSoFar? m_nCombo:m_nMaxComboSoFar);
+				
 				[m_pComboStr updateText:[NSString stringWithFormat:@"%d", m_nCombo]];
 			}
 			
@@ -61,7 +66,7 @@
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	if(m_nCombo > 5) {		
+	if(m_nCombo > 4) {		
 		glEnable(GL_BLEND);		
 		[m_pComboTexture drawAtPoint:mt_ComboStr];
 		[m_pComboStr drawAtPoint:mt_ComboMeter];

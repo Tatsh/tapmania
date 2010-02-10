@@ -39,9 +39,9 @@
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>name,Play;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
+				<string>name,Play;playsoundeffect,Common ButtonHit;screen,HowtoPick</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -58,7 +58,7 @@
 				<key>HitCommand</key>
 				<string>name,Options;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -75,7 +75,7 @@
 				<key>HitCommand</key>
 				<string>name,Credits;playsoundeffect,Common ButtonHit;screen,Credits</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
@@ -86,6 +86,35 @@
 				<integer>200</integer>
 				<key>Height</key>
 				<integer>46</integer>
+			</dict>
+		</dict>
+		<key>HowtoPick</key>
+		<dict>
+			<key>PlayButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Understood;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
+				<key>X</key>
+				<integer>60</integer>
+				<key>Y</key>
+				<integer>20</integer>
+				<key>Width</key>
+				<integer>200</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+			<key>TitleLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Howto...;alignment,center</string>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>240</integer>
 			</dict>
 		</dict>
 		<key>OptionsMenu</key>
@@ -104,7 +133,7 @@
 				<key>HitCommand</key>
 				<string>name,More;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -121,7 +150,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -138,7 +167,7 @@
 				<key>HitCommand</key>
 				<string>name,Pad config;playsoundeffect,Common ButtonHit;screen,PadConfig</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -155,7 +184,7 @@
 				<key>HitCommand</key>
 				<string>name,Song manager;playsoundeffect,Common ButtonHit;screen,SongManager</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -216,7 +245,7 @@
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -233,7 +262,7 @@
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -250,7 +279,7 @@
 				<key>HitCommand</key>
 				<string>name,Sound Settings;playsoundeffect,Common ButtonHit;screen,SoundOptionsMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -273,7 +302,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:autotrack};zoom,0.9,0.5</string>
+				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
@@ -295,7 +324,7 @@
 				<key>Height</key>
 				<integer>46</integer>
 				<key>OnCommand</key>
-				<string>value,{setting:vispad};zoom,0.9,0.5</string>
+				<string>value,{setting:vispad};zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>HitCommand</key>
@@ -383,7 +412,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -421,7 +450,7 @@
 				<key>HitCommand</key>
 				<string>screen,TapDBMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -438,7 +467,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -711,6 +740,34 @@
 		</dict>
 		<key>SongResults</key>
 		<dict>
+			<key>MaxCombo</key>
+			<dict>
+				<key>X</key>
+				<integer>178</integer>
+				<key>Y</key>
+				<string>396</string>
+			</dict>
+			<key>MaxComboLabelPosition</key>
+			<dict>
+				<key>X</key>
+				<integer>240</integer>
+				<key>Y</key>
+				<string>374</string>
+			</dict>
+			<key>Grade</key>
+			<dict>
+				<key>X</key>
+				<integer>80</integer>
+				<key>Y</key>
+				<string>370</string>
+			</dict>
+			<key>Score</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<string>460</string>
+			</dict>
 			<key>JudgeLabelPositions</key>
 			<dict>
 				<key>0</key>
@@ -835,7 +892,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
@@ -1391,7 +1448,7 @@
 				<key>HitCommand</key>
 				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>OnCommand</key>
-				<string>zoom,0.9,0.5</string>
+				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>

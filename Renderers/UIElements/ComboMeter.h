@@ -15,6 +15,7 @@
 
 @interface ComboMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
 	int				m_nCombo;
+	int				m_nMaxComboSoFar;
 	FontString*		m_pComboStr;
 	Texture2D*	m_pComboTexture;	// Static
 	
@@ -23,5 +24,6 @@
 }
 
 -(id) initWithMetrics:(NSString*)metricsKey;
+-(int) getMaxCombo;
 
 @end
