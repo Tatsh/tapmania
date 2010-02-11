@@ -17,7 +17,7 @@
 	int				m_nCombo;
 	int				m_nMaxComboSoFar;
 	FontString*		m_pComboStr;
-	Texture2D*	m_pComboTexture;	// Static
+	Texture2D*		m_pComboTexture;	// Static
 	
 	/* Metrics and such */
 	CGPoint mt_ComboMeter, mt_ComboStr;	

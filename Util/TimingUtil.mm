@@ -15,6 +15,9 @@
 #include <mach/mach.h>
 #include <mach/mach_time.h>
 
+#import "GameState.h"
+extern TMGameState* g_pGameState;
+
 // #define kFullScreenSize 380.0f
 #define kFullScreenSize 222.0f
 
@@ -44,16 +47,23 @@
 
 + (float) getBpsAtBeat:(float) beat inSong:(TMSong*) song{
 	int noteRow = [TMNote beatToNoteRow:beat];
+	static double songStart = g_pGameState->m_bMusicPlaybackStarted;
+	static int saved = 0;
 	
-	int i, cnt = [song getBpmChangeCount]-1;
-	for(i=0; i<cnt; i++){
-		TMChangeSegment* seg = [song getBpmChangeAt:i+1];
+	if(g_pGameState->m_bMusicPlaybackStarted != songStart) {
+		songStart = g_pGameState->m_bMusicPlaybackStarted;
+		saved = 0;
+	}
+	
+	int cnt = [song getBpmChangeCount]-1;
+	for(; saved<cnt; ++saved){
+		TMChangeSegment* seg = [song getBpmChangeAt:saved+1];
 		if( seg && seg.m_fNoteRow > noteRow){
 			break;
 		}
 	}
 	
-	TMChangeSegment* seg = [song getBpmChangeAt:i];
+	TMChangeSegment* seg = [song getBpmChangeAt:saved];
 	return seg.m_fChangeValue;
 }
 
@@ -62,10 +72,10 @@
 	elapsedTime += song.m_dGap;
 	
 	int noteRow = [TMNote beatToNoteRow:beat];
-	unsigned i;
 	
 	int freezeCnt = [song getFreezeCount];
-	for(i=0; i<freezeCnt; i++){
+	int i;
+	for(i=0; i<freezeCnt; ++i){
 		TMChangeSegment* seg = [song getFreezeAt:i];
 		if( seg && seg.m_fNoteRow >= noteRow) {
 			break;
@@ -75,15 +85,15 @@
 	}
 	
 	int bpmCnt = [song getBpmChangeCount];
-	for(i=0; i<bpmCnt; i++){
-		const BOOL isLastBpmChange = i == [song getBpmChangeCount]-1;
+	for(i=0; i<bpmCnt; ++i){
+		const BOOL isLastBpmChange = i == bpmCnt-1;
 		TMChangeSegment* seg = [song getBpmChangeAt:i];
 		const float bps = seg.m_fChangeValue; 
 		
 		if(isLastBpmChange){
 			elapsedTime += [TMNote noteRowToBeat:noteRow]/bps;
 		} else {
-			TMChangeSegment* segT = [song getBpmChangeAt:i];
+			TMChangeSegment* segT = seg;
 			TMChangeSegment* segN = [song getBpmChangeAt:i+1];
 				
 			const int startRowThisChange = [segT m_fNoteRow]; 
@@ -168,7 +178,7 @@
 	int noteRow = [TMNote beatToNoteRow:beat];
 	
 	int i, cnt = [song getBpmChangeCount];
-	for(i=0; i<cnt; i++){
+	for(i=0; i<cnt; ++i){
 		TMChangeSegment* seg = [song getBpmChangeAt:i];
 		if( seg && seg.m_fNoteRow > noteRow){
 			return seg.m_fNoteRow;

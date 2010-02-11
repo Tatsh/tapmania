@@ -17,6 +17,9 @@
 #import "TMMessage.h"
 
 #import "FontString.h"
+#import "GameState.h"
+
+extern TMGameState* g_pGameState;
 
 @interface ScoreMeter (ScoringSystem)
 + (long) GetScore:(int)p :(int)B :(int)S :(int)n;
@@ -119,6 +122,10 @@
 		case kJudgementW2:	p = 9;		break;
 		case kJudgementW3:	p = 5;		break;
 		default:			p = 0;		break;
+	}
+	
+	if(g_pGameState->m_bFailed && p>0) {
+		p = 1; // No multiplier if failed already
 	}
 	
 	// To test a full marv score
