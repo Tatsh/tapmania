@@ -39,7 +39,7 @@
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>name,Play;playsoundeffect,Common ButtonHit;screen,HowtoPick</string>
+				<string>name,Play;playsoundeffect,Common ButtonHit;screen,HowToMenu</string>
 				<key>OnCommand</key>
 				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
@@ -88,7 +88,7 @@
 				<integer>46</integer>
 			</dict>
 		</dict>
-		<key>HowtoPick</key>
+		<key>HowToMenu</key>
 		<dict>
 			<key>PlayButton</key>
 			<dict>
