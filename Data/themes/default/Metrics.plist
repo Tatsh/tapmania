@@ -93,7 +93,7 @@
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>name,Understood;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
+				<string>name,iUnderstand!;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
 				<key>OnCommand</key>
 				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
@@ -101,20 +101,11 @@
 				<key>X</key>
 				<integer>60</integer>
 				<key>Y</key>
-				<integer>20</integer>
+				<integer>217</integer>
 				<key>Width</key>
 				<integer>200</integer>
 				<key>Height</key>
 				<integer>46</integer>
-			</dict>
-			<key>TitleLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Howto...;alignment,center</string>
-				<key>X</key>
-				<integer>160</integer>
-				<key>Y</key>
-				<integer>240</integer>
 			</dict>
 		</dict>
 		<key>OptionsMenu</key>
@@ -622,16 +613,16 @@
 				<key>Frame</key>
 				<dict>
 					<key>X</key>
-					<integer>160</integer>
+					<integer>140</integer>
 					<key>Y</key>
-					<string>200</string>
+					<string>40</string>
 				</dict>
 				<key>Score</key>
 				<dict>
 					<key>X</key>
 					<integer>10</integer>
 					<key>Y</key>
-					<string>40</string>
+					<string>8</string>
 				</dict>
 			</dict>
 			<key>NotesStartPosition</key>

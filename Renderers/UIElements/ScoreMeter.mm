@@ -22,7 +22,7 @@
 extern TMGameState* g_pGameState;
 
 @interface ScoreMeter (ScoringSystem)
-+ (long) GetScore:(int)p :(int)B :(int)S :(int)n;
++ (int) GetScore:(int)p :(int)B :(int)S :(int)n;
 - (void) AddScore:(TMJudgement)judge;
 - (void) updateScore:(TMJudgement)judge;
 @end
@@ -55,7 +55,7 @@ extern TMGameState* g_pGameState;
 	
 	m_pScoreStr = [[FontString alloc] initWithFont:@"SongPlay ScoreNormalNumbers" andText:@"        0"];	
 	[m_pScoreStr setAlignment:UITextAlignmentLeft];
-	m_pScoreFrame = TEXTURE(([NSString stringWithFormat:@"%@ Frame",metricsKey]));
+	m_pScoreFrame = TEXTURE(([NSString stringWithFormat:@"%@Frame",metricsKey]));
 	
 	return self;
 }
@@ -90,6 +90,7 @@ extern TMGameState* g_pGameState;
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	glEnable(GL_BLEND);		
+//	[m_pScoreFrame drawAtPoint:mt_ScoreFramePosition];
 	[m_pScoreStr drawAtPoint:mt_ScoreTextLeftPosition];
 	glDisable(GL_BLEND);	
 }
@@ -107,9 +108,10 @@ extern TMGameState* g_pGameState;
 
 
 #pragma mark Stepmania scoring system algo below
-+ (long) GetScore:(int)p :(int)B :(int)S :(int)n {
-//	return int(int64_t(p) * n * B / S);	
-	return long(p * n * (float(B) / S));
++ (int) GetScore:(int)p :(int)B :(int)S :(int)n {
+	return int(int64_t(p) * n * B / S);	
+//	return int(p * n * (float(B) / S));
+//	return p * (B / S) * n;
 }
 
 - (void) AddScore:(TMJudgement)judge {
@@ -135,7 +137,8 @@ extern TMGameState* g_pGameState;
 	const int sum = (N * (N + 1)) / 2;
 	const int B = m_nMaxPossiblePoints/10;
 	
-	long score = [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit];
+	// Fixme: this is a dirty hack with the abs here
+	int score = abs( [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit] );
 	m_nCurrentScore += score;
 	
 	// Reround
