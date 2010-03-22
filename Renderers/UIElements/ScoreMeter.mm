@@ -45,7 +45,7 @@ extern TMGameState* g_pGameState;
 	m_nCurrentScore = 0;
 	m_nTotalSteps = [steps getTotalTapAndHoldNotes] + [steps getTotalHolds];
 	m_nDifficulty = [steps getDifficultyLevel];
-	m_nMaxPossiblePoints = 10000000*m_nDifficulty;
+	m_nMaxPossiblePoints = 10000000; // *m_nDifficulty;
 	m_nTapNotesHit = 0;
 	
 	m_nScoreRemainder = 0;
@@ -53,7 +53,7 @@ extern TMGameState* g_pGameState;
 	
 	TMLog(@"TotalSteps: %d\tDiff: %d\tMaxPossiblePoints: %d", m_nTotalSteps, m_nDifficulty, m_nMaxPossiblePoints);
 	
-	m_pScoreStr = [[FontString alloc] initWithFont:@"SongPlay ScoreNormalNumbers" andText:@"        0"];	
+	m_pScoreStr = [[FontString alloc] initWithFont:@"SongPlay ScoreNormalNumbers" andText:@"       0"];	
 	[m_pScoreStr setAlignment:UITextAlignmentLeft];
 	m_pScoreFrame = TEXTURE(([NSString stringWithFormat:@"%@Frame",metricsKey]));
 	
@@ -80,7 +80,7 @@ extern TMGameState* g_pGameState;
 
 - (void) updateScore:(TMJudgement)judge {
 	[self AddScore:judge];
-	[m_pScoreStr updateText:[NSString stringWithFormat:@"%9ld", m_nCurrentScore]];	
+	[m_pScoreStr updateText:[NSString stringWithFormat:@"%8ld", m_nCurrentScore]];	
 }
 
 - (long) getScore {
@@ -138,7 +138,7 @@ extern TMGameState* g_pGameState;
 	const int B = m_nMaxPossiblePoints/10;
 	
 	// Fixme: this is a dirty hack with the abs here
-	int score = abs( [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit] );
+	int score = [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit];
 	m_nCurrentScore += score;
 	
 	// Reround

@@ -113,7 +113,7 @@ extern TMGameState* g_pGameState;
 	}
 	
 	m_pScore = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
-								andText:[NSString stringWithFormat:@"%9ld",
+								andText:[NSString stringWithFormat:@"%8ld",
 									g_pGameState->m_nScore]];
 	[m_pScore setAlignment:UITextAlignmentCenter];
 	
@@ -136,7 +136,8 @@ extern TMGameState* g_pGameState;
 	} else {
 		
 		m_Grade = [self gradeFromScore:g_pGameState->m_nScore 
-						  fromMaxScore:[g_pGameState->m_pSteps getDifficultyLevel]*10000000];
+						  fromMaxScore://[g_pGameState->m_pSteps getDifficultyLevel]*
+							10000000];
 	}
 		
 }

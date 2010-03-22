@@ -47,23 +47,17 @@ extern TMGameState* g_pGameState;
 
 + (float) getBpsAtBeat:(float) beat inSong:(TMSong*) song{
 	int noteRow = [TMNote beatToNoteRow:beat];
-	static double songStart = g_pGameState->m_bMusicPlaybackStarted;
-	static int saved = 0;
-	
-	if(g_pGameState->m_bMusicPlaybackStarted != songStart) {
-		songStart = g_pGameState->m_bMusicPlaybackStarted;
-		saved = 0;
-	}
-	
+
 	int cnt = [song getBpmChangeCount]-1;
-	for(; saved<cnt; ++saved){
-		TMChangeSegment* seg = [song getBpmChangeAt:saved+1];
+	int pos = 0;
+	for(; pos<cnt; ++pos){
+		TMChangeSegment* seg = [song getBpmChangeAt:pos+1];
 		if( seg && seg.m_fNoteRow > noteRow){
 			break;
 		}
 	}
 	
-	TMChangeSegment* seg = [song getBpmChangeAt:saved];
+	TMChangeSegment* seg = [song getBpmChangeAt:pos];
 	return seg.m_fChangeValue;
 }
 
