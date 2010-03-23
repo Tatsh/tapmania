@@ -29,6 +29,7 @@ typedef struct TapManiaGameState {
 	
 	BOOL					m_bPlayingGame;
 	BOOL					m_bFailed;
+	BOOL					m_bGaveUp;
 	BOOL					m_bMusicPlaybackStarted;
 	
 	BOOL					m_bLandscape;

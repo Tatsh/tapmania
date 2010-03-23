@@ -305,6 +305,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			[m_idDelegate doneLoadingSong:songDirName];
 		}								
 		
+		// Indicate that the catalogue is not empty anymore
+		m_bCatalogueIsEmpty = NO;
+		
 		return YES;
 	} else {
 		if(m_idDelegate != nil) {

@@ -32,7 +32,7 @@
 	double					m_dPlayBackScheduledFadeOutTime;	// The time to start fading music out
 	double					m_dFailedTime, m_dClearedTime;
 	
-	BOOL					m_bDrawReady, m_bDrawGo, m_bDrawFailed, m_bDrawCleared;
+	BOOL					m_bDrawReady, m_bDrawGo, m_bDrawnGo, m_bDrawFailed, m_bDrawCleared;
 	BOOL					m_bIsFading;
 	BOOL					m_bMusicPlaybackStarted;
 	
@@ -44,7 +44,7 @@
 	HoldJudgement* t_HoldJudgement;
 	
 	// Other
-	Texture2D* t_FingerTap;
+	Texture2D* t_FingerTap, *t_FingerTapBright;
 	Texture2D* t_Failed, *t_Cleared, *t_Ready, *t_Go;
 	
 	// Sounds

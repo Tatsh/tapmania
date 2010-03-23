@@ -89,6 +89,7 @@ extern TMGameState* g_pGameState;
 	t_HoldJudgement = (HoldJudgement*)TEXTURE(@"SongPlay HoldJudgement");	
 	
 	t_FingerTap = TEXTURE(@"Common FingerTap");
+	t_FingerTapBright = TEXTURE(@"Common FingerTapBright");
 	t_BG = TEXTURE(@"SongPlay Background");
 	t_Failed = TEXTURE(@"SongPlay Failed");
 	t_Cleared = TEXTURE(@"SongPlay Cleared");
@@ -152,8 +153,8 @@ extern TMGameState* g_pGameState;
 	g_pGameState->m_bAutoPlay = YES;
 	g_pGameState->m_nFailType = kFailAtEnd;
 	
-	g_pGameState->m_bFailed = NO;
-		
+	g_pGameState->m_bFailed = g_pGameState->m_bGaveUp = NO;
+			
 	[t_Judgement reset];
 	[t_HoldJudgement reset];
 
@@ -187,7 +188,7 @@ extern TMGameState* g_pGameState;
 	
 	g_pGameState->m_bPlayingGame = YES;	
 	m_bDrawReady = YES;
-	m_bDrawGo = NO;
+	m_bDrawGo = m_bDrawnGo = NO;
 	
 	m_bDrawFailed = m_bDrawCleared = NO;
 	
@@ -253,7 +254,10 @@ extern TMGameState* g_pGameState;
 		// Should stop music and stop gameplay now
 		[[TMSoundEngine sharedInstance] stopMusic];
 
-		if(g_pGameState->m_bFailed) {
+		if([m_pJoyPad getStateForButton:kJoyButtonExit])
+			g_pGameState->m_bGaveUp = YES;
+		
+		if(g_pGameState->m_bFailed || g_pGameState->m_bGaveUp) {
 			[[TMSoundEngine sharedInstance] playEffect:sr_Failed];
 			m_bDrawFailed = YES;
 			m_dFailedTime = [TimingUtil getCurrentTime];				
@@ -268,7 +272,7 @@ extern TMGameState* g_pGameState;
 		[[TapMania sharedInstance] disableJoyPad];
 					
 		// Drop other flags like ready/go
-		m_bDrawGo = m_bDrawReady = NO;
+		m_bDrawGo = m_bDrawReady = m_bDrawnGo = NO;
 		return;
 		
 	} else if(currentTime >= m_dPlayBackScheduledFadeOutTime) {
@@ -284,8 +288,9 @@ extern TMGameState* g_pGameState;
 		m_bDrawReady = NO;
 	}
 	
-	if(!m_bDrawReady && elapsedTimeSinceEntrance <= mt_ReadyShowTime+mt_GoShowTime) {
+	if(!m_bDrawReady && (!m_bDrawnGo || m_bDrawGo) && elapsedTimeSinceEntrance <= mt_ReadyShowTime+mt_GoShowTime) {
 		m_bDrawGo = YES;
+		m_bDrawnGo = YES;
 	} else {
 		m_bDrawGo = NO;
 	}
@@ -306,7 +311,12 @@ extern TMGameState* g_pGameState;
 		
 		for(int i=0; i<kNumOfAvailableTracks; i++) {
 			Vector* pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i];
-			[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+			
+			if([m_pJoyPad getStateForButton:(JPButton)i]) {
+				[t_FingerTapBright drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+			}	else {
+				[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+			}
 		}
 		
 		glDisable(GL_BLEND);

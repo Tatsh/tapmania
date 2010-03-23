@@ -286,11 +286,14 @@ request_completed (void *cls, struct MHD_Connection *connection,
 				// TODO raise error on gui
 				TMLog(@"Couldn't work with this zip file for some reason...");
 			}
-			
+						
 			[pool release];			
 		}
+
+		con_info->file_uploaded = FALSE;
     }
 	
+	// PROBLEM here
 	if(con_info->file_path) free(con_info->file_path);						
 	free (con_info);
 	*con_cls = NULL;
@@ -414,7 +417,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
         }
 		else {
 			con_info->file_uploaded = true;				
-			con_info->answerstring = getIndexPage("Your simfiles uploaded successfully");
+			con_info->answerstring = getPage("Success");
 			con_info->answercode = MHD_HTTP_OK;
 			
 			return send_page (connection, con_info->answerstring,
@@ -445,6 +448,10 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 
 - (void) start {
 	TMLog(@"Starting web server...");
+	
+	// Cleanup the incoming dir first
+	NSError* err;
+	[[NSFileManager defaultManager] removeItemAtPath:[self getIncomingPath] error:err];
 	
 	m_pDaemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, 9002, NULL, NULL,
 								  &answer_to_connection, NULL,

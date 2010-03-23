@@ -121,7 +121,7 @@ extern TMGameState* g_pGameState;
 										   andText:[NSString stringWithFormat:@"%4d",
 													g_pGameState->m_nCombo]];
 	
-	if(g_pGameState->m_bFailed) {
+	if(g_pGameState->m_bFailed || g_pGameState->m_bGaveUp) {
 		m_Grade = kGradeE;
 		
 	} else if(m_nCounters[kJudgementW1] == [g_pGameState->m_pSteps getTotalTapAndHoldNotes]) {

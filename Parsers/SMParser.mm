@@ -292,6 +292,7 @@
 	int totalElements = 0;
 	char *stepData = (char*) malloc(initialCapacity * sizeof(char));
 	
+	TMNote* holds[kNumOfAvailableTracks] = {nil,};	// Used to store the objects which require a closing hold
 	char c;
 	
 	// We will need to read all the pending data into a single array of characters
@@ -351,7 +352,6 @@
 			// Parse measure data and create notes		
 			int row, note;
 			int thisMeasure = measureId-1;
-			TMNote* holds[kNumOfAvailableTracks];	// Used to store the objects which require a closing hold
 			
 			for(row = 0; row < rowsInMeasure; ++row) {			
 				
