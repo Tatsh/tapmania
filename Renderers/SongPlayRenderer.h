@@ -12,7 +12,7 @@
 #import "TMMessageSupport.h"
 
 @class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad, ComboMeter, ScoreMeter;
-@class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D;
+@class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D, TMFramedTexture;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 
@@ -44,7 +44,7 @@
 	HoldJudgement* t_HoldJudgement;
 	
 	// Other
-	Texture2D* t_FingerTap, *t_FingerTapBright;
+	TMFramedTexture* t_FingerTap;
 	Texture2D* t_Failed, *t_Cleared, *t_Ready, *t_Go;
 	
 	// Sounds

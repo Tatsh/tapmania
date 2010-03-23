@@ -75,6 +75,8 @@
 }
 
 - (void) dealloc {
+	TMLog(@"Deallocating TMControl instance %X", self);
+	
 	if(m_sControlPath) 
 		[m_sControlPath release];
 	

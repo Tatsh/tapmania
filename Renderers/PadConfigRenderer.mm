@@ -9,6 +9,7 @@
 
 #import "PadConfigRenderer.h"
 #import "Texture2D.h"
+#import "TMFramedTexture.h"
 #import "InputEngine.h"
 #import "ThemeManager.h"
 
@@ -38,8 +39,7 @@
 	[super setupForTransition];
 	
 	// Cache graphics
-	t_FingerTap =		TEXTURE(@"Common FingerTap");
-	t_FingerTapBright = TEXTURE(@"Common FingerTapBright");
+	t_FingerTap =		(TMFramedTexture*)TEXTURE(@"Common FingerTapG");
 	t_TapNote =			(TapNote*)SKIN_TEXTURE(@"DownTapNote");
 		
 	// Cache metrics
@@ -95,9 +95,9 @@
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
 		glEnable(GL_BLEND);
 		if(i==m_nSelectedTrack && m_nPadConfigAction == kPadConfigAction_SelectLocation) {
-			[t_FingerTapBright drawAtPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
+			[t_FingerTap drawFrame:i atPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
 		} else {
-			[t_FingerTap drawAtPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
+			[t_FingerTap drawFrame:i+kNumOfAvailableTracks atPoint:CGPointMake(m_pFingerTap[i].m_fX, m_pFingerTap[i].m_fY)];
 		}
 		glDisable(GL_BLEND);
 	}

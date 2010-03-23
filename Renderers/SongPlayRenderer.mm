@@ -34,6 +34,7 @@
 #import "EAGLView.h"
 #import "JoyPad.h"
 #import "GLUtil.h"
+#import "TMFramedTexture.h"
 
 #import "TapNote.h"
 #import "HoldNote.h"
@@ -88,8 +89,7 @@ extern TMGameState* g_pGameState;
 	t_Judgement = (Judgement*)TEXTURE(@"SongPlay Judgement");
 	t_HoldJudgement = (HoldJudgement*)TEXTURE(@"SongPlay HoldJudgement");	
 	
-	t_FingerTap = TEXTURE(@"Common FingerTap");
-	t_FingerTapBright = TEXTURE(@"Common FingerTapBright");
+	t_FingerTap = (TMFramedTexture*)TEXTURE(@"Common FingerTapG");
 	t_BG = TEXTURE(@"SongPlay Background");
 	t_Failed = TEXTURE(@"SongPlay Failed");
 	t_Cleared = TEXTURE(@"SongPlay Cleared");
@@ -313,9 +313,9 @@ extern TMGameState* g_pGameState;
 			Vector* pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i];
 			
 			if([m_pJoyPad getStateForButton:(JPButton)i]) {
-				[t_FingerTapBright drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+				[t_FingerTap drawFrame:i atPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];
 			}	else {
-				[t_FingerTap drawAtPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];				
+				[t_FingerTap drawFrame:i+kNumOfAvailableTracks atPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];
 			}
 		}
 		

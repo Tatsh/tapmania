@@ -105,11 +105,15 @@
 		for (it = m_aObjects->begin(); it != m_aObjects->end();) {
 			if([*it isKindOfClass:[TMCommand class]] && [(TMCommand*)*it getInvocationObject]==obj) {
 				TMLog(@"Found command which works with the object.. remove.");
+				if(*it != nil) { 
+					[*it release]; 
+				}
 				it = m_aObjects->erase(it);
 			} else ++it;
 		}
 	}
 }
+
 
 /* Private worker */
 - (void) worker {

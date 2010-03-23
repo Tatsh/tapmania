@@ -26,6 +26,8 @@
 }
 
 - (void) dealloc {
+	TMLog(@"Release command object");
+	
 	[m_aArguments release];
 	if(m_pNextCmd) 
 		[m_pNextCmd release];
@@ -83,6 +85,8 @@
 - (void) update:(float)fDelta {
 	// The simplest case is actually invoke the command and finish in one iteration
 	[self invokeOnObject:m_pInvocationObject];
+	
+	// FIXME: release?
 	[[TapMania sharedInstance] deregisterObject:self];
 }
 

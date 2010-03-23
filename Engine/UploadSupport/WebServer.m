@@ -293,7 +293,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 		con_info->file_uploaded = FALSE;
     }
 	
-	// PROBLEM here
+	// FIXME: PROBLEM here:
 	if(con_info->file_path) free(con_info->file_path);						
 	free (con_info);
 	*con_cls = NULL;

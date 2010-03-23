@@ -41,6 +41,8 @@
 	if(m_fElapsedTime >= m_fTimeToWait) {	
 		TMLog(@"TIMER DONE... sleep,%f", m_fTimeToWait);
 		[self invokeOnObject:m_pInvocationObject];
+		
+		// FIXME: release?
 		[[TapMania sharedInstance] deregisterObject:self];
 	}
 }

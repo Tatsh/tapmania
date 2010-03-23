@@ -11,7 +11,7 @@
 
 #import "TMSteps.h"
 
-@class TMRunLoop, ReceptorRow, LifeBar, MenuItem, Vector, Texture2D, TapNote;
+@class TMRunLoop, ReceptorRow, LifeBar, MenuItem, Vector, Texture2D, TMFramedTexture, TapNote;
 
 typedef enum {
 	kPadConfigAction_None = 0,
@@ -34,7 +34,7 @@ typedef enum {
 	TMAvailableTracks		m_nSelectedTrack;
 	
 	/* Metrics and such */
-	Texture2D* t_FingerTap, *t_FingerTapBright;
+	TMFramedTexture* t_FingerTap;
 	
 	TapNote* t_TapNote;
 	

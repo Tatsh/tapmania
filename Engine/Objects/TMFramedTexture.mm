@@ -98,16 +98,16 @@
 	float widthOffset = xOffset + textureMaxS;
 	float heightOffset = yOffset + textureMaxT;
 	
-	float width = m_unWidth/m_nFramesToLoad[0];
-	float height = m_unHeight/m_nFramesToLoad[1];
-	
+	float width = m_oSize.width/m_nFramesToLoad[0];
+	float height = m_oSize.height/m_nFramesToLoad[1];
+		
 	GLfloat	 coordinates[] = {  
 		xOffset,		heightOffset,
 		widthOffset,	heightOffset,
 		xOffset,		yOffset,
 		widthOffset,	yOffset  
 	};	
-	
+		
 	GLfloat		vertices[] = {	
 		-width / 2 + point.x,	-height / 2 + point.y,	0.0,
 		width / 2 + point.x,	-height / 2 + point.y,	0.0,

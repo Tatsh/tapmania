@@ -28,6 +28,8 @@
 	if(!self)
 		return nil;
 	
+	m_pTitle = nil;
+	
 	// Try to fetch extra width property
 	m_FixedWidth =  FLOAT_METRIC( ([inMetricsKey stringByAppendingString:@" FixedWidth"]) );	// This is optional. will be 0 if not specified
 	
@@ -51,6 +53,7 @@
 	m_fFontSize = fontSize;
 	
 	m_sTitle = title;
+	m_pTitle = nil;
 	[self updateTitleTexture];
 	
 	return self;	
@@ -76,6 +79,7 @@
 }
 
 - (void) updateTitleTexture {
+	if(m_pTitle) [m_pTitle release];
 	m_pTitle = 	[m_pFont createQuadFromText:m_sTitle];	
 	m_rShape.size.width = m_pTitle.contentSize.width;
 	m_rShape.size.height = m_pTitle.contentSize.height;	
@@ -97,8 +101,6 @@
 
 - (void) setName:(NSString*)inName {
 	if(m_sTitle) [m_sTitle release];
-	if(m_pTitle) [m_pTitle release];
-	
 	m_sTitle = [inName retain];
 	[self updateTitleTexture];
 }
