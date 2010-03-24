@@ -8,8 +8,9 @@
 //
 
 #import "MenuItem.h"
+#import "TMSong.h"
 
-@class Quad, FontString, Texture2D, TMSong;
+@class Quad, FontString, Texture2D, TMSong, TMSongSavedScore;
 
 @interface SongPickerMenuItem : MenuItem {
 	TMSong* m_pSong;	// The song object bound to this menu item
@@ -18,6 +19,10 @@
 	FontString* m_pArtistStr;
 	
 	Texture2D* t_WheelItem;
+	TMFramedTexture*		t_Grades;
+	
+	// The saved score and grade (sqlite)
+	TMSongSavedScore* m_pSavedScore;	
 }
 
 @property (readonly, retain, nonatomic, getter=song) TMSong* m_pSong;
@@ -25,5 +30,6 @@
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point;
 - (void) updateYPosition:(float)pixels;
 - (void) updateWithSong:(TMSong*)song atPoint:(CGPoint)point;
+- (void) updateWithDifficulty:(TMSongDifficulty)diff;
 
 @end

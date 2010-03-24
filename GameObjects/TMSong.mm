@@ -203,3 +203,20 @@
 }
 
 @end
+
+
+
+
+@implementation TMSongSavedScore 
+
+@synthesize hash, difficulty, bestScore, bestGrade;
+
++(NSArray *)indices
+{
+	NSArray* index = [NSArray arrayWithObjects:@"hash", @"difficulty", nil];
+	return [NSArray arrayWithObjects:index, nil];
+}
+
+@end
+
+

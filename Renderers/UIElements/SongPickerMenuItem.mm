@@ -9,6 +9,7 @@
 
 #import "SongPickerMenuItem.h"
 #import "Texture2D.h"
+#import "TMFramedTexture.h"
 #import "Quad.h"
 #import "FontString.h"
 #import "Font.h"
@@ -32,9 +33,11 @@
 	if(!self) 
 		return nil;
 	
-	m_pSong = song;	
-	
+	m_pSong = song;
+	m_pSavedScore = nil;
+		
 	// Cache texture
+	t_Grades	= (TMFramedTexture*)TEXTURE(@"SongResults Grades");
 	t_WheelItem = TEXTURE(@"SongPickerMenu Wheel ItemSong");
 	[self generateTextures];
 	
@@ -84,12 +87,27 @@
 		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
 	}
 	
-
 		
 	[m_pTitleStr drawInRect:rectTitle];		
 	[m_pArtistStr drawInRect:rectArtist];
 	
+	if(m_pSavedScore != nil) {
+		// We need to display the grade
+		int gr = [m_pSavedScore.bestGrade intValue];
+		[t_Grades drawFrame:gr atPoint:CGPointMake( 265, m_rShape.origin.y) withScale:0.5f]; 
+	}
+	
 	glDisable(GL_BLEND);
+}
+
+- (void) updateWithDifficulty:(TMSongDifficulty)diff {
+	NSString* sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", m_pSong.m_sHash, [NSNumber numberWithInt:diff]];
+	TMLog(@"UPDATING with difficulty: %d and hash = %@", diff, m_pSong.m_sHash);
+	
+	if(m_pSavedScore) [m_pSavedScore release];
+	m_pSavedScore = [[TMSongSavedScore findFirstByCriteria:sql] retain];
+	
+	if(m_pSavedScore) { TMLog(@"FOUND A SCORE!"); }
 }
 
 - (void) updateYPosition:(float)pixels {
@@ -99,6 +117,7 @@
 - (void) updateWithSong:(TMSong*)song atPoint:(CGPoint)point {
 	m_rShape.origin = point; // We don't really use the size here
 	m_pSong = song;	
+	m_pSavedScore = nil;
 
 	[m_pTitleStr updateText:m_pSong.m_sTitle];
 	[m_pArtistStr updateText:[NSString stringWithFormat:@"/%@",m_pSong.m_sArtist]];

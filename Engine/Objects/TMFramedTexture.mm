@@ -81,6 +81,46 @@
 	glPopMatrix();
 }
 
+- (void) drawFrame:(int)frameId atPoint:(CGPoint)point withScale:(float)scale {
+	// Sanity check
+	if(frameId >= m_nTotalFrames || frameId < 0)
+		frameId = 0;
+	
+	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
+	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
+	
+	int textureRow = frameId/m_nFramesToLoad[0];
+	frameId -= textureRow*m_nFramesToLoad[0];
+	
+	float yOffset = textureRow*textureMaxT;
+	float xOffset = frameId*textureMaxS;
+	float widthOffset = xOffset + textureMaxS;
+	float heightOffset = yOffset + textureMaxT;
+	
+	float width = m_oSize.width/m_nFramesToLoad[0] * scale;
+	float height = m_oSize.height/m_nFramesToLoad[1] * scale;
+	
+	GLfloat	 coordinates[] = {  
+		xOffset,		heightOffset,
+		widthOffset,	heightOffset,
+		xOffset,		yOffset,
+		widthOffset,	yOffset  
+	};	
+	
+	GLfloat		vertices[] = {	
+		-width / 2 + point.x,	-height / 2 + point.y,	0.0,
+		width / 2 + point.x,	-height / 2 + point.y,	0.0,
+		-width / 2 + point.x,	height / 2 + point.y,	0.0,
+		width / 2 + point.x,	height / 2 + point.y,	0.0 
+	};
+	
+	TMBindTexture(m_unName);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
+	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
+	
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);	
+}
+
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point {
 
 	// Sanity check

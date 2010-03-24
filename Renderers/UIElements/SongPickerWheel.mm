@@ -16,6 +16,9 @@
 #import "EAGLView.h"
 #import "PhysicsUtil.h"
 #import "Texture2D.h"
+#import "GameState.h"
+
+extern TMGameState* g_pGameState;
 
 @interface SongPickerWheel (Private)
 - (void) saveSwipeElement:(float)value withTime:(float)delta;
@@ -63,7 +66,11 @@
 		}
 		
 		TMSong *song = [songList objectAtIndex:j++];				
-		m_pWheelItems->push_front( TMWheelItemPtr( [[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)] ) );
+		
+		TMWheelItemPtr ptr = TMWheelItemPtr( [[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)] );
+		[*ptr updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
+		
+		m_pWheelItems->push_front( ptr );
 		
 		curYOffset -= mt_ItemSong.size.height;
 	}	
@@ -283,6 +290,7 @@
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];				
 			
 			[itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, firstWheelItemY)];
+			[itemToRemove.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
 			m_pWheelItems->push_back(itemToRemove);			
 			
 		} else if(lastWheelItemY >= mt_ItemSongHalfHeight) {		
@@ -299,6 +307,7 @@
 			TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];				
 			
 			[itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, newLastWheelItemY)];
+			[itemToRemove.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
 			m_pWheelItems->push_front(itemToRemove);
 		}
 		
@@ -323,6 +332,13 @@
 
 - (SongPickerMenuItem*) getSelected {
 	return m_pWheelItems->at(kSelectedWheelItemId).get();
+}
+
+- (void) updateAllWithDifficulty:(TMSongDifficulty) diff {
+	int i;
+	for(i=0; i<m_pWheelItems->size(); i++){
+		[(SongPickerMenuItem*)(m_pWheelItems->at(i).get()) updateWithDifficulty:diff];
+	}	
 }
 
 @end

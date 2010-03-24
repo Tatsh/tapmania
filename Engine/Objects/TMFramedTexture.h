@@ -25,6 +25,8 @@
 - (void) drawFrame:(int)frameId rotation:(float)rotation inRect:(CGRect)rect;
 
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point;
+- (void) drawFrame:(int)frameId atPoint:(CGPoint)point withScale:(float)scale;
+
 
 - (int) cols;
 - (int) rows;

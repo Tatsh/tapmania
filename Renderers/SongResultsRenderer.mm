@@ -139,7 +139,31 @@ extern TMGameState* g_pGameState;
 						  fromMaxScore://[g_pGameState->m_pSteps getDifficultyLevel]*
 							10000000];
 	}
+	
+	// Save this score if it's better than it was
+	NSNumber* diff = [NSNumber numberWithInt:g_pGameState->m_nSelectedDifficulty];
+	NSString* sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", g_pGameState->m_pSong.m_sHash, diff];
+	TMSongSavedScore* savedScore = [TMSongSavedScore findFirstByCriteria:sql];
+	
+	if(savedScore != nil) {
+		TMLog(@"Some old score found: %@", savedScore.bestScore);
 		
+		if([savedScore.bestScore intValue] < g_pGameState->m_nScore) {
+			TMLog(@"Better score. Update.");
+			savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
+			savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
+			[savedScore save];
+		}		
+	} else {
+		TMLog(@"Save score first time!");
+		savedScore = [[TMSongSavedScore alloc] init];
+		savedScore.hash = g_pGameState->m_pSong.m_sHash;
+		savedScore.difficulty = diff;
+		savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
+		savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];	
+		[savedScore save];
+	}
+	
 }
 
 /* TMRenderable method */

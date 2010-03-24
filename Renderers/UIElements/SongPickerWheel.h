@@ -8,6 +8,7 @@
 //
 
 #import "TMControl.h"
+#import "TMSong.h"
 
 #define kNumWheelItems 10
 #define kNumSwipePositions 10
@@ -52,5 +53,6 @@
 }
 
 - (SongPickerMenuItem*) getSelected;
+- (void) updateAllWithDifficulty:(TMSongDifficulty) diff;
 
 @end

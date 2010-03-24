@@ -153,6 +153,8 @@ extern TMGameState * g_pGameState;
 	
 	// Set the diff to closest found
 	[(TogglerItem*)m_pDifficultyToggler selectItemAtIndex:[(TogglerItem*)m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
+	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)closestDiffAvailable;
+	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)closestDiffAvailable];
 	
 	// Stop current previewMusic if any
 	if(m_pPreviewMusic) {
@@ -201,6 +203,8 @@ extern TMGameState * g_pGameState;
 	TMLog(@"Changed difficulty. save. [%d => %@]", curDiff, [TMSong difficultyToString:(TMSongDifficulty)curDiff]);
 	
 	[[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
+	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)curDiff;
+	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)curDiff];
 }
 
 /* Handle back button */

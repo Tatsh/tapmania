@@ -279,6 +279,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 				TMLog(@"Hash missmatch! Must reload!");
 				[song release];
 				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];								
+				song.m_sHash = songHash;
 			}
 			
 			// No matter where it comes from, cache or not, we need to save it to the new cache file

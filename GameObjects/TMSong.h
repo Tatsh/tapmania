@@ -12,6 +12,8 @@
 #include <vector>
 #endif
 
+#import "SQLitePersistentObject.h"
+
 #define kDefaultChangesCapacity 16
 
 typedef enum {
@@ -109,5 +111,24 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 - (int) getFreezeCount;
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
+
+@end
+
+
+/* Score holder (SQLite) */
+@interface TMSongSavedScore : SQLitePersistentObject
+{
+	// This is the identifier
+ 	NSString*		hash;		// MD5 sum for this song
+	NSNumber*		difficulty;	// The difficulty (heavy, easy etc.)
+	
+	NSNumber*		bestScore;
+	NSNumber*		bestGrade;
+}
+
+@property (retain, nonatomic) NSString* hash;
+@property (retain, nonatomic) NSNumber* difficulty;
+@property (retain, nonatomic) NSNumber* bestScore;
+@property (retain, nonatomic) NSNumber* bestGrade;
 
 @end
