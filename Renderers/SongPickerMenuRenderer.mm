@@ -206,6 +206,7 @@ extern TMGameState * g_pGameState;
 	[[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)curDiff;
 	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)curDiff];
+	[m_pSongWheel updateScore];
 }
 
 /* Handle back button */
