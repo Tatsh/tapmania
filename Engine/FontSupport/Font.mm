@@ -229,10 +229,21 @@
 	// Format taken from StepMania to achive some compatibility
 	
 	NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
-	if([keyValuePair count] != 2) {
+	if([keyValuePair count] == 1) {
 		NSException *ex = [NSException exceptionWithName:@"LINE" 
 												  reason:[NSString stringWithFormat:@"LINE '%@' is invalid", setting] userInfo:nil];
 		@throw ex;		
+	}
+	if([keyValuePair count] > 2) {		
+		NSArray* sub = [keyValuePair subarrayWithRange:NSMakeRange(1, [keyValuePair count]-1)];
+		keyValuePair = [NSArray arrayWithObject:[keyValuePair objectAtIndex:0]];
+		NSString* value = @"";
+		
+		for( NSString* s in sub ) {
+			value = [value stringByAppendingString:s];
+		}
+		
+		keyValuePair = [keyValuePair arrayByAddingObject: value];
 	}
 	
 	// The value part

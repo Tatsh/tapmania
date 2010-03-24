@@ -80,11 +80,11 @@
 	}
 	
 	if(200.0f < m_pArtistStr.contentSize.width) {
-		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, 200.0f, m_pArtistStr.contentSize.height);
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-20, 200.0f, m_pArtistStr.contentSize.height);
 		
 	} else {
 		
-		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-18, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-20, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
 	}
 	
 		
