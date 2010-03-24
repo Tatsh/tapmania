@@ -18,7 +18,7 @@
 #define kWheelStaticFriction	0.25f
 #define kWheelMass				80.0f
 
-@class SongPickerMenuItem, Texture2D;
+@class SongPickerMenuItem, Texture2D, FontString;
 
 #ifdef __cplusplus
 	#include <deque>
@@ -41,18 +41,25 @@
 	float					m_fLastSwipeY;
 	double					m_dLastSwipeTime;	
 	
+	int						m_nCurrentScoreDisplayed;
+	
 	/* Metrics and such */
 	CGRect	mt_ItemSong;
 	int		mt_ItemSongHalfHeight;
+	
+	CGPoint mt_ScoreDisplay;
 	
 	CGRect	mt_HighlightCenter;
 	CGRect	mt_Highlight;
 	int		mt_HighlightHalfHeight;
 	
 	Texture2D* t_Highlight;
+	FontString*	m_pScoreStr;
+	
 }
 
 - (SongPickerMenuItem*) getSelected;
 - (void) updateAllWithDifficulty:(TMSongDifficulty) diff;
+- (void) updateScore;
 
 @end

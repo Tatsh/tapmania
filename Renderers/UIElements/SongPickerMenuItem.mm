@@ -26,7 +26,7 @@
 
 @implementation SongPickerMenuItem
 
-@synthesize m_pSong;
+@synthesize m_pSong, m_pSavedScore;
 
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point {
 	self = [super initWithShape:CGRectMake(point.x, point.y, 0, 0)];

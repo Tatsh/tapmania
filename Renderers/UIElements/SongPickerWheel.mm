@@ -17,6 +17,7 @@
 #import "PhysicsUtil.h"
 #import "Texture2D.h"
 #import "GameState.h"
+#import "FontString.h"
 
 extern TMGameState* g_pGameState;
 
@@ -47,12 +48,15 @@ extern TMGameState* g_pGameState;
 	mt_HighlightCenter =	RECT_METRIC(@"SongPickerMenu Wheel Highlight");	
 	mt_Highlight.size =		mt_HighlightCenter.size;
 	
+	mt_ScoreDisplay =		POINT_METRIC(@"SongPickerMenu Wheel Score");
+	
 	mt_Highlight.origin.x =  mt_HighlightCenter.origin.x - mt_Highlight.size.width/2;
 	mt_Highlight.origin.y =	 mt_HighlightCenter.origin.y - mt_Highlight.size.height/2;
 	mt_HighlightHalfHeight = mt_Highlight.size.height/2;
 	
 	// Cache graphics
 	t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
+	m_pScoreStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelScoreDisplay" andText:@"       0"];
 	
 	m_fVelocity = 0.0f;	
 	[self clearSwipes];
@@ -75,6 +79,8 @@ extern TMGameState* g_pGameState;
 		curYOffset -= mt_ItemSong.size.height;
 	}	
 	
+	m_nCurrentScoreDisplayed = 0;
+	
 	return self;
 }
 
@@ -95,6 +101,9 @@ extern TMGameState* g_pGameState;
 	// Highlight selection and draw top element
 	glEnable(GL_BLEND);
 	[t_Highlight drawAtPoint:mt_HighlightCenter.origin];
+	
+	// Draw the score for the selected song
+	[m_pScoreStr drawAtPoint:mt_ScoreDisplay];
 	glDisable(GL_BLEND);
 }
 
@@ -116,7 +125,8 @@ extern TMGameState* g_pGameState;
 				[self rollWheel: -closestY];
 
 				if(m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
-					[m_idChangedDelegate performSelector:m_oChangedActionHandler];
+					[m_idChangedDelegate performSelector:m_oChangedActionHandler];					
+					[self updateScore];
 				}				
 			}
 			
@@ -132,6 +142,19 @@ extern TMGameState* g_pGameState;
 			[self rollWheel: fDelta * m_fVelocity];
 		}
 	}
+}
+
+- (void) updateScore {
+	// Update the score of the selected
+	TMSongSavedScore* score = m_pWheelItems->at(kSelectedWheelItemId).get().m_pSavedScore;
+	if(score) {
+		m_nCurrentScoreDisplayed = [score.bestScore intValue];
+	} else {
+		m_nCurrentScoreDisplayed = 0;
+	}
+	
+	// Update the fontstring
+	[m_pScoreStr updateText:[NSString stringWithFormat:@"%8d", m_nCurrentScoreDisplayed]];	
 }
 
 /* TMGameUIResponder methods */

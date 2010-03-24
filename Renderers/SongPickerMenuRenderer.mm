@@ -102,6 +102,7 @@ extern TMGameState * g_pGameState;
 	
 	// Select current song (populate difficulty toggler with it's difficulties)
 	[self songSelectionChanged];
+	[m_pSongWheel updateScore];
 	
 	// Get ads back to place if removed
 	[[TapMania sharedInstance] toggleAds:YES];
