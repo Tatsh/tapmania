@@ -48,12 +48,13 @@
 	int		mt_ItemSongHalfHeight;
 	
 	CGPoint mt_ScoreDisplay;
+	CGPoint mt_ScoreFrame;
 	
 	CGRect	mt_HighlightCenter;
 	CGRect	mt_Highlight;
 	int		mt_HighlightHalfHeight;
 	
-	Texture2D* t_Highlight;
+	Texture2D* t_Highlight, *t_ScoreFrame;
 	FontString*	m_pScoreStr;
 	
 }

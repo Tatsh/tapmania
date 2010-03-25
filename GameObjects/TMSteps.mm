@@ -367,10 +367,15 @@ extern TMGameState* g_pGameState;
 			}
 						
 			if(g_pGameState->m_bAutoPlay) {
-				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= 0.03f) {
+				if(fabsf(noteTime - g_pGameState->m_dElapsedTime) <= kHitSearchEpsilon) {
 					if(note.m_nType != kNoteType_Mine && !note.m_bIsHit) {
-						lastHitTime = g_pGameState->m_dElapsedTime;
-						testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
+
+						// Make it easy enough for the autoplay bot
+						if(rand()%100 < 30) {
+							lastHitTime = g_pGameState->m_dElapsedTime;
+							testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
+						}
+						
 					}
 				}
 			} else {

@@ -49,6 +49,7 @@ extern TMGameState* g_pGameState;
 	mt_Highlight.size =		mt_HighlightCenter.size;
 	
 	mt_ScoreDisplay =		POINT_METRIC(@"SongPickerMenu Wheel Score");
+	mt_ScoreFrame =			POINT_METRIC(@"SongPickerMenu Wheel ScoreFrame");
 	
 	mt_Highlight.origin.x =  mt_HighlightCenter.origin.x - mt_Highlight.size.width/2;
 	mt_Highlight.origin.y =	 mt_HighlightCenter.origin.y - mt_Highlight.size.height/2;
@@ -56,6 +57,7 @@ extern TMGameState* g_pGameState;
 	
 	// Cache graphics
 	t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
+	t_ScoreFrame = TEXTURE(@"SongPickerMenu Wheel ScoreFrame");
 	m_pScoreStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelScoreDisplay" andText:@"       0"];
 	
 	m_fVelocity = 0.0f;	
@@ -101,6 +103,9 @@ extern TMGameState* g_pGameState;
 	// Highlight selection and draw top element
 	glEnable(GL_BLEND);
 	[t_Highlight drawAtPoint:mt_HighlightCenter.origin];
+	
+	// Score frame
+	[t_ScoreFrame drawAtPoint:mt_ScoreFrame];
 	
 	// Draw the score for the selected song
 	[m_pScoreStr drawAtPoint:mt_ScoreDisplay];
