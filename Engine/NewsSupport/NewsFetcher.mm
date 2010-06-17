@@ -33,9 +33,9 @@ extern TMGameState* g_pGameState;
 
 	while (m_bRunning) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		
+			
 		@synchronized (self) {
-			if(!m_bGotNews) {
+			if(m_bCheck && !m_bGotNews) {
 				NSString* currentNewsVersion = [NSString stringWithContentsOfURL:[NSURL URLWithString:[TAPMANIA_URL stringByAppendingString:TAPMANIA_NEWS_VERSION_PAGE]]];
 				if(currentNewsVersion != nil) {
 					TMLog(@"Found news version: %@", currentNewsVersion);
@@ -87,11 +87,15 @@ extern TMGameState* g_pGameState;
 }
 
 - (void) stopChecking {
-	m_bRunning = NO;
+	m_bCheck = NO;
 }
 
 - (void) startChecking {
-	[m_pThread start];
+	if(![m_pThread isExecuting]) {
+		[m_pThread start];
+	}
+	
+	m_bCheck = YES;
 }
 
 - (BOOL) hasUnreadNews {
