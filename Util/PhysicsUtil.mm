@@ -38,6 +38,10 @@
 	return self;
 }
 
++ (Vector*) vectorWithVector:(Vector*)vec {
+	return [[Vector alloc] initWithX:vec.m_fX andY:vec.m_fY];
+}
+
 - (float) norm {
 	return sqrt(m_fX*m_fX + m_fY*m_fY);
 }

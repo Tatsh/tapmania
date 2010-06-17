@@ -51,7 +51,7 @@
 	int i;
 	for(i=0; i<kNumOfAvailableTracks; ++i) {
 		mt_ReceptorButtons[i] =	RECT_SKIN_METRIC(([NSString stringWithFormat:@"ReceptorRow %d", i]));
-		m_pFingerTap[i] = [[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i];
+		m_pFingerTap[i] = [Vector vectorWithVector:[[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i]];
 	}
 	
 	// Start with no action. means we must select a receptor arrow
@@ -133,6 +133,15 @@
 		// Reset the pad to default values
 		TMLog(@"Reset pad");
 		[[TapMania sharedInstance].joyPad resetToDefault];
+
+		for(int i=0; i<kNumOfAvailableTracks; ++i) {
+			if(m_pFingerTap[i]) {
+				[m_pFingerTap[i] release];
+			}
+			
+			m_pFingerTap[i] = [Vector vectorWithVector:[[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton)i]];
+		}
+				
 		m_nPadConfigAction = kPadConfigAction_None;
 	}
 

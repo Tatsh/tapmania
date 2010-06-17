@@ -528,7 +528,7 @@
 	
 	while( token != nil ) {
 		TMLog(@"got token: %s", token);
-		[arr addObject:[[NSString stringWithCString:token] retain]];
+		[arr addObject:[[NSString stringWithUTF8String:token] retain]];
 		token = strtok( nil, "," );
 	}
 	

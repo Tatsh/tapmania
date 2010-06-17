@@ -28,6 +28,8 @@
 - (void) divScalar:(float)op;
 - (void) mulScalar:(float)op;
 
+// Copy vector
++ (Vector*) vectorWithVector:(Vector*)vec;
 
 // Static util functions. They all return autoreleased stuff
 + (float) norm:(Vector*)v0;

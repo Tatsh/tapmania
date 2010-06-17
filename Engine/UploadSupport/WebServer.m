@@ -40,7 +40,7 @@ static WebServer *sharedWebServerDelegate = nil;
 char* getPage (char* page) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	TMResource* pageResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithCString:page]];
+	TMResource* pageResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithUTF8String:page]];
 	if(!pageResource) {
 		[pool release];
 		return strdup("<b>Page not found in current theme! Report to theme developer please.</b>");
@@ -59,7 +59,7 @@ char* getPage (char* page) {
 void* getBytes (char* path, int *size) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	TMResource* binaryResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithCString:path]];
+	TMResource* binaryResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithUTF8String:path]];
 	if(!binaryResource) {
 		[pool release];
 		return NULL;
@@ -90,7 +90,7 @@ char* getIndexPage(char* message) {
 	NSMutableString* catalogue = [[NSMutableString alloc] initWithCapacity:[songs count]];
 	
 	for (TMSong* song in songs) {
-		NSString* item = [NSString stringWithCString:itemTmpl];
+		NSString* item = [NSString stringWithUTF8String:itemTmpl];
 		item = [item stringByReplacingOccurrencesOfString:@"%TITLE%" withString:song.title];
 		item = [item stringByReplacingOccurrencesOfString:@"%AUTHOR%" withString:song.m_sArtist];
 		item = [item stringByReplacingOccurrencesOfString:@"%SONGID%" withString:song.m_sSongDirName];
@@ -114,9 +114,9 @@ char* getIndexPage(char* message) {
 	}
 	
 	// Generate result
-	NSString* result = [NSString stringWithCString:pageContents];
+	NSString* result = [NSString stringWithUTF8String:pageContents];
 	result = [result stringByReplacingOccurrencesOfString:@"%CATALOGUE%" withString:catalogue];
-	result = [result stringByReplacingOccurrencesOfString:@"%MESSAGE%" withString:[NSString stringWithCString:message]];
+	result = [result stringByReplacingOccurrencesOfString:@"%MESSAGE%" withString:[NSString stringWithUTF8String:message]];
 	
 	char* ptr = malloc(([result length]) + 1);
 	strcpy(ptr, [result UTF8String]);
@@ -261,7 +261,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 			TMLog(@"Going to unzip the file at '%s'...", con_info->file_path);
 			
 			// If we got here the file should be uploaded now
-			TMZipFile* zipHandler = [[TMZipFile alloc] initWithPath:[NSString stringWithCString:con_info->file_path]];
+			TMZipFile* zipHandler = [[TMZipFile alloc] initWithPath:[NSString stringWithUTF8String:con_info->file_path]];
 			if(zipHandler) {	
 				NSString* extDir = [[[WebServer sharedInstance] getIncomingPath] stringByAppendingString:@"/Staging"];
 				
@@ -270,7 +270,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 				
 				// Delete the zip self
 				NSError* err;
-				[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithCString:con_info->file_path] error:&err];
+				[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithUTF8String:con_info->file_path] error:&err];
 				
 				// Move the simfile(s)
 				[[SongsDirectoryCache sharedInstance] delegate:nil];
@@ -294,8 +294,10 @@ request_completed (void *cls, struct MHD_Connection *connection,
     }
 	
 	// FIXME: PROBLEM here:
-	if(con_info->file_path) free(con_info->file_path);						
-	free (con_info);
+	// This line is required to prevent a memleak. hotfix for os 4.0
+	//	if(con_info->file_path) free(con_info->file_path);						
+
+	if(con_info) free (con_info);
 	*con_cls = NULL;
 }
 
@@ -345,10 +347,10 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
 		// Check whether we need a page or a binary file
-		NSString *objUrl = [[NSString stringWithCString:url] lowercaseString];
+		NSString *objUrl = [[NSString stringWithUTF8String:url] lowercaseString];
 
 		// Should get us 'Images/imageName.png' or so
-		NSString *objShortUrl = [[NSString stringWithCString:url] 
+		NSString *objShortUrl = [[NSString stringWithUTF8String:url] 
 								 stringByReplacingOccurrencesOfString:
 								 [[WebServer sharedInstance] getAddress] withString:@""];
 
@@ -375,7 +377,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 			if(!cParam)
 				return send_page (connection, getPage("Error"), MHD_HTTP_BAD_REQUEST);
 			
-			NSString* param = [NSString stringWithCString:cParam];			
+			NSString* param = [NSString stringWithUTF8String:cParam];			
 			TMLog(@"Delete song '%@' using web interface", param);
 			
 			[[SongsDirectoryCache sharedInstance] deleteSong:param];

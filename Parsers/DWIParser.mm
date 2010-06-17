@@ -604,7 +604,7 @@
 	// data is '1288=666,1312=333,1316=166.5,1320=83.25,1356=333'
 	// or happen to be something like 1288.000=666.000 etc.
 
-	NSArray* arr = [[NSString stringWithCString:data] componentsSeparatedByString:@","];	
+	NSArray* arr = [[NSString stringWithUTF8String:data] componentsSeparatedByString:@","];	
 	TMChangeSegment* changer = nil;
 	
 

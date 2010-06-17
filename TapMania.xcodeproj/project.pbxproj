@@ -203,8 +203,6 @@
 		24D762960F38A078008B0AA0 /* Metrics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762950F38A078008B0AA0 /* Metrics.mm */; };
 		24D762990F38A38D008B0AA0 /* ThemeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D762980F38A38D008B0AA0 /* ThemeManager.mm */; };
 		24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
-		24D93C901105305300D131CA /* libAdWhirlDevice_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */; };
-		24D93C911105305300D131CA /* libAdWhirlSimulator_1.2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */; };
 		24DC0DE2101E93E800F2B046 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCC101E93E800F2B046 /* adler32.c */; };
 		24DC0DE3101E93E800F2B046 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCD101E93E800F2B046 /* compress.c */; };
 		24DC0DE4101E93E800F2B046 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCE101E93E800F2B046 /* crc32.c */; };
@@ -730,8 +728,6 @@
 				24E3895A10456F13001B8DDE /* CoreLocation.framework in Frameworks */,
 				24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */,
 				24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */,
-				24D93C901105305300D131CA /* libAdWhirlDevice_1.2.6.a in Frameworks */,
-				24D93C911105305300D131CA /* libAdWhirlSimulator_1.2.6.a in Frameworks */,
 				24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2059,7 +2055,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos4.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -2086,7 +2082,6 @@
 				);
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
 		};
