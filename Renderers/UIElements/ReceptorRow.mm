@@ -130,12 +130,18 @@
 			if(note.m_nType == kNoteType_Mine) {
 				[self explodeMine:note.m_nTrack];
 				[[TMSoundEngine sharedInstance] playEffect:sr_ExplosionMine];
-				
-			} else if(note.m_nScore == kJudgementW1) {
-				[self explodeBright:note.m_nTrack];
-				
-			} else if(note.m_nScore != kJudgementMiss) {
-				[self explodeDim:note.m_nTrack];	
+			} else {
+				switch(note.m_nScore) {
+					case kJudgementW1:
+					case kJudgementW2:
+					case kJudgementW3:
+					case kJudgementW4:
+					case kJudgementW5:
+						// TODO: flash bright if combo over certain threshold
+						//[self explodeBright:note.m_nTrack];
+						[self explodeDim:note.m_nTrack];
+						break;
+				}
 			}
 
 			break;			
