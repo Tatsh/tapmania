@@ -203,7 +203,7 @@
 + (TMSteps*) parseStepsFromFile:(NSString*) filename forDifficulty:(TMSongDifficulty)difficulty forSong:(TMSong*)song {
 	FILE* fd;
 	int c; // Incoming char
-	char varName[16]; // The name of the variable which comes directly after the '#' till the ':'.
+	char varName[64]; // The name of the variable which comes directly after the '#' till the ':'.
 	int i;
 	
 	if( ! (fd = fopen([filename UTF8String], "r"))) {

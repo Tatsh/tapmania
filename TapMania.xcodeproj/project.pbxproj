@@ -811,7 +811,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		24234DD3115A12F400E14860 /* SQLitePersistentObjects */ = {
+		24234DD3115A12F400E14860 /* SQLitePersistenObjects */ = {
 			isa = PBXGroup;
 			children = (
 				24234DD4115A12F400E14860 /* NSData-SQLitePersistence.h */,
@@ -847,8 +847,8 @@
 				24234DF2115A12F400E14860 /* UIImage-SQLitePersistence.h */,
 				24234DF3115A12F400E14860 /* UIImage-SQLitePersistence.m */,
 			);
-			name = SQLitePersistentObjects;
-			path = ext/SQLitePersistenObjects/src;
+			name = SQLitePersistenObjects;
+			path = ext/SQLitePersistenObjects;
 			sourceTree = "<group>";
 		};
 		244954B30EDD549000D462F0 /* Protocols */ = {
@@ -1070,7 +1070,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
-				24234DD3115A12F400E14860 /* SQLitePersistentObjects */,
+				24234DD3115A12F400E14860 /* SQLitePersistenObjects */,
 				24E388ED10456AE1001B8DDE /* AdWhirl */,
 				24DC0DC3101E938800F2B046 /* ZLIB */,
 				248E92ED1017983E00DB27D9 /* MICROHTTPD */,

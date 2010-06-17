@@ -37,7 +37,7 @@
 + (TMSong*) parseFromFile:(NSString*) filename {
 	FILE* fd;
 	int c; // Incoming char
-	char varName[32]; // The name of the variable which comes directly after the '#' till the ':'.
+	char varName[64]; // The name of the variable which comes directly after the '#' till the ':'.
 	int i;
 
 	TMSong* song = [[TMSong alloc] init];
