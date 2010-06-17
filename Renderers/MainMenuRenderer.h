@@ -12,8 +12,6 @@
 @class MenuItem, TMSound, Texture2D, Quad;
 
 @interface MainMenuRenderer : TMScreen {	
-	MenuItem*		m_pPlayButton, *m_pOptionsButton, *m_pCreditsButton;
-
 	/* Metrics and such */
 	Texture2D *t_Donate;
 	TMSound   *sr_BG;	
