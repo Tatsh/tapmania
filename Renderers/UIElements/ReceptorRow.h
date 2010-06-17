@@ -39,7 +39,7 @@ typedef enum {
 	float  mt_ReceptorExplosionMaxShowTime;
 		
 	Receptor* t_GoReceptor;
-	Texture2D* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;;
+	Texture2D* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
 	
 	TMSound* sr_ExplosionMine;
 }
