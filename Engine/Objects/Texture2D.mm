@@ -294,21 +294,15 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void) drawAtPoint:(CGPoint)point 
 {
-	GLfloat		coordinates[] = { 0,	m_fMaxT,
-								m_fMaxS,	m_fMaxT,
-								0,		0,
-								m_fMaxS,	0 };
-	GLfloat		width = (GLfloat)m_unWidth * m_fMaxS,
-				height = (GLfloat)m_unHeight * m_fMaxT;
-	GLfloat		vertices[] = {	-width / 2 + point.x,	-height / 2 + point.y,	0.0,
-								width / 2 + point.x,	-height / 2 + point.y,	0.0,
-								-width / 2 + point.x,	height / 2 + point.y,	0.0,
-								width / 2 + point.x,	height / 2 + point.y,	0.0 };
-	
-	TMBindTexture(m_unName);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	GLfloat	width = (GLfloat)m_unWidth * m_fMaxS,
+			height = (GLfloat)m_unHeight * m_fMaxT;
+	// TODO: CGRect's origin is being used as the upper-left point in the rectangle.
+	// Change the convention to have origin be the center.
+	CGRect rect = CGRectMake(
+			-width / 2 + point.x, -height / 2 + point.y, 
+			width, height);
+
+	[self drawInRect:rect];
 }
 
 
