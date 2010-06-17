@@ -8,15 +8,15 @@
  *
  */
 
-#define TAPMANIA_VERSION				0.1.7
-#define TAPMANIA_VERSION_STRING			@"v0.1.7"
-#define TAPMANIA_VERSION_STRING_LONG	@"version 0.1.7"
+#define TAPMANIA_VERSION				0.1.8
+#define TAPMANIA_VERSION_STRING			@"v0.1.8"
+#define TAPMANIA_VERSION_STRING_LONG	@"version 0.1.8"
 
 #define TAPMANIA_THEME_VERSION			0.5
 #define TAPMANIA_NOTESKIN_VERSION		0.2
 #define TAPMANIA_CACHE_VERSION			"0.2"
 
-#define TAPMANIA_COPYRIGHT				@"Copyright © 2008-2009 Godexsoft"
+#define TAPMANIA_COPYRIGHT				@"Copyright © 2008-2010 Godexsoft"
 
 #define TAPMANIA_URL					@"http://tapmania.org/"
 #define TAPMANIA_NEWS_PAGE				@"tapmania_news.php"

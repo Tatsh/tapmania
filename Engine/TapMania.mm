@@ -171,6 +171,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) toggleAds:(BOOL)onOff {
+#ifdef ENABLE_ADWHIRL
 	if(! onOff) {
 		[m_pAdsView removeFromSuperview];
 		[m_pAdsView ignoreNewAdRequests];
@@ -183,6 +184,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 		[m_pGlView addSubview:m_pAdsView];
 		[m_pAdsView getNextAd];
 	}
+#endif
 }
 
 - (JoyPad*) enableJoyPad {
@@ -262,6 +264,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Add the gl view to our main window
 	[m_pWindow addSubview:m_pGlView];		
 
+#ifdef ENABLE_ADWHIRL
 	// Create the AdWhirl thing
 	m_pAdsView = [ARRollerView requestRollerViewWithDelegate:self];
 	m_pAdsView.clipsToBounds = YES;
@@ -274,6 +277,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	[m_pGlView addSubview:m_pAdsView];
 	TMLog(@"Added the AdWhirl view.");
+#endif // ENABLE_ADWHIRL
 	
 	// Show window
 	[m_pWindow makeKeyAndVisible];
@@ -304,6 +308,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 #pragma mark ARRollerDelegate required delegate method implementation
+#ifdef ENABLE_ADWHIRL
 - (NSString*)adWhirlApplicationKey
 {
 	// 0.1.7 version
@@ -338,7 +343,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 {
 	TMLog(@"The webview canvas will now disappear.");
 }
-
+#endif // ENABLE_ADWHIRL
 
 #pragma mark Singleton stuff
 + (TapMania *)sharedInstance {
