@@ -235,10 +235,15 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
 
-	if(g_pGameState->m_bLandscape) {
-		glOrthof(0, rect.size.height, 0, rect.size.width, -1, 1);
-	} else {
-		glOrthof(0, rect.size.width, 0, rect.size.height, -1, 1);
+	{
+		int width = rect.size.width, height = rect.size.height;
+		if( g_pGameState->m_bLandscape )
+		{
+			int temp = width;
+			width = height;
+			height = temp;
+		}
+		glOrthof(0, width, 0, height, -1000, 1000);	// large depth so that rotated objects aren't clipped
 	}
 	
 	glMatrixMode(GL_MODELVIEW);
