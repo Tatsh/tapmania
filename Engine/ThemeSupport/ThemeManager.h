@@ -12,7 +12,7 @@
 #import "FontManager.h"
 #import "ResourcesLoader.h"
 
-@class Metrics, ResourcesLoader, Texture2D, TMSound;
+@class Metrics, ResourcesLoader, Texture2D, TMSound, TMFramedTexture;
 
 #define INT_METRIC(key) [[ThemeManager sharedInstance] intMetric:key]
 #define FLOAT_METRIC(key) [[ThemeManager sharedInstance] floatMetric:key]
@@ -93,7 +93,7 @@
 /* Theme stuff */
 - (TMSound*) sound:(NSString*) soundKey;
 - (Texture2D*) texture:(NSString*) textureKey;
-- (Texture2D*) skinTexture:(NSString*) textureKey;
+- (TMFramedTexture*) skinTexture:(NSString*) textureKey;
 
 + (ThemeManager *) sharedInstance;
 

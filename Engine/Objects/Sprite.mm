@@ -7,11 +7,12 @@
 //
 
 #import "Sprite.h"
+#import "TMFramedTexture.h"
 #import <OpenGLES/ES1/glext.h>
 
 @implementation Sprite
 
-@synthesize texture, blendAdd;
+@synthesize texture, blendAdd, frameIndex;
 
 - (id) init
 {
@@ -45,14 +46,17 @@
 	m_qkf.push_back( qkf );
 }
 
-- (void) setX:(float)x
-{
+- (void) setX:(float)x {
 	m_qkf.back().kf.x = x;
 }
-
-- (void) setY:(float)y
-{
+- (void) setY:(float)y {
 	m_qkf.back().kf.y = y;
+}
+- (void) addX:(float)x {
+	m_qkf.back().kf.x += x;
+}
+- (void) addY:(float)y {
+	m_qkf.back().kf.y += y;
 }
 
 - (void) setScale:(float)scale
@@ -61,6 +65,18 @@
 	qkf.kf.scaleX = scale;
 	qkf.kf.scaleY = scale;
 	qkf.kf.scaleZ = scale;
+}
+
+- (void) setScaleX:(float)scale
+{
+	QueuedKeyFrame &qkf = m_qkf.back();
+	qkf.kf.scaleX = scale;
+}
+
+- (void) setScaleY:(float)scale
+{
+	QueuedKeyFrame &qkf = m_qkf.back();
+	qkf.kf.scaleY = scale;
 }
 
 - (void) setRotationX:(float)degrees
@@ -95,6 +111,7 @@
 {
 	if( m_qkf.size() > 1 )
 		m_qkf.erase( m_qkf.begin(), m_qkf.end()-1 );
+	intoCurrentKeyFrameSeconds = 0;
 }
 
 /* TMLogicUpdater method */
@@ -156,7 +173,7 @@
 	// TODO: Make a color stack and multiply by the top color on the stack.
 	glColor4f(kf.r, kf.g, kf.b, kf.a);
 	
-	[texture drawAtPoint:CGPointZero];
+	[texture drawFrame:frameIndex atPoint:CGPointZero];
 	
 	// TODO: restore previous color, not (1,1,1,1)
 	glColor4f(1, 1, 1, 1);

@@ -120,14 +120,14 @@
 	
 	if(m_nPadConfigAction == kPadConfigAction_SelectedTrack) {
 		// Should explode the selected track
-		[m_pReceptorRow explodeBright:m_nSelectedTrack];
+		[m_pReceptorRow tapNoteExplodeTrack:m_nSelectedTrack bright:true judgement:kJudgementW1];
 		[m_pResetButton hide];
 		
 		m_nPadConfigAction = kPadConfigAction_SelectLocation;	// Must select a location now
 				
 	} else if(m_nPadConfigAction == kPadConfigAction_SelectLocation) {
 		// Must light the selected receptor while user decides
-		[m_pReceptorRow explodeBright:m_nSelectedTrack];
+		[m_pReceptorRow tapNoteExplodeTrack:m_nSelectedTrack bright:true judgement:kJudgementW1];
 		
 	} else if(m_nPadConfigAction == kPadConfigAction_Reset) {
 		// Reset the pad to default values

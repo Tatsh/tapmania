@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "TMSteps.h"	// For kNumOfAvailableTracks
-#import "Judgement.h"
+#import "Judgement.h" // for TMJudgement
 #import "TMAnimatable.h"
 #import "TMMessageSupport.h"
 
@@ -40,7 +40,7 @@ typedef enum {
 	float  mt_ReceptorExplosionMaxShowTime;
 		
 	Receptor* t_GoReceptor;
-	Texture2D* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
+	TMFramedTexture* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
 	Sprite* m_spriteExplosionDim[kNumOfAvailableTracks];
 	Sprite* m_spriteExplosionBright[kNumOfAvailableTracks];
 	Sprite* m_spriteMineExplosion[kNumOfAvailableTracks];
@@ -50,9 +50,7 @@ typedef enum {
 	TMSound* sr_ExplosionMine;
 }
 
-- (void) tapNoteExplodeTrack:(TMAvailableTracks)receptor bright:(bool)bright judgement:(TMJudgement)judgement;
-- (void) explodeDim:(TMAvailableTracks)receptor;		// Use this to start the explosion (dim)
-- (void) explodeBright:(TMAvailableTracks)receptor;		// Same (bright)
+- (void) tapNoteExplodeTrack:(TMAvailableTracks)track bright:(bool)bright judgement:(TMJudgement)judgement;
 - (void) explodeMine:(TMAvailableTracks)receptor;		// Mine explosion
 
 @end

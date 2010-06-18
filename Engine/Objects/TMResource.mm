@@ -43,7 +43,7 @@ extern TMGameState*	g_pGameState;
 	if(inType == kResourceLoaderSounds) 
 		m_oClass = [TMSound class];
 	else
-		m_oClass = [Texture2D class];
+		m_oClass = [TMFramedTexture class];
 
 	m_nCols = m_nRows = 1;	// 1x1 texture by default
 	

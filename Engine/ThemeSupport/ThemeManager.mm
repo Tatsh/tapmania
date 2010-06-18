@@ -330,10 +330,10 @@ extern TMGameState*	g_pGameState;
 }
 
 
-- (Texture2D*) skinTexture:(NSString*) textureKey {
+- (TMFramedTexture*) skinTexture:(NSString*) textureKey {
 	TMResource* resource = [m_pCurrentNoteSkinResources getResource:textureKey];
 	if(resource) {
-		return (Texture2D*)[resource resource];
+		return (TMFramedTexture*)[resource resource];
 	}
 	
 	// TODO return some very default texture if not found

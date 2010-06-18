@@ -11,6 +11,7 @@
 #import "TMLogicUpdater.h"
 #import "TMRenderable.h"
 #import "TMMessageSupport.h"
+#import "Sprite.h"
 
 typedef enum {
 	kJudgementW1 = 0,
@@ -30,7 +31,7 @@ typedef enum {
 	kTimingFlagLate	
 } TMTimingFlag;
 
-@interface Judgement : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
+@interface Judgement : Sprite <TMLogicUpdater, TMRenderable, TMMessageSupport> {
 	TMJudgement m_nCurrentJudgement;	// Currently displayed judgement
 	TMTimingFlag m_nCurrentFlag;
 	double m_dElapsedTime;	// Time elapsed since last renew of the judgement

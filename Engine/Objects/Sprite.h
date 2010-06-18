@@ -7,7 +7,7 @@
 //  Copyright 2010 Chris Danford. All rights reserved.
 //
 
-@class Texture2D;
+@class TMFramedTexture;
 #import "TMRenderable.h"
 #import "TMLogicUpdater.h"
 
@@ -75,18 +75,24 @@ struct QueuedKeyFrame
  * Hold a texture and the animation state of an on-screen object.
  */
 @interface Sprite : NSObject <TMRenderable, TMLogicUpdater> {
-	Texture2D* texture;
+	TMFramedTexture* texture;
 @public
 	deque<QueuedKeyFrame> m_qkf;
 	float intoCurrentKeyFrameSeconds;
 	bool blendAdd;
+	int frameIndex; 
 }
-@property (retain) Texture2D* texture;
+@property (retain) TMFramedTexture* texture;
 @property (assign) bool blendAdd;
+@property (assign) int frameIndex;
 - (void) pushKeyFrame:(float)lengthSeconds;
-- (void) setY:(float)x;
-- (void) setX:(float)y;
+- (void) setX:(float)x;
+- (void) setY:(float)y;
+- (void) addX:(float)x;
+- (void) addY:(float)y;
 - (void) setScale:(float)scale;
+- (void) setScaleX:(float)scale;
+- (void) setScaleY:(float)scale;
 - (void) setRotationX:(float)degrees;
 - (void) setRotationY:(float)degrees;
 - (void) setRotationZ:(float)degrees;

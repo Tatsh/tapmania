@@ -50,7 +50,7 @@ extern TMGameState* g_pGameState;
 		m_nExplosion[i] = kExplosionTypeNone;
 		
 		{
-		// Load up the Dim explosion sprite
+			// Load up the Dim explosion sprite
 			Sprite* spr = [[Sprite alloc] init];
 			[spr setTexture: t_ExplosionDim];
 			[spr setAlpha:0];
