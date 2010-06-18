@@ -41,6 +41,7 @@ typedef enum {
 	Receptor* t_GoReceptor;
 	Texture2D* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
 	Sprite* m_spriteExplosionDim[kNumOfAvailableTracks];
+	Sprite* m_spriteExplosionBright[kNumOfAvailableTracks];
 	
 	Sprite* m_spr;
 	

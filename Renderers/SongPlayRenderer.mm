@@ -150,8 +150,9 @@ extern TMGameState* g_pGameState;
 	[g_pGameState->m_pSteps dump];
 #endif	
 	
-	g_pGameState->m_bAutoPlay = NO;
+	g_pGameState->m_bAutoPlay = YES;
 	g_pGameState->m_nFailType = kFailAtEnd;
+	g_pGameState->m_nCombo = 0;
 	
 	g_pGameState->m_bFailed = g_pGameState->m_bGaveUp = NO;
 			

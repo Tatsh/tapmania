@@ -17,6 +17,9 @@
 #import "TMSoundEngine.h"
 #import "MessageManager.h"
 #import "Sprite.h"
+#import "GameState.h"
+
+extern TMGameState* g_pGameState;
 
 @implementation ReceptorRow
 
@@ -46,7 +49,7 @@
 		m_dExplosionTime[i] = 0.0f;
 		m_nExplosion[i] = kExplosionTypeNone;
 		
-		
+		// Load up the Dim explosion sprite
 		Sprite* spr = [[Sprite alloc] init];
 		[spr setTexture: t_ExplosionDim];
 		[spr pushKeyFrame:15.0];
@@ -55,10 +58,20 @@
 		[spr setScale:1];
 		[spr setRotationZ:mt_ReceptorRotations[i]];
 		m_spriteExplosionDim[i] = spr;
+		
+		// Load up the Bright explosion
+		Sprite* bspr = [[Sprite alloc] init];
+		[bspr setTexture: t_ExplosionBright];
+		[bspr pushKeyFrame:15.0];
+		[bspr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
+		[bspr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
+		[bspr setScale:1];
+		[bspr setRotationZ:mt_ReceptorRotations[i]];
+		m_spriteExplosionBright[i] = bspr;		
 	}
 	
 	m_spr = [[Sprite alloc] init];
-	[m_spr setTexture: t_ExplosionDim];
+	[m_spr setTexture: t_ExplosionBright];
 	[m_spr setAlpha:0.5];
 	[m_spr pushKeyFrame:15.0];
 	[m_spr setX:200];
@@ -77,6 +90,7 @@
 	UNSUBSCRIBE_ALL();
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
 		[m_spriteExplosionDim[i] release];
+		[m_spriteExplosionBright[i] release];
 	}
 	[m_spr release];
 	[super dealloc];
@@ -94,8 +108,14 @@
 }
 
 - (void) explodeBright:(TMAvailableTracks)receptor {
-	m_dExplosionTime[receptor] = 0.0f;
-	m_nExplosion[receptor] = kExplosionTypeBright;
+	//m_dExplosionTime[receptor] = 0.0f;
+	//m_nExplosion[receptor] = kExplosionTypeBright;
+	int i = receptor;
+	[m_spriteExplosionBright[i] finishKeyFrames];
+	[m_spriteExplosionBright[i] setScale:1.05];
+	[m_spriteExplosionBright[i] setAlpha:1];
+	[m_spriteExplosionBright[i] pushKeyFrame:0.3];
+	[m_spriteExplosionBright[i] setAlpha:0];	
 }
 
 - (void) explodeMine:(TMAvailableTracks)receptor {
@@ -111,40 +131,18 @@
 		[t_GoReceptor drawFrame:0 rotation:mt_ReceptorRotations[i] inRect:mt_Receptors[i]];
 		glDisable(GL_BLEND);
 		
-		// Draw explosion if required
-		if(m_nExplosion[i] != kExplosionTypeNone) {
-			Texture2D* tex = nil;
-			
-			if(m_nExplosion[i] == kExplosionTypeMine) {
-				tex = t_MineExplosion;
-				
-				glEnable(GL_BLEND);
-				[tex drawInRect:mt_ReceptorExplosions[i]];
-				glDisable(GL_BLEND);
-			} else {
-					
-				if(m_nExplosion[i] == kExplosionTypeDim) {
-					tex = t_ExplosionDim;
-				} else {
-					tex = t_ExplosionBright;
-				}
-
-				glEnable(GL_BLEND);
-				[tex drawInRect:mt_ReceptorExplosions[i] rotation:mt_ReceptorExplosionRotations[i]];
-				glDisable(GL_BLEND);
-			}
-		}
-	}
-
-	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		// Draw the explosions
 		[m_spriteExplosionDim[i] render:fDelta];
+		[m_spriteExplosionBright[i] render:fDelta];
 	}
+
 	[m_spr render:fDelta];
 }
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
 	// Check explosions
+	/*
 	for(int i=0; i<kNumOfAvailableTracks; ++i){
 		if(m_nExplosion[i] != kExplosionTypeNone) {
 			// could timeout
@@ -153,7 +151,7 @@
 				m_nExplosion[i] = kExplosionTypeNone;	// Disable
 			}
 		}
-	}
+	}*/
 }
 
 /* TMMessageSupport stuff */
@@ -167,15 +165,22 @@
 				[self explodeMine:note.m_nTrack];
 				[[TMSoundEngine sharedInstance] playEffect:sr_ExplosionMine];
 			} else {
+				// TODO: apply color to the exlosion depending on the score?
 				switch(note.m_nScore) {
 					case kJudgementW1:
 					case kJudgementW2:
 					case kJudgementW3:
 					case kJudgementW4:
 					case kJudgementW5:
-						// TODO: flash bright if combo over certain threshold
-						//[self explodeBright:note.m_nTrack];
-						[self explodeDim:note.m_nTrack];
+						// flash bright if combo over certain threshold
+						// TODO: move threshold to some configurable place
+						TMLog(@"Current combo: %d", g_pGameState->m_nCombo);
+						if(g_pGameState->m_nCombo >= 100) {
+							[self explodeBright:note.m_nTrack];
+						} else {
+							[self explodeDim:note.m_nTrack];
+						}
+
 						break;
 				}
 			}

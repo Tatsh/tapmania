@@ -18,6 +18,10 @@
 
 #import "FontString.h"
 
+#import "GameState.h"
+
+extern TMGameState* g_pGameState;
+
 @implementation ComboMeter
 
 - (id) initWithMetrics:(NSString*)metricsKey {
@@ -59,6 +63,8 @@
 				
 				[m_pComboStr updateText:[NSString stringWithFormat:@"%d", m_nCombo]];
 			}
+			
+			g_pGameState->m_nCombo = m_nCombo;
 			
 			break;
 	}
