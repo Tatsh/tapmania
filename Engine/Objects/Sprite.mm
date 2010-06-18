@@ -97,6 +97,12 @@
 		m_qkf.erase( m_qkf.begin(), m_qkf.end()-1 );
 }
 
+/* TMLogicUpdater method */
+- (void) update:(float)fDelta
+{
+	// TODO: move keyframe updating in here
+}
+
 /* TMRenderable method */
 - (void) render:(float)fDelta
 {

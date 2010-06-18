@@ -9,6 +9,7 @@
 
 @class Texture2D;
 #import "TMRenderable.h"
+#import "TMLogicUpdater.h"
 
 // TODO: Move all of the implementation-only stuff out of this header
 #import <deque>
@@ -73,7 +74,7 @@ struct QueuedKeyFrame
 /*
  * Hold a texture and the animation state of an on-screen object.
  */
-@interface Sprite : NSObject <TMRenderable> {
+@interface Sprite : NSObject <TMRenderable, TMLogicUpdater> {
 	Texture2D* texture;
 @public
 	deque<QueuedKeyFrame> m_qkf;
@@ -94,6 +95,7 @@ struct QueuedKeyFrame
 - (void) finishKeyFrames;
 //- (id) initWithTexture2D:(Texture2D *)texture;
 - (id) init;
+- (void) update:(float)fDelta;
 - (void) render:(float)fDelta;
 
 @end
