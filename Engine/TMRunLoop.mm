@@ -117,7 +117,7 @@
 
 /* Private worker */
 - (void) worker {
-	float prevTime = [TimingUtil getCurrentTime] - 1.0f;
+	double prevTime = [TimingUtil getCurrentTime] - 1.0f;
 
 	// We need a delegate
 	assert(m_idDelegate != nil);
@@ -134,9 +134,12 @@
 	while (!m_bStopRequested) {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
-		float currentTime = [TimingUtil getCurrentTime];
+		double currentTime = [TimingUtil getCurrentTime];
 		
-		float delta = fmaxf(0.0001, fminf(0.25f, currentTime-prevTime));
+		float delta = currentTime-prevTime;
+		//TMLog(@"currentTime %f - delta %f", currentTime, delta);
+		delta = fmaxf(0.0f, fminf(0.25f, delta));
+		
 		prevTime = currentTime;
 		
 		/* Now call the runLoopBeforeHook method on the delegate */
