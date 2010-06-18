@@ -21,16 +21,7 @@
 
 @implementation Judgement
 
-- (void) drawJudgement:(int) frame {
-	glEnable(GL_BLEND);
-	[m_texture drawFrame:frame atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
-	glDisable(GL_BLEND);
-}
-
 - (void) reset {
-	m_dElapsedTime = 0.0f;
-	m_nCurrentJudgement = kJudgementNone;
-	m_nCurrentFlag = kTimingFlagInvalid;	
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
@@ -42,10 +33,8 @@
 	self.texture = m_texture;
 
 	// Cache metrics
-	mt_JudgementX = INT_METRIC(@"SongPlay Judgement X");
-	mt_JudgementY = INT_METRIC(@"SongPlay Judgement Y");
-	mt_JudgementMaxShowTime = FLOAT_METRIC(@"SongPlay Judgement MaxShowTime");
-	
+	int mt_JudgementX = INT_METRIC(@"SongPlay Judgement X");
+	int mt_JudgementY = INT_METRIC(@"SongPlay Judgement Y");	
 	
 	[self setX: mt_JudgementX];
 	[self setY: mt_JudgementY];
@@ -63,10 +52,7 @@
 }
 
 - (void) setCurrentJudgement:(TMJudgement) judgement andTimingFlag:(TMTimingFlag)flag{
-	m_dElapsedTime = 0.0f;
-	m_nCurrentJudgement = judgement;
-	m_nCurrentFlag = flag;
-	frameIndex = m_nCurrentJudgement*2+m_nCurrentFlag;
+	frameIndex = judgement*2 + flag;
 	switch( judgement )
 	{
 		default:
@@ -96,26 +82,10 @@
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	[super render:fDelta];
-	/*
-	// Just draw the current judgement if it's not set to none
-	if(m_nCurrentJudgement != kJudgementNone) {
-		[self drawJudgement:m_nCurrentJudgement*2+m_nCurrentFlag];
-	}
-	*/
 }
 
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
-	
-	// If we show some judgement we must fade it out after some period of time
-	if(m_nCurrentJudgement != kJudgementNone) {
-		m_dElapsedTime += fDelta;
-	
-		if(m_dElapsedTime >= mt_JudgementMaxShowTime) {
-			m_dElapsedTime = 0.0f;
-			m_nCurrentJudgement = kJudgementNone;
-		}
-	}
 }
 
 /* TMMessageSupport stuff */
