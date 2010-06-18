@@ -23,7 +23,7 @@
 
 - (void) drawJudgement:(int) frame {
 	glEnable(GL_BLEND);
-	[self drawFrame:frame atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
+	[m_texture drawFrame:frame atPoint:CGPointMake(mt_JudgementX, mt_JudgementY)];
 	glDisable(GL_BLEND);
 }
 
@@ -34,9 +34,11 @@
 }
 
 - (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows {
-	self = [super initWithImage:uiImage columns:columns andRows:rows];
+	self = [super init];
 	if(!self) 
 		return nil;
+
+	m_texture = [[TMFramedTexture alloc] initWithImage:uiImage columns:columns andRows:rows];
 
 	// Cache metrics
 	mt_JudgementX = INT_METRIC(@"SongPlay Judgement X");
@@ -51,6 +53,7 @@
 
 - (void) dealloc {
 	UNSUBSCRIBE_ALL();
+	[m_texture release];
 	[super dealloc];
 }
 

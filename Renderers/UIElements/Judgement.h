@@ -30,12 +30,13 @@ typedef enum {
 	kTimingFlagLate	
 } TMTimingFlag;
 
-@interface Judgement : TMFramedTexture <TMLogicUpdater, TMRenderable, TMMessageSupport> {
+@interface Judgement : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
 	TMJudgement m_nCurrentJudgement;	// Currently displayed judgement
 	TMTimingFlag m_nCurrentFlag;
 	double m_dElapsedTime;	// Time elapsed since last renew of the judgement
 	
 	/* Metrics etc. */
+	TMFramedTexture* m_texture;
 	int mt_JudgementX, mt_JudgementY;
 	float mt_JudgementMaxShowTime;
 }
