@@ -121,6 +121,9 @@
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);	
 }
 
+- (void) drawFrame:(int)frameId {
+	[self drawFrame:frameId atPoint:CGPointZero];
+}
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point {
 
 	// Sanity check

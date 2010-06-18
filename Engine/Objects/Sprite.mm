@@ -173,7 +173,7 @@
 	// TODO: Make a color stack and multiply by the top color on the stack.
 	glColor4f(kf.r, kf.g, kf.b, kf.a);
 	
-	[texture drawFrame:frameIndex atPoint:CGPointZero];
+	[texture drawFrame:frameIndex];
 	
 	// TODO: restore previous color, not (1,1,1,1)
 	glColor4f(1, 1, 1, 1);
