@@ -78,6 +78,14 @@
 	m_qkf.back().kf.rotationZDegrees = degrees;
 }
 
+- (void) setR:(float)r G:(float)g B:(float)b
+{
+	QueuedKeyFrame &qkf = m_qkf.back();
+	qkf.kf.r = r;
+	qkf.kf.g = g;
+	qkf.kf.b = b;
+}
+
 - (void) setAlpha:(float)a
 {
 	m_qkf.back().kf.a = a;

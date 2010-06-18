@@ -89,6 +89,7 @@ struct QueuedKeyFrame
 - (void) setRotationX:(float)degrees;
 - (void) setRotationY:(float)degrees;
 - (void) setRotationZ:(float)degrees;
+- (void) setR:(float)r G:(float)g B:(float)b;
 - (void) setAlpha:(float)a;
 - (void) finishKeyFrames;
 //- (id) initWithTexture2D:(Texture2D *)texture;

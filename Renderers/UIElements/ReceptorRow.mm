@@ -49,25 +49,37 @@ extern TMGameState* g_pGameState;
 		m_dExplosionTime[i] = 0.0f;
 		m_nExplosion[i] = kExplosionTypeNone;
 		
+		{
 		// Load up the Dim explosion sprite
-		Sprite* spr = [[Sprite alloc] init];
-		[spr setTexture: t_ExplosionDim];
-		[spr pushKeyFrame:15.0];
-		[spr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
-		[spr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
-		[spr setScale:1];
-		[spr setRotationZ:mt_ReceptorRotations[i]];
-		m_spriteExplosionDim[i] = spr;
+			Sprite* spr = [[Sprite alloc] init];
+			[spr setTexture: t_ExplosionDim];
+			[spr setAlpha:0];
+			[spr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
+			[spr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
+			[spr setRotationZ:mt_ReceptorRotations[i]];
+			m_spriteExplosionDim[i] = spr;
+		}
 		
-		// Load up the Bright explosion
-		Sprite* bspr = [[Sprite alloc] init];
-		[bspr setTexture: t_ExplosionBright];
-		[bspr pushKeyFrame:15.0];
-		[bspr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
-		[bspr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
-		[bspr setScale:1];
-		[bspr setRotationZ:mt_ReceptorRotations[i]];
-		m_spriteExplosionBright[i] = bspr;		
+		{
+			// Load up the Bright explosion
+			Sprite* spr = [[Sprite alloc] init];
+			[spr setTexture: t_ExplosionBright];
+			[spr setAlpha:0];
+			[spr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
+			[spr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
+			[spr setRotationZ:mt_ReceptorRotations[i]];
+			m_spriteExplosionBright[i] = spr;		
+		}
+		{
+			// Load up the Mine explosion
+			Sprite* spr = [[Sprite alloc] init];
+			[spr setTexture: t_MineExplosion];
+			[spr setAlpha:0];
+			[spr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
+			[spr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
+			[spr setRotationZ:mt_ReceptorRotations[i]];
+			m_spriteMineExplosion[i] = spr;		
+		}
 	}
 	
 	m_spr = [[Sprite alloc] init];
@@ -96,31 +108,50 @@ extern TMGameState* g_pGameState;
 	[super dealloc];
 }
 
-- (void) explodeDim:(TMAvailableTracks)receptor {
+- (void) tapNoteExplodeTrack:(TMAvailableTracks)track bright:(bool)bright judgement:(TMJudgement)judgement {
 	//m_dExplosionTime[receptor] = 0.0f;
 	//m_nExplosion[receptor] = kExplosionTypeDim;
-	int i = receptor;
-	[m_spriteExplosionDim[i] finishKeyFrames];
-	[m_spriteExplosionDim[i] setScale:1.05];
-	[m_spriteExplosionDim[i] setAlpha:1];
-	[m_spriteExplosionDim[i] pushKeyFrame:0.3];
-	[m_spriteExplosionDim[i] setAlpha:0];
+	int i = track;
+	Sprite *spr = bright ? m_spriteExplosionBright[i] : m_spriteExplosionDim[i];
+	[spr finishKeyFrames];
+	[spr setScale:1.05];
+	[spr setAlpha:1];
+	// TODO: Remove hard-coded colors
+	float r, g, b;
+	switch( judgement )	{
+		default:
+			assert(0);
+		case kJudgementW1:
+			r = 1; g = 1; b = 1;
+			break;
+		case kJudgementW2:
+			r = 1; g = 1; b = 0;
+			break;
+		case kJudgementW3:
+			r = 0.2; g = 1; b = 0.2;
+			break;
+		case kJudgementW4:
+			r = 0; g = 0.9; b = 1;
+			break;
+		case kJudgementW5:
+			r = 1; g = 0.2; b = 0.8;
+			break;
+	}
+	[spr setR:r G:g B:b];
+	[spr pushKeyFrame:0.3];
+	[spr setAlpha:0];
 }
 
-- (void) explodeBright:(TMAvailableTracks)receptor {
+- (void) explodeMine:(TMAvailableTracks)receptor {
 	//m_dExplosionTime[receptor] = 0.0f;
-	//m_nExplosion[receptor] = kExplosionTypeBright;
+	//m_nExplosion[receptor] = kExplosionTypeMine;
+	// TODO: make keyframing rotate
 	int i = receptor;
 	[m_spriteExplosionBright[i] finishKeyFrames];
 	[m_spriteExplosionBright[i] setScale:1.05];
 	[m_spriteExplosionBright[i] setAlpha:1];
 	[m_spriteExplosionBright[i] pushKeyFrame:0.3];
 	[m_spriteExplosionBright[i] setAlpha:0];	
-}
-
-- (void) explodeMine:(TMAvailableTracks)receptor {
-	m_dExplosionTime[receptor] = 0.0f;
-	m_nExplosion[receptor] = kExplosionTypeMine;
 }
 
 /* TMRenderable method */
@@ -134,6 +165,7 @@ extern TMGameState* g_pGameState;
 		// Draw the explosions
 		[m_spriteExplosionDim[i] render:fDelta];
 		[m_spriteExplosionBright[i] render:fDelta];
+		[m_spriteMineExplosion[i] render:fDelta];
 	}
 
 	[m_spr render:fDelta];
@@ -175,12 +207,8 @@ extern TMGameState* g_pGameState;
 						// flash bright if combo over certain threshold
 						// TODO: move threshold to some configurable place
 						TMLog(@"Current combo: %d", g_pGameState->m_nCombo);
-						if(g_pGameState->m_nCombo >= 100) {
-							[self explodeBright:note.m_nTrack];
-						} else {
-							[self explodeDim:note.m_nTrack];
-						}
-
+						bool bright = g_pGameState->m_nCombo >= 100;
+						[self tapNoteExplodeTrack:note.m_nTrack bright:bright judgement:note.m_nScore];
 						break;
 				}
 			}
