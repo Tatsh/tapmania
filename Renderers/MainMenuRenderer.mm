@@ -35,9 +35,9 @@
 #import "GameState.h"
 #import "VersionInfo.h"
 
-@interface MainMenuRenderer (InputHandling)
-- (void) donateButtonHit;
-@end
+//@interface MainMenuRenderer (InputHandling)
+//- (void) donateButtonHit;
+//@end
 
 extern TMGameState* g_pGameState;
 
@@ -61,13 +61,13 @@ extern TMGameState* g_pGameState;
 	// [self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)]];
 	
 	// Create donation button
-	ImageButton* donateButton = 
-	[[ZoomEffect alloc] initWithRenderable:
-		 [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
-	[self pushBackControl:donateButton];
+	//ImageButton* donateButton = 
+	//[[ZoomEffect alloc] initWithRenderable:
+	//	 [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
+	//[self pushBackControl:donateButton];
 	 
 	// Setup input handlers
-	[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
+	//[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];	
 		
 	// Play music
 	if( ! sr_BG.playing ) {
@@ -101,10 +101,10 @@ extern TMGameState* g_pGameState;
 	[super render:fDelta];
 }
 
-/* Input handlers */
-- (void) donateButtonHit {
-	NSURL* url = [NSURL URLWithString:DONATE_URL];
-	[[UIApplication sharedApplication] openURL:url];
-}
+///* Input handlers */
+//- (void) donateButtonHit {
+//	NSURL* url = [NSURL URLWithString:DONATE_URL];
+//	[[UIApplication sharedApplication] openURL:url];
+//}
 
 @end

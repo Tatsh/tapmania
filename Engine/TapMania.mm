@@ -41,6 +41,7 @@
 #import "ModCommand.h"
 #import "ZoomCommand.h"
 
+#import "TapManiaAppDelegate.h"
 #import "GameState.h"
 #import "FPS.h"
 
@@ -182,7 +183,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 		[m_pAdsView doNotIgnoreNewAdRequests];
 		
 		[m_pGlView addSubview:m_pAdsView];
-		[m_pAdsView getNextAd];
+		[m_pAdsView requestFreshAd];
 	}
 #endif
 }
@@ -205,7 +206,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	CGRect rect = [[UIScreen mainScreen] bounds];	
 	
 	// Setup window
-	m_pWindow = [[[UIWindow alloc] initWithFrame:rect] autorelease];
+	m_pWindow = ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).rootView;
 	
 	// Init global joypad
 	m_pJoyPad = [[JoyPad alloc] init];
@@ -271,7 +272,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 #ifdef ENABLE_ADWHIRL
 	// Create the AdWhirl thing
-	m_pAdsView = [ARRollerView requestRollerViewWithDelegate:self];
+	m_pAdsView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
 	m_pAdsView.clipsToBounds = YES;
 	
 	if(g_pGameState->m_bLandscape) {
@@ -283,9 +284,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGlView addSubview:m_pAdsView];
 	TMLog(@"Added the AdWhirl view.");
 #endif // ENABLE_ADWHIRL
-	
-	// Show window
-	[m_pWindow makeKeyAndVisible];
 	
 	TMLog(@"Done initializing opengl");
 }
@@ -316,37 +314,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 #ifdef ENABLE_ADWHIRL
 - (NSString*)adWhirlApplicationKey
 {
-	// 0.1.7 version
-	return @"839677085bd3102d81f0fcd5368d21fc";
+	// 0.2 version
+	return @"da78df68fc3349dbb76d1811c322cfff";
 	
+	// 0.1.7 version -	return @"839677085bd3102d81f0fcd5368d21fc";
 	// 0.1.6 -   return @"c7b13290e38c102c96dc5b26aef5c1e9";
 }
 
-#pragma mark ARRollerDelegate optional delegate method implementations
-
-- (void)rollerDidReceiveAd:(ARRollerView*)adWhirlView
+- (UIViewController*)viewControllerForPresentingModalView
 {
-	TMLog(@"Received ad from %@!", [m_pAdsView mostRecentNetworkName]);
-	
-}
-- (void)rollerDidFailToReceiveAd:(ARRollerView*)adWhirlView usingBackup:(BOOL)YesOrNo
-{
-	TMLog(@"Failed to receive ad from %@.  Using Backup: %@", [m_pAdsView mostRecentNetworkName], YesOrNo ? @"YES" : @"NO");
-}
-
-- (void)rollerReceivedRequestForDeveloperToFulfill:(ARRollerView*)adWhirlView
-{
-	TMLog(@"Received Generic Notification.  Use this notification to do anything you want, such as making a ad request call to an ad network");
-}
-
-- (void)willDisplayWebViewCanvas
-{
-	TMLog(@"A webview canvas will be displayed now because the user tapped on a banner ad.");
-}
-
-- (void)didDismissWebViewCanvas
-{
-	TMLog(@"The webview canvas will now disappear.");
+	return ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).adwhirlController;
 }
 #endif // ENABLE_ADWHIRL
 

@@ -12,7 +12,17 @@
 
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
 {
+	UIWindow* m_pWindow;
+	UIView* m_pRootView;
+	UIViewController* m_pAdWhirlCtrl;
+	UIViewController* m_pRootCtrl;
 }
+
+@property (retain, nonatomic) IBOutlet UIWindow* window;
+@property (retain, nonatomic) IBOutlet UIView* rootView;
+
+@property (retain, nonatomic) IBOutlet UIViewController* rootController;
+@property (retain, nonatomic) IBOutlet UIViewController* adwhirlController;
 
 @end
 

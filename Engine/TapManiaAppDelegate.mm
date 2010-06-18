@@ -21,6 +21,11 @@
 
 @implementation TapManiaAppDelegate
 
+@synthesize window = m_pWindow;
+@synthesize rootView = m_pRootView;
+@synthesize rootController = m_pRootCtrl;
+@synthesize adwhirlController = m_pAdWhirlCtrl;
+
 - (void) applicationDidFinishLaunching:(UIApplication*)application {				
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 	
@@ -44,6 +49,8 @@
 	// Get rid of the accelerometer
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];                                                                                                                                                               
+	
+	[self.window makeKeyAndVisible];
 	
 	// Start the game.
 	[[TapMania sharedInstance] startGame];

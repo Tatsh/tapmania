@@ -20,9 +20,11 @@
 	
 	TMScreen*			m_pCurrentScreen;	// This is set to currently rendering screen
 	
-	UIWindow*			m_pWindow;
+	UIView*				m_pWindow;
 	EAGLView*			m_pGlView;
-	ARRollerView*		m_pAdsView;
+#ifdef ENABLE_ADWHIRL
+	AdWhirlView*		m_pAdsView;
+#endif
 		
 	TMRunLoop*			m_pGameRunLoop;
 	JoyPad*				m_pJoyPad;			// The joypad
@@ -32,7 +34,7 @@
 }
 
 @property (retain, nonatomic, readonly, getter=glView) EAGLView* m_pGlView;
-@property (retain, nonatomic, readonly) UIWindow* m_pWindow;
+@property (retain, nonatomic, readonly) UIView* m_pWindow;
 
 @property (retain, nonatomic, readonly, getter=joyPad) JoyPad* m_pJoyPad;
 @property (retain, nonatomic, readonly) TMRunLoop* m_pGameRunLoop;
