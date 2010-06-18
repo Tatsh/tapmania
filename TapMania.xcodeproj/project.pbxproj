@@ -261,6 +261,7 @@
 		28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.mm */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		F4433E8611CAEC9C005AC29A /* Sprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4433E8511CAEC9C005AC29A /* Sprite.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -703,6 +704,8 @@
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4433E8411CAEC9C005AC29A /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		F4433E8511CAEC9C005AC29A /* Sprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sprite.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -894,6 +897,8 @@
 				24F1AA0D106A2EC200A63B96 /* Quad.mm */,
 				24BC9F461107F21D00F1ADEC /* FontString.h */,
 				24BC9F471107F21D00F1ADEC /* FontString.mm */,
+				F4433E8411CAEC9C005AC29A /* Sprite.h */,
+				F4433E8511CAEC9C005AC29A /* Sprite.mm */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1875,6 +1880,7 @@
 				24234E01115A12F400E14860 /* SQLitePersistentObject.m in Sources */,
 				24234E02115A12F400E14860 /* UIColor-SQLitePersistentObject.m in Sources */,
 				24234E03115A12F400E14860 /* UIImage-SQLitePersistence.m in Sources */,
+				F4433E8611CAEC9C005AC29A /* Sprite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

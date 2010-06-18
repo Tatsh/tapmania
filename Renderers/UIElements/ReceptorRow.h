@@ -21,7 +21,7 @@ typedef enum {
 	kNumOfExplosionTypes
 } TMExplosionType;
 
-@class Receptor, Texture2D, TMSound;
+@class Receptor, Texture2D, TMSound, Sprite;
 
 /*
  * This class is able to render all 4 receptor arrows at their places with animation
@@ -40,6 +40,9 @@ typedef enum {
 		
 	Receptor* t_GoReceptor;
 	Texture2D* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
+	Sprite* m_spriteExplosionDim[kNumOfAvailableTracks];
+	
+	Sprite* m_spr;
 	
 	TMSound* sr_ExplosionMine;
 }

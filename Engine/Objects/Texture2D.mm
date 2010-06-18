@@ -296,7 +296,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 {
 	GLfloat	width = (GLfloat)m_unWidth * m_fMaxS,
 			height = (GLfloat)m_unHeight * m_fMaxT;
-	// TODO: CGRect's origin is being used as the upper-left point in the rectangle.
+	// TODO: CGRect's origin is being used as the lower-left point in the rectangle.
 	// Change the convention to have origin be the center.
 	CGRect rect = CGRectMake(
 			-width / 2 + point.x, -height / 2 + point.y, 

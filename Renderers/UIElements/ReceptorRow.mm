@@ -16,6 +16,7 @@
 #import "TMSound.h"
 #import "TMSoundEngine.h"
 #import "MessageManager.h"
+#import "Sprite.h"
 
 @implementation ReceptorRow
 
@@ -26,6 +27,14 @@
 	
 	// Subscribe to messages
 	SUBSCRIBE(kNoteScoreMessage);
+
+	mt_ReceptorExplosionMaxShowTime = FLOAT_SKIN_METRIC(@"ReceptorRow Explosion MaxShowTime");
+	
+	// Cache textures
+	t_GoReceptor = (Receptor*)SKIN_TEXTURE(@"DownGoReceptor");
+	t_ExplosionDim = SKIN_TEXTURE(@"DownTapExplosionDim");
+	t_ExplosionBright = SKIN_TEXTURE(@"DownTapExplosionBright");
+	t_MineExplosion = SKIN_TEXTURE(@"HitMineExplosion");
 	
 	// Cache metrics
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
@@ -36,15 +45,27 @@
 		
 		m_dExplosionTime[i] = 0.0f;
 		m_nExplosion[i] = kExplosionTypeNone;
+		
+		
+		Sprite* spr = [[Sprite alloc] init];
+		[spr setTexture: t_ExplosionDim];
+		[spr pushKeyFrame:15.0];
+		[spr setX:mt_Receptors[i].origin.x + mt_Receptors[i].size.width/2];
+		[spr setY:mt_Receptors[i].origin.y + mt_Receptors[i].size.height/2];
+		[spr setScale:1];
+		[spr setRotationZ:mt_ReceptorRotations[i]];
+		m_spriteExplosionDim[i] = spr;
 	}
 	
-	mt_ReceptorExplosionMaxShowTime = FLOAT_SKIN_METRIC(@"ReceptorRow Explosion MaxShowTime");
-	
-	// Cache textures
-	t_GoReceptor = (Receptor*)SKIN_TEXTURE(@"DownGoReceptor");
-	t_ExplosionDim = SKIN_TEXTURE(@"DownTapExplosionDim");
-	t_ExplosionBright = SKIN_TEXTURE(@"DownTapExplosionBright");
-	t_MineExplosion = SKIN_TEXTURE(@"HitMineExplosion");
+	m_spr = [[Sprite alloc] init];
+	[m_spr setTexture: t_ExplosionDim];
+	[m_spr setAlpha:0.5];
+	[m_spr pushKeyFrame:15.0];
+	[m_spr setX:200];
+	[m_spr setY:200];
+	[m_spr setScale:2];
+	[m_spr setRotationZ:180];
+
 	
 	// Sounds
 	sr_ExplosionMine = SOUND(@"SongPlay HitMine"); 
@@ -54,12 +75,22 @@
 
 - (void) dealloc {
 	UNSUBSCRIBE_ALL();
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		[m_spriteExplosionDim[i] release];
+	}
+	[m_spr release];
 	[super dealloc];
 }
 
 - (void) explodeDim:(TMAvailableTracks)receptor {
-	m_dExplosionTime[receptor] = 0.0f;
-	m_nExplosion[receptor] = kExplosionTypeDim;
+	//m_dExplosionTime[receptor] = 0.0f;
+	//m_nExplosion[receptor] = kExplosionTypeDim;
+	int i = receptor;
+	[m_spriteExplosionDim[i] finishKeyFrames];
+	[m_spriteExplosionDim[i] setScale:1.05];
+	[m_spriteExplosionDim[i] setAlpha:1];
+	[m_spriteExplosionDim[i] pushKeyFrame:0.3];
+	[m_spriteExplosionDim[i] setAlpha:0];
 }
 
 - (void) explodeBright:(TMAvailableTracks)receptor {
@@ -104,6 +135,11 @@
 			}
 		}
 	}
+
+	for(int i=0; i<kNumOfAvailableTracks; ++i) {
+		[m_spriteExplosionDim[i] render:fDelta];
+	}
+	[m_spr render:fDelta];
 }
 
 /* TMLogicUpdater method */
