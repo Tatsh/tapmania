@@ -48,19 +48,22 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
 	if([paths count] > 0) {
 		NSString * dir = [paths objectAtIndex:0]; 
-		m_sSongsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
+		m_sUserSongsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
 		
 		// Create the songs dir if missing
-		if(! [[NSFileManager defaultManager] isReadableFileAtPath:m_sSongsDir]){
-			[[NSFileManager defaultManager] createDirectoryAtPath:m_sSongsDir attributes:nil];
+		if(! [[NSFileManager defaultManager] isReadableFileAtPath:m_sUserSongsDir]){
+			[[NSFileManager defaultManager] createDirectoryAtPath:m_sUserSongsDir attributes:nil];
 		}
 		
-		TMLog(@"Songs dir at: %@", m_sSongsDir);		
+		TMLog(@"User Songs dir at: %@", m_sUserSongsDir);		
 	} else {
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound"
 				reason:@"Songs directory couldn't be found because the system failed to give us a Documents folder!" userInfo:nil];
 		@throw ex;
 	}
+	
+	m_sBundleSongsDir = [[NSBundle mainBundle] pathForResource:@"Songs" ofType:nil];	
+	TMLog(@"Bundle Songs dir at: %@", m_sBundleSongsDir);		
 	
 	// Try to read the catalogue file
 	m_pCatalogueCacheOld = [[SongsDirectoryCache sharedInstance] getCatalogueCache];		
@@ -73,12 +76,22 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (void) cacheSongs {
 	TMLog(@"Caching songs in 'Songs' dir...");
 	
-	int i;	
 	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
-	
-	// Read all songs in the dir and cache them
-	NSArray* songsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:m_sSongsDir];
-	
+
+	NSMutableArray* baseDirs = [[NSMutableArray alloc] init];
+	[baseDirs addObject:m_sBundleSongsDir];
+	[baseDirs addObject:m_sUserSongsDir];
+
+	NSMutableArray* fullSongDirs = [[NSMutableArray alloc] init];
+	for(int i = 0; i<[baseDirs count]; i++) {
+		NSString* baseDir = [baseDirs objectAtIndex:i];
+		NSArray* relativeSongDirs = [[NSFileManager defaultManager] directoryContentsAtPath:baseDir];
+		for(int j = 0; j<[relativeSongDirs count]; j++) {
+			NSString* relativeSongDir = [relativeSongDirs objectAtIndex:j];
+			[fullSongDirs addObject:[baseDir stringByAppendingPathComponent:relativeSongDir]];
+		}
+	}
+		
 	// Raise error if empty songs dir
 	/*
 	 Version 0.1.6 introduces a webserver solution for song upload/management.
@@ -87,15 +100,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	 the user will need to upload songs first if none are available.
 	*/
 	 
-	if([songsDirContents count] == 0) {
+	if([fullSongDirs count] == 0) {
 		m_bCatalogueIsEmpty = YES;
 	}
 
 	TMLog(@"Old cache has %d elements", [m_pCatalogueCacheOld count]);
 	
 	// Renew the cache
-	for(i = 0; i<[songsDirContents count]; i++) {
-		[self addSongToLibrary:[m_sSongsDir stringByAppendingPathComponent:[songsDirContents objectAtIndex:i]] useCache:YES];
+	for(int i = 0; i<[fullSongDirs count]; i++) {
+		NSString* fullSongDir = [fullSongDirs objectAtIndex:i];
+		[self addSongToLibrary:fullSongDir useCache:YES];
 	}
 
 	// Write cache file

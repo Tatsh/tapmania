@@ -14,7 +14,9 @@
 @class TMSong;
 
 @interface SongsDirectoryCache : NSObject {
-	NSString*				m_sSongsDir;		// The path to 'Songs' directory
+	NSString*				m_sUserSongsDir;		// The path to user 'Songs' directory
+	NSString*				m_sBundleSongsDir;		// The path to bundled 'Songs' directory
+	
 	NSMutableArray*			m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
 	
 	NSMutableDictionary*	m_pCatalogueCacheOld;
