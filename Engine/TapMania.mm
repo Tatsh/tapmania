@@ -268,8 +268,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	glDisable( GL_LIGHTING );
 	
 	// Add the gl view to our main window
-	[m_pWindow addSubview:m_pGlView];		
+	[m_pWindow addSubview:m_pGlView];	
 
+	
 #ifdef ENABLE_ADWHIRL
 	// Create the AdWhirl thing
 	m_pAdsView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
@@ -296,8 +297,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Will start with song loader
 	[[TapMania sharedInstance] switchToScreen:[SongsCacheLoaderRenderer class] withMetrics:@"SongsCacheLoader" usingTransition:[FadeTransition class] timeIn:0.0f timeOut:0.5f];
-		
+	
 	TMLog(@"Game run loop initialized...");
+
+	// Finally remove the loading screen
+	[[m_pWindow.subviews objectAtIndex:0] removeFromSuperview];
 }
 
 - (void) runLoopBeforeHook:(float)fDelta {
