@@ -164,7 +164,7 @@ extern TMGameState * g_pGameState;
 	}
 	
 	// Play preview music
-	NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
+	NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
 	m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
 	
 	[[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];

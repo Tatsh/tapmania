@@ -25,7 +25,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (BOOL) dirIsSimfile:(NSString*)path;
 - (void) addSongFromDir:(NSString*)path;
-- (BOOL) addSongToLibrary:(NSString*) curPath useCache:(BOOL)useCache;
+- (BOOL) addSongToLibrary:(NSString*) curPath fromSongsPathId:(TMSongsPath)pathId useCache:(BOOL)useCache;
 
 + (NSString*)fileMD5:(NSString*)path;
 + (NSString*)dirMD5:(NSString*)path;
@@ -42,28 +42,31 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		return nil;
 	
 	m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
+	m_SongsDirs = [[NSMutableDictionary dictionaryWithCapacity:2] retain];
 	m_bCatalogueIsEmpty = NO;
 	
 	// Get songs directory
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
 	if([paths count] > 0) {
 		NSString * dir = [paths objectAtIndex:0]; 
-		m_sUserSongsDir = [[dir stringByAppendingPathComponent:@"Songs"] retain];
+		NSString * userSongsDir = [dir stringByAppendingPathComponent:@"Songs"];
+		[m_SongsDirs setObject:userSongsDir forKey:[NSNumber numberWithInt:kUserSongsPath]];
 		
 		// Create the songs dir if missing
-		if(! [[NSFileManager defaultManager] isReadableFileAtPath:m_sUserSongsDir]){
-			[[NSFileManager defaultManager] createDirectoryAtPath:m_sUserSongsDir attributes:nil];
+		if(! [[NSFileManager defaultManager] isReadableFileAtPath:userSongsDir]){
+			[[NSFileManager defaultManager] createDirectoryAtPath:userSongsDir attributes:nil];
 		}
 		
-		TMLog(@"User Songs dir at: %@", m_sUserSongsDir);		
+		TMLog(@"User Songs dir at: %@", userSongsDir);		
 	} else {
 		NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound"
 				reason:@"Songs directory couldn't be found because the system failed to give us a Documents folder!" userInfo:nil];
 		@throw ex;
 	}
 	
-	m_sBundleSongsDir = [[NSBundle mainBundle] pathForResource:@"Songs" ofType:nil];	
-	TMLog(@"Bundle Songs dir at: %@", m_sBundleSongsDir);		
+	NSString * bundleSongsDir = [[NSBundle mainBundle] pathForResource:@"Songs" ofType:nil];	
+	TMLog(@"Bundle Songs dir at: %@", bundleSongsDir);		
+	[m_SongsDirs setObject:bundleSongsDir forKey:[NSNumber numberWithInt:kBundleSongsPath]];
 	
 	// Try to read the catalogue file
 	m_pCatalogueCacheOld = [[SongsDirectoryCache sharedInstance] getCatalogueCache];		
@@ -74,21 +77,29 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 
 - (void) cacheSongs {
-	TMLog(@"Caching songs in 'Songs' dir...");
+	TMLog(@"Caching songs in 'Songs' dirs...");
 	
 	[m_aAvailableSongs removeAllObjects];	// Clear the list if we had filled it before
 
 	NSMutableArray* baseDirs = [[NSMutableArray alloc] init];
-	[baseDirs addObject:m_sBundleSongsDir];
-	[baseDirs addObject:m_sUserSongsDir];
+	[baseDirs addObject:[NSNumber numberWithInt: kBundleSongsPath ]];
+	[baseDirs addObject:[NSNumber numberWithInt: kUserSongsPath ]];
 
 	NSMutableArray* fullSongDirs = [[NSMutableArray alloc] init];
 	for(int i = 0; i<[baseDirs count]; i++) {
-		NSString* baseDir = [baseDirs objectAtIndex:i];
+		
+		NSNumber* pId = [baseDirs objectAtIndex:i];
+		TMLog(@"SongsDirPathId: %@", pId);
+		NSString* baseDir = [self getSongsPath:(TMSongsPath)[pId intValue]];
+		TMLog(@"Checking songs dir at: '%@'", baseDir);
+		
 		NSArray* relativeSongDirs = [[NSFileManager defaultManager] directoryContentsAtPath:baseDir];
 		for(int j = 0; j<[relativeSongDirs count]; j++) {
 			NSString* relativeSongDir = [relativeSongDirs objectAtIndex:j];
-			[fullSongDirs addObject:[baseDir stringByAppendingPathComponent:relativeSongDir]];
+			TMLog(@"Found song dir: '%@'", relativeSongDir);
+			
+			[fullSongDirs addObject:[baseDir stringByAppendingPathComponent:relativeSongDir]];			
+			[self addSongToLibrary:[baseDir stringByAppendingPathComponent:relativeSongDir] fromSongsPathId:(TMSongsPath)[pId intValue] useCache:YES];			
 		}
 	}
 		
@@ -106,12 +117,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 	TMLog(@"Old cache has %d elements", [m_pCatalogueCacheOld count]);
 	
-	// Renew the cache
-	for(int i = 0; i<[fullSongDirs count]; i++) {
-		NSString* fullSongDir = [fullSongDirs objectAtIndex:i];
-		[self addSongToLibrary:fullSongDir useCache:YES];
-	}
-
 	// Write cache file
 	[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
 	
@@ -123,13 +128,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	TMLog(@"Done.");	
 }
 
+- (NSString*) getSongsPath:(TMSongsPath)pathId {
+	return [m_SongsDirs objectForKey:[NSNumber numberWithInt:pathId]];
+}
+
 - (NSArray*) getSongList {
 	return m_aAvailableSongs;
 }
 
-- (NSString*) getSongsPath {
-	return m_sSongsDir;
-}
 
 - (TMSong*) getSongNextTo:(TMSong*)song {
 	int i = [m_aAvailableSongs indexOfObject:song];
@@ -211,7 +217,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 }
 
 - (void) addSongFromDir:(NSString*)path {
-	NSString* curPath = [m_sSongsDir stringByAppendingPathComponent:[path lastPathComponent]];
+	NSString* curPath = [[self getSongsPath:kUserSongsPath] stringByAppendingPathComponent:[path lastPathComponent]];
 	BOOL isDir;
 	
 	// Check whether the Song already exists in the catalogue
@@ -224,14 +230,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	NSError* err;
 
 	if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
-		if([self addSongToLibrary:curPath useCache:NO]) {
+		if([self addSongToLibrary:curPath fromSongsPathId:kUserSongsPath useCache:NO]) {
 			// Write cache file
 			[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
 		}
 	}
 }
 
-- (BOOL) addSongToLibrary:(NSString*) curPath useCache:(BOOL)useCache {
+- (BOOL) addSongToLibrary:(NSString*)curPath fromSongsPathId:(TMSongsPath)pathId useCache:(BOOL)useCache {
 	NSArray* dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:curPath];
 	NSString* songDirName = [curPath lastPathComponent];
 	
@@ -277,8 +283,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		TMLog(@"Music file path: %@", musicFilePath);
 		
 		// Make the files relative to the songs dir
-		musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
-		stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:m_sSongsDir withString:@""];
+		NSString* songsDir = [self getSongsPath:pathId];
+		musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
+		stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
 		
 		if(useCache && [m_pCatalogueCacheOld valueForKey:songDirName] != nil) {
 			TMLog(@"Catalogue file has this file already!");
@@ -292,8 +299,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			if(! [songHash isEqualToString:song.m_sHash]) {
 				TMLog(@"Hash missmatch! Must reload!");
 				[song release];
-				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];								
+				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName fromSongsPathId:pathId];								
 				song.m_sHash = songHash;
+				song.m_iSongsPath = pathId;
 			}
 			
 			// No matter where it comes from, cache or not, we need to save it to the new cache file
@@ -301,13 +309,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			[m_aAvailableSongs addObject:song];
 			
 		} else {
-			TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName];				
+			TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName fromSongsPathId:pathId];				
 			
 			// Calculate the hash and store it
 			NSString* songHash = [SongsDirectoryCache dirMD5:curPath];
 			TMLog(@"GOT HASH: '%@'", songHash);
 			
 			song.m_sHash = songHash;
+			song.m_iSongsPath = pathId;
 			
 			TMLog(@"Song ready to be added to list!!");
 			[m_aAvailableSongs addObject:song];
@@ -337,7 +346,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	TMSong* foundSong = nil;
 	
 	for(TMSong* song in m_aAvailableSongs) {
-		if([song.m_sSongDirName isEqualToString:songDirName]) {
+		
+		// We can only delete user created songs
+		if(song.m_iSongsPath == kUserSongsPath 
+			&& [song.m_sSongDirName isEqualToString:songDirName]) 
+		{
 			foundSong = song;
 			break;
 		}
@@ -359,7 +372,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	// Remove the directory on the FS
 	NSError* err;
-	[[NSFileManager defaultManager] removeItemAtPath:[m_sSongsDir stringByAppendingPathComponent:songDirName] error:&err];
+	[[NSFileManager defaultManager] removeItemAtPath:[[self getSongsPath:kUserSongsPath] stringByAppendingPathComponent:songDirName] error:&err];
 }
 
 - (NSMutableDictionary*) getCatalogueCache {
@@ -473,7 +486,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 }
 
 - (void) dealloc {
-	[m_sSongsDir release];
+	[m_SongsDirs release];
 	[m_aAvailableSongs release];
 	
 	[super dealloc];

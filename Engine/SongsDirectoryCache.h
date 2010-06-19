@@ -13,10 +13,16 @@
 #define kCatalogueFileName @"TapManiaCatalogue_%s.plist"
 @class TMSong;
 
+typedef enum {
+	kInvalidSongsPath = 0,
+	kBundleSongsPath,	// The path to bundled 'Songs' directory
+	kUserSongsPath,		// The path to bundled 'Songs' directory
+	kNumSongsPaths
+} TMSongsPath;
+
+
 @interface SongsDirectoryCache : NSObject {
-	NSString*				m_sUserSongsDir;		// The path to user 'Songs' directory
-	NSString*				m_sBundleSongsDir;		// The path to bundled 'Songs' directory
-	
+	NSMutableDictionary*	m_SongsDirs;	
 	NSMutableArray*			m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
 	
 	NSMutableDictionary*	m_pCatalogueCacheOld;
@@ -31,7 +37,8 @@
 
 - (void) cacheSongs;
 - (NSArray*) getSongList;
-- (NSString*) getSongsPath;
+
+- (NSString*) getSongsPath:(TMSongsPath)pathId;
 
 - (TMSong*) getSongNextTo:(TMSong*)song;
 - (TMSong*) getSongPrevFrom:(TMSong*)song;

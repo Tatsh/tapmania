@@ -21,19 +21,21 @@
 
 @synthesize m_nFileType, m_sFilePath, m_sMusicFilePath, m_sSongDirName;
 @synthesize m_fPreviewStart, m_fPreviewDuration;
-@synthesize m_sHash;
+@synthesize m_sHash, m_iSongsPath;
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
 
-- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir {
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir fromSongsPathId:(TMSongsPath)pathId {
+	
+	self.m_iSongsPath = pathId;
 	
 	// Note: only title etc is loaded here. No steps.
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
-		self = [DWIParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:stepsFilePath]];
+		self = [DWIParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath:self.m_iSongsPath] stringByAppendingPathComponent:stepsFilePath]];
 		self.m_nFileType = kSongFileType_DWI;
 		
 	} else if([[stepsFilePath lowercaseString] hasSuffix:@".sm"]) {
-		self = [SMParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:stepsFilePath]];	
+		self = [SMParser parseFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath:self.m_iSongsPath] stringByAppendingPathComponent:stepsFilePath]];	
 		self.m_nFileType = kSongFileType_SM;
 		
 	} else {
@@ -55,10 +57,10 @@
 	TMSteps* steps = nil;
 	
 	if(m_nFileType == kSongFileType_DWI) {
-		steps = [DWIParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
+		steps = [DWIParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath:self.m_iSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
 				forDifficulty:difficulty forSong:self];	
 	} else if(m_nFileType == kSongFileType_SM) {
-		steps = [SMParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
+		steps = [SMParser parseStepsFromFile:[[[SongsDirectoryCache sharedInstance] getSongsPath:self.m_iSongsPath] stringByAppendingPathComponent:self.m_sFilePath]
 				forDifficulty:difficulty forSong:self];	
 	}
 
@@ -135,6 +137,7 @@
 	self.m_fPreviewStart = [coder decodeFloatForKey:@"ps"];
 	self.m_fPreviewDuration = [coder decodeFloatForKey:@"pd"];
 	self.m_sHash = [[coder decodeObjectForKey:@"ha"] retain];
+	self.m_iSongsPath = (TMSongsPath)[coder decodeIntForKey:@"sp"];
 	self.m_nFileType = (TMSongFileType)[coder decodeIntForKey:@"ft"];
 	
 	self.m_sTitle = [[coder decodeObjectForKey:@"t"] retain];
@@ -170,6 +173,7 @@
 	[coder encodeFloat:m_fPreviewStart forKey:@"ps"];
 	[coder encodeFloat:m_fPreviewDuration forKey:@"pd"];
 	[coder encodeObject:m_sHash forKey:@"ha"];
+	[coder encodeInt:m_iSongsPath forKey:@"sp"];
 	[coder encodeInt:m_nFileType forKey:@"ft"];
 	
 	[coder encodeObject:m_sTitle forKey:@"t"];

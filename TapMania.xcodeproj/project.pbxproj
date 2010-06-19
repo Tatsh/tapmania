@@ -75,6 +75,7 @@
 		24627B9E0FBF6DF9002E245D /* Label.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.mm */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */; };
+		247081F711CD705A0045988B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
 		2472663D0EE949A500D501AF /* TapNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.mm */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.mm */; };
 		2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
@@ -482,6 +483,7 @@
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
 		246FB1EC0F28E03E00B3F641 /* HoldJudgement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldJudgement.h; path = Renderers/UIElements/HoldJudgement.h; sourceTree = "<group>"; };
 		246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HoldJudgement.mm; path = Renderers/UIElements/HoldJudgement.mm; sourceTree = "<group>"; };
+		247081F111CD705A0045988B /* Songs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Songs; path = Data/Songs; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
 		2472663C0EE949A500D501AF /* TapNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapNote.mm; path = Renderers/UIElements/TapNote.mm; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
@@ -1692,6 +1694,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				247081F111CD705A0045988B /* Songs */,
 				24CF7F7B1105B7E20010A321 /* noteskins */,
 				249D7FFD0FCC9A2200630646 /* themes */,
 				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
@@ -1970,6 +1973,7 @@
 				24CF7F7C1105B7E20010A321 /* noteskins in Resources */,
 				2410B2CA11CBACAF0097E5AB /* AdWhirlWebBrowser.xib in Resources */,
 				2410B37111CBB8F70097E5AB /* MainWindow.xib in Resources */,
+				247081F711CD705A0045988B /* Songs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2262,10 +2266,7 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ext/AdWhirl\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
 					"-ftree-vectorize",
@@ -2328,10 +2329,7 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ext/AdWhirl\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
 					"-DDEBUG",

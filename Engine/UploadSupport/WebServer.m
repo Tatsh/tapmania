@@ -93,7 +93,14 @@ char* getIndexPage(char* message) {
 		NSString* item = [NSString stringWithUTF8String:itemTmpl];
 		item = [item stringByReplacingOccurrencesOfString:@"%TITLE%" withString:song.title];
 		item = [item stringByReplacingOccurrencesOfString:@"%AUTHOR%" withString:song.m_sArtist];
-		item = [item stringByReplacingOccurrencesOfString:@"%SONGID%" withString:song.m_sSongDirName];
+
+		// Can only delete user songs
+		if(song.m_iSongsPath == kUserSongsPath) {
+			item = [item stringByReplacingOccurrencesOfString:@"%DELETE%" withString:
+				[NSString stringWithFormat:@"<a href=\"/delete?song=%@\">[ delete ]</a>", song.m_sSongDirName]];
+		} else {
+			item = [item stringByReplacingOccurrencesOfString:@"%DELETE%" withString:@"built-in"];
+		}	
 		
 		NSMutableString* diffs = [[NSMutableString alloc] initWithCapacity:3];
 		

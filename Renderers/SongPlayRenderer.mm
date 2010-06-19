@@ -160,7 +160,7 @@ extern TMGameState* g_pGameState;
 	[t_HoldJudgement reset];
 
 	m_pSound = [[TMSound alloc] initWithPath:
-				[[[SongsDirectoryCache sharedInstance] getSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
+				[[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
 	[[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pSound];
 	
 	// Calculate starting offset for music playback

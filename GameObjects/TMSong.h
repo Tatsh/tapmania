@@ -12,6 +12,7 @@
 #include <vector>
 #endif
 
+#import "SongsDirectoryCache.h"	// TMSongsPath
 #import "SQLitePersistentObject.h"
 
 #define kDefaultChangesCapacity 16
@@ -54,7 +55,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 	TMSongFileType	m_nFileType;	// The type of the file
 
 	NSString*		m_sSongDirName;		// Path to this song's dir
- 	NSString*		m_sHash;		// MD5 sum for this song
+ 	NSString*		m_sHash;			// MD5 sum for this song
+	TMSongsPath		m_iSongsPath;		// The songs dir path id
 	
 	// Music file info
 	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
@@ -80,6 +82,7 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (assign) TMSongFileType m_nFileType;
 @property (retain, nonatomic) NSString* m_sSongDirName;
 @property (retain, nonatomic) NSString* m_sHash;
+@property (assign) TMSongsPath	m_iSongsPath;
 
 @property (retain, nonatomic) NSString* m_sMusicFilePath;
 @property (assign) float m_fPreviewStart;
@@ -92,7 +95,7 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (assign) double m_dGap;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
-- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir;
+- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir fromSongsPathId:(TMSongsPath)pathId;
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 
