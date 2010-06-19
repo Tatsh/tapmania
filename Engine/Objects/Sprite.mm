@@ -167,9 +167,9 @@
 	glEnable(GL_BLEND);
 	if( blendAdd )
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	else
+	else {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+	}
 	// TODO: Make a color stack and multiply by the top color on the stack.
 	glColor4f(kf.r, kf.g, kf.b, kf.a);
 	

@@ -39,8 +39,8 @@ typedef enum {
 	float  mt_ReceptorExplosionRotations[kNumOfAvailableTracks];
 	float  mt_ReceptorExplosionMaxShowTime;
 		
-	Receptor* t_GoReceptor;
-	TMFramedTexture* t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
+	Sprite* m_spriteReceptor[kNumOfAvailableTracks];
+	TMFramedTexture *t_Receptor, *t_ExplosionDim, *t_ExplosionBright, *t_MineExplosion;
 	Sprite* m_spriteExplosionDim[kNumOfAvailableTracks];
 	Sprite* m_spriteExplosionBright[kNumOfAvailableTracks];
 	Sprite* m_spriteMineExplosion[kNumOfAvailableTracks];
@@ -50,7 +50,7 @@ typedef enum {
 	TMSound* sr_ExplosionMine;
 }
 
+- (void) buttonTap:(TMAvailableTracks)track;
 - (void) tapNoteExplodeTrack:(TMAvailableTracks)track bright:(bool)bright judgement:(TMJudgement)judgement;
-- (void) explodeMine:(TMAvailableTracks)receptor;		// Mine explosion
-
+- (void) explodeMine:(TMAvailableTracks)track;
 @end

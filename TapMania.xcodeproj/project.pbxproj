@@ -76,7 +76,6 @@
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */; };
 		2472663D0EE949A500D501AF /* TapNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.mm */; };
-		247266540EE94D3B00D501AF /* Receptor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247266530EE94D3B00D501AF /* Receptor.mm */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.mm */; };
 		2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */; };
@@ -485,8 +484,6 @@
 		246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HoldJudgement.mm; path = Renderers/UIElements/HoldJudgement.mm; sourceTree = "<group>"; };
 		2472663B0EE949A500D501AF /* TapNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapNote.h; path = Renderers/UIElements/TapNote.h; sourceTree = "<group>"; };
 		2472663C0EE949A500D501AF /* TapNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapNote.mm; path = Renderers/UIElements/TapNote.mm; sourceTree = "<group>"; };
-		247266520EE94D3B00D501AF /* Receptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Receptor.h; path = Renderers/UIElements/Receptor.h; sourceTree = "<group>"; };
-		247266530EE94D3B00D501AF /* Receptor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Receptor.mm; path = Renderers/UIElements/Receptor.mm; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
 		2472672C0EE97DDC00D501AF /* ReceptorRow.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.mm; path = Renderers/UIElements/ReceptorRow.mm; sourceTree = "<group>"; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
@@ -1638,8 +1635,6 @@
 				2486F2A80EC0A2D600E5F9EE /* LifeBar.mm */,
 				2472663B0EE949A500D501AF /* TapNote.h */,
 				2472663C0EE949A500D501AF /* TapNote.mm */,
-				247266520EE94D3B00D501AF /* Receptor.h */,
-				247266530EE94D3B00D501AF /* Receptor.mm */,
 				2472672B0EE97DDC00D501AF /* ReceptorRow.h */,
 				2472672C0EE97DDC00D501AF /* ReceptorRow.mm */,
 				24AFB4000EEFBC6800D0BF31 /* HoldNote.h */,
@@ -2015,7 +2010,6 @@
 				24854A850EE8015500AD4FAB /* TMFramedTexture.mm in Sources */,
 				24854AD90EE8066800AD4FAB /* Texture2D.mm in Sources */,
 				2472663D0EE949A500D501AF /* TapNote.mm in Sources */,
-				247266540EE94D3B00D501AF /* Receptor.mm in Sources */,
 				2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */,
 				24AFB4020EEFBC6800D0BF31 /* HoldNote.mm in Sources */,
 				24D4C0EF0F1B2D8700643CC2 /* PhysicsUtil.mm in Sources */,

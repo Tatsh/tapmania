@@ -38,6 +38,7 @@
 	
 	[self setX: mt_JudgementX];
 	[self setY: mt_JudgementY];
+	[self setAlpha:0];
 	
 	SUBSCRIBE(kNoteScoreMessage);
 	[self reset];
