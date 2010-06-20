@@ -335,7 +335,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		return YES;
 	} else {
 		if(m_idDelegate != nil) {
-			[m_idDelegate errorLoadingSong:songDirName withReason:@"Steps file or Music file not found for this song. ignoring."];
+			[m_idDelegate errorLoadingSong:songDirName withReason:@"\nSteps file or Music file not found."];
 		}			
 		
 		return NO;
