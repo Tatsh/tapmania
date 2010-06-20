@@ -718,8 +718,6 @@
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
 		24D762980F38A38D008B0AA0 /* ThemeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ThemeManager.mm; path = ThemeSupport/ThemeManager.mm; sourceTree = "<group>"; };
 		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
-		24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlDevice_1.2.6.a; path = ext/AdWhirl/libAdWhirlDevice_1.2.6.a; sourceTree = "<group>"; };
-		24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdWhirlSimulator_1.2.6.a; path = ext/AdWhirl/libAdWhirlSimulator_1.2.6.a; sourceTree = "<group>"; };
 		24DC0DC8101E939C00F2B046 /* libzlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DC0DCC101E93E800F2B046 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = "ext/zlib-1.2.3/adler32.c"; sourceTree = "<group>"; };
 		24DC0DCD101E93E800F2B046 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = "ext/zlib-1.2.3/compress.c"; sourceTree = "<group>"; };
@@ -1673,9 +1671,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				2410B30611CBACF60097E5AB /* iAd.framework */,
-				2410B31211CBAD590097E5AB /* MapKit.framework */,
-				2410B31611CBAD670097E5AB /* MessageUI.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1708,9 +1703,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2410B30611CBACF60097E5AB /* iAd.framework */,
+				2410B31211CBAD590097E5AB /* MapKit.framework */,
+				2410B31611CBAD670097E5AB /* MessageUI.framework */,
 				24AA17A311053DC800436F5A /* AVFoundation.framework */,
-				24D93C8E1105305300D131CA /* libAdWhirlDevice_1.2.6.a */,
-				24D93C8F1105305300D131CA /* libAdWhirlSimulator_1.2.6.a */,
 				24E3895110456EE9001B8DDE /* AddressBook.framework */,
 				24E3895510456EFA001B8DDE /* SystemConfiguration.framework */,
 				24E3895910456F13001B8DDE /* CoreLocation.framework */,

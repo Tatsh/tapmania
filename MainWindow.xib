@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="14"/>
-			<integer value="9"/>
+			<integer value="22"/>
 			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -52,7 +52,7 @@
 						<int key="NSvFlags">1298</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIImageView" id="553796965">
+							<object class="IBUIImageView" id="330584774">
 								<reference key="NSNextResponder" ref="412974124"/>
 								<int key="NSvFlags">1298</int>
 								<string key="NSFrameSize">{320, 480}</string>
@@ -226,7 +226,7 @@
 						<reference key="object" ref="412974124"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="553796965"/>
+							<reference ref="330584774"/>
 						</object>
 						<reference key="parent" ref="380026005"/>
 					</object>
@@ -248,7 +248,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="553796965"/>
+						<reference key="object" ref="330584774"/>
 						<reference key="parent" ref="412974124"/>
 					</object>
 				</object>
