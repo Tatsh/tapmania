@@ -76,8 +76,13 @@
 		247081F711CD705A0045988B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
 		2472663D0EE949A500D501AF /* TapNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.mm */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.mm */; };
+		2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2476E62A11CE254E009AA545 /* MediaPlayer.framework */; };
+		2476E62E11CE255A009AA545 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; };
+		2476E63111CE2570009AA545 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
 		2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */; };
+		247FCF0A11CE1DD7001E25A3 /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28511CBACAF0097E5AB /* AdWhirlAdapterAdMob.m */; };
+		247FCFAD11CE2426001E25A3 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
 		248076F9108DE77E0093FDAE /* TMTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248076F8108DE77E0093FDAE /* TMTouch.cpp */; };
 		24851DBE1118CD63000EC5FB /* ScoreMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24851DBD1118CD63000EC5FB /* ScoreMeter.mm */; };
 		2485475B0EE56C1700AD4FAB /* BasicTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.mm */; };
@@ -486,10 +491,16 @@
 		2472663C0EE949A500D501AF /* TapNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapNote.mm; path = Renderers/UIElements/TapNote.mm; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
 		2472672C0EE97DDC00D501AF /* ReceptorRow.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.mm; path = Renderers/UIElements/ReceptorRow.mm; sourceTree = "<group>"; };
+		2476E62A11CE254E009AA545 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
 		2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.mm; path = Renderers/PadConfigRenderer.mm; sourceTree = "<group>"; };
 		247E85780ECC5AE500B21A77 /* TMChangeSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMChangeSegment.h; sourceTree = "<group>"; };
 		247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMChangeSegment.mm; sourceTree = "<group>"; };
+		247FCF0D11CE1E05001E25A3 /* AdMobDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobDelegateProtocol.h; sourceTree = "<group>"; };
+		247FCF0E11CE1E05001E25A3 /* AdMobInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobInterstitialAd.h; sourceTree = "<group>"; };
+		247FCF0F11CE1E05001E25A3 /* AdMobInterstitialDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobInterstitialDelegateProtocol.h; sourceTree = "<group>"; };
+		247FCF1011CE1E05001E25A3 /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
+		247FCF1111CE1E05001E25A3 /* libAdMob.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMob.a; sourceTree = "<group>"; };
 		248076F7108DE77E0093FDAE /* TMTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTouch.h; sourceTree = "<group>"; };
 		248076F8108DE77E0093FDAE /* TMTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMTouch.cpp; sourceTree = "<group>"; };
 		24851DBC1118CD63000EC5FB /* ScoreMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreMeter.h; path = Renderers/UIElements/ScoreMeter.h; sourceTree = "<group>"; };
@@ -827,6 +838,9 @@
 				24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */,
 				2410B31311CBAD590097E5AB /* MapKit.framework in Frameworks */,
 				2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */,
+				247FCFAD11CE2426001E25A3 /* libAdMob.a in Frameworks */,
+				2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */,
+				2476E62E11CE255A009AA545 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,6 +1136,19 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		247FCF0C11CE1E05001E25A3 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				247FCF0D11CE1E05001E25A3 /* AdMobDelegateProtocol.h */,
+				247FCF0E11CE1E05001E25A3 /* AdMobInterstitialAd.h */,
+				247FCF0F11CE1E05001E25A3 /* AdMobInterstitialDelegateProtocol.h */,
+				247FCF1011CE1E05001E25A3 /* AdMobView.h */,
+				247FCF1111CE1E05001E25A3 /* libAdMob.a */,
+			);
+			name = AdMob;
+			path = ext/admob_iphone_sdk/AdMob;
+			sourceTree = "<group>";
+		};
 		248547290EE56BEB00AD4FAB /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,6 +1321,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
+				247FCF0C11CE1E05001E25A3 /* AdMob */,
 				2410B2CD11CBACBE0097E5AB /* TouchJSON */,
 				2410B28211CBACAF0097E5AB /* AdWhirl */,
 				24234DD3115A12F400E14860 /* SQLitePersistenObjects */,
@@ -1700,6 +1728,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2476E62A11CE254E009AA545 /* MediaPlayer.framework */,
 				2410B30611CBACF60097E5AB /* iAd.framework */,
 				2410B31211CBAD590097E5AB /* MapKit.framework */,
 				2410B31611CBAD670097E5AB /* MessageUI.framework */,
@@ -2117,6 +2146,8 @@
 				2410B2EB11CBACBE0097E5AB /* CJSONScanner.m in Sources */,
 				2410B2EC11CBACBE0097E5AB /* CJSONSerializer.m in Sources */,
 				2410B2ED11CBACBE0097E5AB /* CSerializedJSONData.m in Sources */,
+				247FCF0A11CE1DD7001E25A3 /* AdWhirlAdapterAdMob.m in Sources */,
+				2476E63111CE2570009AA545 /* AdWhirlAdapterIAd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2258,7 +2289,11 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
 					"-ftree-vectorize",
@@ -2321,8 +2356,15 @@
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_CFLAGS = "-DDEBUG";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+				);
+				OTHER_CFLAGS = (
+					"-DENABLE_ADWHIRL",
+					"-DDEBUG",
+				);
 				PRODUCT_NAME = TapMania;
 			};
 			name = Debug;
