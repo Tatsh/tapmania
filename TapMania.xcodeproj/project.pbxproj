@@ -13,7 +13,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		24079D8C0F4333300052EDB2 /* FadeTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24079D8B0F4333300052EDB2 /* FadeTransition.mm */; };
 		240A1AD8110DD60200D36585 /* ComboMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 240A1AD7110DD60200D36585 /* ComboMeter.mm */; };
-		2410B2B811CBACAF0097E5AB /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
 		2410B2BE11CBACAF0097E5AB /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B29911CBACAF0097E5AB /* AdWhirlAdapterCustom.m */; };
 		2410B2BF11CBACAF0097E5AB /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B29B11CBACAF0097E5AB /* AdWhirlAdapterEvent.m */; };
 		2410B2C011CBACAF0097E5AB /* AdWhirlAdapterGeneric.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B29D11CBACAF0097E5AB /* AdWhirlAdapterGeneric.m */; };
@@ -39,7 +38,6 @@
 		2410B2EB11CBACBE0097E5AB /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B2DF11CBACBE0097E5AB /* CJSONScanner.m */; };
 		2410B2EC11CBACBE0097E5AB /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B2E111CBACBE0097E5AB /* CJSONSerializer.m */; };
 		2410B2ED11CBACBE0097E5AB /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B2E311CBACBE0097E5AB /* CSerializedJSONData.m */; };
-		2410B30711CBACF60097E5AB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2410B31311CBAD590097E5AB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B31211CBAD590097E5AB /* MapKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B31611CBAD670097E5AB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2410B37111CBB8F70097E5AB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2410B37011CBB8F70097E5AB /* MainWindow.xib */; };
@@ -827,7 +825,6 @@
 				24E3895E10456F2B001B8DDE /* libxml2.dylib in Frameworks */,
 				24E3896010456F33001B8DDE /* libsqlite3.dylib in Frameworks */,
 				24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */,
-				2410B30711CBACF60097E5AB /* iAd.framework in Frameworks */,
 				2410B31311CBAD590097E5AB /* MapKit.framework in Frameworks */,
 				2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */,
 			);
@@ -2096,7 +2093,6 @@
 				24234E02115A12F400E14860 /* UIColor-SQLitePersistentObject.m in Sources */,
 				24234E03115A12F400E14860 /* UIImage-SQLitePersistence.m in Sources */,
 				F4433E8611CAEC9C005AC29A /* Sprite.mm in Sources */,
-				2410B2B811CBACAF0097E5AB /* AdWhirlAdapterIAd.m in Sources */,
 				2410B2BE11CBACAF0097E5AB /* AdWhirlAdapterCustom.m in Sources */,
 				2410B2BF11CBACAF0097E5AB /* AdWhirlAdapterEvent.m in Sources */,
 				2410B2C011CBACAF0097E5AB /* AdWhirlAdapterGeneric.m in Sources */,
@@ -2326,10 +2322,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_CFLAGS = (
-					"-DENABLE_ADWHIRL",
-					"-DDEBUG",
-				);
+				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
 			};
 			name = Debug;
