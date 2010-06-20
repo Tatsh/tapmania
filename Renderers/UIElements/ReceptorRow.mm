@@ -191,9 +191,12 @@ extern TMGameState* g_pGameState;
 	switch (message.messageId) {
 		case kJoyPadTapMessage:
 			{
-				NSNumber* track = (NSNumber*)message.payload;
-				TMAvailableTracks track2 = (TMAvailableTracks)[track intValue];
-				[self buttonTap:track2];
+				NSNumber* joyPad = (NSNumber*)message.payload;
+				int joyPad2 = [joyPad intValue];
+				if(joyPad2 < kNumOfAvailableTracks) {
+					TMAvailableTracks track2 = (TMAvailableTracks)joyPad2;
+					[self buttonTap:track2];
+				}
 			}
 			break;
 		case kNoteScoreMessage:
