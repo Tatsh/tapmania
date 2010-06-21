@@ -250,6 +250,7 @@ Exit:
 - (BOOL) addToQueueWithManualStart:(TMSound*)inObj {
 	m_bManualStart = YES;
 	[self addToQueue:inObj];
+	return YES;
 }
 
 - (BOOL) removeFromQueue:(TMSound*)inObj {

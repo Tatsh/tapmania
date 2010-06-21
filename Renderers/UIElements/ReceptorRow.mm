@@ -88,17 +88,7 @@ extern TMGameState* g_pGameState;
 			m_spriteMineExplosion[i] = spr;		
 		}
 	}
-	
-	m_spr = [[Sprite alloc] init];
-	[m_spr setTexture: t_ExplosionBright];
-	[m_spr setAlpha:0.5];
-	[m_spr pushKeyFrame:15.0];
-	[m_spr setX:200];
-	[m_spr setY:200];
-	[m_spr setScale:2];
-	[m_spr setRotationZ:180];
-
-	
+		
 	// Sounds
 	sr_ExplosionMine = SOUND(@"SongPlay HitMine"); 
 	
@@ -111,7 +101,6 @@ extern TMGameState* g_pGameState;
 		[m_spriteExplosionDim[i] release];
 		[m_spriteExplosionBright[i] release];
 	}
-	[m_spr release];
 	[super dealloc];
 }
 
@@ -179,7 +168,6 @@ extern TMGameState* g_pGameState;
 		[m_spriteMineExplosion[i] render:fDelta];
 	}
 
-	[m_spr render:fDelta];
 }
 
 /* TMLogicUpdater method */

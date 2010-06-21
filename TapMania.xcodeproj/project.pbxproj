@@ -67,6 +67,10 @@
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		243DF66D0FB1C273004C08EF /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 243DF64B0FB1C156004C08EF /* libvorbisfile.a */; };
 		244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.mm */; };
+		244CF16B11CF7BAA007EC967 /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28511CBACAF0097E5AB /* AdWhirlAdapterAdMob.m */; };
+		244CF17011CF7BD3007EC967 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
+		244CF1CB11CFC273007EC967 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
+		244CF1D211CFC2C3007EC967 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.mm */; };
 		244E56150F3C6C680004C921 /* TMResource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.mm */; };
 		244E5AB50F41CB490004C921 /* LoggerUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.mm */; };
@@ -76,13 +80,9 @@
 		247081F711CD705A0045988B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
 		2472663D0EE949A500D501AF /* TapNote.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472663C0EE949A500D501AF /* TapNote.mm */; };
 		2472672D0EE97DDC00D501AF /* ReceptorRow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2472672C0EE97DDC00D501AF /* ReceptorRow.mm */; };
-		2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2476E62A11CE254E009AA545 /* MediaPlayer.framework */; };
-		2476E62E11CE255A009AA545 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; };
-		2476E63111CE2570009AA545 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
+		2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2476E62A11CE254E009AA545 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2479A3810FE6EDFF00688640 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
 		247E857A0ECC5AE500B21A77 /* TMChangeSegment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 247E85790ECC5AE500B21A77 /* TMChangeSegment.mm */; };
-		247FCF0A11CE1DD7001E25A3 /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28511CBACAF0097E5AB /* AdWhirlAdapterAdMob.m */; };
-		247FCFAD11CE2426001E25A3 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
 		248076F9108DE77E0093FDAE /* TMTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 248076F8108DE77E0093FDAE /* TMTouch.cpp */; };
 		24851DBE1118CD63000EC5FB /* ScoreMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24851DBD1118CD63000EC5FB /* ScoreMeter.mm */; };
 		2485475B0EE56C1700AD4FAB /* BasicTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2485475A0EE56C1700AD4FAB /* BasicTransition.mm */; };
@@ -838,9 +838,9 @@
 				24AA17A411053DC800436F5A /* AVFoundation.framework in Frameworks */,
 				2410B31311CBAD590097E5AB /* MapKit.framework in Frameworks */,
 				2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */,
-				247FCFAD11CE2426001E25A3 /* libAdMob.a in Frameworks */,
 				2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */,
-				2476E62E11CE255A009AA545 /* iAd.framework in Frameworks */,
+				244CF17011CF7BD3007EC967 /* libAdMob.a in Frameworks */,
+				244CF1D211CFC2C3007EC967 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2146,8 +2146,8 @@
 				2410B2EB11CBACBE0097E5AB /* CJSONScanner.m in Sources */,
 				2410B2EC11CBACBE0097E5AB /* CJSONSerializer.m in Sources */,
 				2410B2ED11CBACBE0097E5AB /* CSerializedJSONData.m in Sources */,
-				247FCF0A11CE1DD7001E25A3 /* AdWhirlAdapterAdMob.m in Sources */,
-				2476E63111CE2570009AA545 /* AdWhirlAdapterIAd.m in Sources */,
+				244CF16B11CF7BAA007EC967 /* AdWhirlAdapterAdMob.m in Sources */,
+				244CF1CB11CFC273007EC967 /* AdWhirlAdapterIAd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2299,7 +2299,7 @@
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
@@ -2531,7 +2531,7 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};

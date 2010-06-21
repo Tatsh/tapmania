@@ -44,9 +44,7 @@ typedef enum {
 	Sprite* m_spriteExplosionDim[kNumOfAvailableTracks];
 	Sprite* m_spriteExplosionBright[kNumOfAvailableTracks];
 	Sprite* m_spriteMineExplosion[kNumOfAvailableTracks];
-	
-	Sprite* m_spr;
-	
+		
 	TMSound* sr_ExplosionMine;
 }
 

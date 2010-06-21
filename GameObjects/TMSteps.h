@@ -25,8 +25,8 @@ typedef enum {
 } TMAvailableTracks;
 
 #define kHitSearchEpsilon 0.185f
-#define kMineHitSearchEpsilon 0.01f
-#define kHoldLostEpsilon 0.3f
+#define kMineHitSearchEpsilon 0.045000f	// Same as W2
+#define kHoldLostEpsilon 0.5f
 
 @class SongPlayRenderer;
 

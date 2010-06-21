@@ -26,7 +26,7 @@
 }
 
 @property (readonly, retain, nonatomic) TMSongSavedScore* m_pSavedScore;
-@property (readonly, retain, nonatomic, getter=song) TMSong* m_pSong;
+@property (readonly, retain, nonatomic) TMSong* song;
 
 - (id) initWithSong:(TMSong*) song atPoint:(CGPoint)point;
 - (void) updateYPosition:(float)pixels;
