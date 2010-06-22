@@ -327,7 +327,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (UIViewController*)viewControllerForPresentingModalView
 {
-	return ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).adwhirlController;
+	return ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).rootController;
 }
 #endif // ENABLE_ADWHIRL
 
