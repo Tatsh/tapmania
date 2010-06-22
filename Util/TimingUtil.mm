@@ -25,20 +25,15 @@ extern TMGameState* g_pGameState;
 
 + (double) getCurrentTime {
 	static mach_timebase_info_data_t sTimebaseInfo;
+	uint64_t time = mach_absolute_time();
+	uint64_t nanos;
+	
 	if( sTimebaseInfo.denom == 0 ) {
 		(void) mach_timebase_info(&sTimebaseInfo);
 	}
-
-	uint64_t time = mach_absolute_time();
 	
-	//Store the ratio between the numberator and the denominator.
-	const float TIMER_RATIO = ((float)sTimebaseInfo.numer / (float)sTimebaseInfo.denom);
-	
-	//The resolution of the iPhone is in nanoseconds.
-	const uint64_t RESOLUTION = 1000000000;
-	double timeToSeconds = TIMER_RATIO / RESOLUTION;
-	double ret = time * timeToSeconds;
-	return ret;
+	nanos = time * sTimebaseInfo.numer / sTimebaseInfo.denom;
+	return ((double)nanos / 1000000000.0);
 }
 
 + (double) getTimeInBeatForBPS:(float) bps {
