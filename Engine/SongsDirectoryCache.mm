@@ -270,7 +270,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			// and ogg too (in future :P)
 			TMLog(@"Found music file (OGG): %@", file);
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} else if([[file lowercaseString] hasSuffix:@".png"]) {
+		} else if([[file lowercaseString] hasSuffix:@"-bg-iphone.png"]) {
 			TMLog(@"Found graphic file (PNG): %@", file);
 			backgroundFilePath = [curPath stringByAppendingPathComponent:file];
 		}
@@ -302,7 +302,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			TMLog(@"CACHED HASH IS: '%@'", song.m_sHash);
 			
 			if(! [songHash isEqualToString:song.m_sHash]) {
-				TMLog(@"Hash missmatch! Must reload!");
+				TMLog(@"Hash mismatch! Must reload!");
 				[song release];
 				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];								
 				song.m_sHash = songHash;
