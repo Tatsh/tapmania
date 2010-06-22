@@ -192,7 +192,7 @@
 		24966C7F0ECB3B6100D367E3 /* TogglerItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */; };
 		249D80540FCC9A2200630646 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 249D7FFD0FCC9A2200630646 /* themes */; };
 		249D805A0FCC9AF700630646 /* ImageButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.mm */; };
-		24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* TapManiaIcon.png */; };
+		24A425450F7119FC001B0CDE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* Icon.png */; };
 		24A4254B0F7123D8001B0CDE /* TMSoundEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */; };
 		24A4257B0F713529001B0CDE /* SMParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.mm */; };
 		24A57AF40F4C265D0057F723 /* SlideEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A57AF30F4C265D0057F723 /* SlideEffect.mm */; };
@@ -640,7 +640,7 @@
 		249D7FFD0FCC9A2200630646 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
 		249D80590FCC9AF700630646 /* ImageButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageButton.mm; path = Renderers/UIElements/ImageButton.mm; sourceTree = "<group>"; };
-		24A425440F7119FC001B0CDE /* TapManiaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapManiaIcon.png; sourceTree = "<group>"; };
+		24A425440F7119FC001B0CDE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		24A425490F7123D8001B0CDE /* TMSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMSoundEngine.h; path = ../TMSoundEngine.h; sourceTree = "<group>"; };
 		24A4254A0F7123D8001B0CDE /* TMSoundEngine.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TMSoundEngine.mm; path = ../TMSoundEngine.mm; sourceTree = "<group>"; };
 		24A425790F713529001B0CDE /* SMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMParser.h; path = Parsers/SMParser.h; sourceTree = "<group>"; };
@@ -1717,7 +1717,7 @@
 				247081F111CD705A0045988B /* Songs */,
 				24CF7F7B1105B7E20010A321 /* noteskins */,
 				249D7FFD0FCC9A2200630646 /* themes */,
-				24A425440F7119FC001B0CDE /* TapManiaIcon.png */,
+				24A425440F7119FC001B0CDE /* Icon.png */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
@@ -1990,7 +1990,7 @@
 			files = (
 				24F15E480EC2114F00755788 /* Default.png in Resources */,
 				24D7634E0F38B0E9008B0AA0 /* Credits.plist in Resources */,
-				24A425450F7119FC001B0CDE /* TapManiaIcon.png in Resources */,
+				24A425450F7119FC001B0CDE /* Icon.png in Resources */,
 				249D80540FCC9A2200630646 /* themes in Resources */,
 				24CF7F7C1105B7E20010A321 /* noteskins in Resources */,
 				2410B2CA11CBACAF0097E5AB /* AdWhirlWebBrowser.xib in Resources */,
@@ -2519,7 +2519,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
