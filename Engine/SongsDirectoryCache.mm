@@ -195,7 +195,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (BOOL) dirIsSimfile:(NSString*)path {
 	NSArray* contents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
-	NSString* file;
 
 	TMLog(@"Test dir '%@' for simfile contents...", path);
 	
