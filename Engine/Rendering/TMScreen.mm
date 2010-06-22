@@ -23,12 +23,17 @@
 
 @implementation TMScreen
 
+@synthesize brightness = m_fBrightness;
+
 - (id) initWithMetrics:(NSString*)inMetricsKey {
 	// A screen is always fullscreen :P
 	self = [super initWithShape:[TapMania sharedInstance].m_pGlView.bounds];
 	if(!self)
 		return nil;
 		
+	// Default - full bright bg
+	m_fBrightness = 1.0f;
+	
 	NSDictionary* conf = DICT_METRIC(inMetricsKey);
 	
 	// Load Background texture
@@ -82,7 +87,20 @@
 - (void) render:(float)fDelta {
 	// Render BG
 	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+	
+	if(m_fBrightness != 1.0f) {
+//		glDisable(GL_TEXTURE_2D);
+//		glEnable(GL_BLEND);
+//		glDisable(GL_BLEND);
+//		glEnable(GL_TEXTURE_2D);		
+		
+		glColor4f(m_fBrightness, m_fBrightness, m_fBrightness, m_fBrightness);
+	}	
 	[t_BG drawInRect:bounds];	
+	if(m_fBrightness != 1.0f) {
+		// TODO: restore color to prev. value. not just to 1111
+		glColor4f(1, 1, 1, 1);
+	}	
 	
 	// Render children
 	[super render:fDelta];

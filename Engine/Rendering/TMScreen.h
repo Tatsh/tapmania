@@ -16,7 +16,10 @@
 @interface TMScreen : TMView <TMTransitionSupport> {
 	// A screen most likely has a background image
 	Texture2D*		t_BG;
+	float	m_fBrightness;	// Background brightness
 }
+
+@property (assign) float brightness;
 
 - (id) initWithMetrics:(NSString*)inMetricsKey;
 
