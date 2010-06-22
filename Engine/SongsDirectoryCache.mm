@@ -243,6 +243,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	
 	NSString* stepsFilePath = nil;			
 	NSString* musicFilePath = nil;			
+	NSString* backgroundFilePath = nil;			
 	
 	for (NSString* file in dirContents) {
 		if([[file lowercaseString] hasSuffix:@".dwi"]) {
@@ -269,6 +270,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			// and ogg too (in future :P)
 			TMLog(@"Found music file (OGG): %@", file);
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
+		} else if([[file lowercaseString] hasSuffix:@".png"]) {
+			TMLog(@"Found graphic file (PNG): %@", file);
+			backgroundFilePath = [curPath stringByAppendingPathComponent:file];
 		}
 	}
 	
@@ -286,6 +290,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		NSString* songsDir = [self getSongsPath:pathId];
 		musicFilePath = [musicFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
 		stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
+		backgroundFilePath = [backgroundFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
 		
 		if(useCache && [m_pCatalogueCacheOld valueForKey:songDirName] != nil) {
 			TMLog(@"Catalogue file has this file already!");
@@ -299,7 +304,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			if(! [songHash isEqualToString:song.m_sHash]) {
 				TMLog(@"Hash missmatch! Must reload!");
 				[song release];
-				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName fromSongsPathId:pathId];								
+				song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];								
 				song.m_sHash = songHash;
 				song.m_iSongsPath = pathId;
 			}
@@ -309,7 +314,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			[m_aAvailableSongs addObject:song];
 			
 		} else {
-			TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andDir:songDirName fromSongsPathId:pathId];				
+			TMSong* song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];				
 			
 			// Calculate the hash and store it
 			NSString* songHash = [SongsDirectoryCache dirMD5:curPath];

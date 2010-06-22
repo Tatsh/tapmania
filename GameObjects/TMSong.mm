@@ -19,13 +19,13 @@
 
 @implementation TMSong
 
-@synthesize m_nFileType, m_sFilePath, m_sMusicFilePath, m_sSongDirName;
+@synthesize m_nFileType, m_sFilePath, m_sBackgroundFilePath, m_sMusicFilePath, m_sSongDirName;
 @synthesize m_fPreviewStart, m_fPreviewDuration;
 @synthesize m_sHash, m_iSongsPath;
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
 
-- (id) initWithStepsFile:(NSString*) stepsFilePath andMusicFile:(NSString*) musicFilePath andDir:(NSString*) dir fromSongsPathId:(TMSongsPath)pathId {
+- (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId {
 	
 	self.m_iSongsPath = pathId;
 	
@@ -45,9 +45,10 @@
 	
 	self.m_sMusicFilePath = musicFilePath;
 	self.m_sFilePath = stepsFilePath;
-	self.m_sSongDirName  = dir;
+	self.m_sSongDirName = dir;
+	self.m_sBackgroundFilePath = backgroundFilePath;
 	
-	TMLog(@"Set musicpath: '%@' and steps: '%@'", m_sMusicFilePath, m_sFilePath);
+	TMLog(@"Set musicpath:'%@' and steps: '%@' and background: '%@'", m_sMusicFilePath, m_sFilePath, m_sBackgroundFilePath);
 	
 	return self;
 }

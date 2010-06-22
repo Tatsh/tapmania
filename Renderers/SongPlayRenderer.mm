@@ -126,6 +126,7 @@ extern TMGameState* g_pGameState;
 }
 
 - (void) dealloc {
+	[t_BG release];
 	UNSUBSCRIBE_ALL();
 	[m_pSound release];
 
@@ -162,7 +163,19 @@ extern TMGameState* g_pGameState;
 	m_pSound = [[TMSound alloc] initWithPath:
 				[[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
 	[[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pSound];
-	
+
+	if( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
+	{
+		t_BG = nil;	// don't use default background
+		NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
+		NSString *backgroundFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBackgroundFilePath];
+		// TODO: use ResourceLoader for this?
+		UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
+		t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+	}
+	[t_BG retain];	// we release this in dealloc
+
+
 	// Calculate starting offset for music playback
 	TMLog(@"Try to get first and last beat");
 	double timeOfFirstBeat = [TimingUtil getElapsedTimeFromBeat:[TMNote noteRowToBeat:[g_pGameState->m_pSteps getFirstNoteRow]] inSong:g_pGameState->m_pSong];
