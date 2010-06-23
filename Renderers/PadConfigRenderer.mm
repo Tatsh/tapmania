@@ -26,6 +26,7 @@
 #import "LifeBar.h"
 #import "JoyPad.h"
 
+#import "FlurryAPI.h"
 #import "PhysicsUtil.h"
 
 @interface PadConfigRenderer (InputHandling)
@@ -37,6 +38,7 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[super setupForTransition];
+	[FlurryAPI logEvent:@"padconfig_screen_enter"];
 	
 	// Cache graphics
 	t_FingerTap =		(TMFramedTexture*)TEXTURE(@"Common FingerTapG");

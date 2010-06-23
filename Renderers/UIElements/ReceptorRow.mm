@@ -159,13 +159,19 @@ extern TMGameState* g_pGameState;
 - (void) render:(float)fDelta {
 	float currentBeat, currentBps;
 	BOOL hasFreeze;	
-	[TimingUtil getBeatAndBPSFromElapsedTime:g_pGameState->m_dElapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:g_pGameState->m_pSong]; 
-	float beatFraction = currentBeat - floorf(currentBeat);
-	float brightness = (beatFraction > 0.9 || beatFraction < 0.1) ? 1.0f : 0.5f;
+	float brightness = 1.0f;
+	
+	if(g_pGameState->m_bPlayingGame) {
+		[TimingUtil getBeatAndBPSFromElapsedTime:g_pGameState->m_dElapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:g_pGameState->m_pSong]; 
+		float beatFraction = currentBeat - floorf(currentBeat);
+		brightness = (beatFraction > 0.9 || beatFraction < 0.1) ? 1.0f : 0.5f;
+	}
 	
 	// Here we will render all receptors at their places
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
-		[m_spriteReceptor[i] setR:brightness G:brightness B:brightness];
+		if(g_pGameState->m_bPlayingGame)
+			[m_spriteReceptor[i] setR:brightness G:brightness B:brightness];
+		
 		[m_spriteReceptor[i] render:fDelta];
 		[m_spriteExplosionDim[i] render:fDelta];
 		[m_spriteExplosionBright[i] render:fDelta];

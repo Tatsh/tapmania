@@ -20,6 +20,7 @@
 #import "TogglerItem.h"
 #import "Slider.h"
 #import "ImageButton.h"
+#import "FlurryAPI.h"
 
 @implementation TMScreen
 
@@ -108,7 +109,8 @@
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
-	[[InputEngine sharedInstance] subscribe:self];
+	[[InputEngine sharedInstance] subscribe:self];	
+	[FlurryAPI countPageView];
 }
 
 - (void) deinitOnTransition {

@@ -69,12 +69,11 @@
 		244954D30EDD5AC200D462F0 /* TMRunLoop.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244954D20EDD5AC200D462F0 /* TMRunLoop.mm */; };
 		244CF16B11CF7BAA007EC967 /* AdWhirlAdapterAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28511CBACAF0097E5AB /* AdWhirlAdapterAdMob.m */; };
 		244CF17011CF7BD3007EC967 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
-		244CF1CB11CFC273007EC967 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
-		244CF1D211CFC2C3007EC967 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; };
 		244E56070F3C5D1D0004C921 /* ResourcesLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56060F3C5D1D0004C921 /* ResourcesLoader.mm */; };
 		244E56150F3C6C680004C921 /* TMResource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.mm */; };
 		244E5AB50F41CB490004C921 /* LoggerUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.mm */; };
 		24627B9E0FBF6DF9002E245D /* Label.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.mm */; };
+		246A63BB11D256C400E65351 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */; };
 		247081F711CD705A0045988B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
@@ -217,6 +216,8 @@
 		24BE1C301091A11D00E1B8D8 /* SettingCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1C2F1091A11D00E1B8D8 /* SettingCommand.mm */; };
 		24BE1D611091CF3D00E1B8D8 /* VolumeCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1D601091CF3D00E1B8D8 /* VolumeCommand.mm */; };
 		24BE1DEA1092062200E1B8D8 /* SleepCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BE1DE91092062200E1B8D8 /* SleepCommand.mm */; };
+		24C2E2E711D25943003784AC /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410B28911CBACAF0097E5AB /* AdWhirlAdapterIAd.m */; };
+		24C2E2E811D25954003784AC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24C44005106583CB0003EF60 /* TMCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44004106583CB0003EF60 /* TMCommand.mm */; };
 		24C4400A106584FC0003EF60 /* NameCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C44009106584FC0003EF60 /* NameCommand.mm */; };
 		24C696C81063B7800049C299 /* TapMine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24C696C71063B7800049C299 /* TapMine.mm */; };
@@ -479,6 +480,9 @@
 		244E56140F3C6C680004C921 /* TMResource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMResource.mm; sourceTree = "<group>"; };
 		244E5AB30F41CB490004C921 /* LoggerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerUtil.h; path = Util/LoggerUtil.h; sourceTree = "<group>"; };
 		244E5AB40F41CB490004C921 /* LoggerUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LoggerUtil.mm; path = Util/LoggerUtil.mm; sourceTree = "<group>"; };
+		245E3BF511D23102002EFA7C /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
+		245E3BF611D23102002EFA7C /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
+		245E3BF711D23102002EFA7C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		24627B9C0FBF6DF9002E245D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Renderers/UIElements/Label.h; sourceTree = "<group>"; };
 		24627B9D0FBF6DF9002E245D /* Label.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Label.mm; path = Renderers/UIElements/Label.mm; sourceTree = "<group>"; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
@@ -840,7 +844,8 @@
 				2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */,
 				2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */,
 				244CF17011CF7BD3007EC967 /* libAdMob.a in Frameworks */,
-				244CF1D211CFC2C3007EC967 /* iAd.framework in Frameworks */,
+				246A63BB11D256C400E65351 /* libFlurry.a in Frameworks */,
+				24C2E2E811D25954003784AC /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,6 +1141,17 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		245E3BF411D23102002EFA7C /* FlurryLib_4.0 */ = {
+			isa = PBXGroup;
+			children = (
+				245E3BF511D23102002EFA7C /* FlurryAdDelegate.h */,
+				245E3BF611D23102002EFA7C /* FlurryAPI.h */,
+				245E3BF711D23102002EFA7C /* libFlurry.a */,
+			);
+			name = FlurryLib_4.0;
+			path = ext/FlurryLib_4.0;
+			sourceTree = "<group>";
+		};
 		247FCF0C11CE1E05001E25A3 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
@@ -1321,6 +1337,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
+				245E3BF411D23102002EFA7C /* FlurryLib_4.0 */,
 				247FCF0C11CE1E05001E25A3 /* AdMob */,
 				2410B2CD11CBACBE0097E5AB /* TouchJSON */,
 				2410B28211CBACAF0097E5AB /* AdWhirl */,
@@ -2147,7 +2164,7 @@
 				2410B2EC11CBACBE0097E5AB /* CJSONSerializer.m in Sources */,
 				2410B2ED11CBACBE0097E5AB /* CSerializedJSONData.m in Sources */,
 				244CF16B11CF7BAA007EC967 /* AdWhirlAdapterAdMob.m in Sources */,
-				244CF1CB11CFC273007EC967 /* AdWhirlAdapterIAd.m in Sources */,
+				24C2E2E711D25943003784AC /* AdWhirlAdapterIAd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2293,6 +2310,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -2360,6 +2379,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -2483,6 +2504,139 @@
 			};
 			name = Release;
 		};
+		24BEE0E411D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				DEBUG_INFORMATION_FORMAT = stabs;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-ftree-vectorize";
+				PREBINDING = YES;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0E511D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/zlib-1.2.3/contrib/",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
+				);
+				OTHER_CFLAGS = (
+					"-DENABLE_ADWHIRL",
+					"-ftree-vectorize",
+				);
+				PRODUCT_NAME = TapMania;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0E611D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ext/libogg-1.1.3/include";
+				PREBINDING = NO;
+				PRODUCT_NAME = ogg;
+				ZERO_LINK = NO;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0E711D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/lib",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbis;
+				ZERO_LINK = NO;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0E811D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+				ZERO_LINK = NO;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0E911D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = microhttpd;
+				ZERO_LINK = NO;
+			};
+			name = "Release for 3.0";
+		};
+		24BEE0EA11D24FF600D411BE /* Release for 3.0 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CFLAGS = "-Dunix";
+				PREBINDING = NO;
+				PRODUCT_NAME = zlib;
+				ZERO_LINK = NO;
+			};
+			name = "Release for 3.0";
+		};
 		24DC0DC9101E939E00F2B046 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2542,6 +2696,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058950D05DD3E006BFB54 /* Release */,
+				24BEE0E511D24FF600D411BE /* Release for 3.0 */,
 				245726700FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2551,6 +2706,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				243DF64D0FB1C157004C08EF /* Release */,
+				24BEE0E811D24FF600D411BE /* Release for 3.0 */,
 				245726730FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2560,6 +2716,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				248E931D101798BD00DB27D9 /* Release */,
+				24BEE0E911D24FF600D411BE /* Release for 3.0 */,
 				248E931E101798BD00DB27D9 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2569,6 +2726,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24964C350F791F4600C9D5BC /* Release */,
+				24BEE0E611D24FF600D411BE /* Release for 3.0 */,
 				245726710FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2578,6 +2736,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24964C560F7921A300C9D5BC /* Release */,
+				24BEE0E711D24FF600D411BE /* Release for 3.0 */,
 				245726720FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2587,6 +2746,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24DC0DC9101E939E00F2B046 /* Release */,
+				24BEE0EA11D24FF600D411BE /* Release for 3.0 */,
 				24DC0DCA101E939E00F2B046 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2596,6 +2756,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF5008A954540054247B /* Release */,
+				24BEE0E411D24FF600D411BE /* Release for 3.0 */,
 				2457266F0FBA1172002CBAAE /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;

@@ -45,6 +45,7 @@
 #import "TMMessage.h"
 
 #import "GameState.h"
+#import "FlurryAPI.h"
 
 #import <math.h>
 
@@ -153,6 +154,16 @@ extern TMGameState* g_pGameState;
 #ifdef DEBUG 
 	[g_pGameState->m_pSteps dump];
 #endif	
+	
+	// Report song played to analytics so that we can collect info on most popular songs
+	[FlurryAPI logEvent:@"play_song" withParameters:
+		[NSDictionary dictionaryWithObjectsAndKeys:
+					g_pGameState->m_pSong.m_sTitle, @"song",
+					g_pGameState->m_pSong.m_sArtist, @"artist",
+					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficulty]], @"difficulty",
+					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficultyLevel]], @"diff_level", 
+					[NSNumber numberWithDouble:g_pGameState->m_dSpeedModValue], @"speedmod",
+		 nil]];
 	
 	g_pGameState->m_bAutoPlay = NO;
 	g_pGameState->m_nFailType = kFailAtEnd;

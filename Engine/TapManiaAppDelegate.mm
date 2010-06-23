@@ -19,13 +19,21 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "FlurryAPI.h"
+
 @implementation TapManiaAppDelegate
 
 @synthesize window = m_pWindow;
 @synthesize rootView = m_pRootView;
 @synthesize rootController = m_pRootCtrl;
 
+void uncaughtExceptionHandler(NSException *exception) {
+    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
+
 - (void) applicationDidFinishLaunching:(UIApplication*)application {				
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	
 	[UIApplication sharedApplication].idleTimerDisabled = YES;	
 	
 	// Enable audio
@@ -49,6 +57,10 @@
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];                                                                                                                                                               
 	
+	// Start analytics (flurry)
+	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
+	
+	// Show window
 	[self.window makeKeyAndVisible];
 	
 	// Start the game.
