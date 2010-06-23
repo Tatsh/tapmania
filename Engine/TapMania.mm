@@ -318,8 +318,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 #ifdef ENABLE_ADWHIRL
 - (NSString*)adWhirlApplicationKey
 {
-	// 0.2 version
-	return @"da78df68fc3349dbb76d1811c322cfff";
+	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+	if (version >= 4.0f) {
+
+		// 0.2 version for os 4
+		return @"da78df68fc3349dbb76d1811c322cfff";
+	
+	} 
+	
+	// otherwise it's 0.2 version for os 3
+	return @"35716129794b4aa880edb3c175420f98";
 	
 	// 0.1.7 version -	return @"839677085bd3102d81f0fcd5368d21fc";
 	// 0.1.6 -   return @"c7b13290e38c102c96dc5b26aef5c1e9";

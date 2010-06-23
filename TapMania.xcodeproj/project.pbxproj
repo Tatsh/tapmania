@@ -215,9 +215,9 @@
 		24219CF511D26244001BCE14 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B31211CBAD590097E5AB /* MapKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219CF611D26244001BCE14 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B31611CBAD670097E5AB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219CF711D26244001BCE14 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2476E62A11CE254E009AA545 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		24219CF811D26244001BCE14 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
-		24219CF911D26244001BCE14 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		24219CFA11D26244001BCE14 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		24219D5711D268F7001BCE14 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; };
+		24219D5B11D26915001BCE14 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		242327BB0F273B630013AC23 /* SongResultsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 242327BA0F273B630013AC23 /* SongResultsRenderer.mm */; };
 		24234DF4115A12F400E14860 /* NSData-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 24234DD5115A12F400E14860 /* NSData-SQLitePersistence.m */; };
 		24234DF5115A12F400E14860 /* NSDate-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 24234DD7115A12F400E14860 /* NSDate-SQLitePersistence.m */; };
@@ -504,7 +504,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 24219C4011D26244001BCE14 /* TapMania with iAds */;
+			remoteGlobalIDString = 24219C4011D26244001BCE14;
 			remoteInfo = "TapMania with iAds";
 		};
 		243DF66E0FB1C281004C08EF /* PBXContainerItemProxy */ = {
@@ -640,7 +640,6 @@
 		241F10F110610AEE00F5D1BB /* TMControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMControl.h; path = Renderers/UIElements/TMControl.h; sourceTree = "<group>"; };
 		241F10F210610AEE00F5D1BB /* TMControl.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TMControl.mm; path = Renderers/UIElements/TMControl.mm; sourceTree = "<group>"; };
 		24219D0111D26244001BCE14 /* TapMania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapMania.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		24219D0311D26244001BCE14 /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info copy.plist"; sourceTree = "<group>"; };
 		242327B90F273B630013AC23 /* SongResultsRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongResultsRenderer.h; path = Renderers/SongResultsRenderer.h; sourceTree = "<group>"; };
 		242327BA0F273B630013AC23 /* SongResultsRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongResultsRenderer.mm; path = Renderers/SongResultsRenderer.mm; sourceTree = "<group>"; };
 		24234DD4115A12F400E14860 /* NSData-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-SQLitePersistence.h"; sourceTree = "<group>"; };
@@ -1084,9 +1083,9 @@
 				24219CF511D26244001BCE14 /* MapKit.framework in Frameworks */,
 				24219CF611D26244001BCE14 /* MessageUI.framework in Frameworks */,
 				24219CF711D26244001BCE14 /* MediaPlayer.framework in Frameworks */,
-				24219CF811D26244001BCE14 /* libAdMob.a in Frameworks */,
-				24219CF911D26244001BCE14 /* libFlurry.a in Frameworks */,
 				24219CFA11D26244001BCE14 /* iAd.framework in Frameworks */,
+				24219D5711D268F7001BCE14 /* libAdMob.a in Frameworks */,
+				24219D5B11D26915001BCE14 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1980,7 +1979,6 @@
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
-				24219D0311D26244001BCE14 /* Info copy.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3065,6 +3063,8 @@
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
 					"\\\"$(SRCROOT)/FlurryLib\\\"",
 					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -3097,6 +3097,8 @@
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
 					"\\\"$(SRCROOT)/FlurryLib\\\"",
 					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -3129,6 +3131,8 @@
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
 					"\\\"$(SRCROOT)/FlurryLib\\\"",
 					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -3160,6 +3164,8 @@
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
 					"\\\"$(SRCROOT)/FlurryLib\\\"",
 					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -3169,7 +3175,7 @@
 			};
 			name = "Release for Tests OS4";
 		};
-		24219D0011D26244001BCE14 /* Debug */ = {
+		24219D0011D26244001BCE14 /* Debug for OS3 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3191,6 +3197,8 @@
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
 					"\\\"$(SRCROOT)/FlurryLib\\\"",
 					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -3198,26 +3206,9 @@
 				);
 				PRODUCT_NAME = TapMania;
 			};
-			name = Debug;
+			name = "Debug for OS3";
 		};
-		243DF64D0FB1C157004C08EF /* Release for AppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
-					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = vorbisfile;
-				ZERO_LINK = NO;
-			};
-			name = "Release for AppStore";
-		};
-		2457266F0FBA1172002CBAAE /* Debug */ = {
+		24219D2411D26839001BCE14 /* Debug for OS4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -3232,12 +3223,45 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = Debug;
+			name = "Debug for OS4";
 		};
-		245726700FBA1172002CBAAE /* Debug */ = {
+		24219D2511D26839001BCE14 /* Debug for OS4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/zlib-1.2.3/contrib/",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
+					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
+					"\\\"$(SRCROOT)/FlurryLib\\\"",
+					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
+				);
+				OTHER_CFLAGS = (
+					"-DENABLE_ADWHIRL",
+					"-DDEBUG",
+				);
+				PRODUCT_NAME = TapMania;
+			};
+			name = "Debug for OS4";
+		};
+		24219D2611D26839001BCE14 /* Debug for OS4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3266,9 +3290,9 @@
 				);
 				PRODUCT_NAME = TapMania;
 			};
-			name = Debug;
+			name = "Debug for OS4";
 		};
-		245726710FBA1172002CBAAE /* Debug */ = {
+		24219D2711D26839001BCE14 /* Debug for OS4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3280,9 +3304,9 @@
 				PRODUCT_NAME = ogg;
 				ZERO_LINK = NO;
 			};
-			name = Debug;
+			name = "Debug for OS4";
 		};
-		245726720FBA1172002CBAAE /* Debug */ = {
+		24219D2811D26839001BCE14 /* Debug for OS4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3298,9 +3322,9 @@
 				PRODUCT_NAME = vorbis;
 				ZERO_LINK = NO;
 			};
-			name = Debug;
+			name = "Debug for OS4";
 		};
-		245726730FBA1172002CBAAE /* Debug */ = {
+		24219D2911D26839001BCE14 /* Debug for OS4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3315,7 +3339,156 @@
 				PRODUCT_NAME = vorbisfile;
 				ZERO_LINK = NO;
 			};
-			name = Debug;
+			name = "Debug for OS4";
+		};
+		24219D2A11D26839001BCE14 /* Debug for OS4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = microhttpd;
+			};
+			name = "Debug for OS4";
+		};
+		24219D2B11D26839001BCE14 /* Debug for OS4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CFLAGS = "-Dunix";
+				PREBINDING = NO;
+				PRODUCT_NAME = zlib;
+			};
+			name = "Debug for OS4";
+		};
+		243DF64D0FB1C157004C08EF /* Release for AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+				ZERO_LINK = NO;
+			};
+			name = "Release for AppStore";
+		};
+		2457266F0FBA1172002CBAAE /* Debug for OS3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_CFLAGS = "-ftree-vectorize";
+				OTHER_LDFLAGS = "-ObjC";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphonesimulator3.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = "Debug for OS3";
+		};
+		245726700FBA1172002CBAAE /* Debug for OS3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/zlib-1.2.3/contrib/",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
+					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
+					"\"$(SRCROOT)/ext/admob_iphone_sdk/extras\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
+				);
+				OTHER_CFLAGS = (
+					"-DENABLE_ADWHIRL",
+					"-DDEBUG",
+				);
+				PRODUCT_NAME = TapMania;
+			};
+			name = "Debug for OS3";
+		};
+		245726710FBA1172002CBAAE /* Debug for OS3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ext/libogg-1.1.3/include";
+				PREBINDING = NO;
+				PRODUCT_NAME = ogg;
+				ZERO_LINK = NO;
+			};
+			name = "Debug for OS3";
+		};
+		245726720FBA1172002CBAAE /* Debug for OS3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/lib",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbis;
+				ZERO_LINK = NO;
+			};
+			name = "Debug for OS3";
+		};
+		245726730FBA1172002CBAAE /* Debug for OS3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/ext/libogg-1.1.3/include",
+					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vorbisfile;
+				ZERO_LINK = NO;
+			};
+			name = "Debug for OS3";
 		};
 		248E931D101798BD00DB27D9 /* Release for AppStore */ = {
 			isa = XCBuildConfiguration;
@@ -3334,7 +3507,7 @@
 			};
 			name = "Release for AppStore";
 		};
-		248E931E101798BD00DB27D9 /* Debug */ = {
+		248E931E101798BD00DB27D9 /* Debug for OS3 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3348,7 +3521,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = microhttpd;
 			};
-			name = Debug;
+			name = "Debug for OS3";
 		};
 		24964C350F791F4600C9D5BC /* Release for AppStore */ = {
 			isa = XCBuildConfiguration;
@@ -3531,7 +3704,7 @@
 			};
 			name = "Release for AppStore";
 		};
-		24DC0DCA101E939E00F2B046 /* Debug */ = {
+		24DC0DCA101E939E00F2B046 /* Debug for OS3 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3545,7 +3718,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = zlib;
 			};
-			name = Debug;
+			name = "Debug for OS3";
 		};
 		C01FCF5008A954540054247B /* Release for AppStore */ = {
 			isa = XCBuildConfiguration;
@@ -3577,7 +3750,8 @@
 				24219C0D11D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E511D24FF600D411BE /* Release for Tests */,
 				24219C1411D26181001BCE14 /* Release for Tests OS4 */,
-				245726700FBA1172002CBAAE /* Debug */,
+				245726700FBA1172002CBAAE /* Debug for OS3 */,
+				24219D2611D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3589,7 +3763,8 @@
 				24219CFD11D26244001BCE14 /* Release for AppStore OS4 */,
 				24219CFE11D26244001BCE14 /* Release for Tests */,
 				24219CFF11D26244001BCE14 /* Release for Tests OS4 */,
-				24219D0011D26244001BCE14 /* Debug */,
+				24219D0011D26244001BCE14 /* Debug for OS3 */,
+				24219D2511D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3601,7 +3776,8 @@
 				24219C1011D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E811D24FF600D411BE /* Release for Tests */,
 				24219C1711D26181001BCE14 /* Release for Tests OS4 */,
-				245726730FBA1172002CBAAE /* Debug */,
+				245726730FBA1172002CBAAE /* Debug for OS3 */,
+				24219D2911D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3613,7 +3789,8 @@
 				24219C1111D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E911D24FF600D411BE /* Release for Tests */,
 				24219C1811D26181001BCE14 /* Release for Tests OS4 */,
-				248E931E101798BD00DB27D9 /* Debug */,
+				248E931E101798BD00DB27D9 /* Debug for OS3 */,
+				24219D2A11D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3625,7 +3802,8 @@
 				24219C0E11D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E611D24FF600D411BE /* Release for Tests */,
 				24219C1511D26181001BCE14 /* Release for Tests OS4 */,
-				245726710FBA1172002CBAAE /* Debug */,
+				245726710FBA1172002CBAAE /* Debug for OS3 */,
+				24219D2711D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3637,7 +3815,8 @@
 				24219C0F11D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E711D24FF600D411BE /* Release for Tests */,
 				24219C1611D26181001BCE14 /* Release for Tests OS4 */,
-				245726720FBA1172002CBAAE /* Debug */,
+				245726720FBA1172002CBAAE /* Debug for OS3 */,
+				24219D2811D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3649,7 +3828,8 @@
 				24219C1211D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0EA11D24FF600D411BE /* Release for Tests */,
 				24219C1911D26181001BCE14 /* Release for Tests OS4 */,
-				24DC0DCA101E939E00F2B046 /* Debug */,
+				24DC0DCA101E939E00F2B046 /* Debug for OS3 */,
+				24219D2B11D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
@@ -3661,7 +3841,8 @@
 				24219C0C11D26179001BCE14 /* Release for AppStore OS4 */,
 				24BEE0E411D24FF600D411BE /* Release for Tests */,
 				24219C1311D26181001BCE14 /* Release for Tests OS4 */,
-				2457266F0FBA1172002CBAAE /* Debug */,
+				2457266F0FBA1172002CBAAE /* Debug for OS3 */,
+				24219D2411D26839001BCE14 /* Debug for OS4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release for AppStore";
