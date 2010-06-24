@@ -248,7 +248,6 @@
 		244E56150F3C6C680004C921 /* TMResource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E56140F3C6C680004C921 /* TMResource.mm */; };
 		244E5AB50F41CB490004C921 /* LoggerUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 244E5AB40F41CB490004C921 /* LoggerUtil.mm */; };
 		24627B9E0FBF6DF9002E245D /* Label.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.mm */; };
-		246A63BB11D256C400E65351 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		246FB0FB0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */; };
 		246FB1EE0F28E03E00B3F641 /* HoldJudgement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246FB1ED0F28E03E00B3F641 /* HoldJudgement.mm */; };
 		247081F711CD705A0045988B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
@@ -465,6 +464,7 @@
 		24F161150EC348B100755788 /* CreditsRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F161140EC348B100755788 /* CreditsRenderer.mm */; };
 		24F1AA0E106A2EC200A63B96 /* Quad.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F1AA0D106A2EC200A63B96 /* Quad.mm */; };
 		24F1AA1D106A44DC00A63B96 /* SongPickerWheel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */; };
+		24F6F01611D34F2400BD12AC /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		28FD14FE0DC6FC130079059D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.mm */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
@@ -499,13 +499,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 24DC0DC7101E939C00F2B046;
 			remoteInfo = zlib;
-		};
-		24219D0A11D2629A001BCE14 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 24219C4011D26244001BCE14;
-			remoteInfo = "TapMania with iAds";
 		};
 		243DF66E0FB1C281004C08EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1053,7 +1046,7 @@
 				2410B31711CBAD670097E5AB /* MessageUI.framework in Frameworks */,
 				2476E62B11CE254E009AA545 /* MediaPlayer.framework in Frameworks */,
 				244CF17011CF7BD3007EC967 /* libAdMob.a in Frameworks */,
-				246A63BB11D256C400E65351 /* libFlurry.a in Frameworks */,
+				24F6F01611D34F2400BD12AC /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2122,7 +2115,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				24219D0B11D2629A001BCE14 /* PBXTargetDependency */,
 				24964C5B0F7921ED00C9D5BC /* PBXTargetDependency */,
 				245726770FBA11C2002CBAAE /* PBXTargetDependency */,
 				248E934810179A4000DB27D9 /* PBXTargetDependency */,
@@ -2703,11 +2695,6 @@
 			isa = PBXTargetDependency;
 			target = 24DC0DC7101E939C00F2B046 /* zlib */;
 			targetProxy = 24219C4811D26244001BCE14 /* PBXContainerItemProxy */;
-		};
-		24219D0B11D2629A001BCE14 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 24219C4011D26244001BCE14 /* TapMania with iAds */;
-			targetProxy = 24219D0A11D2629A001BCE14 /* PBXContainerItemProxy */;
 		};
 		243DF66F0FB1C281004C08EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
