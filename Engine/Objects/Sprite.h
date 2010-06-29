@@ -64,10 +64,12 @@ struct QueuedKeyFrame
 {
 	KeyFrame kf;
 	float lengthSeconds;
+	BOOL shouldRepeat;
 	
 	QueuedKeyFrame()
 	{
 		lengthSeconds = 0;
+		shouldRepeat = NO;
 	}
 };
 
@@ -80,11 +82,20 @@ struct QueuedKeyFrame
 	deque<QueuedKeyFrame> m_qkf;
 	float intoCurrentKeyFrameSeconds;
 	bool blendAdd;
+	BOOL repeatBlockOn;
 	int frameIndex; 
+	
+	BOOL disabled;
 }
+
+@property (assign) BOOL disabled;
 @property (retain) TMFramedTexture* texture;
 @property (assign) bool blendAdd;
 @property (assign) int frameIndex;
+
+- (void) startRepeatingBlock;
+- (void) stopRepeatingBlock;
+
 - (void) pushKeyFrame:(float)lengthSeconds;
 - (void) setX:(float)x;
 - (void) setY:(float)y;

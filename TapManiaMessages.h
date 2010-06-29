@@ -25,4 +25,6 @@ enum {
 	kMineHitMessage, kMineAvoidedMessage,   /* Mine hit/avoided messages; payload = mine */
 	
 	kLifeBarDrainedMessage,					/* Sent by LifeBar when the lifebar is drained */
+	kLifeBarWarningMessage,					/* Sent by LifeBar when the player is close to fail */
+	kLifeBarBackNormalMessage,				/* Sent by LifeBar when the lifebar is recovered from the above */
 };

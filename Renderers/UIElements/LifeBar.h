@@ -19,6 +19,7 @@
 @interface LifeBar : NSObject <TMRenderable, TMLogicUpdater, TMMessageSupport> {
 	float m_fCurrentValue;  // 0.0 -> 100.0 :: defaults to 50.0 on song start
 	BOOL   m_bIsActive;
+	BOOL   m_bWarningBroadcasted;
 	CGRect m_rShape;	// The rect where the lifebar is drawn
 	
 	/* Textures */

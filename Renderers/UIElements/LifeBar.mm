@@ -29,6 +29,8 @@
 	
 	// Register messages broadcasted by the lifebar handler
 	REG_MESSAGE(kLifeBarDrainedMessage, @"LifeBarDrained");
+	REG_MESSAGE(kLifeBarWarningMessage, @"LifeBarWarning");
+	REG_MESSAGE(kLifeBarBackNormalMessage, @"LifeBarRecovered");
 	
 	m_fCurrentValue = 0.5f;
 	m_rShape = rect;
@@ -45,6 +47,8 @@
 	SUBSCRIBE(kNoteScoreMessage);
 	SUBSCRIBE(kHoldHeldMessage);
 	SUBSCRIBE(kHoldLostMessage);
+	
+	m_bWarningBroadcasted = NO;
 	
 	return self;
 }
@@ -95,6 +99,14 @@
 /* TMLogicUpdater method */
 - (void) update:(float)fDelta {
 	// Check current value
+	if(!m_bWarningBroadcasted && m_fCurrentValue <= 0.3f) {
+		BROADCAST_MESSAGE(kLifeBarWarningMessage, nil);
+	}
+	else if(m_bWarningBroadcasted) {
+		BROADCAST_MESSAGE(kLifeBarBackNormalMessage, nil);
+		m_bWarningBroadcasted = NO;
+	}
+	
 	if(m_fCurrentValue < kMinLifeToKeepAlive && m_bIsActive) {
 		BROADCAST_MESSAGE(kLifeBarDrainedMessage, nil);
 

@@ -103,6 +103,32 @@ extern TMGameState* g_pGameState;
 	mt_ReadyShowTime = FLOAT_METRIC(@"SongPlay Ready ShowTime");
 	mt_GoShowTime = FLOAT_METRIC(@"SongPlay Go ShowTime");
 	
+	// Warning when you close to fail or giving up
+	m_sprWarning = [[Sprite alloc] init];
+	[m_sprWarning setTexture:(TMFramedTexture*)TEXTURE(@"SongPlay Warning")];
+	[m_sprWarning startRepeatingBlock];
+	[m_sprWarning setX:160.0f];
+	[m_sprWarning setY:320.0f];	
+	[m_sprWarning setAlpha:1.0f];
+	[m_sprWarning setR:1.0f G:0.0f B:0.0f];
+	[m_sprWarning setScale:1.2f];
+	
+	[m_sprWarning pushKeyFrame:0.8f];
+
+	[m_sprWarning setAlpha:0.3f];
+	[m_sprWarning setR:0.1f G:0.0f B:0.0f];
+	[m_sprWarning setScale:0.7f];
+
+	[m_sprWarning pushKeyFrame:0.2f];
+	
+	[m_sprWarning setAlpha:1.0f];
+	[m_sprWarning setR:1.0f G:0.0f B:0.0f];
+	[m_sprWarning setScale:1.2f];
+	
+	[m_sprWarning stopRepeatingBlock];
+	m_sprWarning.disabled = YES;
+	m_bWarningMode = NO;
+	
 	// And sounds
 	sr_Failed = SOUND(@"SongPlay Failed");
 	sr_Cleared = SOUND(@"SongPlay Cleared");
@@ -125,6 +151,8 @@ extern TMGameState* g_pGameState;
 	
 	// Subscribe to messages
 	SUBSCRIBE(kLifeBarDrainedMessage);
+	SUBSCRIBE(kLifeBarWarningMessage);
+	SUBSCRIBE(kLifeBarBackNormalMessage);
 	
 	return self;
 }
@@ -169,7 +197,7 @@ extern TMGameState* g_pGameState;
 	g_pGameState->m_nFailType = kFailAtEnd;
 	g_pGameState->m_nCombo = 0;
 	
-	g_pGameState->m_bFailed = g_pGameState->m_bGaveUp = NO;
+	g_pGameState->m_bFailed = g_pGameState->m_bGaveUp = g_pGameState->m_bGivingUp = NO;
 			
 	[t_Judgement reset];
 	[t_HoldJudgement reset];
@@ -222,6 +250,7 @@ extern TMGameState* g_pGameState;
 	
 	// Setup kids to render in right order
 	[self pushBackChild:m_pReceptorRow];
+	[self pushBackChild:m_sprWarning];
 	[self pushBackChild:[g_pGameState->m_pSteps retain]];	
 	[self pushBackChild:[t_Judgement retain]];
 	[self pushBackChild:[t_HoldJudgement retain]];
@@ -270,19 +299,41 @@ extern TMGameState* g_pGameState;
 	// Update all kids
 	[super update:fDelta];
 	
+	// Check give up state	
+	BOOL gaveUp = NO;
+	g_pGameState->m_bGivingUp = NO;
+	
+	if(!m_bWarningMode)
+		m_sprWarning.disabled = YES;
+	
+	if ([m_pJoyPad getStateForButton:kJoyButtonExit]) {
+		double exitReleaseTime = [m_pJoyPad getReleaseTimeForButton:kJoyButtonExit];
+		double exitTouchTime =   [m_pJoyPad getTouchTimeForButton:kJoyButtonExit]; 
+
+		g_pGameState->m_bGivingUp = YES;
+		m_sprWarning.disabled = NO;
+		
+		if(exitTouchTime > exitReleaseTime 
+		   && currentTime - exitTouchTime >= 2.0f) {
+		
+			gaveUp = YES;
+			m_sprWarning.disabled = YES;	// Turn off that sprite
+		}
+	}
+	
 	// Start music with delay if required
 	if(!m_bMusicPlaybackStarted) {
 		if(g_pGameState->m_dPlayBackStartTime <= currentTime){
 			m_bMusicPlaybackStarted = YES;
 			[[TMSoundEngine sharedInstance] playMusic];
 		}
-	} else if(currentTime >= m_dPlayBackScheduledEndTime || [m_pJoyPad getStateForButton:kJoyButtonExit] 
+	} else if(currentTime >= m_dPlayBackScheduledEndTime || gaveUp
 			  || (g_pGameState->m_bFailed && g_pGameState->m_nFailType == kFailOn)) 
 	{
 		// Should stop music and stop gameplay now
 		[[TMSoundEngine sharedInstance] stopMusic];
 
-		if([m_pJoyPad getStateForButton:kJoyButtonExit])
+		if(gaveUp)
 			g_pGameState->m_bGaveUp = YES;
 		
 		if(g_pGameState->m_bFailed || g_pGameState->m_bGaveUp) {
@@ -395,6 +446,14 @@ extern TMGameState* g_pGameState;
 				g_pGameState->m_bFailed = YES;
 			}
 			
+			break;
+			
+		case kLifeBarWarningMessage:
+			m_bWarningMode = YES;
+			break;
+			
+		case kLifeBarBackNormalMessage:
+			m_bWarningMode = NO;
 			break;
 	}
 }

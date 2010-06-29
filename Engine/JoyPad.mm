@@ -177,34 +177,44 @@
 	for(touchIdx=0; touchIdx<touches.size(); ++touchIdx) {
 		TMTouch touch = touches.at(touchIdx);
 		CGPoint point = CGPointMake(touch.x(), touch.y());
-		
-		int i;
-		int closestButton = -1;
-		float minDist = MAXFLOAT;
-
-		Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];
-			
-		for(i=0; i<kNumJoyButtons; ++i){
-			if(i == kJoyButtonExit)
-				continue;
-			
-			float d = [Vector distSquared:v1 And:m_pJoyCurrentButtonLocation[i]];
 					
-			if(d < minDist) {
-				minDist = d;
-				closestButton = i;
+		// Check general touch position
+		if(point.y >= 420.0) {
+			m_bJoyButtonStates[kJoyButtonExit] = NO;
+			m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
+			BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
+			
+		} else {
+			
+			int i;
+			int closestButton = -1;
+			float minDist = MAXFLOAT;
+			
+			Vector* v1 = [[Vector alloc] initWithX:point.x andY:point.y];			
+			
+			for(i=0; i<kNumJoyButtons; ++i){
+				if(i == kJoyButtonExit)
+					continue;
+			
+				float d = [Vector distSquared:v1 And:m_pJoyCurrentButtonLocation[i]];
+						
+				if(d < minDist) {
+					minDist = d;
+					closestButton = i;
+				}
 			}
+			
+			if(m_bAutoTrackEnabled == YES) {
+				// Store new position if we are using the autotrack feature
+				[m_pJoyCurrentButtonLocation[closestButton] release];
+				m_pJoyCurrentButtonLocation[closestButton] = v1;
+			}			
+			
+			m_bJoyButtonStates[closestButton] = NO;
+			m_dJoyButtonTimeRelease[closestButton] = touch.timestamp();			
+			BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:closestButton]);
+			
 		}
-
-		if(m_bAutoTrackEnabled == YES) {
-			// Store new position if we are using the autotrack feature
-			[m_pJoyCurrentButtonLocation[closestButton] release];
-			m_pJoyCurrentButtonLocation[closestButton] = v1;
-		}
-		
-		m_bJoyButtonStates[closestButton] = NO;
-		m_dJoyButtonTimeRelease[closestButton] = touch.timestamp();			
-		BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:closestButton]);
 	}
 	
 	return NO;

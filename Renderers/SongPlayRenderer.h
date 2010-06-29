@@ -13,6 +13,7 @@
 
 @class TMSound, TMSong, TMSongOptions, TMSteps, ReceptorRow, LifeBar, JoyPad, ComboMeter, ScoreMeter;
 @class Judgement, HoldJudgement, TapNote, HoldNote, Texture2D, TMFramedTexture;
+@class Sprite;
 
 #define kMinTimeTillStart 3.0	// 3 seconds till start of first beat
 
@@ -33,6 +34,7 @@
 	double					m_dFailedTime, m_dClearedTime;
 	
 	BOOL					m_bDrawReady, m_bDrawGo, m_bDrawnGo, m_bDrawFailed, m_bDrawCleared;
+	BOOL					m_bWarningMode;
 	BOOL					m_bIsFading;
 	BOOL					m_bMusicPlaybackStarted;
 	
@@ -46,6 +48,7 @@
 	// Other
 	TMFramedTexture* t_FingerTap;
 	Texture2D* t_Failed, *t_Cleared, *t_Ready, *t_Go;
+	Sprite* m_sprWarning;
 	
 	// Sounds
 	TMSound   *sr_Failed, *sr_Cleared;
