@@ -14,6 +14,7 @@
 @interface SongPickerMenuRenderer : TMScreen {
 	SongPickerWheel*		m_pSongWheel;
 	TogglerItem*			m_pDifficultyToggler;
+	TogglerItem*			m_pSpeedToggler;
 	TMSound*				m_pPreviewMusic;
 	
 	/* Metrics and such */

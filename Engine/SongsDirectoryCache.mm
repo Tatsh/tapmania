@@ -136,6 +136,19 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	return m_aAvailableSongs;
 }
 
+- (int) songIndex:(NSString*) hash {
+	int idx = 0;
+	
+	for (TMSong* sng in m_aAvailableSongs) {
+		if( [hash isEqualToString:sng.m_sHash] )
+			return idx;
+		
+		++idx;
+	}
+	
+	return -1;
+}
+
 
 - (TMSong*) getSongNextTo:(TMSong*)song {
 	int i = [m_aAvailableSongs indexOfObject:song];

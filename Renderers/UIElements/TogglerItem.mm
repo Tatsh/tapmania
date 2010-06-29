@@ -257,6 +257,15 @@
 	return nil;
 }
 
+- (int) getCurrentIndex {
+	if([m_aElements count] > 0) {
+		return m_nCurrentSelection;
+	} 
+	
+	return -1;
+}
+
+
 - (void) invokeCurrentCommand {
 	[[self getCurrent] onSelect];
 }

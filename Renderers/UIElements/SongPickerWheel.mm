@@ -11,6 +11,7 @@
 #import "SongPickerMenuItem.h"
 
 #import "SongsDirectoryCache.h"
+#import "SettingsEngine.h"
 #import "ThemeManager.h"
 #import "TapMania.h"
 #import "EAGLView.h"
@@ -41,6 +42,26 @@ extern TMGameState* g_pGameState;
 	m_pWheelItems = new TMWheelItems();	
 	NSArray* songList = [[SongsDirectoryCache sharedInstance] getSongList];
 	
+	// Lookup the index of the latest song played/selected
+	int selectedIndex = [[SongsDirectoryCache sharedInstance] songIndex:
+						 [[SettingsEngine sharedInstance] getStringValue:@"lastsong"]];
+	
+	if (selectedIndex >= 0 && (selectedIndex -= [songList count]) < 0) {
+		selectedIndex = [songList count] + selectedIndex;
+	}
+	
+	if (selectedIndex >= 0) {
+		
+		int shift = kSelectedWheelItemId;
+		for( ; shift >=0; --shift) {
+			if( --selectedIndex < 0) 
+				selectedIndex = [songList count]-1;				
+		}
+		
+	} else {
+		selectedIndex = 0;
+	}
+	
 	// Cache metrics
 	mt_ItemSong =			RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
 	mt_ItemSongHalfHeight = mt_ItemSong.size.height/2;
@@ -62,10 +83,10 @@ extern TMGameState* g_pGameState;
 	
 	m_fVelocity = 0.0f;	
 	[self clearSwipes];
-	
+		
 	float curYOffset = mt_ItemSong.size.height*(kNumWheelItems-1);
 	int i = 0,
-		j = 0;
+		j = selectedIndex;
 	for(; i<kNumWheelItems; i++) {		
 		if(j == [songList count]) {
 			j = 0;

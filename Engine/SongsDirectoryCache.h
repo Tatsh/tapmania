@@ -40,6 +40,7 @@ typedef enum {
 
 - (NSString*) getSongsPath:(TMSongsPath)pathId;
 
+- (int) songIndex:(NSString*) hash;
 - (TMSong*) getSongNextTo:(TMSong*)song;
 - (TMSong*) getSongPrevFrom:(TMSong*)song;
 

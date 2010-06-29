@@ -44,6 +44,7 @@ extern TMGameState * g_pGameState;
 
 - (void) backButtonHit;
 - (void) difficultyChanged;
+- (void) speedChanged;
 
 - (void) songSelectionChanged;
 - (void) songShouldStart;
@@ -103,6 +104,11 @@ extern TMGameState * g_pGameState;
 	// Select current song (populate difficulty toggler with it's difficulties)
 	[self songSelectionChanged];
 	[m_pSongWheel updateScore];
+		
+	// Select preferred speed value
+	m_pSpeedToggler = (TogglerItem*)[self findControl:@"SongPickerMenu SpeedToggler"];
+	[m_pSpeedToggler setActionHandler:@selector(speedChanged) receiver:self];
+	[m_pSpeedToggler selectItemAtIndex:[[SettingsEngine sharedInstance] getIntValue:@"prefspeed"]];
 	
 	// Get ads back to place if removed
 	[[TapMania sharedInstance] toggleAds:YES];
@@ -169,6 +175,9 @@ extern TMGameState * g_pGameState;
 	
 	[[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
 	
+	// Save as last played/selected
+	[[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
+	
 	// Mark released to prevent memleaks
 	[selected release];	
 }
@@ -207,6 +216,12 @@ extern TMGameState * g_pGameState;
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)curDiff;
 	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)curDiff];
 	[m_pSongWheel updateScore];
+}
+
+/* Support speed change saving */
+- (void) speedChanged {
+	int curSpeed = [(TogglerItem*)m_pSpeedToggler getCurrentIndex];	
+	[[SettingsEngine sharedInstance] setIntValue:curSpeed forKey:@"prefspeed"];		
 }
 
 /* Handle back button */

@@ -59,6 +59,7 @@
 - (void) selectItemAtIndex:(int) index;
 - (void) toggle;
 - (TogglerItemObject*) getCurrent;
+- (int) getCurrentIndex;
 - (void) invokeCurrentCommand;
 
 // Used by the value,VAL command to set current value
