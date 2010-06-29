@@ -15,6 +15,17 @@
 @synthesize texture, blendAdd, frameIndex;
 @synthesize disabled;
 
+- (id) initWithRepeating
+{
+	if( self = [super init] )
+	{
+		repeatBlockOn = YES;
+		m_qkf.push_back( QueuedKeyFrame(YES) );
+		disabled = NO;
+	}
+	return self;
+}
+
 - (id) init
 {
 	if( self = [super init] )

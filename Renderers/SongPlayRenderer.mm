@@ -104,9 +104,9 @@ extern TMGameState* g_pGameState;
 	mt_GoShowTime = FLOAT_METRIC(@"SongPlay Go ShowTime");
 	
 	// Warning when you close to fail or giving up
-	m_sprWarning = [[Sprite alloc] init];
+	m_sprWarning = [[Sprite alloc] initWithRepeating];
 	[m_sprWarning setTexture:(TMFramedTexture*)TEXTURE(@"SongPlay Warning")];
-	[m_sprWarning startRepeatingBlock];
+//	[m_sprWarning startRepeatingBlock];
 	[m_sprWarning setX:160.0f];
 	[m_sprWarning setY:320.0f];	
 	[m_sprWarning setAlpha:1.0f];
@@ -124,8 +124,8 @@ extern TMGameState* g_pGameState;
 	[m_sprWarning setAlpha:1.0f];
 	[m_sprWarning setR:1.0f G:0.0f B:0.0f];
 	[m_sprWarning setScale:1.2f];
-	
-	[m_sprWarning stopRepeatingBlock];
+
+//	[m_sprWarning stopRepeatingBlock];
 	m_sprWarning.disabled = YES;
 	m_bWarningMode = NO;
 	
@@ -303,8 +303,7 @@ extern TMGameState* g_pGameState;
 	BOOL gaveUp = NO;
 	g_pGameState->m_bGivingUp = NO;
 	
-	if(!m_bWarningMode)
-		m_sprWarning.disabled = YES;
+	m_sprWarning.disabled = !m_bWarningMode;
 	
 	if ([m_pJoyPad getStateForButton:kJoyButtonExit]) {
 		double exitReleaseTime = [m_pJoyPad getReleaseTimeForButton:kJoyButtonExit];

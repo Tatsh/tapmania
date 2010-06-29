@@ -66,10 +66,10 @@ struct QueuedKeyFrame
 	float lengthSeconds;
 	BOOL shouldRepeat;
 	
-	QueuedKeyFrame()
+	QueuedKeyFrame(BOOL repeating = NO)
 	{
 		lengthSeconds = 0;
-		shouldRepeat = NO;
+		shouldRepeat = repeating;
 	}
 };
 
@@ -110,8 +110,10 @@ struct QueuedKeyFrame
 - (void) setR:(float)r G:(float)g B:(float)b;
 - (void) setAlpha:(float)a;
 - (void) finishKeyFrames;
-//- (id) initWithTexture2D:(Texture2D *)texture;
+
 - (id) init;
+- (id) initWithRepeating;
+
 - (void) update:(float)fDelta;
 - (void) render:(float)fDelta;
 
