@@ -167,7 +167,69 @@
 }
 
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
-// 	[self tmTouchesBegan:touches withEvent:event];
+	int touchIdx;
+	
+	for(touchIdx=0; touchIdx<touches.size(); ++touchIdx) {
+		TMTouch touch = touches.at(touchIdx);
+		
+		CGPoint point = CGPointMake(touch.x(), touch.y());
+		CGPoint prevPoint = CGPointMake(touch.px(), touch.py());
+		
+		// Check general touch position. untouch exit button if we are out of the zone
+		if(prevPoint.y >= 420.0 && point.y < 420.0) {
+			m_bJoyButtonStates[kJoyButtonExit] = NO;
+			m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
+			BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
+			
+		} else if(point.y > 420.0 && prevPoint.y <= 420.0) {
+			m_bJoyButtonStates[kJoyButtonExit] = YES;
+			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
+			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);			
+			
+		} else {
+			
+			int i;
+			int closestButton = -1;
+			int closestButtonOld = -1;
+			
+			float minDist = MAXFLOAT;
+			float oldMinDist = MAXFLOAT;
+			
+			Vector* vcur = [[Vector alloc] initWithX:point.x andY:point.y];			
+			Vector* vold = [[Vector alloc] initWithX:prevPoint.x andY:prevPoint.y];
+			
+			for(i=0; i<kNumJoyButtons; ++i){
+				if(i == kJoyButtonExit)
+					continue;
+				
+				float d = [Vector distSquared:vcur And:m_pJoyCurrentButtonLocation[i]];
+				float dold = [Vector distSquared:vold And:m_pJoyCurrentButtonLocation[i]];
+				
+				if(d < minDist) {
+					minDist = d;
+					closestButton = i;
+				}
+				
+				if(dold < oldMinDist) {
+					oldMinDist = dold;
+					closestButtonOld = i;
+				}
+			}
+			
+			// Button changed?
+			if( closestButton != closestButtonOld ) {
+				m_bJoyButtonStates[closestButtonOld] = NO;
+				m_dJoyButtonTimeRelease[closestButtonOld] = touch.timestamp();			
+				BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:closestButtonOld]);
+				
+				m_bJoyButtonStates[closestButton] = YES;
+				m_dJoyButtonTimeTouch[closestButton] = touch.timestamp();			
+				BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:closestButton]);
+			}
+			
+		}
+	}	
+	
 	return NO;
 }
 
