@@ -220,7 +220,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 		
 		if([[file lowercaseString] hasSuffix:@".dwi"] || [[file lowercaseString] hasSuffix:@".sm"]) {			
 			stepsFound = YES;
-		} else if([[file lowercaseString] hasSuffix:@".mp3"] || [[file lowercaseString] hasSuffix:@".ogg"]) {
+		} else if([[file lowercaseString] hasSuffix:@".mp3"] 
+#ifdef TM_OGG_ENABLE
+				  || [[file lowercaseString] hasSuffix:@".ogg"]
+#endif // TM_OGG_ENABLE
+		){
 			musicFound = YES;
 		}
 	}
@@ -277,12 +281,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			// we support mp3 files					
 			TMLog(@"Found music file (MP3): %@", file);
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} else if([[file lowercaseString] hasSuffix:@".ogg"]) {
+		} 
+#ifdef TM_OGG_ENABLE
+		else if([[file lowercaseString] hasSuffix:@".ogg"]) {
 			
 			// and ogg too (in future :P)
 			TMLog(@"Found music file (OGG): %@", file);
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} else if([[file lowercaseString] hasSuffix:@"-bg-iphone.png"]) {
+		} 
+#endif // TM_OGG_ENABLE
+		else if([[file lowercaseString] hasSuffix:@"-bg-iphone.png"]) {
 			TMLog(@"Found graphic file (PNG): %@", file);
 			backgroundFilePath = [curPath stringByAppendingPathComponent:file];
 		}
