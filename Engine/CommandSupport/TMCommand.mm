@@ -65,6 +65,10 @@
 		}
 	}
 	else {
+		if([@"YES" isEqualToString:[str uppercaseString]] || [@"NO" isEqualToString:[str uppercaseString]]) {
+			return [NSNumber numberWithBool:[str boolValue]];
+		} 
+															  
 		return str;
 	}
 }
