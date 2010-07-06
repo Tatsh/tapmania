@@ -155,6 +155,14 @@ extern TMGameState*	g_pGameState;
 	}
 }
 
+- (BOOL) boolMetric:(NSString*) metricKey {
+	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
+	if(!node) 
+		return NO; // Defualt value
+	
+	return [(NSNumber*)node	boolValue];
+}
+
 - (int) intMetric:(NSString*) metricKey {
 	NSObject* node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
 	if(!node) 

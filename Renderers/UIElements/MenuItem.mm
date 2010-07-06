@@ -26,6 +26,7 @@
 	if(!self) 
 		return nil;
 	
+	m_bShouldLock = YES;
 	
 	[self initGraphicsAndSounds:@"Common MenuItem"];
 	[self initTextualProperties:@"Common MenuItem"];
@@ -41,6 +42,7 @@
 	
 	// Try to fetch extra width property
 	m_FixedWidth =  FLOAT_METRIC( ([inMetricsKey stringByAppendingString:@" FixedWidth"]) );	// This is optional. will be 0 if not specified
+	m_bShouldLock = ! BOOL_METRIC( ([inMetricsKey stringByAppendingString:@" ShouldNotLock"]) );
 	
 	// Get graphics and sounds used by this control
 	[self initGraphicsAndSounds:inMetricsKey];
@@ -123,6 +125,14 @@
 		
 		glDisable(GL_BLEND);
 	}
+}
+
+- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {		
+	BOOL res = [super tmTouchesEnded:touches withEvent:event];
+	if(res && m_bShouldLock)
+		[self disable];
+	
+	return res;
 }
 
 @end

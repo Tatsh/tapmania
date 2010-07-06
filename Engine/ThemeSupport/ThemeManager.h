@@ -14,6 +14,7 @@
 
 @class Metrics, ResourcesLoader, Texture2D, TMSound, TMFramedTexture;
 
+#define BOOL_METRIC(key) [[ThemeManager sharedInstance] boolMetric:key]
 #define INT_METRIC(key) [[ThemeManager sharedInstance] intMetric:key]
 #define FLOAT_METRIC(key) [[ThemeManager sharedInstance] floatMetric:key]
 #define STR_METRIC(key) [[ThemeManager sharedInstance] stringMetric:key]
@@ -71,6 +72,7 @@
 - (void) selectNoteskin:(NSString*) skinName;	
 
 /* Metric stuff */
+- (BOOL) boolMetric:(NSString*) metricKey;
 - (int) intMetric:(NSString*) metricKey;
 - (float) floatMetric:(NSString*) metricKey;
 - (NSString*) stringMetric:(NSString*) metricKey;

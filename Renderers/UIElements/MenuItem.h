@@ -13,6 +13,7 @@
 
 @interface MenuItem : Label {
 	TMFramedTexture*	m_pTexture;
+	BOOL m_bShouldLock;
 }
 
 - (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;

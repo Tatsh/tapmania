@@ -120,6 +120,9 @@
 
 /* TMGameUIResponder stuff */
 - (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	if(!m_bEnabled)
+		return NO;
+
 	// Controls are singletouch. always
 	if(touches.size() == 1){
 		if([super tmTouchesBegan:touches withEvent:event]) {		
@@ -142,6 +145,8 @@
 
 - (BOOL) tmTouchesMoved:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
 	BOOL res = NO;
+	if(!m_bEnabled)
+		return res;
 	
 	// Controls are singletouch. always
 	if(touches.size() == 1){
@@ -191,6 +196,9 @@
 }
 
 - (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {	
+	if(!m_bEnabled)
+		return NO;
+	
 	// Controls are singletouch. always
 	if(touches.size() == 1){
 		
