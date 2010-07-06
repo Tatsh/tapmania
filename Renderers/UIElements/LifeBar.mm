@@ -101,8 +101,9 @@
 	// Check current value
 	if(!m_bWarningBroadcasted && m_fCurrentValue <= 0.3f) {
 		BROADCAST_MESSAGE(kLifeBarWarningMessage, nil);
+		m_bWarningBroadcasted = YES;
 	}
-	else if(m_bWarningBroadcasted) {
+	else if(m_bWarningBroadcasted && m_fCurrentValue > 0.3f) {
 		BROADCAST_MESSAGE(kLifeBarBackNormalMessage, nil);
 		m_bWarningBroadcasted = NO;
 	}
