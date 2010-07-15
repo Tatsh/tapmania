@@ -12,14 +12,50 @@
 
 			body {
 				background-color: #FFFFFF;
+				padding-bottom: 36px;
+				padding-top: 18px;
+				color: #333333;
+				font: 12px/18px "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+			}
+			
+			table {
+				font-size: 0.75em;
+				margin-left: auto;
+				margin-right: auto;
+				border-collapse: collapse;
+			}
+			
+			/* Title Row */
+			th {
+				text-align: left;
+				padding: 5px;
+				background: #f1f1f1;
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#d0d0d0'); /* for IE */
+				background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#d0d0d0)) !important; /* for webkit browsers */
+				background: -moz-linear-gradient(top, #f1f1f1, #d7d7d7) !important; /* for firefox 3.6+ */
+				border-top: 1px solid #cccccc;
+				border-left: 1px solid #cccccc;
+				border-right: 1px solid #999999;
+				border-bottom: 1px solid #999999;
 			}
 
-			hr {
-				color: #DEDEDE;
-			}
-
+			/* Each Item */
 			td {
-				background-color: white;
+				background: #f5f5f5;
+				padding: 5px;
+				margin: none;
+				border-left: 1px solid #cccccc;
+				border-right: 1px solid #999999;
+				border-bottom: 1px solid #999999;
+			}
+
+			td a, td a:visited {
+				text-decoration: underline;
+				color: #878892;
+			}
+
+			td a:hover {
+				text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
 			}
 
 			#wrapper {
@@ -30,25 +66,33 @@
 			}
 
 			#content {
-				background-color: #EDEDED;
 				padding: 10px;
 				margin-top: 16px;
 			}
 
 			#content2 {
-				width: 540px;
+				width: 65%;
 				margin-left: auto;
 				margin-right: auto;
 				margin-top: 10px;
 			}
-
-			#tablewrap {
-				background-color: #7C7C7C;
+			
+			#form {
+			    margin-top: 20px;
+				margin-bottom: 6px;
 			}
 
-			.title {
+			#title {
 				font-size: 22px;
 				font-weight: bold;
+				border-top: 1px solid #cccccc;
+				border-left: 1px solid #cccccc;
+				border-right: 1px solid #999999;
+				border-bottom: 1px solid #999999;
+				padding: 0.5em 0;
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#d0d0d0'); /* for IE */
+				background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#d0d0d0)) !important; /* for webkit browsers */
+				background: -moz-linear-gradient(top, #f1f1f1, #d7d7d7) !important; /* for firefox 3.6+ */
 			}
 			.centered {
 				text-align: center;
@@ -62,67 +106,50 @@
 				text-decoration: underline;
 			}
 			
-			.contentboxtop {
-				background-color: #FFFFFF;
-					-moz-border-radius-topleft: 10px;
-					-webkit-border-top-left-radius: 10px;
-					-moz-border-radius-topright: 10px;
-					-webkit-border-top-right-radius: 10px;
-					border: 1px solid #DEDEDE;
-					padding: 10px;
-			}
-			
-			.contentboxbottom {
-				background-color: #FFFFFF;
-					-moz-border-radius-bottomleft: 10px;
-					-webkit-border-bottom-left-radius: 10px;
-					-moz-border-radius-bottomright: 10px;
-					-webkit-border-bottom-right-radius: 10px;
-					border-left: 1px solid #DEDEDE;
-					border-right: 1px solid #DEDEDE;
-					border-bottom: 1px solid #DEDEDE;
-					padding: 10px;
-			}
-			
-			.contentbox {
-				background-color: #FFFFFF;
-					-moz-border-radius: 10px;
-					-webkit-border-radius: 10px;
-					border: 1px solid #DEDEDE;
-					padding: 10px;
-			}
-			
 			.important {
 				width: 60%;
-					background:#D5F69B;
-					border:1px solid #75AD14;
-					padding:5px;
-					margin:.5em 0 .5em 0;
-					color:#8c1400;
-					text-align: center;
+				background:#D5F69B;
+				border:1px solid #75AD14;
+				padding:5px;
+				margin:.5em 0 .5em 0;
+				color:#8c1400;
+				text-align: center;
+			}
+			.hidden {
+			    visibility: hidden;
+			}
+			.unhidden {
+			    visibility: visible;
 			}
 		</style>
+		<script type="text/javascript">
+			function unhide(divID) {
+				var item = document.getElementById(divID);
+				if (item) {
+					item.className=(item.className=='hidden')?'unhidden':'hidden';
+				}
+			}
+		</script>
 	</head>
 	<body>
 	    <div id="wrapper">
 			<div id="content">
-			    <div class="title">
-			        <div class="centered">Welcome to TapMania Simfile Manager!</div>
+			    <div id="title">
+			        <div class="centered">Welcome to the TapMania Simfile Manager!</div>
 			    </div>
 			    <div id="content2">
-					<div class="contentboxtop">
 						<div class="centered">%MESSAGE%</div>
-					</div>
-					<div class="contentboxbottom">
-						<strong>Use this form to upload a simfile archive.</strong><br/>
-						<div class="small">The archive can be .smzip or .zip format. It should contain one or more simfile directories (with .sm/.dwi file, .mp3 file etc.).</div>
+						<div id="form"><strong>Use this form to upload a simfile archive.</strong><br/>
+						<div class="small">The archive can be .smzip or .zip format. It should contain one or more simfile directories (with .sm/.dwi file, .mp3 file etc.).<br />
+						<span style="color: red;">Make sure the songs are not in OGG format!</span></div>
 						<div class="important">
-							<form action="/filepost" method="post" enctype="multipart/form-data">
+							<form action="/filepost" method="post" enctype="multipart/form-data" OnSubmit="unhide('loadingimg');">
 								<input name="file" type="file" title="Browse" />&nbsp;
-								<input type="submit" value=" Send " title="Send" />
+								<input type="submit" value=" Send " title="Send" />&nbsp;
+								<div id="loadingimg" class="hidden"><img src='Images/loading.gif' alt='Uploading...'></div>
 							</form>
 						</div>
-					</div>
+						</div>
 					<br/>
 				</div>
 					<strong>Current Catalogue:</strong><br/>
@@ -131,18 +158,19 @@
 					<div id="tablewrap">
 						<table width="100%" cellspacing="1" cellpadding="4">
 							<tr>
-								<td align="center"><div class="underlined">Title</div></td>
-								<td align="center"><div class="underlined">Author</div></td>
-								<td align="center"><div class="underlined">Difficulties</div></td>
-								<td align="center"><div class="underlined">Actions</div></td>
+								<th align="center"><div class="underlined">Title</div></th>
+								<th align="center"><div class="underlined">Author</div></th>
+								<th align="center"><div class="underlined">Difficulties</div></th>
+								<th align="center"><div class="underlined">Actions</div></th>
 							</tr>
 							%CATALOGUE%
 						</table>
 					</div>
 					<br />
-					<hr/>
-					Visit <a href="http://tapmania.org/">TapMania.org</a> - The TapMania community portal.<br/>
-					<div class="small">Copyright 2008-2010 (c) Godexsoft | Design: Archivolt</div>
+					<div class="small">
+						<span style="float: left;s">Visit <a href="http://tapmania.org/">TapMania.org</a> - The TapMania community portal.</span>
+						<span style="float: right;">Copyright 2008-2010 (c) Godexsoft | Design: Archivolt</span>
+					</div>
 			</div>
 		</div>
 	</body>
