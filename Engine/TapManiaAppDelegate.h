@@ -9,14 +9,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TDBSearchController;
 
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
 {
 	UIWindow* m_pWindow;
 	UIView* m_pRootView;
 	UIViewController* m_pRootCtrl;
+	TDBSearchController* tapdb;
 }
 
+@property (retain, nonatomic) IBOutlet TDBSearchController* tapdb;
 @property (retain, nonatomic) IBOutlet UIWindow* window;
 @property (retain, nonatomic) IBOutlet UIView* rootView;
 

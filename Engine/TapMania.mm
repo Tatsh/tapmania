@@ -41,9 +41,13 @@
 #import "ModCommand.h"
 #import "ZoomCommand.h"
 
+#import "TapDBCommand.h"
+
 #import "TapManiaAppDelegate.h"
 #import "GameState.h"
 #import "FPS.h"
+
+#import "TDBSearch.h"
 
 TMGameState* g_pGameState;
 
@@ -79,6 +83,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	REG_COMMAND([@"playsoundeffect" retain], [PlaySoundEffectCommand class]);
 	REG_COMMAND([@"zoom" retain], [ZoomCommand class]);	
 	
+	REG_COMMAND([@"tapdb" retain], [TapDBCommand class]);
+	
+	
 	// REG_COMMAND([@"" retain], );
 	
 	// Load up user configuration and cache
@@ -107,6 +114,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 	}
 	
 	return self;
+}
+
+- (void) switchToTapDB {
+	TMLog(@"Going to TapDB...");
+	TapManiaAppDelegate* delegate = (TapManiaAppDelegate*)[UIApplication sharedApplication].delegate;
+
+	[delegate.tapdb.searchDisplayController setActive:YES animated:YES];
+	[self.m_pWindow addSubview:delegate.tapdb.view];
 }
 
 - (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics {
@@ -305,8 +320,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) runLoopBeforeHook:(float)fDelta {
+#ifdef NO_DISPLAY_LINK
 	// We must let the system handle all the events too
 	while( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.009, FALSE) == kCFRunLoopRunHandledSource);
+#endif
 }
 
 - (void) runLoopAfterHook:(float)fDelta {

@@ -263,6 +263,10 @@
 		24964CF10F79223C00C9D5BC /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964CB10F79223C00C9D5BC /* window.h */; };
 		24964D130F79231100C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964D120F79231100C9D5BC /* config.h */; };
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
+		24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */; };
+		24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */; };
+		24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA2364121B307D0023C8C2 /* TapDBCommand.mm */; };
+		24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA244B121B56B50023C8C2 /* TapDBService.mm */; };
 		24DC0DE2101E93E800F2B046 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCC101E93E800F2B046 /* adler32.c */; };
 		24DC0DE3101E93E800F2B046 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCD101E93E800F2B046 /* compress.c */; };
 		24DC0DE4101E93E800F2B046 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0DCE101E93E800F2B046 /* crc32.c */; };
@@ -731,6 +735,13 @@
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
 		24D762980F38A38D008B0AA0 /* ThemeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ThemeManager.mm; path = ThemeSupport/ThemeManager.mm; sourceTree = "<group>"; };
 		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
+		24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TDBSearch.xib; sourceTree = "<group>"; };
+		24DA235B121B2E5C0023C8C2 /* TDBSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBSearch.h; sourceTree = "<group>"; };
+		24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TDBSearch.mm; sourceTree = "<group>"; };
+		24DA2363121B307D0023C8C2 /* TapDBCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDBCommand.h; sourceTree = "<group>"; };
+		24DA2364121B307D0023C8C2 /* TapDBCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapDBCommand.mm; sourceTree = "<group>"; };
+		24DA244A121B56B50023C8C2 /* TapDBService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDBService.h; sourceTree = "<group>"; };
+		24DA244B121B56B50023C8C2 /* TapDBService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapDBService.mm; sourceTree = "<group>"; };
 		24DC0DC8101E939C00F2B046 /* libzlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24DC0DCC101E93E800F2B046 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = "ext/zlib-1.2.3/adler32.c"; sourceTree = "<group>"; };
 		24DC0DCD101E93E800F2B046 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = "ext/zlib-1.2.3/compress.c"; sourceTree = "<group>"; };
@@ -1581,6 +1592,27 @@
 			name = ThemeSupport;
 			sourceTree = "<group>";
 		};
+		24DA2356121B2CF70023C8C2 /* TapDB */ = {
+			isa = PBXGroup;
+			children = (
+				24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */,
+				24DA235B121B2E5C0023C8C2 /* TDBSearch.h */,
+				24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */,
+				24DA244A121B56B50023C8C2 /* TapDBService.h */,
+				24DA244B121B56B50023C8C2 /* TapDBService.mm */,
+			);
+			path = TapDB;
+			sourceTree = "<group>";
+		};
+		24DA2362121B304A0023C8C2 /* TapDB */ = {
+			isa = PBXGroup;
+			children = (
+				24DA2363121B307D0023C8C2 /* TapDBCommand.h */,
+				24DA2364121B307D0023C8C2 /* TapDBCommand.mm */,
+			);
+			name = TapDB;
+			sourceTree = "<group>";
+		};
 		24DC0DC3101E938800F2B046 /* ZLIB */ = {
 			isa = PBXGroup;
 			children = (
@@ -1626,6 +1658,7 @@
 		24E90FD510657744005C315E /* CommandSupport */ = {
 			isa = PBXGroup;
 			children = (
+				24DA2362121B304A0023C8C2 /* TapDB */,
 				24B762F3109837C70030890F /* VisualCommands */,
 				24C44007106584CC0003EF60 /* SystemCommands */,
 				24E90FD61065778E005C315E /* CommandParser.h */,
@@ -1650,6 +1683,7 @@
 		24F15DF1105A9CE100221550 /* TapMania */ = {
 			isa = PBXGroup;
 			children = (
+				24DA2356121B2CF70023C8C2 /* TapDB */,
 				24B2A61E1066BA2700F307EB /* Commands */,
 				2486F4510EC1E0E600E5F9EE /* Renderers */,
 				2486F2AA0EC0A4FE00E5F9EE /* GameObjects */,
@@ -2013,6 +2047,7 @@
 				24219C4F11D26244001BCE14 /* AdWhirlWebBrowser.xib in Resources */,
 				24219C5011D26244001BCE14 /* MainWindow.xib in Resources */,
 				24219C5111D26244001BCE14 /* Songs in Resources */,
+				24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2165,6 +2200,9 @@
 				24219CDE11D26244001BCE14 /* CSerializedJSONData.m in Sources */,
 				24219CDF11D26244001BCE14 /* AdWhirlAdapterAdMob.m in Sources */,
 				24219CE011D26244001BCE14 /* AdWhirlAdapterIAd.m in Sources */,
+				24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */,
+				24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */,
+				24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2294,7 +2332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alex Kremer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2306,8 +2344,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68243EB2-943E-4B7A-A857-ED8CCDB3DB29";
 				SDKROOT = iphoneos4.0;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = "Release AppStore";
 		};
@@ -2511,7 +2550,7 @@
 					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
 					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
 				);
-				INFOPLIST_FILE = "Info copy.plist";
+				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

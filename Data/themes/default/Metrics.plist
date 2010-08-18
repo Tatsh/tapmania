@@ -70,6 +70,23 @@
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
+			<key>TapDBButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,TapDB;playsoundeffect,Common ButtonHit;tapdb</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
+				<key>X</key>
+				<integer>60</integer>
+				<key>Y</key>
+				<integer>384</integer>
+				<key>Width</key>
+				<integer>200</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 		</dict>
 		<key>HowToMenu</key>
 		<dict>

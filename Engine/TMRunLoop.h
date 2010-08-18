@@ -48,10 +48,14 @@ typedef deque<NSObject*> TMObjList;
 	@private 
 	BOOL			m_bStopRequested;
 	BOOL			m_bActualStopState;
+	
+	double			m_dPrevTime;
 }
 
 @property (assign, getter=delegate, setter=delegate:) id <TMRunLoopDelegate> m_idDelegate;
 
+// Display Link method
+- (void) displayLink:(CADisplayLink*)sender;
 
 // Call this method to run the runloop
 - (void) run;

@@ -17,6 +17,10 @@
 #import "TMMessage.h"
 #import "TMCommand.h"
 
+#ifndef NO_DISPLAY_LINK
+#import <QuartzCore/CADisplayLink.h>
+#endif
+
 @interface TMRunLoop (Private)
 - (void) worker; 
 @end
@@ -49,8 +53,30 @@
 }
 
 - (void) run {
+	
+	m_dPrevTime = [TimingUtil getCurrentTime] - 1.0f;
+	
+	// We need a delegate
+	assert(m_idDelegate != nil);
+	
+	/* Call initialization routine on delegate */
+	if([m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
+		[m_idDelegate runLoopInitHook];
+		
+		if([m_idDelegate respondsToSelector:@selector(runLoopInitializedNotification)]){
+			[m_idDelegate runLoopInitializedNotification];
+		}
+	}	
+	
+#ifdef NO_DISPLAY_LINK
 	m_bActualStopState = NO; // Running
 	[self worker];
+#else
+	// Schedule display link
+	CADisplayLink* disp = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLink:)];
+	[disp addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+#endif
+	
 }
 
 - (void) stop {
@@ -114,63 +140,54 @@
 	}
 }
 
+/* Single iteration */
+- (void) displayLink:(CADisplayLink*)sender {
+	double currentTime = [TimingUtil getCurrentTime];
+	
+	float delta = currentTime-m_dPrevTime;
+	//TMLog(@"currentTime %f - delta %f", currentTime, delta);
+	delta = fmaxf(0.0f, fminf(0.25f, delta));
+	
+	m_dPrevTime = currentTime;
+	
+	/* Now call the runLoopBeforeHook method on the delegate */
+	[m_idDelegate runLoopBeforeHook:delta];
+	
+	/* Do the actual work */
+	/* First update all objects */
+	if(! m_aObjects->empty() ) {			
+		int curSize = m_aObjects->size();
+		
+		for (int i = 0; i < curSize; ++i) {				
+			NSObject* obj = m_aObjects->at(i);
+			[(id<TMLogicUpdater>)obj update:delta];
+			curSize = m_aObjects->size();	// To be safe
+		}	
+		
+		curSize = m_aObjects->size();
+		
+		/* Now draw all objects */
+		for (int i = 0; i < curSize; ++i) {				
+			NSObject* obj = m_aObjects->at(i);				
+			[(id<TMRenderable>)obj render:delta];
+			curSize = m_aObjects->size();
+		}			
+	}
+	
+	/* Now call the runLoopAfterHook method on the delegate */
+	[m_idDelegate runLoopAfterHook:delta];
+}
 
 /* Private worker */
 - (void) worker {
-	double prevTime = [TimingUtil getCurrentTime] - 1.0f;
-
-	// We need a delegate
-	assert(m_idDelegate != nil);
-	
-	/* Call initialization routine on delegate */
-	if([m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[m_idDelegate runLoopInitHook];
-		
-		if([m_idDelegate respondsToSelector:@selector(runLoopInitializedNotification)]){
-			[m_idDelegate runLoopInitializedNotification];
-		}
-	}
 	
 	while (!m_bStopRequested) {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
-		double currentTime = [TimingUtil getCurrentTime];
-		
-		float delta = currentTime-prevTime;
-		//TMLog(@"currentTime %f - delta %f", currentTime, delta);
-		delta = fmaxf(0.0f, fminf(0.25f, delta));
-		
-		prevTime = currentTime;
-		
-		/* Now call the runLoopBeforeHook method on the delegate */
-		[m_idDelegate runLoopBeforeHook:delta];
-		
-		/* Do the actual work */
-		/* First update all objects */
-		if(! m_aObjects->empty() ) {			
-			int curSize = m_aObjects->size();
-			
-			for (int i = 0; i < curSize; ++i) {				
-				NSObject* obj = m_aObjects->at(i);
-				[(id<TMLogicUpdater>)obj update:delta];
-				curSize = m_aObjects->size();	// To be safe
-			}	
+		[self displayLink:nil];
 				
-			curSize = m_aObjects->size();
-			
-			/* Now draw all objects */
-			for (int i = 0; i < curSize; ++i) {				
-				NSObject* obj = m_aObjects->at(i);				
-				[(id<TMRenderable>)obj render:delta];
-				curSize = m_aObjects->size();
-			}			
-		}
-		
-		/* Now call the runLoopAfterHook method on the delegate */
-		[m_idDelegate runLoopAfterHook:delta];
-		
 		// Clean up pool
-		[pool drain];	// Drain will call release on iPhone
+		[pool drain];	// Drain will call release on iPhone	
 	}
 	
 	// Mark as stopped

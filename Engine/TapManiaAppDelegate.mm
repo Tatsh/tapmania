@@ -12,6 +12,7 @@
 #import "TapMania.h"
 #import "MessageManager.h"
 #import "TMMessage.h"
+#import "TDBSearch.h"
 
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
@@ -26,6 +27,7 @@
 @synthesize window = m_pWindow;
 @synthesize rootView = m_pRootView;
 @synthesize rootController = m_pRootCtrl;
+@synthesize tapdb;
 
 void uncaughtExceptionHandler(NSException *exception) {
     [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];

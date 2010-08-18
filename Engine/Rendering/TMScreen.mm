@@ -114,6 +114,11 @@
 }
 
 - (void) deinitOnTransition {
+//	// Disable all controls
+//	for (TMViewChildren::iterator it = m_pChildren->begin(); it != m_pChildren->end(); ++it) {
+//		[(TMView*)it->get() disable];
+//	}
+	
 	[[InputEngine sharedInstance] unsubscribe:self];
 }
 

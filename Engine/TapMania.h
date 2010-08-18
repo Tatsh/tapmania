@@ -49,6 +49,7 @@
 - (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics;
 - (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass;
 - (void) switchToScreen:(Class)screenClass withMetrics:(NSString*)inMetrics usingTransition:(Class)transitionClass timeIn:(double)timeIn timeOut:(double) timeOut;
+- (void) switchToTapDB;
 
 - (void) addOverlay:(TMModalView*)modalView;
 - (void) removeOverlay:(TMModalView*)modalView;
