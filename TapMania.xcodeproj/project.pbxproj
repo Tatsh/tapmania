@@ -263,6 +263,8 @@
 		24964CF10F79223C00C9D5BC /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964CB10F79223C00C9D5BC /* window.h */; };
 		24964D130F79231100C9D5BC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 24964D120F79231100C9D5BC /* config.h */; };
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
+		249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249AA940121C41DB0075D50F /* TDBSimFile.xib */; };
+		249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 249AA944121C420D0075D50F /* TDBSimFileCell.m */; };
 		24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */; };
 		24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */; };
 		24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA2364121B307D0023C8C2 /* TapDBCommand.mm */; };
@@ -645,6 +647,9 @@
 		24964D120F79231100C9D5BC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = "ext/libvorbis-1.2.0/config.h"; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
 		24966C7E0ECB3B6100D367E3 /* TogglerItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TogglerItem.mm; path = Renderers/UIElements/TogglerItem.mm; sourceTree = "<group>"; };
+		249AA940121C41DB0075D50F /* TDBSimFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TDBSimFile.xib; sourceTree = "<group>"; };
+		249AA943121C420D0075D50F /* TDBSimFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBSimFileCell.h; sourceTree = "<group>"; };
+		249AA944121C420D0075D50F /* TDBSimFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBSimFileCell.m; sourceTree = "<group>"; };
 		249D7FFD0FCC9A2200630646 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
 		249D80590FCC9AF700630646 /* ImageButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageButton.mm; path = Renderers/UIElements/ImageButton.mm; sourceTree = "<group>"; };
@@ -1600,6 +1605,9 @@
 				24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */,
 				24DA244A121B56B50023C8C2 /* TapDBService.h */,
 				24DA244B121B56B50023C8C2 /* TapDBService.mm */,
+				249AA940121C41DB0075D50F /* TDBSimFile.xib */,
+				249AA943121C420D0075D50F /* TDBSimFileCell.h */,
+				249AA944121C420D0075D50F /* TDBSimFileCell.m */,
 			);
 			path = TapDB;
 			sourceTree = "<group>";
@@ -2048,6 +2056,7 @@
 				24219C5011D26244001BCE14 /* MainWindow.xib in Resources */,
 				24219C5111D26244001BCE14 /* Songs in Resources */,
 				24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */,
+				249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2203,6 +2212,7 @@
 				24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */,
 				24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */,
 				24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */,
+				249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

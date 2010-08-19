@@ -10,18 +10,20 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@interface TDBSearchController : UITableViewController <UITableViewDataSource, UITableViewDelegate,
+@interface TDBSearchController : UIViewController <UITableViewDataSource, UITableViewDelegate,
 														UISearchBarDelegate, UISearchDisplayDelegate> 
 {
-	UISearchDisplayController*	searchDiplayController;
-	UISearchBar*				searchBar;
+	UISearchBar					*searchBar;
+	UITableView					*tableView;
+	UILabel						*totalLabel;
 	
-	NSMutableArray* currentSearchResults;
-	NSString*		curSearchStr;
+	NSMutableArray				*currentSearchResults;
+	NSString					*curSearchStr;
 }
 
-@property (retain, nonatomic) IBOutlet UISearchDisplayController* searchDisplayController;
 @property (retain, nonatomic) IBOutlet UISearchBar* searchBar;
+@property (retain, nonatomic) IBOutlet UITableView* tableView;
+@property (retain, nonatomic) IBOutlet UILabel* totalLabel;
 
 @end
 

@@ -119,8 +119,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 - (void) switchToTapDB {
 	TMLog(@"Going to TapDB...");
 	TapManiaAppDelegate* delegate = (TapManiaAppDelegate*)[UIApplication sharedApplication].delegate;
-
-	[delegate.tapdb.searchDisplayController setActive:YES animated:YES];
 	[self.m_pWindow addSubview:delegate.tapdb.view];
 }
 

@@ -9,9 +9,10 @@
 
 #import "TDBSearch.h"
 #import "TapDBService.h"
+#import "TDBSimFileCell.h"
 
 @implementation TDBSearchController
-@synthesize searchBar, searchDisplayController;
+@synthesize searchBar, tableView, totalLabel;
 
 - (void) awakeFromNib {
 	currentSearchResults = [[NSMutableArray alloc] initWithCapacity:10];
@@ -22,38 +23,42 @@
 	[super dealloc];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {	
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 60;
+}
+
+- (NSInteger)tableView:(UITableView *)tblView numberOfRowsInSection:(NSInteger)section {	
 	TMLog(@"Requesting cell count...");
     return [currentSearchResults count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tblView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	TMLog(@"Requesting cell...");
 	
 	static NSString *kCellID = @"cellID";
 		
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
+	TDBSimFileCell *cell = (TDBSimFileCell*)[tblView dequeueReusableCellWithIdentifier:kCellID];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellID] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		NSArray* arr = [[NSBundle mainBundle] loadNibNamed:@"TDBSimFile" owner:nil options:nil];
+		cell = [arr objectAtIndex:0];	
 	}
 	
-	TDBSimfile* sim = [currentSearchResults objectAtIndex:indexPath.row];
+	TDBSimfile* sim = [currentSearchResults objectAtIndex:indexPath.row];	
+	cell.title.text = sim.title;
+	cell.artist.text = sim.artist;
 	
-	cell.textLabel.text = [NSString stringWithFormat:@"%@ by %@", sim.title, sim.artist];
 	return cell;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)bar {
+	curSearchStr = [bar text];
+	[searchBar resignFirstResponder];
+	
 	[[TapDBService sharedInstance] searchByTitle:curSearchStr forTotalItems:10 startingAt:0 
 									withCallback:@selector(byTitle:) delegate:self];
+	
+	[totalLabel setText:@"10/1034"];
 }
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	curSearchStr = [searchString copy];
-	return NO;
-}
-
 
 
 - (void) byTitle:(NSArray*)items {
@@ -97,8 +102,6 @@
 	md5 = nil;
 	[title release];
 	title = nil;
-	[type release];
-	type = nil;
 	[url release];
 	url = nil;
 	

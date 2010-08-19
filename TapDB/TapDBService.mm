@@ -11,7 +11,7 @@
 #import "CJSONDeserializer.h" 
 
 static TapDBService* sharedTapDBServiceDelegate = nil;
-static NSString* tapDBHost = @"http://tap.godex.loc/tapdb";
+static NSString* tapDBHost = @"http://192.168.0.102/tapdb";
 
 @interface TapDBService (Private)
 - (void) request:(NSString*)url withCallback:(SEL)cb delegate:(id)del;
