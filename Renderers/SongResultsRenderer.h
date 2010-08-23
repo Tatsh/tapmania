@@ -47,6 +47,7 @@ typedef enum {
 	CGPoint					mt_Score;
 	CGPoint					mt_Grade;
 	
+	Texture2D*				t_overlay;
 	TMFramedTexture*		t_JudgeLabels;
 	TMFramedTexture*		t_Grades;
 }

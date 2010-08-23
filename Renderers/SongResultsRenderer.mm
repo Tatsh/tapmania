@@ -55,8 +55,9 @@ extern TMGameState* g_pGameState;
 	[super setupForTransition];
 	
 	// Textures
-	t_JudgeLabels = TEXTURE(@"SongResults JudgeLabels");
-	t_Grades	= TEXTURE(@"SongResults Grades");
+	t_JudgeLabels	= TEXTURE(@"SongResults JudgeLabels");
+	t_Grades		= TEXTURE(@"SongResults Grades");
+	t_overlay		= TEXTURE(@"SongResults Overlay");
 	
 	// Get metrics
 	for(int i=0; i<kNumJudgementValues; ++i) {
@@ -174,6 +175,8 @@ extern TMGameState* g_pGameState;
 	// Draw stuff
 	glEnable(GL_BLEND);
 
+	[t_overlay drawInRect:bounds];
+	
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
 		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
