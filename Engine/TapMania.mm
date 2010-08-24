@@ -179,7 +179,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGameRunLoop delegate:self];	
 
 	// And run it
+#if defined(NO_DISPLAY_LINK)
 	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:NO];
+#else
+	[m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:YES];
+#endif
 	
 	BROADCAST_MESSAGE(kApplicationStartedMessage, nil);
 }
@@ -286,7 +290,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 #ifdef ENABLE_ADWHIRL
 	// Create the AdWhirl thing
-	m_pAdsView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+	m_pAdsView = [[AdWhirlView requestAdWhirlViewWithDelegate:[TapMania sharedInstance]] retain];
 	m_pAdsView.clipsToBounds = YES;
 	
 	if(g_pGameState->m_bLandscape) {

@@ -157,7 +157,7 @@
 		iBaseline = [[conf objectForKey:@"Baseline"] intValue];
 	} else {
 		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
-		iBaseline = (int)(center + m_nLineSpacing/2);
+		iBaseline = (int)(center - m_nLineSpacing/2);
 	}
 	
 	int iTop;
@@ -165,11 +165,11 @@
 		iTop = [[conf objectForKey:@"Top"] intValue];
 	} else {
 		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
-		iTop = (int)( center - m_nLineSpacing/2 );
+		iTop = (int)( center + m_nLineSpacing/2 );
 	}
 	
 	m_fHeight = iBaseline-iTop;
-	m_fVertShift = -iBaseline;
+	m_fVertShift = iBaseline;
 	
 	if([conf objectForKey:@"AdvanceExtraPixels"]) {
 		int advancePixels = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
@@ -597,8 +597,9 @@
 	
 	int i;
 	unichar c;	// Last char
+	int len = [str length];
 	
-	for(i=0; i<[str length]; ++i) {
+	for(i=0; i<len; ++i) {
 		c = [str characterAtIndex:i];
 		/*
 		if(c == '\n') {
@@ -609,7 +610,13 @@
 		}*/
 		
 		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
-		width += [g m_fWidth]+[g m_nHorizAdvance]+[[g m_pFontPage] m_nExtraLeft]+[[g m_pFontPage] m_nExtraRight];
+		if(i == 0) {
+			width += [[g m_pFontPage] m_nExtraLeft];
+		} else if(i == len-1) {
+			width += [[g m_pFontPage] m_nExtraRight];
+		}
+		
+		width += [g m_fWidth]+[g m_nHorizAdvance];
 		height = fmaxf( height, [g m_fHeight]);
 	}
 		
@@ -624,8 +631,9 @@
 	CGSize strSize = [self getStringWidthAndHeight:str];
 	
 	Quad* result = [[Quad alloc] initWithWidth:strSize.width andHeight:strSize.height];
+	int len = [str length];
 	
-	for(int curCharacter=0; curCharacter < [str length]; ++curCharacter) {
+	for(int curCharacter=0; curCharacter < len; ++curCharacter) {
 		unichar c = [str characterAtIndex:curCharacter];
 /*
 		if(c == '\n') {
@@ -641,13 +649,17 @@
 		// TODO: support multiline textures
 //		float yOffset = strSize.height-strSize.height/linuNum;
 		
-		curPoint += [[g m_pFontPage] m_nExtraLeft] + [g m_fWidth]/2;
+		curPoint += [g m_fWidth]/2;
+
+		if(curCharacter == 0) {
+			curPoint += [[g m_pFontPage] m_nExtraLeft];
+		}
 		
-		[result copyFrame:[g m_nTextureFrame] 
-			toPoint:CGPointMake(curPoint, 0) 
+		[result copyFrame:[g m_nTextureFrame] withExtraLeft:[[g m_pFontPage] m_nExtraLeft] extraRight:[[g m_pFontPage] m_nExtraRight]
+			toPoint:CGPointMake(curPoint, [[g m_pFontPage] m_fVertShift]) 
 			fromTexture:[[g m_pFontPage] texture]];
 		
-		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance] + [[g m_pFontPage] m_nExtraRight];
+		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance];
 	}	
 	
 	return result;

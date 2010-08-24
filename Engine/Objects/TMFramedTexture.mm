@@ -125,32 +125,40 @@
 	[self drawFrame:frameId atPoint:CGPointZero];
 }
 - (void) drawFrame:(int)frameId atPoint:(CGPoint)point {
+	[self drawFrame:frameId withExtraLeft:0.0f extraRight:0.0f atPoint:point];
+}
 
+- (void) drawFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight atPoint:(CGPoint)point {
 	// Sanity check
 	if(frameId >= m_nTotalFrames || frameId < 0)
-		frameId = 0;
-	
+	frameId = 0;
+
 	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
 	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
-	
+
 	int textureRow = frameId/m_nFramesToLoad[0];
 	frameId -= textureRow*m_nFramesToLoad[0];
+
+	pixelsLeft *= m_fMaxS;
+	pixelsRight *= m_fMaxS;
 	
 	float yOffset = textureRow*textureMaxT;
 	float xOffset = frameId*textureMaxS;
-	float widthOffset = xOffset + textureMaxS;
+	
+	float widthOffset = xOffset + textureMaxS - pixelsRight;
+	xOffset -= pixelsLeft;
 	float heightOffset = yOffset + textureMaxT;
 	
 	float width = m_oSize.width/m_nFramesToLoad[0];
 	float height = m_oSize.height/m_nFramesToLoad[1];
-		
+
 	GLfloat	 coordinates[] = {  
 		xOffset,		heightOffset,
 		widthOffset,	heightOffset,
 		xOffset,		yOffset,
 		widthOffset,	yOffset  
 	};	
-		
+
 	GLfloat		vertices[] = {	
 		-width / 2 + point.x,	-height / 2 + point.y,	0.0,
 		width / 2 + point.x,	-height / 2 + point.y,	0.0,
@@ -161,26 +169,31 @@
 	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
-	
+
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-- (void) drawFrame:(int)frameId inRect:(CGRect)rect {
+- (void) drawFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight inRect:(CGRect)rect {
 	// Sanity check
 	if(frameId >= m_nTotalFrames || frameId < 0)
 		frameId = 0;
-		
+	
 	float textureMaxT = m_fMaxT/m_nFramesToLoad[1];
 	float textureMaxS = m_fMaxS/m_nFramesToLoad[0];
 	
 	int textureRow = frameId/m_nFramesToLoad[0];
 	frameId -= textureRow*m_nFramesToLoad[0];
 	
+	pixelsLeft *= m_fMaxS;
+	pixelsRight *= m_fMaxS;
+	
 	float yOffset = textureRow*textureMaxT;
 	float xOffset = frameId*textureMaxS;
-	float widthOffset = xOffset + textureMaxS;
-	float heightOffset = yOffset + textureMaxT;
 	
+	float widthOffset = xOffset + textureMaxS - pixelsRight;
+	xOffset -= pixelsLeft;
+	float heightOffset = yOffset + textureMaxT;
+		
 	GLfloat	 coordinates[] = {  
 		xOffset,		heightOffset,
 		widthOffset,	heightOffset,
@@ -194,12 +207,16 @@
 		rect.origin.x,							rect.origin.y + rect.size.height,		0.0,
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
-		
+	
 	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+- (void) drawFrame:(int)frameId inRect:(CGRect)rect {
+	[self drawFrame:frameId withExtraLeft:0.0f extraRight:0.0f inRect:rect];
 }
 
 @end

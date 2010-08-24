@@ -46,7 +46,6 @@
 }
 
 - (void) dealloc {
-	//[m_aObjects release];
 	delete m_aObjects;
 	
 	[super dealloc];
@@ -61,10 +60,10 @@
 	
 	/* Call initialization routine on delegate */
 	if([m_idDelegate respondsToSelector:@selector(runLoopInitHook)]) {
-		[m_idDelegate runLoopInitHook];
+		[m_idDelegate performSelectorOnMainThread:@selector(runLoopInitHook) withObject:nil waitUntilDone:YES];
 		
 		if([m_idDelegate respondsToSelector:@selector(runLoopInitializedNotification)]){
-			[m_idDelegate runLoopInitializedNotification];
+			[m_idDelegate performSelectorOnMainThread:@selector(runLoopInitializedNotification) withObject:nil waitUntilDone:YES];
 		}
 	}	
 	
@@ -140,8 +139,7 @@
 	}
 }
 
-/* Single iteration */
-- (void) displayLink:(CADisplayLink*)sender {
+- (void) processFrame {
 	double currentTime = [TimingUtil getCurrentTime];
 	
 	float delta = currentTime-m_dPrevTime;
@@ -175,7 +173,12 @@
 	}
 	
 	/* Now call the runLoopAfterHook method on the delegate */
-	[m_idDelegate runLoopAfterHook:delta];
+	[m_idDelegate runLoopAfterHook:delta];	
+}
+
+/* Single iteration */
+- (void) displayLink:(CADisplayLink*)sender {
+	[self performSelectorOnMainThread:@selector(processFrame) withObject:nil waitUntilDone:YES];
 }
 
 /* Private worker */
@@ -184,7 +187,7 @@
 	while (!m_bStopRequested) {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		
-		[self displayLink:nil];
+		[self processFrame];
 				
 		// Clean up pool
 		[pool drain];	// Drain will call release on iPhone	

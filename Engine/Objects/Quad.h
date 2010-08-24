@@ -25,5 +25,7 @@
 
 // Drawing onto the quad
 - (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture;
+- (void) copyFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight 
+		   toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture;
 
 @end

@@ -36,15 +36,24 @@
 	// Get glyph by glyph
 	float curPoint = 0.0f;
 		
-	for(int curCharacter=0; curCharacter < [str length]; ++curCharacter) {
+	int len = [str length];
+	for(int curCharacter=0; curCharacter < len; ++curCharacter) {
 		unichar c = [str characterAtIndex:curCharacter];
 
 		NSString* mapTester = [NSString stringWithFormat:@"%C", c];
 		Glyph* g = [m_pFont getGlyph:mapTester];		
 		
-		curPoint += [[g m_pFontPage] m_nExtraLeft] + [g m_fWidth]/2;
-		m_Glyphs->push_back( GlyphInfo(g, curPoint, 0) );
-		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance] + [[g m_pFontPage] m_nExtraRight];
+		if(curCharacter == 0) {
+			curPoint += [[g m_pFontPage] m_nExtraLeft];	
+		} 
+		
+		curPoint += [g m_fWidth]/2;
+		m_Glyphs->push_back( GlyphInfo(g, curPoint, 0 ) ); // [[g m_pFontPage] m_fVertShift]) );
+		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance];
+		
+		if(curCharacter == len-1) {
+			curPoint += [[g m_pFontPage] m_nExtraRight];		
+		}
 		
 		m_oSize.height = fmaxf(m_oSize.height, [g m_fHeight]);
 	}	
@@ -69,7 +78,9 @@
 	
 	for(GlyphInfoVec::iterator it = m_Glyphs->begin(); it!=m_Glyphs->end(); ++it) {
 		Glyph* g = it->m_pGlyph;
-		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(point.x+it->m_xOffset, point.y+it->m_yOffset)];
+		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] 
+									 withExtraLeft:[[g m_pFontPage] m_nExtraLeft] extraRight:[[g m_pFontPage] m_nExtraRight]
+									 atPoint:CGPointMake(point.x+it->m_xOffset, point.y+it->m_yOffset)];
 	}
 }
 

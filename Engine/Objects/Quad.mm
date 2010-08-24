@@ -62,11 +62,12 @@
 	return self;
 }
 
-// Copy a frame of the texture to the given location in the quad
-- (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture {	
+- (void) copyFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight 
+		   toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture 
+{
 	CGSize frameSize = CGSizeMake( texture.contentSize.width/[texture cols], texture.contentSize.height/[texture rows] );
 	GLuint oldFramebuffer, fbo;
-
+	
 	TMLog(@"Frame size = %f/%f", frameSize.width, frameSize.height);
 	
 	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);	
@@ -99,24 +100,31 @@
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	glViewport(0,0,m_unWidth, m_unHeight); 
-		
+	
 	// Copy texels to framebuffer and then to our quad
 	glEnable(GL_BLEND);
+	
 	TMLog(@"Draw frame at %f/%f-%fx%f", inPoint.x, inPoint.y, frameSize.width, frameSize.height);
-	[texture drawFrame:frameId inRect:CGRectMake(inPoint.x-frameSize.width/2, inPoint.y, frameSize.width, frameSize.height)];
+	[texture drawFrame:frameId withExtraLeft:pixelsLeft extraRight:pixelsRight 
+				inRect:CGRectMake(inPoint.x-frameSize.width/2, inPoint.y, frameSize.width, frameSize.height)];
 	
 	glDisable(GL_BLEND);
 	
 	// restore
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, oldFramebuffer);
 	glDeleteFramebuffersOES(1, &fbo);
-
+	
 	glViewport(viewport[0],viewport[1],viewport[2],viewport[3]); 	
 	
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION); 
 	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);	
+}
+
+// Copy a frame of the texture to the given location in the quad
+- (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture {	
+	[self copyFrame:frameId withExtraLeft:0.0f extraRight:0.0f toPoint:inPoint fromTexture:texture];
 }
 
 

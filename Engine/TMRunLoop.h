@@ -54,6 +54,9 @@ typedef deque<NSObject*> TMObjList;
 
 @property (assign, getter=delegate, setter=delegate:) id <TMRunLoopDelegate> m_idDelegate;
 
+// This is where each frame is being processed. must be called on Main thread
+- (void) processFrame;
+
 // Display Link method
 - (void) displayLink:(CADisplayLink*)sender;
 
