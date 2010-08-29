@@ -18,6 +18,7 @@
 
 #import "TMSteps.h"
 #import "SongPickerMenuRenderer.h"
+#import "Label.h"
 
 #import "GameState.h"
 
@@ -35,6 +36,7 @@ extern TMGameState* g_pGameState;
 	// Here we MUST release memory used by the steps since after this place we will not need it anymore
 	[g_pGameState->m_pSteps release];
 	[g_pGameState->m_pSong release];
+	[g_pGameState->m_sMods release];
 	
 	g_pGameState->m_pSong = nil;
 	g_pGameState->m_pSteps = nil;
@@ -58,7 +60,20 @@ extern TMGameState* g_pGameState;
 	t_JudgeLabels	= TEXTURE(@"SongResults JudgeLabels");
 	t_Grades		= TEXTURE(@"SongResults Grades");
 	t_overlay		= TEXTURE(@"SongResults Overlay");
+	t_Banner		= TEXTURE(@"SongResults NoBanner"); // Default banner
 	
+	if( g_pGameState->m_pSong.m_sBannerFilePath != nil ) {
+		NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
+		songPath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sSongDirName];
+		
+		NSString *bannerFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBannerFilePath];
+		TMLog(@"Banner full path: '%@'", bannerFilePath);
+			
+		UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
+		if(img) // Or use default one if couldn't load
+			t_Banner = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+	}
+		
 	// Get metrics
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		NSString* k = [NSString stringWithFormat:@"SongResults JudgeLabelPositions %d",i];
@@ -75,6 +90,7 @@ extern TMGameState* g_pGameState;
 	
 	mt_Score = POINT_METRIC(@"SongResults Score");
 	mt_Grade = POINT_METRIC(@"SongResults Grade");
+	mt_Banner = RECT_METRIC(@"SongResults Banner");
 	
 	int i, track;
 	
@@ -141,6 +157,13 @@ extern TMGameState* g_pGameState;
 							10000000];
 	}
 	
+	// Set difficulty and mods display
+	[(Label*)[self findControl:@"SongResults DifficultyLabel"] setName: 
+		[TMSong difficultyToString:g_pGameState->m_nSelectedDifficulty]];
+	
+	[(Label*)[self findControl:@"SongResults ModsLabel"] setName: g_pGameState->m_sMods ];
+	
+	
 	// Save this score if it's better than it was
 	NSNumber* diff = [NSNumber numberWithInt:g_pGameState->m_nSelectedDifficulty];
 	NSString* sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", g_pGameState->m_pSong.m_sHash, diff];
@@ -175,8 +198,6 @@ extern TMGameState* g_pGameState;
 	// Draw stuff
 	glEnable(GL_BLEND);
 
-	[t_overlay drawInRect:bounds];
-	
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
 		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
@@ -186,6 +207,11 @@ extern TMGameState* g_pGameState;
 	[m_pMaxCombo drawAtPoint:mt_MaxCombo];
 	[m_pScore drawAtPoint:mt_Score];
 	[t_Grades drawFrame:(int)m_Grade atPoint:mt_Grade];
+	
+	if(t_Banner != nil) {
+		[t_Banner drawInRect:mt_Banner];
+	}
+	[t_overlay drawInRect:bounds];
 	
 	glDisable(GL_BLEND);
 }

@@ -88,6 +88,14 @@
 				
 				free(data);
 			}
+			else if( !strcasecmp(varName, "BANNER") ) {
+				TMLog(@"Banner detected...");
+				char* data = [SMParser parseSectionWithFD:fd];				
+				song.m_sBannerFilePath = [[NSString stringWithUTF8String:data] retain];
+				TMLog(@"Banner set to %@", song.m_sBannerFilePath);
+				
+				free(data);
+			}
 			else if( !strcasecmp(varName, "OFFSET") ) {
 				TMLog(@"OFFSET...");
 				char* data = [SMParser parseSectionWithFD:fd];

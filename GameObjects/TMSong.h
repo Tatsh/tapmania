@@ -59,6 +59,7 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 	TMSongsPath		m_iSongsPath;		// The songs dir path id
 
 	NSString*		m_sBackgroundFilePath;	// The path on the disk where the background graphic lives
+	NSString*		m_sBannerFilePath;		// The path on the disk where the banner is
 
 	// Music file info
 	NSString*		m_sMusicFilePath;	// The path on the disk where the music file lives
@@ -87,6 +88,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (assign) TMSongsPath	m_iSongsPath;
 
 @property (retain, nonatomic) NSString* m_sBackgroundFilePath;
+@property (retain, nonatomic) NSString* m_sBannerFilePath;
+
 @property (retain, nonatomic) NSString* m_sMusicFilePath;
 @property (assign) float m_fPreviewStart;
 @property (assign) float m_fPreviewDuration;
@@ -98,7 +101,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (assign) double m_dGap;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
-- (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId;
+- (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath 
+	   andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId;
 
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 

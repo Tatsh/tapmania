@@ -19,7 +19,8 @@
 
 @implementation TMSong
 
-@synthesize m_nFileType, m_sFilePath, m_sBackgroundFilePath, m_sMusicFilePath, m_sSongDirName;
+@synthesize m_nFileType, m_sFilePath, m_sMusicFilePath, m_sSongDirName;
+@synthesize m_sBackgroundFilePath, m_sBannerFilePath;
 @synthesize m_fPreviewStart, m_fPreviewDuration;
 @synthesize m_sHash, m_iSongsPath;
 @synthesize m_sTitle, m_sArtist;
@@ -144,7 +145,8 @@
 	self.m_sTitle = [[coder decodeObjectForKey:@"t"] retain];
 	self.m_sArtist = [[coder decodeObjectForKey:@"a"] retain];
 	self.m_sBackgroundFilePath = [[coder decodeObjectForKey:@"bfp"] retain];
-
+	self.m_sBannerFilePath = [[coder decodeObjectForKey:@"bafp"] retain];
+	
 	self.m_fBpm = [coder decodeFloatForKey:@"b"];
 	self.m_dGap = [coder decodeDoubleForKey:@"g"];
 	
@@ -181,6 +183,7 @@
 	[coder encodeObject:m_sTitle forKey:@"t"];
 	[coder encodeObject:m_sArtist forKey:@"a"];
 	[coder encodeObject:m_sBackgroundFilePath forKey:@"bfp"];
+	[coder encodeObject:m_sBannerFilePath forKey:@"bafp"];
 	
 	[coder encodeFloat:m_fBpm forKey:@"b"];
 	[coder encodeDouble:m_dGap forKey:@"g"];

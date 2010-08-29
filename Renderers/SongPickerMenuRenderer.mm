@@ -204,6 +204,7 @@ extern TMGameState * g_pGameState;
 	}
 	
 	g_pGameState->m_pSong = [song retain];
+	g_pGameState->m_sMods = [toggler getCurrent].m_sTitle;
 	[[TapMania sharedInstance] switchToScreen:[SongPlayRenderer class] withMetrics:@"SongPlay"];
 }
 

@@ -46,10 +46,12 @@ typedef enum {
 	CGPoint					mt_MaxCombo, mt_MaxComboLabel;
 	CGPoint					mt_Score;
 	CGPoint					mt_Grade;
+	CGRect					mt_Banner;
 	
 	Texture2D*				t_overlay;
 	TMFramedTexture*		t_JudgeLabels;
 	TMFramedTexture*		t_Grades;
+	Texture2D*				t_Banner;
 }
 
 @end

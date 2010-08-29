@@ -17,6 +17,7 @@ typedef struct TapManiaGameState {
 		
 	TMSong*					m_pSong;	// Current song
 	TMSteps*				m_pSteps;	// Currently played steps
+	NSString*				m_sMods;	// List of mods for current gameplay
 	
 	double					m_dElapsedTime;			// Elapsed time since start of beats counting
 	double					m_dPlayBackStartTime;	// Time of gameplay start
