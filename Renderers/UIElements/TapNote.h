@@ -22,6 +22,7 @@
 	
 	/* Metrics and such */
 	float mt_TapNoteRotations[kNumOfAvailableTracks];
+	BOOL m_bAnimationSplit;
 }
 
 // Drawing routines

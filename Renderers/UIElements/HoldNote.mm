@@ -29,9 +29,9 @@
 	float minTextureFromSize = m_fMaxT - (m_fMaxT * (size / mt_HoldBody.height));
 	
 	GLfloat		coordinates[] = { 
-		0,		m_fMaxT,
+		0,			m_fMaxT,
 		m_fMaxS,	m_fMaxT,
-		0,		minTextureFromSize,
+		0,			minTextureFromSize,
 		m_fMaxS,	minTextureFromSize 
 	};
 	

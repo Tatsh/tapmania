@@ -30,7 +30,17 @@
 	
 	// We will animate every arrow at same time
 	m_nStartFrame = 0;
-	m_nEndFrame = 4;
+	
+	// If we have 8 frames on a row we need to split the animation
+	if( m_nFramesToLoad[0] == 8 ) {
+		m_bAnimationSplit = YES;
+		m_nEndFrame = 4;
+		
+	} else {
+		// Otherwise we animate the whole row
+		m_nEndFrame = m_nFramesToLoad[0];
+		m_bAnimationSplit = NO;
+	}
 	
 	m_nCurrentFrame = m_nStartFrame;
 	m_bIsLooping = YES;
@@ -63,7 +73,13 @@
 
 - (void) drawHoldTapNoteHolding:(TMBeatType)type direction:(TMNoteDirection)dir inRect:(CGRect)rect {
 	float rotation = [self calculateRotation:dir];
-	int frameToRender = (m_nCurrentFrame+4) + type*m_nFramesToLoad[0]; // Columns
+	int frameToRender;
+	
+	if(m_bAnimationSplit) {
+		frameToRender = (m_nCurrentFrame+4) + type*m_nFramesToLoad[0]; // Columns
+	} else {
+		frameToRender = m_nCurrentFrame+type*m_nFramesToLoad[0]; // Columns	
+	}
 	
 	glEnable(GL_BLEND);
 	[self drawFrame:frameToRender rotation:rotation inRect:rect];
