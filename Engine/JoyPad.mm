@@ -15,6 +15,7 @@
 #import "EAGLView.h"
 #import "TMMessage.h"
 #import "MessageManager.h"
+#import "ThemeManager.h"
 
 @interface JoyPad (Private)
 - (void) createSpreadJoy;
@@ -35,10 +36,11 @@
 	REG_MESSAGE(kJoyPadTapMessage, @"PadTap");
 	REG_MESSAGE(kJoyPadReleaseMessage, @"PadRelease");
 	
-	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithX:70 andY:122];
-	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithX:160 andY:62];
-	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithX:160 andY:182];
-	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithX:250 andY:122];
+	// Get the default pad location for the current theme		
+	m_pJoyDefaultLocations[kJoyButtonLeft] =  [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 0")];
+	m_pJoyDefaultLocations[kJoyButtonDown] =  [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 1")];
+	m_pJoyDefaultLocations[kJoyButtonUp] =    [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 2")];
+	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 3")];
 	m_pJoyDefaultLocations[kJoyButtonExit] =  nil;
 	
 	// Reset states (to saved if any)

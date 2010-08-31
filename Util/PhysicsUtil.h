@@ -19,6 +19,7 @@
 @property(setter = y:, getter = y, assign) float m_fY;
 
 - (id) initWithX:(float)lx andY:(float)ly;
+- (id) initWithPoint:(CGPoint)point;
 - (float) norm;
 - (float) normSquared;
 - (void) sum:(Vector*)v1;

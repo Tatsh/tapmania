@@ -224,10 +224,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	
 	// Setup window
 	m_pWindow = ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).rootView;
-	
-	// Init global joypad
-	m_pJoyPad = [[JoyPad alloc] init];
-	
+		
 	// Init opengl
 	if(g_pGameState->m_bLandscape) {	
 		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 480.0f, 320.0f)];	
@@ -250,6 +247,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[[ThemeManager sharedInstance] selectTheme:[[SettingsEngine sharedInstance] getStringValue:@"theme"]];
 	[[ThemeManager sharedInstance] selectNoteskin:[[SettingsEngine sharedInstance] getStringValue:@"noteskin"]];
 			
+	// Init global joypad
+	m_pJoyPad = [[JoyPad alloc] init];
+	
 	// Set up OpenGL projection matrix
 	glMatrixMode(GL_PROJECTION);
 

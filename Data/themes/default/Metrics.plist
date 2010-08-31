@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>ThemeSystemVersion</key>
-	<real>0.5</real>
+	<real>0.6</real>
 	<key>Skyscraper</key>
 	<dict>
 		<key>SongsCacheLoader</key>
@@ -73,7 +73,7 @@
 			<key>TapDBImg</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>playsoundeffect,Common ButtonHit;screen,tapdb</string>
+				<string>playsoundeffect,Common ButtonHit;tapdb</string>
 				<key>OnCommand</key>
 				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
@@ -491,6 +491,68 @@
 				<integer>46</integer>
 				<key>ShouldNotLock</key>
 				<true/>
+			</dict>
+			<key>DefaultPad</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>X</key>
+					<integer>86</integer>
+					<key>Y</key>
+					<integer>333</integer>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>X</key>
+					<integer>86</integer>
+					<key>Y</key>
+					<integer>422</integer>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>X</key>
+					<integer>233</integer>
+					<key>Y</key>
+					<integer>333</integer>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>X</key>
+					<integer>233</integer>
+					<key>Y</key>
+					<integer>422</integer>
+				</dict>
+			</dict>
+			<key>DefaultPad_DPad</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>X</key>
+					<integer>70</integer>
+					<key>Y</key>
+					<integer>122</integer>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>X</key>
+					<integer>160</integer>
+					<key>Y</key>
+					<integer>62</integer>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>X</key>
+					<integer>160</integer>
+					<key>Y</key>
+					<integer>182</integer>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>X</key>
+					<integer>250</integer>
+					<key>Y</key>
+					<integer>122</integer>
+				</dict>
 			</dict>
 		</dict>
 		<key>SongPickerMenu</key>
@@ -921,91 +983,6 @@
 		</dict>
 		<key>Credits</key>
 		<dict/>
-		<key>TapDBMenu</key>
-		<dict>
-			<key>BackButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>20</integer>
-				<key>Y</key>
-				<integer>378</integer>
-				<key>Width</key>
-				<integer>280</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-		</dict>
-		<key>Test</key>
-		<dict>
-			<key>F1Label</key>
-			<dict>
-				<key>X</key>
-				<integer>2</integer>
-				<key>Y</key>
-				<integer>20</integer>
-				<key>OnCommand</key>
-				<string>font,Default;alignment,left;name,Default font test</string>
-			</dict>
-			<key>F2Label</key>
-			<dict>
-				<key>X</key>
-				<integer>318</integer>
-				<key>Y</key>
-				<integer>60</integer>
-				<key>OnCommand</key>
-				<string>alignment,right;font,Common Shared1;name,Shared1 test</string>
-			</dict>
-			<key>F3Label</key>
-			<dict>
-				<key>X</key>
-				<integer>160</integer>
-				<key>Y</key>
-				<integer>120</integer>
-				<key>OnCommand</key>
-				<string>font,Common Shared2;name,Shared2 testing</string>
-			</dict>
-			<key>F4Label</key>
-			<dict>
-				<key>X</key>
-				<integer>160</integer>
-				<key>Y</key>
-				<integer>160</integer>
-				<key>OnCommand</key>
-				<string>font,Common Blaster;name,This is blaster!</string>
-			</dict>
-			<key>F5Label</key>
-			<dict>
-				<key>X</key>
-				<integer>160</integer>
-				<key>Y</key>
-				<integer>200</integer>
-				<key>OnCommand</key>
-				<string>font,Common SmallFont;name,This is smallfont test!</string>
-			</dict>
-			<key>BackButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>20</integer>
-				<key>Y</key>
-				<integer>400</integer>
-				<key>Width</key>
-				<integer>280</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-		</dict>
 	</dict>
 	<key>Landscape</key>
 	<dict>

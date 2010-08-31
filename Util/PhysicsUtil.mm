@@ -38,6 +38,17 @@
 	return self;
 }
 
+- (id) initWithPoint:(CGPoint)point {
+	self = [super init];
+	if(!self)
+		return nil;
+	
+	m_fX = point.x;
+	m_fY = point.y;
+	
+	return self;
+}
+
 + (Vector*) vectorWithVector:(Vector*)vec {
 	return [[Vector alloc] initWithX:vec.m_fX andY:vec.m_fY];
 }
