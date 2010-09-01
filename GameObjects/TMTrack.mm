@@ -41,8 +41,7 @@
 	
 	if(index != -1) {
 		// The note must be replaced
-		[m_aNotesArray->at(index) release];
-		m_aNotesArray->at(index) = note;
+		m_aNotesArray->at(index) = TMNotePtr(note);
 		
 	} else {
 		// The note must be appended
@@ -57,13 +56,13 @@
 	
 	while(low < high) {
 		mid = low + ((high-low)/2);
-		if(m_aNotesArray->at(mid).m_nStartNoteRow < noteRow)
+		if(m_aNotesArray->at(mid).get().m_nStartNoteRow < noteRow)
 			low = mid+1;
 		else
 			high = mid;
 	}
 	
-	if((low < m_aNotesArray->size()) && (m_aNotesArray->at(low).m_nStartNoteRow == noteRow)) {
+	if((low < m_aNotesArray->size()) && (m_aNotesArray->at(low).get().m_nStartNoteRow == noteRow)) {
 		return low;
 	}
 
@@ -83,7 +82,7 @@
 	if(index >= m_aNotesArray->size())
 		return nil;
 
-	TMNote* note = m_aNotesArray->at(index);
+	TMNote* note = m_aNotesArray->at(index).get();
 	return note;
 }
 
@@ -101,7 +100,7 @@
 		// Calculate and store
 		for(TMNoteList::iterator it = m_aNotesArray->begin(); it!=m_aNotesArray->end(); ++it) {
 			
-			if( [(TMNote*)*it m_nType] == kNoteType_HoldHead ) {
+			if( [(TMNote*)(*it).get() m_nType] == kNoteType_HoldHead ) {
 				++m_nHoldsCnt;
 			}
 		}
@@ -116,8 +115,8 @@
 		// Calculate and store
 		for(TMNoteList::iterator it = m_aNotesArray->begin(); it!=m_aNotesArray->end(); ++it) {
 			
-			if( [(TMNote*)*it m_nType] == kNoteType_HoldHead ||
-				[(TMNote*)*it m_nType] == kNoteType_Original ) {
+			if( [(TMNote*)(*it).get() m_nType] == kNoteType_HoldHead ||
+				[(TMNote*)(*it).get() m_nType] == kNoteType_Original ) {
 				++m_nTapAndHoldNotesCnt;
 			}
 		}

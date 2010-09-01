@@ -14,9 +14,11 @@
 #ifdef __cplusplus
 
 #include <vector>
+#include "ObjCPtr.h"
 using namespace std;
 
-typedef vector<TMNote*> TMNoteList;
+typedef ObjCPtr<TMNote> TMNotePtr;
+typedef vector<TMNotePtr> TMNoteList;
 
 #endif
 
