@@ -205,6 +205,20 @@ extern TMGameState * g_pGameState;
 	
 	g_pGameState->m_pSong = [song retain];
 	g_pGameState->m_sMods = [toggler getCurrent].m_sTitle;
+
+	if(g_pGameState->m_bModDark) {
+		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"dark"] retain];
+	}
+	if(g_pGameState->m_bModHidden) {
+		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"hidden"] retain];
+	}
+	if(g_pGameState->m_bModSudden) {
+		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"sudden"] retain];
+	}
+	if(g_pGameState->m_bModStealth) {
+		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"stealth"] retain];
+	}	
+	
 	[[TapMania sharedInstance] switchToScreen:[SongPlayRenderer class] withMetrics:@"SongPlay"];
 }
 

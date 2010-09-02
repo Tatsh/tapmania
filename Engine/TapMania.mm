@@ -92,6 +92,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[[SettingsEngine sharedInstance] loadUserConfig];
 	g_pGameState = (TMGameState*)malloc(sizeof(TMGameState));
 	g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"] ;
+	g_pGameState->m_bModHidden = g_pGameState->m_bModSudden = g_pGameState->m_bModStealth = NO;
 	
 	// Defaults
 	m_pCurrentSong = nil;

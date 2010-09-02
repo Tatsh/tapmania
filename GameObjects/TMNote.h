@@ -70,7 +70,8 @@ typedef enum {
 	BOOL		m_bIsMineHit;
 	BOOL		m_bIsMineAvoided;
 	
-	double		m_dHitTime;	// The time in milliseconds when the player hit the note (offset from start of song)
+	double		m_dHitTime;					// The time in milliseconds when the player hit the note (offset from start of song)
+	double		m_dTimeTillHit;				// Time in milliseconds till the ideal hit time (updated constantly during gameplay)
 	double		m_dLastHoldTouchTime;		// Last time when the player layed his finger on the hold arrow
 	double		m_dLastHoldReleaseTime;	// Last time when the player raised his finger from the hold
 	
@@ -100,6 +101,7 @@ typedef enum {
 @property (assign, readonly) BOOL m_bIsMineAvoided;
 
 @property (assign, readonly) double m_dHitTime;
+@property (assign, readwrite) double m_dTimeTillHit;
 @property (assign, readonly) double m_dLastHoldTouchTime;
 @property (assign, readonly) double m_dLastHoldReleaseTime;
 

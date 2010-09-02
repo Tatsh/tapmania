@@ -25,6 +25,11 @@ typedef struct TapManiaGameState {
 	/* Global modifiers */
 	double					m_dSpeedModValue;		// Speed modifier value
 	BOOL					m_bAutoPlay;			// Autoplay setting
+	BOOL					m_bModHidden;			// Hidden mod
+	BOOL					m_bModStealth;			// Stealth mod
+	BOOL					m_bModSudden;			// Sudden mod
+	BOOL					m_bModDark;				// Dark mod - invisible receptors
+	
 	TMFailType				m_nFailType;			// Fail type (off, on, at end)
 	TMSongDifficulty        m_nSelectedDifficulty;	// Difficulty setting
 	

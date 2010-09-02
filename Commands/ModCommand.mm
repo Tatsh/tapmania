@@ -31,8 +31,36 @@ extern TMGameState* g_pGameState;
 	
 	NSString* mod = [m_aArguments objectAtIndex:0];
 	
-	// Check modifier type
-	if([mod hasSuffix:@"x"]) {
+	// Check modifier type...
+	if([mod isEqualToString:@"normal"]) {
+		g_pGameState->m_bModHidden = 
+		g_pGameState->m_bModStealth = 
+		g_pGameState->m_bModSudden = NO;
+	}	
+	// Hidden mod
+	else if([mod isEqualToString:@"hidden"]) {
+		g_pGameState->m_bModHidden = YES;
+		g_pGameState->m_bModStealth = g_pGameState->m_bModSudden = NO;
+	}
+	// Sudden mod
+	else if([mod isEqualToString:@"sudden"]) {
+		g_pGameState->m_bModSudden = YES;
+		g_pGameState->m_bModHidden = g_pGameState->m_bModStealth = NO;
+	}
+	// Stealth mod
+	else if([mod isEqualToString:@"stealth"]) {
+		g_pGameState->m_bModStealth = YES;
+		g_pGameState->m_bModHidden = g_pGameState->m_bModSudden = NO;
+	} 
+	// Dark mod
+	else if([mod isEqualToString:@"dark"]) {
+		g_pGameState->m_bModDark = YES;
+	} 	
+	else if([mod isEqualToString:@"no_dark"]) {
+		g_pGameState->m_bModDark = NO;
+	} 		
+	// A speed modifier
+	else if([mod hasSuffix:@"x"]) {
 		// Potentially this is a speed modifier (1x, 2x, 3x etc.)
 		// try to convert
 		double value = [[mod stringByReplacingOccurrencesOfString:@"x" withString:@""] doubleValue];

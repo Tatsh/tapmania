@@ -14,7 +14,7 @@
 @implementation TMNote
 
 @synthesize m_nType, m_nTrack, m_nBeatType, m_bIsHit, m_bMultiHit, m_bIsLost, m_bIsHeld, m_bIsMineHit, m_bIsMineAvoided;
-@synthesize m_dHitTime, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
+@synthesize m_dHitTime, m_dTimeTillHit, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
 @synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
 - (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack {
@@ -39,6 +39,7 @@
 	m_bIsMineAvoided = YES;
 	
 	m_dHitTime = 0.0f;
+	m_dTimeTillHit = 0.0f;
 	
 	m_fStartYPosition = 0.0f;
 	m_fStopYPosition = 0.0f;

@@ -350,6 +350,7 @@ extern TMGameState* g_pGameState;
 			int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:g_pGameState->m_pSong];
 			
 			double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:g_pGameState->m_pSong];
+			note.m_dTimeTillHit = noteTime - g_pGameState->m_dElapsedTime;
 			
 			// A mine will explode if we are touching the corresponding pad button at the time it passes
 			if(!g_pGameState->m_bAutoPlay && note.m_nType == kNoteType_Mine && !note.m_bIsMineHit) {
@@ -536,63 +537,90 @@ extern TMGameState* g_pGameState;
 					break; // Start another track coz this note is out of screen
 				}
 				
-				// If note is a holdnote
-				if(note.m_nType == kNoteType_HoldHead) {			
-					// Calculate body length
-					float bodyTopY = note.m_fStartYPosition + mt_HalfOfArrowHeight[i]; // Plus half of the tap note so that it will be overlapping
-					float bodyBottomY = note.m_fStopYPosition + mt_HalfOfArrowHeight[i]; // Make space for bottom cap
-					
-					// Determine the track X position now
-					float holdX = mt_TapNotes[i].origin.x;
-					
-					// Calculate the height of the hold's body
-					float totalBodyHeight = bodyTopY - bodyBottomY;
-					float offset = bodyBottomY;
-					
-					// Draw every piece separately
-					do{
-						float sizeOfPiece = totalBodyHeight > mt_HoldBody.height ? mt_HoldBody.height : totalBodyHeight;
-						
-						// Don't draw if we are out of screen
-						if(offset+sizeOfPiece > mt_NotesStartPos.y) {					
-							if(note.m_bIsHolding) {
-								[t_HoldNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
-							} else {
-								[t_HoldNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
-							}
-						}
-						
-						totalBodyHeight -= mt_HoldBody.height;
-						offset += mt_HoldBody.height;
-					} while(totalBodyHeight > 0.0f);					
-					
-					// determine the position of the cap and draw it if needed
-					if(bodyBottomY > mt_NotesStartPos.y) {
-						// Ok. must draw the cap
-						glEnable(GL_BLEND);
-						
-						if(note.m_bIsHolding) {
-							[t_HoldBottomCapActive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCap.height-1), mt_HoldCap.width, mt_HoldCap.height)];
-						} else {
-							[t_HoldBottomCapInactive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCap.height-1), mt_HoldCap.width, mt_HoldCap.height)];
-						}
-						
-						glDisable(GL_BLEND);
-					}
-				}
+				// Stealth mode - the best!!!11one
+				if(!g_pGameState->m_bModStealth) {
 				
-				CGRect arrowRect = CGRectMake(mt_TapNotes[i].origin.x, note.m_fStartYPosition, mt_TapNotes[i].size.width, mt_TapNotes[i].size.height);
-				if(note.m_nType == kNoteType_HoldHead) {
-					if(note.m_bIsHolding) {
-						[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];
-					} else { 
-						[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];	
+					// Hidden mod
+					if(g_pGameState->m_bModHidden && note.m_dTimeTillHit <= 1.2f) {
+						float alpha = note.m_dTimeTillHit-0.2f;
+						alpha = alpha<0.0f?0.0f:alpha;
+						glColor4f(alpha, alpha, alpha, alpha);
 					}
-				} else if(note.m_nType == kNoteType_Mine) {
-					[t_TapMine drawTapMineInRect:arrowRect];					
-				} else {
-					[t_TapNote drawTapNote:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];
-				}			
+					
+					// Sudden mod
+					if(g_pGameState->m_bModSudden) {
+						float alpha = 0.0f;
+						
+						if(note.m_dTimeTillHit <= 0.6f) {
+							alpha = 1.0f-(note.m_dTimeTillHit+0.2f);
+							alpha = alpha>1.0f?1.0f:alpha;
+						}
+
+						glColor4f(alpha, alpha, alpha, alpha);
+					}
+					
+					// If note is a holdnote
+					if(note.m_nType == kNoteType_HoldHead) {			
+						// Calculate body length
+						float bodyTopY = note.m_fStartYPosition + mt_HalfOfArrowHeight[i]; // Plus half of the tap note so that it will be overlapping
+						float bodyBottomY = note.m_fStopYPosition + mt_HalfOfArrowHeight[i]; // Make space for bottom cap
+						
+						// Determine the track X position now
+						float holdX = mt_TapNotes[i].origin.x;
+						
+						// Calculate the height of the hold's body
+						float totalBodyHeight = bodyTopY - bodyBottomY;
+						float offset = bodyBottomY;
+						
+						// Draw every piece separately
+						do{
+							float sizeOfPiece = totalBodyHeight > mt_HoldBody.height ? mt_HoldBody.height : totalBodyHeight;
+							
+							// Don't draw if we are out of screen
+							if(offset+sizeOfPiece > mt_NotesStartPos.y) {					
+								if(note.m_bIsHolding) {
+									[t_HoldNoteActive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+								} else {
+									[t_HoldNoteInactive drawBodyPieceWithSize:sizeOfPiece atPoint:CGPointMake(holdX, offset)];
+								}
+							}
+							
+							totalBodyHeight -= mt_HoldBody.height;
+							offset += mt_HoldBody.height;
+						} while(totalBodyHeight > 0.0f);					
+						
+						// determine the position of the cap and draw it if needed
+						if(bodyBottomY > mt_NotesStartPos.y) {
+							// Ok. must draw the cap
+							glEnable(GL_BLEND);
+							
+							if(note.m_bIsHolding) {
+								[t_HoldBottomCapActive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCap.height-1), mt_HoldCap.width, mt_HoldCap.height)];
+							} else {
+								[t_HoldBottomCapInactive drawInRect:CGRectMake(holdX, bodyBottomY-(mt_HoldCap.height-1), mt_HoldCap.width, mt_HoldCap.height)];
+							}
+							
+							glDisable(GL_BLEND);
+						}
+					}
+						
+					CGRect arrowRect = CGRectMake(mt_TapNotes[i].origin.x, note.m_fStartYPosition, mt_TapNotes[i].size.width, mt_TapNotes[i].size.height);
+					if(note.m_nType == kNoteType_HoldHead) {
+						if(note.m_bIsHolding) {
+							[t_TapNote drawHoldTapNoteHolding:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];
+						} else { 
+							[t_TapNote drawHoldTapNoteReleased:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];	
+						}
+					} else if(note.m_nType == kNoteType_Mine) {
+						[t_TapMine drawTapMineInRect:arrowRect];					
+					} else {
+						[t_TapNote drawTapNote:note.m_nBeatType direction:(TMNoteDirection)i inRect:arrowRect];
+					}			
+					
+					// Restore color/alpha settings
+					// TODO: restore. not just 1,1,1,1
+					glColor4f(1.0, 1.0, 1.0, 1.0);
+				} // Stealth mod
 			}
 		}
 	}	

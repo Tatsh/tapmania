@@ -157,6 +157,7 @@ extern TMGameState* g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
+	
 	float currentBeat, currentBps;
 	BOOL hasFreeze;	
 	float brightness = 1.0f;
@@ -169,15 +170,17 @@ extern TMGameState* g_pGameState;
 	
 	// Here we will render all receptors at their places
 	for(int i=0; i<kNumOfAvailableTracks; ++i) {
-		if(g_pGameState->m_bPlayingGame)
-			[m_spriteReceptor[i] setR:brightness G:brightness B:brightness];
+		// Dark mod disables the receptor row but not the explosions
+		if( !g_pGameState->m_bModDark ) {
+			if(g_pGameState->m_bPlayingGame)
+				[m_spriteReceptor[i] setR:brightness G:brightness B:brightness];
+			[m_spriteReceptor[i] render:fDelta];
+		}
 		
-		[m_spriteReceptor[i] render:fDelta];
 		[m_spriteExplosionDim[i] render:fDelta];
 		[m_spriteExplosionBright[i] render:fDelta];
 		[m_spriteMineExplosion[i] render:fDelta];
 	}
-
 }
 
 /* TMLogicUpdater method */
