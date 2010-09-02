@@ -11,6 +11,9 @@
 #import "InputEngine.h"
 #import "TapMania.h"
 
+/**
+ * TMModalView is a View which intercepts all user input
+ */
 @implementation TMModalView
 
 - (id) initWithShape:(CGRect)inShape {
@@ -21,6 +24,11 @@
 	[[InputEngine sharedInstance] subscribe:self];
 	
 	return self;
+}
+
+// Intercept all input
+- (BOOL) containsPoint:(CGPoint)point {
+	return YES;
 }
 
 - (void) close {
