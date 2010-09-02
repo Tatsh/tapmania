@@ -21,6 +21,8 @@ extern TMGameState*	g_pGameState;
 
 @interface ThemeManager (Private)
 - (NSObject*) lookUpNode:(NSString*) key from:(NSObject*) rootObj;
+- (BOOL) dirIsTheme:(NSString*)path;
+- (BOOL) dirIsNoteskin:(NSString *)path;
 @end
 
 
@@ -37,6 +39,7 @@ extern TMGameState*	g_pGameState;
 	/* We must list all the themes and store them into the mThemesList array */
 	m_aThemesList = [[NSMutableArray alloc] initWithCapacity:1];
 	m_aNoteskinsList = [[NSMutableArray alloc] initWithCapacity:1];
+	
 	int i;	
 	
 	NSString* themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];	
@@ -402,6 +405,125 @@ extern TMGameState*	g_pGameState;
 	return NO;		
 }
 
+#pragma mark -
+#pragma mark Support for theme/noteskin upload
+
+- (void) addSkinsFrom:(NSString*)rootDir {
+	// This is usually called after a smzip/zip was extracted
+	// We will just recursively iterate over the whole package and try to find
+	// all complete noteskins.
+	NSFileManager* fMan = [NSFileManager defaultManager];
+	TMLog(@"Going to test dir '%@' for skins...", rootDir);
+	
+	// Check whether this dir is a simfile dir already
+	if( ![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"] ) {
+		if( [self dirIsTheme:rootDir] ) {
+			TMLog(@"Found a potential Theme directory. try to add files from there..");
+//			[self addThemeFromDir:rootDir];
+			
+			return;
+			
+		} else if( [self dirIsNoteskin:rootDir] ) {
+			TMLog(@"Found a potential Noteskin directory. try to add files from there..");
+			// [self addNoteskinFromDir:rootDir];
+			
+			return;
+		}
+	}
+	
+	// Otherwise we will need to iterate over the contents to see if we can
+	// find directories with simfiles
+	NSArray* rootDirContents = [fMan directoryContentsAtPath:rootDir];	
+	
+	// If the dir is empty, leave
+	if([rootDirContents count] == 0) {
+		return;
+	}
+	
+	// Iterate over the contents
+	for (NSString* item in rootDirContents) {
+		if( [item hasPrefix:@"__MACOSX"] ) 
+			continue;
+		
+		BOOL isDir = NO;
+		NSString* path = [rootDir stringByAppendingPathComponent:item];
+		
+		if([fMan fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+			TMLog(@"Recursively try '%@'...", path);
+			[self addSkinsFrom:path];
+		}
+	}
+}
+
+- (BOOL) dirIsTheme:(NSString*)path {
+	NSArray* contents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
+	
+	TMLog(@"Test dir '%@' for theme contents...", path);
+	
+	for (NSString* file in contents) {		
+		TMLog(@"Examine file/dir: %@", file);
+		
+		// If found a metrics file it could be a theme/noteskin. match
+		if([file isEqualToString:@"Metrics.plist"]){
+			// Read it in
+			NSDictionary* plist = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:file]];
+			NSNumber* version = [plist objectForKey:@"ThemeSystemVersion"];
+			if( version != nil && TAPMANIA_THEME_VERSION == [version doubleValue] ) {				
+				TMLog(@"Found a theme!");
+				return YES;
+			}
+		} 
+	}
+	
+	return NO;
+}
+
+- (BOOL) dirIsNoteskin:(NSString*)path {
+	NSArray* contents = [[NSFileManager defaultManager] directoryContentsAtPath:path];	
+	
+	TMLog(@"Test dir '%@' for noteskin contents...", path);
+		
+	for (NSString* file in contents) {		
+		TMLog(@"Examine file/dir: %@", file);
+	
+		// If found a metrics file it could be a theme/noteskin. match
+		if([file isEqualToString:@"Metrics.plist"]){
+			// Read it in
+			NSDictionary* plist = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:file]];
+			NSNumber* version = [plist objectForKey:@"NoteskinSystemVersion"];
+			if( version != nil && TAPMANIA_NOTESKIN_VERSION == [version doubleValue] ) {				
+				TMLog(@"Found a noteskin!");
+				return YES;
+			}
+		} 
+	}
+	
+	return NO;
+}
+
+- (void) addNoteskinFromDir:(NSString*)path {
+//	NSString* curPath = [[self getSongsPath:kUserSongsPath] stringByAppendingPathComponent:[path lastPathComponent]];
+//	BOOL isDir;
+//	
+//	// Check whether the Song already exists in the catalogue
+//	if( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] ) {
+//		// TODO: handle situation. report to user.
+//		return;
+//	}
+//	
+//	// TODO handle errors
+//	NSError* err;
+//	
+//	if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
+//		if([self addSongToLibrary:curPath fromSongsPathId:kUserSongsPath useCache:NO]) {
+//			// Write cache file
+//			[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
+//		}
+//	}
+}
+
+
+#pragma mark -
 #pragma mark Singleton stuff
 
 + (ThemeManager*)sharedInstance {

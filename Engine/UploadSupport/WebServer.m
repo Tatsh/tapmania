@@ -10,6 +10,7 @@
 #import "WebServer.h"
 #import "ThemeManager.h"
 #import "SongsDirectoryCache.h"
+#import "ThemeManager.h"
 #import "TMSong.h"
 #import "TMZipFile.h"
 
@@ -282,6 +283,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 				// Move the simfile(s)
 				[[SongsDirectoryCache sharedInstance] delegate:nil];
 				[[SongsDirectoryCache sharedInstance] addSongsFrom:extDir];
+				[[ThemeManager sharedInstance] addSkinsFrom:extDir];
 				
 				// Cleanup
 				[zipHandler release];
@@ -518,7 +520,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 		while(temp_addr != NULL)  { 
 			if(temp_addr->ifa_addr->sa_family == AF_INET)  {
 				// Check if interface is en0 which is the wifi connection on the iPhone
-				if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"])  { 
+				if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en1"])  { 
 					// Get NSString from C String 
 					address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)]; 
 					address = [NSString stringWithFormat:@"http://%@:9002/", address];

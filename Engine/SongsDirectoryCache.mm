@@ -443,7 +443,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	}
 
 	NSNumber *fileSize;
-	NSDate *fileModDate;
 	NSString* result = @"";
 	
 	CC_MD5_CTX md5;
@@ -452,10 +451,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 	if (fileSize = [fileAttributes objectForKey:NSFileSize]) {
 		result = [result stringByAppendingString:[fileSize stringValue]];
 	}
-	
-	if (fileModDate = [fileAttributes objectForKey:NSFileModificationDate]) {
-		result = [result stringByAppendingString:[fileModDate description]];
-	}
+
+	NSString* name = [path lastPathComponent];
+	result = [result stringByAppendingString:name];
 	
 	CC_MD5_Update(&md5, [result UTF8String], [result length]);
 	

@@ -97,6 +97,9 @@
 - (Texture2D*) texture:(NSString*) textureKey;
 - (TMFramedTexture*) skinTexture:(NSString*) textureKey;
 
+/* Themes/Noteskins upload support */
+- (void) addSkinsFrom:(NSString*)rootDir;
+
 + (ThemeManager *) sharedInstance;
 
 @end
