@@ -9,9 +9,16 @@
 
 #import "TMView.h"
 
+@class Texture2D;
+
 /* A modal view is a floating view (popup, dialog etc.) */
 @interface TMModalView : TMView {
+	// A dialog can have a texture background just like a screen
+	Texture2D*		t_BG;
+	float			m_fBrightness;	// Background brightness	
 }
+
+- (id) initWithMetrics:(NSString*)inMetricsKey;
 
 - (void) close;
 

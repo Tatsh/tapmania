@@ -33,6 +33,7 @@
 #import "FontSizeCommand.h"
 #import "AlignmentCommand.h"
 #import "ScreenCommand.h"
+#import "DialogCommand.h"
 #import "ValueCommand.h"
 #import "SettingCommand.h"
 #import "VolumeCommand.h"
@@ -77,6 +78,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 	REG_COMMAND([@"sleep" retain], [SleepCommand class]);
 	REG_COMMAND([@"mod" retain], [ModCommand class]);
 	REG_COMMAND([@"screen" retain], [ScreenCommand class]);
+	REG_COMMAND([@"dialog" retain], [DialogCommand class]);
 	REG_COMMAND([@"value" retain], [ValueCommand class]);
 	REG_COMMAND([@"setting" retain], [SettingCommand class]);
 	REG_COMMAND([@"volume" retain], [VolumeCommand class]);
@@ -136,6 +138,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 }
 
 - (void) addOverlay:(TMModalView*)modalView {
+	[self registerObjectAtEnd:modalView];
+}
+
+- (void) addOverlay:(Class)dialogClass withMetrics:(NSString*)inMetrics {
+	TMModalView* modalView = [[dialogClass alloc] initWithMetrics:inMetrics];
 	[self registerObjectAtEnd:modalView];
 }
 

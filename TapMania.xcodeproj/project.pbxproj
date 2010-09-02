@@ -302,6 +302,7 @@
 		24DC0E10101E943C00F2B046 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DC0E03101E943C00F2B046 /* unzip.h */; };
 		24DC0E11101E943C00F2B046 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0E04101E943C00F2B046 /* zip.c */; };
 		24DC0E12101E943C00F2B046 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DC0E05101E943C00F2B046 /* zip.h */; };
+		24F265D31230589C0024857A /* DialogCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F265D21230589C0024857A /* DialogCommand.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -821,6 +822,8 @@
 		24F1AA0D106A2EC200A63B96 /* Quad.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Quad.mm; sourceTree = "<group>"; };
 		24F1AA1B106A44DC00A63B96 /* SongPickerWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongPickerWheel.h; path = Renderers/UIElements/SongPickerWheel.h; sourceTree = "<group>"; };
 		24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongPickerWheel.mm; path = Renderers/UIElements/SongPickerWheel.mm; sourceTree = "<group>"; };
+		24F265D11230589C0024857A /* DialogCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogCommand.h; sourceTree = "<group>"; };
+		24F265D21230589C0024857A /* DialogCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DialogCommand.mm; sourceTree = "<group>"; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1541,6 +1544,8 @@
 				24C44009106584FC0003EF60 /* NameCommand.mm */,
 				24CAF7CB1067C80500141318 /* ScreenCommand.h */,
 				24CAF7CC1067C80500141318 /* ScreenCommand.mm */,
+				24F265D11230589C0024857A /* DialogCommand.h */,
+				24F265D21230589C0024857A /* DialogCommand.mm */,
 				24BE1BED10919EA000E1B8D8 /* ValueCommand.h */,
 				24BE1BEE10919EA000E1B8D8 /* ValueCommand.mm */,
 				24BE1C2E1091A11D00E1B8D8 /* SettingCommand.h */,
@@ -2213,6 +2218,7 @@
 				24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */,
 				24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */,
 				249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */,
+				24F265D31230589C0024857A /* DialogCommand.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

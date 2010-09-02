@@ -52,6 +52,7 @@
 - (void) switchToTapDB;
 
 - (void) addOverlay:(TMModalView*)modalView;
+- (void) addOverlay:(Class)dialogClass withMetrics:(NSString*)inMetrics;
 - (void) removeOverlay:(TMModalView*)modalView;
 
 - (void) registerObjectAtEnd:(NSObject*) obj;
