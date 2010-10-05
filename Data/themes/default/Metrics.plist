@@ -3,9 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>ThemeSystemVersion</key>
-	<real>0.6</real>
+	<real>0.7</real>
 	<key>Skyscraper</key>
 	<dict>
+		<key>SpeedMods</key>
+		<array>
+			<string>mod,0.25x;name,x0.25</string>
+			<string>mod,0.5x;name,x0.5</string>
+			<string>mod,1x;name,x1</string>
+			<string>mod,1.5x;name,x1.5</string>
+			<string>mod,2x;name,x2</string>
+			<string>mod,2.5x;name,x2.5</string>
+			<string>mod,3x;name,x3</string>
+			<string>mod,5x;name,x5</string>
+			<string>mod,8x;name,x8</string>
+		</array>
 		<key>SongsCacheLoader</key>
 		<dict/>
 		<key>MainMenu</key>
@@ -15,9 +27,9 @@
 				<key>OnCommand</key>
 				<string>alignment,left</string>
 				<key>X</key>
-				<integer>174</integer>
+				<integer>280</integer>
 				<key>Y</key>
-				<integer>98</integer>
+				<integer>8</integer>
 			</dict>
 			<key>PlayImg</key>
 			<dict>
@@ -62,7 +74,7 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
-				<integer>170</integer>
+				<integer>98</integer>
 				<key>Y</key>
 				<integer>294</integer>
 				<key>Width</key>
@@ -70,7 +82,7 @@
 				<key>Height</key>
 				<integer>128</integer>
 			</dict>
-			<key>TapDBImg</key>
+			<key>TapDBImgDisabled</key>
 			<dict>
 				<key>HitCommand</key>
 				<string>playsoundeffect,Common ButtonHit;tapdb</string>
@@ -110,6 +122,23 @@
 		</dict>
 		<key>OptionsMenu</key>
 		<dict>
+			<key>BackImg</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common ButtonHit;screen,MainMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
+				<key>X</key>
+				<integer>7</integer>
+				<key>Y</key>
+				<integer>7</integer>
+				<key>Width</key>
+				<integer>46</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>TitleLabel</key>
 			<dict>
 				<key>OnCommand</key>
@@ -117,41 +146,7 @@
 				<key>X</key>
 				<integer>160</integer>
 				<key>Y</key>
-				<integer>24</integer>
-			</dict>
-			<key>MoreButtonDisabled</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,More;playsoundeffect,Common ButtonHit;screen,OptionsExtendedMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>220</integer>
-				<key>Y</key>
-				<integer>419</integer>
-				<key>Width</key>
-				<integer>84</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-			<key>BackButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>20</integer>
-				<key>Y</key>
-				<integer>419</integer>
-				<key>Width</key>
-				<integer>280</integer>
-				<key>Height</key>
-				<integer>46</integer>
+				<integer>30</integer>
 			</dict>
 			<key>PadConfigButton</key>
 			<dict>
@@ -164,7 +159,7 @@
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
-				<integer>105</integer>
+				<integer>153</integer>
 				<key>Width</key>
 				<integer>280</integer>
 				<key>Height</key>
@@ -181,22 +176,11 @@
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
-				<integer>53</integer>
+				<integer>93</integer>
 				<key>Width</key>
 				<integer>280</integer>
 				<key>Height</key>
 				<integer>46</integer>
-			</dict>
-			<key>NoteSkinLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Noteskin:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>282</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
 			</dict>
 			<key>ThemeLabel</key>
 			<dict>
@@ -205,48 +189,9 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>332</integer>
+				<integer>392</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
-			</dict>
-			<key>FingerTrackingLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Auto tracking:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>232</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
-			<key>VisiblePadLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Visible pad:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>180</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
-			<key>NoteSkinTogglerCustom</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>259</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
 			</dict>
 			<key>ThemeTogglerCustom</key>
 			<dict>
@@ -259,279 +204,11 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>309</integer>
+				<integer>369</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
-			</dict>
-			<key>SoundOptionsButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,Sound Settings;playsoundeffect,Common ButtonHit;screen,SoundOptionsMenu</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>20</integer>
-				<key>Y</key>
-				<integer>366</integer>
-				<key>Width</key>
-				<integer>280</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-			<key>FingerTrackingToggler</key>
-			<dict>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>209</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>OnCommand</key>
-				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
-					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
-				</array>
-			</dict>
-			<key>VisiblePadToggler</key>
-			<dict>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>157</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>OnCommand</key>
-				<string>value,{setting:vispad};zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>value,YES;name,Enabled;setting,vispad,YES</string>
-					<string>value,NO;name,Disabled;setting,vispad,NO</string>
-				</array>
-			</dict>
-		</dict>
-		<key>SongOptions</key>
-		<dict>
-			<key>SpeedToggler</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>value,x1;zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>mod,0.25x;name,x0.25</string>
-					<string>mod,0.5x;name,x0.5</string>
-					<string>mod,1x;name,x1</string>
-					<string>mod,1.5x;name,x1.5</string>
-					<string>mod,2x;name,x2</string>
-					<string>mod,2.5x;name,x2.5</string>
-					<string>mod,3x;name,x3</string>
-					<string>mod,5x;name,x5</string>
-					<string>mod,8x;name,x8</string>
-				</array>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>60</integer>
-				<key>X</key>
-				<integer>255</integer>
-				<key>Y</key>
-				<integer>60</integer>
-				<key>FixedWidth</key>
-				<integer>45</integer>
-			</dict>
-			<key>NoteModToggler</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>value,normal;zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>mod,normal;name,None</string>
-					<string>mod,hidden;name,Hidden</string>
-					<string>mod,sudden;name,Sudden</string>
-					<string>mod,stealth;name,Stealth</string>
-				</array>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>100</integer>
-				<key>X</key>
-				<integer>255</integer>
-				<key>Y</key>
-				<integer>100</integer>
-				<key>FixedWidth</key>
-				<integer>80</integer>
-			</dict>
-			<key>ReceptorModToggler</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>value,no_dark;zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>mod,no_dark;name,None</string>
-					<string>mod,dark;name,Drak</string>
-				</array>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>Width</key>
-				<integer>100</integer>
-				<key>X</key>
-				<integer>255</integer>
-				<key>Y</key>
-				<integer>150</integer>
-				<key>FixedWidth</key>
-				<integer>80</integer>
-			</dict>
-			<key>NoteSkinLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Noteskin:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>282</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
-			<key>FingerTrackingLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Auto tracking:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>232</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
-			<key>VisiblePadLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Visible pad:;alignment,right</string>
-				<key>X</key>
-				<integer>100</integer>
-				<key>Y</key>
-				<integer>180</integer>
-				<key>FixedWidth</key>
-				<integer>90</integer>
-			</dict>
-			<key>NoteSkinTogglerCustom</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>259</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-			<key>ThemeTogglerCustom</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>309</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-			</dict>
-			<key>FingerTrackingToggler</key>
-			<dict>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>209</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>OnCommand</key>
-				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
-					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
-				</array>
-			</dict>
-			<key>VisiblePadToggler</key>
-			<dict>
-				<key>X</key>
-				<integer>110</integer>
-				<key>Y</key>
-				<integer>157</integer>
-				<key>Width</key>
-				<integer>190</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>OnCommand</key>
-				<string>value,{setting:vispad};zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
-				<key>Elements</key>
-				<array>
-					<string>value,YES;name,Enabled;setting,vispad,YES</string>
-					<string>value,NO;name,Disabled;setting,vispad,NO</string>
-				</array>
-			</dict>
-		</dict>
-		<key>SoundOptionsMenu</key>
-		<dict>
-			<key>TitleLabel</key>
-			<dict>
-				<key>OnCommand</key>
-				<string>name,Sound Settings;alignment,center</string>
-				<key>X</key>
-				<integer>160</integer>
-				<key>Y</key>
-				<integer>24</integer>
 			</dict>
 			<key>MusicLevelLabel</key>
 			<dict>
@@ -540,7 +217,7 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>189</integer>
+				<integer>272</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
@@ -551,7 +228,7 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>249</integer>
+				<integer>332</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
@@ -560,7 +237,7 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>166</integer>
+				<integer>249</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
@@ -579,7 +256,7 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>226</integer>
+				<integer>309</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
@@ -593,22 +270,206 @@
 				<key>SlideCommand</key>
 				<string>volume,effects,{value}</string>
 			</dict>
-			<key>BackButton</key>
+		</dict>
+		<key>SongOptions</key>
+		<dict>
+			<key>SpeedToggler</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>value,x1;zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array/>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>100</integer>
+				<key>FixedWidth</key>
+				<integer>130</integer>
+			</dict>
+			<key>NoteModToggler</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>value,normal;zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>mod,normal;name,Normal</string>
+					<string>mod,hidden;name,Hidden</string>
+					<string>mod,sudden;name,Sudden</string>
+					<string>mod,stealth;name,Stealth</string>
+				</array>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>150</integer>
+				<key>FixedWidth</key>
+				<integer>130</integer>
+			</dict>
+			<key>ReceptorModToggler</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>value,no_dark;zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>mod,no_dark;name,Normal</string>
+					<string>mod,dark;name,Dark</string>
+				</array>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>200</integer>
+				<key>FixedWidth</key>
+				<integer>130</integer>
+			</dict>
+			<key>NoteSkinLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Noteskin:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>372</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>SpeedLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Speed:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>122</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>FingerTrackingLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Auto tracking:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>272</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>NoteModeLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Arrows:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>172</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>ReceptorModLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Receptors:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>222</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>VisiblePadLabel</key>
+			<dict>
+				<key>OnCommand</key>
+				<string>name,Visible pad:;alignment,right</string>
+				<key>X</key>
+				<integer>100</integer>
+				<key>Y</key>
+				<integer>322</integer>
+				<key>FixedWidth</key>
+				<integer>90</integer>
+			</dict>
+			<key>NoteSkinTogglerCustom</key>
 			<dict>
 				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,OptionsMenu</string>
+				<string>playsoundeffect,Common TogglerChange</string>
 				<key>OnCommand</key>
 				<string>zoom,1.1,0.5</string>
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.3</string>
 				<key>X</key>
-				<integer>18</integer>
+				<integer>110</integer>
 				<key>Y</key>
-				<integer>289</integer>
+				<integer>350</integer>
 				<key>Width</key>
-				<integer>280</integer>
+				<integer>190</integer>
 				<key>Height</key>
 				<integer>46</integer>
+			</dict>
+			<key>FingerTrackingToggler</key>
+			<dict>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>250</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:autotrack};zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>value,YES;name,Enabled;setting,autotrack,YES</string>
+					<string>value,NO;name,Disabled;setting,autotrack,NO</string>
+				</array>
+			</dict>
+			<key>VisiblePadToggler</key>
+			<dict>
+				<key>X</key>
+				<integer>110</integer>
+				<key>Y</key>
+				<integer>300</integer>
+				<key>Width</key>
+				<integer>190</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>OnCommand</key>
+				<string>value,{setting:vispad};zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>HitCommand</key>
+				<string>playsoundeffect,Common TogglerChange</string>
+				<key>Elements</key>
+				<array>
+					<string>value,YES;name,Enabled;setting,vispad,YES</string>
+					<string>value,NO;name,Disabled;setting,vispad,NO</string>
+				</array>
 			</dict>
 		</dict>
 		<key>OptionsExtendedMenu</key>
@@ -803,6 +664,8 @@
 			</dict>
 			<key>OptionsButton</key>
 			<dict>
+				<key>ShouldNotLock</key>
+				<true/>
 				<key>OnCommand</key>
 				<string>name,Options;zoom,1.1,0.5</string>
 				<key>OffCommand</key>

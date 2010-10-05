@@ -60,15 +60,4 @@
 	}
 }
 
-
-/* TMGameUIResponder methods */
-- (BOOL) tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
-	if([super tmTouchesEnded:touches withEvent:event]) {
-		[self close];
-		return YES;
-	}
-	
-	return NO;
-}
-
 @end

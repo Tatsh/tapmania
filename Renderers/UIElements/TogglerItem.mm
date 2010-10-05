@@ -149,22 +149,28 @@
 	[super initTextualProperties:inMetricsKey];
 	
 	// Also handle Elements, DefaultElement
-	NSArray* elements = ARRAY_METRIC(([NSString stringWithFormat:@"%@ Elements", inMetricsKey]));
-	if( elements != nil ) {
-	
-		for(NSString* cmdStr in elements) {
-			TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
-			TMCommand* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
-			[obj setCmdList:[cmdList retain]];
-		
-			[m_aElements addObject:obj];
-		}
-	}
+	[self setElementsWithMetric:[NSString stringWithFormat:@"%@ Elements", inMetricsKey]];
 	
 	// Add commands support
 	[super initCommands:inMetricsKey];
 	
 	return self;
+}
+
+- (void) setElementsWithMetric:(NSString*)inMetricKey {
+	[m_aElements removeAllObjects];
+	
+	NSArray* elements = ARRAY_METRIC(inMetricKey);
+	if( elements != nil ) {
+		
+		for(NSString* cmdStr in elements) {
+			TogglerItemObject* obj = [[TogglerItemObject alloc] initWithSize:m_rShape.size andFontSize:21.0f];
+			TMCommand* cmdList = [[CommandParser sharedInstance] createCommandListFromString:cmdStr forRequestingObject:obj];
+			[obj setCmdList:[cmdList retain]];
+			
+			[m_aElements addObject:obj];
+		}
+	}	
 }
 
 - (void) initTextualProperties:(NSString*)inMetricsKey {

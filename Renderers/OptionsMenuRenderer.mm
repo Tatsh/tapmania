@@ -72,14 +72,14 @@
 	[self pushBackControl:m_pNoteSkinToggler];
 		
 	// Temporarily remove ads
-	[[TapMania sharedInstance] toggleAds:NO];
+//	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void) deinitOnTransition {
 	[super deinitOnTransition];
 	
 	// Get ads back to place
-	[[TapMania sharedInstance] toggleAds:YES];
+//	[[TapMania sharedInstance] toggleAds:YES];
 }
 
 /* Input handlers */

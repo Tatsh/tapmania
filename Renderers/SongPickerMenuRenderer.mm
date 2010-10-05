@@ -44,7 +44,6 @@ extern TMGameState * g_pGameState;
 
 - (void) backButtonHit;
 - (void) difficultyChanged;
-- (void) speedChanged;
 
 - (void) songSelectionChanged;
 - (void) songShouldStart;
@@ -104,12 +103,7 @@ extern TMGameState * g_pGameState;
 	// Select current song (populate difficulty toggler with it's difficulties)
 	[self songSelectionChanged];
 	[m_pSongWheel updateScore];
-		
-	// Select preferred speed value
-	m_pSpeedToggler = (TogglerItem*)[self findControl:@"SongPickerMenu SpeedToggler"];
-	[m_pSpeedToggler setActionHandler:@selector(speedChanged) receiver:self];
-	[m_pSpeedToggler selectItemAtIndex:[[SettingsEngine sharedInstance] getIntValue:@"prefspeed"]];
-	
+			
 	// Get ads back to place if removed
 	[[TapMania sharedInstance] toggleAds:YES];
 }
@@ -198,13 +192,15 @@ extern TMGameState * g_pGameState;
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
 	
 	// Check speedmod to be sure
-	TogglerItem* toggler = (TogglerItem*)[self findControl:@"SongPickerMenu SpeedToggler"];
-	if(toggler != nil) {
-		[toggler invokeCurrentCommand];
-	}
+	NSArray* speedMods = ARRAY_METRIC(@"SpeedMods");	
+	NSString* cur = [speedMods objectAtIndex:[[SettingsEngine sharedInstance] getIntValue:@"prefspeed"]];
+	
 	
 	g_pGameState->m_pSong = [song retain];
-	g_pGameState->m_sMods = [toggler getCurrent].m_sTitle;
+	
+	// Fixme: this is dirty :)
+	NSArray* arr = [cur componentsSeparatedByString:@","];
+	g_pGameState->m_sMods = [[arr objectAtIndex:[arr count]-1] retain];
 
 	if(g_pGameState->m_bModDark) {
 		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"dark"] retain];
@@ -231,12 +227,6 @@ extern TMGameState * g_pGameState;
 	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)curDiff;
 	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)curDiff];
 	[m_pSongWheel updateScore];
-}
-
-/* Support speed change saving */
-- (void) speedChanged {
-	int curSpeed = [(TogglerItem*)m_pSpeedToggler getCurrentIndex];	
-	[[SettingsEngine sharedInstance] setIntValue:curSpeed forKey:@"prefspeed"];		
 }
 
 /* Handle back button */

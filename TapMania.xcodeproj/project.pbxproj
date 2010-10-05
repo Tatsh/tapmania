@@ -183,6 +183,7 @@
 		24219D5711D268F7001BCE14 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219D5B11D26915001BCE14 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
+		2473A318123C192C00BF35C7 /* SongOptionsDialogRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2473A316123C192C00BF35C7 /* SongOptionsDialogRenderer.mm */; };
 		248E932C1017992B00DB27D9 /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93201017992B00DB27D9 /* connection.c */; };
 		248E932D1017992B00DB27D9 /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93211017992B00DB27D9 /* connection.h */; };
 		248E932E1017992B00DB27D9 /* daemon.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93221017992B00DB27D9 /* daemon.c */; };
@@ -502,6 +503,8 @@
 		2472663C0EE949A500D501AF /* TapNote.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TapNote.mm; path = Renderers/UIElements/TapNote.mm; sourceTree = "<group>"; };
 		2472672B0EE97DDC00D501AF /* ReceptorRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReceptorRow.h; path = Renderers/UIElements/ReceptorRow.h; sourceTree = "<group>"; };
 		2472672C0EE97DDC00D501AF /* ReceptorRow.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ReceptorRow.mm; path = Renderers/UIElements/ReceptorRow.mm; sourceTree = "<group>"; };
+		2473A316123C192C00BF35C7 /* SongOptionsDialogRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongOptionsDialogRenderer.mm; path = Renderers/SongOptionsDialogRenderer.mm; sourceTree = "<group>"; };
+		2473A317123C192C00BF35C7 /* SongOptionsDialogRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongOptionsDialogRenderer.h; path = Renderers/SongOptionsDialogRenderer.h; sourceTree = "<group>"; };
 		2476E62A11CE254E009AA545 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2479A37F0FE6EDFF00688640 /* PadConfigRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadConfigRenderer.h; path = Renderers/PadConfigRenderer.h; sourceTree = "<group>"; };
 		2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = PadConfigRenderer.mm; path = Renderers/PadConfigRenderer.mm; sourceTree = "<group>"; };
@@ -1278,6 +1281,8 @@
 				24F15E0D0EC20EC800755788 /* MainMenuRenderer.mm */,
 				242946370EC474D900B88828 /* SongPickerMenuRenderer.h */,
 				242946380EC474D900B88828 /* SongPickerMenuRenderer.mm */,
+				2473A317123C192C00BF35C7 /* SongOptionsDialogRenderer.h */,
+				2473A316123C192C00BF35C7 /* SongOptionsDialogRenderer.mm */,
 				2486F4520EC1E13E00E5F9EE /* SongPlayRenderer.h */,
 				2486F4530EC1E13E00E5F9EE /* SongPlayRenderer.mm */,
 				242327B90F273B630013AC23 /* SongResultsRenderer.h */,
@@ -2032,7 +2037,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TapMania" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2219,6 +2231,7 @@
 				24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */,
 				249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */,
 				24F265D31230589C0024857A /* DialogCommand.mm in Sources */,
+				2473A318123C192C00BF35C7 /* SongOptionsDialogRenderer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2361,7 +2374,7 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68243EB2-943E-4B7A-A857-ED8CCDB3DB29";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = "Release AppStore";
@@ -2461,11 +2474,11 @@
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = "Release local";
 		};
@@ -2582,7 +2595,7 @@
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = "Release AppStore";
 		};
@@ -2617,7 +2630,7 @@
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = "Release local";
 		};
@@ -2636,7 +2649,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -2672,7 +2685,7 @@
 					"-DDEBUG",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};

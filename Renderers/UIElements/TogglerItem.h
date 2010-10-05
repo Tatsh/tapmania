@@ -55,6 +55,7 @@
 - (void) removeItemAtIndex:(int) index;
 - (void) removeAll;
 
+- (void) setElementsWithMetric:(NSString*)inMetricKey;
 - (int) findIndexByValue:(NSObject*)value;
 - (void) selectItemAtIndex:(int) index;
 - (void) toggle;
