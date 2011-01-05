@@ -10,8 +10,6 @@
 		24219C4A11D26244001BCE14 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
 		24219C4B11D26244001BCE14 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
 		24219C4C11D26244001BCE14 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* Icon.png */; };
-		24219C4D11D26244001BCE14 /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 249D7FFD0FCC9A2200630646 /* themes */; };
-		24219C4E11D26244001BCE14 /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 24CF7F7B1105B7E20010A321 /* noteskins */; };
 		24219C4F11D26244001BCE14 /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2410B2AF11CBACAF0097E5AB /* AdWhirlWebBrowser.xib */; };
 		24219C5011D26244001BCE14 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2410B37011CBB8F70097E5AB /* MainWindow.xib */; };
 		24219C5111D26244001BCE14 /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
@@ -183,6 +181,8 @@
 		24219D5711D268F7001BCE14 /* libAdMob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247FCF1111CE1E05001E25A3 /* libAdMob.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219D5B11D26915001BCE14 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245E3BF711D23102002EFA7C /* libFlurry.a */; };
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
+		246B981112CB8D0500A33B7E /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 246B97C312CB8D0500A33B7E /* themes */; };
+		246B985112CB8D0E00A33B7E /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 246B981212CB8D0E00A33B7E /* noteskins */; };
 		2473A318123C192C00BF35C7 /* SongOptionsDialogRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2473A316123C192C00BF35C7 /* SongOptionsDialogRenderer.mm */; };
 		248E932C1017992B00DB27D9 /* connection.c in Sources */ = {isa = PBXBuildFile; fileRef = 248E93201017992B00DB27D9 /* connection.c */; };
 		248E932D1017992B00DB27D9 /* connection.h in Headers */ = {isa = PBXBuildFile; fileRef = 248E93211017992B00DB27D9 /* connection.h */; };
@@ -493,6 +493,8 @@
 		245E3BF711D23102002EFA7C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		24627B9C0FBF6DF9002E245D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Renderers/UIElements/Label.h; sourceTree = "<group>"; };
 		24627B9D0FBF6DF9002E245D /* Label.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Label.mm; path = Renderers/UIElements/Label.mm; sourceTree = "<group>"; };
+		246B97C312CB8D0500A33B7E /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = "<group>"; };
+		246B981212CB8D0E00A33B7E /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = "<group>"; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
 		246FB0FA0F28ABD500B3F641 /* SongsCacheLoaderRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongsCacheLoaderRenderer.mm; path = Renderers/SongsCacheLoaderRenderer.mm; sourceTree = "<group>"; };
 		246FB0FC0F28AE0500B3F641 /* TMSongsLoaderSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSongsLoaderSupport.h; sourceTree = "<group>"; };
@@ -654,7 +656,6 @@
 		249AA940121C41DB0075D50F /* TDBSimFile.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TDBSimFile.xib; sourceTree = "<group>"; };
 		249AA943121C420D0075D50F /* TDBSimFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBSimFileCell.h; sourceTree = "<group>"; };
 		249AA944121C420D0075D50F /* TDBSimFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBSimFileCell.m; sourceTree = "<group>"; };
-		249D7FFD0FCC9A2200630646 /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = SOURCE_ROOT; };
 		249D80580FCC9AF700630646 /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageButton.h; path = Renderers/UIElements/ImageButton.h; sourceTree = "<group>"; };
 		249D80590FCC9AF700630646 /* ImageButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ImageButton.mm; path = Renderers/UIElements/ImageButton.mm; sourceTree = "<group>"; };
 		24A425440F7119FC001B0CDE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -722,7 +723,6 @@
 		24CB0E9F10959CB60035A079 /* FontSizeCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontSizeCommand.mm; sourceTree = "<group>"; };
 		24CB0EA510959D4C0035A079 /* AlignmentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlignmentCommand.h; sourceTree = "<group>"; };
 		24CB0EA610959D4C0035A079 /* AlignmentCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AlignmentCommand.mm; sourceTree = "<group>"; };
-		24CF7F7B1105B7E20010A321 /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = "<group>"; };
 		24D028FA0F45AB5900F1F0DE /* QuadTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTransition.h; sourceTree = "<group>"; };
 		24D028FB0F45AB5900F1F0DE /* QuadTransition.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QuadTransition.mm; sourceTree = "<group>"; };
 		24D029C80F45C69C00F1F0DE /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPS.h; path = Renderers/UIElements/FPS.h; sourceTree = "<group>"; };
@@ -1783,9 +1783,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				246B981212CB8D0E00A33B7E /* noteskins */,
+				246B97C312CB8D0500A33B7E /* themes */,
 				247081F111CD705A0045988B /* Songs */,
-				24CF7F7B1105B7E20010A321 /* noteskins */,
-				249D7FFD0FCC9A2200630646 /* themes */,
 				24A425440F7119FC001B0CDE /* Icon.png */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -2067,13 +2067,13 @@
 				24219C4A11D26244001BCE14 /* Default.png in Resources */,
 				24219C4B11D26244001BCE14 /* Credits.plist in Resources */,
 				24219C4C11D26244001BCE14 /* Icon.png in Resources */,
-				24219C4D11D26244001BCE14 /* themes in Resources */,
-				24219C4E11D26244001BCE14 /* noteskins in Resources */,
 				24219C4F11D26244001BCE14 /* AdWhirlWebBrowser.xib in Resources */,
 				24219C5011D26244001BCE14 /* MainWindow.xib in Resources */,
 				24219C5111D26244001BCE14 /* Songs in Resources */,
 				24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */,
 				249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */,
+				246B981112CB8D0500A33B7E /* themes in Resources */,
+				246B985112CB8D0E00A33B7E /* noteskins in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2374,7 +2374,7 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F43CF82-B5A5-4ED0-9D93-075EA7CB11CD";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = "Release AppStore";
@@ -2465,7 +2465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Kremer (3A4A4UCN6Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2474,11 +2474,11 @@
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-ftree-vectorize";
 				PREBINDING = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1DEAD9BB-A7A4-48EF-9AEE-4602BA58F98F";
-				SDKROOT = iphoneos4.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
 			};
 			name = "Release local";
 		};
@@ -2595,7 +2595,7 @@
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = "Release AppStore";
 		};
@@ -2630,7 +2630,7 @@
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = "Release local";
 		};
@@ -2649,7 +2649,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -2685,7 +2685,7 @@
 					"-DDEBUG",
 				);
 				PRODUCT_NAME = TapMania;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
