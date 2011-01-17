@@ -105,6 +105,26 @@
 			<key>PlayButton</key>
 			<dict>
 				<key>HitCommand</key>
+				<string>name,iUnderstand!;playsoundeffect,Common ButtonHit;screen,HowToExtendedMenu</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.2</string>
+				<key>X</key>
+				<integer>60</integer>
+				<key>Y</key>
+				<integer>195</integer>
+				<key>Width</key>
+				<integer>200</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
+		</dict>
+		<key>HowToExtendedMenu</key>
+		<dict>
+			<key>PlayButton</key>
+			<dict>
+				<key>HitCommand</key>
 				<string>name,iUnderstand!;playsoundeffect,Common ButtonHit;screen,SongPickerMenu</string>
 				<key>OnCommand</key>
 				<string>zoom,1.1,0.5</string>
