@@ -50,6 +50,8 @@
 
 #import "TDBSearch.h"
 
+#import "DisplayUtil.h"
+
 TMGameState* g_pGameState;
 
 // This is a singleton class, see below
@@ -104,20 +106,24 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pCurrentSong = nil;
 	m_pCurrentSongOptions = nil;
 	m_pCurrentScreen = nil;
-	
+
+    CGSize dispSize = [DisplayUtil getDeviceDisplaySize];
+    
 	if(g_pGameState->m_bLandscape) {
-		m_Transform = CGAffineTransformMakeTranslation(0.0f, 320.0f);	// For landscape
+		m_Transform = CGAffineTransformMakeTranslation(0.0f, dispSize.width);	// For landscape
 		m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);	
 	
 		m_InputTransform = CGAffineTransformMakeRotation(DEGTORAD(-90.0f));
 		m_InputTransform = CGAffineTransformScale(m_InputTransform, 1.0f, -1.0f);	
-		m_InputTransform = CGAffineTransformTranslate(m_InputTransform, -320.0f, -480.0f);		
+		m_InputTransform = CGAffineTransformTranslate(m_InputTransform, -dispSize.width, -dispSize.height);
 		
 		[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
 	} else {		
-		m_Transform = CGAffineTransformMakeTranslation(0.0f, 480.0f);	// For skyscraper
-		m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);			
-		m_InputTransform = m_Transform;
+		m_Transform = CGAffineTransformMakeTranslation(0.0f, dispSize.height);	// For skyscraper
+		m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);
+        
+        m_InputTransform = CGAffineTransformMakeTranslation(0.0f, dispSize.height);
+        m_InputTransform = CGAffineTransformScale(m_InputTransform, 1.0f, -1.0f);
 	}
 	
 	return self;
@@ -238,14 +244,20 @@ static TapMania *sharedTapManiaDelegate = nil;
 	m_pWindow = ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).rootView;
 		
 	// Init opengl
-	if(g_pGameState->m_bLandscape) {	
-		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 480.0f, 320.0f)];	
+	if(g_pGameState->m_bLandscape) {
+        CGSize s = [DisplayUtil getDeviceDisplaySize];
+		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.height, s.width)];
 		
 		m_pGlView.transform = CGAffineTransformIdentity;
 		m_pGlView.transform = CGAffineTransformMakeRotation(DEGTORAD(-90.0f));
-		m_pGlView.center = CGPointMake(160.0f, 240.0f);
+		m_pGlView.center = CGPointMake(s.width/2.0f, s.height/2.0f);
 	} else {
-		m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];			
+        CGSize s = [DisplayUtil getDeviceDisplaySize];
+        if([DisplayUtil isRetina]) {
+            m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.width/2, s.height/2)];
+        } else {
+            m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.width, s.height)];
+        }
 	}
 
 	m_pGlView.multipleTouchEnabled = YES;	
@@ -273,7 +285,11 @@ static TapMania *sharedTapManiaDelegate = nil;
 			width = height;
 			height = temp;
 		}
-		glOrthof(0, width, 0, height, -1000, 1000);	// large depth so that rotated objects aren't clipped
+        if([DisplayUtil isRetina]) {
+         		glOrthof(0, width*2, 0, height*2, -1000, 1000);	// large depth so that rotated objects aren't clipped
+        } else {
+            glOrthof(0, width*2, 0, height*2, -1000, 1000);	// large depth so that rotated objects aren't clipped
+        }
 	}
 	
 	glMatrixMode(GL_MODELVIEW);

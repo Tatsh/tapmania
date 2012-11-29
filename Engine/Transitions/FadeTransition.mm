@@ -12,6 +12,7 @@
 #import "ThemeManager.h"
 #import "EAGLView.h"
 #import "TMScreen.h"
+#import "DisplayUtil.h"
 
 @implementation FadeTransition
 
@@ -28,7 +29,7 @@
 
 // TMRenderable stuff
 - (void)render:(float)fDelta {	
-	CGRect	rect = [TapMania sharedInstance].glView.bounds;
+	CGRect	rect = [DisplayUtil getDeviceDisplayBounds];
 	GLfloat	vertices[] = {	
 		rect.origin.x,							rect.origin.y,							
 		rect.origin.x + rect.size.width,		rect.origin.y,							

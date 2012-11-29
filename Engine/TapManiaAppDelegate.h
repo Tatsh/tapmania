@@ -9,8 +9,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iCadeReaderView.h"
 
-@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate>
+@interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, iCadeEventDelegate>
 {
 	UIWindow* m_pWindow;
 	UIView* m_pRootView;

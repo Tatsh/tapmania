@@ -11,6 +11,8 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "TMScreen.h"
+#import "DisplayUtil.h"
+
 
 @implementation QuadTransition
 
@@ -25,11 +27,12 @@
 }
 
 // TMRenderable stuff
-- (void)render:(float)fDelta {	
-	GLfloat midX = 160.0f;
-	GLfloat midY = 240.0f;
+- (void)render:(float)fDelta {
+    CGSize ds = [DisplayUtil getDeviceDisplaySize];
+	GLfloat midX = ds.width/2.0f;
+	GLfloat midY = ds.height/2.0f;
 	
-	GLfloat curOffset = 480.0f * m_fTransitionPosition;
+	GLfloat curOffset = ds.height * m_fTransitionPosition;
 	TMLog(@"CurOffset %f", curOffset);
 	
 	GLfloat	vertices[] = {	

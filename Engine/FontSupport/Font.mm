@@ -298,7 +298,7 @@
 	unichar c;
 	[[FontCharAliases sharedInstance] getChar:keyPart result:&c];
 	
-	NSNumber* num = value;
+	NSNumber* num = [NSNumber numberWithInt:[value intValue]];
 	NSString* s = [NSString stringWithFormat:@"%C", c];
 	
 	[m_pCharToGlyphNo setObject:num forKey:s];

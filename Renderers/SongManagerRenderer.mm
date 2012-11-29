@@ -19,14 +19,14 @@
 #import "QuadTransition.h"
 #import "OptionsMenuRenderer.h"
 
-#import "FlurryAPI.h"
+//#import "FlurryAPI.h"
 
 @implementation SongManagerRenderer
 
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[super setupForTransition];
-	[FlurryAPI logEvent:@"songman_screen_enter"];
+//	[FlurryAPI logEvent:@"songman_screen_enter"];
 	
 	mt_UrlPosition = POINT_METRIC(@"SongManager Url");
 	

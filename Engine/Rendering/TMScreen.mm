@@ -20,7 +20,8 @@
 #import "TogglerItem.h"
 #import "Slider.h"
 #import "ImageButton.h"
-#import "FlurryAPI.h"
+#import "DisplayUtil.h"
+//#import "FlurryAPI.h"
 
 @implementation TMScreen
 
@@ -28,7 +29,7 @@
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
 	// A screen is always fullscreen :P
-	self = [super initWithShape:[TapMania sharedInstance].m_pGlView.bounds];
+	self = [super initWithShape:[DisplayUtil getDeviceDisplayBounds]];
 	if(!self)
 		return nil;
 		
@@ -87,7 +88,8 @@
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	// Render BG
-	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+    CGSize sz = [DisplayUtil getDeviceDisplaySize];
+	CGRect	bounds = CGRectMake(0, 0, sz.width, sz.height);
 	
 	if(m_fBrightness != 1.0f) {
 //		glDisable(GL_TEXTURE_2D);
@@ -110,7 +112,7 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[[InputEngine sharedInstance] subscribe:self];	
-	[FlurryAPI countPageView];
+//	[FlurryAPI countPageView];
 }
 
 - (void) deinitOnTransition {

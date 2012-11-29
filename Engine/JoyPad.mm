@@ -119,6 +119,18 @@
 	return m_dJoyButtonTimeRelease[button];
 }
 
+- (void) setState:(BOOL)held forButton:(JPButton) button {
+    m_bJoyButtonStates[button] = held;
+    
+    if(held) {
+        m_dJoyButtonTimeTouch[button] = [TimingUtil getCurrentTime];
+        BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:button]);
+    } else {
+        m_dJoyButtonTimeRelease[button] = [TimingUtil getCurrentTime];
+        BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:button]);
+    }
+}
+
 /* TMGameUIResponder methods */
 - (BOOL) tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent*)event {
 	int touchIdx;

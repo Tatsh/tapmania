@@ -154,7 +154,7 @@
 	TMTouch touch = touches.at(0);
 	CGPoint point = CGPointMake(touch.x(), touch.y());
 		
-	if(CGRectContainsPoint(m_rShape, point)) {
+    if(CGRectContainsPoint(m_rShape, point)) {
 		if(m_bEnabled && m_bVisible) {
 
 			// Forward to children

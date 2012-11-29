@@ -13,6 +13,7 @@
 #import "MessageManager.h"
 #import "TMMessage.h"
 #import "TDBSearch.h"
+#import "JoyPad.h"
 
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
@@ -20,7 +21,7 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "FlurryAPI.h"
+//#import "FlurryAPI.h"
 
 @implementation TapManiaAppDelegate
 
@@ -30,7 +31,7 @@
 @synthesize tapdb;
 
 void uncaughtExceptionHandler(NSException *exception) {
-    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+//    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application {				
@@ -60,11 +61,18 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];                                                                                                                                                               
 	
 	// Start analytics (flurry)
-	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
+//	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
 	
 	// Show window
 	[self.window makeKeyAndVisible];
 	
+    // Configure iCade support
+    iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
+    [self.window addSubview:control];
+    control.active = YES;
+    control.delegate = self;
+    [control release];
+    
 	// Start the game.
 	[[TapMania sharedInstance] startGame];
 }
@@ -72,5 +80,67 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void) applicationWillTerminate:(UIApplication *)application {
 	BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
 }
+
+// iCade support
+- (void)buttonDown:(iCadeState)button {
+//    [self setState:YES forButton:button];
+    TMLog(@"Got button press %d", button);
+    
+    switch (button) {
+        case iCadeButtonG: // select
+            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
+            break;
+        case iCadeButtonD:
+        case iCadeJoystickUp:
+            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonUp];
+            break;
+        case iCadeButtonA:
+        case iCadeJoystickLeft:
+            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonLeft];
+            break;
+        case iCadeButtonB:
+        case iCadeJoystickRight:
+            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonRight];
+            break;
+        case iCadeButtonC:
+        case iCadeJoystickDown:
+            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonDown];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)buttonUp:(iCadeState)button {
+//    [self setState:NO forButton:button];
+    TMLog(@"Got button release %d", button);
+    
+    switch (button) {
+        case iCadeButtonG: // select
+            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
+            break;
+        case iCadeButtonD:
+        case iCadeJoystickUp:
+            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonUp];
+            break;
+        case iCadeButtonA:
+        case iCadeJoystickLeft:
+            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonLeft];
+            break;
+        case iCadeButtonB:
+        case iCadeJoystickRight:
+            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonRight];
+            break;
+        case iCadeButtonC:
+        case iCadeJoystickDown:
+            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonDown];
+            break;
+        default:
+            break;
+
+    }
+
+}
+
 
 @end

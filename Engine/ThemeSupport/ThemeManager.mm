@@ -12,6 +12,7 @@
 #import "ResourcesLoader.h"
 #import "TMSound.h"
 #import "TapMania.h"
+#import "DisplayUtil.h"
 #import "VersionInfo.h"
 #import "GameState.h"
 
@@ -116,7 +117,10 @@ extern TMGameState*	g_pGameState;
 		NSString* themeSoundsPath	= [themesDir stringByAppendingFormat:@"/%@/Sounds/", m_sCurrentThemeName];
 		
 		NSString* filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
+		NSString* dpFilePath = [themesDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
+                                m_sCurrentThemeName, [DisplayUtil getDeviceDisplayString]];
 		
+        
 		if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {		
 			m_pCurrentThemeMetrics	 = [[Metrics alloc] initWithContentsOfFile:filePath];
 			m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
@@ -127,7 +131,13 @@ extern TMGameState*	g_pGameState;
 			[[FontManager sharedInstance] loadFonts:themeFontsPath];
 						
 			TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
-			
+		        
+            if([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath]) {
+                TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
+                
+                [m_pCurrentThemeMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
+            }
+            
 		} else {
 			TMLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
 			exit(127);
@@ -362,14 +372,14 @@ extern TMGameState*	g_pGameState;
 	int i;
 	
 	for(i=0; i<[pathChunks count]-1; ++i) {
-		if(tmp != nil && [tmp isKindOfClass:[NSDictionary class]]) {
+		if(tmp != nil && ( [tmp isKindOfClass:[NSDictionary class]] || [tmp isKindOfClass:[Metrics class]])) {
 			// Search next component
-			tmp = [(NSDictionary*)tmp objectForKey:[pathChunks objectAtIndex:i]];
+			tmp = [tmp objectForKey:[pathChunks objectAtIndex:i]];
 		}
 	}
 	
 	if(tmp != nil) {
-		tmp = [[(NSDictionary*)tmp objectForKey:[pathChunks lastObject]] retain];
+		tmp = [[tmp objectForKey:[pathChunks lastObject]] retain];
 	}
 		
 	return tmp;	// nil or not

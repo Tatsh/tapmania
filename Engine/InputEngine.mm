@@ -11,6 +11,7 @@
 #import "TMGameUIResponder.h"
 #import "TMTouch.h"
 #import "TapMania.h"
+#import "DisplayUtil.h"
 
 // This is a singleton class, see below
 static InputEngine *sharedInputEngineDelegate = nil;
@@ -61,6 +62,15 @@ static InputEngine *sharedInputEngineDelegate = nil;
 	for( UITouch* touch in touches) {
 		CGPoint pos = [touch locationInView:nil];
 		CGPoint opos = [touch previousLocationInView:nil];
+        
+        if([DisplayUtil isRetina]) {
+            opos.x *= 2.0f;
+            opos.y *= 2.0f;
+            
+            pos.x *= 2.0f;
+            pos.y *= 2.0f;
+        }
+        
 		pos = CGPointApplyAffineTransform(pos, [TapMania sharedInstance].m_InputTransform);
 		opos = CGPointApplyAffineTransform(opos, [TapMania sharedInstance].m_InputTransform);
 		

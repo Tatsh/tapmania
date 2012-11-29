@@ -16,7 +16,7 @@
 #import "TapMania.h"
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
-#import "FlurryAPI.h"
+// #import "FlurryAPI.h"
 
 #define kCreditsVelocity	20.0f;
 
@@ -36,7 +36,7 @@
 /* TMTransitionSupport methods */
 - (void) setupForTransition {
 	[super setupForTransition];
-	[FlurryAPI logEvent:@"credits_screen_enter"];
+//	[FlurryAPI logEvent:@"credits_screen_enter"];
 	
 	int i;
 	

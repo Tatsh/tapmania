@@ -13,6 +13,7 @@
 #import "TMSound.h"
 #import "TMLoopedSound.h"
 #import "GameState.h"
+#import "DisplayUtil.h"
 
 extern TMGameState*	g_pGameState;
 
@@ -50,7 +51,7 @@ extern TMGameState*	g_pGameState;
 	m_sFileSystemPath = [[NSString alloc] initWithString:path];
 	m_pResource = nil;
 	m_nResourceType = inType;
-	
+    
 	// Check whether we must load it right now
 	if( [itemName hasPrefix:@"_"] ) {
 		m_bIsSystem = YES;
@@ -77,14 +78,15 @@ extern TMGameState*	g_pGameState;
 		[contentsString release];
 	}
 		
-	NSString* pathToHoldingDir = [path stringByDeletingLastPathComponent]; 	
+	NSString* pathToHoldingDir = [path stringByDeletingLastPathComponent];
+    NSString* ext = [itemName pathExtension];
 	NSString* componentName = [itemName stringByDeletingPathExtension];	
 	if( [componentName hasPrefix:@"_"] ) {
 		componentName = [componentName substringFromIndex:1];	// Remove it from there
 	}
 	
 	NSArray* nameSpecificator = [componentName componentsSeparatedByString:@"_"];
-	
+    
 	// 1) ItemName_[PageName]_DxD.ext
 	// 2) ItemName_[PageName].ext
 	// 3) ItemName_(loop).ext - for sounds
@@ -174,7 +176,21 @@ extern TMGameState*	g_pGameState;
 		m_oClass = [[NSBundle mainBundle] classNamed:[className stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];		
 		[className release];
 	}
-	
+    
+    // Ok. Now we want to check if we have a resolution-perfect version for the current hardware
+    // The path is changed like this (resolution)/ItemName_***.ext
+    // where resolution is iPhone5, iPad, iPhoneRetina or iPadRetina
+    NSString* disp = [DisplayUtil getDeviceDisplayString];
+    
+    TMLog(@"CHECK PATH %@", [NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext]);
+    if([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext]]) {
+        NSString* p = [NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext];
+        TMLog(@"[+] resolution-perfect version found at '%@'", p);
+
+        // just fake the path
+        m_sFileSystemPath = p;
+    }
+    
 	// Now load it directly if loadOnStartup is set
 	if(m_bIsSystem) {
 		[self loadResource];

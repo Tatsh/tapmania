@@ -15,6 +15,7 @@
 #import "InputEngine.h"
 
 #import "TimingUtil.h"
+#import "DisplayUtil.h"
 
 @implementation EAGLView
 
@@ -64,8 +65,17 @@
 	
 	_size = newSize;
 	if(!_hasBeenCurrent) {
-		glViewport(0, 0, newSize.width, newSize.height);
-		glScissor(0, 0, newSize.width, newSize.height);
+        
+        if([DisplayUtil isRetina])
+        {
+            glViewport(0, 0, newSize.width*2, newSize.height*2);
+            glScissor(0, 0, newSize.width*2, newSize.height*2);
+        }
+        else
+        {
+            glViewport(0, 0, newSize.width, newSize.height);
+            glScissor(0, 0, newSize.width, newSize.height);
+        }
 		_hasBeenCurrent = YES;
 	}
 	else {
@@ -104,6 +114,12 @@
 	if ((self = [super initWithFrame:frame])) {
 		CAEAGLLayer *eaglLayer = (CAEAGLLayer*)[self layer];
 		
+        if([DisplayUtil isRetina])
+        {
+            self.contentScaleFactor = 2.0f;
+            eaglLayer.contentsScale = 2;
+        }
+        
 		[eaglLayer setDrawableProperties:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGB565, kEAGLDrawablePropertyColorFormat, nil]];
 		_format = kEAGLColorFormatRGB565;
 		_depthFormat = 0;
@@ -198,7 +214,7 @@
 }
 
 - (CGPoint) convertPointFromViewToOpenGL:(CGPoint)point {
-	return CGPointMake(point.x, self.bounds.size.height - point.y);
+	return CGPointMake(point.x, [DisplayUtil getDeviceDisplaySize].height - point.y);
 }
 
 - (CGRect) convertRectFromViewToSurface:(CGRect)rect

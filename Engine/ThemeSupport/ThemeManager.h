@@ -46,8 +46,8 @@
 	NSString*			m_sCurrentNoteskinName;
 	NSString*			m_sCurrentMode;				// Current view mode; skyscraper or landscape
 	
-	Metrics*			m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
-	Metrics*			m_pCurrentNoteSkinMetrics;		// The currently loaded noteskin metrics object
+	Metrics*			 m_pCurrentThemeMetrics;			// The currently loaded theme metrics object
+	Metrics*			 m_pCurrentNoteSkinMetrics;		// The currently loaded noteskin metrics object
 	
 	ResourcesLoader*	m_pCurrentThemeResources;		// Current theme's resources (graphics)
 	ResourcesLoader*	m_pCurrentThemeSoundResources;	// Current theme's sounds
