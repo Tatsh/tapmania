@@ -188,7 +188,7 @@ extern TMGameState*	g_pGameState;
         TMLog(@"[+] resolution-perfect version found at '%@'", p);
 
         // just fake the path
-        m_sFileSystemPath = p;
+        m_sFileSystemPath = [p retain];
     }
     
 	// Now load it directly if loadOnStartup is set
@@ -220,7 +220,7 @@ extern TMGameState*	g_pGameState;
 		TMLog(@"Resource is already loaded. ignore.");
 		return;
 	}
-	
+    
 	if(m_nResourceType == kResourceLoaderWeb) {
 		m_pResource = [[m_oClass alloc] initWithContentsOfFile:m_sFileSystemPath];
 		if(m_pResource) 
@@ -231,7 +231,7 @@ extern TMGameState*	g_pGameState;
 		if(m_pResource)
 			m_bIsLoaded = YES;
 		
-	} else if(m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows]) {
+	} else if((m_pResource = [[m_oClass alloc] initWithImage:[UIImage imageWithContentsOfFile:m_sFileSystemPath] columns:m_nCols andRows:m_nRows])) {
 		m_bIsLoaded = YES;
 	}
 	
