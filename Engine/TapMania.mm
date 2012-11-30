@@ -319,14 +319,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 #ifdef ENABLE_ADWHIRL
 	// Create the AdWhirl thing
 	m_pAdsView = [[AdWhirlView requestAdWhirlViewWithDelegate:[TapMania sharedInstance]] retain];
-	m_pAdsView.clipsToBounds = YES;
-	
-	if(g_pGameState->m_bLandscape) {
-		[m_pAdsView setFrame:CGRectMake(80,270, 320, 50)];
-	} else {
-		[m_pAdsView setFrame:CGRectMake(0,430, 320, 50)];
-	}
-	
+    m_pAdsView.clipsToBounds = YES;
+		
 	[m_pGlView addSubview:m_pAdsView];
 	TMLog(@"Added the AdWhirl view.");
 #endif // ENABLE_ADWHIRL
@@ -365,8 +359,6 @@ static TapMania *sharedTapManiaDelegate = nil;
 #ifdef ENABLE_ADWHIRL
 - (NSString*)adWhirlApplicationKey
 {
-	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-	
 	// 0.3 version for os 4
 	return @"2f024b7d377747de8dadf20ef4f22fdd";
 }
@@ -374,6 +366,24 @@ static TapMania *sharedTapManiaDelegate = nil;
 - (UIViewController*)viewControllerForPresentingModalView
 {
 	return ((TapManiaAppDelegate*)[UIApplication sharedApplication].delegate).rootController;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adView {
+    [UIView beginAnimations:@"AdWhirlDelegate.adWhirlDidReceiveAd:"
+                    context:nil];
+    
+    [UIView setAnimationDuration:0.7];
+    
+    CGSize adSize = [adView actualAdSize];
+    CGRect newFrame = adView.frame;
+    
+    newFrame.size = adSize;
+    newFrame.origin.x = (self.glView.bounds.size.width - adSize.width)/ 2;
+    newFrame.origin.y = self.glView.bounds.size.height - adSize.height;
+    
+    adView.frame = newFrame;
+    
+    [UIView commitAnimations];
 }
 #endif // ENABLE_ADWHIRL
 
