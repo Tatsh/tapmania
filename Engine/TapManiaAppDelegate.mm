@@ -83,7 +83,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 // iCade support
 - (void)buttonDown:(iCadeState)button {
-//    [self setState:YES forButton:button];
     TMLog(@"Got button press %d", button);
     
     switch (button) {
@@ -112,7 +111,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)buttonUp:(iCadeState)button {
-//    [self setState:NO forButton:button];
     TMLog(@"Got button release %d", button);
     
     switch (button) {

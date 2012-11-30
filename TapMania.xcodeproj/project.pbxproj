@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24219C4A11D26244001BCE14 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
 		24219C4B11D26244001BCE14 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
 		24219C4C11D26244001BCE14 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* Icon.png */; };
 		24219C4F11D26244001BCE14 /* AdWhirlWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2410B2AF11CBACAF0097E5AB /* AdWhirlWebBrowser.xib */; };
@@ -300,6 +299,7 @@
 		24DC0E10101E943C00F2B046 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DC0E03101E943C00F2B046 /* unzip.h */; };
 		24DC0E11101E943C00F2B046 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0E04101E943C00F2B046 /* zip.c */; };
 		24DC0E12101E943C00F2B046 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DC0E05101E943C00F2B046 /* zip.h */; };
+		24DDDF8C16694FFD00E8CD8C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
 		24DE38C716657C72000A438A /* DisplayUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE38C616657C72000A438A /* DisplayUtil.m */; };
 		24F265D31230589C0024857A /* DialogCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F265D21230589C0024857A /* DialogCommand.mm */; };
 /* End PBXBuildFile section */
@@ -2078,7 +2078,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24219C4A11D26244001BCE14 /* Default.png in Resources */,
 				24219C4B11D26244001BCE14 /* Credits.plist in Resources */,
 				24219C4C11D26244001BCE14 /* Icon.png in Resources */,
 				24219C4F11D26244001BCE14 /* AdWhirlWebBrowser.xib in Resources */,
@@ -2088,6 +2087,7 @@
 				249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */,
 				246B981112CB8D0500A33B7E /* themes in Resources */,
 				246B985112CB8D0E00A33B7E /* noteskins in Resources */,
+				24DDDF8C16694FFD00E8CD8C /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2595,7 +2595,7 @@
 					"$(PROJECT_DIR)/ext/SQLitePersistentObjects",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
@@ -2611,6 +2611,7 @@
 				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release AppStore";
 		};
@@ -2631,7 +2632,7 @@
 					"$(PROJECT_DIR)/ext/SQLitePersistentObjects",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
@@ -2647,6 +2648,7 @@
 				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release local";
 		};
@@ -2687,7 +2689,7 @@
 					"$(PROJECT_DIR)/ext/SQLitePersistentObjects",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
@@ -2703,6 +2705,7 @@
 				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};

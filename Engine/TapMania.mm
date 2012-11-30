@@ -288,7 +288,7 @@ static TapMania *sharedTapManiaDelegate = nil;
         if([DisplayUtil isRetina]) {
          		glOrthof(0, width*2, 0, height*2, -1000, 1000);	// large depth so that rotated objects aren't clipped
         } else {
-            glOrthof(0, width*2, 0, height*2, -1000, 1000);	// large depth so that rotated objects aren't clipped
+            glOrthof(0, width, 0, height, -1000, 1000);	// large depth so that rotated objects aren't clipped
         }
 	}
 	
