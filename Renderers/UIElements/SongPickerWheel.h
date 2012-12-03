@@ -53,6 +53,7 @@
 	CGRect	mt_HighlightCenter;
 	CGRect	mt_Highlight;
 	int		mt_HighlightHalfHeight;
+    float   mt_wheelTopTouchZone;
 	
 	Texture2D* t_Highlight, *t_ScoreFrame;
 	FontString*	m_pScoreStr;

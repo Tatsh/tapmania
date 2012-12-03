@@ -19,6 +19,7 @@
 #import "Texture2D.h"
 #import "GameState.h"
 #import "FontString.h"
+#import "DisplayUtil.h"
 
 extern TMGameState* g_pGameState;
 
@@ -71,6 +72,8 @@ extern TMGameState* g_pGameState;
 	
 	mt_ScoreDisplay =		POINT_METRIC(@"SongPickerMenu Wheel Score");
 	mt_ScoreFrame =			POINT_METRIC(@"SongPickerMenu Wheel ScoreFrame");
+    
+    mt_wheelTopTouchZone  = FLOAT_METRIC(@"SongPickerMenu Wheel TopTouchZone");
 	
 	mt_Highlight.origin.x =  mt_HighlightCenter.origin.x - mt_Highlight.size.width/2;
 	mt_Highlight.origin.y =	 mt_HighlightCenter.origin.y - mt_Highlight.size.height/2;
@@ -114,7 +117,7 @@ extern TMGameState* g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
+	CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 	
 	int i;
 	for(i=0; i<m_pWheelItems->size(); i++){
@@ -194,10 +197,10 @@ extern TMGameState* g_pGameState;
 			TMTouch touch = touches.at(0);
 			
 			// FIXME!
-			if(touch.y() < 400) {
-				m_fLastSwipeY = touch.y();
-				m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
-				m_dLastSwipeTime = touch.timestamp();
+			if(touch.y() < mt_wheelTopTouchZone) {
+                    m_fLastSwipeY = touch.y();
+                    m_fVelocity = 0.0f;	// Stop scrollin if touching the screen
+                    m_dLastSwipeTime = touch.timestamp();
 			}
 			
 			break;
@@ -216,7 +219,7 @@ extern TMGameState* g_pGameState;
 		{
 			TMTouch touch = touches.at(0);
 			
-			if(touch.y() < 400) {
+			if(touch.y() < mt_wheelTopTouchZone) {
 				float yDelta = touch.y()-m_fLastSwipeY;
 				
 				[self saveSwipeElement:yDelta withTime:touch.timestamp()-m_dLastSwipeTime];
@@ -256,7 +259,7 @@ extern TMGameState* g_pGameState;
 		}
 		
 		// Now the fun part - swipes
-		if(point.y < 400) {
+		if(point.y < mt_wheelTopTouchZone) {
 			m_fVelocity = [self calculateSwipeVelocity];
 			if(m_fVelocity == 0.0f) m_fVelocity = 0.01f;	// Make it jump to closest anyway
 		}

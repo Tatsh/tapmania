@@ -22,7 +22,13 @@
 	TMFramedTexture*		t_Grades;
 	
 	// The saved score and grade (sqlite)
-	TMSongSavedScore* m_pSavedScore;	
+	TMSongSavedScore* m_pSavedScore;
+    
+    float	mt_nameLeftOffset;
+    float   mt_nameMaxWidth;
+	float	mt_artistYOffset;
+	float		mt_gradeXOffset;
+	
 }
 
 @property (readonly, retain, nonatomic) TMSongSavedScore* m_pSavedScore;

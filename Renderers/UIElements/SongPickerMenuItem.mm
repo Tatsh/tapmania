@@ -35,7 +35,13 @@
 	
 	m_pSong = song;
 	m_pSavedScore = nil;
-		
+	
+	// Get metrics
+    mt_nameLeftOffset = FLOAT_METRIC(@"SongPickerMenu Wheel NameLeftOffset");
+    mt_nameMaxWidth = FLOAT_METRIC(@"SongPickerMenu Wheel NameMaxWidth");
+	mt_artistYOffset = FLOAT_METRIC(@"SongPickerMenu Wheel ArtistYOffset");
+	mt_gradeXOffset = FLOAT_METRIC(@"SongPickerMenu Wheel GradeXOffset");
+	    
 	// Cache texture
 	t_Grades	= (TMFramedTexture*)TEXTURE(@"SongResults Grades");
 	t_WheelItem = TEXTURE(@"SongPickerMenu Wheel ItemSong");
@@ -68,23 +74,24 @@
 	glEnable(GL_BLEND);
 	[t_WheelItem drawAtPoint:m_rShape.origin];
 	
-	CGPoint leftCorner = CGPointMake(15.0f, m_rShape.origin.y+m_pTitleStr.contentSize.height/2-8);
+    // TODO: wtf /2-8????
+	CGPoint leftCorner = CGPointMake(mt_nameLeftOffset, m_rShape.origin.y+m_pTitleStr.contentSize.height/2-8);
 	CGRect rectTitle, rectArtist;
 	
-	if(200.0f < m_pTitleStr.contentSize.width) {
-		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, 200.0f, m_pTitleStr.contentSize.height);
+	if(mt_nameMaxWidth < m_pTitleStr.contentSize.width) {
+		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, mt_nameMaxWidth, m_pTitleStr.contentSize.height);
 		
 	} else {
 		
 		rectTitle = CGRectMake(leftCorner.x, leftCorner.y, m_pTitleStr.contentSize.width, m_pTitleStr.contentSize.height);
 	}
 	
-	if(200.0f < m_pArtistStr.contentSize.width) {
-		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-20, 200.0f, m_pArtistStr.contentSize.height);
+	if(mt_nameMaxWidth < m_pArtistStr.contentSize.width) {
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y+mt_artistYOffset, mt_nameMaxWidth, m_pArtistStr.contentSize.height);
 		
 	} else {
 		
-		rectArtist = CGRectMake(leftCorner.x, leftCorner.y-20, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
+		rectArtist = CGRectMake(leftCorner.x, leftCorner.y+mt_artistYOffset, m_pArtistStr.contentSize.width, m_pArtistStr.contentSize.height);
 	}
 	
 		
@@ -94,7 +101,7 @@
 	if(m_pSavedScore != nil) {
 		// We need to display the grade
 		int gr = [m_pSavedScore.bestGrade intValue];
-		[t_Grades drawFrame:gr atPoint:CGPointMake( 265, m_rShape.origin.y) withScale:0.5f]; 
+		[t_Grades drawFrame:gr atPoint:CGPointMake( mt_gradeXOffset, m_rShape.origin.y) withScale:0.5f];
 	}
 	
 	glDisable(GL_BLEND);
