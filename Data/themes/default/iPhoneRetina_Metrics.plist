@@ -480,9 +480,9 @@
 			<key>TopImgUnderlay</key>
 			<dict>
 				<key>Height</key>
-				<integer>70</integer>
+				<integer>140</integer>
 				<key>Width</key>
-				<integer>320</integer>
+				<integer>640</integer>
 				<key>X</key>
 				<integer>0</integer>
 				<key>Y</key>
@@ -490,100 +490,80 @@
 			</dict>
 			<key>BackButton</key>
 			<dict>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>name,Back;playsoundeffect,Common ButtonHit;screen,MainMenu</string>
 				<key>Height</key>
-				<integer>46</integer>
+				<integer>92</integer>
 				<key>Width</key>
-				<integer>60</integer>
+				<integer>120</integer>
 				<key>X</key>
-				<integer>5</integer>
+				<integer>10</integer>
 				<key>Y</key>
-				<integer>4</integer>
+				<integer>8</integer>
 				<key>FixedWidth</key>
-				<integer>45</integer>
+				<integer>90</integer>
 			</dict>
 			<key>DifficultyTogglerCustom</key>
 			<dict>
-				<key>OnCommand</key>
-				<string>zoom,1.04,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common TogglerChange</string>
 				<key>Height</key>
-				<integer>46</integer>
+				<integer>92</integer>
 				<key>Width</key>
-				<integer>180</integer>
+				<integer>360</integer>
 				<key>X</key>
-				<integer>70</integer>
+				<integer>140</integer>
 				<key>Y</key>
-				<integer>4</integer>
+				<integer>8</integer>
 				<key>FixedWidth</key>
-				<integer>150</integer>
+				<integer>300</integer>
 			</dict>
 			<key>OptionsButton</key>
 			<dict>
-				<key>ShouldNotLock</key>
-				<true/>
-				<key>OnCommand</key>
-				<string>name,Options;zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>HitCommand</key>
-				<string>playsoundeffect,Common ButtonHit;dialog,SongOptions</string>
 				<key>Height</key>
-				<integer>46</integer>
+				<integer>92</integer>
 				<key>Width</key>
-				<integer>60</integer>
+				<integer>120</integer>
 				<key>X</key>
-				<integer>255</integer>
+				<integer>510</integer>
 				<key>Y</key>
-				<integer>4</integer>
+				<integer>8</integer>
 				<key>FixedWidth</key>
-				<integer>45</integer>
+				<integer>90</integer>
 			</dict>
 			<key>Wheel</key>
 			<dict>
 				<key>Score</key>
 				<dict>
 					<key>X</key>
-					<integer>220</integer>
+					<integer>440</integer>
 					<key>Y</key>
-					<integer>266</integer>
+					<integer>532</integer>
 				</dict>
 				<key>ScoreFrame</key>
 				<dict>
 					<key>X</key>
-					<integer>264</integer>
+					<integer>528</integer>
 					<key>Y</key>
-					<integer>264</integer>
+					<integer>528</integer>
 				</dict>
 				<key>Highlight</key>
 				<dict>
 					<key>X</key>
-					<integer>165</integer>
+					<integer>330</integer>
 					<key>Y</key>
-					<integer>250</integer>
+					<integer>500</integer>
 					<key>Height</key>
-					<integer>46</integer>
+					<integer>92</integer>
 					<key>Width</key>
-					<integer>335</integer>
+					<integer>670</integer>
 				</dict>
 				<key>ItemSong</key>
 				<dict>
 					<key>X</key>
-					<integer>165</integer>
+					<integer>330</integer>
 					<key>Y</key>
 					<integer>0</integer>
 					<key>Width</key>
 					<integer>0</integer>
 					<key>Height</key>
-					<integer>46</integer>
+					<integer>92</integer>
 				</dict>
 			</dict>
 		</dict>
