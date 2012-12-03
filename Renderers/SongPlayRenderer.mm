@@ -34,6 +34,7 @@
 #import "EAGLView.h"
 #import "JoyPad.h"
 #import "GLUtil.h"
+#import "DisplayUtil.h"
 #import "TMFramedTexture.h"
 
 #import "TapNote.h"
@@ -376,7 +377,7 @@ extern TMGameState* g_pGameState;
 
 // Renders one scene of the gameplay
 - (void)render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;
+	CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 		
 	if(!g_pGameState->m_bPlayingGame) return;
 	
@@ -459,7 +460,7 @@ extern TMGameState* g_pGameState;
 
 -(void) fade {
 	
-	CGRect	rect = [TapMania sharedInstance].glView.bounds;
+	CGRect	rect = [DisplayUtil getDeviceDisplayBounds];
 	GLfloat	vertices[] = {	
 		rect.origin.x,							rect.origin.y,							
 		rect.origin.x + rect.size.width,		rect.origin.y,							

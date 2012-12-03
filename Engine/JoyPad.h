@@ -31,6 +31,8 @@ typedef enum {
 	Vector*		m_pJoyCurrentButtonLocation[kNumJoyButtons];	// Last touch location for every button
 	Vector*		m_pJoyDefaultLocations[kNumJoyButtons];	
 	Triangle*	m_pJoyButtons[kNumJoyButtons];
+    
+    float m_forceFailY;
 }
 
 @property (assign) BOOL m_bAutoTrackEnabled;

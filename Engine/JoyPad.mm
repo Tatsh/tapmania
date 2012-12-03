@@ -16,6 +16,7 @@
 #import "TMMessage.h"
 #import "MessageManager.h"
 #import "ThemeManager.h"
+#import "DisplayUtil.h"
 
 @interface JoyPad (Private)
 - (void) createSpreadJoy;
@@ -43,6 +44,8 @@
 	m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 3")];
 	m_pJoyDefaultLocations[kJoyButtonExit] =  nil;
 	
+    m_forceFailY = [DisplayUtil getDeviceDisplaySize].height - ([DisplayUtil isRetina] ? 120.0f : 60.0f);
+    
 	// Reset states (to saved if any)
 	[self reset];
 	
@@ -140,7 +143,7 @@
 		CGPoint point = CGPointMake(touch.x(), touch.y());
 		
 		// Check general touch position
-		if(point.y >= 420.0) {
+		if(point.y >= m_forceFailY) {
 			// This means we want to exit the song (force fail)
 			m_bJoyButtonStates[kJoyButtonExit] = YES;
 			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
@@ -190,12 +193,12 @@
 		CGPoint prevPoint = CGPointMake(touch.px(), touch.py());
 		
 		// Check general touch position. untouch exit button if we are out of the zone
-		if(prevPoint.y >= 420.0 && point.y < 420.0) {
+		if(prevPoint.y >= m_forceFailY && point.y < m_forceFailY) {
 			m_bJoyButtonStates[kJoyButtonExit] = NO;
 			m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
 			BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 			
-		} else if(point.y > 420.0 && prevPoint.y <= 420.0) {
+		} else if(point.y > m_forceFailY && prevPoint.y <= m_forceFailY) {
 			m_bJoyButtonStates[kJoyButtonExit] = YES;
 			m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
 			BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);			
@@ -255,7 +258,7 @@
 		CGPoint point = CGPointMake(touch.x(), touch.y());
 					
 		// Check general touch position
-		if(point.y >= 420.0) {
+		if(point.y >= m_forceFailY) {
 			m_bJoyButtonStates[kJoyButtonExit] = NO;
 			m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
 			BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
