@@ -19,6 +19,7 @@
 #import "TMSteps.h"
 #import "SongPickerMenuRenderer.h"
 #import "Label.h"
+#import "DisplayUtil.h"
 
 #import "GameState.h"
 
@@ -192,7 +193,7 @@ extern TMGameState* g_pGameState;
 
 /* TMRenderable method */
 - (void) render:(float)fDelta {
-	CGRect bounds = [TapMania sharedInstance].glView.bounds;	
+	CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 	[super render:fDelta];
 
 	// Draw stuff

@@ -20,6 +20,7 @@
 #import "TogglerItem.h"
 #import "Slider.h"
 #import "ImageButton.h"
+#import "DisplayUtil.h"
 //#import "FlurryAPI.h"
 
 /**
@@ -39,7 +40,7 @@
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
 	// A modal dialog always acts as fullscreen
-	self = [self initWithShape:[TapMania sharedInstance].m_pGlView.bounds];
+	self = [self initWithShape:[DisplayUtil getDeviceDisplayBounds]];
 	if(!self)
 		return nil;
 	
@@ -86,7 +87,7 @@
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	// Render BG
-	CGRect	bounds = [TapMania sharedInstance].glView.bounds;
+	CGRect	bounds = [DisplayUtil getDeviceDisplayBounds];
 	
 	if(m_fBrightness != 1.0f) {
 		glColor4f(m_fBrightness, m_fBrightness, m_fBrightness, m_fBrightness);
