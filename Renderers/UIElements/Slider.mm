@@ -15,6 +15,8 @@
 #import "ThemeManager.h"
 #import "TMFramedTexture.h"
 
+#import "DisplayUtil.h"
+
 @interface Slider (Private)
 - (void) setValueFromPoint:(CGPoint)point;
 @end
@@ -84,12 +86,18 @@
 
 /* TMRenderable stuff */
 - (void) render:(float)fDelta {
-	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-46.0f, m_rShape.origin.y, 46.0f, m_rShape.size.height);
-	CGRect bodyRect = CGRectMake(m_rShape.origin.x+46.0f, m_rShape.origin.y, m_rShape.size.width-92.0f, m_rShape.size.height); 
+    float capWidth = 46.0f;
+    if([DisplayUtil isRetina])
+    {
+        capWidth *= 2.0f;
+    }
+    
+	CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, capWidth, m_rShape.size.height);
+	CGRect rightCapRect = CGRectMake(m_rShape.origin.x+m_rShape.size.width-capWidth, m_rShape.origin.y, capWidth, m_rShape.size.height);
+	CGRect bodyRect = CGRectMake(m_rShape.origin.x+capWidth, m_rShape.origin.y, m_rShape.size.width-(capWidth*2.0f), m_rShape.size.height);
 	
-	float thumbOffset = m_fCurrentValue*m_rShape.size.width - 23.0f;	// minus half thumb width
-	CGRect thumbRect = CGRectMake(m_rShape.origin.x+thumbOffset, m_rShape.origin.y, 46.0f, m_rShape.size.height);
+	float thumbOffset = m_fCurrentValue*m_rShape.size.width - (capWidth/2.0f);	// minus half thumb width
+	CGRect thumbRect = CGRectMake(m_rShape.origin.x+thumbOffset, m_rShape.origin.y, capWidth, m_rShape.size.height);
 	
 	glEnable(GL_BLEND);
 	[(TMFramedTexture*)m_pTexture drawFrame:0 inRect:leftCapRect];

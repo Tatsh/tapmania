@@ -74,7 +74,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     [control release];
     
 	// Start the game.
-	[[TapMania sharedInstance] startGame];
+	[[TapMania sharedInstance] performSelector:@selector(startGame)
+        onThread:[NSThread currentThread] withObject:nil waitUntilDone:NO];
+    
+    // Return as soon as possible
+    TMLog(@"Returning from app delegate");
 }
 
 - (void) applicationWillTerminate:(UIApplication *)application {
