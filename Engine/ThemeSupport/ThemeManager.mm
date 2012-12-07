@@ -159,9 +159,17 @@ extern TMGameState*	g_pGameState;
 		NSString* noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];	
 		NSString* skinPath =	 [noteskinsDir stringByAppendingPathComponent:skinName];
 		NSString* filePath =	 [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentNoteskinName];
+        NSString* dpFilePath = [noteskinsDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
+                                m_sCurrentNoteskinName, [DisplayUtil getDeviceDisplayString]];
 				
 		m_pCurrentNoteSkinMetrics	= [[Metrics alloc] initWithContentsOfFile:filePath];
 		m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
+        
+        if([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath]) {
+            TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
+            
+            [m_pCurrentNoteSkinMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
+        }
 	} else {
 		TMLog(@"NoteSkin '%@' is no longer available. Switch to default.", skinName);
 		[self selectNoteskin:kDefaultNoteSkinName];
