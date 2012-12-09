@@ -11,6 +11,7 @@
 #import <OpenGLES/ES1/glext.h>
 #import "TMFramedTexture.h"
 #include "GLUtil.h"
+#import "TMSprite.h"
 
 @implementation Quad
 
@@ -60,6 +61,61 @@
 	}			
 	
 	return self;
+}
+
+- (void) renderSprite:(TMSprite*)sprite atPoint:(CGPoint)point
+{
+	GLuint oldFramebuffer, fbo;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);
+	
+	// generate FBO
+	glGenFramebuffersOES(1, &fbo);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, fbo);
+	
+	// associate texture with FBO
+	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_unName, 0);
+	
+	// check if it worked (probably worth doing :) )
+	GLuint status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
+	if (status != GL_FRAMEBUFFER_COMPLETE_OES)
+	{
+		// didn't work
+	}
+	
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, fbo);
+	
+	
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrthof(0.0,m_unWidth,0.0,m_unHeight, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	
+	int viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glViewport(0,0,m_unWidth, m_unHeight);
+
+	glTranslatef(point.x, point.y, 0.0);
+    
+	// Copy texels to framebuffer and then to our quad
+	glEnable(GL_BLEND);
+	
+    [sprite draw];
+
+	glDisable(GL_BLEND);
+	
+	// restore
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, oldFramebuffer);
+	glDeleteFramebuffersOES(1, &fbo);
+	
+	glViewport(viewport[0],viewport[1],viewport[2],viewport[3]);
+	
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 - (void) copyFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight 
@@ -147,9 +203,11 @@
 	};
 	
 	TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawInRect:(CGRect)rect {
@@ -166,11 +224,13 @@
 		rect.origin.x,							rect.origin.y + rect.size.height,		0.0,
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
-	
+	   
 	TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawInRect:(CGRect)rect rotation:(float)rotation {

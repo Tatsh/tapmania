@@ -56,9 +56,9 @@ static FontManager *sharedFontManagerDelegate = nil;
 }
 
 - (void) loadFont:(NSString*)fontPath andName:(NSString*)name {
-	TMLog(@"Have a font plist file at '%@'...", fontPath);
-	NSDictionary* config = [NSDictionary dictionaryWithContentsOfFile:fontPath];
-	Font* font = [[Font alloc] initWithName:name andConfig:config];
+	TMLog(@"Have a font xml file at '%@'...", fontPath);
+//	NSDictionary* config = [NSDictionary dictionaryWithContentsOfFile:fontPath];
+	Font* font = [[Font alloc] initWithName:name andFile:fontPath];
 	
 	// Add font
 	[m_pFonts setObject:font forKey:name];
@@ -80,8 +80,8 @@ static FontManager *sharedFontManagerDelegate = nil;
 	
 	// Still not found?
 	if(!f) {
-		TMLog(@"Requested font '%@' is missing. returning nil.", fontName);
-		return nil;
+		TMLog(@"Requested font '%@' is missing. returning Default.", fontName);
+		return [self defaultFont];
 	}
 	
 	return f;
@@ -100,22 +100,16 @@ static FontManager *sharedFontManagerDelegate = nil;
 
 /* ResourcesLoaderSupport delegate work */
 - (BOOL) resourceTypeSupported:(NSString*) itemName {
-	// Fonts are in PNG textures
-	if([[itemName lowercaseString] hasSuffix:@".png"]) { 
-		return YES;
-	}
 	
 	// Another way is redirection. .redir files therefore should also be accepted
 	if([[itemName lowercaseString] hasSuffix:@".redir"]) {
 		return YES;
 	}
 	
-	// And the most important is to get the plist files (ini files for fonts)
-	if([[itemName lowercaseString] hasSuffix:@".plist"]) {
+	// And the most important is to get the xml files (ini files for fonts)
+	if([[itemName lowercaseString] hasSuffix:@".xml"]) {
 		return YES;
 	}
-	
-	// TODO: handle multipart fonts (like the japanese kanji one which has multiple textures and one ini file)
 	
 	return NO;		
 }

@@ -66,7 +66,7 @@
 	NSString *artistStr = [NSString stringWithFormat:@"/%@", m_pSong.m_sArtist];
 
 	m_pTitleStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItem" andText:titleStr];
-	m_pArtistStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItemArtist" andText:artistStr]; 
+	m_pArtistStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelItemArtist" andText:artistStr];
 }
 
 /* TMRenderable stuff */

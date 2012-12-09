@@ -9,7 +9,7 @@
 
 #import "FontString.h"
 #import "FontManager.h"
-#import "TMFramedTexture.h"
+#import "TMSprite.h"
 
 @implementation FontString
 @synthesize contentSize=m_oSize;
@@ -35,28 +35,37 @@
 	
 	// Get glyph by glyph
 	float curPoint = 0.0f;
-		
+    
 	int len = [str length];
+    
 	for(int curCharacter=0; curCharacter < len; ++curCharacter) {
 		unichar c = [str characterAtIndex:curCharacter];
-
-		NSString* mapTester = [NSString stringWithFormat:@"%C", c];
-		Glyph* g = [m_pFont getGlyph:mapTester];		
+		Glyph* g = [m_pFont getGlyph:c];
 		
 		if(curCharacter == 0) {
 			curPoint += [[g m_pFontPage] m_nExtraLeft];	
 		} 
 		
-		curPoint += [g m_fWidth]/2;
-		m_Glyphs->push_back( GlyphInfo(g, curPoint, 0 ) ); // [[g m_pFontPage] m_fVertShift]) );
-		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance];
+        curPoint += g.m_nHorizAdvance/2.0f;
+        
+        if(len > 1 && curCharacter < len-1)
+        {
+            curPoint += [m_pFont getKerningAmountFor:c andSecondChar:[str characterAtIndex:curCharacter+1]];
+        }
+        
+        float y = (g.m_pFontPage.font.line_height - g.m_fHeight)/2.0f;
+        y -= g.m_fyOffset;
+        float x = curPoint + g.m_fxOffset;
+
+		m_Glyphs->push_back( GlyphInfo(g, x, y) );
+		curPoint += g.m_nHorizAdvance/2.0f;
 		
 		if(curCharacter == len-1) {
 			curPoint += [[g m_pFontPage] m_nExtraRight];		
 		}
 		
 		m_oSize.height = fmaxf(m_oSize.height, [g m_fHeight]);
-	}	
+	}
 	
 	m_oSize.width = curPoint;
 }
@@ -78,9 +87,10 @@
 	
 	for(GlyphInfoVec::iterator it = m_Glyphs->begin(); it!=m_Glyphs->end(); ++it) {
 		Glyph* g = it->m_pGlyph;
-		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] 
-									 withExtraLeft:[[g m_pFontPage] m_nExtraLeft] extraRight:[[g m_pFontPage] m_nExtraRight]
-									 atPoint:CGPointMake(point.x+it->m_xOffset, point.y+it->m_yOffset)];
+        glPushMatrix();
+        glTranslatef(point.x+it->m_xOffset, point.y+it->m_yOffset, 0.0f);        
+        [g.sprite draw];
+        glPopMatrix();
 	}
 }
 
@@ -96,7 +106,11 @@
 	
 	for(GlyphInfoVec::iterator it = m_Glyphs->begin(); it!=m_Glyphs->end(); ++it) {
 		Glyph* g = it->m_pGlyph;
-		[[[g m_pFontPage] texture] drawFrame:[g m_nTextureFrame] atPoint:CGPointMake(it->m_xOffset, it->m_yOffset)];
+
+        glPushMatrix();
+        glTranslatef(it->m_xOffset, it->m_yOffset, 0.0f);
+        [g.sprite draw];
+        glPopMatrix();
 	}
 	
 	glPopMatrix();

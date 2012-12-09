@@ -4,6 +4,16 @@
 <dict>
 	<key>Skyscraper</key>
 	<dict>
+		<key>SongsCacheLoader</key>
+		<dict>
+			<key>Message</key>
+			<dict>
+				<key>X</key>
+				<integer>320</integer>
+				<key>Y</key>
+				<integer>480</integer>
+			</dict>
+		</dict>
 		<key>MainMenu</key>
 		<dict>
 			<key>Version</key>
@@ -178,6 +188,82 @@
 				<integer>92</integer>
 			</dict>
 		</dict>
+		<key>PadConfig</key>
+		<dict>
+			<key>ResetButton</key>
+			<dict>
+				<key>X</key>
+				<integer>120</integer>
+				<key>Y</key>
+				<integer>240</integer>
+				<key>Width</key>
+				<integer>400</integer>
+				<key>Height</key>
+				<integer>92</integer>
+			</dict>
+			<key>DefaultPad</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>X</key>
+					<integer>140</integer>
+					<key>Y</key>
+					<integer>724</integer>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>X</key>
+					<integer>320</integer>
+					<key>Y</key>
+					<integer>844</integer>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>X</key>
+					<integer>320</integer>
+					<key>Y</key>
+					<integer>604</integer>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>X</key>
+					<integer>500</integer>
+					<key>Y</key>
+					<integer>724</integer>
+				</dict>
+			</dict>
+			<key>DefaultPad_DPad</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>X</key>
+					<integer>140</integer>
+					<key>Y</key>
+					<integer>244</integer>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>X</key>
+					<integer>320</integer>
+					<key>Y</key>
+					<integer>122</integer>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>X</key>
+					<integer>320</integer>
+					<key>Y</key>
+					<integer>364</integer>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>X</key>
+					<integer>500</integer>
+					<key>Y</key>
+					<integer>244</integer>
+				</dict>
+			</dict>
+		</dict>
 		<key>SongOptions</key>
 		<dict>
 			<key>SpeedToggler</key>
@@ -307,90 +393,6 @@
 				<integer>92</integer>
 			</dict>
 		</dict>
-		<key>PadConfig</key>
-		<dict>
-			<key>ResetButton</key>
-			<dict>
-				<key>HitCommand</key>
-				<string>name,Reset;playsoundeffect,Common ButtonHit</string>
-				<key>OnCommand</key>
-				<string>zoom,1.1,0.5</string>
-				<key>OffCommand</key>
-				<string>zoom,1.0,0.3</string>
-				<key>X</key>
-				<integer>60</integer>
-				<key>Y</key>
-				<integer>120</integer>
-				<key>Width</key>
-				<integer>200</integer>
-				<key>Height</key>
-				<integer>46</integer>
-				<key>ShouldNotLock</key>
-				<true/>
-			</dict>
-			<key>DefaultPad</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>X</key>
-					<integer>70</integer>
-					<key>Y</key>
-					<integer>362</integer>
-				</dict>
-				<key>1</key>
-				<dict>
-					<key>X</key>
-					<integer>160</integer>
-					<key>Y</key>
-					<integer>422</integer>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>X</key>
-					<integer>160</integer>
-					<key>Y</key>
-					<integer>302</integer>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>X</key>
-					<integer>250</integer>
-					<key>Y</key>
-					<integer>362</integer>
-				</dict>
-			</dict>
-			<key>DefaultPad_DPad</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>X</key>
-					<integer>70</integer>
-					<key>Y</key>
-					<integer>122</integer>
-				</dict>
-				<key>1</key>
-				<dict>
-					<key>X</key>
-					<integer>160</integer>
-					<key>Y</key>
-					<integer>62</integer>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>X</key>
-					<integer>160</integer>
-					<key>Y</key>
-					<integer>182</integer>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>X</key>
-					<integer>250</integer>
-					<key>Y</key>
-					<integer>122</integer>
-				</dict>
-			</dict>
-		</dict>
 		<key>SongPickerMenu</key>
 		<dict>
 			<key>TopImgUnderlay</key>
@@ -448,7 +450,7 @@
 				<key>GradeXOffset</key>
 				<integer>552</integer>
 				<key>ArtistYOffset</key>
-				<integer>-20</integer>
+				<integer>-34</integer>
 				<key>NameMaxWidth</key>
 				<integer>400</integer>
 				<key>NameLeftOffset</key>
@@ -458,7 +460,7 @@
 				<key>Score</key>
 				<dict>
 					<key>X</key>
-					<integer>440</integer>
+					<integer>408</integer>
 					<key>Y</key>
 					<integer>532</integer>
 				</dict>
@@ -776,9 +778,9 @@
 			<key>Url</key>
 			<dict>
 				<key>X</key>
-				<integer>160</integer>
+				<integer>320</integer>
 				<key>Y</key>
-				<integer>75</integer>
+				<integer>150</integer>
 			</dict>
 		</dict>
 	</dict>

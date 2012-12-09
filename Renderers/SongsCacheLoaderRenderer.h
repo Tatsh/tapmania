@@ -26,6 +26,9 @@
 	
 	// Resources
 	TMSound*   sr_BG;
+    
+    // Metrics
+    CGPoint mt_Message;
 }
 
 @end

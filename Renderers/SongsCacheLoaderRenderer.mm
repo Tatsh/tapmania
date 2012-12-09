@@ -71,7 +71,9 @@
 	
 	// Cache textures / sounds
 	sr_BG = SOUND(@"SongsCacheLoader Music");
-	
+    
+    mt_Message = POINT_METRIC(@"SongsCacheLoader Message");
+    
 	m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];	
 	m_pLock = [[NSLock alloc] init];
 	
@@ -109,7 +111,7 @@
 	
 	[m_pLock lock];
 	glEnable(GL_BLEND);
-	[m_pCurrentStr drawAtPoint:CGPointMake(160, 240)];		
+	[m_pCurrentStr drawAtPoint:mt_Message];
 	TMLog(@"RENDER STRING '%@'", m_sCurrentMessage);
 	glDisable(GL_BLEND);
 	[m_pLock unlock];
@@ -194,7 +196,7 @@
 	[m_pLock lock];
 	m_bTextureShouldChange = YES;
 	m_bAllSongsLoaded = YES;
-	m_sCurrentMessage = [NSString stringWithString:@"All songs loaded..."];
+	m_sCurrentMessage = @"All songs loaded...";
 	[m_pLock unlock];
 }
 						

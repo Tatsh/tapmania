@@ -54,7 +54,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 //CONSTANTS:
 
-#define kMaxTextureSize	 1024
+#define kMaxTextureSize	 2048
 
 //CLASS IMPLEMENTATIONS:
 
@@ -318,9 +318,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 							rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 };
 	
 	TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 
@@ -334,6 +336,5 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[self drawAtPoint:CGPointZero];
 	glPopMatrix();
 }
-
 
 @end

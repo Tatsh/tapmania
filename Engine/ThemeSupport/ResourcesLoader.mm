@@ -149,10 +149,10 @@
                     if( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] ) {
                             TMLog(@"[Supported] %@", itemName);
 					
-                            if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".plist"]) {
+                            if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".xml"]) {
 						
-                                // Remove the plist suffix
-                                itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.plist' length
+                                // Remove the xml suffix
+                                itemName = [itemName substringToIndex:[itemName length]-4]; // 4 is '.xml' length
                                 [[FontManager sharedInstance] loadFont:curPath andName:itemName];
                                 continue;
 						
@@ -166,10 +166,10 @@
                                 NSString* resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]   ;
                                 NSString* redirectedItemName = [resourceFileSystemPath lastPathComponent];
                                 
-                                if([redirectedItemName hasSuffix:@".plist"]) {
+                                if([redirectedItemName hasSuffix:@".xml"]) {
                                     // Yes. a font redirect.
                                     itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.redir' length
-                                    redirectedItemName = [redirectedItemName substringToIndex:[redirectedItemName length]-6]; // 6 is '.plist' length
+                                    redirectedItemName = [redirectedItemName substringToIndex:[redirectedItemName length]-4]; // 4 is '.xml' length
                                     TMLog(@"Add font redir: '%@'=>'%@'", itemName, redirectedItemName);
                                     
                                     [[FontManager sharedInstance] addRedirect:itemName to:redirectedItemName];

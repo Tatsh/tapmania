@@ -196,9 +196,6 @@ extern TMGameState* g_pGameState;
 	CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 	[super render:fDelta];
 
-	// Draw stuff
-	glEnable(GL_BLEND);
-
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
 		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
@@ -213,8 +210,6 @@ extern TMGameState* g_pGameState;
 		[t_Banner drawInRect:mt_Banner];
 	}
 	[t_overlay drawInRect:bounds];
-	
-	glDisable(GL_BLEND);
 }
 
 /* TMLogicUpdater stuff */

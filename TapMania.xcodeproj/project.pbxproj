@@ -237,6 +237,7 @@
 		2496500F0F79313400C9D5BC /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24964C330F791F4500C9D5BC /* libogg.a */; };
 		249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249AA940121C41DB0075D50F /* TDBSimFile.xib */; };
 		249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 249AA944121C420D0075D50F /* TDBSimFileCell.m */; };
+		24AD2C4C1673E03800D18029 /* TMSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AD2C4B1673E03800D18029 /* TMSprite.mm */; };
 		24DA2358121B2D3D0023C8C2 /* TDBSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */; };
 		24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */; };
 		24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA2364121B307D0023C8C2 /* TapDBCommand.mm */; };
@@ -400,6 +401,10 @@
 		245E3BF711D23102002EFA7C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		24627B9C0FBF6DF9002E245D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Renderers/UIElements/Label.h; sourceTree = "<group>"; };
 		24627B9D0FBF6DF9002E245D /* Label.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Label.mm; path = Renderers/UIElements/Label.mm; sourceTree = "<group>"; };
+		2463D3621673C17F00799F39 /* rapidxml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rapidxml.hpp; path = ext/rapidxml/rapidxml.hpp; sourceTree = "<group>"; };
+		2463D3631673C17F00799F39 /* rapidxml_iterators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_iterators.hpp; path = ext/rapidxml/rapidxml_iterators.hpp; sourceTree = "<group>"; };
+		2463D3641673C17F00799F39 /* rapidxml_print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_print.hpp; path = ext/rapidxml/rapidxml_print.hpp; sourceTree = "<group>"; };
+		2463D3651673C17F00799F39 /* rapidxml_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rapidxml_utils.hpp; path = ext/rapidxml/rapidxml_utils.hpp; sourceTree = "<group>"; };
 		246B97C312CB8D0500A33B7E /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = Data/themes; sourceTree = "<group>"; };
 		246B981212CB8D0E00A33B7E /* noteskins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = noteskins; path = Data/noteskins; sourceTree = "<group>"; };
 		246FB0F90F28ABD500B3F641 /* SongsCacheLoaderRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsCacheLoaderRenderer.h; path = Renderers/SongsCacheLoaderRenderer.h; sourceTree = "<group>"; };
@@ -613,6 +618,8 @@
 		24A70B3D0F7AB3C00080121C /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		24A70B3E0F7AB3C00080121C /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
 		24AA17A311053DC800436F5A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		24AD2C4A1673E03800D18029 /* TMSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSprite.h; sourceTree = "<group>"; };
+		24AD2C4B1673E03800D18029 /* TMSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TMSprite.mm; sourceTree = "<group>"; };
 		24AF446D0F825BE200F630FD /* FontCharAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharAliases.h; sourceTree = "<group>"; };
 		24AF446E0F825BE200F630FD /* FontCharAliases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontCharAliases.mm; sourceTree = "<group>"; };
 		24AFB4000EEFBC6800D0BF31 /* HoldNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HoldNote.h; path = Renderers/UIElements/HoldNote.h; sourceTree = "<group>"; };
@@ -1063,6 +1070,8 @@
 		244954D70EDD612800D462F0 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				24AD2C4A1673E03800D18029 /* TMSprite.h */,
+				24AD2C4B1673E03800D18029 /* TMSprite.mm */,
 				248076F7108DE77E0093FDAE /* TMTouch.h */,
 				248076F8108DE77E0093FDAE /* TMTouch.cpp */,
 				24854AD70EE8066800AD4FAB /* Texture2D.h */,
@@ -1102,6 +1111,17 @@
 			);
 			name = FlurryLib_4.0;
 			path = ext/FlurryLib_4.0;
+			sourceTree = "<group>";
+		};
+		2463CE381673C12B00799F39 /* RapidXML */ = {
+			isa = PBXGroup;
+			children = (
+				2463D3621673C17F00799F39 /* rapidxml.hpp */,
+				2463D3631673C17F00799F39 /* rapidxml_iterators.hpp */,
+				2463D3641673C17F00799F39 /* rapidxml_print.hpp */,
+				2463D3651673C17F00799F39 /* rapidxml_utils.hpp */,
+			);
+			name = RapidXML;
 			sourceTree = "<group>";
 		};
 		248547290EE56BEB00AD4FAB /* Transitions */ = {
@@ -1290,6 +1310,7 @@
 		2496486B0F7913DC00C9D5BC /* External libs */ = {
 			isa = PBXGroup;
 			children = (
+				2463CE381673C12B00799F39 /* RapidXML */,
 				24DDE01F16696E5C00E8CD8C /* AdMob */,
 				24DDDFFE16696D1500E8CD8C /* TouchJSON */,
 				249399D216642CFE005A65C8 /* iCade */,
@@ -2322,6 +2343,7 @@
 				24DDE01D16696D1500E8CD8C /* CJSONSerializer.m in Sources */,
 				24DDE01E16696D1500E8CD8C /* CSerializedJSONData.m in Sources */,
 				24DDE02B16696E9200E8CD8C /* AdWhirlAdapterGoogleAdMobAds.m in Sources */,
+				24AD2C4C1673E03800D18029 /* TMSprite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2691,6 +2713,8 @@
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
 					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
+					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
+					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -2729,6 +2753,8 @@
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
 					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
+					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
+					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
@@ -2787,6 +2813,8 @@
 					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
 					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
+					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
+					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",

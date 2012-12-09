@@ -12,386 +12,258 @@
 #import "FontManager.h"
 #import "FontCharmaps.h"
 #import "FontCharAliases.h"
-#import "TMFramedTexture.h"
+#import "Texture2D.h"
+#import "TMSprite.h"
 #import "Quad.h"
 
-@implementation Glyph
-@synthesize m_pFontPage, m_nHorizAdvance, m_fWidth; 
-@synthesize m_fHeight, m_fHorizShift;
-@synthesize m_nTextureFrame;
+#include "rapidxml.hpp"
+#include <vector>
+#include <string>
+#include <stdexcept>
+#include <sstream>
 
-- (id) initWithFrameId:(int)frameId {
+namespace rx = rapidxml;
+
+typedef rx::xml_attribute<char> xml_attr;
+typedef rx::xml_node<char>      xml_node;
+typedef rx::xml_document<char>  xml_doc;
+
+template<typename T>
+T get_attribute(xml_node* node, const std::string& attr_name)
+{
+    xml_attr* a = node->first_attribute(attr_name.c_str());
+    if(a)
+    {
+        T v;
+        std::stringstream ss;
+        ss << a->value();
+        if(ss >> v)
+        {
+            return v;
+        }
+        else
+        {
+            throw std::runtime_error("Can't convert attribute named " + attr_name + " to requested type.");
+        }
+    }
+    else
+    {
+        throw std::runtime_error("Can't find attribute named " + attr_name + " in node.");
+    }
+}
+
+@implementation Glyph
+@synthesize m_nHorizAdvance, m_fWidth;
+@synthesize m_fHeight, m_fHorizShift;
+@synthesize m_fxOffset, m_fyOffset;
+@synthesize m_id;
+@synthesize m_oTextureRect;
+@synthesize m_pFontPage;
+@synthesize sprite = sprite_;
+
+- (id) initWithId:(unichar)idx page:(FontPage*)page andRect:(CGRect)rect {
 	self = [super init];
 	if(!self)
 		return nil;
 
-	m_nTextureFrame = frameId;
+    m_id = idx;
 	m_nHorizAdvance = 1;
+    m_pFontPage = page;
+    sprite_ = [[TMSprite alloc] initWithTexture:page.texture andRect:rect];
 	
 	return self;
 }
 
-@end
-
-@interface FontPage (Private)
-- (void) doRange:(NSString*)setting;
-- (void) doLine:(NSString*)setting;
-- (void) doMap:(NSString*)setting;
-- (void) applyGlobalConfig:(NSDictionary*)conf;
 @end
 
 @implementation FontPage
-@synthesize m_sPageName, m_nLineSpacing, m_fVertShift, m_fHeight, m_nExtraLeft, m_nExtraRight;
-@synthesize m_aGlyphs, m_pCharToGlyphNo;
-@synthesize m_pTexture;
+@synthesize m_nLineSpacing, m_fVertShift, m_fHeight, m_nExtraLeft, m_nExtraRight;
+@synthesize font = font_;
+@synthesize texture = texture_;
 
-- (id) initWithResource:(TMResource*)res andSettings:(NSArray*)settings {
+- (id) initWithResourceFile:(const std::string&)path id:(int)idx andFont:(Font*)fnt
+{
 	self = [super init];
 	if(!self)
 		return nil;
-	
-	m_pTextureResource = res;
-	m_pTexture = (TMFramedTexture*)[m_pTextureResource resource];
-	m_pCharToGlyphNo = [[NSMutableDictionary alloc] initWithCapacity:256];
-	m_pGlyphWidths = [[NSMutableDictionary alloc] initWithCapacity:256];
-	m_aGlyphs = [[NSMutableArray alloc] initWithCapacity:256];
-	
-	// Parse settings...
-	if(settings) {		
-		int i;
-		for(i=0; i<[settings count]; ++i) {			
-			NSString* setting = [settings objectAtIndex:i];
-			
-			// range name=...
-			if([[setting lowercaseString] hasPrefix:@"range"]) {
-				TMLog(@"Got range!!");
-				
-				[self doRange:setting];				
-			}			
-			// line id=...
-			else if([[setting lowercaseString] hasPrefix:@"line"]) { 
-				TMLog(@"Got line setting!!");
-				
-				[self doLine:setting];
-			}
-			// map alias=...
-			else if([[setting lowercaseString] hasPrefix:@"map"]) { 
-				TMLog(@"Got map setting!!");
-					
-				[self doMap:setting];				
-			} else {
-				// This normally should be int=int (width specificator)
-				// Try to split by '='
-				NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
-				
-				if([keyValuePair count] != 2) {
-					NSException *ex = [NSException exceptionWithName:@"WIDTH" 
-											  reason:[NSString stringWithFormat:@"Width '%@' is invalid", setting] userInfo:nil];
-					@throw ex;		
-				}
-				
-				// Get integer values
-				NSNumber* glyphNo = [NSNumber numberWithInt:[[keyValuePair objectAtIndex:0] intValue]];
-				NSNumber* widthValue = [NSNumber numberWithInt:[[keyValuePair objectAtIndex:1] intValue]];
-				
-				[m_pGlyphWidths setObject:widthValue forKey:glyphNo];
-			}
-		}
-	}
-	
-	return self;
+
+    self.font = fnt;
+    page_id_ = idx;
+    texture_path_ = path;
+    
+    UIImage *img = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:texture_path_.c_str()]];
+    self.texture = [[[Texture2D alloc] initWithImage:img] autorelease];
+    assert(self.texture);
+    
+    return self;
 }
 
-- (void) applyGlobalConfig:(NSDictionary*)conf {
-	// Parse global config (common values)
-	// NOTE: DefaultWidth is handled elsewhere
-	
-	if([conf objectForKey:@"AddToAllWidths"]) {	
-		int iAdd = [[conf objectForKey:@"AddToAllWidths"] intValue];
-		
-		int glyph = 0;
-		for(; glyph <  [m_aGlyphs count]; ++glyph) {
-			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
-			g.m_fWidth += (float)iAdd;
-		}
-	}
-
-	if([conf objectForKey:@"AddToAllHeights"]) {	
-		int iAdd = [[conf objectForKey:@"AddToAllHeights"] intValue];
-		
-		int glyph = 0;
-		for(; glyph <  [m_aGlyphs count]; ++glyph) {
-			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
-			g.m_fHeight += (float)iAdd;
-		}
-	}
-	
-	if([conf objectForKey:@"ScaleAllWidthsBy"]) {
-		int fScale = [[conf objectForKey:@"ScaleAllWidthsBy"] floatValue];
-		
-		int glyph = 0;
-		for(; glyph <  [m_aGlyphs count]; ++glyph) {
-			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
-			g.m_fWidth = lrintf( g.m_fWidth * fScale );
-		}
-	}
-	
-	m_nExtraLeft = m_nExtraRight = 0;
-	if([conf objectForKey:@"DrawExtraPixelsLeft"]) {
-		m_nExtraLeft = [[conf objectForKey:@"DrawExtraPixelsLeft"] intValue];
-	}
-	
-	if([conf objectForKey:@"DrawExtraPixelsRight"]) {
-		m_nExtraRight = [[conf objectForKey:@"DrawExtraPixelsRight"] intValue];
-	}
-	
-	if([conf objectForKey:@"LineSpacing"]) {
-		m_nLineSpacing = [[conf objectForKey:@"LineSpacing"] intValue];
-	} else {	
-		// Set to frame height
-		m_nLineSpacing = m_pTexture.contentSize.height/[m_pTexture rows];
-	}
-	
-	int iBaseline;
-	if([conf objectForKey:@"Baseline"]) {
-		iBaseline = [[conf objectForKey:@"Baseline"] intValue];
-	} else {
-		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
-		iBaseline = (int)(center - m_nLineSpacing/2);
-	}
-	
-	int iTop;
-	if([conf objectForKey:@"Top"]) {
-		iTop = [[conf objectForKey:@"Top"] intValue];
-	} else {
-		float center = (m_pTexture.contentSize.height/[m_pTexture rows]) / 2.0f;
-		iTop = (int)( center + m_nLineSpacing/2 );
-	}
-	
-	m_fHeight = iBaseline-iTop;
-	m_fVertShift = iBaseline;
-	
-	if([conf objectForKey:@"AdvanceExtraPixels"]) {
-		int advancePixels = [[conf objectForKey:@"AdvanceExtraPixels"] intValue];
-		
-		// Set advance on all
-		int glyph = 0;
-		for(; glyph <  [m_aGlyphs count]; ++glyph) {
-			Glyph* g = [m_aGlyphs objectAtIndex:glyph];
-			g.m_nHorizAdvance = advancePixels;
-		}
-	}
+- (void) addGlyph:(Glyph*) glyph
+{
+    glyphs_.push_back(glyph);
+    glyph_widths_.push_back(glyph.m_fWidth);
+    char_to_glyph_.insert(std::make_pair(glyph.m_id, glyph));
 }
 
-- (void) doRange:(NSString*)setting {
-	// Parse [range CODESET=first_frame] or [range CODESET #start-end=first_frame]
-	// Format taken from StepMania to achive some compatibility
-	
-	NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
-	if([keyValuePair count] != 2) {
-		NSException *ex = [NSException exceptionWithName:@"RANGE" 
-								  reason:[NSString stringWithFormat:@"Range '%@' is invalid", setting] userInfo:nil];
-		@throw ex;		
-	}
-	
-	// The value part
-	NSString* value = [keyValuePair objectAtIndex:1];
-	
-	// Parse the key part
-	NSString* keyPart = [[keyValuePair objectAtIndex:0] stringByReplacingOccurrencesOfString:@"range " withString:@""];
-	NSArray* keySettings = [keyPart componentsSeparatedByString:@" "];
-	
-	int iCount = -1;
-	int iFirst = 0;
-	
-	if([keySettings count] == 1) {
-		// CODEPAGE only
-		TMLog(@"Got codepage to map '%@'!", keyPart);
-		[self mapRange:keyPart mapOffset:iFirst glyphNo:[value intValue] count:iCount];
-		
-	} else if([keySettings count] == 2) {
-		// Full house
-		// Exception
-		NSException *ex = [NSException exceptionWithName:@"RANGE" 
-								  reason:@"Range full key specifier is currently not supported!" userInfo:nil];
-		@throw ex;				
-		
-	} else {
-		// Exception
-		NSException *ex = [NSException exceptionWithName:@"RANGE" 
-								  reason:[NSString stringWithFormat:@"Range key specifier '%@' is invalid", keyPart] userInfo:nil];
-		@throw ex;				
-	}
+- (std::vector<Glyph*>) getGlyphs
+{
+    return glyphs_;
 }
 
-- (void) doLine:(NSString*)setting {
-	// Parse [line id=char1char2char3char4]
-	// Format taken from StepMania to achive some compatibility
-	
-	NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
-	if([keyValuePair count] == 1) {
-		NSException *ex = [NSException exceptionWithName:@"LINE" 
-												  reason:[NSString stringWithFormat:@"LINE '%@' is invalid", setting] userInfo:nil];
-		@throw ex;		
-	}
-	if([keyValuePair count] > 2) {		
-		NSArray* sub = [keyValuePair subarrayWithRange:NSMakeRange(1, [keyValuePair count]-1)];
-		keyValuePair = [NSArray arrayWithObject:[keyValuePair objectAtIndex:0]];
-		NSString* value = @"";
-		
-		for( NSString* s in sub ) {
-			value = [value stringByAppendingString:s];
-		}
-		
-		keyValuePair = [keyValuePair arrayByAddingObject: value];
-	}
-	
-	// The value part
-	NSString* value = [keyValuePair objectAtIndex:1];
-	
-	// Parse the key part
-	NSString* keyPart = [[keyValuePair objectAtIndex:0] stringByReplacingOccurrencesOfString:@"line " withString:@""];	
-	int lineNr = [keyPart intValue];
-	
-	if(lineNr > [m_pTexture rows]) {
-		NSException *ex = [NSException exceptionWithName:@"LINE" 
-												  reason:[NSString stringWithFormat:@"LINE %d is out of bounds", lineNr] userInfo:nil];
-		@throw ex;		
-	}
-
-	if([value length] > [m_pTexture cols]) {
-		NSException *ex = [NSException exceptionWithName:@"LINE" 
-												  reason:[NSString stringWithFormat:@"LINE %d is out of bounds (width=%d)", lineNr, [value length]] userInfo:nil];
-		@throw ex;		
-	}	
-	
-	// Get the data and get chars out of it
-	int i;
-	int iFirstFrame = lineNr * [m_pTexture cols];
-	
-	for(i=0; i<[value length]; ++i) {
-		NSNumber* num = [NSNumber numberWithInt:iFirstFrame+i];
-		NSString* s = [NSString stringWithFormat:@"%C", [value characterAtIndex:i]];
-		
-		[m_pCharToGlyphNo setObject:num forKey:s];
-		TMLog(@"[line] Mapped '%@' as %d", s, [num intValue]);
-	}	
-}
-
-- (void) doMap:(NSString*)setting {
-	// Parse [map alias=position]
-	// Format taken from StepMania to achive some compatibility
-	
-	NSArray* keyValuePair = [setting componentsSeparatedByString:@"="];
-	if([keyValuePair count] != 2) {
-		NSException *ex = [NSException exceptionWithName:@"MAP" 
-												  reason:[NSString stringWithFormat:@"Map '%@' is invalid", setting] userInfo:nil];
-		@throw ex;		
-	}
-	
-	// The value part
-	NSString* value = [keyValuePair objectAtIndex:1];
-	
-	// Parse the key part
-	NSString* keyPart = [[keyValuePair objectAtIndex:0] stringByReplacingOccurrencesOfString:@"map " withString:@""];
-
-	unichar c;
-	[[FontCharAliases sharedInstance] getChar:keyPart result:&c];
-	
-	NSNumber* num = [NSNumber numberWithInt:[value intValue]];
-	NSString* s = [NSString stringWithFormat:@"%C", c];
-	
-	[m_pCharToGlyphNo setObject:num forKey:s];
-	TMLog(@"[line] Mapped '%@' as %d", keyPart, [num intValue]);
-}
-
-- (void) mapRange:(NSString*)charmap mapOffset:(int)offset glyphNo:(int)glyphNo count:(int)cnt {
-	
-	NSString* map = [[FontCharmaps sharedInstance] getCharMap:charmap];
-	
-	// for now - map all
-	
-	int i;
-	if(cnt == -1)
-		cnt = [map length]-1;
-	
-	for(i=0; i<cnt; ++i) {
-		unichar c = [map characterAtIndex:i];
-		
-		NSNumber* num = [NSNumber numberWithInt:glyphNo];
-		NSString* s = [NSString stringWithFormat:@"%C", c];
-		
-		[m_pCharToGlyphNo setObject:num forKey:s];
-				
-		TMLog(@"[range] Mapped '%C' as %d", c, [num intValue]);
-		
-		glyphNo++;
-	}	
-}
-
-- (void) setupGlyphsFromTexture:(TMFramedTexture*)tex andConfig:(NSDictionary*)config {
-	
-	int cols = [tex cols];
-	int rows = [tex rows];
-	
-	float glyphWidth = [tex contentSize].width/cols;
-	float glyphHeight = [tex contentSize].height/rows;
-	
-	int i,j;
-	
-	for(i=0; i<rows; ++i) {
-		for(j=0; j<cols; ++j) {
-			int glyphId = i*cols+j;
-			
-			Glyph* glyph = [[Glyph alloc] initWithFrameId:glyphId];			
-			glyph.m_pFontPage = self;		
-			
-			// Check glyph width in this font page
-			NSNumber* gw = [m_pGlyphWidths objectForKey:[NSNumber numberWithInt:glyphId]];
-			if(gw) {
-				glyph.m_fWidth = [gw floatValue];
-			} else {			
-				float defaultWidth = glyphWidth;
-				if([config objectForKey:@"DefaultWidth"]) {
-					defaultWidth = [[config objectForKey:@"DefaultWidth"] floatValue];		
-				}
-				
-				glyph.m_fWidth = defaultWidth;
-			}
-			
-			glyph.m_fHeight = glyphHeight;
-			
-			[m_aGlyphs addObject:glyph];				
-		}
-	}
-}
-
-@end
-
-
-@interface Font (Private)
-- (void) mergeFont:(Font*)other;
 @end
 
 
 @implementation Font
 
 @synthesize m_pDefaultPage, m_aPages, m_pCharToGlyph, m_pDefaultGlyph;
+@synthesize baseline = baseline_;
+@synthesize size = size_;
+@synthesize line_height = line_height_;
 
-- (id) initWithName:(NSString*)name andConfig:(NSDictionary*)config {
+- (id) initWithName:(NSString*)name andFile:(NSString*)filePath {
 	self = [super init];
 	if(!self)
 		return nil;
 	
 	m_sFontName = name;
+    m_sFontPath = [filePath stringByDeletingLastPathComponent];
 	m_bIsLoaded = NO;	
-	m_pConfig = [config retain];
 	
 	m_bMultipage = NO;
 	m_pCharToGlyph = [[NSMutableDictionary alloc] initWithCapacity:256];
 	m_aPages = [[NSMutableArray alloc] initWithCapacity:6];
-		
+
+    [self parseFontXML:filePath];
+    
 	return self;
+}
+
+- (void) parseFontXML:(NSString*)filePath {
+    TMLog(@"Loading font from '%@'", filePath);
+    
+    xml_doc doc;
+    NSData* nsd = [NSData dataWithContentsOfFile:filePath];
+    if(!nsd) {
+        TMLog(@"Couldn't create NSData from font file at '%@'", filePath);
+        throw std::runtime_error("Couldn't open NSData font file :-(");
+    }
+    
+    std::string data((char*)[nsd bytes],
+                     (char*)[nsd bytes]+[nsd length]);
+    data.resize([nsd length]);
+    
+    try
+    {
+        doc.parse<0>(&(data.at(0)));
+    }
+    catch( rx::parse_error& ex )
+    {
+        TMLog(@"Failed to parse: %s", ex.what());
+        throw std::runtime_error( std::string("RapidXML parse error: ") + ex.what() );
+    }
+            
+    xml_node *root = doc.first_node( "font" );
+    if( !root )
+    {
+        throw std::runtime_error("Not a valid font xml. must begin with <font> root element.");
+    }
+    
+    for(xml_node* node = root->first_node(); node; node = node->next_sibling())
+    {
+        if(node->type() == rx::node_element)
+        {
+            if(node->name() == std::string("info"))
+            {
+                size_ = get_attribute<int>(node, "size");
+                int stretchH = get_attribute<int>(node, "stretchH");
+                
+                TMLog(@"Found stretchH %d", stretchH);
+            }
+            else if(node->name() == std::string("common"))
+            {                
+                line_height_ = get_attribute<int>(node, "lineHeight");
+                baseline_ = get_attribute<int>(node, "base");
+//                int scaleW = get_attribute<int>(node, "scaleW");
+//                int scaleH = get_attribute<int>(node, "scaleH");
+//                int pages = get_attribute<int>(node, "pages");
+            }
+            else if(node->name() == std::string("pages"))
+            {
+                for(xml_node* n = node->first_node(); n; n = n->next_sibling())
+                {
+                    if(n->type() == rx::node_element)
+                    {
+                        // each page has id, file
+                        if(n->name() == std::string("page"))
+                        {
+                            std::string pngFile = get_attribute<std::string>(n, "file");
+                            pngFile = std::string(m_sFontPath.UTF8String) + "/" + pngFile;
+                            
+                            int idx = get_attribute<int>(n, "id");
+                            
+                            TMLog(@"Found page [%d] %s", idx, pngFile.c_str());
+                            [m_aPages insertObject:[[[FontPage alloc]
+                                                     initWithResourceFile:pngFile
+                                                     id:idx andFont:self] autorelease]
+                                           atIndex:idx];
+                        }
+                    }
+                }
+            }
+            else if(node->name() == std::string("chars"))
+            {
+                for(xml_node* n = node->first_node(); n; n = n->next_sibling())
+                {
+                    if(n->type() == rx::node_element)
+                    {
+                        // id (int), x,y,width,height
+                        // xoffset, yoffset, xadvance, page, letter
+                        if(n->name() == std::string("char"))
+                        {
+                            CGRect r;
+                            r.origin.x = get_attribute<int>(n, "x");
+                            r.origin.y = get_attribute<int>(n, "y");
+                            r.size.width = get_attribute<int>(n, "width");
+                            r.size.height = get_attribute<int>(n, "height");
+
+                            Glyph *glyph = [[[Glyph alloc] initWithId:get_attribute<unichar>(n, "id")
+                                page:[m_aPages objectAtIndex:get_attribute<int>(n, "page")]
+                                    andRect:r] autorelease];
+
+                            glyph.m_fxOffset = get_attribute<float>(n, "xoffset");
+                            glyph.m_fyOffset = get_attribute<float>(n, "yoffset");
+                            glyph.m_nHorizAdvance = get_attribute<int>(n, "xadvance");
+                            
+                            glyph.m_fWidth = r.size.width;
+                            glyph.m_fHeight = r.size.height;
+                            
+                            [glyph.m_pFontPage addGlyph:glyph];
+                            
+                            TMLog(@"Added '%C' to font", glyph.m_id);
+                        }
+                    }
+                }
+            }
+            else if(node->name() == std::string("kernings"))
+            {
+                TMLog(@"Found kernings");
+                for(xml_node* n = node->first_node(); n; n = n->next_sibling())
+                {
+                    if(n->type() == rx::node_element)
+                    {
+                        //  <kerning first="121" second="44" amount="-2"/>
+                        if(n->name() == std::string("kerning"))
+                        {
+                            TMLog(@"Found kerning!");
+                            [self addKerningAmount:get_attribute<int>(n, "amount")
+                                      forFirstChar:get_attribute<unichar>(n, "first")
+                                     andSecondChar:get_attribute<unichar>(n, "second")];
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // This does the real loading work
@@ -402,140 +274,50 @@
 	}
 	
 	TMLog(@"Loading the %@ font...", m_sFontName);
-	
-	// First of all.. try to do imports if needed
-	NSArray* imports = [m_pConfig objectForKey:@"import"];
-	if(imports) {
-		TMLog(@"Have something to import... load it");
-		
-		int iF = 0;
-		for(; iF<[imports count]; ++iF) {
-			NSString* fontName = [imports objectAtIndex:iF];
-			
-			if(fontName) {
-				TMLog(@"Importing font '%@'", fontName);
-				Font* f = [[FontManager sharedInstance] getFont:fontName];
-				
-				// Try to load it first.. it will load only once anyway
-				[f load];
-				
-				// Now this font should be loaded so we can try to import it
-				[self mergeFont:f];
-			}
-		}
-	}
-	
-	// Check for multiple pages
-	NSDictionary* pages = [m_pConfig objectForKey:@"pages"];
-	if(pages) {
-		TMLog(@"Got a pages config entry. possible multiple pages. check");
-		if([[pages allKeys] count] > 1) {
-			TMLog(@"MULTIPLE PAGES found in config");
-			m_bMultipage = YES;
-		}
-	}
-	
-	// Try to find a resource which has a matching name	
-	if(m_bMultipage) {
-		
-		// Parse pages from config. every key is the page name and the value is the settings array
-		NSArray* allPageNames = [pages allKeys];
-		
-		int i = 0;
-		for(; i<[allPageNames count]; ++i) {
-			NSString* pageName = [allPageNames objectAtIndex:i];
-			TMLog(@"Found page '%@'", pageName);
-			
-			// Japanese 16px[kanji1]
-			NSString* pageResourceName = [NSString stringWithFormat:@"%@[%@]", m_sFontName, pageName];			
-			NSArray* pageSettings = [pages objectForKey:pageName];							
-			TMResource* resource = [[[FontManager sharedInstance] textures] getResource:pageResourceName];			
-			if(!resource) {
-				NSException *ex = [NSException exceptionWithName:@"ResourceNotFound" 
-										reason:[NSString stringWithFormat:@"Resource '%@' is not found", pageResourceName] userInfo:nil];
-				@throw ex;
-			}
-					
-			FontPage* page = [[FontPage alloc] initWithResource:resource andSettings:pageSettings];
-			
-			if([pageName isEqualToString:@"main"]) {				
-				// Add as default page
-				m_pDefaultPage = page;			
-				[m_aPages addObject:m_pDefaultPage];				
-				
-			} else {
-				
-				// Add this page
-				[m_aPages addObject: page];								
-			}
-			
-			// Now add real glyphs
-			TMFramedTexture* tex = (TMFramedTexture*)[resource resource];
-			[page setupGlyphsFromTexture:tex andConfig:m_pConfig];
-			
-			// Finally apply global font config items to the resulting glyphs
-			[page applyGlobalConfig:m_pConfig];
-		}		
-		
-	} else {
-		
-		// if we have no multiple pages
-		TMResource* mainPage = [[[FontManager sharedInstance] textures] getResource:m_sFontName];
-		if(mainPage) {
-			TMLog(@"Found the texture resource!");
-					
-			// It can be so that the [main] page config is specified.. so we must check that
-			if([[pages allKeys] count] == 1) { // Not multipage but still have config
-				m_pDefaultPage = [[FontPage alloc] initWithResource:mainPage andSettings:[[pages allValues] objectAtIndex:0]];						
-				
-			} else {			
-				m_pDefaultPage = [[FontPage alloc] initWithResource:mainPage andSettings:nil];						
-			}
-
-			[m_aPages addObject:m_pDefaultPage];
-			
-			// Check how much frames it has
-			TMFramedTexture* tex = (TMFramedTexture*)[mainPage resource];
-
-			if(tex.totalFrames == 15) {
-				TMLog(@"MAP deafult to numbers!");
-				[m_pDefaultPage mapRange:@"numbers" mapOffset:0 glyphNo:0 count:-1];
-				
-			} else if(tex.totalFrames == 128) {
-				TMLog(@"MAP deafult to ascii!");
-				[m_pDefaultPage mapRange:@"ascii" mapOffset:0 glyphNo:0 count:-1];
-				
-			} else if(tex.totalFrames == 256) {
-				TMLog(@"MAP deafult to cp1252!");
-				[m_pDefaultPage mapRange:@"cp1252" mapOffset:0 glyphNo:0 count:-1];
-			}
-			
-			// Now add real glyphs
-			[m_pDefaultPage setupGlyphsFromTexture:tex andConfig:m_pConfig];
-			
-			// Finally apply global font config items to the resulting glyphs
-			[m_pDefaultPage applyGlobalConfig:m_pConfig];
-		}
-	}
-	
-	// For every page we have - copy charmaps to the font object
-	int page = 0;
-	for(; page<[m_aPages count]; ++page) {
-		TMLog(@"Cache page maps into our font maps...");
-		FontPage* p = [m_aPages objectAtIndex:page];
-		TMLog(@"Current page = %X", p);
-		
-		[self cacheMapsFromPage:p];
-	}
-	
-	// Map defaultGlyph if possible. can be nil for fonts which don't provide it (will always ask default font anyway)
-	m_pDefaultGlyph = [m_pCharToGlyph objectForKey:[NSString stringWithFormat:@"%C", DEFAULT_GLYPH]];
+    for(int i=0; i<[m_aPages count]; ++i)
+    {
+        TMLog(@"Cache maps from page %d", i);
+        [self cacheMapsFromPage:[m_aPages objectAtIndex:i]];
+    }
 	
 	m_bIsLoaded = YES;
 }
 
+- (void) addKerningAmount:(int)amount forFirstChar:(unichar)first andSecondChar:(unichar)second
+{
+    kern_map::iterator it = kernings_map_.find(first);
+    if(it != kernings_map_.end())
+    {
+        it->second.insert(std::make_pair(second, amount));
+        TMLog(@"KERNING Inserting to existing map for %C -> %C == %d", first, second, amount);
+    }
+    else
+    {
+        std::map<unichar, int> mp;
+        mp.insert(std::make_pair(second, amount));
+        kernings_map_.insert(std::make_pair(first, mp));
+        TMLog(@"KERNING Inserting to NEW map for %C -> %C == %d", first, second, amount);
+    }
+}
+
+- (int) getKerningAmountFor:(unichar)first andSecondChar:(unichar)second
+{
+    kern_map::iterator it = kernings_map_.find(first);
+    if(it != kernings_map_.end())
+    {
+        std::map<unichar, int>::iterator jt = it->second.find(second);
+        if(jt != it->second.end())
+        {
+            TMLog(@"Found kerning for %C and %C == %d", first, second, jt->second);
+            return jt->second;
+        }
+    }
+    
+    return 0;
+}
+
 - (void) mergeFont:(Font*)other {
-	if(m_pDefaultPage == nil) {		
+	if(m_pDefaultPage == nil) {
 		// Steal the page pointer
 		m_pDefaultPage = other.defaultPage;
 	}
@@ -551,33 +333,29 @@
 }
 
 - (void) cacheMapsFromPage:(FontPage*)page {
-	int mappingId = 0;
-	
-	int totalMaps = [[page.maps allKeys] count];
-	
-	for(; mappingId<totalMaps; ++mappingId) {
-		NSString* key = [[page.maps allKeys] objectAtIndex:mappingId];
-		NSNumber* val = [page.maps objectForKey:key];
-		
-		Glyph* g = [page.glyphs objectAtIndex:[val intValue]];
-		[m_pCharToGlyph setObject:g forKey:key];	
-	}
+    std::vector<Glyph*> gl = [page getGlyphs];
+    
+    for(int i=0; i<gl.size(); ++i)
+    {
+        Glyph* g = gl.at(i);
+        TMLog(@"Add char '%C' to cache", g.m_id);
+        [m_pCharToGlyph setObject:g forKey:[NSNumber numberWithUnsignedShort:g.m_id]];
+    }
 }
 
-- (Glyph*) getGlyph:(NSString*)inChar {
-	Glyph* g = [m_pCharToGlyph objectForKey:inChar];
+- (Glyph*) getGlyph:(unichar)inChar {
+    
+	Glyph* g = [m_pCharToGlyph objectForKey:[NSNumber numberWithUnsignedShort:inChar]];
 	Font* df = [[FontManager sharedInstance] defaultFont];
 	
 	// If not found here - use default font
 	if(!g && self != df) {
 		g = [df getGlyph:inChar];
 	}
-	
-	// If not found there too - use default glyph
-	if(!g) {
-		// Get default glyph from default font
-		g = [[[FontManager sharedInstance] defaultFont] defaultGlyph];
-	}	
+
+    if(!g) {
+        g = [m_pCharToGlyph objectForKey:[NSNumber numberWithUnsignedShort:(unichar)'?']];
+    }
 	
 	// If no default glyph - error
 	if(!g) {
@@ -592,7 +370,6 @@
 
 - (CGSize) getStringWidthAndHeight:(NSString*)str {
 	float width = 0.0f;
-	float height = 0.0f;
 	float totalWidth = 0.0f;
 	
 	int i;
@@ -601,28 +378,25 @@
 	
 	for(i=0; i<len; ++i) {
 		c = [str characterAtIndex:i];
-		/*
-		if(c == '\n') {
-			totalWidth = fmaxf(totalWidth, width);
-			totalHeight += height;
-			width = height = 0.0f;
-			continue;
-		}*/
-		
-		Glyph* g = [self getGlyph:[NSString stringWithFormat:@"%C", c]];
+	
+        Glyph* g = [self getGlyph:c];
 		if(i == 0) {
 			width += [[g m_pFontPage] m_nExtraLeft];
 		} else if(i == len-1) {
 			width += [[g m_pFontPage] m_nExtraRight];
 		}
 		
-		width += [g m_fWidth]+[g m_nHorizAdvance];
-		height = fmaxf( height, [g m_fHeight]);
+		width += [g m_nHorizAdvance];
+        if(len > 1 && i < len-1)
+        {
+            width += [self getKerningAmountFor:c andSecondChar:[str characterAtIndex:i+1]];
+        }
 	}
 		
 	totalWidth = fmaxf(totalWidth, width);	
 	
-	return CGSizeMake(totalWidth, height);
+    // HACK: give some extra space just in case :-)
+	return CGSizeMake(totalWidth + 4, self.line_height);
 }
 
 - (Quad*) createQuadFromText:(NSString*)str {
@@ -635,32 +409,27 @@
 	
 	for(int curCharacter=0; curCharacter < len; ++curCharacter) {
 		unichar c = [str characterAtIndex:curCharacter];
-/*
-		if(c == '\n') {
-			++lineNum;
-			curPoint = 0.0f;
-			continue;
-		}
-*/
-		
-		NSString* mapTester = [NSString stringWithFormat:@"%C", c];
-		Glyph* g = [self getGlyph:mapTester];		
-		
-		// TODO: support multiline textures
-//		float yOffset = strSize.height-strSize.height/linuNum;
-		
-		curPoint += [g m_fWidth]/2;
+		Glyph* g = [self getGlyph:c];
 
-		if(curCharacter == 0) {
-			curPoint += [[g m_pFontPage] m_nExtraLeft];
+        if(curCharacter == 0) {
+			curPoint += [g.m_pFontPage m_nExtraLeft];
 		}
 		
-		[result copyFrame:[g m_nTextureFrame] withExtraLeft:[[g m_pFontPage] m_nExtraLeft] extraRight:[[g m_pFontPage] m_nExtraRight]
-			toPoint:CGPointMake(curPoint, [[g m_pFontPage] m_fVertShift]) 
-			fromTexture:[[g m_pFontPage] texture]];
+        curPoint += g.m_nHorizAdvance/2.0f;
 		
-		curPoint += [g m_fWidth]/2 + [g m_nHorizAdvance];
-	}	
+        if(len > 1 && curCharacter < len-1)
+        {
+            curPoint += [self getKerningAmountFor:c andSecondChar:[str characterAtIndex:curCharacter+1]];
+        }
+        
+        float y = (g.m_pFontPage.font.line_height - g.m_fHeight)/2.0f;
+        y -= g.m_fyOffset;
+        float x = curPoint + g.m_fxOffset;
+        
+        [result renderSprite:g.sprite atPoint:CGPointMake(x, y + (strSize.height/2.0f))];
+		
+		curPoint += g.m_nHorizAdvance/2.0f;
+	}
 	
 	return result;
 }

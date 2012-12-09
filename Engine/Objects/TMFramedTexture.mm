@@ -74,10 +74,12 @@
 	};
 	
 	TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
+    glDisable(GL_BLEND);
+    
 	glPopMatrix();
 }
 
@@ -115,10 +117,12 @@
 	};
 	
 	TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);	
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawFrame:(int)frameId {
@@ -166,11 +170,12 @@
 		width / 2 + point.x,	height / 2 + point.y,	0.0 
 	};
 
+    glEnable(GL_BLEND);
 	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
-
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight inRect:(CGRect)rect {
@@ -208,11 +213,13 @@
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,		0.0 
 	};
 	
+    glEnable(GL_BLEND);
 	TMBindTexture(m_unName);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawFrame:(int)frameId inRect:(CGRect)rect {
