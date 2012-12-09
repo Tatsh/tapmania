@@ -56,6 +56,7 @@ static FontManager *sharedFontManagerDelegate = nil;
 }
 
 - (void) loadFont:(NSString*)fontPath andName:(NSString*)name {
+        
 	TMLog(@"Have a font xml file at '%@'...", fontPath);
 //	NSDictionary* config = [NSDictionary dictionaryWithContentsOfFile:fontPath];
 	Font* font = [[Font alloc] initWithName:name andFile:fontPath];

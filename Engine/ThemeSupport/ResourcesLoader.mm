@@ -10,6 +10,7 @@
 #import "ResourcesLoader.h"
 #import "TMResource.h"
 #import "FontManager.h"
+#import "DisplayUtil.h"
 
 
 @interface ResourcesLoader (Private)
@@ -127,7 +128,8 @@
                     if([itemName isEqualToString:@"iPad"] ||
                        [itemName isEqualToString:@"iPadRetina"] ||
                        [itemName isEqualToString:@"iPhoneRetina"] ||
-                       [itemName isEqualToString:@"iPhone5"])
+                       [itemName isEqualToString:@"iPhone5"] ||
+                       [itemName isEqualToString:@"iPhone"])
                     {
                         TMLog(@"[+] Skip this directory. It's a special directory with resolution-perfect graphics.");
                         continue;
@@ -151,33 +153,55 @@
 					
                             if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".xml"]) {
 						
+                                // Check if there is a resolution-perfect version first
+                                NSString* dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
+                                    [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                                
                                 // Remove the xml suffix
                                 itemName = [itemName substringToIndex:[itemName length]-4]; // 4 is '.xml' length
-                                [[FontManager sharedInstance] loadFont:curPath andName:itemName];
+                                
+                                if([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                {
+                                    [[FontManager sharedInstance] loadFont:dpFilePath andName:itemName];
+                                }
+                                else
+                                {
+                                    [[FontManager sharedInstance] loadFont:curPath andName:itemName];
+                                }
+
                                 continue;
-						
                             }
 					
                             if(m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".redir"]) {
 						
-                                // A font redirect?
-                                NSData* contents = [[NSFileManager defaultManager] contentsAtPath:curPath];
-                                NSString* contentsString = [[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding];
-                                NSString* resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]   ;
+                                // Check if there is a resolution-perfect version first
+                                NSString* dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
+                                                        [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                                
+                                // Remove the xml suffix
+                                itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.redir' length
+                                NSData* contents = nil;
+                                if([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                {
+                                    contents = [[NSFileManager defaultManager] contentsAtPath:dpFilePath];
+                                }
+                                else
+                                {
+                                    contents = [[NSFileManager defaultManager] contentsAtPath:curPath];
+                                }
+                                
+                                NSString* contentsString = [[[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding] autorelease];
+                                NSString* resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                                 NSString* redirectedItemName = [resourceFileSystemPath lastPathComponent];
                                 
                                 if([redirectedItemName hasSuffix:@".xml"]) {
                                     // Yes. a font redirect.
-                                    itemName = [itemName substringToIndex:[itemName length]-6]; // 6 is '.redir' length
                                     redirectedItemName = [redirectedItemName substringToIndex:[redirectedItemName length]-4]; // 4 is '.xml' length
                                     TMLog(@"Add font redir: '%@'=>'%@'", itemName, redirectedItemName);
                                     
                                     [[FontManager sharedInstance] addRedirect:itemName to:redirectedItemName];
-                                    
                                     continue;
                                 }
-						
-                                [contentsString release];
                             }
                     
                         TMResource* resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
