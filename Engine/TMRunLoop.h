@@ -48,6 +48,7 @@ typedef deque<NSObject*> TMObjList;
 	@private 
 	BOOL			m_bStopRequested;
 	BOOL			m_bActualStopState;
+    BOOL    pause_;
 	
 	double			m_dPrevTime;
 }
@@ -66,6 +67,9 @@ typedef deque<NSObject*> TMObjList;
 // Request a stop of the looping
 - (void) stop;
 - (BOOL) isStopped;
+
+- (void) pause;
+- (void) resume;
 
 // The next routine is used to add renderables or logic updaters to the corresponding array
 - (void) pushBackChild:(NSObject*)inChild;

@@ -181,6 +181,14 @@ static TapMania *sharedTapManiaDelegate = nil;
 	[m_pGameRunLoop removeCommandsForObject:obj];
 }
 
+- (void) pause {
+    [m_pGameRunLoop pause];
+}
+
+- (void) resume {
+    [m_pGameRunLoop resume];
+}
+
 - (void) setCurrentScreen:(TMScreen*)screenRenderer {
 	m_pCurrentScreen = screenRenderer;
 }

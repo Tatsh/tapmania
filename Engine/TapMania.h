@@ -69,6 +69,9 @@
 - (JoyPad*) enableJoyPad;
 - (void) disableJoyPad;
 
+- (void) pause;
+- (void) resume;
+
 + (TapMania *)sharedInstance;
 
 @end

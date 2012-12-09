@@ -81,6 +81,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     TMLog(@"Returning from app delegate");
 }
 
+- (void) applicationDidBecomeActive:(UIApplication *)application {
+    [[TapMania sharedInstance] resume];
+}
+
+- (void) applicationDidEnterBackground:(UIApplication *)application {
+    [[TapMania sharedInstance] pause];
+}
+
 - (void) applicationWillTerminate:(UIApplication *)application {
 	BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
 }

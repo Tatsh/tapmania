@@ -78,6 +78,14 @@
 	
 }
 
+- (void) pause {
+    pause_ = YES;
+}
+
+- (void) resume {
+    pause_ = NO;
+}
+
 - (void) stop {
 	m_bStopRequested = YES;
 	UNSUBSCRIBE_ALL();
@@ -178,7 +186,9 @@
 
 /* Single iteration */
 - (void) displayLink:(CADisplayLink*)sender {
-	[self performSelectorOnMainThread:@selector(processFrame) withObject:nil waitUntilDone:YES];
+    if(!pause_) {
+        [self performSelectorOnMainThread:@selector(processFrame) withObject:nil waitUntilDone:YES];
+    }
 }
 
 /* Private worker */
