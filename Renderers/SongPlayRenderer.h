@@ -61,7 +61,7 @@
 	
 	CGRect mt_LifeBar;
 	
-	CGPoint mt_Go, mt_Ready, mt_Failed, mt_Cleared;
+	CGPoint mt_Go, mt_Ready, mt_Failed, mt_Cleared, mt_Warning;
 		
 	BOOL cfg_VisPad;
 }

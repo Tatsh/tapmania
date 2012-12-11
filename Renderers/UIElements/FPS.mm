@@ -9,11 +9,12 @@
 
 #import "FPS.h"
 #import "Texture2D.h"
+#import "DisplayUtil.h"
 
 @implementation FPS
 
 - (id) init {
-	self = [super initWithShape:CGRectMake(0, 0, 320, 20)];
+	self = [super initWithShape:CGRectMake(0, 0, [DisplayUtil getDeviceDisplaySize].width, 20)];
 	if(!self) return nil;
 	
 	m_lFpsCounter = 0;
@@ -36,7 +37,7 @@
 			[m_pCurrentTexture release];
 		}
 		
-		m_pCurrentTexture = [[Texture2D alloc] initWithString:[NSString stringWithFormat:@"FPS: %d", m_lFpsCounter]
+		m_pCurrentTexture = [[Texture2D alloc] initWithString:[NSString stringWithFormat:@"FPS: %ld", m_lFpsCounter]
 												   dimensions:m_rShape.size alignment:UITextAlignmentRight fontName:@"Arial" fontSize:16];
 		
 		m_dTimeCounter = 0.0;

@@ -86,6 +86,7 @@ extern TMGameState* g_pGameState;
 	mt_Failed =								POINT_METRIC(@"SongPlay Failed");
 	mt_Ready =								POINT_METRIC(@"SongPlay Ready");
 	mt_Go	=								POINT_METRIC(@"SongPlay Go");
+	mt_Warning	=								POINT_METRIC(@"SongPlay Warning");
 	
 	mt_FailedMaxShowTime =					FLOAT_METRIC(@"SongPlay Failed MaxShowTime");
 	mt_ClearedMaxShowTime =					FLOAT_METRIC(@"SongPlay Cleared MaxShowTime");
@@ -108,8 +109,8 @@ extern TMGameState* g_pGameState;
 	m_sprWarning = [[Sprite alloc] initWithRepeating];
 	[m_sprWarning setTexture:(TMFramedTexture*)TEXTURE(@"SongPlay Warning")];
 //	[m_sprWarning startRepeatingBlock];
-	[m_sprWarning setX:160.0f];
-	[m_sprWarning setY:320.0f];	
+	[m_sprWarning setX:mt_Warning.x];
+	[m_sprWarning setY:mt_Warning.y];
 	[m_sprWarning setAlpha:1.0f];
 	[m_sprWarning setR:1.0f G:0.0f B:0.0f];
 	[m_sprWarning setScale:1.2f];
