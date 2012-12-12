@@ -44,8 +44,8 @@
     if (ver >= 3.2f)
     {
         UIScreen* s = [UIScreen mainScreen];
-        w = s.currentMode.size.width;
-        h = s.currentMode.size.height;
+        w = s.applicationFrame.size.width;
+        h = s.applicationFrame.size.height;
     }
     
     TMLog(@"Display size from iOS: %fx%f", w, h);

@@ -101,19 +101,19 @@ void uncaughtExceptionHandler(NSException *exception) {
         case iCadeButtonG: // select
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
             break;
-        case iCadeButtonD:
+        case iCadeButtonF:
         case iCadeJoystickUp:
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonUp];
             break;
-        case iCadeButtonA:
+        case iCadeButtonB:
         case iCadeJoystickLeft:
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonLeft];
             break;
-        case iCadeButtonB:
+        case iCadeButtonH:
         case iCadeJoystickRight:
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonRight];
             break;
-        case iCadeButtonC:
+        case iCadeButtonD:
         case iCadeJoystickDown:
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonDown];
             break;
@@ -129,19 +129,19 @@ void uncaughtExceptionHandler(NSException *exception) {
         case iCadeButtonG: // select
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
             break;
-        case iCadeButtonD:
+        case iCadeButtonF:
         case iCadeJoystickUp:
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonUp];
             break;
-        case iCadeButtonA:
+        case iCadeButtonB:
         case iCadeJoystickLeft:
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonLeft];
             break;
-        case iCadeButtonB:
+        case iCadeButtonH:
         case iCadeJoystickRight:
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonRight];
             break;
-        case iCadeButtonC:
+        case iCadeButtonD:
         case iCadeJoystickDown:
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonDown];
             break;
