@@ -20,6 +20,11 @@
 	if(!self) return nil;
 	
 	m_pFont = [[FontManager sharedInstance] getFont:font];
+    if(!m_pFont)
+    {
+        m_pFont = [[FontManager sharedInstance] defaultFont];
+    }
+    
 	m_Glyphs = new GlyphInfoVec();
 	
 	// Construct glyphs from string

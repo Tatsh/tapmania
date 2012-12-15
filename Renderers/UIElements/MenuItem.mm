@@ -48,7 +48,7 @@
 	[self initGraphicsAndSounds:inMetricsKey];
 	
 	// Add font stuff
-	[super initTextualProperties:inMetricsKey];
+	[self initTextualProperties:inMetricsKey];
 	
 	// Add commands support
 	[super initCommands:inMetricsKey];
@@ -75,6 +75,9 @@
 	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
 	if(!m_pFont) {
 		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
+    if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
 	}
 }
 

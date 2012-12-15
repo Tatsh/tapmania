@@ -70,7 +70,7 @@ static FontManager *sharedFontManagerDelegate = nil;
 	[m_pRedirects setObject:real forKey:alias];
 }
 
-- (Font*) getFont:(NSString*)fontName {	
+- (Font*) getFont:(NSString*)fontName {
 	Font* f = [m_pFonts objectForKey:fontName];
 	if(!f) {
 		// Check in redirects
@@ -81,8 +81,8 @@ static FontManager *sharedFontManagerDelegate = nil;
 	
 	// Still not found?
 	if(!f) {
-		TMLog(@"Requested font '%@' is missing. returning Default.", fontName);
-		return [self defaultFont];
+		TMLog(@"Requested font '%@' is missing. returning null.", fontName);
+        return nil;
 	}
 	
 	return f;
@@ -90,12 +90,22 @@ static FontManager *sharedFontManagerDelegate = nil;
 
 - (CGSize) getStringWidthAndHeight:(NSString*)str usingFont:(NSString*)fontName {
 	Font* f = [self getFont:fontName];
+    if(!f)
+    {
+        f = [self defaultFont];
+    }
+    
 	return [f getStringWidthAndHeight:str];
 }
 
 /* Drawing routines */
 - (Quad*) getTextQuad:(NSString*)text usingFont:(NSString*)fontName {
 	Font* f = [self getFont:fontName];
+    if(!f)
+    {
+        f = [self defaultFont];
+    }
+    
 	return [f createQuadFromText:text];
 }
 

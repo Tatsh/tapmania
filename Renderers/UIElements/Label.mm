@@ -76,6 +76,9 @@
 	if(!m_pFont) {
 		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
 	}
+	if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
+	}
 }
 
 - (void) updateTitleTexture {
@@ -107,6 +110,9 @@
 
 - (void) setFont:(NSString*)inName {
 	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inName];
+    if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
+	}
 }
 
 - (void) setFontSize:(NSNumber*)inSize {

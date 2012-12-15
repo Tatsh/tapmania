@@ -44,8 +44,20 @@
     if (ver >= 3.2f)
     {
         UIScreen* s = [UIScreen mainScreen];
-        w = s.applicationFrame.size.width;
-        h = s.applicationFrame.size.height;
+        w = s.currentMode.size.width;
+        h = s.currentMode.size.height;
+    }
+    
+    // swap iPad size if mode is crazy
+    if(h == 768.0f && w == 1024.0f)
+    {
+        h = 1024.0f;
+        w = 768.0f;
+    }
+    else if (w == 1536.0f && h == 2048.0f)
+    {
+        h = 1536.0f;
+        w = 2048.0f;
     }
     
     TMLog(@"Display size from iOS: %fx%f", w, h);

@@ -47,6 +47,10 @@
 	m_fFontSize = fontSize;
 	m_Align = UITextAlignmentCenter;
 	m_pFont = (Font*)[[FontManager sharedInstance] getFont:@"Common Toggler"];
+    if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
+	}
+    
 	m_pText = nil;
 	
 	return self;
@@ -79,6 +83,9 @@
 
 - (void) setFont:(NSString*)inName {
 	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inName];
+    if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
+	}
 }
 
 - (void) setFontSize:(NSNumber*)inSize {
@@ -146,7 +153,7 @@
 	[self initGraphicsAndSounds:inMetricsKey];
 	
 	// Add fonts stuff
-	[super initTextualProperties:inMetricsKey];
+	[self initTextualProperties:inMetricsKey];
 	
 	// Also handle Elements, DefaultElement
 	[self setElementsWithMetric:[NSString stringWithFormat:@"%@ Elements", inMetricsKey]];
@@ -181,6 +188,9 @@
 	m_pFont = (Font*)[[FontManager sharedInstance] getFont:inMetricsKey];
 	if(!m_pFont) {
 		m_pFont = (Font*)[[FontManager sharedInstance] getFont:inFb];	
+	}
+    if(!m_pFont) {
+		m_pFont = (Font*)[[FontManager sharedInstance] defaultFont];
 	}
 }
 
