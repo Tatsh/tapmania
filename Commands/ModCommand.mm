@@ -8,6 +8,7 @@
 //
 
 #import "ModCommand.h"
+#import "SettingsEngine.h"
 #import "GameState.h"
 
 extern TMGameState* g_pGameState;
@@ -68,6 +69,9 @@ extern TMGameState* g_pGameState;
 			// Ok. valid xspeed mod.
 			TMLog(@"Speed modifier found. %f x", value);
 			
+            // Save config
+            [[SettingsEngine sharedInstance] setFloatValue:value forKey:@"speedmod"];
+            
 			// Set the requested speed value
 			g_pGameState->m_dSpeedModValue = value;
 			return YES;

@@ -100,8 +100,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 	// Drop all mods to default.
 	// Potentially we would like to restore them from the cache instead
 	g_pGameState->m_bModHidden = g_pGameState->m_bModSudden = g_pGameState->m_bModStealth = NO;
-	g_pGameState->m_bModDark = NO;
-	
+	g_pGameState->m_bModDark = NO;	
+    g_pGameState->m_dSpeedModValue = [[SettingsEngine sharedInstance] getFloatValue:@"speedmod"];
+    
 	// Defaults
 	m_pCurrentSong = nil;
 	m_pCurrentSongOptions = nil;

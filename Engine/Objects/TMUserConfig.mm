@@ -21,6 +21,7 @@
 						[NSNumber numberWithBool:NO], @"autotrack", 
 						[NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
 						@"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
+            [NSNumber numberWithFloat:1.0], @"speedmod",
 						[NSNumber numberWithInt:0], @"receptor_mods", [NSNumber numberWithInt:0], @"note_mods",
 						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff",
 						[NSNumber numberWithBool:NO], @"landscape", nil];
@@ -99,8 +100,13 @@
 	if(! [m_pConfigDict valueForKey:@"prefspeed"]) {
 		[m_pConfigDict setObject:[NSNumber numberWithInt:2] forKey:@"prefspeed"];
 		++errCount;
-	}	
-	
+	}
+    
+    if(! [m_pConfigDict valueForKey:@"speedmod"]) {
+		[m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"speedmod"];
+		++errCount;
+	}
+    
 	if(! [m_pConfigDict valueForKey:@"landscape"]) {
 		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"landscape"];
 		++errCount;
