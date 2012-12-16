@@ -110,13 +110,28 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 
 - (void) unsubscribe:(NSObject*)inClass {
 //	@synchronized(self) {
-		TMMessageSubscribers::iterator it;
-		for(it = m_pSubscribers->begin(); it != m_pSubscribers->end(); ++it) {
-			if( ((*it).second) == inClass ) {
-				// FIXME: might not work correctly
-				m_pSubscribers->erase(it);
-			}
-		}
+    TMMessageSubscribers tmp;
+    TMMessageSubscribers::iterator it;
+
+    for(it = m_pSubscribers->begin(); it != m_pSubscribers->end(); ++it) {
+        if( ((*it).second) == inClass ) {
+            tmp.insert(std::make_pair((*it).first, (*it).second));
+        }
+    }
+    
+    for(it = tmp.begin(); it != tmp.end(); ++it) {
+        TMMessageSubscribers::iterator jit;
+        for(jit = m_pSubscribers->equal_range((*it).first).first;
+            jit != m_pSubscribers->equal_range((*it).first).second;
+            ++jit)
+        {
+            if( ((*jit).second) == inClass )
+            {
+                m_pSubscribers->erase(jit);
+                break; // fro the inner for loop
+            }
+        }
+    }
 //	}	
 }
 

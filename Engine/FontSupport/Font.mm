@@ -412,7 +412,12 @@ T get_attribute(xml_node* node, const std::string& attr_name)
 		Glyph* g = [self getGlyph:c];
 
         if(curCharacter == 0) {
-			curPoint += [g.m_pFontPage m_nExtraLeft];
+			curPoint += [g.m_pFontPage m_nExtraLeft] + 2;
+            
+            if(g.m_fxOffset < 0)
+            {
+                curPoint += fabsf(g.m_fxOffset);
+            }
 		}
 		
         curPoint += g.m_nHorizAdvance/2.0f;

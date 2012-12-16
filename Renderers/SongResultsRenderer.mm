@@ -121,21 +121,21 @@ extern TMGameState* g_pGameState;
 	// Create font strings
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		if(i==6) {
-			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers"
+			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore"
 														 andText:[NSString stringWithFormat:@"%4d",
 															m_nOkNgCounters[kHoldScore_OK]]];
 		} else {
-			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+			m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore" 
 														 andText:[NSString stringWithFormat:@"%4d",m_nCounters[i]]];
 		}
 	}
 	
-	m_pScore = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+	m_pScore = [[FontString alloc] initWithFont:@"BigScore" 
 								andText:[NSString stringWithFormat:@"%8ld",
 									g_pGameState->m_nScore]];
 	[m_pScore setAlignment:UITextAlignmentCenter];
 	
-	m_pMaxCombo = [[FontString alloc] initWithFont:@"SongResults ScoreNormalNumbers" 
+	m_pMaxCombo = [[FontString alloc] initWithFont:@"MediumScore" 
 										   andText:[NSString stringWithFormat:@"%4d",
 													g_pGameState->m_nCombo]];
 	
