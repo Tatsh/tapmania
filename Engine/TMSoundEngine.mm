@@ -144,6 +144,11 @@ Exit:
 	return self;
 }
 
+- (NSThread*) getThread
+{
+    return m_pThread;
+}
+
 - (void) start {
 	m_bStopRequested = NO;
 	[m_pThread start];
@@ -219,29 +224,28 @@ Exit:
 // Methods
 - (BOOL) addToQueue:(TMSound*)inObj {
 
-	// Get a sound player for the track
-	AbstractSoundPlayer* pSoundPlayer = nil;
-	
-	// Check looping
-	BOOL isLooping = NO;
-	if([inObj isKindOfClass:[TMLoopedSound class]])
-		isLooping = YES;
-	
-	if([[inObj.path lowercaseString] hasSuffix:@".ogg"]) {		
-		pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-	} else {
-		pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-	}	
-		
-	if(!pSoundPlayer)
-		return NO;
-	
-	// Set delegate
-	[pSoundPlayer delegate:inObj];
-	
-	@synchronized(self) {
+    // Get a sound player for the track
+    AbstractSoundPlayer* pSoundPlayer = nil;
+    
+    // Check looping
+    BOOL isLooping = NO;
+    if([inObj isKindOfClass:[TMLoopedSound class]])
+        isLooping = YES;
+    
+    if([[inObj.path lowercaseString] hasSuffix:@".ogg"]) {		
+        pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
+    } else {
+        pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
+    }	
+        
+    if(!pSoundPlayer)
+        return NO;
+    
+    // Set delegate
+    [pSoundPlayer delegate:inObj];
+
+    @synchronized(self) {
 		m_pQueue->push_back( pair<TMSound*, AbstractSoundPlayer*>(inObj, pSoundPlayer) );
-		TMLog(@"Added track to queue: '%@'. Current queue size: %d", inObj.path, m_pQueue->size());
 	}
 	
 	return YES;

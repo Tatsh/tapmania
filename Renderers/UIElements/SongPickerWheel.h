@@ -60,6 +60,8 @@
 	
 }
 
+@property (assign, nonatomic) BOOL songChanged;
+
 - (SongPickerMenuItem*) getSelected;
 - (void) updateAllWithDifficulty:(TMSongDifficulty) diff;
 - (void) updateScore;

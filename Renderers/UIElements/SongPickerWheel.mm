@@ -35,6 +35,8 @@ extern TMGameState* g_pGameState;
 
 @implementation SongPickerWheel
 
+@synthesize songChanged;
+
 - (id) init {
 	// FIXME: metrics please!
 	self = [super initWithShape:CGRectMake(160, 0, 320, 320)];
@@ -137,8 +139,17 @@ extern TMGameState* g_pGameState;
 }
 
 /* TMLogicUpdater stuff */
-- (void) update:(float)fDelta {	
+- (void) update:(float)fDelta {
 	[super update:fDelta];
+    
+    if(self.songChanged)
+    {
+        self.songChanged = NO;
+        
+        if(m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
+            [m_idChangedDelegate performSelector:m_oChangedActionHandler];
+        }
+    }
 		
 	// Do all scroll related stuff
 	if(m_fVelocity != 0.0f) {
@@ -151,16 +162,14 @@ extern TMGameState* g_pGameState;
 			
 			float closestY = [self findClosest];
 			if(closestY != 0.0f) {
-				[self rollWheel: -closestY];
+                [self rollWheel: -closestY];
 
-				if(m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler]) {
-					[m_idChangedDelegate performSelector:m_oChangedActionHandler];					
-					[self updateScore];
-				}				
-			}
+                self.songChanged = YES;
+                [self updateScore];                
+            }
 			
-			return;
-		} else {
+            return;
+        } else {
 			
 			if(m_fVelocity < 0.0f) {
 				m_fVelocity += frictionDelta;

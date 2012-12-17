@@ -21,6 +21,7 @@
 
 @property (assign) float brightness;
 
+- (void) fade;
 - (id) initWithMetrics:(NSString*)inMetricsKey;
 
 @end

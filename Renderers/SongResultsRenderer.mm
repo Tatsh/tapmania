@@ -20,6 +20,7 @@
 #import "SongPickerMenuRenderer.h"
 #import "Label.h"
 #import "DisplayUtil.h"
+#import "GLUtil.h"
 
 #import "GameState.h"
 
@@ -63,6 +64,18 @@ extern TMGameState* g_pGameState;
 	t_overlay		= TEXTURE(@"SongResults Overlay");
 	t_Banner		= TEXTURE(@"SongResults NoBanner"); // Default banner
 	
+    if( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
+	{
+		NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
+		NSString *backgroundFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBackgroundFilePath];
+		UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
+        if(img)
+        {
+            t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];        
+        }
+	}
+    self.brightness = 0.5f;
+    
 	if( g_pGameState->m_pSong.m_sBannerFilePath != nil ) {
 		NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
 		songPath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sSongDirName];
@@ -194,8 +207,9 @@ extern TMGameState* g_pGameState;
 /* TMRenderable method */
 - (void) render:(float)fDelta {
 	CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
+    
 	[super render:fDelta];
-
+    
 	for(int i=0; i<kNumJudgementValues; ++i) {
 		[t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
 		[m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];

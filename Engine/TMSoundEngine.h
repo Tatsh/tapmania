@@ -52,6 +52,8 @@ typedef list<pair<TMSound*, AbstractSoundPlayer*> > TMSoundQueue;
 	BOOL		m_bManualStart;		// If set to true the soundengine will wait for us to invoke play manually
 }
 
+- (NSThread*) getThread;
+
 -(void) shutdownOpenAL;
 
 // Methods

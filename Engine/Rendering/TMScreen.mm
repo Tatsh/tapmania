@@ -22,10 +22,32 @@
 #import "ImageButton.h"
 #import "DisplayUtil.h"
 //#import "FlurryAPI.h"
+#import "GLUtil.h"
 
 @implementation TMScreen
 
 @synthesize brightness = m_fBrightness;
+
+-(void) fade
+{	
+	CGRect	rect = [DisplayUtil getDeviceDisplayBounds];
+	GLfloat	vertices[] = {
+		rect.origin.x,							rect.origin.y,
+		rect.origin.x + rect.size.width,		rect.origin.y,
+		rect.origin.x,							rect.origin.y + rect.size.height,
+		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height
+	};
+	
+	glColor4f(0, 0, 0, m_fBrightness);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glVertexPointer(2, GL_FLOAT, 0, vertices);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glDisable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glColor4f(1, 1, 1, 1);
+	TMBindTexture(0);
+}
 
 - (id) initWithMetrics:(NSString*)inMetricsKey {
 	// A screen is always fullscreen :P
@@ -90,19 +112,10 @@
 	// Render BG
     CGSize sz = [DisplayUtil getDeviceDisplaySize];
 	CGRect	bounds = CGRectMake(0, 0, sz.width, sz.height);
-	
+
+    [t_BG drawInRect:bounds];
 	if(m_fBrightness != 1.0f) {
-//		glDisable(GL_TEXTURE_2D);
-//		glEnable(GL_BLEND);
-//		glDisable(GL_BLEND);
-//		glEnable(GL_TEXTURE_2D);		
-		
-		glColor4f(m_fBrightness, m_fBrightness, m_fBrightness, m_fBrightness);
-	}	
-	[t_BG drawInRect:bounds];	
-	if(m_fBrightness != 1.0f) {
-		// TODO: restore color to prev. value. not just to 1111
-		glColor4f(1, 1, 1, 1);
+        [self fade];
 	}	
 	
 	// Render children

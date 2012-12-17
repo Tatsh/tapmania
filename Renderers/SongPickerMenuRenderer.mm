@@ -167,8 +167,9 @@ extern TMGameState * g_pGameState;
 	NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
 	m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
 	
-	[[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
-	
+    // Potentially dangerous
+    [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
+    
 	// Save as last played/selected
 	[[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
 	
