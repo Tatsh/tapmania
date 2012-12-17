@@ -245,7 +245,7 @@ Exit:
     [pSoundPlayer delegate:inObj];
 
     @synchronized(self) {
-		m_pQueue->push_back( pair<TMSound*, AbstractSoundPlayer*>(inObj, pSoundPlayer) );
+		m_pQueue->push_back( pair<TMSound*, AbstractSoundPlayer*>([inObj retain], pSoundPlayer) );
 	}
 	
 	return YES;
@@ -263,13 +263,15 @@ Exit:
 	@synchronized(self) {	
 		if( ! m_pQueue->empty() ) {
 			for (it = m_pQueue->begin(); it != m_pQueue->end(); ++it) {
-				if(it->first == inObj) {
+                if(it->first == inObj) {
 					
-					[it->second release];
-					m_pQueue->erase(it);
+                    [it->second release];
+                    [it->first release];
+                    
+                    m_pQueue->erase(it);
 					
-					return YES;
-				}
+                    return YES;
+                }
 			}
 		}	
 	}
