@@ -13,39 +13,45 @@
 #define kCatalogueFileName @"TapManiaCatalogue_%s.plist"
 @class TMSong;
 
-typedef enum {
-	kInvalidSongsPath = 0,
-	kBundleSongsPath,	// The path to bundled 'Songs' directory
-	kUserSongsPath,		// The path to bundled 'Songs' directory
-	kNumSongsPaths
+typedef enum
+{
+    kInvalidSongsPath = 0,
+    kBundleSongsPath,    // The path to bundled 'Songs' directory
+    kUserSongsPath,        // The path to bundled 'Songs' directory
+    kNumSongsPaths
 } TMSongsPath;
 
 
-@interface SongsDirectoryCache : NSObject {
-	NSMutableDictionary*	m_SongsDirs;	
-	NSMutableArray*			m_aAvailableSongs;	// This holds a list of all songs which are available in the 'Songs' dir
-	
-	NSMutableDictionary*	m_pCatalogueCacheOld;
-	NSMutableDictionary*	m_pCatalogueCacheNew;
-	BOOL					m_bCatalogueIsEmpty;
-	
-	id						m_idDelegate;	// TMSongLoaderSupport delegate
+@interface SongsDirectoryCache : NSObject
+{
+    NSMutableDictionary *m_SongsDirs;
+    NSMutableArray *m_aAvailableSongs;    // This holds a list of all songs which are available in the 'Songs' dir
+
+    NSMutableDictionary *m_pCatalogueCacheOld;
+    NSMutableDictionary *m_pCatalogueCacheNew;
+    BOOL m_bCatalogueIsEmpty;
+
+    id m_idDelegate;    // TMSongLoaderSupport delegate
 }
 
-@property (assign, setter=delegate:, getter=delegate) id<TMSongsLoaderSupport> m_idDelegate;
-@property (assign, getter=catalogueIsEmpty) BOOL m_bCatalogueIsEmpty;
+@property(assign, setter=delegate:, getter=delegate) id <TMSongsLoaderSupport> m_idDelegate;
+@property(assign, getter=catalogueIsEmpty) BOOL m_bCatalogueIsEmpty;
 
-- (void) cacheSongs;
-- (NSArray*) getSongList;
+- (void)cacheSongs;
 
-- (NSString*) getSongsPath:(TMSongsPath)pathId;
+- (NSArray *)getSongList;
 
-- (int) songIndex:(NSString*) hash;
-- (TMSong*) getSongNextTo:(TMSong*)song;
-- (TMSong*) getSongPrevFrom:(TMSong*)song;
+- (NSString *)getSongsPath:(TMSongsPath)pathId;
 
-- (void) deleteSong:(NSString*)songDirName;
-- (void) addSongsFrom:(NSString*)rootDir;
+- (int)songIndex:(NSString *)hash;
+
+- (TMSong *)getSongNextTo:(TMSong *)song;
+
+- (TMSong *)getSongPrevFrom:(TMSong *)song;
+
+- (void)deleteSong:(NSString *)songDirName;
+
+- (void)addSongsFrom:(NSString *)rootDir;
 
 + (SongsDirectoryCache *)sharedInstance;
 

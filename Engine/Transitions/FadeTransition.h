@@ -10,8 +10,9 @@
 #import <UIKit/UIKit.h>
 #import "BasicTransition.h"
 
-@interface FadeTransition : BasicTransition {
-	float		m_fTransitionPosition;
+@interface FadeTransition : BasicTransition
+{
+    float m_fTransitionPosition;
 }
 
 @end

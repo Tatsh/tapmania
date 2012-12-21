@@ -28,9 +28,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
-	void tapMania_debug(NSString* format, ...);
-	
+
+void tapMania_debug(NSString *format, ...);
+
 #ifdef __cplusplus
 }
 #endif

@@ -10,15 +10,16 @@
 #import <Foundation/Foundation.h>
 
 
-@interface TapDBService : NSObject {
-	NSMutableData*		receivedData;
-	SEL					curCallback;
-	id					curDelegate;
-	NSURLConnection*	con;
+@interface TapDBService : NSObject
+{
+    NSMutableData *receivedData;
+    SEL curCallback;
+    id curDelegate;
+    NSURLConnection *con;
 }
 
 // Search TapDB against a string with paging support
-- (void) searchByTitle:(NSString*)title forTotalItems:(int)cnt startingAt:(int)idx withCallback:(SEL)cb delegate:(id)del;
+- (void)searchByTitle:(NSString *)title forTotalItems:(int)cnt startingAt:(int)idx withCallback:(SEL)cb delegate:(id)del;
 
 + (TapDBService *)sharedInstance;
 

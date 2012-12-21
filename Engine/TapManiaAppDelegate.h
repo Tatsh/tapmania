@@ -13,17 +13,17 @@
 
 @interface TapManiaAppDelegate : NSObject <UIApplicationDelegate, iCadeEventDelegate>
 {
-	UIWindow* m_pWindow;
-	UIView* m_pRootView;
-	UIViewController* m_pRootCtrl;
-	UITabBarController* tapdb;
+    UIWindow *m_pWindow;
+    UIView *m_pRootView;
+    UIViewController *m_pRootCtrl;
+    UITabBarController *tapdb;
 }
 
-@property (retain, nonatomic) IBOutlet UITabBarController* tapdb;
-@property (retain, nonatomic) IBOutlet UIWindow* window;
-@property (retain, nonatomic) IBOutlet UIView* rootView;
+@property(retain, nonatomic) IBOutlet UITabBarController *tapdb;
+@property(retain, nonatomic) IBOutlet UIWindow *window;
+@property(retain, nonatomic) IBOutlet UIView *rootView;
 
-@property (retain, nonatomic) IBOutlet UIViewController* rootController;
+@property(retain, nonatomic) IBOutlet UIViewController *rootController;
 
 @end
 

@@ -13,29 +13,32 @@
 #import "TMMessageSupport.h"
 #import "Sprite.h"
 
-typedef enum {
-	kJudgementW1 = 0,
-	kJudgementW2,
-	kJudgementW3,
-	kJudgementW4,
-	kJudgementW5,
-	kJudgementMiss,
-	kJudgementMineHit,
-	kNumJudgementValues,
-	kJudgementNone
+typedef enum
+{
+    kJudgementW1 = 0,
+    kJudgementW2,
+    kJudgementW3,
+    kJudgementW4,
+    kJudgementW5,
+    kJudgementMiss,
+    kJudgementMineHit,
+    kNumJudgementValues,
+    kJudgementNone
 } TMJudgement;
 
-typedef enum {
-	kTimingFlagInvalid = -1,
-	kTimingFlagEarly = 0,
-	kTimingFlagLate	
+typedef enum
+{
+    kTimingFlagInvalid = -1,
+    kTimingFlagEarly = 0,
+    kTimingFlagLate
 } TMTimingFlag;
 
-@interface Judgement : Sprite <TMLogicUpdater, TMRenderable, TMMessageSupport> {
-	/* Metrics etc. */
-	TMFramedTexture* m_texture;
+@interface Judgement : Sprite <TMLogicUpdater, TMRenderable, TMMessageSupport>
+{
+    /* Metrics etc. */
+    TMFramedTexture *m_texture;
 }
 
-- (void) reset;
+- (void)reset;
 
 @end

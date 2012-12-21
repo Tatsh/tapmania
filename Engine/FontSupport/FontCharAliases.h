@@ -10,13 +10,15 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FontCharAliases : NSObject {
-	NSDictionary*		m_pCharAliases;
+@interface FontCharAliases : NSObject
+{
+    NSDictionary *m_pCharAliases;
 }
 
 // Replace alias with corresponding UTF code
-- (BOOL) getChar:(NSString*)alias result:(unichar*)res; 
-- (void) replaceAll:(NSString*)text;
+- (BOOL)getChar:(NSString *)alias result:(unichar *)res;
+
+- (void)replaceAll:(NSString *)text;
 
 + (FontCharAliases *)sharedInstance;
 

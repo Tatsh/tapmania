@@ -8,13 +8,16 @@
 //
 
 @class TMSong;
+
 #import "TMSteps.h"
 
 /* This class is used to parse .sm file format */
-@interface SMParser : NSObject {
+@interface SMParser : NSObject
+{
 }
 
-+ (TMSong*) parseFromFile:(NSString*) filename;
-+ (TMSteps*) parseStepsFromFile:(NSString*) filename forDifficulty:(TMSongDifficulty)difficulty forSong:(TMSong*)song;
++ (TMSong *)parseFromFile:(NSString *)filename;
+
++ (TMSteps *)parseStepsFromFile:(NSString *)filename forDifficulty:(TMSongDifficulty)difficulty forSong:(TMSong *)song;
 
 @end

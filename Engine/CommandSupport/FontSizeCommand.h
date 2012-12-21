@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface FontSizeCommand : TMCommand {
+@interface FontSizeCommand : TMCommand
+{
 }
 
 @end

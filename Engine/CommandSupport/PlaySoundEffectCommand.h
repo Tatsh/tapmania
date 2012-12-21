@@ -10,7 +10,8 @@
 #import "TMCommand.h"
 
 
-@interface PlaySoundEffectCommand : TMCommand {
+@interface PlaySoundEffectCommand : TMCommand
+{
 
 }
 

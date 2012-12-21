@@ -10,9 +10,12 @@
 
 @interface DisplayUtil : NSObject
 
-+ (CGRect) getDeviceDisplayBounds;
-+ (CGSize) getDeviceDisplaySize;
-+ (NSString*) getDeviceDisplayString;
-+ (BOOL) isRetina;
++ (CGRect)getDeviceDisplayBounds;
+
++ (CGSize)getDeviceDisplaySize;
+
++ (NSString *)getDeviceDisplayString;
+
++ (BOOL)isRetina;
 
 @end

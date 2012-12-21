@@ -13,17 +13,19 @@
 
 @class FontString, Texture2D;
 
-@interface ComboMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
-	int				m_nCombo;
-	int				m_nMaxComboSoFar;
-	FontString*		m_pComboStr;
-	Texture2D*		m_pComboTexture;	// not changing
-	
-	/* Metrics and such */
-	CGPoint mt_ComboMeter, mt_ComboStr;	
+@interface ComboMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport>
+{
+    int m_nCombo;
+    int m_nMaxComboSoFar;
+    FontString *m_pComboStr;
+    Texture2D *m_pComboTexture;    // not changing
+
+    /* Metrics and such */
+    CGPoint mt_ComboMeter, mt_ComboStr;
 }
 
--(id) initWithMetrics:(NSString*)metricsKey;
--(int) getMaxCombo;
+- (id)initWithMetrics:(NSString *)metricsKey;
+
+- (int)getMaxCombo;
 
 @end

@@ -13,11 +13,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FontCharmaps : NSObject {
-	NSMutableDictionary*		m_pCharmaps;	// The charmaps map
+@interface FontCharmaps : NSObject
+{
+    NSMutableDictionary *m_pCharmaps;    // The charmaps map
 }
 
-- (NSString*) getCharMap:(NSString*)name; 
+- (NSString *)getCharMap:(NSString *)name;
 
 + (FontCharmaps *)sharedInstance;
 

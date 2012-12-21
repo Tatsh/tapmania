@@ -12,21 +12,22 @@
 
 @class FontString, TMSound;
 
-@interface SongsCacheLoaderRenderer : TMScreen <TMSongsLoaderSupport> {
-	BOOL	m_bAllSongsLoaded;
-	BOOL	m_bTransitionIsDone;
-	BOOL	m_bGlobalError;
-	BOOL	m_bTextureShouldChange;
-	
-	NSString*	m_sCurrentMessage;
-	FontString*	m_pCurrentStr;
-	
-	NSThread* m_pThread;
-	NSLock*   m_pLock;
-	
-	// Resources
-	TMSound*   sr_BG;
-    
+@interface SongsCacheLoaderRenderer : TMScreen <TMSongsLoaderSupport>
+{
+    BOOL m_bAllSongsLoaded;
+    BOOL m_bTransitionIsDone;
+    BOOL m_bGlobalError;
+    BOOL m_bTextureShouldChange;
+
+    NSString *m_sCurrentMessage;
+    FontString *m_pCurrentStr;
+
+    NSThread *m_pThread;
+    NSLock *m_pLock;
+
+    // Resources
+    TMSound *sr_BG;
+
     // Metrics
     CGPoint mt_Message;
 }

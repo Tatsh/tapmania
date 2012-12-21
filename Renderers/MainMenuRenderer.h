@@ -11,10 +11,11 @@
 
 @class MenuItem, TMSound, Texture2D, Quad;
 
-@interface MainMenuRenderer : TMScreen {	
-	/* Metrics and such */
-	Texture2D *t_Donate;
-	TMSound   *sr_BG;	
+@interface MainMenuRenderer : TMScreen
+{
+    /* Metrics and such */
+    Texture2D *t_Donate;
+    TMSound *sr_BG;
 }
 
 @end

@@ -18,15 +18,18 @@
 
 @class TMFramedTexture, TMSprite;
 
-@interface Quad : Texture2D {
+@interface Quad : Texture2D
+{
 }
 
-- (id) initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight;
+- (id)initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight;
 
 // Drawing onto the quad
-- (void) renderSprite:(TMSprite*)sprite atPoint:(CGPoint)point;
-- (void) copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture;
-- (void) copyFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight 
-		   toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture*)texture;
+- (void)renderSprite:(TMSprite *)sprite atPoint:(CGPoint)point;
+
+- (void)copyFrame:(int)frameId toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture *)texture;
+
+- (void)copyFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight
+          toPoint:(CGPoint)inPoint fromTexture:(TMFramedTexture *)texture;
 
 @end

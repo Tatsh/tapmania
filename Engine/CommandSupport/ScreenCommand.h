@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface ScreenCommand : TMCommand {
+@interface ScreenCommand : TMCommand
+{
 }
 
 @end

@@ -14,14 +14,16 @@
 
 @synthesize m_pPayload, m_nMessageId;
 
-- (id) initWithId:(int)inId andPayload:(NSObject*)inPayload {
-	self = [super init];
-	if(!self) return nil;
-	
-	m_nMessageId = inId;
-	m_pPayload = inPayload;	
-	
-	return self;
+- (id)initWithId:(int)inId andPayload:(NSObject *)inPayload
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    m_nMessageId = inId;
+    m_pPayload = inPayload;
+
+    return self;
 }
 
 @end

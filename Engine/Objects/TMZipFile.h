@@ -13,19 +13,21 @@
 
 #include <minizip/unzip.h>
 
-@interface TMZipFile : NSObject {
-	NSString*	m_sArchivePath;
-	NSString*	m_sExtractedPath;
-	
-	unzFile     m_oUnzipFile;
-	
-	BOOL		m_bIsExtracted;
+@interface TMZipFile : NSObject
+{
+    NSString *m_sArchivePath;
+    NSString *m_sExtractedPath;
+
+    unzFile m_oUnzipFile;
+
+    BOOL m_bIsExtracted;
 }
 
-@property (assign, readonly, getter=isExtracted)	BOOL m_bIsExtracted;
-@property (retain, readonly, getter=extractedPath)	NSString*	m_sExtractedPath;
+@property(assign, readonly, getter=isExtracted) BOOL m_bIsExtracted;
+@property(retain, readonly, getter=extractedPath) NSString *m_sExtractedPath;
 
-- (id) initWithPath:(NSString*)path;
-- (BOOL) extractTo:(NSString*)path;
+- (id)initWithPath:(NSString *)path;
+
+- (BOOL)extractTo:(NSString *)path;
 
 @end

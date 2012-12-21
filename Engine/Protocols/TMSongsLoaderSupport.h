@@ -9,11 +9,14 @@
 
 @protocol TMSongsLoaderSupport
 
-- (void) startLoadingSong:(NSString*) path;
-- (void) doneLoadingSong:(NSString*) path;
-- (void) errorLoadingSong:(NSString*) path withReason:(NSString*) message;
+- (void)startLoadingSong:(NSString *)path;
 
-- (void) songLoaderError:(NSString*) message;
-- (void) songLoaderFinished;
+- (void)doneLoadingSong:(NSString *)path;
+
+- (void)errorLoadingSong:(NSString *)path withReason:(NSString *)message;
+
+- (void)songLoaderError:(NSString *)message;
+
+- (void)songLoaderFinished;
 
 @end

@@ -9,12 +9,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TDBSimFileCell : UITableViewCell {
-	UILabel*	title;
-	UILabel*	artist;
+@interface TDBSimFileCell : UITableViewCell
+{
+    UILabel *title;
+    UILabel *artist;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *title;
-@property (nonatomic, retain) IBOutlet UILabel *artist;
+@property(nonatomic, retain) IBOutlet UILabel *title;
+@property(nonatomic, retain) IBOutlet UILabel *artist;
 
 @end

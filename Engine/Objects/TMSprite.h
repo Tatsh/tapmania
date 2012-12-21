@@ -11,7 +11,7 @@
 
 @interface TMSprite : NSObject
 {
-    Texture2D* texture_;
+    Texture2D *texture_;
 
     float x_;
     float y_;
@@ -19,12 +19,12 @@
     float height_;
 }
 
-@property (retain, nonatomic) Texture2D* texture;
+@property(retain, nonatomic) Texture2D *texture;
 
 // Constructor
-- (id) initWithTexture:(Texture2D *)texture andRect:(CGRect)rect;
+- (id)initWithTexture:(Texture2D *)texture andRect:(CGRect)rect;
 
 // Drawing routines
-- (void) draw;
+- (void)draw;
 
 @end

@@ -38,204 +38,224 @@
 
 #import "GLUtil.h"
 
-extern TMGameState * g_pGameState;
+extern TMGameState *g_pGameState;
 
 @interface SongPickerMenuRenderer (Private)
 
-- (void) backButtonHit;
-- (void) difficultyChanged;
+- (void)backButtonHit;
 
-- (void) songSelectionChanged;
-- (void) songShouldStart;
+- (void)difficultyChanged;
+
+- (void)songSelectionChanged;
+
+- (void)songShouldStart;
 
 @end
 
 @implementation SongPickerMenuRenderer
 
 /* TMTransitionSupport methods */
-- (void) setupForTransition {
-	[super setupForTransition];
-	
-	// Stop currently playing music
-	[[TMSoundEngine sharedInstance] stopMusic]; // Fading:0.5f];
-	
-	// Cache metrics
-	mt_ItemSong =			RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
-	mt_ItemSongHalfHeight = mt_ItemSong.size.height/2;
-	
-	mt_HighlightCenter =	RECT_METRIC(@"SongPickerMenu Wheel Highlight");	
-	mt_Highlight.size =		mt_HighlightCenter.size;
-	
-	mt_Highlight.origin.x =  mt_HighlightCenter.origin.x - mt_Highlight.size.width/2;
-	mt_Highlight.origin.y =	 mt_HighlightCenter.origin.y - mt_Highlight.size.height/2;
-	mt_HighlightHalfHeight = mt_Highlight.size.height/2;
-	
-	// Cache graphics
-	t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
-	
-	// And sounds
-	sr_SelectSong = SOUND(@"SongPickerMenu SelectSong");
+- (void)setupForTransition
+{
+    [super setupForTransition];
 
-	// Push the underlay thing above the wheel
-	// TODO: fix this as this is a hack! this should go to a special folder called underlays
-	// and automatically be under everything (except the wheel which we programmatically add below it)
-	ImageButton* topImg = [[ImageButton alloc] initWithMetrics:@"SongPickerMenu TopImgUnderlay"];
-	[self pushChild:topImg];
-	
-	// Create the wheel
-	m_pSongWheel = [[SongPickerWheel alloc] init];
-	[m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
-	[m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
-	[self pushControl:m_pSongWheel];
-	
-	// Difficulty toggler
-	m_pDifficultyToggler = [[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"];
-	[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
-	[(TogglerItem*)m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
-	[self pushBackControl:m_pDifficultyToggler];
-	
-	// Back button action
-	MenuItem* backButton = (MenuItem*)[self findControl:@"SongPickerMenu BackButton"];
-	if(backButton != nil) {
-		[backButton setActionHandler:@selector(backButtonHit) receiver:self];
-	}
-	
-	// Select current song (populate difficulty toggler with it's difficulties)
-	[self songSelectionChanged];
-	[m_pSongWheel updateScore];
-			
-	// Get ads back to place if removed
-	[[TapMania sharedInstance] toggleAds:YES];
+    // Stop currently playing music
+    [[TMSoundEngine sharedInstance] stopMusic]; // Fading:0.5f];
+
+    // Cache metrics
+    mt_ItemSong = RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
+    mt_ItemSongHalfHeight = mt_ItemSong.size.height / 2;
+
+    mt_HighlightCenter = RECT_METRIC(@"SongPickerMenu Wheel Highlight");
+    mt_Highlight.size = mt_HighlightCenter.size;
+
+    mt_Highlight.origin.x = mt_HighlightCenter.origin.x - mt_Highlight.size.width / 2;
+    mt_Highlight.origin.y = mt_HighlightCenter.origin.y - mt_Highlight.size.height / 2;
+    mt_HighlightHalfHeight = mt_Highlight.size.height / 2;
+
+    // Cache graphics
+    t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
+
+    // And sounds
+    sr_SelectSong = SOUND(@"SongPickerMenu SelectSong");
+
+    // Push the underlay thing above the wheel
+    // TODO: fix this as this is a hack! this should go to a special folder called underlays
+    // and automatically be under everything (except the wheel which we programmatically add below it)
+    ImageButton *topImg = [[ImageButton alloc] initWithMetrics:@"SongPickerMenu TopImgUnderlay"];
+    [self pushChild:topImg];
+
+    // Create the wheel
+    m_pSongWheel = [[SongPickerWheel alloc] init];
+    [m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
+    [m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
+    [self pushControl:m_pSongWheel];
+
+    // Difficulty toggler
+    m_pDifficultyToggler = [[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"];
+    [(TogglerItem *) m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
+    [(TogglerItem *) m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
+    [self pushBackControl:m_pDifficultyToggler];
+
+    // Back button action
+    MenuItem *backButton = (MenuItem *) [self findControl:@"SongPickerMenu BackButton"];
+    if (backButton != nil)
+    {
+        [backButton setActionHandler:@selector(backButtonHit) receiver:self];
+    }
+
+    // Select current song (populate difficulty toggler with it's difficulties)
+    [self songSelectionChanged];
+    [m_pSongWheel updateScore];
+
+    // Get ads back to place if removed
+    [[TapMania sharedInstance] toggleAds:YES];
 }
 
-- (void) deinitOnTransition {
-	[super deinitOnTransition];
-			
-	// Remove ads
-	[[TapMania sharedInstance] toggleAds:NO];
+- (void)deinitOnTransition
+{
+    [super deinitOnTransition];
+
+    // Remove ads
+    [[TapMania sharedInstance] toggleAds:NO];
 }
 
 /* TMRenderable method */
-- (void) render:(float)fDelta {
-	// Draw kids and bg
-	[super render:fDelta];
+- (void)render:(float)fDelta
+{
+    // Draw kids and bg
+    [super render:fDelta];
 }
 
 /* Wheel actions */
-- (void) songSelectionChanged {
-	// Drop the texture bind cache as we are going to switch contexts
-	TMBindTexture(0);
+- (void)songSelectionChanged
+{
+    // Drop the texture bind cache as we are going to switch contexts
+    TMBindTexture(0);
 
-	[(TogglerItem*)m_pDifficultyToggler removeAll];
-	
-	SongPickerMenuItem* selected = (SongPickerMenuItem*)[[m_pSongWheel getSelected] retain];
-	TMSong* song = [selected song];
-	
-	TMLog(@"Selected song is %@", song.title);
-	
-	// Get the preffered difficulty level
-	int prefDiff = [[SettingsEngine sharedInstance] getIntValue:@"prefdiff"];
-	int closestDiffAvailable = -1024;
-	
-	// Go through all possible difficulties
-	for(int dif = (int)kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif) {
-		if([song isDifficultyAvailable:(TMSongDifficulty)dif]){
-			NSString* title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:(TMSongDifficulty)dif], [song getDifficultyLevel:(TMSongDifficulty)dif]];
-			
-			TMLog(@"Add dif %d to toggler as [%@]", dif, title);
-			[(TogglerItem*)m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
-			
-			if(dif == prefDiff || abs(prefDiff-dif) < abs(prefDiff-closestDiffAvailable)) {
-				closestDiffAvailable = dif;
-				TMLog(@"Selected [%d <= %d] %@", dif, prefDiff, [TMSong difficultyToString:(TMSongDifficulty)dif]);
-			}
-		}
-	}
-	
-	// Set the diff to closest found
-	[(TogglerItem*)m_pDifficultyToggler selectItemAtIndex:[(TogglerItem*)m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
-	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)closestDiffAvailable;
-	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)closestDiffAvailable];
-	
-	// Stop current previewMusic if any
-	if(m_pPreviewMusic) {
-		[[TMSoundEngine sharedInstance] stopMusic];			
-		[m_pPreviewMusic release];
-	}
-	
-	// Play preview music
-	NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
-	m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
-	
+    [(TogglerItem *) m_pDifficultyToggler removeAll];
+
+    SongPickerMenuItem *selected = (SongPickerMenuItem *) [[m_pSongWheel getSelected] retain];
+    TMSong *song = [selected song];
+
+    TMLog(@"Selected song is %@", song.title);
+
+    // Get the preffered difficulty level
+    int prefDiff = [[SettingsEngine sharedInstance] getIntValue:@"prefdiff"];
+    int closestDiffAvailable = -1024;
+
+    // Go through all possible difficulties
+    for (int dif = (int) kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif)
+    {
+        if ([song isDifficultyAvailable:(TMSongDifficulty) dif])
+        {
+            NSString *title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:(TMSongDifficulty) dif], [song getDifficultyLevel:(TMSongDifficulty) dif]];
+
+            TMLog(@"Add dif %d to toggler as [%@]", dif, title);
+            [(TogglerItem *) m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
+
+            if (dif == prefDiff || abs(prefDiff - dif) < abs(prefDiff - closestDiffAvailable))
+            {
+                closestDiffAvailable = dif;
+                TMLog(@"Selected [%d <= %d] %@", dif, prefDiff, [TMSong difficultyToString:(TMSongDifficulty) dif]);
+            }
+        }
+    }
+
+    // Set the diff to closest found
+    [(TogglerItem *) m_pDifficultyToggler selectItemAtIndex:[(TogglerItem *) m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
+    g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) closestDiffAvailable;
+    [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) closestDiffAvailable];
+
+    // Stop current previewMusic if any
+    if (m_pPreviewMusic)
+    {
+        [[TMSoundEngine sharedInstance] stopMusic];
+        [m_pPreviewMusic release];
+    }
+
+    // Play preview music
+    NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
+    m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
+
     // Potentially dangerous
     [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
-    
-	// Save as last played/selected
-	[[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
-	
-	// Mark released to prevent memleaks
-	[selected release];	
+
+    // Save as last played/selected
+    [[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
+
+    // Mark released to prevent memleaks
+    [selected release];
 }
 
-- (void) songShouldStart {
-	// Stop current previewMusic if any
-	if(m_pPreviewMusic) {
-		[[TMSoundEngine sharedInstance] stopMusic];			
-	}
-	
-	// Play select sound effect
-	[[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
-	
-	SongPickerMenuItem* selected = (SongPickerMenuItem*)[m_pSongWheel getSelected];
-	TMSong* song = [selected song];
-	
-	// Assign difficulty
-	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)[(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
-	
-	// Check speedmod to be sure
-	NSArray* speedMods = ARRAY_METRIC(@"SpeedMods");	
-	NSString* cur = [speedMods objectAtIndex:[[SettingsEngine sharedInstance] getIntValue:@"prefspeed"]];
-	
-	
-	g_pGameState->m_pSong = [song retain];
-	
-	// Fixme: this is dirty :)
-	NSArray* arr = [cur componentsSeparatedByString:@","];
-	g_pGameState->m_sMods = [[arr objectAtIndex:[arr count]-1] retain];
+- (void)songShouldStart
+{
+    // Stop current previewMusic if any
+    if (m_pPreviewMusic)
+    {
+        [[TMSoundEngine sharedInstance] stopMusic];
+    }
 
-	if(g_pGameState->m_bModDark) {
-		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"dark"] retain];
-	}
-	if(g_pGameState->m_bModHidden) {
-		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"hidden"] retain];
-	}
-	if(g_pGameState->m_bModSudden) {
-		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"sudden"] retain];
-	}
-	if(g_pGameState->m_bModStealth) {
-		g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"stealth"] retain];
-	}	
-	
-	[[TapMania sharedInstance] switchToScreen:[SongPlayRenderer class] withMetrics:@"SongPlay"];
+    // Play select sound effect
+    [[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
+
+    SongPickerMenuItem *selected = (SongPickerMenuItem *) [m_pSongWheel getSelected];
+    TMSong *song = [selected song];
+
+    // Assign difficulty
+    g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) [(NSNumber *) [(TogglerItem *) m_pDifficultyToggler getCurrent].m_pValue intValue];
+
+    // Check speedmod to be sure
+    NSArray *speedMods = ARRAY_METRIC(@"SpeedMods");
+    NSString *cur = [speedMods objectAtIndex:[[SettingsEngine sharedInstance] getIntValue:@"prefspeed"]];
+
+
+    g_pGameState->m_pSong = [song retain];
+
+    // Fixme: this is dirty :)
+    NSArray *arr = [cur componentsSeparatedByString:@","];
+    g_pGameState->m_sMods = [[arr objectAtIndex:[arr count] - 1] retain];
+
+    if (g_pGameState->m_bModDark)
+    {
+        g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"dark"] retain];
+    }
+    if (g_pGameState->m_bModHidden)
+    {
+        g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"hidden"] retain];
+    }
+    if (g_pGameState->m_bModSudden)
+    {
+        g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"sudden"] retain];
+    }
+    if (g_pGameState->m_bModStealth)
+    {
+        g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"stealth"] retain];
+    }
+
+    [[TapMania sharedInstance] switchToScreen:[SongPlayRenderer class] withMetrics:@"SongPlay"];
 }
 
 /* Support last difficulty setting saving */
-- (void) difficultyChanged {
-	int curDiff = [(NSNumber*)[(TogglerItem*)m_pDifficultyToggler getCurrent].m_pValue intValue];
-	TMLog(@"Changed difficulty. save. [%d => %@]", curDiff, [TMSong difficultyToString:(TMSongDifficulty)curDiff]);
-	
-	[[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
-	g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty)curDiff;
-	[m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty)curDiff];
-	[m_pSongWheel updateScore];
+- (void)difficultyChanged
+{
+    int curDiff = [(NSNumber *) [(TogglerItem *) m_pDifficultyToggler getCurrent].m_pValue intValue];
+    TMLog(@"Changed difficulty. save. [%d => %@]", curDiff, [TMSong difficultyToString:(TMSongDifficulty) curDiff]);
+
+    [[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
+    g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) curDiff;
+    [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) curDiff];
+    [m_pSongWheel updateScore];
 }
 
 /* Handle back button */
-- (void) backButtonHit {
-	// Stop current previewMusic if any
-	if(m_pPreviewMusic) {
-		[[TMSoundEngine sharedInstance] stopMusic];			
-	}
+- (void)backButtonHit
+{
+    // Stop current previewMusic if any
+    if (m_pPreviewMusic)
+    {
+        [[TMSoundEngine sharedInstance] stopMusic];
+    }
 }
 
 @end

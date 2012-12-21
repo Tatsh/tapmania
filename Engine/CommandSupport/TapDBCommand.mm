@@ -13,25 +13,28 @@
 
 @implementation TapDBCommand
 
-- (id) initWithArguments:(NSArray*) inArgs andInvocationObject:(NSObject*) inObj {
-	self = [super initWithArguments:inArgs andInvocationObject:inObj];
-	if(!self)
-		return nil;
-	
-	if([inArgs count] != 0) {
-		TMLog(@"Wrong argument count for command 'tapdb'. abort.");
-		return nil;
-	}
-	
-	return self;
+- (id)initWithArguments:(NSArray *)inArgs andInvocationObject:(NSObject *)inObj
+{
+    self = [super initWithArguments:inArgs andInvocationObject:inObj];
+    if (!self)
+        return nil;
+
+    if ([inArgs count] != 0)
+    {
+        TMLog(@"Wrong argument count for command 'tapdb'. abort.");
+        return nil;
+    }
+
+    return self;
 }
 
-- (BOOL) invokeOnObject:(NSObject*)inObj {
-	[super invokeOnObject:inObj];
-	
-	[[TapMania sharedInstance] switchToTapDB];
-	
-	return YES;
+- (BOOL)invokeOnObject:(NSObject *)inObj
+{
+    [super invokeOnObject:inObj];
+
+    [[TapMania sharedInstance] switchToTapDB];
+
+    return YES;
 }
 
 @end

@@ -50,11 +50,12 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 //CONSTANTS:
 
-typedef enum {
-	kTexture2DPixelFormat_Automatic = 0,
-	kTexture2DPixelFormat_RGBA8888,
-	kTexture2DPixelFormat_RGB565,
-	kTexture2DPixelFormat_A8,
+typedef enum
+{
+    kTexture2DPixelFormat_Automatic = 0,
+    kTexture2DPixelFormat_RGBA8888,
+    kTexture2DPixelFormat_RGB565,
+    kTexture2DPixelFormat_A8,
 } Texture2DPixelFormat;
 
 //CLASS INTERFACES:
@@ -68,16 +69,17 @@ Be aware that the content of the generated textures will be upside-down!
 @interface Texture2D : NSObject
 {
 @protected
-	GLuint						m_unName;
-	CGSize						m_oSize;
-	NSUInteger					m_unWidth,
-								m_unHeight;
-	Texture2DPixelFormat		m_nFormat;
-	GLfloat						m_fMaxS,
-								m_fMaxT;
+    GLuint m_unName;
+    CGSize m_oSize;
+    NSUInteger m_unWidth,
+            m_unHeight;
+    Texture2DPixelFormat m_nFormat;
+    GLfloat m_fMaxS,
+            m_fMaxT;
 }
-- (id) initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight contentSize:(CGSize)inSize;
-- (id) initWithData:(const void*)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size;
+- (id)initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight contentSize:(CGSize)inSize;
+
+- (id)initWithData:(const void *)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size;
 
 @property(readonly) Texture2DPixelFormat pixelFormat;
 @property(readonly) NSUInteger pixelsWide;
@@ -95,9 +97,11 @@ Drawing extensions to make it easy to draw basic quads using a Texture2D object.
 These functions require GL_TEXTURE_2D and both GL_VERTEX_ARRAY and GL_TEXTURE_COORD_ARRAY client states to be enabled.
 */
 @interface Texture2D (Drawing)
-- (void) drawAtPoint:(CGPoint)point;
-- (void) drawInRect:(CGRect)rect;
-- (void) drawInRect:(CGRect)rect rotation:(float)rotation;
+- (void)drawAtPoint:(CGPoint)point;
+
+- (void)drawInRect:(CGRect)rect;
+
+- (void)drawInRect:(CGRect)rect rotation:(float)rotation;
 @end
 
 /*
@@ -105,8 +109,9 @@ Extensions to make it easy to create a Texture2D object from an image file.
 Note that RGBA type textures will have their alpha premultiplied - use the blending mode (GL_ONE, GL_ONE_MINUS_SRC_ALPHA).
 */
 @interface Texture2D (Image)
-- (id) initWithImage:(UIImage *)uiImage;
-- (id) initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
+- (id)initWithImage:(UIImage *)uiImage;
+
+- (id)initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
 @end
 
 /*
@@ -114,5 +119,5 @@ Extensions to make it easy to create a Texture2D object from a string of text.
 Note that the generated textures are of type A8 - use the blending mode (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA).
 */
 @interface Texture2D (Text)
-- (id) initWithString:(NSString*)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString*)name fontSize:(CGFloat)size;
+- (id)initWithString:(NSString *)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString *)name fontSize:(CGFloat)size;
 @end

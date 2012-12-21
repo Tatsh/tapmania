@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface VolumeCommand : TMCommand {
+@interface VolumeCommand : TMCommand
+{
 }
 
 @end

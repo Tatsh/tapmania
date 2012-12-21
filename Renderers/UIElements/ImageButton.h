@@ -11,10 +11,11 @@
 
 @class Texture2D;
 
-@interface ImageButton : TMControl {
-	Texture2D*			m_pTexture;
+@interface ImageButton : TMControl
+{
+    Texture2D *m_pTexture;
 }
 
-- (id) initWithTexture:(Texture2D*)tex andShape:(CGRect) shape;
+- (id)initWithTexture:(Texture2D *)tex andShape:(CGRect)shape;
 
 @end

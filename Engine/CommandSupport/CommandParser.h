@@ -9,10 +9,11 @@
 
 #ifdef __cplusplus
 
-#define REG_COMMAND(name,cls)	[[CommandParser sharedInstance] registerCommand:cls withName:name];
+#define REG_COMMAND(name,cls)    [[CommandParser sharedInstance] registerCommand:cls withName:name];
 
 #include <map>
 #include <string>
+
 using namespace std;
 
 typedef map<string, Class> TMCommandDictionary;
@@ -21,15 +22,17 @@ typedef map<string, Class> TMCommandDictionary;
 
 @class TMCommand;
 
-@interface CommandParser : NSObject {
-	TMCommandDictionary*	m_pDictionary;
+@interface CommandParser : NSObject
+{
+    TMCommandDictionary *m_pDictionary;
 }
 
-- (void) registerCommand:(Class)inCls withName:(NSString*)inName;
+- (void)registerCommand:(Class)inCls withName:(NSString *)inName;
 
-- (TMCommand*) createCommandListFromString:(NSString*)inCmdList forRequestingObject:(NSObject*)inObj;
-- (BOOL) runCommandList:(TMCommand*)inCmdList forRequestingObject:(NSObject*)inObj;
+- (TMCommand *)createCommandListFromString:(NSString *)inCmdList forRequestingObject:(NSObject *)inObj;
 
-+ (CommandParser *) sharedInstance;
+- (BOOL)runCommandList:(TMCommand *)inCmdList forRequestingObject:(NSObject *)inObj;
+
++ (CommandParser *)sharedInstance;
 
 @end

@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface FontCommand : TMCommand {
+@interface FontCommand : TMCommand
+{
 }
 
 @end

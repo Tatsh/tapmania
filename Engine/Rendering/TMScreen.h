@@ -13,15 +13,17 @@
 @class Texture2D;
 
 /* A screen is a fullscreen view with transition support */
-@interface TMScreen : TMView <TMTransitionSupport> {
-	// A screen most likely has a background image
-	Texture2D*		t_BG;
-	float	m_fBrightness;	// Background brightness
+@interface TMScreen : TMView <TMTransitionSupport>
+{
+    // A screen most likely has a background image
+    Texture2D *t_BG;
+    float m_fBrightness;    // Background brightness
 }
 
-@property (assign) float brightness;
+@property(assign) float brightness;
 
-- (void) fade;
-- (id) initWithMetrics:(NSString*)inMetricsKey;
+- (void)fade;
+
+- (id)initWithMetrics:(NSString *)inMetricsKey;
 
 @end

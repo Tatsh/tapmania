@@ -9,11 +9,12 @@
 
 #import "TMCommand.h"
 
-@interface SleepCommand : TMCommand {
-	float m_fElapsedTime;
-	float m_fTimeToWait;	// Millis
+@interface SleepCommand : TMCommand
+{
+    float m_fElapsedTime;
+    float m_fTimeToWait;    // Millis
 }
 
-- (void) setTimeToWait:(float) fVal;
+- (void)setTimeToWait:(float)fVal;
 
 @end

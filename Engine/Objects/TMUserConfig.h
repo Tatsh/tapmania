@@ -10,13 +10,14 @@
 #import <Foundation/Foundation.h>
 
 
-@interface TMUserConfig : NSObject {
-	NSMutableDictionary*		m_pConfigDict;		// The real dictionary
+@interface TMUserConfig : NSObject
+{
+    NSMutableDictionary *m_pConfigDict;        // The real dictionary
 }
 
-- (id) initWithContentsOfFile:(NSString*)configPath;
+- (id)initWithContentsOfFile:(NSString *)configPath;
 
 // Check config
-- (int) check;
+- (int)check;
 
 @end

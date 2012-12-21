@@ -13,11 +13,14 @@
 
 @protocol TMEffectSupport
 
-- (CGPoint) getPosition;
-- (void) updatePosition:(CGPoint)point;
+- (CGPoint)getPosition;
 
-- (CGRect) getShape;
-- (CGRect) getOriginalShape;
-- (void) updateShape:(CGRect)shape;
+- (void)updatePosition:(CGPoint)point;
+
+- (CGRect)getShape;
+
+- (CGRect)getOriginalShape;
+
+- (void)updateShape:(CGRect)shape;
 
 @end

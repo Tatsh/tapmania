@@ -11,11 +11,12 @@
 
 @class Texture2D;
 
-@interface FPS : TMControl {
-	long	m_lFpsCounter;
-	double	m_dTimeCounter;
-	
-	Texture2D*	m_pCurrentTexture;
+@interface FPS : TMControl
+{
+    long m_lFpsCounter;
+    double m_dTimeCounter;
+
+    Texture2D *m_pCurrentTexture;
 }
 
 @end

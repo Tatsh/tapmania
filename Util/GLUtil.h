@@ -17,8 +17,8 @@
 extern "C" {
 #endif
 
-	void TMBindTexture(GLuint tex);
-	
+void TMBindTexture(GLuint tex);
+
 #ifdef __cplusplus
 }
 #endif

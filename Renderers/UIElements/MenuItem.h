@@ -11,11 +11,12 @@
 
 @class TMFramedTexture, Texture2D;
 
-@interface MenuItem : Label {
-	TMFramedTexture*	m_pTexture;
-	BOOL m_bShouldLock;
+@interface MenuItem : Label
+{
+    TMFramedTexture *m_pTexture;
+    BOOL m_bShouldLock;
 }
 
-- (id) initWithTitle:(NSString*)title andShape:(CGRect) shape;
+- (id)initWithTitle:(NSString *)title andShape:(CGRect)shape;
 
 @end

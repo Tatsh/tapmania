@@ -11,11 +11,12 @@
 
 @class Texture2D;
 
-@interface NewsDialog : TMModalView {
-	Texture2D	*m_pNewsText;
-	
-	/* Textures */
-	Texture2D* t_DialogBG;
+@interface NewsDialog : TMModalView
+{
+    Texture2D *m_pNewsText;
+
+    /* Textures */
+    Texture2D *t_DialogBG;
 }
 
 @end

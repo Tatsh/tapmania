@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface AlignmentCommand : TMCommand {
+@interface AlignmentCommand : TMCommand
+{
 }
 
 @end

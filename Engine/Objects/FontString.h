@@ -14,45 +14,49 @@
 
 #include <vector>	
 
-struct GlyphInfo {
-	Glyph*	m_pGlyph;	// A direct pointer to the glyph
+struct GlyphInfo
+{
+    Glyph *m_pGlyph;    // A direct pointer to the glyph
 
-	float	m_xOffset;	// The relative offset on the screen to render this glyph
-	float	m_yOffset;
-	
-	// Constructor
-	GlyphInfo(Glyph* ptr, float xOffset, float yOffset) 
-	: m_pGlyph(ptr)
-	, m_xOffset(xOffset)
-	, m_yOffset(yOffset)
-	{}
+    float m_xOffset;    // The relative offset on the screen to render this glyph
+    float m_yOffset;
+
+    // Constructor
+    GlyphInfo(Glyph *ptr, float xOffset, float yOffset)
+    : m_pGlyph(ptr)
+    , m_xOffset(xOffset)
+    , m_yOffset(yOffset)
+    {
+    }
 };
 
-typedef std::vector<GlyphInfo>	GlyphInfoVec;
+typedef std::vector<GlyphInfo> GlyphInfoVec;
 
 #endif
 
-@interface FontString : NSObject {
-	Font*	m_pFont;			// The font used to render this string
-	CGSize	m_oSize;			// Original size of the string using the given font
-	UITextAlignment	m_Align;
-	
+@interface FontString : NSObject
+{
+    Font *m_pFont;            // The font used to render this string
+    CGSize m_oSize;            // Original size of the string using the given font
+    UITextAlignment m_Align;
+
 #ifdef __cplusplus
-	GlyphInfoVec*	m_Glyphs;	// A collection of glyph pointers plus offset information
+    GlyphInfoVec *m_Glyphs;    // A collection of glyph pointers plus offset information
 #endif
 }
 
-@property (assign, readonly) CGSize contentSize;
-@property (assign) UITextAlignment alignment;
+@property(assign, readonly) CGSize contentSize;
+@property(assign) UITextAlignment alignment;
 
 // The constructor
--(id) initWithFont:(NSString*)font andText:(NSString*)str;
+- (id)initWithFont:(NSString *)font andText:(NSString *)str;
 
 // Updating the text
--(void) updateText:(NSString*)str;
+- (void)updateText:(NSString *)str;
 
 // Drawing
-- (void) drawAtPoint:(CGPoint)point;
-- (void) drawInRect:(CGRect)rect;
+- (void)drawAtPoint:(CGPoint)point;
+
+- (void)drawInRect:(CGRect)rect;
 
 @end

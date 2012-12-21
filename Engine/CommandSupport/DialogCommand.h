@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface DialogCommand : TMCommand {
+@interface DialogCommand : TMCommand
+{
 }
 
 @end

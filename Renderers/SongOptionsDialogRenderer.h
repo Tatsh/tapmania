@@ -11,10 +11,11 @@
 
 @class TogglerItem;
 
-@interface SongOptionsDialogRenderer : TMModalView {
-	TogglerItem*			m_pNoteSkinToggler;
-	TogglerItem*			m_pSpeedToggler;
-	TogglerItem*			m_pReceptorModsToggler, *m_pNoteModsToggler;
+@interface SongOptionsDialogRenderer : TMModalView
+{
+    TogglerItem *m_pNoteSkinToggler;
+    TogglerItem *m_pSpeedToggler;
+    TogglerItem *m_pReceptorModsToggler, *m_pNoteModsToggler;
 }
 
 @end

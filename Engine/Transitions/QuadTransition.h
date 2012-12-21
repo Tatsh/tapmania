@@ -10,8 +10,9 @@
 #import <UIKit/UIKit.h>
 #import "FadeTransition.h"
 
-@interface QuadTransition : FadeTransition {
-	float m_fRotation;
+@interface QuadTransition : FadeTransition
+{
+    float m_fRotation;
 }
 
 @end

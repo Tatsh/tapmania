@@ -8,7 +8,9 @@
 //
 
 #import "TMCommand.h"
-@interface ValueCommand : TMCommand {
+
+@interface ValueCommand : TMCommand
+{
 }
 
 @end

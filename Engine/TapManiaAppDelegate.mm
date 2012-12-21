@@ -30,74 +30,84 @@
 @synthesize rootController = m_pRootCtrl;
 @synthesize tapdb;
 
-void uncaughtExceptionHandler(NSException *exception) {
+void uncaughtExceptionHandler(NSException *exception)
+{
 //    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
-- (void) applicationDidFinishLaunching:(UIApplication*)application {				
-	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-	
-	[UIApplication sharedApplication].idleTimerDisabled = YES;	
-	
-	// Enable audio
-	OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
-	if(result) {
-		TMLog(@"Problems initializing audio session.");
-	}
-		
-	UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;
-	result = AudioSessionSetProperty (kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
-	if(result) {
-		TMLog(@"Problems setting category for audio session.");
-	}
-	
-	result = AudioSessionSetActive (true);
-	if(result) {
-		TMLog(@"Problems activating audio session.");
-	}
-	
-	// Get rid of the accelerometer
-	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
-	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];                                                                                                                                                               
-	
-	// Start analytics (flurry)
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
+    // Enable audio
+    OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    if (result)
+    {
+        TMLog(@"Problems initializing audio session.");
+    }
+
+    UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;
+    result = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
+    if (result)
+    {
+        TMLog(@"Problems setting category for audio session.");
+    }
+
+    result = AudioSessionSetActive(true);
+    if (result)
+    {
+        TMLog(@"Problems activating audio session.");
+    }
+
+    // Get rid of the accelerometer
+    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];
+
+    // Start analytics (flurry)
 //	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
-	
-	// Show window
-	[self.window makeKeyAndVisible];
-	
+
+    // Show window
+    [self.window makeKeyAndVisible];
+
     // Configure iCade support
     iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
     [self.window addSubview:control];
     control.active = YES;
     control.delegate = self;
     [control release];
-    
-	// Start the game.
-	[[TapMania sharedInstance] performSelector:@selector(startGame)
-        onThread:[NSThread currentThread] withObject:nil waitUntilDone:NO];
-    
+
+    // Start the game.
+    [[TapMania sharedInstance] performSelector:@selector(startGame)
+                                      onThread:[NSThread currentThread] withObject:nil waitUntilDone:NO];
+
     // Return as soon as possible
     TMLog(@"Returning from app delegate");
 }
 
-- (void) applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     [[TapMania sharedInstance] resume];
 }
 
-- (void) applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
     [[TapMania sharedInstance] pause];
 }
 
-- (void) applicationWillTerminate:(UIApplication *)application {
-	BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
 }
 
 // iCade support
-- (void)buttonDown:(iCadeState)button {
+- (void)buttonDown:(iCadeState)button
+{
     TMLog(@"Got button press %d", button);
-    
-    switch (button) {
+
+    switch (button)
+    {
         case iCadeButtonG: // select
             [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
             break;
@@ -122,10 +132,12 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
 }
 
-- (void)buttonUp:(iCadeState)button {
+- (void)buttonUp:(iCadeState)button
+{
     TMLog(@"Got button release %d", button);
-    
-    switch (button) {
+
+    switch (button)
+    {
         case iCadeButtonG: // select
             [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
             break;

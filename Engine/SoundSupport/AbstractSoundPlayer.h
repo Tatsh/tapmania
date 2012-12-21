@@ -11,38 +11,43 @@
 #import <OpenAL/al.h>
 #import "TMSoundSupport.h"
 
-#define kSoundEngineNumBuffers	2
+#define kSoundEngineNumBuffers    2
 
-@interface AbstractSoundPlayer : NSObject {
-	BOOL		m_bPlaying;	// Control playback start
-	BOOL		m_bPaused;	// YES if paused
-	BOOL		m_bLoop;	// YES if should loop
-	
-	id			m_idDelegate;
+@interface AbstractSoundPlayer : NSObject
+{
+    BOOL m_bPlaying;    // Control playback start
+    BOOL m_bPaused;    // YES if paused
+    BOOL m_bLoop;    // YES if should loop
+
+    id m_idDelegate;
 }
 
-@property (assign, setter=delegate:, getter=delegate) id<TMSoundSupport> m_idDelegate;
+@property(assign, setter=delegate:, getter=delegate) id <TMSoundSupport> m_idDelegate;
 
 // Methods. throw exceptions here
-- (id) initWithFile:(NSString*)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop;
-- (void) primeBuffers;
+- (id)initWithFile:(NSString *)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop;
 
-- (BOOL) play;		// Start playback
-- (void) pause;		// Pause playback
-- (void) stop;		// Stop the playback
+- (void)primeBuffers;
 
-- (BOOL) isPlaying;	// Check whether we are playing sound now
-- (BOOL) isPaused;	// Check whether we are paused
+- (BOOL)play;        // Start playback
+- (void)pause;        // Pause playback
+- (void)stop;        // Stop the playback
 
-- (BOOL) update;	// Update the buffers
+- (BOOL)isPlaying;    // Check whether we are playing sound now
+- (BOOL)isPaused;    // Check whether we are paused
 
-- (void) setGain:(Float32)gain;
-- (Float32) getGain;
+- (BOOL)update;    // Update the buffers
 
-- (void) setLoop:(BOOL)loop;
-- (BOOL) isLooping;
+- (void)setGain:(Float32)gain;
 
-- (void) sendPlayBackStartedNotification;
-- (void) sendPlayBackFinishedNotification;
+- (Float32)getGain;
+
+- (void)setLoop:(BOOL)loop;
+
+- (BOOL)isLooping;
+
+- (void)sendPlayBackStartedNotification;
+
+- (void)sendPlayBackFinishedNotification;
 
 @end

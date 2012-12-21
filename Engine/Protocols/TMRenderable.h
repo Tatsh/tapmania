@@ -9,6 +9,6 @@
 
 @protocol TMRenderable
 
-- (void) render:(float) fDelta;
+- (void)render:(float)fDelta;
 
 @end

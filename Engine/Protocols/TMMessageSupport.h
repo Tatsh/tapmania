@@ -9,5 +9,5 @@
 @class TMMessage;
 
 @protocol TMMessageSupport
-- (void) handleMessage:(TMMessage*)message;
+- (void)handleMessage:(TMMessage *)message;
 @end

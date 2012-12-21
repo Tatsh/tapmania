@@ -9,6 +9,6 @@
 
 @protocol TMLogicUpdater
 
-- (void) update:(float) fDelta;
+- (void)update:(float)fDelta;
 
 @end

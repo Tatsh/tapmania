@@ -16,10 +16,11 @@
 /*
  * This class represents a mine.
  */
-@interface TapMine : TMAnimatable {
+@interface TapMine : TMAnimatable
+{
 }
 
-- (void) drawTapMineInRect:(CGRect)rect;
+- (void)drawTapMineInRect:(CGRect)rect;
 
 @end
 

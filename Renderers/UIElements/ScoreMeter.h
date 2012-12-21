@@ -14,24 +14,26 @@
 @class TMSteps;
 @class FontString, Texture2D;
 
-@interface ScoreMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport> {
-	int				m_nCurrentScore;
-	int				m_nTotalSteps;
-	int				m_nTapNotesHit;
-	int				m_nDifficulty;
-	int				m_nMaxPossiblePoints;
-	int				m_nRoundTo;
-	int				m_nScoreRemainder;
-	
-	FontString*		m_pScoreStr;
-	Texture2D*		m_pScoreFrame;
-	
-	// Metrics and such
-	CGPoint			mt_ScoreFramePosition;
-	CGPoint			mt_ScoreTextLeftPosition;
+@interface ScoreMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport>
+{
+    int m_nCurrentScore;
+    int m_nTotalSteps;
+    int m_nTapNotesHit;
+    int m_nDifficulty;
+    int m_nMaxPossiblePoints;
+    int m_nRoundTo;
+    int m_nScoreRemainder;
+
+    FontString *m_pScoreStr;
+    Texture2D *m_pScoreFrame;
+
+    // Metrics and such
+    CGPoint mt_ScoreFramePosition;
+    CGPoint mt_ScoreTextLeftPosition;
 }
 
--(id) initWithMetrics:(NSString*)metricsKey forSteps:(TMSteps*)steps;
--(long) getScore;
+- (id)initWithMetrics:(NSString *)metricsKey forSteps:(TMSteps *)steps;
+
+- (long)getScore;
 
 @end

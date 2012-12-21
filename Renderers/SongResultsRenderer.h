@@ -14,44 +14,46 @@
 @class TMSteps, TMSong, FontString, TMFramedTexture;
 
 
-typedef enum {
-	kGradeAAAA = 0,
-	kGradeAAA,
-	kGradeAA,
-	kGradeA,
-	kGradeB,
-	kGradeC,
-	kGradeD,
-	kGradeE,
-	kNumOfGrades
+typedef enum
+{
+    kGradeAAAA = 0,
+    kGradeAAA,
+    kGradeAA,
+    kGradeA,
+    kGradeB,
+    kGradeC,
+    kGradeD,
+    kGradeE,
+    kNumOfGrades
 } TMGrade;
 
 
-@interface SongResultsRenderer : TMScreen {	
-	int						m_nCounters[kNumJudgementValues];
-	int						m_nOkNgCounters[kNumHoldScores];
-	
-	BOOL					m_bReturnToSongSelection;
+@interface SongResultsRenderer : TMScreen
+{
+    int m_nCounters[kNumJudgementValues];
+    int m_nOkNgCounters[kNumHoldScores];
 
-	FontString*				m_pJudgeScores[kNumJudgementValues];
-	FontString*				m_pScore;
-	FontString*				m_pMaxCombo;
-	
-	TMGrade					m_Grade;
-	
-	// Metrics and cache
-	CGPoint					mt_JudgeLabels[kNumJudgementValues];
-	CGPoint					mt_JudgeScores[kNumJudgementValues];
-	
-	CGPoint					mt_MaxCombo, mt_MaxComboLabel;
-	CGPoint					mt_Score;
-	CGPoint					mt_Grade;
-	CGRect					mt_Banner;
-	
-	Texture2D*				t_overlay;
-	TMFramedTexture*		t_JudgeLabels;
-	TMFramedTexture*		t_Grades;
-	Texture2D*				t_Banner;
+    BOOL m_bReturnToSongSelection;
+
+    FontString *m_pJudgeScores[kNumJudgementValues];
+    FontString *m_pScore;
+    FontString *m_pMaxCombo;
+
+    TMGrade m_Grade;
+
+    // Metrics and cache
+    CGPoint mt_JudgeLabels[kNumJudgementValues];
+    CGPoint mt_JudgeScores[kNumJudgementValues];
+
+    CGPoint mt_MaxCombo, mt_MaxComboLabel;
+    CGPoint mt_Score;
+    CGPoint mt_Grade;
+    CGRect mt_Banner;
+
+    Texture2D *t_overlay;
+    TMFramedTexture *t_JudgeLabels;
+    TMFramedTexture *t_Grades;
+    Texture2D *t_Banner;
 }
 
 @end

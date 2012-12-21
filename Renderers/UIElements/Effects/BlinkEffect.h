@@ -9,18 +9,20 @@
 
 #import "BasicEffect.h"
 
-typedef enum {
-	kBlinkOff=0,
-	kBlinkWaiting,
-	kBlinkOn
+typedef enum
+{
+    kBlinkOff = 0,
+    kBlinkWaiting,
+    kBlinkOn
 } TMBlinkEffectState;
 
-#define		kBlinkOnTime	0.1
-#define		kBlinkWaitTime	0.9
+#define        kBlinkOnTime    0.1
+#define        kBlinkWaitTime    0.9
 
-@interface BlinkEffect : BasicEffect {
-	float	m_fBlinkTime;	// Time since last blink
-	TMBlinkEffectState	m_nState;
+@interface BlinkEffect : BasicEffect
+{
+    float m_fBlinkTime;    // Time since last blink
+    TMBlinkEffectState m_nState;
 }
 
 @end

@@ -9,9 +9,9 @@
 @protocol TMSoundSupport
 
 // This is sent when playback starts on the corresponding queue
-- (void) playBackStartedNotification;
+- (void)playBackStartedNotification;
 
 // This is sent when the currently playing queue is finished
-- (void) playBackFinishedNotification;
+- (void)playBackFinishedNotification;
 
 @end

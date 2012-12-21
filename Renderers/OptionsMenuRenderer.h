@@ -11,8 +11,9 @@
 
 @class TogglerItem;
 
-@interface OptionsMenuRenderer : TMScreen {
-	TogglerItem*		m_pThemeToggler, *m_pNoteSkinToggler;
+@interface OptionsMenuRenderer : TMScreen
+{
+    TogglerItem *m_pThemeToggler, *m_pNoteSkinToggler;
 }
 
 @end

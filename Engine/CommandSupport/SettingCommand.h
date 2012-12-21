@@ -8,7 +8,9 @@
 //
 
 #import "TMCommand.h"
-@interface SettingCommand : TMCommand {
+
+@interface SettingCommand : TMCommand
+{
 }
 
 @end

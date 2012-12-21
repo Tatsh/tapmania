@@ -11,148 +11,175 @@
 
 @implementation TMUserConfig
 
-- (id) init {
-	self = [super init];
-	if(!self)
-		return nil;
-		
-	m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin", 
-						[NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:1.0f], @"effectssound",
-						[NSNumber numberWithBool:NO], @"autotrack", 
-						[NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
-						@"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
-            [NSNumber numberWithFloat:1.0], @"speedmod",
-						[NSNumber numberWithInt:0], @"receptor_mods", [NSNumber numberWithInt:0], @"note_mods",
-						[NSNumber numberWithInt:(int)kSongDifficulty_Beginner], @"prefdiff",
-						[NSNumber numberWithBool:NO], @"landscape", nil];
-	
-	return self;
+- (id)init
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin",
+                                                                        [NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:1.0f], @"effectssound",
+                                                                        [NSNumber numberWithBool:NO], @"autotrack",
+                                                                        [NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
+                                                                        @"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
+                                                                        [NSNumber numberWithFloat:1.0], @"speedmod",
+                                                                        [NSNumber numberWithInt:0], @"receptor_mods", [NSNumber numberWithInt:0], @"note_mods",
+                                                                        [NSNumber numberWithInt:(int) kSongDifficulty_Beginner], @"prefdiff",
+                                                                        [NSNumber numberWithBool:NO], @"landscape", nil];
+
+    return self;
 }
 
-- (id) initWithContentsOfFile:(NSString*)configPath {
-	self = [super init];
-	if(!self)
-		return nil;
-	
-	m_pConfigDict = [[NSMutableDictionary alloc] initWithContentsOfFile:configPath];
-	
-	return self;	
+- (id)initWithContentsOfFile:(NSString *)configPath
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    m_pConfigDict = [[NSMutableDictionary alloc] initWithContentsOfFile:configPath];
+
+    return self;
 }
 
-- (int) check {
-	int errCount = 0;
-	
-	if(! [m_pConfigDict valueForKey:@"theme"]) {
-		[m_pConfigDict setObject:@"default" forKey:@"theme"];
-		++errCount;
-	}
-	
-	if(! [m_pConfigDict valueForKey:@"noteskin"]) {
-		[m_pConfigDict setObject:@"default" forKey:@"noteskin"];
-		++errCount;
-	}
-	
-	if(! [m_pConfigDict valueForKey:@"sound"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
-		++errCount;
-	}
+- (int)check
+{
+    int errCount = 0;
 
-	if(! [m_pConfigDict valueForKey:@"effectssound"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"effectssound"];
-		++errCount;
-	}	
-	
-	if(! [m_pConfigDict valueForKey:@"autotrack"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"autotrack"];
-		++errCount;
-	}
+    if (![m_pConfigDict valueForKey:@"theme"])
+    {
+        [m_pConfigDict setObject:@"default" forKey:@"theme"];
+        ++errCount;
+    }
 
-	if(! [m_pConfigDict valueForKey:@"vispad"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithBool:YES] forKey:@"vispad"];
-		++errCount;
-	}
+    if (![m_pConfigDict valueForKey:@"noteskin"])
+    {
+        [m_pConfigDict setObject:@"default" forKey:@"noteskin"];
+        ++errCount;
+    }
 
-	if(! [m_pConfigDict valueForKey:@"lastsong"]) {
-		[m_pConfigDict setObject:@"NONEXISTINGSONG" forKey:@"lastsong"];
-		++errCount;
-	}
-	
-	if(! [m_pConfigDict valueForKey:@"newsversion"]) {
-		[m_pConfigDict setObject:@"NONEXISTING" forKey:@"newsversion"];
-		++errCount;
-	}
-		
-	if(! [m_pConfigDict valueForKey:@"prefdiff"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithInt:(int)kSongDifficulty_Beginner] forKey:@"prefdiff"];
-		++errCount;
-	}
-	
-	if(! [m_pConfigDict valueForKey:@"receptor_mods"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"receptor_mods"];
-		++errCount;
-	}
-	
-	if(! [m_pConfigDict valueForKey:@"note_mods"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"note_mods"];
-		++errCount;
-	}	
+    if (![m_pConfigDict valueForKey:@"sound"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
+        ++errCount;
+    }
 
-	if(! [m_pConfigDict valueForKey:@"prefspeed"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithInt:2] forKey:@"prefspeed"];
-		++errCount;
-	}
-    
-    if(! [m_pConfigDict valueForKey:@"speedmod"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"speedmod"];
-		++errCount;
-	}
-    
-	if(! [m_pConfigDict valueForKey:@"landscape"]) {
-		[m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"landscape"];
-		++errCount;
-	}
-	
-	return errCount;
+    if (![m_pConfigDict valueForKey:@"effectssound"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"effectssound"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"autotrack"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"autotrack"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"vispad"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithBool:YES] forKey:@"vispad"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"lastsong"])
+    {
+        [m_pConfigDict setObject:@"NONEXISTINGSONG" forKey:@"lastsong"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"newsversion"])
+    {
+        [m_pConfigDict setObject:@"NONEXISTING" forKey:@"newsversion"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"prefdiff"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithInt:(int) kSongDifficulty_Beginner] forKey:@"prefdiff"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"receptor_mods"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"receptor_mods"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"note_mods"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"note_mods"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"prefspeed"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithInt:2] forKey:@"prefspeed"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"speedmod"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"speedmod"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"landscape"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"landscape"];
+        ++errCount;
+    }
+
+    return errCount;
 }
 
-- (void) forwardInvocation:(NSInvocation *)invocation {
+- (void)forwardInvocation:(NSInvocation *)invocation
+{
     SEL aSelector = [invocation selector];
-	
-    if ([m_pConfigDict respondsToSelector:aSelector]) {		
+
+    if ([m_pConfigDict respondsToSelector:aSelector])
+    {
         [invocation invokeWithTarget:m_pConfigDict];
-	} else {
+    } else
+    {
         [self doesNotRecognizeSelector:aSelector];
-	}
+    }
 }
 
-- (BOOL) respondsToSelector:(SEL) aSelector {
-	if([super respondsToSelector:aSelector]) {
-		return YES;
-	}
-	
-	if([m_pConfigDict respondsToSelector:aSelector]) {
-		return YES;
-	}
-	
-	return NO;
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+    if ([super respondsToSelector:aSelector])
+    {
+        return YES;
+    }
+
+    if ([m_pConfigDict respondsToSelector:aSelector])
+    {
+        return YES;
+    }
+
+    return NO;
 }
 
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-	NSMethodSignature* sig = [super methodSignatureForSelector:aSelector];
-	
-	if(!sig) {
-		sig = [m_pConfigDict methodSignatureForSelector:aSelector];
-	}
-	
-	return sig;
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    NSMethodSignature *sig = [super methodSignatureForSelector:aSelector];
+
+    if (!sig)
+    {
+        sig = [m_pConfigDict methodSignatureForSelector:aSelector];
+    }
+
+    return sig;
 }
 
-- (void)setObject:(id)obj forKey:(id)key {
-	[m_pConfigDict setObject:obj forKey:key];
+- (void)setObject:(id)obj forKey:(id)key
+{
+    [m_pConfigDict setObject:obj forKey:key];
 }
 
-- (NSObject*)valueForKey:(NSString*)key {
-	return [m_pConfigDict valueForKey:key];
+- (NSObject *)valueForKey:(NSString *)key
+{
+    return [m_pConfigDict valueForKey:key];
 }
 
 @end

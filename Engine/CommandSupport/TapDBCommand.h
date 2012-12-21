@@ -9,7 +9,8 @@
 
 #import "TMCommand.h"
 
-@interface TapDBCommand : TMCommand {
+@interface TapDBCommand : TMCommand
+{
 }
 
 @end

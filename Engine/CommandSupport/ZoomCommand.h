@@ -9,13 +9,14 @@
 
 #import "TMCommand.h"
 
-@interface ZoomCommand : TMCommand {
-	float	m_fElapsedTime;
-	float	m_fZoomTime;		// Effect time in seconds
-	
-	float	m_fCurrentRatio;	// Zoom progress
-	float	m_fRatio;			// The requested ratio
-	CGRect	m_OriginalShape;	// Save the original size of the object
+@interface ZoomCommand : TMCommand
+{
+    float m_fElapsedTime;
+    float m_fZoomTime;        // Effect time in seconds
+
+    float m_fCurrentRatio;    // Zoom progress
+    float m_fRatio;            // The requested ratio
+    CGRect m_OriginalShape;    // Save the original size of the object
 }
 
 @end

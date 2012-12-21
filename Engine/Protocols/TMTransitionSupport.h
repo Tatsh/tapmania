@@ -6,14 +6,16 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
-@protocol TMTransitionSupport 
+@protocol TMTransitionSupport
 
 @required
-- (void) setupForTransition;
-- (void) deinitOnTransition;
+- (void)setupForTransition;
+
+- (void)deinitOnTransition;
 
 @optional
-- (void) beforeTransition;
-- (void) afterTransition;
+- (void)beforeTransition;
+
+- (void)afterTransition;
 
 @end

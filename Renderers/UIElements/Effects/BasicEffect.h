@@ -13,13 +13,14 @@
 #import "TMEffectSupport.h"
 #import "TMGameUIResponder.h"
 
-@interface BasicEffect : NSObject <TMRenderable, TMLogicUpdater, TMEffectSupport, TMGameUIResponder> {
-	id	m_idDecoratedObject;	// The object to decorate
-	
-	CGRect	m_rShape;			// We maintain our own shape
-	CGRect	m_rOriginalShape;	// And save the original as well
+@interface BasicEffect : NSObject <TMRenderable, TMLogicUpdater, TMEffectSupport, TMGameUIResponder>
+{
+    id m_idDecoratedObject;    // The object to decorate
+
+    CGRect m_rShape;            // We maintain our own shape
+    CGRect m_rOriginalShape;    // And save the original as well
 }
 
-- (id) initWithRenderable:(id)renderable;
+- (id)initWithRenderable:(id)renderable;
 
 @end

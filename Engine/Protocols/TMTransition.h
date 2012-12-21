@@ -9,10 +9,12 @@
 
 @protocol TMTransition
 
-- (void) transitionInStarted;
-- (void) transitionOutStarted;
+- (void)transitionInStarted;
 
-- (void) transitionInFinished;
-- (void) transitionOutFinished;
+- (void)transitionOutStarted;
+
+- (void)transitionInFinished;
+
+- (void)transitionOutFinished;
 
 @end

@@ -14,18 +14,26 @@
 
 @class TMSong, TMChangeSegment;
 
-@interface TimingUtil : NSObject {
+@interface TimingUtil : NSObject
+{
 }
 
-+ (double) getCurrentTime;
-+ (double) getTimeInBeatForBPS:(float) bps;
-+ (float) getBpsAtBeat:(float) beat inSong:(TMSong*) song;
-+ (float) getElapsedTimeFromBeat:(float) beat inSong:(TMSong*) song;
-+ (int) getNextBpmChangeFromBeat:(float) beat inSong:(TMSong*) song;
-+ (void) getBeatAndBPSFromElapsedTime:(double) elapsedTime beatOut:(float*)beatOut bpsOut:(float*)bpsOut freezeOut:(BOOL*)freezeOut inSong:(TMSong*) song;
-+ (float) getPixelsPerNoteRowForBPS:(float) bps andSpeedMod:(float) sMod;
++ (double)getCurrentTime;
 
-+ (TMJudgement) getJudgementByDelta:(float)delta;
-+ (float) getLifebarChangeByNoteScore:(TMJudgement)noteScore;
++ (double)getTimeInBeatForBPS:(float)bps;
+
++ (float)getBpsAtBeat:(float)beat inSong:(TMSong *)song;
+
++ (float)getElapsedTimeFromBeat:(float)beat inSong:(TMSong *)song;
+
++ (int)getNextBpmChangeFromBeat:(float)beat inSong:(TMSong *)song;
+
++ (void)getBeatAndBPSFromElapsedTime:(double)elapsedTime beatOut:(float *)beatOut bpsOut:(float *)bpsOut freezeOut:(BOOL *)freezeOut inSong:(TMSong *)song;
+
++ (float)getPixelsPerNoteRowForBPS:(float)bps andSpeedMod:(float)sMod;
+
++ (TMJudgement)getJudgementByDelta:(float)delta;
+
++ (float)getLifebarChangeByNoteScore:(TMJudgement)noteScore;
 
 @end

@@ -14,12 +14,13 @@
  * This class represents every tap hold body on screen.
  * The body of the hold is drawn using this class
  */
-@interface HoldNote : TapNote {
-	/* Metrics and such */
-	CGSize mt_HoldBody;
+@interface HoldNote : TapNote
+{
+    /* Metrics and such */
+    CGSize mt_HoldBody;
 }
 
 // Drawing routines
-- (void) drawBodyPieceWithSize:(CGFloat)size atPoint:(CGPoint)point;
+- (void)drawBodyPieceWithSize:(CGFloat)size atPoint:(CGPoint)point;
 
 @end

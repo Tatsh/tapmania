@@ -10,7 +10,8 @@
 #import <Foundation/Foundation.h>
 #import "TMSound.h"
 
-@interface TMLoopedSound : TMSound {
+@interface TMLoopedSound : TMSound
+{
 
 }
 
