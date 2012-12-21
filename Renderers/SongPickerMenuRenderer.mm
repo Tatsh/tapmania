@@ -37,6 +37,7 @@
 #import "GameState.h"
 
 #import "GLUtil.h"
+#import "SongPickerMenuItem.h"
 
 extern TMGameState *g_pGameState;
 
@@ -64,14 +65,14 @@ extern TMGameState *g_pGameState;
 
     // Cache metrics
     mt_ItemSong = RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
-    mt_ItemSongHalfHeight = mt_ItemSong.size.height / 2;
+    mt_ItemSongHalfHeight = (int) (mt_ItemSong.size.height / 2);
 
     mt_HighlightCenter = RECT_METRIC(@"SongPickerMenu Wheel Highlight");
     mt_Highlight.size = mt_HighlightCenter.size;
 
     mt_Highlight.origin.x = mt_HighlightCenter.origin.x - mt_Highlight.size.width / 2;
     mt_Highlight.origin.y = mt_HighlightCenter.origin.y - mt_Highlight.size.height / 2;
-    mt_HighlightHalfHeight = mt_Highlight.size.height / 2;
+    mt_HighlightHalfHeight = (int) (mt_Highlight.size.height / 2);
 
     // Cache graphics
     t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
@@ -93,8 +94,8 @@ extern TMGameState *g_pGameState;
 
     // Difficulty toggler
     m_pDifficultyToggler = [[TogglerItem alloc] initWithMetrics:@"SongPickerMenu DifficultyTogglerCustom"];
-    [(TogglerItem *) m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
-    [(TogglerItem *) m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
+    [m_pDifficultyToggler addItem:[NSNumber numberWithInt:0] withTitle:@"No data"];
+    [m_pDifficultyToggler setActionHandler:@selector(difficultyChanged) receiver:self];
     [self pushBackControl:m_pDifficultyToggler];
 
     // Back button action
@@ -133,7 +134,7 @@ extern TMGameState *g_pGameState;
     // Drop the texture bind cache as we are going to switch contexts
     TMBindTexture(0);
 
-    [(TogglerItem *) m_pDifficultyToggler removeAll];
+    [m_pDifficultyToggler removeAll];
 
     SongPickerMenuItem *selected = (SongPickerMenuItem *) [[m_pSongWheel getSelected] retain];
     TMSong *song = [selected song];
@@ -152,7 +153,7 @@ extern TMGameState *g_pGameState;
             NSString *title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:(TMSongDifficulty) dif], [song getDifficultyLevel:(TMSongDifficulty) dif]];
 
             TMLog(@"Add dif %d to toggler as [%@]", dif, title);
-            [(TogglerItem *) m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
+            [m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
 
             if (dif == prefDiff || abs(prefDiff - dif) < abs(prefDiff - closestDiffAvailable))
             {
@@ -163,13 +164,15 @@ extern TMGameState *g_pGameState;
     }
 
     // Set the diff to closest found
-    [(TogglerItem *) m_pDifficultyToggler selectItemAtIndex:[(TogglerItem *) m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
+    [m_pDifficultyToggler selectItemAtIndex:[m_pDifficultyToggler findIndexByValue:[NSNumber numberWithInt:closestDiffAvailable]]];
     g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) closestDiffAvailable;
     [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) closestDiffAvailable];
 
     // Stop current previewMusic if any
     if (m_pPreviewMusic)
     {
+        // TODO: we need to remove it from the queue as well.
+        // TODO: but that gives some framerate glitch so need to investigate.
         [[TMSoundEngine sharedInstance] stopMusic];
         [m_pPreviewMusic release];
     }
@@ -199,7 +202,7 @@ extern TMGameState *g_pGameState;
     // Play select sound effect
     [[TMSoundEngine sharedInstance] playEffect:sr_SelectSong];
 
-    SongPickerMenuItem *selected = (SongPickerMenuItem *) [m_pSongWheel getSelected];
+    SongPickerMenuItem *selected = [m_pSongWheel getSelected];
     TMSong *song = [selected song];
 
     // Assign difficulty
@@ -239,7 +242,7 @@ extern TMGameState *g_pGameState;
 /* Support last difficulty setting saving */
 - (void)difficultyChanged
 {
-    int curDiff = [(NSNumber *) [(TogglerItem *) m_pDifficultyToggler getCurrent].m_pValue intValue];
+    int curDiff = [(NSNumber *) [m_pDifficultyToggler getCurrent].m_pValue intValue];
     TMLog(@"Changed difficulty. save. [%d => %@]", curDiff, [TMSong difficultyToString:(TMSongDifficulty) curDiff]);
 
     [[SettingsEngine sharedInstance] setIntValue:curDiff forKey:@"prefdiff"];
@@ -256,6 +259,12 @@ extern TMGameState *g_pGameState;
     {
         [[TMSoundEngine sharedInstance] stopMusic];
     }
+}
+
+- (void)dealloc
+{
+    [m_pPreviewMusic release];
+    [super dealloc];
 }
 
 @end
