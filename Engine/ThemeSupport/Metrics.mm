@@ -20,7 +20,7 @@
 {
     self = [super init];
 
-    self.impl_ = [[NSMutableDictionary alloc] initWithContentsOfFile:fp];
+    self.impl_ = [[[NSMutableDictionary alloc] initWithContentsOfFile:fp] autorelease];
 
     return self;
 }
@@ -44,12 +44,8 @@
     {
         NSObject *o = [to objectForKey:k];
 
-        TMLog(@"--- Got key '%@'", [k description]);
-
         if ([o isKindOfClass:NSDictionary.class])
         {
-            TMLog(@"--- is a Dictionary...");
-
             NSObject *ofk = [from objectForKey:k];
             if (ofk != nil)
             {
@@ -62,8 +58,6 @@
         }
         else
         {
-            TMLog(@"--- Another class: %@", o.class);
-
             NSObject *ofk = [from objectForKey:k];
             if (ofk != nil)
             {

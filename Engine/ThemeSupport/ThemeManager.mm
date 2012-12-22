@@ -132,7 +132,7 @@ extern TMGameState *g_pGameState;
 
         NSString *filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
         NSString *dpFilePath = [themesDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
-                                                                  m_sCurrentThemeName, [DisplayUtil getDeviceDisplayString]];
+            m_sCurrentThemeName, [DisplayUtil getDeviceDisplayString]];
 
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])
@@ -147,13 +147,23 @@ extern TMGameState *g_pGameState;
 
             TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 
+            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+            {
+                TMLog(@"iPhone5 detected. First override everything with iPhoneRetina version and then apply iPhone5 if found.");
+                NSString *dpRetinaFilePath = [themesDir stringByAppendingFormat:@"/%@/iPhoneRetina_Metrics.plist", m_sCurrentThemeName];
+
+                if ([[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath])
+                {
+                    TMLog(@"iPhoneRetina version found. Override with it first and then try to apply iPhone5.");
+                    [m_pCurrentThemeMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpRetinaFilePath] autorelease]];
+                }
+            }
+
             if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
             {
                 TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
-
                 [m_pCurrentThemeMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
             }
-
         } else
         {
             TMLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
@@ -182,15 +192,26 @@ extern TMGameState *g_pGameState;
         NSString *skinPath = [noteskinsDir stringByAppendingPathComponent:skinName];
         NSString *filePath = [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentNoteskinName];
         NSString *dpFilePath = [noteskinsDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
-                                                                     m_sCurrentNoteskinName, [DisplayUtil getDeviceDisplayString]];
+            m_sCurrentNoteskinName, [DisplayUtil getDeviceDisplayString]];
 
         m_pCurrentNoteSkinMetrics = [[Metrics alloc] initWithContentsOfFile:filePath];
         m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
 
+        if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+        {
+            TMLog(@"iPhone5 detected. First override everything with iPhoneRetina version and then apply iPhone5 if found.");
+            NSString *dpRetinaFilePath = [noteskinsDir stringByAppendingFormat:@"/%@/iPhoneRetina_Metrics.plist", m_sCurrentNoteskinName];
+
+            if ([[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath])
+            {
+                TMLog(@"iPhoneRetina version found. Override with it first and then try to apply iPhone5.");
+                [m_pCurrentNoteSkinMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpRetinaFilePath] autorelease]];
+            }
+        }
+
         if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
         {
             TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
-
             [m_pCurrentNoteSkinMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
         }
     } else

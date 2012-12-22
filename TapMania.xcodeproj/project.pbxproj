@@ -312,6 +312,8 @@
 		24DDE02F16696F1C00E8CD8C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DDE02E16696F1C00E8CD8C /* AdSupport.framework */; };
 		24DE38C716657C72000A438A /* DisplayUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE38C616657C72000A438A /* DisplayUtil.m */; };
 		24F265D31230589C0024857A /* DialogCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F265D21230589C0024857A /* DialogCommand.mm */; };
+		F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B213EF30E39B8D26F6EDA /* Default@2x.png */; };
+		F44B2FC47227F6F63FC883B6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -883,6 +885,8 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4433E8411CAEC9C005AC29A /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		F4433E8511CAEC9C005AC29A /* Sprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sprite.mm; sourceTree = "<group>"; };
+		F44B213EF30E39B8D26F6EDA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1893,6 +1897,8 @@
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
+				F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */,
+				F44B213EF30E39B8D26F6EDA /* Default@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2179,6 +2185,8 @@
 				246B985112CB8D0E00A33B7E /* noteskins in Resources */,
 				24DDDF8C16694FFD00E8CD8C /* Default.png in Resources */,
 				24DDDFF916696C9800E8CD8C /* AdWhirlWebBrowser.xib in Resources */,
+				F44B2FC47227F6F63FC883B6 /* Default-568h@2x.png in Resources */,
+				F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

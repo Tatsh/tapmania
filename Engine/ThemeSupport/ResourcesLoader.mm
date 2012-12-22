@@ -181,7 +181,7 @@
 
                         // Check if there is a resolution-perfect version first
                         NSString *dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
-                                                                          [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                            [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
                         // Remove the xml suffix
                         itemName = [itemName substringToIndex:[itemName length] - 4]; // 4 is '.xml' length
@@ -192,7 +192,27 @@
                         }
                         else
                         {
-                            [[FontManager sharedInstance] loadFont:curPath andName:itemName];
+                            // If this is an iPhone5 we want to load an iPhoneRetina version if iPhone5 is not available
+                            // and only if iPhoneRetina is also not available - load the default.
+                            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+                            {
+                                TMLog(@"iPhone5 resolution-perfect resource is not found. Try iPhoneRetina before going Default.");
+                                dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
+                                    [curPath stringByDeletingLastPathComponent], itemName];
+
+                                if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                {
+                                    [[FontManager sharedInstance] loadFont:dpFilePath andName:itemName];
+                                }
+                                else
+                                {
+                                    [[FontManager sharedInstance] loadFont:curPath andName:itemName];
+                                }
+                            }
+                            else
+                            {
+                                [[FontManager sharedInstance] loadFont:curPath andName:itemName];
+                            }
                         }
 
                         continue;
@@ -203,7 +223,7 @@
 
                         // Check if there is a resolution-perfect version first
                         NSString *dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
-                                                                          [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                            [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
                         // Remove the xml suffix
                         itemName = [itemName substringToIndex:[itemName length] - 6]; // 6 is '.redir' length
