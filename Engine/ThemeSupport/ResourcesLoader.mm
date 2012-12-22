@@ -202,6 +202,7 @@
 
                                 if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
                                 {
+                                    TMLog(@"Ok found iPhoneRetina as a fallback for iPhone5");
                                     [[FontManager sharedInstance] loadFont:dpFilePath andName:itemName];
                                 }
                                 else
@@ -234,7 +235,28 @@
                         }
                         else
                         {
-                            contents = [[NSFileManager defaultManager] contentsAtPath:curPath];
+                            // If this is an iPhone5 we want to load an iPhoneRetina version if iPhone5 is not available
+                            // and only if iPhoneRetina is also not available - load the default.
+                            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+                            {
+                                TMLog(@"iPhone5 resolution-perfect redirect is not found. Try iPhoneRetina before going Default.");
+                                dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
+                                    [curPath stringByDeletingLastPathComponent], itemName];
+
+                                if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                {
+                                    TMLog(@"Ok found iPhoneRetina as a fallback for iPhone5");
+                                    contents = [[NSFileManager defaultManager] contentsAtPath:dpFilePath];
+                                }
+                                else
+                                {
+                                    contents = [[NSFileManager defaultManager] contentsAtPath:curPath];
+                                }
+                            }
+                            else
+                            {
+                                contents = [[NSFileManager defaultManager] contentsAtPath:curPath];
+                            }
                         }
 
                         NSString *contentsString = [[[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding] autorelease];

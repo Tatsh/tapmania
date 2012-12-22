@@ -210,6 +210,24 @@ extern TMGameState *g_pGameState;
         // just fake the path
         m_sFileSystemPath = [p retain];
     }
+    else
+    {
+        if ([disp isEqualToString:@"iPhone5"])
+        {
+            TMLog(@"[?] Resolution-perfect version not found for iPhone5 but maybe it will be found for iPhoneRetina?");
+            NSString *disp = @"iPhoneRetina";
+
+            TMLog(@"CHECK PATH %@", [NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext]);
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext]])
+            {
+                NSString *p = [NSString stringWithFormat:@"%@/%@/%@.%@", pathToHoldingDir, disp, componentName, ext];
+                TMLog(@"[+] iPhoneRetina resolution-perfect version found at '%@'", p);
+
+                // just fake the path
+                m_sFileSystemPath = [p retain];
+            }
+        }
+    }
 
     // Now load it directly if loadOnStartup is set
     if (m_bIsSystem)
