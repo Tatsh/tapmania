@@ -13,6 +13,7 @@
 #define CFG_STR(key)    [[SettingsEngine sharedInstance] getStringValue:key]
 #define CFG_INT(key)    [[SettingsEngine sharedInstance] getIntValue:key]
 #define CFG_FLOAT(key)    [[SettingsEngine sharedInstance] getFloatValue:key]
+#define CFG_DOUBLE(key)    [[SettingsEngine sharedInstance] getDoubleValue:key]
 
 @class TMUserConfig;
 #define kUserConfigFile @"TapManiaConfig.plist"
@@ -36,6 +37,8 @@
 
 - (float)getFloatValue:(NSString *)key;
 
+- (double)getDoubleValue:(NSString *)key;
+
 - (BOOL)getBoolValue:(NSString *)key;
 
 - (NSObject *)getObjectValue:(NSString *)key;
@@ -43,6 +46,8 @@
 - (void)setStringValue:(NSString *)value forKey:(NSString *)key;
 
 - (void)setFloatValue:(float)value forKey:(NSString *)key;
+
+- (void)setDoubleValue:(double)value forKey:(NSString *)key;
 
 - (void)setIntValue:(int)value forKey:(NSString *)key;
 

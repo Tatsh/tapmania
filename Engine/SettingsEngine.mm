@@ -117,6 +117,17 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
     return 0.0f;
 }
 
+
+- (double)getDoubleValue:(NSString *)key
+{
+    if ([m_pUserConfig valueForKey:key] != nil)
+    {
+        return [(NSNumber *) [m_pUserConfig valueForKey:key] doubleValue];
+    }
+
+    return 0.0;
+}
+
 - (BOOL)getBoolValue:(NSString *)key
 {
     if ([m_pUserConfig valueForKey:key] != nil)
@@ -167,6 +178,12 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
 - (void)setFloatValue:(float)value forKey:(NSString *)key
 {
     [m_pUserConfig setObject:[NSNumber numberWithFloat:value] forKey:key];
+    [self writeUserConfig];
+}
+
+- (void)setDoubleValue:(double)value forKey:(NSString *)key
+{
+    [m_pUserConfig setObject:[NSNumber numberWithDouble:value] forKey:key];
     [self writeUserConfig];
 }
 

@@ -23,6 +23,7 @@
                                                                         [NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
                                                                         @"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
                                                                         [NSNumber numberWithFloat:1.0], @"speedmod",
+                                                                        [NSNumber numberWithDouble:0.0], @"globalSyncOffset",
                                                                         [NSNumber numberWithInt:0], @"receptor_mods", [NSNumber numberWithInt:0], @"note_mods",
                                                                         [NSNumber numberWithInt:(int) kSongDifficulty_Beginner], @"prefdiff",
                                                                         [NSNumber numberWithBool:NO], @"landscape", nil];
@@ -120,6 +121,12 @@
     if (![m_pConfigDict valueForKey:@"speedmod"])
     {
         [m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"speedmod"];
+        ++errCount;
+    }
+
+    if (![m_pConfigDict valueForKey:@"globalSyncOffset"])
+    {
+        [m_pConfigDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"globalSyncOffset"];
         ++errCount;
     }
 

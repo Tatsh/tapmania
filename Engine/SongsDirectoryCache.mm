@@ -47,7 +47,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         return nil;
 
     m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
-    m_SongsDirs = [[NSMutableDictionary dictionaryWithCapacity:2] retain];
+    m_SongsDirs = [[NSMutableDictionary dictionaryWithCapacity:kNumSongsPaths] retain];
     m_bCatalogueIsEmpty = NO;
 
     // Get songs directory
@@ -76,6 +76,10 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     TMLog(@"Bundle Songs dir at: %@", bundleSongsDir);
     [m_SongsDirs setObject:bundleSongsDir forKey:[NSNumber numberWithInt:kBundleSongsPath]];
 
+    NSString *systemSongsDir = [[NSBundle mainBundle] pathForResource:@"SystemSongs" ofType:nil];
+    TMLog(@"System Songs dir at: %@", systemSongsDir);
+    [m_SongsDirs setObject:systemSongsDir forKey:[NSNumber numberWithInt:kSystemSongsPath]];
+
     // Try to read the catalogue file
     m_pCatalogueCacheOld = [[SongsDirectoryCache sharedInstance] getCatalogueCache];
     m_pCatalogueCacheNew = [[NSMutableDictionary alloc] initWithCapacity:[m_pCatalogueCacheOld count]];
@@ -91,13 +95,13 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     [m_aAvailableSongs removeAllObjects];    // Clear the list if we had filled it before
 
     NSMutableArray *baseDirs = [[NSMutableArray alloc] init];
+    [baseDirs addObject:[NSNumber numberWithInt:kSystemSongsPath]];
     [baseDirs addObject:[NSNumber numberWithInt:kBundleSongsPath]];
     [baseDirs addObject:[NSNumber numberWithInt:kUserSongsPath]];
 
     NSMutableArray *fullSongDirs = [[NSMutableArray alloc] init];
     for (int i = 0; i < [baseDirs count]; i++)
     {
-
         NSNumber *pId = [baseDirs objectAtIndex:i];
         TMLog(@"SongsDirPathId: %@", pId);
         NSString *baseDir = [self getSongsPath:(TMSongsPath) [pId intValue]];
@@ -377,9 +381,18 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
                 song.m_iSongsPath = pathId;
             }
 
+            // Set as sync song if it is system or add to list otherwise
+            if (pathId == kSystemSongsPath)
+            {
+                [self setSyncSong:song];
+            }
+            else
+            {
+                [m_aAvailableSongs addObject:song];
+            }
+
             // No matter where it comes from, cache or not, we need to save it to the new cache file
             [m_pCatalogueCacheNew setObject:song forKey:songDirName];
-            [m_aAvailableSongs addObject:song];
 
         } else
         {
@@ -392,8 +405,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             song.m_sHash = songHash;
             song.m_iSongsPath = pathId;
 
-            TMLog(@"Song ready to be added to list!!");
-            [m_aAvailableSongs addObject:song];
+            // Set as sync song if it is system or add to list otherwise
+            if (pathId == kSystemSongsPath)
+            {
+                [self setSyncSong:song];
+            }
+            else
+            {
+                TMLog(@"Song ready to be added to list!!");
+                [m_aAvailableSongs addObject:song];
+            }
 
             // Add to new cache file
             [m_pCatalogueCacheNew setObject:song forKey:songDirName];
@@ -495,6 +516,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             TMLog(@"Too bad. Failed to write catalogue...");
         }
     }
+}
+
+- (void)setSyncSong:(TMSong *)song
+{
+    m_pSyncSong = song;
+}
+
+- (TMSong *)getSyncSong
+{
+    return m_pSyncSong;
 }
 
 + (NSString *)fileMD5:(NSString *)path

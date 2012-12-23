@@ -37,11 +37,13 @@ typedef struct TapManiaGameState {
 	BOOL					m_bFailed;
 	BOOL					m_bGaveUp, m_bGivingUp;
 	BOOL					m_bMusicPlaybackStarted;
-	
-	BOOL					m_bLandscape;
-	
-	/* Score and combo results */
-	long					m_nScore;
-	int						m_nCombo;
-	
+
+    BOOL                    m_bIsGlobalSync;
+    BOOL					m_bLandscape;
+
+    /* Score and combo results */
+    long					m_nScore;
+    int						m_nCombo;
+
+    double                  m_dGlobalOffset;
 } TMGameState;

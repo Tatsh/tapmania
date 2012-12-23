@@ -18,6 +18,7 @@ typedef enum
     kInvalidSongsPath = 0,
     kBundleSongsPath,    // The path to bundled 'Songs' directory
     kUserSongsPath,        // The path to bundled 'Songs' directory
+    kSystemSongsPath,    // Path to bundled system songs directory
     kNumSongsPaths
 } TMSongsPath;
 
@@ -30,6 +31,8 @@ typedef enum
     NSMutableDictionary *m_pCatalogueCacheOld;
     NSMutableDictionary *m_pCatalogueCacheNew;
     BOOL m_bCatalogueIsEmpty;
+
+    TMSong* m_pSyncSong;
 
     id m_idDelegate;    // TMSongLoaderSupport delegate
 }
@@ -54,5 +57,7 @@ typedef enum
 - (void)addSongsFrom:(NSString *)rootDir;
 
 + (SongsDirectoryCache *)sharedInstance;
+
+- (TMSong *)getSyncSong;
 
 @end

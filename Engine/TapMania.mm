@@ -96,13 +96,14 @@ static TapMania *sharedTapManiaDelegate = nil;
     // Load up user configuration and cache
     [[SettingsEngine sharedInstance] loadUserConfig];
     g_pGameState = (TMGameState *) malloc(sizeof(TMGameState));
-    g_pGameState->m_bLandscape = [[SettingsEngine sharedInstance] getBoolValue:@"landscape"];
+    g_pGameState->m_bLandscape = CFG_BOOL(@"landscape");
 
     // Drop all mods to default.
     // Potentially we would like to restore them from the cache instead
     g_pGameState->m_bModHidden = g_pGameState->m_bModSudden = g_pGameState->m_bModStealth = NO;
     g_pGameState->m_bModDark = NO;
-    g_pGameState->m_dSpeedModValue = [[SettingsEngine sharedInstance] getFloatValue:@"speedmod"];
+    g_pGameState->m_dSpeedModValue = CFG_FLOAT(@"speedmod");
+    g_pGameState->m_dGlobalOffset = CFG_DOUBLE(@"globalSyncOffset");
 
     // Defaults
     m_pCurrentSong = nil;

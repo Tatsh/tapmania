@@ -111,16 +111,17 @@ extern TMGameState *g_pGameState;
         }
 
         if (noteRow <= 0)
-            return elapsedTime;
+            return elapsedTime - g_pGameState->m_dGlobalOffset;
     }
 
-    return elapsedTime;
+    return elapsedTime - g_pGameState->m_dGlobalOffset;
 }
 
 + (void)getBeatAndBPSFromElapsedTime:(double)elapsedTime beatOut:(float *)beatOut bpsOut:(float *)bpsOut freezeOut:(BOOL *)freezeOut inSong:(TMSong *)song
 {
 
     elapsedTime -= song.m_dGap;
+    elapsedTime += g_pGameState->m_dGlobalOffset;
 
     unsigned i;
     for (i = 0; i < [song getBpmChangeCount]; i++)

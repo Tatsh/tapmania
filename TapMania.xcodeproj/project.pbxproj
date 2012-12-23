@@ -312,6 +312,8 @@
 		24DDE02F16696F1C00E8CD8C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24DDE02E16696F1C00E8CD8C /* AdSupport.framework */; };
 		24DE38C716657C72000A438A /* DisplayUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE38C616657C72000A438A /* DisplayUtil.m */; };
 		24F265D31230589C0024857A /* DialogCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F265D21230589C0024857A /* DialogCommand.mm */; };
+		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
+		F44B293E85809CC89DA1A808 /* SystemSongs in Resources */ = {isa = PBXBuildFile; fileRef = F44B2D70FC6879AAEC0520EE /* SystemSongs */; };
 		F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B213EF30E39B8D26F6EDA /* Default@2x.png */; };
 		F44B2FC47227F6F63FC883B6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -887,6 +889,9 @@
 		F4433E8511CAEC9C005AC29A /* Sprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sprite.mm; sourceTree = "<group>"; };
 		F44B213EF30E39B8D26F6EDA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingSyncRenderer.mm; path = Renderers/TimingSyncRenderer.mm; sourceTree = "<group>"; };
+		F44B2C12A76D94B7443A8244 /* TimingSyncRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingSyncRenderer.h; path = Renderers/TimingSyncRenderer.h; sourceTree = "<group>"; };
+		F44B2D70FC6879AAEC0520EE /* SystemSongs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = SystemSongs; path = Data/SystemSongs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1238,6 +1243,8 @@
 				241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */,
 				24D6C18E1030DC5400C7216A /* NewsDialog.h */,
 				24D6C18F1030DC5400C7216A /* NewsDialog.mm */,
+				F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */,
+				F44B2C12A76D94B7443A8244 /* TimingSyncRenderer.h */,
 			);
 			name = Renderers;
 			sourceTree = "<group>";
@@ -1899,6 +1906,7 @@
 				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
 				F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */,
 				F44B213EF30E39B8D26F6EDA /* Default@2x.png */,
+				F44B2D70FC6879AAEC0520EE /* SystemSongs */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2187,6 +2195,7 @@
 				24DDDFF916696C9800E8CD8C /* AdWhirlWebBrowser.xib in Resources */,
 				F44B2FC47227F6F63FC883B6 /* Default-568h@2x.png in Resources */,
 				F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */,
+				F44B293E85809CC89DA1A808 /* SystemSongs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2352,6 +2361,7 @@
 				24661F5C167D508400387B94 /* SQLitePersistentObject.m in Sources */,
 				24661F5D167D508400387B94 /* UIColor-SQLitePersistentObject.m in Sources */,
 				24661F5E167D508400387B94 /* UIImage-SQLitePersistence.m in Sources */,
+				F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

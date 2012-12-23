@@ -46,6 +46,7 @@
 #import "TMMessage.h"
 
 #import "GameState.h"
+#import "OptionsMenuRenderer.h"
 //#import "FlurryAPI.h"
 
 #import <math.h>
@@ -290,7 +291,14 @@ extern TMGameState *g_pGameState;
         {
 
             // request transition
-            [[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+            if (g_pGameState->m_bIsGlobalSync)
+            {
+                [[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu"];
+            }
+            else
+            {
+                [[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+            }
             g_pGameState->m_bPlayingGame = NO;
         }
 
@@ -303,7 +311,14 @@ extern TMGameState *g_pGameState;
         {
 
             // request transition
-            [[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+            if (g_pGameState->m_bIsGlobalSync)
+            {
+                [[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu"];
+            }
+            else
+            {
+                [[TapMania sharedInstance] switchToScreen:[SongResultsRenderer class] withMetrics:@"SongResults"];
+            }
             g_pGameState->m_bPlayingGame = NO;
         }
 
