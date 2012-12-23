@@ -11,6 +11,7 @@
 
 #import "TMSong.h"
 #import "VersionInfo.h"
+#import "DisplayUtil.h"
 
 #include <CommonCrypto/CommonDigest.h>
 
@@ -302,6 +303,8 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     NSString *musicFilePath = nil;
     NSString *backgroundFilePath = nil;
 
+    NSString *deviceBgFile = [NSString stringWithFormat:@"-bg-%@.png", [DisplayUtil getDeviceDisplayString]];
+
     for (NSString *file in dirContents)
     {
         if ([[file lowercaseString] hasSuffix:@".dwi"])
@@ -337,9 +340,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
 		} 
 #endif // TM_OGG_ENABLE
-        else if ([[file lowercaseString] hasSuffix:@"-bg-iphone.png"])
+        else if ([[file lowercaseString] hasSuffix:deviceBgFile])
         {
-            TMLog(@"Found graphic file (PNG): %@", file);
+            TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
             backgroundFilePath = [curPath stringByAppendingPathComponent:file];
         }
     }
