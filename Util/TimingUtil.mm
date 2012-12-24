@@ -16,11 +16,9 @@
 #include <mach/mach_time.h>
 
 #import "GameState.h"
+#import "DisplayUtil.h"
 
 extern TMGameState *g_pGameState;
-
-// #define kFullScreenSize 380.0f
-#define kFullScreenSize 222.0f
 
 @implementation TimingUtil
 
@@ -206,7 +204,8 @@ extern TMGameState *g_pGameState;
 
 + (float)getPixelsPerNoteRowForBPS:(float)bps andSpeedMod:(float)sMod
 {
-    double tFullScreenTime = kFullScreenSize/ bps / 60.0f;
+    static double screenHeight = [DisplayUtil getDeviceDisplaySize].height;
+    double tFullScreenTime = screenHeight / bps / 60.0f;
 
     // Apply speedmod
     if (sMod > 0.0f)
@@ -216,7 +215,7 @@ extern TMGameState *g_pGameState;
 
     double tTimePerBeat = [TimingUtil getTimeInBeatForBPS:bps];
     float tNoteRowsOnScr = (tFullScreenTime / tTimePerBeat) * kRowsPerBeat;
-    float tPxDistBetweenRows = kFullScreenSize/ tNoteRowsOnScr;
+    float tPxDistBetweenRows = screenHeight / tNoteRowsOnScr;
 
     return tPxDistBetweenRows;
 }

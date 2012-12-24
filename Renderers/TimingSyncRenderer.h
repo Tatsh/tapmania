@@ -9,8 +9,14 @@
 
 #import "SongPlayRenderer.h"
 
+@class MenuItem;
+@class FontString;
+
 @interface TimingSyncRenderer : SongPlayRenderer
 {
+    MenuItem *m_pResetButton;
+    FontString *m_pOffsetLabel;
+    CGPoint mt_OffsetLabelLocation;
 }
 
 @end

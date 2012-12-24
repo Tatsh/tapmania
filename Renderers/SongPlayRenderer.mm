@@ -332,7 +332,10 @@ extern TMGameState *g_pGameState;
     BOOL gaveUp = NO;
     g_pGameState->m_bGivingUp = NO;
 
-    m_sprWarning.disabled = !m_bWarningMode;
+    if (!g_pGameState->m_bIsGlobalSync)
+    {
+        m_sprWarning.disabled = !m_bWarningMode;
+    }
 
     if ([m_pJoyPad getStateForButton:kJoyButtonExit])
     {
@@ -340,7 +343,11 @@ extern TMGameState *g_pGameState;
         double exitTouchTime = [m_pJoyPad getTouchTimeForButton:kJoyButtonExit];
 
         g_pGameState->m_bGivingUp = YES;
-        m_sprWarning.disabled = NO;
+
+        if (!g_pGameState->m_bIsGlobalSync)
+        {
+            m_sprWarning.disabled = NO;
+        }
 
         if (exitTouchTime > exitReleaseTime
                 && currentTime - exitTouchTime >= 2.0f)
@@ -426,7 +433,7 @@ extern TMGameState *g_pGameState;
     [super render:fDelta];
 
     // Draw the pad if requested
-    if (cfg_VisPad)
+    if (cfg_VisPad || g_pGameState->m_bIsGlobalSync)
     {
         glEnable(GL_BLEND);
 
@@ -459,24 +466,27 @@ extern TMGameState *g_pGameState;
         glDisable(GL_BLEND);
     }
 
-    // Check fail status and draw failed/cleared
-    if (m_bDrawFailed)
+    if (!g_pGameState->m_bIsGlobalSync)
     {
-        [self fade];
+        // Check fail status and draw failed/cleared
+        if ( m_bDrawFailed )
+        {
+            [self fade];
 
-        glEnable(GL_BLEND);
-        [t_Failed drawAtPoint:mt_Failed];
-        glDisable(GL_BLEND);
+            glEnable(GL_BLEND);
+            [t_Failed drawAtPoint:mt_Failed];
+            glDisable(GL_BLEND);
 
-    } else if (m_bDrawCleared)
-    {
-        [self fade];
+        }
+        else if ( m_bDrawCleared )
+        {
+            [self fade];
 
-        glEnable(GL_BLEND);
-        [t_Cleared drawAtPoint:mt_Cleared];
-        glDisable(GL_BLEND);
+            glEnable(GL_BLEND);
+            [t_Cleared drawAtPoint:mt_Cleared];
+            glDisable(GL_BLEND);
+        }
     }
-
 }
 
 /* TMTransitionSupport methods */

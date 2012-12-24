@@ -159,9 +159,9 @@
 				<key>OffCommand</key>
 				<string>zoom,1.0,0.2</string>
 				<key>X</key>
-				<integer>7</integer>
+				<integer>5</integer>
 				<key>Y</key>
-				<integer>7</integer>
+				<integer>5</integer>
 				<key>Width</key>
 				<integer>46</integer>
 				<key>Height</key>
@@ -187,29 +187,29 @@
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
-				<integer>153</integer>
+				<integer>116</integer>
 				<key>Width</key>
 				<integer>280</integer>
 				<key>Height</key>
 				<integer>46</integer>
 			</dict>
-            <key>SyncButton</key>
-            <dict>
-                <key>HitCommand</key>
-                <string>name,Timing Sync;playsoundeffect,Common ButtonHit;screen,TimingSync</string>
-                <key>OnCommand</key>
-                <string>zoom,1.1,0.5</string>
-                <key>OffCommand</key>
-                <string>zoom,1.0,0.3</string>
-                <key>X</key>
-                <integer>20</integer>
-                <key>Y</key>
-                <integer>170</integer>
-                <key>Width</key>
-                <integer>280</integer>
-                <key>Height</key>
-                <integer>46</integer>
-            </dict>
+			<key>SyncButton</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Timing Sync;playsoundeffect,Common ButtonHit;screen,TimingSync</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>20</integer>
+				<key>Y</key>
+				<integer>167</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>46</integer>
+			</dict>
 			<key>SongManagerButton</key>
 			<dict>
 				<key>HitCommand</key>
@@ -221,7 +221,7 @@
 				<key>X</key>
 				<integer>20</integer>
 				<key>Y</key>
-				<integer>93</integer>
+				<integer>65</integer>
 				<key>Width</key>
 				<integer>280</integer>
 				<key>Height</key>
@@ -234,7 +234,7 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>392</integer>
+				<integer>360</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
@@ -249,7 +249,7 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>369</integer>
+				<integer>338</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
@@ -262,7 +262,7 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>272</integer>
+				<integer>259</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
@@ -273,7 +273,7 @@
 				<key>X</key>
 				<integer>100</integer>
 				<key>Y</key>
-				<integer>332</integer>
+				<integer>310</integer>
 				<key>FixedWidth</key>
 				<integer>90</integer>
 			</dict>
@@ -282,7 +282,7 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>249</integer>
+				<integer>236</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
@@ -301,7 +301,7 @@
 				<key>X</key>
 				<integer>110</integer>
 				<key>Y</key>
-				<integer>309</integer>
+				<integer>287</integer>
 				<key>Width</key>
 				<integer>190</integer>
 				<key>Height</key>
@@ -915,11 +915,35 @@
 				<integer>320</integer>
 			</dict>
 		</dict>
-
-        <key>TimingSync</key>
-        <dict>
-        </dict>
-
+		<key>TimingSync</key>
+		<dict>
+			<key>ResetButtonCustom</key>
+			<dict>
+				<key>HitCommand</key>
+				<string>name,Reset;playsoundeffect,Common ButtonHit</string>
+				<key>OnCommand</key>
+				<string>zoom,1.1,0.5</string>
+				<key>OffCommand</key>
+				<string>zoom,1.0,0.3</string>
+				<key>X</key>
+				<integer>90</integer>
+				<key>Y</key>
+				<integer>115</integer>
+				<key>Width</key>
+				<integer>140</integer>
+				<key>Height</key>
+				<integer>46</integer>
+				<key>ShouldNotLock</key>
+				<true/>
+			</dict>
+			<key>CurrentOffset</key>
+			<dict>
+				<key>X</key>
+				<integer>160</integer>
+				<key>Y</key>
+				<integer>173</integer>
+			</dict>
+		</dict>
 		<key>SongResults</key>
 		<dict>
 			<key>Banner</key>

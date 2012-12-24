@@ -110,7 +110,7 @@
 				<key>X</key>
 				<integer>40</integer>
 				<key>Y</key>
-				<integer>262</integer>
+				<integer>232</integer>
 				<key>Width</key>
 				<integer>560</integer>
 				<key>Height</key>
@@ -121,7 +121,7 @@
 				<key>X</key>
 				<integer>40</integer>
 				<key>Y</key>
-				<integer>282</integer>
+				<integer>334</integer>
 				<key>Width</key>
 				<integer>560</integer>
 				<key>Height</key>
@@ -141,60 +141,60 @@
 			<key>ThemeLabel</key>
 			<dict>
 				<key>X</key>
-				<integer>100</integer>
+				<integer>200</integer>
 				<key>Y</key>
-				<integer>698</integer>
+				<integer>721</integer>
 				<key>FixedWidth</key>
-				<integer>90</integer>
+				<integer>180</integer>
 			</dict>
 			<key>ThemeTogglerCustom</key>
 			<dict>
 				<key>X</key>
-				<integer>140</integer>
+				<integer>220</integer>
 				<key>Y</key>
-				<integer>658</integer>
+				<integer>676</integer>
 				<key>Width</key>
-				<integer>436</integer>
+				<integer>380</integer>
 				<key>Height</key>
 				<integer>92</integer>
 			</dict>
 			<key>MusicLevelLabel</key>
 			<dict>
 				<key>X</key>
-				<integer>100</integer>
+				<integer>200</integer>
 				<key>Y</key>
-				<integer>434</integer>
+				<integer>518</integer>
 				<key>FixedWidth</key>
-				<integer>90</integer>
+				<integer>180</integer>
 			</dict>
 			<key>EffectsLevelLabel</key>
 			<dict>
 				<key>X</key>
-				<integer>100</integer>
+				<integer>200</integer>
 				<key>Y</key>
-				<integer>566</integer>
+				<integer>620</integer>
 				<key>FixedWidth</key>
-				<integer>90</integer>
+				<integer>180</integer>
 			</dict>
 			<key>MusicLevelSlider</key>
 			<dict>
 				<key>X</key>
-				<integer>140</integer>
+				<integer>220</integer>
 				<key>Y</key>
-				<integer>394</integer>
+				<integer>472</integer>
 				<key>Width</key>
-				<integer>440</integer>
+				<integer>380</integer>
 				<key>Height</key>
 				<integer>92</integer>
 			</dict>
 			<key>EffectsLevelSlider</key>
 			<dict>
 				<key>X</key>
-				<integer>140</integer>
+				<integer>220</integer>
 				<key>Y</key>
-				<integer>526</integer>
+				<integer>574</integer>
 				<key>Width</key>
-				<integer>440</integer>
+				<integer>380</integer>
 				<key>Height</key>
 				<integer>92</integer>
 			</dict>
@@ -631,11 +631,27 @@
 				<integer>640</integer>
 			</dict>
 		</dict>
-
-        <key>TimingSync</key>
-        <dict>
-        </dict>
-
+		<key>TimingSync</key>
+		<dict>
+			<key>ResetButtonCustom</key>
+			<dict>
+				<key>X</key>
+				<integer>180</integer>
+				<key>Y</key>
+				<integer>230</integer>
+				<key>Width</key>
+				<integer>280</integer>
+				<key>Height</key>
+				<integer>92</integer>
+			</dict>
+			<key>CurrentOffset</key>
+			<dict>
+				<key>X</key>
+				<integer>320</integer>
+				<key>Y</key>
+				<integer>346</integer>
+			</dict>
+		</dict>
 		<key>SongResults</key>
 		<dict>
 			<key>Banner</key>
