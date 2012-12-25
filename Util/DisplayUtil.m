@@ -56,10 +56,10 @@
         h = 1024.0f;
         w = 768.0f;
     }
-    else if (w == 1536.0f && h == 2048.0f)
+    else if (h == 1536.0f && w == 2048.0f)
     {
-        h = 1536.0f;
-        w = 2048.0f;
+        w = 1536.0f;
+        h = 2048.0f;
     }
 
     TMLog(@"Display size from iOS: %fx%f", w, h);

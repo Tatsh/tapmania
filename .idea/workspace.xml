@@ -1061,13 +1061,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.h" afterPath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/TimingUtil.mm" afterPath="$PROJECT_DIR$/Util/TimingUtil.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VersionInfo.h" afterPath="$PROJECT_DIR$/VersionInfo.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/DisplayUtil.m" afterPath="$PROJECT_DIR$/Util/DisplayUtil.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1085,23 +1079,38 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_JF125V88A4S" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_6.0_2" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BasicTransition.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/Transitions/BasicTransition.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="0" selection-start="2959" selection-end="2959" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="iPhoneRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
             <state line="642" column="21" selection-start="13115" selection-end="13115" vertical-scroll-proportion="0.0">
-              <folding />
+              <folding>
+                <marker date="1356375188000" expanded="true" signature="169:16551" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="200:16543" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="10612:12920" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="10769:11044" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="10801:10902" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="10934:11033" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11087:11186" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11234:11331" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11369:11907" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11397:11500" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11528:11632" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11660:11764" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11792:11896" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="11941:12040" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12072:12263" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12293:12392" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12419:12518" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12550:12649" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12680:12779" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12811:12910" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12953:13337" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="12995:13190" placeholder="..." />
+                <marker date="1356375188000" expanded="true" signature="13228:13327" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1110,7 +1119,11 @@
         <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
             <state line="936" column="16" selection-start="22827" selection-end="22827" vertical-scroll-proportion="0.0">
-              <folding />
+              <folding>
+                <marker date="1356375991000" expanded="true" signature="162:37891" placeholder="..." />
+                <marker date="1356375991000" expanded="true" signature="169:37882" placeholder="..." />
+                <marker date="1356375991000" expanded="true" signature="249:26374" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1139,15 +1152,25 @@
             <state line="39" column="28" selection-start="920" selection-end="920" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#153#183#0" expanded="true" />
+                <marker date="1356373319000" expanded="true" signature="522:2655" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuItem.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DisplayUtil.m" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Util/DisplayUtil.m">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="93" column="71" selection-start="1643" selection-end="1643" vertical-scroll-proportion="0.24669604">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuItem.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Renderers/UIElements/MenuItem.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="133" column="46" selection-start="3972" selection-end="3972" vertical-scroll-proportion="0.5879518">
+            <state line="119" column="40" selection-start="3447" selection-end="3447" vertical-scroll-proportion="-1.8461539">
               <folding />
             </state>
           </provider>
@@ -1190,7 +1213,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/GameObjects/GameState.h" />
         <option value="$PROJECT_DIR$/Engine/SettingsEngine.mm" />
         <option value="$PROJECT_DIR$/Engine/SettingsEngine.h" />
         <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
@@ -1206,6 +1228,7 @@
         <option value="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
+        <option value="$PROJECT_DIR$/Util/DisplayUtil.m" />
       </list>
     </option>
   </component>
@@ -1612,13 +1635,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongOptionsDialogRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="79" column="48" selection-start="837" selection-end="2577" vertical-scroll-proportion="0.0">
@@ -1685,14 +1701,42 @@
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
         <state line="642" column="21" selection-start="13115" selection-end="13115" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1356375188000" expanded="true" signature="169:16551" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="200:16543" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="10612:12920" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="10769:11044" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="10801:10902" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="10934:11033" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11087:11186" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11234:11331" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11369:11907" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11397:11500" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11528:11632" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11660:11764" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11792:11896" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="11941:12040" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12072:12263" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12293:12392" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12419:12518" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12550:12649" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12680:12779" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12811:12910" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12953:13337" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="12995:13190" placeholder="..." />
+            <marker date="1356375188000" expanded="true" signature="13228:13327" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
         <state line="936" column="16" selection-start="22827" selection-end="22827" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1356375991000" expanded="true" signature="162:37891" placeholder="..." />
+            <marker date="1356375991000" expanded="true" signature="169:37882" placeholder="..." />
+            <marker date="1356375991000" expanded="true" signature="249:26374" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1701,6 +1745,7 @@
         <state line="39" column="28" selection-start="920" selection-end="920" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#153#183#0" expanded="true" />
+            <marker date="1356373319000" expanded="true" signature="522:2655" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1721,7 +1766,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/UIElements/MenuItem.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="46" selection-start="3972" selection-end="3972" vertical-scroll-proportion="0.5879518">
+        <state line="119" column="40" selection-start="3447" selection-end="3447" vertical-scroll-proportion="-1.8461539">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util/DisplayUtil.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="71" selection-start="1643" selection-end="1643" vertical-scroll-proportion="0.24669604">
           <folding />
         </state>
       </provider>
