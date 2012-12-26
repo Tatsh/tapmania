@@ -10,10 +10,7 @@
 #import "TMControl.h"
 #import "TMSong.h"
 
-#define kNumWheelItems 10
 #define kNumSwipePositions 10
-
-#define kSelectedWheelItemId 4
 
 #define kWheelStaticFriction    0.25f
 #define kWheelMass                80.0f
@@ -61,6 +58,11 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
     Texture2D *t_Highlight, *t_ScoreFrame;
     FontString *m_pScoreStr;
 
+    int mt_SelectedWheelItemId;
+    int mt_NumWheelItems;
+    float mt_FirstItemOffset;
+    float mt_DistanceBetweenItems;
+    float mt_ScissorTop;
 }
 
 @property(assign, nonatomic) BOOL songChanged;

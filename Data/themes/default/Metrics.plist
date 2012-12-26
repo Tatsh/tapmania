@@ -730,6 +730,16 @@
 			</dict>
 			<key>Wheel</key>
 			<dict>
+                <key>ScissorTop</key>
+                <real>400</real>
+                <key>DistanceBetweenItems</key>
+               	<real>198</real>
+                <key>FirstItemOffset</key>
+                <real>80</real>
+                <key>NumberOfWheelItems</key>
+                <integer>10</integer>
+                <key>SelectedWheelItemId</key>
+                <integer>4</integer>
 				<key>NameLeftOffset</key>
 				<integer>15</integer>
 				<key>NameMaxWidth</key>

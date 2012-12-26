@@ -95,9 +95,9 @@
                     <key>Y</key>
                     <integer>40</integer>
                     <key>Width</key>
-                    <integer>184</integer>
+                    <integer>92</integer>
                     <key>Height</key>
-                    <integer>184</integer>
+                    <integer>92</integer>
                 </dict>
                 <key>TitleLabel</key>
                 <dict>
@@ -435,7 +435,7 @@
                     <key>Y</key>
                     <integer>28</integer>
                     <key>FixedWidth</key>
-                    <integer>380</integer>
+                    <integer>120</integer>
                 </dict>
                 <key>DifficultyTogglerCustom</key>
                 <dict>
@@ -461,40 +461,50 @@
                     <key>Y</key>
                     <integer>28</integer>
                     <key>FixedWidth</key>
-                    <integer>380</integer>
+                    <integer>180</integer>
                 </dict>
                 <key>Wheel</key>
                 <dict>
+                    <key>ScissorTop</key>
+                    <real>1648</real>
+                    <key>DistanceBetweenItems</key>
+                    <real>180</real>
+                    <key>FirstItemOffset</key>
+                    <real>1738</real>
+                    <key>NumberOfWheelItems</key>
+                    <integer>11</integer>
+                    <key>SelectedWheelItemId</key>
+                    <integer>5</integer>
                     <key>GradeXOffset</key>
-                    <integer>952</integer>
+                    <integer>1262</integer>
                     <key>ArtistYOffset</key>
-                    <integer>-34</integer>
+                    <integer>-56</integer>
                     <key>NameMaxWidth</key>
-                    <integer>800</integer>
+                    <integer>1000</integer>
                     <key>NameLeftOffset</key>
-                    <integer>100</integer>
+                    <integer>180</integer>
                     <key>TopTouchZone</key>
-                    <integer>1758</integer>
+                    <integer>1740</integer>
                     <key>Score</key>
                     <dict>
                         <key>X</key>
-                        <integer>376</integer>
+                        <integer>1026</integer>
                         <key>Y</key>
-                        <integer>532</integer>
+                        <integer>1118</integer>
                     </dict>
                     <key>ScoreFrame</key>
                     <dict>
                         <key>X</key>
-                        <integer>1005</integer>
+                        <integer>1240</integer>
                         <key>Y</key>
-                        <integer>1084</integer>
+                        <integer>1112</integer>
                     </dict>
                     <key>Highlight</key>
                     <dict>
                         <key>X</key>
                         <integer>768</integer>
                         <key>Y</key>
-                        <integer>1210</integer>
+                        <integer>1000</integer>
                         <key>Height</key>
                         <integer>210</integer>
                         <key>Width</key>

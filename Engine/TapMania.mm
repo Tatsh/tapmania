@@ -104,6 +104,7 @@ static TapMania *sharedTapManiaDelegate = nil;
     g_pGameState->m_bModDark = NO;
     g_pGameState->m_dSpeedModValue = CFG_FLOAT(@"speedmod");
     g_pGameState->m_dGlobalOffset = CFG_DOUBLE(@"globalSyncOffset");
+    g_pGameState->m_bIsGlobalSync = NO;
 
     // Defaults
     m_pCurrentSong = nil;

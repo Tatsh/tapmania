@@ -54,7 +54,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 //CONSTANTS:
 
-#define kMaxTextureSize     2048
+#define kMaxTextureSize     4096  // ipad 3 and 4 size
 
 //CLASS IMPLEMENTATIONS:
 
