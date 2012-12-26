@@ -12,7 +12,6 @@
 #import "SettingsEngine.h"
 #import "TimingUtil.h"
 #import "PhysicsUtil.h"
-#import "EAGLView.h"
 #import "TMMessage.h"
 #import "MessageManager.h"
 #import "ThemeManager.h"
@@ -32,8 +31,10 @@
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Register message types
     REG_MESSAGE(kJoyPadTapMessage, @"PadTap");
@@ -46,7 +47,18 @@
     m_pJoyDefaultLocations[kJoyButtonRight] = [[Vector alloc] initWithPoint:POINT_METRIC(@"PadConfig DefaultPad 3")];
     m_pJoyDefaultLocations[kJoyButtonExit] = nil;
 
-    m_forceFailY = [DisplayUtil getDeviceDisplaySize].height - ([DisplayUtil isRetina] ? 120.0f : 60.0f);
+    if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPadRetina"] )
+    {
+        m_forceFailY = 1884.0f;
+    }
+    else if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPad"] )
+    {
+        m_forceFailY = 942.0f;
+    }
+    else
+    {
+        m_forceFailY = [DisplayUtil getDeviceDisplaySize].height - ([DisplayUtil isRetina] ? 120.0f : 60.0f);
+    }
 
     // Reset states (to saved if any)
     [self reset];
@@ -61,24 +73,27 @@
     m_bAutoTrackEnabled = CFG_BOOL(@"autotrack");
 
     int i;
-    for (i = 0; i < kNumJoyButtons; ++i)
+    for ( i = 0; i < kNumJoyButtons; ++i )
     {
         // Check whether we have a value in config or not
         CGPoint buttonPoint = [[SettingsEngine sharedInstance] getJoyPadButton:(JPButton) i];
 
-        if (m_pJoyCurrentButtonLocation[i])
+        if ( m_pJoyCurrentButtonLocation[i] )
+        {
             [m_pJoyCurrentButtonLocation[i] release];
+        }
 
-        if (buttonPoint.x != -1 && buttonPoint.y != -1)
+        if ( buttonPoint.x != -1 && buttonPoint.y != -1 )
         {
             m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:buttonPoint.x andY:buttonPoint.y];
-        } else
+        }
+        else
         {
             // Set default value for this button
             m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:m_pJoyDefaultLocations[i].m_fX andY:m_pJoyDefaultLocations[i].m_fY];
         }
 
-        if (m_pJoyCurrentButtonLocation[i] != nil)
+        if ( m_pJoyCurrentButtonLocation[i] != nil )
         {
             // Save into config
             [[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:(JPButton) i];
@@ -92,13 +107,15 @@
 
 - (void)resetToDefault
 {
-    for (int i = 0; i < kNumJoyButtons; ++i)
+    for ( int i = 0; i < kNumJoyButtons; ++i )
     {
-        if (m_pJoyCurrentButtonLocation[i])
+        if ( m_pJoyCurrentButtonLocation[i] )
+        {
             [m_pJoyCurrentButtonLocation[i] release];
+        }
 
         m_pJoyCurrentButtonLocation[i] = [[Vector alloc] initWithX:m_pJoyDefaultLocations[i].m_fX andY:m_pJoyDefaultLocations[i].m_fY];
-        if (m_pJoyCurrentButtonLocation[i] != nil)
+        if ( m_pJoyCurrentButtonLocation[i] != nil )
         {
             [[SettingsEngine sharedInstance] setJoyPadButtonPosition:CGPointMake(m_pJoyCurrentButtonLocation[i].m_fX, m_pJoyCurrentButtonLocation[i].m_fY) forButton:(JPButton) i];
         }
@@ -116,7 +133,7 @@
     [[SettingsEngine sharedInstance] setJoyPadButtonPosition:location forButton:button];
 
     // Update locally
-    if (m_pJoyCurrentButtonLocation[button])
+    if ( m_pJoyCurrentButtonLocation[button] )
     {
         [(m_pJoyCurrentButtonLocation[button]) release];
     }
@@ -142,11 +159,12 @@
 {
     m_bJoyButtonStates[button] = held;
 
-    if (held)
+    if ( held )
     {
         m_dJoyButtonTimeTouch[button] = [TimingUtil getCurrentTime];
         BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:button]);
-    } else
+    }
+    else
     {
         m_dJoyButtonTimeRelease[button] = [TimingUtil getCurrentTime];
         BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:button]);
@@ -158,20 +176,21 @@
 {
     int touchIdx;
 
-    for (touchIdx = 0; touchIdx < touches.size(); ++touchIdx)
+    for ( touchIdx = 0; touchIdx < touches.size(); ++touchIdx )
     {
         TMTouch touch = touches.at(touchIdx);
         CGPoint point = CGPointMake(touch.x(), touch.y());
 
         // Check general touch position
-        if (point.y >= m_forceFailY)
+        if ( point.y >= m_forceFailY )
         {
             // This means we want to exit the song (force fail)
             m_bJoyButtonStates[kJoyButtonExit] = YES;
             m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
             BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 
-        } else
+        }
+        else
         {
             int i;
             int closestButton = -1;
@@ -179,21 +198,23 @@
 
             Vector *v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 
-            for (i = 0; i < kNumJoyButtons; ++i)
+            for ( i = 0; i < kNumJoyButtons; ++i )
             {
-                if (i == kJoyButtonExit)
+                if ( i == kJoyButtonExit )
+                {
                     continue;
+                }
 
                 float d = [Vector distSquared:v1 And:m_pJoyCurrentButtonLocation[i]];
 
-                if (d < minDist)
+                if ( d < minDist )
                 {
                     minDist = d;
                     closestButton = i;
                 }
             }
 
-            if (m_bAutoTrackEnabled == YES)
+            if ( m_bAutoTrackEnabled == YES )
             {
                 // Store new position if we are using the autotrack feature
                 [m_pJoyCurrentButtonLocation[closestButton] release];
@@ -213,7 +234,7 @@
 {
     int touchIdx;
 
-    for (touchIdx = 0; touchIdx < touches.size(); ++touchIdx)
+    for ( touchIdx = 0; touchIdx < touches.size(); ++touchIdx )
     {
         TMTouch touch = touches.at(touchIdx);
 
@@ -221,19 +242,21 @@
         CGPoint prevPoint = CGPointMake(touch.px(), touch.py());
 
         // Check general touch position. untouch exit button if we are out of the zone
-        if (prevPoint.y >= m_forceFailY && point.y < m_forceFailY)
+        if ( prevPoint.y >= m_forceFailY && point.y < m_forceFailY )
         {
             m_bJoyButtonStates[kJoyButtonExit] = NO;
             m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
             BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 
-        } else if (point.y > m_forceFailY && prevPoint.y <= m_forceFailY)
+        }
+        else if ( point.y > m_forceFailY && prevPoint.y <= m_forceFailY )
         {
             m_bJoyButtonStates[kJoyButtonExit] = YES;
             m_dJoyButtonTimeTouch[kJoyButtonExit] = touch.timestamp();
             BROADCAST_MESSAGE(kJoyPadTapMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 
-        } else
+        }
+        else
         {
 
             int i;
@@ -246,21 +269,23 @@
             Vector *vcur = [[Vector alloc] initWithX:point.x andY:point.y];
             Vector *vold = [[Vector alloc] initWithX:prevPoint.x andY:prevPoint.y];
 
-            for (i = 0; i < kNumJoyButtons; ++i)
+            for ( i = 0; i < kNumJoyButtons; ++i )
             {
-                if (i == kJoyButtonExit)
+                if ( i == kJoyButtonExit )
+                {
                     continue;
+                }
 
                 float d = [Vector distSquared:vcur And:m_pJoyCurrentButtonLocation[i]];
                 float dold = [Vector distSquared:vold And:m_pJoyCurrentButtonLocation[i]];
 
-                if (d < minDist)
+                if ( d < minDist )
                 {
                     minDist = d;
                     closestButton = i;
                 }
 
-                if (dold < oldMinDist)
+                if ( dold < oldMinDist )
                 {
                     oldMinDist = dold;
                     closestButtonOld = i;
@@ -268,7 +293,7 @@
             }
 
             // Button changed?
-            if (closestButton != closestButtonOld)
+            if ( closestButton != closestButtonOld )
             {
                 m_bJoyButtonStates[closestButtonOld] = NO;
                 m_dJoyButtonTimeRelease[closestButtonOld] = touch.timestamp();
@@ -289,19 +314,20 @@
 {
     int touchIdx;
 
-    for (touchIdx = 0; touchIdx < touches.size(); ++touchIdx)
+    for ( touchIdx = 0; touchIdx < touches.size(); ++touchIdx )
     {
         TMTouch touch = touches.at(touchIdx);
         CGPoint point = CGPointMake(touch.x(), touch.y());
 
         // Check general touch position
-        if (point.y >= m_forceFailY)
+        if ( point.y >= m_forceFailY )
         {
             m_bJoyButtonStates[kJoyButtonExit] = NO;
             m_dJoyButtonTimeRelease[kJoyButtonExit] = touch.timestamp();
             BROADCAST_MESSAGE(kJoyPadReleaseMessage, [NSNumber numberWithInt:kJoyButtonExit]);
 
-        } else
+        }
+        else
         {
 
             int i;
@@ -310,21 +336,23 @@
 
             Vector *v1 = [[Vector alloc] initWithX:point.x andY:point.y];
 
-            for (i = 0; i < kNumJoyButtons; ++i)
+            for ( i = 0; i < kNumJoyButtons; ++i )
             {
-                if (i == kJoyButtonExit)
+                if ( i == kJoyButtonExit )
+                {
                     continue;
+                }
 
                 float d = [Vector distSquared:v1 And:m_pJoyCurrentButtonLocation[i]];
 
-                if (d < minDist)
+                if ( d < minDist )
                 {
                     minDist = d;
                     closestButton = i;
                 }
             }
 
-            if (m_bAutoTrackEnabled == YES)
+            if ( m_bAutoTrackEnabled == YES )
             {
                 // Store new position if we are using the autotrack feature
                 [m_pJoyCurrentButtonLocation[closestButton] release];
