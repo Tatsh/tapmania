@@ -27,8 +27,10 @@
 - (id)initWithPath:(NSString *)rootPath type:(TMResourceLoaderType)inType andDelegate:(id)delegate
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_idDelegate = delegate;
     m_nType = inType;
@@ -54,25 +56,27 @@
 {
     NSObject *node = [self lookUpNode:path];
 
-    if (node)
+    if ( node )
     {
-        if ([node isKindOfClass:[TMResource class]])
+        if ( [node isKindOfClass:[TMResource class]] )
         {
 
-            if (!((TMResource *) node).isLoaded)
+            if ( !((TMResource *) node).isLoaded )
             {
                 [(TMResource *) node loadResource];
             }
 
             // Should be loaded now if above code worked
             return (TMResource *) node;
-        } else if ([node isKindOfClass:[NSDictionary class]])
+        }
+        else if ( [node isKindOfClass:[NSDictionary class]] )
         {
             NSException *ex = [NSException exceptionWithName:@"Can't get resources."
                                                       reason:[NSString stringWithFormat:@"The path is not a resource. it seems to be a directory: %@", path] userInfo:nil];
             @throw ex;
         }
-    } else
+    }
+    else
     {
         // Resource is not available! it's just not existing in the current theme or something like that... we must return the default resource in this case
         // TODO !!!
@@ -84,7 +88,7 @@
 - (void)preLoad:(NSString *)path
 {
     NSObject *node = [self lookUpNode:path];
-    if (!node)
+    if ( !node )
     {
         NSException *ex = [NSException exceptionWithName:@"Can't load resources."
                                                   reason:[NSString stringWithFormat:@"The path is not loaded: %@", path] userInfo:nil];
@@ -92,11 +96,12 @@
     }
 
     // If it's a leaf
-    if ([node isKindOfClass:[TMResource class]])
+    if ( [node isKindOfClass:[TMResource class]] )
     {
         [(TMResource *) node loadResource];
 
-    } else
+    }
+    else
     {
         // It's a directory. preload everything inside...
     }
@@ -109,15 +114,16 @@
 - (void)unLoad:(NSString *)path
 {
     NSObject *node = [self lookUpNode:path];
-    if (!node)
+    if ( !node )
     {
         TMLog(@"The resources on path '%@' are not loaded...", path);
     }
 
-    if ([node isKindOfClass:[NSDictionary class]])
+    if ( [node isKindOfClass:[NSDictionary class]] )
     {
         // Release all sub elements
-    } else
+    }
+    else
     {
         [node release];
     }
@@ -135,24 +141,24 @@
 
     // List all files and dirs there
     int i;
-    for (i = 0; i < [dirContents count]; i++)
+    for ( i = 0; i < [dirContents count]; i++ )
     {
         NSString *itemName = [dirContents objectAtIndex:i];
         NSString *curPath = [path stringByAppendingPathComponent:itemName];
 
         BOOL isDirectory;
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDirectory])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDirectory] )
         {
             // is dir?
-            if (isDirectory)
+            if ( isDirectory )
             {
                 TMLog(@"[+] Found directory: %@", itemName);
-                if ([itemName isEqualToString:@"iPad"] ||
+                if ( [itemName isEqualToString:@"iPad"] ||
                         [itemName isEqualToString:@"iPadRetina"] ||
                         [itemName isEqualToString:@"iPhoneRetina"] ||
                         [itemName isEqualToString:@"iPhone5"] ||
-                        [itemName isEqualToString:@"iPhone"])
+                        [itemName isEqualToString:@"iPhone"] )
                 {
                     TMLog(@"[+] Skip this directory. It's a special directory with resolution-perfect graphics.");
                     continue;
@@ -169,24 +175,28 @@
                 [node setValue:dict forKey:itemName];
                 TMLog(@"Stop adding there");
 
-            } else
+            }
+            else
             {
+
+                TMResource *resource = nil;
+
                 // file. check type
-                if (m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName])
+                if ( m_idDelegate != nil && [m_idDelegate resourceTypeSupported:itemName] )
                 {
                     TMLog(@"[Supported] %@", itemName);
 
-                    if (m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".xml"])
+                    if ( m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".xml"] )
                     {
 
                         // Check if there is a resolution-perfect version first
                         NSString *dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
-                            [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                                                                          [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
                         // Remove the xml suffix
                         itemName = [itemName substringToIndex:[itemName length] - 4]; // 4 is '.xml' length
 
-                        if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                        if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                         {
                             [[FontManager sharedInstance] loadFont:dpFilePath andName:itemName];
                         }
@@ -194,13 +204,13 @@
                         {
                             // If this is an iPhone5 we want to load an iPhoneRetina version if iPhone5 is not available
                             // and only if iPhoneRetina is also not available - load the default.
-                            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+                            if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
                             {
                                 TMLog(@"iPhone5 resolution-perfect resource is not found. Try iPhoneRetina before going Default.");
                                 dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
-                                    [curPath stringByDeletingLastPathComponent], itemName];
+                                                                        [curPath stringByDeletingLastPathComponent], itemName];
 
-                                if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                                 {
                                     TMLog(@"Ok found iPhoneRetina as a fallback for iPhone5");
                                     [[FontManager sharedInstance] loadFont:dpFilePath andName:itemName];
@@ -218,18 +228,17 @@
 
                         continue;
                     }
-
-                    if (m_nType == kResourceLoaderFonts && [[itemName lowercaseString] hasSuffix:@".redir"])
+                    else if ( [[itemName lowercaseString] hasSuffix:@".redir"] )
                     {
+
+                        TMLog(@"Some redirect detected... %@", itemName);
 
                         // Check if there is a resolution-perfect version first
                         NSString *dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
-                            [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                             [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
-                        // Remove the xml suffix
-                        itemName = [itemName substringToIndex:[itemName length] - 6]; // 6 is '.redir' length
                         NSData *contents = nil;
-                        if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                        if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                         {
                             contents = [[NSFileManager defaultManager] contentsAtPath:dpFilePath];
                         }
@@ -237,13 +246,13 @@
                         {
                             // If this is an iPhone5 we want to load an iPhoneRetina version if iPhone5 is not available
                             // and only if iPhoneRetina is also not available - load the default.
-                            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+                            if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
                             {
                                 TMLog(@"iPhone5 resolution-perfect redirect is not found. Try iPhoneRetina before going Default.");
                                 dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
-                                    [curPath stringByDeletingLastPathComponent], itemName];
+                                                                        [curPath stringByDeletingLastPathComponent], itemName];
 
-                                if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                                if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                                 {
                                     TMLog(@"Ok found iPhoneRetina as a fallback for iPhone5");
                                     contents = [[NSFileManager defaultManager] contentsAtPath:dpFilePath];
@@ -260,24 +269,46 @@
                         }
 
                         NSString *contentsString = [[[NSString alloc] initWithData:contents encoding:NSASCIIStringEncoding] autorelease];
+
+                        // FIXME: isn't this also stripping away any whitespace inside the path?
                         NSString *resourceFileSystemPath = [contentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                         NSString *redirectedItemName = [resourceFileSystemPath lastPathComponent];
 
-                        if ([redirectedItemName hasSuffix:@".xml"])
+                        if ( m_nType == kResourceLoaderFonts && [redirectedItemName hasSuffix:@".xml"] )
                         {
                             // Yes. a font redirect.
+                            itemName = [itemName substringToIndex:[itemName length] - 6]; // 6 is '.redir' length
                             redirectedItemName = [redirectedItemName substringToIndex:[redirectedItemName length] - 4]; // 4 is '.xml' length
+
                             TMLog(@"Add font redir: '%@'=>'%@'", itemName, redirectedItemName);
 
                             [[FontManager sharedInstance] addRedirect:itemName to:redirectedItemName];
                             continue;
                         }
+                        else
+                        {
+                            if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                            {
+                                TMLog(@"Found resolution-perfect redirect: %@", dpFilePath);
+                                TMLog(@"CONTENTS = %@", contentsString);
+                                resource = [[TMResource alloc] initWithPath:dpFilePath type:m_nType andItemName:itemName];
+                            }
+                            else
+                            {
+                                TMLog(@"Use standard redirect: %@", curPath);
+                                resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TMLog(@"Use standard resource: %@", curPath);
+                        resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
                     }
 
-                    TMResource *resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
 
                     // Add that resource if is valid
-                    if (resource)
+                    if ( resource )
                     {
                         [node setValue:resource forKey:resource.componentName];
                         TMLog(@"Added it to current node at key = '%@'", resource.componentName);
@@ -298,16 +329,16 @@
     NSObject *tmp = m_pRoot;
     int i;
 
-    for (i = 0; i < [pathChunks count] - 1; ++i)
+    for ( i = 0; i < [pathChunks count] - 1; ++i )
     {
-        if (tmp != nil && [tmp isKindOfClass:[NSMutableDictionary class]])
+        if ( tmp != nil && [tmp isKindOfClass:[NSMutableDictionary class]] )
         {
             // Search next component
             tmp = [(NSMutableDictionary *) tmp objectForKey:[pathChunks objectAtIndex:i]];
         }
     }
 
-    if (tmp != nil)
+    if ( tmp != nil )
     {
         tmp = [[(NSMutableDictionary *) tmp objectForKey:[pathChunks lastObject]] retain];
     }
