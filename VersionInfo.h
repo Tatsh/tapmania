@@ -17,7 +17,3 @@
 #define TAPMANIA_CACHE_VERSION            "0.6"
 
 #define TAPMANIA_COPYRIGHT                @"Copyright © 2008-2012 Godexsoft"
-
-#define TAPMANIA_URL                    @"http://tapmania.org/"
-#define TAPMANIA_NEWS_PAGE              @"tapmania_news.php"
-#define TAPMANIA_NEWS_VERSION_PAGE      @"tapmania_news_version.php"

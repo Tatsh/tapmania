@@ -15,7 +15,6 @@
 #import "InputEngine.h"
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
-#import "NewsFetcher.h"
 #import "EAGLView.h"
 #import "ARRollerView.h"
 #import "MessageManager.h"

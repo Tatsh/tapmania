@@ -77,8 +77,6 @@
 		24219C9211D26244001BCE14 /* WebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E92EB1017982400DB27D9 /* WebServer.m */; };
 		24219C9311D26244001BCE14 /* TMZipFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0E33101E969200F2B046 /* TMZipFile.mm */; };
 		24219C9411D26244001BCE14 /* SongManagerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */; };
-		24219C9511D26244001BCE14 /* NewsDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C18F1030DC5400C7216A /* NewsDialog.mm */; };
-		24219C9611D26244001BCE14 /* NewsFetcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D6C1B01030DE4E00C7216A /* NewsFetcher.mm */; };
 		24219C9711D26244001BCE14 /* AccelSoundPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */; };
 		24219C9811D26244001BCE14 /* TMSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B3027D103BD46C0044AAB2 /* TMSound.mm */; };
 		24219C9911D26244001BCE14 /* TMLoopedSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B30280103BD4A40044AAB2 /* TMLoopedSound.mm */; };
@@ -683,10 +681,6 @@
 		24D4C1470F1B3C1100643CC2 /* Judgement.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Judgement.mm; path = Renderers/UIElements/Judgement.mm; sourceTree = "<group>"; };
 		24D52AA61035A1970030A6CA /* AccelSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelSoundPlayer.h; sourceTree = "<group>"; };
 		24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AccelSoundPlayer.mm; sourceTree = "<group>"; };
-		24D6C18E1030DC5400C7216A /* NewsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsDialog.h; path = Renderers/NewsDialog.h; sourceTree = "<group>"; };
-		24D6C18F1030DC5400C7216A /* NewsDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NewsDialog.mm; path = Renderers/NewsDialog.mm; sourceTree = "<group>"; };
-		24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsFetcher.h; sourceTree = "<group>"; };
-		24D6C1B01030DE4E00C7216A /* NewsFetcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NewsFetcher.mm; sourceTree = "<group>"; };
 		24D762940F38A078008B0AA0 /* Metrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metrics.h; path = ThemeSupport/Metrics.h; sourceTree = "<group>"; };
 		24D762950F38A078008B0AA0 /* Metrics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Metrics.mm; path = ThemeSupport/Metrics.mm; sourceTree = "<group>"; };
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
@@ -973,7 +967,6 @@
 				24E90FD510657744005C315E /* CommandSupport */,
 				24F15E14105AA14200221550 /* MessageSupport */,
 				24D166BE1058DE850086236B /* Rendering */,
-				24D6C1AE1030DE2000C7216A /* NewsSupport */,
 				248E92E8101797D700DB27D9 /* UploadSupport */,
 				24A709AB0F7A936C0080121C /* FontSupport */,
 				2496484D0F79131C00C9D5BC /* SoundSupport */,
@@ -1241,8 +1234,6 @@
 				2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */,
 				241955E9102B08F800FC6E0F /* SongManagerRenderer.h */,
 				241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */,
-				24D6C18E1030DC5400C7216A /* NewsDialog.h */,
-				24D6C18F1030DC5400C7216A /* NewsDialog.mm */,
 				F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */,
 				F44B2C12A76D94B7443A8244 /* TimingSyncRenderer.h */,
 			);
@@ -1545,15 +1536,6 @@
 				24B5E4C610627C92004DDC4B /* TMModalView.mm */,
 			);
 			path = Rendering;
-			sourceTree = "<group>";
-		};
-		24D6C1AE1030DE2000C7216A /* NewsSupport */ = {
-			isa = PBXGroup;
-			children = (
-				24D6C1AF1030DE4E00C7216A /* NewsFetcher.h */,
-				24D6C1B01030DE4E00C7216A /* NewsFetcher.mm */,
-			);
-			path = NewsSupport;
 			sourceTree = "<group>";
 		};
 		24D762930F389FBE008B0AA0 /* ThemeSupport */ = {
@@ -2272,8 +2254,6 @@
 				24219C9211D26244001BCE14 /* WebServer.m in Sources */,
 				24219C9311D26244001BCE14 /* TMZipFile.mm in Sources */,
 				24219C9411D26244001BCE14 /* SongManagerRenderer.mm in Sources */,
-				24219C9511D26244001BCE14 /* NewsDialog.mm in Sources */,
-				24219C9611D26244001BCE14 /* NewsFetcher.mm in Sources */,
 				24219C9711D26244001BCE14 /* AccelSoundPlayer.mm in Sources */,
 				24219C9811D26244001BCE14 /* TMSound.mm in Sources */,
 				24219C9911D26244001BCE14 /* TMLoopedSound.mm in Sources */,

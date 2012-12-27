@@ -16,7 +16,6 @@
 #import "SongsDirectoryCache.h"
 #import "DWIParser.h"
 
-#import "NewsFetcher.h"
 #import "SongResultsRenderer.h"
 
 #import "TMSong.h"
@@ -72,9 +71,6 @@ extern TMGameState *g_pGameState;
     REG_MESSAGE(kNoteScoreMessage, @"NoteScoring");
     REG_MESSAGE(kHoldLostMessage, @"HoldIsLost");
     REG_MESSAGE(kHoldHeldMessage, @"HoldIsHeld");
-
-    // Disallow news system updates
-    [[NewsFetcher sharedInstance] stopChecking];
 
     // Cache metrics
     mt_Judgement = POINT_METRIC(@"SongPlay Judgement");
@@ -166,9 +162,6 @@ extern TMGameState *g_pGameState;
     [t_BG release];
     UNSUBSCRIBE_ALL();
     [m_pSound release];
-
-    // Allow news system updates
-    [[NewsFetcher sharedInstance] startChecking];
 
     [super dealloc];
 }
