@@ -1056,10 +1056,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.h" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1080,34 +1077,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_JF125V88A4S" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TMUserConfig.mm" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TMUserConfig.mm" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
+            <state line="80" column="62" selection-start="2841" selection-end="2841" vertical-scroll-proportion="0.5923695">
               <folding>
                 <element signature="e#182#206#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FPS.mm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="40" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.91780823">
-              <folding>
-                <element signature="e#177#192#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimingSyncRenderer.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="42" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#153#183#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1153,10 +1128,10 @@
         <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/FPS.h" />
         <option value="$PROJECT_DIR$/Data/themes/default/Fonts/iPhoneRetina/ScoreSmall.xml" />
-        <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
         <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.h" />
         <option value="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" />
+        <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
       </list>
     </option>
   </component>
@@ -1637,11 +1612,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
+        <state line="37" column="49" selection-start="816" selection-end="816" vertical-scroll-proportion="0.6438356">
           <folding>
-            <element signature="e#182#206#0" expanded="true" />
+            <element signature="e#177#192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="42" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.3111546">
+          <folding>
+            <element signature="e#153#183#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1653,20 +1637,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="42" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.0">
+        <state line="80" column="62" selection-start="2841" selection-end="2841" vertical-scroll-proportion="0.5923695">
           <folding>
-            <element signature="e#153#183#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="40" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.91780823">
-          <folding>
-            <element signature="e#177#192#0" expanded="true" />
+            <element signature="e#182#206#0" expanded="true" />
           </folding>
         </state>
       </provider>

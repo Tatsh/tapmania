@@ -30,7 +30,7 @@
         return nil;
 
     m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin",
-                                                                        [NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:1.0f], @"effectssound",
+                                                                        [NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:0.6f], @"effectssound",
                                                                         [NSNumber numberWithBool:NO], @"autotrack",
                                                                         [NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
                                                                         @"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
@@ -78,7 +78,7 @@
 
     if (![m_pConfigDict valueForKey:@"effectssound"])
     {
-        [m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"effectssound"];
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.6f] forKey:@"effectssound"];
         ++errCount;
     }
 
