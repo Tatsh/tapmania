@@ -8,8 +8,20 @@
 
 #import "TMUserConfig.h"
 #import "TMSong.h"
+#import "DisplayUtil.h"
 
 @implementation TMUserConfig
+
++ (NSNumber *) getDefaultGlobalSyncOffset
+{
+    NSString *d = [DisplayUtil getDeviceDisplayString];
+    if ([d isEqualToString:@"iPhoneRetina"])
+    {
+        return [NSNumber numberWithDouble:-0.0800];
+    }
+    
+    return [NSNumber numberWithDouble:0.0];
+}
 
 - (id)init
 {
@@ -23,7 +35,7 @@
                                                                         [NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
                                                                         @"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
                                                                         [NSNumber numberWithFloat:1.0], @"speedmod",
-                                                                        [NSNumber numberWithDouble:0.0], @"globalSyncOffset",
+                                                                        [TMUserConfig getDefaultGlobalSyncOffset], @"globalSyncOffset",
                                                                         [NSNumber numberWithInt:0], @"receptor_mods", [NSNumber numberWithInt:0], @"note_mods",
                                                                         [NSNumber numberWithInt:(int) kSongDifficulty_Beginner], @"prefdiff",
                                                                         [NSNumber numberWithBool:NO], @"landscape", nil];
@@ -126,7 +138,7 @@
 
     if (![m_pConfigDict valueForKey:@"globalSyncOffset"])
     {
-        [m_pConfigDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"globalSyncOffset"];
+        [m_pConfigDict setObject:[TMUserConfig getDefaultGlobalSyncOffset] forKey:@"globalSyncOffset"];
         ++errCount;
     }
 

@@ -17,6 +17,7 @@
 #import "SettingsEngine.h"
 #import "MenuItem.h"
 #import "FontString.h"
+#import "TMUserConfig.h"
 
 extern TMGameState *g_pGameState;
 
@@ -49,7 +50,7 @@ extern TMGameState *g_pGameState;
 
 - (void)resetButtonHit
 {
-    g_pGameState->m_dGlobalOffset = 0.0;
+    g_pGameState->m_dGlobalOffset = [[TMUserConfig getDefaultGlobalSyncOffset] doubleValue];
 }
 
 - (void)dealloc

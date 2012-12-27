@@ -15,6 +15,8 @@
     NSMutableDictionary *m_pConfigDict;        // The real dictionary
 }
 
++ (NSNumber *)getDefaultGlobalSyncOffset;
+
 - (id)initWithContentsOfFile:(NSString *)configPath;
 
 // Check config
