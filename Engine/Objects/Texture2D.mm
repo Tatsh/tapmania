@@ -65,13 +65,13 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (id)initWithData:(const void *)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size
 {
     GLint saveName;
-    if ((self = [super init]))
+    if ( (self = [super init]) )
     {
         glGenTextures(1, &m_unName);
         glGetIntegerv(GL_TEXTURE_BINDING_2D, &saveName);
         TMBindTexture(m_unName);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        switch (pixelFormat)
+        switch ( pixelFormat )
         {
 
             case kTexture2DPixelFormat_RGBA8888:
@@ -101,8 +101,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)dealloc
 {
-    if (m_unName)
+    if ( m_unName )
+    {
         glDeleteTextures(1, &m_unName);
+    }
 
     [super dealloc];
 }
@@ -145,7 +147,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     image = [uiImage CGImage];
     orientation = [uiImage imageOrientation];
 
-    if (image == NULL)
+    if ( image == NULL )
     {
         [self release];
         TMLog(@"Image is Null");
@@ -155,14 +157,21 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
     info = CGImageGetAlphaInfo(image);
     hasAlpha = ((info == kCGImageAlphaPremultipliedLast) || (info == kCGImageAlphaPremultipliedFirst) || (info == kCGImageAlphaLast) || (info == kCGImageAlphaFirst) ? YES : NO);
-    if (CGImageGetColorSpace(image))
+    if ( CGImageGetColorSpace(image) )
     {
-        if (hasAlpha)
+        if ( hasAlpha )
+        {
             pixelFormat = kTexture2DPixelFormat_RGBA8888;
+        }
         else
+        {
             pixelFormat = kTexture2DPixelFormat_RGB565;
-    } else  //NOTE: No colorspace means a mask image
+        }
+    }
+    else
+    {  //NOTE: No colorspace means a mask image
         pixelFormat = kTexture2DPixelFormat_A8;
+    }
 
 
     imageSize = CGSizeMake(CGImageGetWidth(image), CGImageGetHeight(image));
@@ -170,22 +179,26 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
     width = imageSize.width;
 
-    if ((width != 1) && (width & (width - 1)))
+    if ( (width != 1) && (width & (width - 1)) )
     {
         i = 1;
-        while ((sizeToFit ? 2 * i : i) < width)
+        while ( (sizeToFit ? 2 * i : i) < width )
+        {
             i *= 2;
+        }
         width = i;
     }
     height = imageSize.height;
-    if ((height != 1) && (height & (height - 1)))
+    if ( (height != 1) && (height & (height - 1)) )
     {
         i = 1;
-        while ((sizeToFit ? 2 * i : i) < height)
+        while ( (sizeToFit ? 2 * i : i) < height )
+        {
             i *= 2;
+        }
         height = i;
     }
-    while ((width > kMaxTextureSize) || (height > kMaxTextureSize))
+    while ( (width > kMaxTextureSize) || (height > kMaxTextureSize) )
     {
         width /= 2;
         height /= 2;
@@ -194,7 +207,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
         imageSize.height *= 0.5;
     }
 
-    switch (pixelFormat)
+    switch ( pixelFormat )
     {
         case kTexture2DPixelFormat_RGBA8888:
             colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -221,17 +234,22 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     CGContextClearRect(context, CGRectMake(0, 0, width, height));
     CGContextTranslateCTM(context, 0, height - imageSize.height);
 
-    if (!CGAffineTransformIsIdentity(transform))
+    if ( !CGAffineTransformIsIdentity(transform) )
+    {
         CGContextConcatCTM(context, transform);
+    }
     CGContextDrawImage(context, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
     //Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGGBBBBB"
-    if (pixelFormat == kTexture2DPixelFormat_RGB565)
+    if ( pixelFormat == kTexture2DPixelFormat_RGB565 )
     {
         tempData = calloc(height * width, 2);
         inPixel32 = (unsigned int *) data;
         outPixel16 = (unsigned short *) tempData;
-        for (i = 0; i < width * height; ++i, ++inPixel32)
+
+        for ( i = 0; i < width * height; ++i, ++inPixel32 )
+        {
             *outPixel16++ = ((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | ((((*inPixel32 >> 8) & 0xFF) >> 2) << 5) | ((((*inPixel32 >> 16) & 0xFF) >> 3) << 0);
+        }
         free(data);
         data = tempData;
 
@@ -261,19 +279,23 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     font = [UIFont fontWithName:name size:size];
 
     width = dimensions.width;
-    if ((width != 1) && (width & (width - 1)))
+    if ( (width != 1) && (width & (width - 1)) )
     {
         i = 1;
-        while (i < width)
+        while ( i < width )
+        {
             i *= 2;
+        }
         width = i;
     }
     height = dimensions.height;
-    if ((height != 1) && (height & (height - 1)))
+    if ( (height != 1) && (height & (height - 1)) )
     {
         i = 1;
-        while (i < height)
+        while ( i < height )
+        {
             i *= 2;
+        }
         height = i;
     }
 
@@ -330,6 +352,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
     TMBindTexture(m_unName);
     glEnable(GL_BLEND);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glVertexPointer(3, GL_FLOAT, 0, vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
