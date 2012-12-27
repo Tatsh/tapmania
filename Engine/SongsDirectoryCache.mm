@@ -303,7 +303,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     NSString *musicFilePath = nil;
     NSString *backgroundFilePath = nil;
 
-    NSString *deviceBgFile = [NSString stringWithFormat:@"-bg-%@.png", [DisplayUtil getDeviceDisplayString]];
+    NSString *deviceBgFile = [[NSString stringWithFormat:@"bg-%@.png", [DisplayUtil getDeviceDisplayString]] lowercaseString];
 
     for (NSString *file in dirContents)
     {
@@ -340,7 +340,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
 		} 
 #endif // TM_OGG_ENABLE
-        else if ([[file lowercaseString] hasSuffix:deviceBgFile])
+        else if ([[file lowercaseString] isEqualToString:deviceBgFile])
         {
             TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
             backgroundFilePath = [curPath stringByAppendingPathComponent:file];
