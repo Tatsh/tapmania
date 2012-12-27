@@ -45,7 +45,7 @@
     }
 
     ++m_lFpsCounter;
-    [m_pFpsStr drawAtPoint:CGPointMake(5, 15)];
+    [m_pFpsStr drawAtPoint:CGPointMake(3, 15)];
 }
 
 - (void)dealloc

@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="bd88f88b-271c-4fb5-8394-f9480f9a4ba6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/Background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhone5/Background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhone5" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhoneRetina/Background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhoneRetina" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/contrib" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/chapters" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/examples" />
@@ -1061,19 +1056,10 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/Texture2D.h" afterPath="$PROJECT_DIR$/Engine/Objects/Texture2D.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/Texture2D.mm" afterPath="$PROJECT_DIR$/Engine/Objects/Texture2D.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/CreditsRenderer.h" afterPath="$PROJECT_DIR$/Renderers/CreditsRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/CreditsRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/CreditsRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongManagerRenderer.h" afterPath="$PROJECT_DIR$/Renderers/SongManagerRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongManagerRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongManagerRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/FPS.h" afterPath="$PROJECT_DIR$/Renderers/UIElements/FPS.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Data/Credits.plist" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/iPhoneRetina/ScoreSmall.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/iPhoneRetina/ScoreSmall.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1093,102 +1079,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_JF125V88A4S" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="SongManagerRenderer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="20" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="838" column="31" selection-start="30080" selection-end="30080" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="iPad_Metrics.plist" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="839" column="23" selection-start="29826" selection-end="30044" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FPS.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FPS.mm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="40" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.94520545">
-              <folding>
-                <element signature="e#177#192#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="54" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebServer.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="539" column="39" selection-start="15336" selection-end="15336" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebServer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="32" selection-start="898" selection-end="898" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongManagerRenderer.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="68" selection-start="857" selection-end="857" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#196#227#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreditsRenderer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/CreditsRenderer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="15" selection-start="315" selection-end="315" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -1198,7 +1089,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
         <option value="$PROJECT_DIR$/Renderers/MainMenuRenderer.mm" />
         <option value="$PROJECT_DIR$/VersionInfo.h" />
         <option value="$PROJECT_DIR$/Engine/Objects/Texture2D.h" />
@@ -1214,6 +1104,7 @@
         <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/FPS.h" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/FPS.mm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/Fonts/iPhoneRetina/ScoreSmall.xml" />
       </list>
     </option>
   </component>
@@ -1532,14 +1423,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="26" width="1432" height="865" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.13844086" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.5752688" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.5752688" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39784947" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="7" side_tool="true" content_ui="tabs" />
@@ -1608,13 +1499,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/VersionInfo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="44" selection-start="533" selection-end="533" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/Objects/Texture2D.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="115" column="0" selection-start="4695" selection-end="4695" vertical-scroll-proportion="0.0">
@@ -1636,34 +1520,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/CreditsRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="15" selection-start="315" selection-end="315" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="20" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="839" column="23" selection-start="29826" selection-end="30044" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="838" column="31" selection-start="30080" selection-end="30080" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
         <state line="826" column="40" selection-start="29468" selection-end="29468" vertical-scroll-proportion="0.64853555">
@@ -1678,49 +1534,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.mm">
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="68" selection-start="857" selection-end="857" vertical-scroll-proportion="0.0">
+        <state line="30" column="51" selection-start="637" selection-end="637" vertical-scroll-proportion="0.4520548">
           <folding>
-            <element signature="e#196#227#0" expanded="true" />
+            <element signature="e#177#192#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.h">
+    <entry file="file://$PROJECT_DIR$/main.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="32" selection-start="898" selection-end="898" vertical-scroll-proportion="0.0">
+        <state line="17" column="54" selection-start="378" selection-end="378" vertical-scroll-proportion="0.46575344">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="539" column="39" selection-start="15336" selection-end="15336" vertical-scroll-proportion="0.0">
+        <state line="539" column="39" selection-start="15336" selection-end="15336" vertical-scroll-proportion="0.5060241">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.mm">
+    <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="54" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0">
+        <state line="44" column="32" selection-start="898" selection-end="898" vertical-scroll-proportion="0.96477497">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="68" selection-start="857" selection-end="857" vertical-scroll-proportion="0.9589041">
+          <folding>
+            <element signature="e#196#227#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/CreditsRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="315" selection-end="315" vertical-scroll-proportion="0.5205479">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
+        <state line="11" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.30136988">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.mm">
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="40" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.94520545">
-          <folding>
-            <element signature="e#177#192#0" expanded="true" />
-          </folding>
+        <state line="839" column="23" selection-start="29826" selection-end="30044" vertical-scroll-proportion="1.1017612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="838" column="31" selection-start="30080" selection-end="30080" vertical-scroll-proportion="1.074364">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="20" selection-start="228" selection-end="228" vertical-scroll-proportion="0.24657534">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/Fonts/iPhoneRetina/ScoreSmall.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="25" selection-start="749" selection-end="749" vertical-scroll-proportion="0.30923694">
+          <folding />
         </state>
       </provider>
     </entry>

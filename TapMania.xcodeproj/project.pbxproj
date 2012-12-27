@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24219C4B11D26244001BCE14 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24D7634D0F38B0E9008B0AA0 /* Credits.plist */; };
 		24219C4C11D26244001BCE14 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A425440F7119FC001B0CDE /* Icon.png */; };
 		24219C5011D26244001BCE14 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2410B37011CBB8F70097E5AB /* MainWindow.xib */; };
 		24219C5111D26244001BCE14 /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = 247081F111CD705A0045988B /* Songs */; };
@@ -685,7 +684,6 @@
 		24D762950F38A078008B0AA0 /* Metrics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Metrics.mm; path = ThemeSupport/Metrics.mm; sourceTree = "<group>"; };
 		24D762970F38A38D008B0AA0 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThemeManager.h; path = ThemeSupport/ThemeManager.h; sourceTree = "<group>"; };
 		24D762980F38A38D008B0AA0 /* ThemeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ThemeManager.mm; path = ThemeSupport/ThemeManager.mm; sourceTree = "<group>"; };
-		24D7634D0F38B0E9008B0AA0 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Credits.plist; path = Data/Credits.plist; sourceTree = SOURCE_ROOT; };
 		24DA2357121B2D3D0023C8C2 /* TDBSearch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TDBSearch.xib; sourceTree = "<group>"; };
 		24DA235B121B2E5C0023C8C2 /* TDBSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBSearch.h; sourceTree = "<group>"; };
 		24DA235C121B2E5C0023C8C2 /* TDBSearch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TDBSearch.mm; sourceTree = "<group>"; };
@@ -1885,7 +1883,6 @@
 				24A425440F7119FC001B0CDE /* Icon.png */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				24D7634D0F38B0E9008B0AA0 /* Credits.plist */,
 				F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */,
 				F44B213EF30E39B8D26F6EDA /* Default@2x.png */,
 				F44B2D70FC6879AAEC0520EE /* SystemSongs */,
@@ -2165,7 +2162,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24219C4B11D26244001BCE14 /* Credits.plist in Resources */,
 				24219C4C11D26244001BCE14 /* Icon.png in Resources */,
 				24219C5011D26244001BCE14 /* MainWindow.xib in Resources */,
 				24219C5111D26244001BCE14 /* Songs in Resources */,
