@@ -264,66 +264,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 @end
 
-@implementation Texture2D (Text)
-
-- (id)initWithString:(NSString *)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString *)name fontSize:(CGFloat)size
-{
-    NSUInteger width,
-            height,
-            i;
-    CGContextRef context;
-    void *data;
-    CGColorSpaceRef colorSpace;
-    UIFont *font;
-
-    font = [UIFont fontWithName:name size:size];
-
-    width = dimensions.width;
-    if ( (width != 1) && (width & (width - 1)) )
-    {
-        i = 1;
-        while ( i < width )
-        {
-            i *= 2;
-        }
-        width = i;
-    }
-    height = dimensions.height;
-    if ( (height != 1) && (height & (height - 1)) )
-    {
-        i = 1;
-        while ( i < height )
-        {
-            i *= 2;
-        }
-        height = i;
-    }
-
-    colorSpace = CGColorSpaceCreateDeviceGray();
-    data = calloc(height, width);
-    context = CGBitmapContextCreate(data, width, height, 8, width, colorSpace, kCGImageAlphaNone);
-    CGColorSpaceRelease(colorSpace);
-
-
-    CGContextSetGrayFillColor(context, 1.0, 1.0);
-    CGContextTranslateCTM(context, 0.0, height);
-    CGContextScaleCTM(context, 1.0, -1.0); //NOTE: NSString draws in UIKit referential i.e. renders upside-down compared to CGBitmapContext referential
-    UIGraphicsPushContext(context);
-    [string drawInRect:CGRectMake(0, 0, dimensions.width, dimensions.height) withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:alignment];
-    UIGraphicsPopContext();
-
-    self = [self initWithData:data pixelFormat:kTexture2DPixelFormat_A8 pixelsWide:width pixelsHigh:height contentSize:dimensions];
-
-    CGContextRelease(context);
-    free(data);
-
-    return self;
-}
-
-@end
-
 @implementation Texture2D (Drawing)
-
 
 - (void)drawAtPoint:(CGPoint)point
 {

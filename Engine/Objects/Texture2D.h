@@ -114,10 +114,3 @@ Note that RGBA type textures will have their alpha premultiplied - use the blend
 - (id)initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
 @end
 
-/*
-Extensions to make it easy to create a Texture2D object from a string of text.
-Note that the generated textures are of type A8 - use the blending mode (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA).
-*/
-@interface Texture2D (Text)
-- (id)initWithString:(NSString *)string dimensions:(CGSize)dimensions alignment:(UITextAlignment)alignment fontName:(NSString *)name fontSize:(CGFloat)size;
-@end

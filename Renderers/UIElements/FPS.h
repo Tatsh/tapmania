@@ -9,14 +9,14 @@
 
 #import "TMControl.h"
 
-@class Texture2D;
+@class FontString;
 
 @interface FPS : TMControl
 {
     long m_lFpsCounter;
     double m_dTimeCounter;
 
-    Texture2D *m_pCurrentTexture;
+    FontString * m_pFpsStr;
 }
 
 @end

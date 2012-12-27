@@ -537,7 +537,7 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 
 - (NSString *)getAddress
 {
-    NSString *address = @"Turn WiFi on first";
+    NSString *address = @"Turn Wi-Fi ON in iOS settings";
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;

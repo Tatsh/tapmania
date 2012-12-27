@@ -13,10 +13,7 @@
 
 @interface CreditsRenderer : TMScreen
 {
-    NSMutableArray *m_aTexturesArray;
-
     BOOL m_bShouldReturn;
-    float m_fCurrentPos; // Current Y coordinate of the scrolling text
 }
 
 @end

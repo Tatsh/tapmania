@@ -9,8 +9,6 @@
 
 #import "TMScreen.h"
 
-@class Texture2D;
-
 typedef enum
 {
     kSongManagerAction_None = 0,
@@ -22,11 +20,6 @@ typedef enum
 @interface SongManagerRenderer : TMScreen
 {
     TMSongManagerActions m_nAction;
-
-    Texture2D *m_pServerUrl;
-
-    /* Metrics and such */
-    CGPoint mt_UrlPosition;
 }
 
 @end

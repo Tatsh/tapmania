@@ -8,16 +8,13 @@
 
 #import "SongManagerRenderer.h"
 
-#import "Texture2D.h"
-
-#import "InputEngine.h"
 #import "TapMania.h"
-#import "ThemeManager.h"
-#import "EAGLView.h"
 #import "WebServer.h"
 
 #import "QuadTransition.h"
 #import "OptionsMenuRenderer.h"
+#import "TMControl.h"
+#import "Label.h"
 
 //#import "FlurryAPI.h"
 
@@ -29,18 +26,16 @@
     [super setupForTransition];
 //	[FlurryAPI logEvent:@"songman_screen_enter"];
 
-    mt_UrlPosition = POINT_METRIC(@"SongManager Url");
-
     // Start with no action
     m_nAction = kSongManagerAction_None;
 
     // Now start the web server
     [[WebServer sharedInstance] start];
 
-    m_pServerUrl = [[Texture2D alloc] initWithString:[WebServer sharedInstance].m_sCurrentServerURL
-                                          dimensions:CGSizeMake(320, 60) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:18];
-
     m_nAction = kSongManagerAction_Running;
+
+    // Set the label
+    [(Label*)[self findControl:@"SongManager UrlLabel"] setName:[WebServer sharedInstance].m_sCurrentServerURL];
 }
 
 - (void)deinitOnTransition
@@ -49,28 +44,6 @@
 
     // Stop web server
     [[WebServer sharedInstance] stop];
-}
-
-- (void)dealloc
-{
-    [m_pServerUrl release];
-
-    [super dealloc];
-}
-
-/* TMRenderable methods */
-- (void)render:(float)fDelta
-{
-    // Render kids and bg
-    [super render:fDelta];
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    [m_pServerUrl drawAtPoint:mt_UrlPosition];
-
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_BLEND);
 }
 
 /* TMLogicUpdater method */
