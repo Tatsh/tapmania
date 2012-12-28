@@ -413,7 +413,7 @@ T get_attribute(xml_node *node, const std::string& attr_name)
     totalWidth = fmaxf(totalWidth, width);
 
     // HACK: give some extra space just in case :-)
-    return CGSizeMake(totalWidth + 4, self.line_height);
+    return CGSizeMake(totalWidth + 8, self.line_height+8);
 }
 
 - (Quad *)createQuadFromText:(NSString *)str

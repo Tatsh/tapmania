@@ -1054,7 +1054,9 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.mp3" afterPath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.sm" afterPath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.sm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/iPadRetina/BigCaption.png" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/iPadRetina/BigCaption.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/iPadRetina/BigCaption.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/iPadRetina/BigCaption.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/FontSupport/Font.mm" afterPath="$PROJECT_DIR$/Engine/FontSupport/Font.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1111,10 +1113,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Font.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/FontSupport/Font.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="399" column="105" selection-start="11841" selection-end="11841" vertical-scroll-proportion="0.34246576">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="32" selection-start="6889" selection-end="6892" vertical-scroll-proportion="0.02739726">
+            <state line="210" column="106" selection-start="7525" selection-end="7525" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1157,7 +1168,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/SongManagerRenderer.mm" />
@@ -1173,6 +1183,7 @@
         <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" />
+        <option value="$PROJECT_DIR$/Engine/FontSupport/Font.mm" />
       </list>
     </option>
   </component>
@@ -1561,13 +1572,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="839" column="23" selection-start="29826" selection-end="30044" vertical-scroll-proportion="1.1017612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="20" selection-start="228" selection-end="228" vertical-scroll-proportion="0.24657534">
@@ -1666,7 +1670,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="32" selection-start="6889" selection-end="6892" vertical-scroll-proportion="0.02739726">
+        <state line="210" column="106" selection-start="7525" selection-end="7525" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/FontSupport/Font.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="399" column="105" selection-start="11841" selection-end="11841" vertical-scroll-proportion="0.34246576">
           <folding />
         </state>
       </provider>
