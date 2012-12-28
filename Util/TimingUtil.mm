@@ -205,7 +205,7 @@ extern TMGameState *g_pGameState;
 + (float)getPixelsPerNoteRowForBPS:(float)bps andSpeedMod:(float)sMod
 {
     static double screenHeight = [DisplayUtil getDeviceDisplaySize].height;
-    double tFullScreenTime = screenHeight / bps / 60.0f;
+    double tFullScreenTime = screenHeight / bps / (screenHeight/8);
 
     // Apply speedmod
     if (sMod > 0.0f)
