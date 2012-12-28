@@ -1054,7 +1054,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.mp3" afterPath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.sm" afterPath="$PROJECT_DIR$/Data/SystemSongs/_Sync/sync.sm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongResults/iPadRetina/JudgeLabels.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongResults/iPadRetina/JudgeLabels.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1075,19 +1075,46 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_6.0_2" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SongPickerWheel.mm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
+      <file leaf-file-name="iPhoneRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="28" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.49315068">
+            <state line="466" column="26" selection-start="16682" selection-end="16682" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SongPickerWheel.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="28" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TMFramedTexture.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/Objects/TMFramedTexture.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="11" selection-start="1137" selection-end="1141" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Slider.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/Slider.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="107" column="104" selection-start="2774" selection-end="2774" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="480" column="101" selection-start="17438" selection-end="17438" vertical-scroll-proportion="0.0">
+            <state line="192" column="32" selection-start="6889" selection-end="6892" vertical-scroll-proportion="0.02739726">
               <folding />
             </state>
           </provider>
@@ -1130,7 +1157,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/SongManagerRenderer.h" />
         <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
@@ -1144,8 +1170,9 @@
         <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
         <option value="$PROJECT_DIR$/Data/noteskins/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
-        <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
+        <option value="$PROJECT_DIR$/Renderers/UIElements/Slider.mm" />
       </list>
     </option>
   </component>
@@ -1534,20 +1561,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Renderers/CreditsRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="315" selection-end="315" vertical-scroll-proportion="0.5205479">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/FPS.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="199" selection-end="199" vertical-scroll-proportion="0.30136988">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
         <state line="839" column="23" selection-start="29826" selection-end="30044" vertical-scroll-proportion="1.1017612">
@@ -1623,23 +1636,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="28" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="466" column="26" selection-start="16682" selection-end="16682" vertical-scroll-proportion="0.39334637">
+        <state line="466" column="26" selection-start="16682" selection-end="16682" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMFramedTexture.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="11" selection-start="1137" selection-end="1141" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/Slider.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="107" column="104" selection-start="2774" selection-end="2774" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="480" column="101" selection-start="17438" selection-end="17438" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="28" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.49315068">
+        <state line="192" column="32" selection-start="6889" selection-end="6892" vertical-scroll-proportion="0.02739726">
           <folding />
         </state>
       </provider>

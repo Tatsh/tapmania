@@ -96,11 +96,7 @@
 /* TMRenderable stuff */
 - (void)render:(float)fDelta
 {
-    float capWidth = 46.0f;
-    if ([DisplayUtil isRetina])
-    {
-        capWidth *= 2.0f;
-    }
+    float capWidth = [m_pTexture contentSize].width/[m_pTexture cols];
 
     CGRect leftCapRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, capWidth, m_rShape.size.height);
     CGRect rightCapRect = CGRectMake(m_rShape.origin.x + m_rShape.size.width - capWidth, m_rShape.origin.y, capWidth, m_rShape.size.height);
@@ -110,10 +106,10 @@
     CGRect thumbRect = CGRectMake(m_rShape.origin.x + thumbOffset, m_rShape.origin.y, capWidth, m_rShape.size.height);
 
     glEnable(GL_BLEND);
-    [(TMFramedTexture *) m_pTexture drawFrame:0 inRect:leftCapRect];
-    [(TMFramedTexture *) m_pTexture drawFrame:1 inRect:bodyRect];
-    [(TMFramedTexture *) m_pTexture drawFrame:2 inRect:rightCapRect];
-    [(TMFramedTexture *) m_pTexture drawFrame:3 inRect:thumbRect];
+    [m_pTexture drawFrame:0 inRect:leftCapRect];
+    [m_pTexture drawFrame:1 inRect:bodyRect];
+    [m_pTexture drawFrame:2 inRect:rightCapRect];
+    [m_pTexture drawFrame:3 inRect:thumbRect];
     glDisable(GL_BLEND);
 }
 
