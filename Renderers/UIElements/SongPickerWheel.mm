@@ -63,8 +63,7 @@ extern TMGameState *g_pGameState;
 
     if ( selectedIndex >= 0 )
     {
-
-        int shift = mt_SelectedWheelItemId;
+        int shift = mt_SelectedWheelItemId-1;
         for ( ; shift >= 0; --shift )
         {
             if ( --selectedIndex < 0 )
@@ -465,9 +464,11 @@ extern TMGameState *g_pGameState;
     float tmp = MAXFLOAT;    // Holds current minimum
     int i;
 
+    float lookupPosition = mt_FirstItemOffset - mt_DistanceBetweenItems*(mt_NumWheelItems-mt_SelectedWheelItemId);
+
     for ( i = mt_SelectedWheelItemId - 2; i < mt_SelectedWheelItemId + 2; ++i )
     {
-        float t = [(SongPickerMenuItem *) (m_pWheelItems->at(i).get()) getPosition].y - mt_HighlightCenter.origin.y;
+        float t = [(SongPickerMenuItem *) (m_pWheelItems->at(i).get()) getPosition].y - lookupPosition;
         if ( fabsf(t) < fabsf(tmp) )
         {
             tmp = t;
