@@ -284,131 +284,132 @@
             </dict>
             <key>SongOptions</key>
             <dict>
-                <key>SpeedToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>200</integer>
-                    <key>FixedWidth</key>
-                    <integer>260</integer>
-                </dict>
-                <key>NoteModToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>300</integer>
-                    <key>FixedWidth</key>
-                    <integer>260</integer>
-                </dict>
-                <key>ReceptorModToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>400</integer>
-                    <key>FixedWidth</key>
-                    <integer>260</integer>
-                </dict>
-                <key>NoteSkinLabel</key>
-                <dict>
-                    <key>X</key>
-                    <integer>200</integer>
-                    <key>Y</key>
-                    <integer>744</integer>
-                    <key>FixedWidth</key>
-                    <integer>180</integer>
-                </dict>
                 <key>SpeedLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>200</integer>
+                    <integer>648</integer>
                     <key>Y</key>
-                    <integer>244</integer>
+                    <integer>542</integer>
                     <key>FixedWidth</key>
-                    <integer>180</integer>
-                </dict>
-                <key>FingerTrackingLabel</key>
-                <dict>
-                    <key>X</key>
-                    <integer>200</integer>
-                    <key>Y</key>
-                    <integer>544</integer>
-                    <key>FixedWidth</key>
-                    <integer>180</integer>
+                    <integer>568</integer>
                 </dict>
                 <key>NoteModeLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>200</integer>
+                    <integer>648</integer>
                     <key>Y</key>
-                    <integer>344</integer>
+                    <integer>749</integer>
                     <key>FixedWidth</key>
-                    <integer>180</integer>
+                    <integer>568</integer>
                 </dict>
                 <key>ReceptorModLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>200</integer>
+                    <integer>648</integer>
                     <key>Y</key>
-                    <integer>444</integer>
+                    <integer>956</integer>
                     <key>FixedWidth</key>
-                    <integer>180</integer>
+                    <integer>568</integer>
                 </dict>
+                <key>FingerTrackingLabel</key>
+                <dict>
+                    <key>X</key>
+                    <integer>648</integer>
+                    <key>Y</key>
+                    <integer>1163</integer>
+                    <key>FixedWidth</key>
+                    <integer>568</integer>
+                </dict>
+
                 <key>VisiblePadLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>200</integer>
+                    <integer>648</integer>
                     <key>Y</key>
-                    <integer>644</integer>
+                    <integer>1370</integer>
                     <key>FixedWidth</key>
-                    <integer>180</integer>
+                    <integer>568</integer>
+                </dict>
+                <key>NoteSkinLabel</key>
+                <dict>
+                    <key>X</key>
+                    <integer>648</integer>
+                    <key>Y</key>
+                    <integer>1577</integer>
+                    <key>FixedWidth</key>
+                    <integer>568</integer>
+                </dict>
+                <key>SpeedToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>450</integer>
+                    <key>FixedWidth</key>
+                    <integer>400</integer>
+                </dict>
+                <key>NoteModToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>657</integer>
+                    <key>FixedWidth</key>
+                    <integer>400</integer>
+                </dict>
+                <key>ReceptorModToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>864</integer>
+                    <key>FixedWidth</key>
+                    <integer>400</integer>
                 </dict>
                 <key>NoteSkinTogglerCustom</key>
                 <dict>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>700</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
                     <key>Height</key>
-                    <integer>92</integer>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>1485</integer>
                 </dict>
                 <key>FingerTrackingToggler</key>
                 <dict>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>500</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
                     <key>Height</key>
-                    <integer>92</integer>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>1071</integer>
                 </dict>
                 <key>VisiblePadToggler</key>
                 <dict>
-                    <key>X</key>
-                    <integer>220</integer>
-                    <key>Y</key>
-                    <integer>600</integer>
-                    <key>Width</key>
-                    <integer>380</integer>
                     <key>Height</key>
-                    <integer>92</integer>
+                    <integer>184</integer>
+                    <key>Width</key>
+                    <integer>540</integer>
+                    <key>X</key>
+                    <integer>747</integer>
+                    <key>Y</key>
+                    <integer>1278</integer>
                 </dict>
             </dict>
             <key>SongPickerMenu</key>
