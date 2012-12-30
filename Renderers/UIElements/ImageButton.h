@@ -18,4 +18,5 @@
 
 - (id)initWithTexture:(Texture2D *)tex andShape:(CGRect)shape;
 
+- (void)updateImage:(Texture2D *)d;
 @end

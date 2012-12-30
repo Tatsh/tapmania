@@ -38,6 +38,9 @@
 
 #import "GLUtil.h"
 #import "SongPickerMenuItem.h"
+#import "BpmDisplay.h"
+#import "TMChangeSegment.h"
+#import "BpmDisplay.h"
 
 extern TMGameState *g_pGameState;
 
@@ -100,10 +103,17 @@ extern TMGameState *g_pGameState;
 
     // Back button action
     MenuItem *backButton = (MenuItem *) [self findControl:@"SongPickerMenu BackButton"];
-    if (backButton != nil)
+    if ( backButton != nil )
     {
         [backButton setActionHandler:@selector(backButtonHit) receiver:self];
     }
+    
+    // Get the banner control
+    m_pBanner = (ImageButton *) [self findControl:@"SongPickerMenu BannerImg"];
+
+    // Setup bpm display
+    m_pBpmDisplay = [[BpmDisplay alloc] initWithMetrics:@"SongPickerMenu BpmDisplay"];
+    [self pushBackChild:m_pBpmDisplay];
 
     // Select current song (populate difficulty toggler with it's difficulties)
     [self songSelectionChanged];
@@ -146,16 +156,16 @@ extern TMGameState *g_pGameState;
     int closestDiffAvailable = -1024;
 
     // Go through all possible difficulties
-    for (int dif = (int) kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif)
+    for ( int dif = (int) kSongDifficulty_Invalid; dif < kNumSongDifficulties; ++dif )
     {
-        if ([song isDifficultyAvailable:(TMSongDifficulty) dif])
+        if ( [song isDifficultyAvailable:(TMSongDifficulty) dif] )
         {
             NSString *title = [NSString stringWithFormat:@"%@ (%d)", [TMSong difficultyToString:(TMSongDifficulty) dif], [song getDifficultyLevel:(TMSongDifficulty) dif]];
 
             TMLog(@"Add dif %d to toggler as [%@]", dif, title);
             [m_pDifficultyToggler addItem:[NSNumber numberWithInt:dif] withTitle:title];
 
-            if (dif == prefDiff || abs(prefDiff - dif) < abs(prefDiff - closestDiffAvailable))
+            if ( dif == prefDiff || abs(prefDiff - dif) < abs(prefDiff - closestDiffAvailable) )
             {
                 closestDiffAvailable = dif;
                 TMLog(@"Selected [%d <= %d] %@", dif, prefDiff, [TMSong difficultyToString:(TMSongDifficulty) dif]);
@@ -169,7 +179,7 @@ extern TMGameState *g_pGameState;
     [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) closestDiffAvailable];
 
     // Stop current previewMusic if any
-    if (m_pPreviewMusic)
+    if ( m_pPreviewMusic )
     {
         // TODO: we need to remove it from the queue as well.
         // TODO: but that gives some framerate glitch so need to investigate.
@@ -187,6 +197,40 @@ extern TMGameState *g_pGameState;
     // Save as last played/selected
     [[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
 
+    if(t_Banner != nil)
+    {
+        [t_Banner release];
+    }
+
+    if ( song.m_sBannerFilePath != nil )
+    {
+        NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath];
+        songPath = [songPath stringByAppendingPathComponent:song.m_sSongDirName];
+
+        NSString *bannerFilePath = [songPath stringByAppendingPathComponent:song.m_sBannerFilePath];
+        TMLog(@"Banner full path: '%@'", bannerFilePath);
+
+        UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
+        if ( img )
+        {
+            t_Banner = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+        }
+        else
+        {
+            t_Banner = TEXTURE(@"SongResults NoBanner");
+        }
+    }
+    else
+    {
+        t_Banner = TEXTURE(@"SongResults NoBanner");
+    }
+
+    // Update song banner
+    [m_pBanner updateImage:t_Banner];
+
+    // Update bpm display with currently selected song
+    [m_pBpmDisplay updateWithSong:song];
+
     // Mark released to prevent memleaks
     [selected release];
 }
@@ -194,7 +238,7 @@ extern TMGameState *g_pGameState;
 - (void)songShouldStart
 {
     // Stop current previewMusic if any
-    if (m_pPreviewMusic)
+    if ( m_pPreviewMusic )
     {
         [[TMSoundEngine sharedInstance] stopMusic];
     }
@@ -219,19 +263,19 @@ extern TMGameState *g_pGameState;
     NSArray *arr = [cur componentsSeparatedByString:@","];
     g_pGameState->m_sMods = [[arr objectAtIndex:[arr count] - 1] retain];
 
-    if (g_pGameState->m_bModDark)
+    if ( g_pGameState->m_bModDark )
     {
         g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"dark"] retain];
     }
-    if (g_pGameState->m_bModHidden)
+    if ( g_pGameState->m_bModHidden )
     {
         g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"hidden"] retain];
     }
-    if (g_pGameState->m_bModSudden)
+    if ( g_pGameState->m_bModSudden )
     {
         g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"sudden"] retain];
     }
-    if (g_pGameState->m_bModStealth)
+    if ( g_pGameState->m_bModStealth )
     {
         g_pGameState->m_sMods = [[g_pGameState->m_sMods stringByAppendingFormat:@", %@", @"stealth"] retain];
     }
@@ -255,7 +299,7 @@ extern TMGameState *g_pGameState;
 - (void)backButtonHit
 {
     // Stop current previewMusic if any
-    if (m_pPreviewMusic)
+    if ( m_pPreviewMusic )
     {
         [[TMSoundEngine sharedInstance] stopMusic];
     }
@@ -264,6 +308,8 @@ extern TMGameState *g_pGameState;
 - (void)dealloc
 {
     [m_pPreviewMusic release];
+    [t_Banner release];
+
     [super dealloc];
 }
 

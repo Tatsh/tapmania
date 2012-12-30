@@ -185,7 +185,8 @@
 	[coder encodeObject:m_sBackgroundFilePath forKey:@"bfp"];
 	[coder encodeObject:m_sBannerFilePath forKey:@"bafp"];
 	
-	[coder encodeFloat:m_fBpm forKey:@"b"];
+	[coder encodeFloat:
+            m_fBpm forKey:@"b"];
 	[coder encodeDouble:m_dGap forKey:@"g"];
 	
 	NSMutableArray* bpmArr = [NSMutableArray arrayWithCapacity:m_aBpmChangeArray.size()];

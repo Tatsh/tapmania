@@ -10,6 +10,8 @@
 #import "TMScreen.h"
 
 @class SongPickerWheel, TMSound, TogglerItem, MenuItem, Texture2D;
+@class ImageButton;
+@class BpmDisplay;
 
 @interface SongPickerMenuRenderer : TMScreen
 {
@@ -29,6 +31,9 @@
     Texture2D *t_Highlight;
 
     TMSound *sr_SelectSong;
+    Texture2D *t_Banner;
+    ImageButton *m_pBanner;
+    BpmDisplay *m_pBpmDisplay;
 }
 
 @end

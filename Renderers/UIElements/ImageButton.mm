@@ -59,4 +59,9 @@
     }
 }
 
+- (void)updateImage:(Texture2D *)d
+{
+    m_pTexture = d;
+}
+
 @end
