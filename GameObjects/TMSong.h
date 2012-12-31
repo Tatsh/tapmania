@@ -42,6 +42,7 @@ typedef enum {
 
 @class TMSteps;
 @class TMChangeSegment;
+@class Texture2D;
 
 #ifdef __cplusplus
 typedef ObjCPtr<TMChangeSegment>			TMChangeSegmentPtr;
@@ -99,6 +100,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (retain, nonatomic, getter=title, setter=title:, readwrite) NSString* m_sTitle;
 @property (assign) float m_fBpm;
 @property (assign) double m_dGap;
+
+@property(nonatomic, retain) Texture2D* bannerTexture;
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
 - (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath 

@@ -17,6 +17,8 @@
 #import "TMSoundEngine.h"
 #import "TMSound.h"
 #import "GLUtil.h"
+#import "TMSong.h"
+#import "Texture2D.h"
 //#import "FlurryAPI.h"
 
 @interface SongsCacheLoaderRenderer (Private)
@@ -25,13 +27,20 @@
 - (void)generateTexture;
 @end
 
+@interface SongsCacheLoaderRenderer ()
+- (void)loadBannerForSong:(TMSong *)song;
+
+@end
+
 @implementation SongsCacheLoaderRenderer
 
 - (id)init
 {
     self = [super initWithMetrics:@"SongsCacheLoader"];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_bTransitionIsDone = NO;
     m_bAllSongsLoaded = NO;
@@ -55,7 +64,7 @@
 
 - (void)generateTexture
 {
-    if (m_bTextureShouldChange)
+    if ( m_bTextureShouldChange )
     {
         [m_pCurrentStr updateText:m_sCurrentMessage];
     }
@@ -134,7 +143,7 @@
 
     static double tickCounter = 0.0;
 
-    if (m_bAllSongsLoaded && m_bTransitionIsDone)
+    if ( m_bAllSongsLoaded && m_bTransitionIsDone )
     {
         TMLog(@"Requesting switch to main screen!");
 //		[FlurryAPI endTimedEvent:@"start_loading_songs"];
@@ -142,11 +151,12 @@
         [[TapMania sharedInstance] switchToScreen:[MainMenuRenderer class] withMetrics:@"MainMenu"];
         m_bAllSongsLoaded = NO; // Do this only once
 
-    } else if (m_bGlobalError)
+    }
+    else if ( m_bGlobalError )
     {
         tickCounter += fDelta;
 
-        if (tickCounter >= 10.0)
+        if ( tickCounter >= 10.0 )
         {
             TMLog(@"Time to die...");
 
@@ -170,17 +180,35 @@
     [m_pLock unlock];
 }
 
-- (void)doneLoadingSong:(NSString *)path
+- (void)doneLoadingSong:(TMSong *)song withPath:(NSString *)path
 {
     [m_pLock lock];
     m_sCurrentMessage = [NSString stringWithFormat:@"Loading song '%@' done", path];
     m_bTextureShouldChange = YES;
 
+    [self performSelectorOnMainThread:@selector(loadBannerForSong:)
+                           withObject:song waitUntilDone:NO];
 
     // Report the songs users play to determine the most uploaded
 //	[FlurryAPI logEvent:@"load_song" withParameters:[NSDictionary dictionaryWithObject:path forKey:@"song"]];
 
     [m_pLock unlock];
+}
+
+- (void)loadBannerForSong:(TMSong *)song
+{
+    NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath];
+    songPath = [songPath stringByAppendingPathComponent:song.m_sSongDirName];
+
+    NSString *bannerFilePath = [songPath stringByAppendingPathComponent:song.m_sBannerFilePath];
+    TMLog(@"Banner full path: '%@'", bannerFilePath);
+
+    UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
+    if ( img )
+    {
+        TMLog(@"Allocating banner texture on song cache sync...");
+        song.bannerTexture = [[[Texture2D alloc] initWithImage:img columns:1 andRows:1] autorelease];
+    }
 }
 
 - (void)errorLoadingSong:(NSString *)path withReason:(NSString *)message

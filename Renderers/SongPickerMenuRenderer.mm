@@ -62,6 +62,9 @@ extern TMGameState *g_pGameState;
 @end
 
 @implementation SongPickerMenuRenderer
+{
+    Texture2D *t_NoBanner;
+}
 @synthesize m_previewMusicTimer = _m_previewMusicTimer;
 
 
@@ -86,7 +89,8 @@ extern TMGameState *g_pGameState;
 
     // Cache graphics
     t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
-
+    t_NoBanner = TEXTURE(@"SongResults NoBanner");
+    
     // And sounds
     sr_SelectSong = SOUND(@"SongPickerMenu SelectSong");
 
@@ -125,7 +129,6 @@ extern TMGameState *g_pGameState;
 
     // Select current song (populate difficulty toggler with it's difficulties)
     [self songSelectionChanged];
-    [m_pSongWheel updateScore];
     [self playPreviewMusic];
 
     // Get ads back to place if removed
@@ -134,16 +137,15 @@ extern TMGameState *g_pGameState;
 
 - (void)playPreviewMusic
 {
-    if (self.m_previewMusicTimer)
+    if ( self.m_previewMusicTimer )
     {
         [self.m_previewMusicTimer invalidate];
         self.m_previewMusicTimer = nil;
     }
     self.m_previewMusicTimer = [NSTimer scheduledTimerWithTimeInterval:0.7
-                                                           target:self 
-                                                         selector:@selector(startPreviewMusic) 
-                                                         userInfo:nil 
-                                                          repeats:NO];
+                                                                target:self
+                                                              selector:@selector(startPreviewMusic)
+                                                              userInfo:nil repeats:NO];
 }
 
 - (void)startPreviewMusic
@@ -223,32 +225,13 @@ extern TMGameState *g_pGameState;
     // Save as last played/selected
     [[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
 
-    if ( t_Banner != nil )
+    if ( song.bannerTexture != nil )
     {
-        [t_Banner release];
-    }
-
-    if ( song.m_sBannerFilePath != nil )
-    {
-        NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath];
-        songPath = [songPath stringByAppendingPathComponent:song.m_sSongDirName];
-
-        NSString *bannerFilePath = [songPath stringByAppendingPathComponent:song.m_sBannerFilePath];
-        TMLog(@"Banner full path: '%@'", bannerFilePath);
-
-        UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
-        if ( img )
-        {
-            t_Banner = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
-        }
-        else
-        {
-            t_Banner = TEXTURE(@"SongResults NoBanner");
-        }
+        t_Banner = song.bannerTexture;
     }
     else
     {
-        t_Banner = TEXTURE(@"SongResults NoBanner");
+        t_Banner = t_NoBanner;
     }
 
     // Update song banner
@@ -257,12 +240,22 @@ extern TMGameState *g_pGameState;
     // Update bpm display with currently selected song
     [m_pBpmDisplay updateWithSong:song];
 
+    // Update score display
+    [m_pSongWheel updateScore];
+
     // Mark released to prevent memleaks
     [selected release];
 }
 
 - (void)songShouldStart
 {
+    // Stop the preview music timer
+    if ( self.m_previewMusicTimer )
+    {
+        [self.m_previewMusicTimer invalidate];
+        self.m_previewMusicTimer = nil;
+    }
+
     // Stop current previewMusic if any
     if ( m_pPreviewMusic )
     {
@@ -276,7 +269,7 @@ extern TMGameState *g_pGameState;
     TMSong *song = [selected song];
 
     // Assign difficulty
-    g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) [(NSNumber *) [(TogglerItem *) m_pDifficultyToggler getCurrent].m_pValue intValue];
+    g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) [(NSNumber *) [m_pDifficultyToggler getCurrent].m_pValue intValue];
 
     // Check speedmod to be sure
     NSArray *speedMods = ARRAY_METRIC(@"SpeedMods");
@@ -334,7 +327,7 @@ extern TMGameState *g_pGameState;
 - (void)dealloc
 {
     [m_pPreviewMusic release];
-    [t_Banner release];
+    [t_NoBanner release];
 
     [_m_previewMusicTimer release];
     [super dealloc];

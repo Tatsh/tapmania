@@ -7,11 +7,13 @@
 //  Copyright 2008-2009 Godexsoft. All rights reserved.
 //
 
+@class TMSong;
+
 @protocol TMSongsLoaderSupport
 
 - (void)startLoadingSong:(NSString *)path;
 
-- (void)doneLoadingSong:(NSString *)path;
+- (void)doneLoadingSong:(TMSong*)song withPath:(NSString *)path;
 
 - (void)errorLoadingSong:(NSString *)path withReason:(NSString *)message;
 

@@ -16,6 +16,7 @@
 #import "TMChangeSegment.h"
 
 #import "SongsDirectoryCache.h"
+#import "TMFramedTexture.h"
 
 @implementation TMSong
 
@@ -25,10 +26,13 @@
 @synthesize m_sHash, m_iSongsPath;
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
+@synthesize bannerTexture = _bannerTexture;
+
 
 - (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId {
 	
 	self.m_iSongsPath = pathId;
+    self.bannerTexture = nil;
 	
 	// Note: only title etc is loaded here. No steps.
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {

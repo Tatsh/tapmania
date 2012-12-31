@@ -32,6 +32,9 @@ extern TMGameState *g_pGameState;
 
 
 @implementation SongResultsRenderer
+{
+    Texture2D *t_NoBanner;
+}
 
 - (void)dealloc
 {
@@ -64,8 +67,8 @@ extern TMGameState *g_pGameState;
     // Textures
     t_JudgeLabels = TEXTURE(@"SongResults JudgeLabels");
     t_Grades = TEXTURE(@"SongResults Grades");
-    t_overlay = TEXTURE(@"SongResults Overlay");
-    t_Banner = TEXTURE(@"SongResults NoBanner"); // Default banner
+    t_overlay = TEXTURE(@"SongResults Overlay");    
+    t_NoBanner = TEXTURE(@"SongResults NoBanner");
 
     if (g_pGameState->m_pSong.m_sBackgroundFilePath != nil)
     {
@@ -79,17 +82,13 @@ extern TMGameState *g_pGameState;
     }
     self.brightness = 0.5f;
 
-    if (g_pGameState->m_pSong.m_sBannerFilePath != nil)
+    if (g_pGameState->m_pSong.bannerTexture != nil)
     {
-        NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
-        songPath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sSongDirName];
-
-        NSString *bannerFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBannerFilePath];
-        TMLog(@"Banner full path: '%@'", bannerFilePath);
-
-        UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
-        if (img) // Or use default one if couldn't load
-            t_Banner = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+        t_Banner = g_pGameState->m_pSong.bannerTexture;
+    }
+    else
+    {
+        t_Banner = t_NoBanner;
     }
 
     // Get metrics
@@ -244,10 +243,7 @@ extern TMGameState *g_pGameState;
     [m_pScore drawAtPoint:mt_Score];
     [t_Grades drawFrame:(int) m_Grade atPoint:mt_Grade];
 
-    if (t_Banner != nil)
-    {
-        [t_Banner drawInRect:mt_Banner];
-    }
+    [t_Banner drawInRect:mt_Banner];
     [t_overlay drawInRect:bounds];
 }
 

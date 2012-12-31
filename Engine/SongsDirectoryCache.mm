@@ -12,6 +12,7 @@
 #import "TMSong.h"
 #import "VersionInfo.h"
 #import "DisplayUtil.h"
+#import "TMFramedTexture.h"
 
 #include <CommonCrypto/CommonDigest.h>
 
@@ -44,8 +45,10 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_aAvailableSongs = [[NSMutableArray arrayWithCapacity:10] retain];
     m_SongsDirs = [[NSMutableDictionary dictionaryWithCapacity:kNumSongsPaths] retain];
@@ -53,20 +56,21 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
     // Get songs directory
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if ([paths count] > 0)
+    if ( [paths count] > 0 )
     {
         NSString *dir = [paths objectAtIndex:0];
         NSString *userSongsDir = [dir stringByAppendingPathComponent:@"Songs"];
         [m_SongsDirs setObject:userSongsDir forKey:[NSNumber numberWithInt:kUserSongsPath]];
 
         // Create the songs dir if missing
-        if (![[NSFileManager defaultManager] isReadableFileAtPath:userSongsDir])
+        if ( ![[NSFileManager defaultManager] isReadableFileAtPath:userSongsDir] )
         {
             [[NSFileManager defaultManager] createDirectoryAtPath:userSongsDir attributes:nil];
         }
 
         TMLog(@"User Songs dir at: %@", userSongsDir);
-    } else
+    }
+    else
     {
         NSException *ex = [NSException exceptionWithName:@"SongsDirNotFound"
                                                   reason:@"Songs directory couldn't be found because the system failed to give us a Documents folder!" userInfo:nil];
@@ -101,7 +105,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     [baseDirs addObject:[NSNumber numberWithInt:kUserSongsPath]];
 
     NSMutableArray *fullSongDirs = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [baseDirs count]; i++)
+    for ( int i = 0; i < [baseDirs count]; i++ )
     {
         NSNumber *pId = [baseDirs objectAtIndex:i];
         TMLog(@"SongsDirPathId: %@", pId);
@@ -109,7 +113,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         TMLog(@"Checking songs dir at: '%@'", baseDir);
 
         NSArray *relativeSongDirs = [[NSFileManager defaultManager] directoryContentsAtPath:baseDir];
-        for (int j = 0; j < [relativeSongDirs count]; j++)
+        for ( int j = 0; j < [relativeSongDirs count]; j++ )
         {
             NSString *relativeSongDir = [relativeSongDirs objectAtIndex:j];
             TMLog(@"Found song dir: '%@'", relativeSongDir);
@@ -127,7 +131,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
      the user will need to upload songs first if none are available.
     */
 
-    if ([fullSongDirs count] == 0)
+    if ( [fullSongDirs count] == 0 )
     {
         m_bCatalogueIsEmpty = YES;
     }
@@ -138,7 +142,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     [[SongsDirectoryCache sharedInstance] writeCatalogueCache];
 
     // Tell the user that we are done
-    if (m_idDelegate != nil)
+    if ( m_idDelegate != nil )
     {
         [m_idDelegate songLoaderFinished];
     }
@@ -160,10 +164,12 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     int idx = 0;
 
-    for (TMSong *sng in m_aAvailableSongs)
+    for ( TMSong *sng in m_aAvailableSongs )
     {
-        if ([hash isEqualToString:sng.m_sHash])
+        if ( [hash isEqualToString:sng.m_sHash] )
+        {
             return idx;
+        }
 
         ++idx;
     }
@@ -175,10 +181,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (TMSong *)getSongNextTo:(TMSong *)song
 {
     int i = [m_aAvailableSongs indexOfObject:song];
-    if (i == [m_aAvailableSongs count] - 1)
+    if ( i == [m_aAvailableSongs count] - 1 )
+    {
         i = 0;
+    }
     else
+    {
         ++i;
+    }
 
     return [m_aAvailableSongs objectAtIndex:i];
 }
@@ -187,10 +197,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
 
     int i = [m_aAvailableSongs indexOfObject:song];
-    if (i == 0)
+    if ( i == 0 )
+    {
         i = [m_aAvailableSongs count] - 1;
+    }
     else
+    {
         --i;
+    }
 
     return [m_aAvailableSongs objectAtIndex:i];
 }
@@ -204,7 +218,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     TMLog(@"Going to test dir '%@' for simfiles...", rootDir);
 
     // Check whether this dir is a simfile dir already
-    if (![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"] && [self dirIsSimfile:rootDir])
+    if ( ![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"] && [self dirIsSimfile:rootDir] )
     {
         TMLog(@"Found a potential simfile directory. try to add files from there..");
         [self addSongFromDir:rootDir];
@@ -217,21 +231,23 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     NSArray *rootDirContents = [fMan directoryContentsAtPath:rootDir];
 
     // If the dir is empty, leave
-    if ([rootDirContents count] == 0)
+    if ( [rootDirContents count] == 0 )
     {
         return;
     }
 
     // Iterate over the contents
-    for (NSString *item in rootDirContents)
+    for ( NSString *item in rootDirContents )
     {
-        if ([item hasPrefix:@"__MACOSX"])
+        if ( [item hasPrefix:@"__MACOSX"] )
+        {
             continue;
+        }
 
         BOOL isDir = NO;
         NSString *path = [rootDir stringByAppendingPathComponent:item];
 
-        if ([fMan fileExistsAtPath:path isDirectory:&isDir] && isDir)
+        if ( [fMan fileExistsAtPath:path isDirectory:&isDir] && isDir )
         {
             TMLog(@"Recursively try '%@'...", path);
             [self addSongsFrom:path];
@@ -249,14 +265,15 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     BOOL stepsFound, musicFound;
     stepsFound = musicFound = NO;
 
-    for (NSString *file in contents)
+    for ( NSString *file in contents )
     {
         TMLog(@"Examine file/dir: %@", file);
 
-        if ([[file lowercaseString] hasSuffix:@".dwi"] || [[file lowercaseString] hasSuffix:@".sm"])
+        if ( [[file lowercaseString] hasSuffix:@".dwi"] || [[file lowercaseString] hasSuffix:@".sm"] )
         {
             stepsFound = YES;
-        } else if ([[file lowercaseString] hasSuffix:@".mp3"]
+        }
+        else if ( [[file lowercaseString] hasSuffix:@".mp3"]
 #ifdef TM_OGG_ENABLE
 				  || [[file lowercaseString] hasSuffix:@".ogg"]
 #endif // TM_OGG_ENABLE
@@ -275,7 +292,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     BOOL isDir;
 
     // Check whether the Song already exists in the catalogue
-    if ([[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir])
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] )
     {
         // TODO: handle situation. report to user.
         return;
@@ -284,9 +301,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     // TODO handle errors
     NSError *err;
 
-    if ([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err])
+    if ( [[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err] )
     {
-        if ([self addSongToLibrary:curPath fromSongsPathId:kUserSongsPath useCache:NO])
+        if ( [self addSongToLibrary:curPath fromSongsPathId:kUserSongsPath useCache:NO] )
         {
             // Write cache file
             [[SongsDirectoryCache sharedInstance] writeCatalogueCache];
@@ -305,27 +322,30 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
     NSString *deviceBgFile = [[NSString stringWithFormat:@"bg-%@.png", [DisplayUtil getDeviceDisplayString]] lowercaseString];
 
-    for (NSString *file in dirContents)
+    for ( NSString *file in dirContents )
     {
-        if ([[file lowercaseString] hasSuffix:@".dwi"])
+        if ( [[file lowercaseString] hasSuffix:@".dwi"] )
         {
 
             // SM format should be picked if both dwi and sm available
             TMLog(@"DWI file found: %@", file);
-            if (stepsFilePath == nil)
+            if ( stepsFilePath == nil )
             {
                 stepsFilePath = [curPath stringByAppendingPathComponent:file];
-            } else
+            }
+            else
             {
                 TMLog(@"Ignoring because SM is used already...");
             }
-        } else if ([[file lowercaseString] hasSuffix:@".sm"])
+        }
+        else if ( [[file lowercaseString] hasSuffix:@".sm"] )
         {
 
             // SM format should be picked if both dwi and sm available
             TMLog(@"SM file found: %@", file);
             stepsFilePath = [curPath stringByAppendingPathComponent:file];
-        } else if ([[file lowercaseString] hasSuffix:@".mp3"])
+        }
+        else if ( [[file lowercaseString] hasSuffix:@".mp3"] )
         {
 
             // we support mp3 files
@@ -340,7 +360,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 			musicFilePath = [curPath stringByAppendingPathComponent:file];
 		} 
 #endif // TM_OGG_ENABLE
-        else if ([[file lowercaseString] isEqualToString:deviceBgFile])
+        else if ( [[file lowercaseString] isEqualToString:deviceBgFile] )
         {
             TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
             backgroundFilePath = [curPath stringByAppendingPathComponent:file];
@@ -348,11 +368,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     }
 
     // Now try to parse if found everything
-    if (stepsFilePath != nil && musicFilePath != nil)
+    if ( stepsFilePath != nil && musicFilePath != nil )
     {
 
         // Parse very basic info from this file
-        if (m_idDelegate != nil)
+        if ( m_idDelegate != nil )
         {
             [m_idDelegate startLoadingSong:songDirName];
         }
@@ -365,17 +385,19 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         stepsFilePath = [stepsFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
         backgroundFilePath = [backgroundFilePath stringByReplacingOccurrencesOfString:songsDir withString:@""];
 
-        if (useCache && [m_pCatalogueCacheOld valueForKey:songDirName] != nil)
+        TMSong *song = nil;
+
+        if ( useCache && [m_pCatalogueCacheOld valueForKey:songDirName] != nil )
         {
             TMLog(@"Catalogue file has this file already!");
-            TMSong *song = [[m_pCatalogueCacheOld valueForKey:songDirName] retain];
+            song = [[m_pCatalogueCacheOld valueForKey:songDirName] retain];
 
             // Check hash
             NSString *songHash = [SongsDirectoryCache dirMD5:curPath];
             TMLog(@"GOT HASH: '%@'", songHash);
             TMLog(@"CACHED HASH IS: '%@'", song.m_sHash);
 
-            if (![songHash isEqualToString:song.m_sHash])
+            if ( ![songHash isEqualToString:song.m_sHash] )
             {
                 TMLog(@"Hash mismatch! Must reload!");
                 [song release];
@@ -385,7 +407,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             }
 
             // Set as sync song if it is system or add to list otherwise
-            if (pathId == kSystemSongsPath)
+            if ( pathId == kSystemSongsPath )
             {
                 [self setSyncSong:song];
             }
@@ -397,9 +419,10 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             // No matter where it comes from, cache or not, we need to save it to the new cache file
             [m_pCatalogueCacheNew setObject:song forKey:songDirName];
 
-        } else
+        }
+        else
         {
-            TMSong *song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];
+           song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];
 
             // Calculate the hash and store it
             NSString *songHash = [SongsDirectoryCache dirMD5:curPath];
@@ -409,7 +432,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             song.m_iSongsPath = pathId;
 
             // Set as sync song if it is system or add to list otherwise
-            if (pathId == kSystemSongsPath)
+            if ( pathId == kSystemSongsPath )
             {
                 [self setSyncSong:song];
             }
@@ -423,18 +446,19 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             [m_pCatalogueCacheNew setObject:song forKey:songDirName];
         }
 
-        if (m_idDelegate != nil)
+        if ( m_idDelegate != nil )
         {
-            [m_idDelegate doneLoadingSong:songDirName];
+            [m_idDelegate  doneLoadingSong:song withPath:songDirName];
         }
 
         // Indicate that the catalogue is not empty anymore
         m_bCatalogueIsEmpty = NO;
 
         return YES;
-    } else
+    }
+    else
     {
-        if (m_idDelegate != nil)
+        if ( m_idDelegate != nil )
         {
             [m_idDelegate errorLoadingSong:songDirName withReason:@"\nSteps file or Music file not found."];
         }
@@ -447,12 +471,12 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     TMSong *foundSong = nil;
 
-    for (TMSong *song in m_aAvailableSongs)
+    for ( TMSong *song in m_aAvailableSongs )
     {
 
         // We can only delete user created songs
-        if (song.m_iSongsPath == kUserSongsPath
-                && [song.m_sSongDirName isEqualToString:songDirName])
+        if ( song.m_iSongsPath == kUserSongsPath
+                && [song.m_sSongDirName isEqualToString:songDirName] )
         {
             foundSong = song;
             break;
@@ -460,12 +484,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     }
 
     // Only delete found songs to prevent any harm
-    if (foundSong == nil)
+    if ( foundSong == nil )
+    {
         return;
+    }
 
     // Remove from current list
     [m_aAvailableSongs removeObject:foundSong];
-    if ([m_aAvailableSongs count] == 0)
+    if ( [m_aAvailableSongs count] == 0 )
     {
         m_bCatalogueIsEmpty = YES;
     }
@@ -483,13 +509,13 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-    if ([paths count] > 0)
+    if ( [paths count] > 0 )
     {
         NSString *dir = [paths objectAtIndex:0];
         NSString *catalogueName = [NSString stringWithFormat:kCatalogueFileName, TAPMANIA_CACHE_VERSION];
         NSString *catalogueFile = [[dir stringByAppendingPathComponent:catalogueName] retain];
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:catalogueFile])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:catalogueFile] )
         {
             return [[NSMutableDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:catalogueFile]];
         }
@@ -503,7 +529,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-    if ([paths count] > 0)
+    if ( [paths count] > 0 )
     {
         NSString *dir = [paths objectAtIndex:0];
         NSString *catalogueName = [NSString stringWithFormat:kCatalogueFileName, TAPMANIA_CACHE_VERSION];
@@ -511,10 +537,11 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
         TMLog(@"Write catalogue to: %@", catalogueFile);
 
-        if (YES == [NSKeyedArchiver archiveRootObject:m_pCatalogueCacheNew toFile:catalogueFile])
+        if ( YES == [NSKeyedArchiver archiveRootObject:m_pCatalogueCacheNew toFile:catalogueFile] )
         {
             TMLog(@"Successfully written the catalogue!");
-        } else
+        }
+        else
         {
             TMLog(@"Too bad. Failed to write catalogue...");
         }
@@ -535,7 +562,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:YES];
 
-    if (fileAttributes == nil)
+    if ( fileAttributes == nil )
     {
         return @"Can't get file md5";
     }
@@ -546,7 +573,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     CC_MD5_CTX md5;
     CC_MD5_Init(&md5);
 
-    if (fileSize = [fileAttributes objectForKey:NSFileSize])
+    if ( fileSize = [fileAttributes objectForKey:NSFileSize] )
     {
         result = [result stringByAppendingString:[fileSize stringValue]];
     }
@@ -575,7 +602,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 {
     NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
 
-    if ([dirContents count] == 0)
+    if ( [dirContents count] == 0 )
     {
         return nil;
     }
@@ -584,7 +611,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     int i;
 
     // Accumulate md5s of all files in the dir
-    for (i = 0; i < [dirContents count]; i++)
+    for ( i = 0; i < [dirContents count]; i++ )
     {
         NSString *md5 = [SongsDirectoryCache fileMD5:[path stringByAppendingPathComponent:[dirContents objectAtIndex:i]]];
         result = [result stringByAppendingString:md5];
@@ -623,9 +650,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 + (SongsDirectoryCache *)sharedInstance
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedSongsDirCacheDelegate == nil)
+        if ( sharedSongsDirCacheDelegate == nil )
         {
             [[self alloc] init];
         }
@@ -635,9 +662,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedSongsDirCacheDelegate == nil)
+        if ( sharedSongsDirCacheDelegate == nil )
         {
             sharedSongsDirCacheDelegate = [super allocWithZone:zone];
             return sharedSongsDirCacheDelegate;
