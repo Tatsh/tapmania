@@ -81,14 +81,14 @@ enum TMWheelAnimationState
     mt_ItemSongHalfHeight = (int) (mt_DistanceBetweenItems / 2.0f);
 
     mt_HighlightCenter = CGRectMake(mt_ItemSong.origin.x, mt_SelectedItemCenterY,
-            mt_ItemSong.size.width, mt_ItemSong.size.height); // RECT_METRIC(@"SongPickerMenu Wheel Highlight");
-    mt_Highlight.size = mt_HighlightCenter.size;
+            mt_ItemSong.size.width, mt_ItemSong.size.height);
 
     mt_ScoreDisplay = POINT_METRIC(@"SongPickerMenu Wheel Score");
     mt_ScoreFrame = POINT_METRIC(@"SongPickerMenu Wheel ScoreFrame");
 
     mt_wheelTopTouchZone = FLOAT_METRIC(@"SongPickerMenu Wheel TopTouchZone");
 
+    mt_Highlight = RECT_METRIC(@"SongPickerMenu Wheel Highlight");
     mt_Highlight.origin.x = mt_HighlightCenter.origin.x - mt_Highlight.size.width / 2;
     mt_Highlight.origin.y = mt_HighlightCenter.origin.y - mt_Highlight.size.height / 2;
     mt_HighlightHalfHeight = (int) (mt_Highlight.size.height / 2);

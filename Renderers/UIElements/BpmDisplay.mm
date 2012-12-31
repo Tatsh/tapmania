@@ -11,12 +11,14 @@
 #import "FontString.h"
 #import "TMSong.h"
 #import "TMChangeSegment.h"
+#import "ThemeManager.h"
 
 @implementation BpmDisplay
 {
     int  m_max;
     int  m_min;
     float m_time;
+    CGPoint mt_point;
 }
 
 - (id)initWithMetrics:(NSString *)metricsKey
@@ -26,12 +28,10 @@
         return nil;
 
     // Cache metrics
-    // mt_ComboMeter = POINT_METRIC(metricsKey);
-
-    // SUBSCRIBE(kNoteScoreMessage);
+    mt_point = POINT_METRIC(metricsKey);
 
     // Get the font
-    m_pBpmStr = [[FontString alloc] initWithFont:@"BpmDisplay" andText:@"0"];
+    m_pBpmStr = [[FontString alloc] initWithFont:metricsKey andText:@"BPM 0"];
 
     return self;
 }
@@ -57,7 +57,7 @@
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
-    [m_pBpmStr drawAtPoint:CGPointMake(768, 1024)];
+    [m_pBpmStr drawAtPoint:mt_point];
 }
 
 /* TMLogicUpdater method */
@@ -83,7 +83,7 @@
         current = m_max;
     }
 
-    [m_pBpmStr updateText:[NSString stringWithFormat:@"%d", current]];
+    [m_pBpmStr updateText:[NSString stringWithFormat:@"BPM %d", current]];
     m_time += fDelta;
 }
 
