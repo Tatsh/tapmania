@@ -102,6 +102,10 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 @property (assign) double m_dGap;
 
 @property(nonatomic, retain) Texture2D* bannerTexture;
+@property(nonatomic, retain) Texture2D* cdTitleTexture;
+
+@property(nonatomic, retain) NSString *m_sCDTitleFilePath;
+
 
 // The constructor which is used. will parse the original stepmania file to determine song info.
 - (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath 

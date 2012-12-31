@@ -41,6 +41,7 @@
 #import "BpmDisplay.h"
 #import "TMChangeSegment.h"
 #import "BpmDisplay.h"
+#import "CDTitleDisplay.h"
 
 extern TMGameState *g_pGameState;
 
@@ -64,6 +65,7 @@ extern TMGameState *g_pGameState;
 @implementation SongPickerMenuRenderer
 {
     Texture2D *t_NoBanner;
+    CDTitleDisplay *m_pCDTitleDisplay;
 }
 @synthesize m_previewMusicTimer = _m_previewMusicTimer;
 
@@ -126,6 +128,10 @@ extern TMGameState *g_pGameState;
     // Setup bpm display
     m_pBpmDisplay = [[BpmDisplay alloc] initWithMetrics:@"SongPickerMenu BpmDisplay"];
     [self pushBackChild:m_pBpmDisplay];
+    
+    // Setup the CDTitle spinner
+    m_pCDTitleDisplay = [[CDTitleDisplay alloc] initWithMetrics:@"SongPickerMenu CDTitleDisplay"];
+    [self pushBackChild:m_pCDTitleDisplay];
 
     // Select current song (populate difficulty toggler with it's difficulties)
     [self songSelectionChanged];
@@ -237,8 +243,9 @@ extern TMGameState *g_pGameState;
     // Update song banner
     [m_pBanner updateImage:t_Banner];
 
-    // Update bpm display with currently selected song
+    // Update bpm display and CDTitle with currently selected song
     [m_pBpmDisplay updateWithSong:song];
+    [m_pCDTitleDisplay updateWithSong:song];
 
     // Update score display
     [m_pSongWheel updateScore];

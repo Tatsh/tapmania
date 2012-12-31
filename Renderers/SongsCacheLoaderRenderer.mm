@@ -209,6 +209,19 @@
         TMLog(@"Allocating banner texture on song cache sync...");
         song.bannerTexture = [[[Texture2D alloc] initWithImage:img columns:1 andRows:1] autorelease];
     }
+
+    // also load cd title
+    if (song.m_sCDTitleFilePath != nil)
+    {
+        NSString *cdFilePath = [songPath stringByAppendingPathComponent:song.m_sCDTitleFilePath];
+
+        img = [UIImage imageWithContentsOfFile:cdFilePath];
+        if ( img )
+        {
+            TMLog(@"Allocating CD title texture on song cache sync...");
+            song.cdTitleTexture = [[[Texture2D alloc] initWithImage:img columns:1 andRows:1] autorelease];
+        }
+    }
 }
 
 - (void)errorLoadingSong:(NSString *)path withReason:(NSString *)message

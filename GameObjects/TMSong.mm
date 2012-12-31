@@ -27,12 +27,16 @@
 @synthesize m_sTitle, m_sArtist;
 @synthesize m_fBpm, m_dGap;
 @synthesize bannerTexture = _bannerTexture;
+@synthesize m_sCDTitleFilePath = _m_sCDTitleFilePath;
+@synthesize cdTitleTexture = _cdTitleTexture;
 
 
 - (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId {
 	
 	self.m_iSongsPath = pathId;
+    self.cdTitleTexture = nil;
     self.bannerTexture = nil;
+    self.m_sCDTitleFilePath = nil;
 	
 	// Note: only title etc is loaded here. No steps.
 	if([[stepsFilePath lowercaseString] hasSuffix:@".dwi"]) {
@@ -150,6 +154,7 @@
 	self.m_sArtist = [[coder decodeObjectForKey:@"a"] retain];
 	self.m_sBackgroundFilePath = [[coder decodeObjectForKey:@"bfp"] retain];
 	self.m_sBannerFilePath = [[coder decodeObjectForKey:@"bafp"] retain];
+    self.m_sCDTitleFilePath = [[coder decodeObjectForKey:@"cdfp"] retain];;
 	
 	self.m_fBpm = [coder decodeFloatForKey:@"b"];
 	self.m_dGap = [coder decodeDoubleForKey:@"g"];
@@ -188,6 +193,7 @@
 	[coder encodeObject:m_sArtist forKey:@"a"];
 	[coder encodeObject:m_sBackgroundFilePath forKey:@"bfp"];
 	[coder encodeObject:m_sBannerFilePath forKey:@"bafp"];
+    [coder encodeObject:_m_sCDTitleFilePath forKey:@"cdfp"];
 	
 	[coder encodeFloat:
             m_fBpm forKey:@"b"];
@@ -215,6 +221,13 @@
 	}	
 	
 	[coder encodeObject:diffArr forKey:@"adl"];
+}
+
+- (void)dealloc
+{
+    [_m_sCDTitleFilePath release];
+    [_cdTitleTexture release];
+    [super dealloc];
 }
 
 @end

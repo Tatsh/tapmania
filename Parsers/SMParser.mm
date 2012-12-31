@@ -41,19 +41,19 @@
 
     TMSong *song = [[TMSong alloc] init];
 
-    if (!(fd = fopen([filename UTF8String], "r")))
+    if ( !(fd = fopen([filename UTF8String], "r")) )
     {
         TMLog(@"Err: can't open file '%@' for reading.", filename);
         return nil;
     }
 
     // Read the whole file
-    while (!feof(fd))
+    while ( !feof(fd) )
     {
         c = getc(fd);
 
         // Start new section
-        if (c == '#')
+        if ( c == '#' )
         {
             TMLog(@"Opening new section.");
 
@@ -61,9 +61,9 @@
             c = getc(fd);
             i = 0;
 
-            while (!feof(fd) && c != ':')
+            while ( !feof(fd) && c != ':' )
             {
-                if (i >= 31)
+                if ( i >= 31 )
                 {
                     TMLog(@"Fatal: sm file broken.");
                     return nil;
@@ -73,7 +73,7 @@
                 c = getc(fd);
             }
 
-            if (feof(fd))
+            if ( feof(fd) )
             {
                 TMLog(@"Fatal: sm file broken.");
                 return nil;
@@ -83,7 +83,7 @@
             TMLog(@"Found var: '%s'", varName);
 
             // Now determine whether we are interested in this var or not
-            if (!strcasecmp(varName, "TITLE"))
+            if ( !strcasecmp(varName, "TITLE") )
             {
                 TMLog(@"Title...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -92,7 +92,7 @@
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "ARTIST"))
+            else if ( !strcasecmp(varName, "ARTIST") )
             {
                 TMLog(@"Artist...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -101,16 +101,25 @@
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "BANNER"))
+            else if ( !strcasecmp(varName, "BANNER") )
             {
                 TMLog(@"Banner detected...");
                 char *data = [SMParser parseSectionWithFD:fd];
-                song.m_sBannerFilePath = [[NSString stringWithUTF8String:data] retain];
+                song.m_sBannerFilePath = [NSString stringWithUTF8String:data];
                 TMLog(@"Banner set to %@", song.m_sBannerFilePath);
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "OFFSET"))
+            else if ( !strcasecmp(varName, "CDTITLE") )
+            {
+                TMLog(@"CD title image detected...");
+                char *data = [SMParser parseSectionWithFD:fd];
+                song.m_sCDTitleFilePath = [NSString stringWithUTF8String:data];
+                TMLog(@"CD Title set to %@", song.m_sCDTitleFilePath);
+
+                free(data);
+            }
+            else if ( !strcasecmp(varName, "OFFSET") )
             {
                 TMLog(@"OFFSET...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -122,7 +131,7 @@
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "SAMPLESTART"))
+            else if ( !strcasecmp(varName, "SAMPLESTART") )
             {
                 TMLog(@"SAMPLESTART...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -132,7 +141,7 @@
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "SAMPLELENGTH"))
+            else if ( !strcasecmp(varName, "SAMPLELENGTH") )
             {
                 TMLog(@"SAMPLELENGTH...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -142,7 +151,7 @@
 
                 free(data);
             }
-            else if (!strcasecmp(varName, "BPMS"))
+            else if ( !strcasecmp(varName, "BPMS") )
             {
                 TMLog(@"BPMS...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -153,7 +162,7 @@
 
                 // Now populate
                 int i;
-                for (i = 0; i < [arr count]; ++i)
+                for ( i = 0; i < [arr count]; ++i )
                 {
                     TMChangeSegment *seg = [arr objectAtIndex:i];
                     seg.m_fChangeValue /= 60.0f;
@@ -164,7 +173,7 @@
                 [arr release];
                 free(data);
             }
-            else if (!strcasecmp(varName, "STOPS"))
+            else if ( !strcasecmp(varName, "STOPS") )
             {
                 TMLog(@"STOPS...");
                 char *data = [SMParser parseSectionWithFD:fd];
@@ -174,7 +183,7 @@
 
                 // Now populate
                 int i;
-                for (i = 0; i < [arr count]; ++i)
+                for ( i = 0; i < [arr count]; ++i )
                 {
                     TMChangeSegment *seg = [arr objectAtIndex:i];
 
@@ -187,14 +196,14 @@
                 [arr release];
                 free(data);
             }
-            else if (!strcasecmp(varName, "NOTES"))
+            else if ( !strcasecmp(varName, "NOTES") )
             {
                 // This is interesting! Some stepchart here..
                 // For now we just want to get information about the difficulty/level of this one
                 char *notesType = [SMParser parseSectionPartWithFD:fd trimWhitespaces:YES];
 
                 // We are only interested in dance-single notes anyway
-                if (!strcasecmp(notesType, "dance-single"))
+                if ( !strcasecmp(notesType, "dance-single") )
                 {
                     char *desc = [SMParser parseSectionPartWithFD:fd trimWhitespaces:NO];
                     char *diffStr = [SMParser parseSectionPartWithFD:fd trimWhitespaces:YES];
@@ -220,7 +229,7 @@
 
         }
                 // End the section
-        else if (c == ';')
+        else if ( c == ';' )
         {
             TMLog(@"Closing section.");
         }
@@ -228,8 +237,10 @@
 
     // Close the file handle
     TMLog(@"Done parsing the SM file. close handle");
-    if (fd)
+    if ( fd )
+    {
         fclose(fd);
+    }
 
     return song;
 }
@@ -241,19 +252,19 @@
     char varName[64]; // The name of the variable which comes directly after the '#' till the ':'.
     int i;
 
-    if (!(fd = fopen([filename UTF8String], "r")))
+    if ( !(fd = fopen([filename UTF8String], "r")) )
     {
         TMLog(@"Err: can't open file '%s' for reading.", [filename UTF8String]);
         return nil;
     }
 
     // Read the whole file
-    while (!feof(fd))
+    while ( !feof(fd) )
     {
         c = getc(fd);
 
         // Start new section
-        if (c == '#')
+        if ( c == '#' )
         {
             TMLog(@"Opening new section.");
 
@@ -261,13 +272,13 @@
             c = getc(fd);
             i = 0;
 
-            while (!feof(fd) && c != ':')
+            while ( !feof(fd) && c != ':' )
             {
                 varName[i++] = c;
                 c = getc(fd);
             }
 
-            if (feof(fd))
+            if ( feof(fd) )
             {
                 TMLog(@"Fatal: SM file broken.");
                 return nil;
@@ -275,7 +286,7 @@
 
             varName[i] = 0;
 
-            if (!strcasecmp(varName, "NOTES"))
+            if ( !strcasecmp(varName, "NOTES") )
             {
                 TMLog(@"Got NOTES input...");
 
@@ -283,7 +294,7 @@
                 char *notesType = [SMParser parseSectionPartWithFD:fd trimWhitespaces:YES];
 
                 // We are only interested in dance-single notes anyway
-                if (!strcasecmp(notesType, "dance-single"))
+                if ( !strcasecmp(notesType, "dance-single") )
                 {
                     char *desc = [SMParser parseSectionPartWithFD:fd trimWhitespaces:NO];
                     char *diffStr = [SMParser parseSectionPartWithFD:fd trimWhitespaces:YES];
@@ -294,7 +305,7 @@
                     TMSongDifficulty thisDiff = [SMParser getDifficultyWithName:diffStr];
 
                     // If this is the difficulty we are looking for - parse the data
-                    if (thisDiff == difficulty)
+                    if ( thisDiff == difficulty )
                     {
                         TMLog(@"FOUND our difficulty!!!");
 
@@ -313,7 +324,7 @@
             }
         }
                 // End the section
-        else if (c == ';')
+        else if ( c == ';' )
         {
             TMLog(@"Closing section.");
         }
@@ -341,9 +352,9 @@
     char c;
 
     // We will need to read all the pending data into a single array of characters
-    while (!feof(fd) && c != ';')
+    while ( !feof(fd) && c != ';' )
     {
-        if (memCounter >= 2047)
+        if ( memCounter >= 2047 )
         {
             initialCapacity += 2048;
 
@@ -368,7 +379,7 @@
     int currentNoteRow = 0;    // Start with 0..
 
     // Go through all the stepchart
-    for (; curPos < totalElements; ++curPos)
+    for ( ; curPos < totalElements; ++curPos )
     {
         char c = stepData[curPos];
 
@@ -376,19 +387,23 @@
         // And also.. if we encounter a linebreak we must increment the row counter
         // '//' indicates a comment line. the comment ends at a line break
 
-        if (c == ' ' || c == '\t' || c == '\r' || c == '\n')
+        if ( c == ' ' || c == '\t' || c == '\r' || c == '\n' )
         {
             continue; // Skip this char
 
-        } else if (c == '/' && stepData[curPos + 1] == '/')
+        }
+        else if ( c == '/' && stepData[curPos + 1] == '/' )
         {
 
             // Got a comment... skip all till \n
-            while (stepData[++curPos] != '\n');
+            while ( stepData[++curPos] != '\n' )
+            {
+            }
 
             // Now we are exactly after the \n (line after the comment line)
             continue;
-        } else if (c == ',' || c == ';')
+        }
+        else if ( c == ',' || c == ';' )
         {
 
             // End of measure.
@@ -402,27 +417,27 @@
             int row, note;
             int thisMeasure = measureId - 1;
 
-            for (row = 0; row < rowsInMeasure; ++row)
+            for ( row = 0; row < rowsInMeasure; ++row )
             {
 
                 float percent = row / (float) rowsInMeasure;
                 float beat = ((float) thisMeasure + percent) * kBeatsPerMeasure;
                 currentNoteRow = [TMNote beatToNoteRow:beat];
 
-                for (note = 0; note < kNotesPerMeasureRow; ++note)
+                for ( note = 0; note < kNotesPerMeasureRow; ++note )
                 {
                     char cc = measureData[row * kNotesPerMeasureRow + note];
 
-                    if (cc != '0')
+                    if ( cc != '0' )
                     {
                         // something should be tapped
-                        if (cc == '1')
+                        if ( cc == '1' )
                         {
                             // it's a regular tap note. good
                             TMLog(@"Place a note on %d in panel %d", currentNoteRow, note);
                             [steps setNote:[[TMNote alloc] initWithNoteRow:currentNoteRow andType:kNoteType_Original onTrack:(TMAvailableTracks) note] toTrack:(TMAvailableTracks) note onNoteRow:currentNoteRow];
                         }
-                        else if (cc == '2')
+                        else if ( cc == '2' )
                         {
                             // it's a hold note start... not bad too
                             TMLog(@"Place a holdhead on %d in panel %d", currentNoteRow, note);
@@ -434,13 +449,14 @@
                             // add to steps
                             [steps setNote:holdHead toTrack:note onNoteRow:currentNoteRow];
                         }
-                        else if (cc == '3')
+                        else if ( cc == '3' )
                         {
                             // should close the hold note started by the above
-                            if (holds[note] == nil)
+                            if ( holds[note] == nil )
                             {
                                 TMLog(@"Error: SM file is broken.");
-                            } else
+                            }
+                            else
                             {
                                 // Set the stop note row to current
                                 holds[note].m_nStopNoteRow = currentNoteRow;
@@ -448,7 +464,7 @@
                                 TMLog(@"Closed the hold in panel %d", note);
                             }
                         }
-                        else if (cc == 'M')
+                        else if ( cc == 'M' )
                         {
                             // it's a mine
                             TMLog(@"Place a mine on %d in panel %d", currentNoteRow, note);
@@ -463,7 +479,8 @@
             ++measureId;
             rowsInMeasure = 0;    // Drop rows counter
             measureDataIndex = 0;
-        } else
+        }
+        else
         {
 
             // Contents
@@ -487,24 +504,26 @@
     c = getc(fd);
 
     // Get all data till the ';'
-    for (i = 0; i < 40960 && !feof(fd) && c != ';';)
+    for ( i = 0; i < 40960 && !feof(fd) && c != ';'; )
     {
-        if (c != '\n' && c != '\r')
+        if ( c != '\n' && c != '\r' )
         {
-            if (c == '/')
+            if ( c == '/' )
             {
                 c = getc(fd);
-                if (c == '/')
+                if ( c == '/' )
                 {
                     // Got a comment... skip all till \n
                     do
                     {
                         c = getc(fd);
-                    } while (c != '\n' && !feof(fd));
+                    }
+                    while ( c != '\n' && !feof(fd) );
 
                     // Now we are exactly after the \n (line after the comment line)
                     continue;
-                } else
+                }
+                else
                 {
                     // put it back
                     ungetc(c, fd);
@@ -518,7 +537,7 @@
         c = getc(fd);
     }
 
-    if (feof(fd) || c != ';')
+    if ( feof(fd) || c != ';' )
     {
         TMLog(@"Fatal: sm file broken.");
         return nil;
@@ -539,24 +558,26 @@
     c = getc(fd);
 
     // Get all data till the ':'
-    for (i = 0; i < 255 && !feof(fd) && c != ':';)
+    for ( i = 0; i < 255 && !feof(fd) && c != ':'; )
     {
 
-        if (c == '/')
+        if ( c == '/' )
         {
             c = getc(fd);
-            if (c == '/')
+            if ( c == '/' )
             {
 
                 // Got a comment... skip all till \n
                 do
                 {
                     c = getc(fd);
-                } while (c != '\n' && !feof(fd));
+                }
+                while ( c != '\n' && !feof(fd) );
 
                 // Now we are exactly after the \n (line after the comment line)
                 continue;
-            } else
+            }
+            else
             {
                 // put it back
                 ungetc(c, fd);
@@ -564,13 +585,14 @@
             }
         }
 
-        if (trim)
+        if ( trim )
         {
-            if (c != ' ' && c != '\t' && c != '\n' && c != '\r')
+            if ( c != ' ' && c != '\t' && c != '\n' && c != '\r' )
             {
                 data[i++] = c;
             }
-        } else
+        }
+        else
         {
             data[i++] = c;
         }
@@ -578,7 +600,7 @@
         c = getc(fd);
     }
 
-    if (feof(fd) || c != ':')
+    if ( feof(fd) || c != ':' )
     {
         TMLog(@"Fatal: sm file broken.");
         return nil;
@@ -605,7 +627,7 @@
     // Here, unlike the dwi format the left side of the equation is in beats. not in noterows.
     token = strtok(data, ",");
 
-    while (token != nil)
+    while ( token != nil )
     {
         TMLog(@"got token: %s", token);
         [arr addObject:[[NSString stringWithUTF8String:token] retain]];
@@ -615,12 +637,12 @@
     // Now for every saved change pair - split by '='
     resArr = [[NSMutableArray arrayWithCapacity:[arr count]] retain];
 
-    for (i = 0; i < [arr count]; i++)
+    for ( i = 0; i < [arr count]; i++ )
     {
         token = strtok((char *) [[arr objectAtIndex:i] UTF8String], "=");
         value = strtok(nil, "=");
 
-        if (!token || !value)
+        if ( !token || !value )
         {
             TMLog(@"Fatal: changes array broken.");
             return nil;
@@ -641,42 +663,78 @@
 // Get the difficulty number from a string representation
 + (TMSongDifficulty)getDifficultyWithName:(char *)difficulty
 {
-    if (!strcasecmp(difficulty, "beginner"))
+    if ( !strcasecmp(difficulty, "beginner") )
+    {
         return kSongDifficulty_Beginner;
-    if (!strcasecmp(difficulty, "easy"))
+    }
+    if ( !strcasecmp(difficulty, "easy") )
+    {
         return kSongDifficulty_Easy;
-    if (!strcasecmp(difficulty, "basic"))
+    }
+    if ( !strcasecmp(difficulty, "basic") )
+    {
         return kSongDifficulty_Easy;
-    if (!strcasecmp(difficulty, "light"))
+    }
+    if ( !strcasecmp(difficulty, "light") )
+    {
         return kSongDifficulty_Easy;
-    if (!strcasecmp(difficulty, "medium"))
+    }
+    if ( !strcasecmp(difficulty, "medium") )
+    {
         return kSongDifficulty_Medium;
-    if (!strcasecmp(difficulty, "another"))
+    }
+    if ( !strcasecmp(difficulty, "another") )
+    {
         return kSongDifficulty_Medium;
-    if (!strcasecmp(difficulty, "trick"))
+    }
+    if ( !strcasecmp(difficulty, "trick") )
+    {
         return kSongDifficulty_Medium;
-    if (!strcasecmp(difficulty, "standard"))
+    }
+    if ( !strcasecmp(difficulty, "standard") )
+    {
         return kSongDifficulty_Medium;
-    if (!strcasecmp(difficulty, "difficult"))
+    }
+    if ( !strcasecmp(difficulty, "difficult") )
+    {
         return kSongDifficulty_Medium;
-    if (!strcasecmp(difficulty, "hard"))
+    }
+    if ( !strcasecmp(difficulty, "hard") )
+    {
         return kSongDifficulty_Hard;
-    if (!strcasecmp(difficulty, "ssr"))
+    }
+    if ( !strcasecmp(difficulty, "ssr") )
+    {
         return kSongDifficulty_Hard;
-    if (!strcasecmp(difficulty, "maniac"))
+    }
+    if ( !strcasecmp(difficulty, "maniac") )
+    {
         return kSongDifficulty_Hard;
-    if (!strcasecmp(difficulty, "heavy"))
+    }
+    if ( !strcasecmp(difficulty, "heavy") )
+    {
         return kSongDifficulty_Hard;
-    if (!strcasecmp(difficulty, "smaniac"))
+    }
+    if ( !strcasecmp(difficulty, "smaniac") )
+    {
         return kSongDifficulty_Challenge;
-    if (!strcasecmp(difficulty, "challenge"))
+    }
+    if ( !strcasecmp(difficulty, "challenge") )
+    {
         return kSongDifficulty_Challenge;
-    if (!strcasecmp(difficulty, "expert"))
+    }
+    if ( !strcasecmp(difficulty, "expert") )
+    {
         return kSongDifficulty_Challenge;
-    if (!strcasecmp(difficulty, "oni"))
+    }
+    if ( !strcasecmp(difficulty, "oni") )
+    {
         return kSongDifficulty_Challenge;
+    }
     else
+    {
         return kSongDifficulty_Invalid;
+    }
 }
 
 @end
