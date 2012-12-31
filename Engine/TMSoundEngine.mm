@@ -44,13 +44,15 @@ ALvoid alBufferDataStaticProc(const ALint bid, ALenum format, ALvoid *data, ALsi
 {
     static alBufferDataStaticProcPtr proc = NULL;
 
-    if (proc == NULL)
+    if ( proc == NULL )
     {
         proc = (alBufferDataStaticProcPtr) alcGetProcAddress(NULL, (const ALCchar *) "alBufferDataStatic");
     }
 
-    if (proc)
+    if ( proc )
+    {
         proc(bid, format, data, size, freq);
+    }
 
     return;
 }
@@ -70,7 +72,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
     // Open a file
     err = AudioFileOpenURL(inFileURL, kAudioFileReadPermission, 0, &aFID);
-    if (err)
+    if ( err )
     {
         printf("getOpenALAudioData: AudioFileOpenURL FAILED, Error = %ld\n", err);
         goto Exit;
@@ -78,12 +80,12 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
     // Get the audio data format
     err = AudioFileGetProperty(aFID, kAudioFilePropertyDataFormat, &thePropertySize, &theFileFormat);
-    if (err)
+    if ( err )
     {
         printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyDataFormat) FAILED, Error = %ld\n", err);
         goto Exit;
     }
-    if (theFileFormat.mChannelsPerFrame > 2)
+    if ( theFileFormat.mChannelsPerFrame > 2 )
     {
         printf("getOpenALAudioData - Unsupported Format, channel count is greater than stereo\n");
         goto Exit;
@@ -104,7 +106,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     // Get the total frame count
     thePropertySize = sizeof(theFileLengthInBytes);
     err = AudioFileGetProperty(aFID, kAudioFilePropertyAudioDataByteCount, &thePropertySize, &theFileLengthInBytes);
-    if (err)
+    if ( err )
     {
         printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyAudioDataByteCount) FAILED, Error = %ld\n", err);
         goto Exit;
@@ -113,7 +115,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     // Read all the data into memory
     dataSize = theFileLengthInBytes;
     theData = malloc(dataSize);
-    if (theData)
+    if ( theData )
     {
         AudioBufferList theDataBuffer;
         theDataBuffer.mNumberBuffers = 1;
@@ -124,7 +126,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
         // Read the data into an AudioBufferList
         err = AudioFileReadBytes(aFID, true, 0, (UInt32 *) &theFileLengthInBytes, &theDataBuffer);
 
-        if (err == noErr)
+        if ( err == noErr )
         {
             // success
             *outDataSize = (ALsizei) dataSize;
@@ -143,20 +145,28 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
     Exit:
             // Close the AudioFileRef, it is no longer needed
-            if (aFID)
+            if ( aFID )
+            {
                 AudioFileClose(aFID);
+            }
 
     return theData;
 }
 
 /* Now to the implementation */
 @implementation TMSoundEngine
+{
+    NSTimer *m_engineTimer;
+    AbstractSoundPlayer *m_curPlayer;
+}
 
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_fMusicVolume = 1.0f;
     m_fEffectsVolume = 1.0f;
@@ -164,52 +174,42 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
     m_pQueue = new TMSoundQueue();
 
-    m_pThread = [[NSThread alloc] initWithTarget:self selector:@selector(worker) object:nil];
-
+    [self initOpenAL];
     return self;
-}
-
-- (NSThread *)getThread
-{
-    return m_pThread;
 }
 
 - (void)start
 {
     m_bStopRequested = NO;
-    [m_pThread start];
+    m_engineTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 30.0f
+                                                     target:self
+                                                   selector:@selector(worker)
+                                                   userInfo:nil repeats:YES];
 }
 
 - (void)stop
 {
     m_bStopRequested = YES;
+    [m_engineTimer invalidate];
+    m_engineTimer = nil;
 }
 
 - (void)worker
 {
-    if (![self initOpenAL])
-        return;
-
-    while (!m_bStopRequested)
+    if(m_bPlayingSomething && m_curPlayer)
     {
-
-        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-        @synchronized (self)
+        if(m_curPlayer.markedAsStopped)
         {
-            if (!m_bPlayingSomething && !m_bManualStart)
-            {
-                if (!m_pQueue->empty())
-                {
-                    [self playMusic];
-                }
-            }
+            [self playMusic]; // skip to next track
         }
-
-        [pool drain];
-
-        // Give some CPU time to others
-        [NSThread sleepForTimeInterval:0.05];
+    }
+    
+    if ( !m_bPlayingSomething && !m_bManualStart )
+    {
+        if ( !m_pQueue->empty() )
+        {
+            [self playMusic];
+        }
     }
 }
 
@@ -218,7 +218,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     alcDestroyContext(m_oContext);
     alcCloseDevice(m_oDevice);
 
-    if (m_pFadeTimer)
+    if ( m_pFadeTimer )
     {
         [m_pFadeTimer invalidate];
         [m_pFadeTimer release];
@@ -234,7 +234,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     TMLog(@"Try to init openal...");
     m_oDevice = alcOpenDevice(NULL);
 
-    if (m_oDevice)
+    if ( m_oDevice )
     {
         TMLog(@"Got a device!");
         m_oContext = alcCreateContext(m_oDevice, NULL);
@@ -248,18 +248,6 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     return NO;
 }
 
-- (void)shutdownOpenAL
-{
-    @synchronized (self)
-    {
-        if (sharedSoundEngineDelegate != nil)
-        {
-            [self dealloc];
-        }
-    }
-}
-
-
 // Methods
 - (BOOL)addToQueue:(TMSound *)inObj
 {
@@ -269,27 +257,28 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
     // Check looping
     BOOL isLooping = NO;
-    if ([inObj isKindOfClass:[TMLoopedSound class]])
+    if ( [inObj isKindOfClass:[TMLoopedSound class]] )
+    {
         isLooping = YES;
+    }
 
-    if ([[inObj.path lowercaseString] hasSuffix:@".ogg"])
+    if ( [[inObj.path lowercaseString] hasSuffix:@".ogg"] )
     {
         pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-    } else
+    }
+    else
     {
         pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
     }
 
-    if (!pSoundPlayer)
+    if ( !pSoundPlayer )
+    {
         return NO;
+    }
 
     // Set delegate
     [pSoundPlayer delegate:inObj];
-
-    @synchronized (self)
-    {
-        m_pQueue->push_back(pair<TMSound *, AbstractSoundPlayer *>([inObj retain], pSoundPlayer));
-    }
+    m_pQueue->push_back(pair<TMSound *, AbstractSoundPlayer *>([inObj retain], pSoundPlayer));
 
     return YES;
 }
@@ -305,22 +294,19 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 {
     TMSoundQueue::iterator it;
 
-    @synchronized (self)
+    if ( !m_pQueue->empty() )
     {
-        if (!m_pQueue->empty())
+        for ( it = m_pQueue->begin(); it != m_pQueue->end(); ++it )
         {
-            for (it = m_pQueue->begin(); it != m_pQueue->end(); ++it)
+            if ( it->first == inObj )
             {
-                if (it->first == inObj)
-                {
 
-                    [it->second release];
-                    [it->first release];
+                [it->second release];
+                [it->first release];
 
-                    m_pQueue->erase(it);
+                m_pQueue->erase(it);
 
-                    return YES;
-                }
+                return YES;
             }
         }
     }
@@ -331,18 +317,15 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 // Music playback
 - (BOOL)playMusic
 {
-    @synchronized (self)
-    {
-        TMLog(@"Play music issued!");
+    TMLog(@"Play music issued!");
 
-        if (!m_pQueue->empty())
-        {
-            AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
-            TMLog(@"Got player: %X", pPlayer);
-            [pPlayer setGain:m_fMusicVolume];
-            if ([pPlayer play])
-                m_bPlayingSomething = YES;
-        }
+    AbstractSoundPlayer *pPlayer = [self getFrontPlayer];
+    TMLog(@"Got player: %X", pPlayer);
+    [pPlayer setGain:m_fMusicVolume];
+    if ( [pPlayer play] )
+    {
+        m_bPlayingSomething = YES;
+        m_curPlayer = pPlayer;
     }
 
     m_bManualStart = NO;    // Drop the flag
@@ -351,14 +334,11 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 - (BOOL)pauseMusic
 {
-    @synchronized (self)
+    AbstractSoundPlayer *pPlayer = [self getFrontPlayer];
+    if ( pPlayer )
     {
-        if (!m_pQueue->empty())
-        {
-            AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
-            [pPlayer pause];
-            return YES;
-        }
+        [pPlayer pause];
+        return YES;
     }
 
     return NO;
@@ -366,25 +346,24 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 - (BOOL)stopMusicFading:(float)duration
 {
-    @synchronized (self)
+    TMLog(@"Stopping current track with fade out (%f)!", duration);
+
+    if ( !m_pQueue->empty() )
     {
-        TMLog(@"Stopping current track with fade out (%f)!", duration);
-
-        if (!m_pQueue->empty())
+        if ( m_pFadeTimer )
         {
-            if (m_pFadeTimer)
-            {
-                [m_pFadeTimer invalidate];
-                [m_pFadeTimer release];
-            }
-
-            AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
-            m_pFadeTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(musicFadeOutTick:) userInfo:pPlayer repeats:YES] retain];
-            m_fMusicFadeStart = [TimingUtil getCurrentTime];
-            m_fMusicFadeDuration = duration;
-
-            return YES;
+            [m_pFadeTimer invalidate];
+            [m_pFadeTimer release];
         }
+
+        AbstractSoundPlayer *pPlayer = [self getFrontPlayer];
+        pPlayer.markedAsStopped = YES;
+
+        m_pFadeTimer = [[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(musicFadeOutTick:) userInfo:pPlayer repeats:YES] retain];
+        m_fMusicFadeStart = [TimingUtil getCurrentTime];
+        m_fMusicFadeDuration = duration;
+
+        return YES;
     }
 
     return NO;
@@ -392,52 +371,42 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 - (void)musicFadeOutTick:(NSTimer *)sender
 {
-    @synchronized (self)
+    float elapsedTime = ([TimingUtil getCurrentTime] - m_fMusicFadeStart);
+    float gain = 1 - (elapsedTime / m_fMusicFadeDuration);    // Inverse
+
+    AbstractSoundPlayer *pPlayer = (AbstractSoundPlayer *) [sender userInfo];
+
+    // If the player still exists
+    if ( pPlayer )
     {
-        float elapsedTime = ([TimingUtil getCurrentTime] - m_fMusicFadeStart);
-        float gain = 1 - (elapsedTime / m_fMusicFadeDuration);    // Inverse
+        TMLog(@"player still exists...");
 
-        AbstractSoundPlayer *pPlayer = (AbstractSoundPlayer *) [sender userInfo];
-
-        // If the player still exists
-        if (pPlayer)
+        if ( gain <= 0.01f )
         {
-            TMLog(@"player still exists...");
+            TMLog(@"Time to stop the fading music track: %X", pPlayer);
 
-            if (gain <= 0.01f)
-            {
-                TMLog(@"Time to stop the fading music track: %X", pPlayer);
+            // Stop fading
+            [m_pFadeTimer invalidate];
 
-                // Stop fading
-                [m_pFadeTimer invalidate];
-
-                // Stop music too
-                [self stopMusic];
-            } else if (pPlayer && [pPlayer getGain] >= gain)
-            {
-                [pPlayer setGain:gain];
-            }
+            // Stop the player
+            [pPlayer stop];
+            TMLog(@"Player stopped");
+        }
+        else if ( pPlayer && [pPlayer getGain] >= gain )
+        {
+            [pPlayer setGain:gain];
         }
     }
 }
 
 - (BOOL)stopMusic
 {
-    AbstractSoundPlayer *pPlayer = nil;
+    AbstractSoundPlayer *pPlayer = [self getFrontPlayer];
 
-    @synchronized (self)
+    if ( pPlayer )
     {
-        TMLog(@"Actually stopping the current track!");
+        pPlayer.markedAsStopped = YES;
 
-        if (!m_pQueue->empty())
-        {
-            pPlayer = m_pQueue->front().second;
-            TMLog(@"Got player to stop: %X", pPlayer);
-        }
-    }
-
-    if (pPlayer)
-    {
         [pPlayer stop];
         TMLog(@"Player stopped");
 
@@ -448,18 +417,26 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     return NO;
 }
 
+- (AbstractSoundPlayer *)getFrontPlayer
+{
+    for ( TMSoundQueue::iterator it = m_pQueue->begin(); it != m_pQueue->end(); ++it )
+    {
+        AbstractSoundPlayer *pPlayer = it->second;
+        if ( !pPlayer.markedAsStopped )
+        {
+            return pPlayer;
+        }
+    }
+
+    return nil;
+}
+
 - (void)setMasterVolume:(float)gain
 {
     m_fMusicVolume = gain;
 
-    @synchronized (self)
-    {
-        if (!m_pQueue->empty())
-        {
-            AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
-            [pPlayer setGain:gain];
-        }
-    }
+    AbstractSoundPlayer *pPlayer = [self getFrontPlayer];
+    [pPlayer setGain:gain];
 }
 
 - (float)getMasterVolume
@@ -487,21 +464,23 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 - (void)playBackFinishedNotification
 {
-    @synchronized (self)
+    TMLog(@"SOUNDENGINE: got notification about current track Stopped");
+
+    AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
+    TMLog(@"Got player to stop: %X", pPlayer);
+
+    if(m_curPlayer == pPlayer)
     {
-        TMLog(@"SOUNDENGINE: got notification about current track Stopped");
-
-        AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
-        TMLog(@"Got player to stop: %X", pPlayer);
-
-        [pPlayer release];
-        TMLog(@"Player released");
-
-        m_pQueue->pop_front();
-        TMLog(@"Popped player out of queue.");
-
-        m_bPlayingSomething = NO;
+        m_curPlayer = nil;
     }
+
+    [pPlayer release];
+    TMLog(@"Player released");
+
+    m_pQueue->pop_front();
+    TMLog(@"Popped player out of queue.");
+
+    m_bPlayingSomething = NO;
 }
 
 // Effect support (short sounds)
@@ -509,9 +488,10 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 {
     NSError *err;
     AVAudioPlayer *avSound = [[AVAudioPlayer alloc] initWithContentsOfURL:
-            [NSURL fileURLWithPath:inSound.path]                    error:&err];
+            [NSURL fileURLWithPath:inSound.path]
+                                                                    error:&err];
 
-    if (!avSound)
+    if ( !avSound )
     {
         TMLog(@"PlayEffect err: %@", [err localizedDescription]);
         return NO;
@@ -526,9 +506,9 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 #pragma mark Singleton stuff
 + (TMSoundEngine *)sharedInstance
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedSoundEngineDelegate == nil)
+        if ( sharedSoundEngineDelegate == nil )
         {
             [[self alloc] init];
         }
@@ -538,9 +518,9 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedSoundEngineDelegate == nil)
+        if ( sharedSoundEngineDelegate == nil )
         {
             sharedSoundEngineDelegate = [super allocWithZone:zone];
             return sharedSoundEngineDelegate;

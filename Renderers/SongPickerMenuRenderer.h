@@ -36,4 +36,5 @@
     BpmDisplay *m_pBpmDisplay;
 }
 
+@property(nonatomic, retain) NSTimer *m_previewMusicTimer;
 @end

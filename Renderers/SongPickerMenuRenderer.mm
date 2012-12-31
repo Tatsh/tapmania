@@ -56,7 +56,14 @@ extern TMGameState *g_pGameState;
 
 @end
 
+@interface SongPickerMenuRenderer ()
+- (void)startPreviewMusic;
+
+@end
+
 @implementation SongPickerMenuRenderer
+@synthesize m_previewMusicTimer = _m_previewMusicTimer;
+
 
 /* TMTransitionSupport methods */
 - (void)setupForTransition
@@ -93,6 +100,7 @@ extern TMGameState *g_pGameState;
     m_pSongWheel = [[SongPickerWheel alloc] init];
     [m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
     [m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
+    [m_pSongWheel setMusicPlaybackHandler:@selector(playPreviewMusic) receiver:self];
     [self pushControl:m_pSongWheel];
 
     // Difficulty toggler
@@ -107,7 +115,7 @@ extern TMGameState *g_pGameState;
     {
         [backButton setActionHandler:@selector(backButtonHit) receiver:self];
     }
-    
+
     // Get the banner control
     m_pBanner = (ImageButton *) [self findControl:@"SongPickerMenu BannerImg"];
 
@@ -118,9 +126,43 @@ extern TMGameState *g_pGameState;
     // Select current song (populate difficulty toggler with it's difficulties)
     [self songSelectionChanged];
     [m_pSongWheel updateScore];
+    [self playPreviewMusic];
 
     // Get ads back to place if removed
     [[TapMania sharedInstance] toggleAds:YES];
+}
+
+- (void)playPreviewMusic
+{
+    if (self.m_previewMusicTimer)
+    {
+        [self.m_previewMusicTimer invalidate];
+        self.m_previewMusicTimer = nil;
+    }
+    self.m_previewMusicTimer = [NSTimer scheduledTimerWithTimeInterval:0.7
+                                                           target:self 
+                                                         selector:@selector(startPreviewMusic) 
+                                                         userInfo:nil 
+                                                          repeats:NO];
+}
+
+- (void)startPreviewMusic
+{
+    // Stop current previewMusic if any
+    if ( m_pPreviewMusic )
+    {
+        [[TMSoundEngine sharedInstance] stopMusic];
+        [m_pPreviewMusic release];
+    }
+
+    TMSong *song = [[m_pSongWheel getSelected] song];
+
+    // Play preview music
+    NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
+    m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
+
+    // Potentially dangerous
+    [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
 }
 
 - (void)deinitOnTransition
@@ -178,28 +220,10 @@ extern TMGameState *g_pGameState;
     g_pGameState->m_nSelectedDifficulty = (TMSongDifficulty) closestDiffAvailable;
     [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) closestDiffAvailable];
 
-    // Stop current previewMusic if any
-    /*
-    if ( m_pPreviewMusic )
-    {
-        // TODO: we need to remove it from the queue as well.
-        // TODO: but that gives some framerate glitch so need to investigate.
-        [[TMSoundEngine sharedInstance] stopMusic];
-        [m_pPreviewMusic release];
-    }
-
-    // Play preview music
-    NSString *previewMusicPath = [[[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath] stringByAppendingPathComponent:song.m_sMusicFilePath];
-    m_pPreviewMusic = [[TMLoopedSound alloc] initWithPath:previewMusicPath atPosition:song.m_fPreviewStart withDuration:song.m_fPreviewDuration];
-
-    // Potentially dangerous
-    [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
-    */
-
     // Save as last played/selected
     [[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];
 
-    if(t_Banner != nil)
+    if ( t_Banner != nil )
     {
         [t_Banner release];
     }
@@ -312,6 +336,7 @@ extern TMGameState *g_pGameState;
     [m_pPreviewMusic release];
     [t_Banner release];
 
+    [_m_previewMusicTimer release];
     [super dealloc];
 }
 

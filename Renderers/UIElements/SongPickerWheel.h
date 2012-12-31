@@ -64,6 +64,9 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
     float mt_DistanceBetweenItems;
     float mt_ScissorTop;
     float mt_SelectedItemCenterY;
+
+    id m_idMusicPlaybackDelegate;
+    SEL m_oMusicPlaybackHandler;
 }
 
 @property(assign, nonatomic) BOOL songChanged;
@@ -74,4 +77,5 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
 
 - (void)updateScore;
 
+- (void)setMusicPlaybackHandler:(SEL)pSelector receiver:(id)receiver;
 @end

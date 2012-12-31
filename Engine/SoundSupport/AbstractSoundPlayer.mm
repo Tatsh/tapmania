@@ -13,6 +13,8 @@
 @implementation AbstractSoundPlayer
 
 @synthesize m_idDelegate;
+@synthesize markedAsStopped = _markedAsStopped;
+
 
 - (id)initWithFile:(NSString *)inFile atPosition:(float)inTime withDuration:(float)inDuration looping:(BOOL)inLoop
 {

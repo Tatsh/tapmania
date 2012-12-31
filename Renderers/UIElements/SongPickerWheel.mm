@@ -18,6 +18,7 @@
 #import "FontString.h"
 #import "DisplayUtil.h"
 #import "TimingUtil.h"
+#import "SongPickerMenuRenderer.h"
 
 extern TMGameState *g_pGameState;
 
@@ -45,6 +46,8 @@ enum TMWheelAnimationState
     float m_scrollAnimationSpeed;
     CGFloat m_scrollAnimationStartOffset;
     TMWheelAnimationState m_state;
+    BOOL m_allowPreviewMusic;
+    BOOL m_shouldPlayMusicOnRequest;
 }
 
 @synthesize songChanged;
@@ -189,9 +192,9 @@ enum TMWheelAnimationState
 
         // first calculate the offset at which the Y position should be atm.
         float offset;
-        if (m_state == ANIMATING_BACK)
+        if ( m_state == ANIMATING_BACK )
         {
-            offset = (1.0f-progress) * m_scrollAnimationStartOffset;
+            offset = (1.0f - progress) * m_scrollAnimationStartOffset;
         }
         else
         {
@@ -228,6 +231,7 @@ enum TMWheelAnimationState
                 m_pWheelItems->push_front(backItem);
 
                 self.songChanged = YES;
+                m_shouldPlayMusicOnRequest = YES;
             }
             else if ( m_state == ANIMATING_DOWN )
             {
@@ -248,10 +252,7 @@ enum TMWheelAnimationState
                 m_pWheelItems->push_back(frontItem);
 
                 self.songChanged = YES;
-            }
-            else if( m_state == ANIMATING_BACK )
-            {
-                // hm
+                m_shouldPlayMusicOnRequest = YES;
             }
 
             m_state = IDLE;
@@ -265,6 +266,17 @@ enum TMWheelAnimationState
         if ( m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler] )
         {
             [m_idChangedDelegate performSelector:m_oChangedActionHandler];
+        }
+    }
+
+    if ( m_allowPreviewMusic && m_shouldPlayMusicOnRequest )
+    {
+        m_shouldPlayMusicOnRequest = NO;
+
+        // send delegate a notification that it can play the preview music
+        if ( m_idMusicPlaybackDelegate != nil && [m_idMusicPlaybackDelegate respondsToSelector:m_oMusicPlaybackHandler] )
+        {
+            [m_idMusicPlaybackDelegate performSelector:m_oMusicPlaybackHandler];
         }
     }
 }
@@ -300,6 +312,7 @@ enum TMWheelAnimationState
         m_lastTouchY = touch.y();
     }
 
+    m_allowPreviewMusic = NO;
     return YES;
 }
 
@@ -327,8 +340,8 @@ enum TMWheelAnimationState
             // check if it's time to animate to the next item
             float dist = mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y;
 
-            float speed = 0.1f - delta/1000.0f;
-            if (speed < 0.0f)
+            float speed = 0.1f - delta / 1000.0f;
+            if ( speed < 0.0f )
             {
                 speed = 0.05f;
             }
@@ -387,6 +400,8 @@ enum TMWheelAnimationState
         {
             [self scrollWheelBack:0.1f];
         }
+
+        m_allowPreviewMusic = YES;
     }
 
     return YES;
@@ -417,7 +432,7 @@ enum TMWheelAnimationState
     m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
     m_scrollAnimationSpeed = animSpeed;
     m_scrollAnimationStartOffset =
-           -(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
+            -(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
     m_state = ANIMATING_BACK;
 }
@@ -435,4 +450,9 @@ enum TMWheelAnimationState
     }
 }
 
+- (void)setMusicPlaybackHandler:(SEL)pSelector receiver:(id)receiver
+{
+    m_idMusicPlaybackDelegate = receiver;
+    m_oMusicPlaybackHandler = pSelector;
+}
 @end

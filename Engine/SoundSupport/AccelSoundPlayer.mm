@@ -113,6 +113,7 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
     if (!self)
         return nil;
 
+    self.markedAsStopped = NO;
     m_bLoop = inLoop;
 
     if (inTime != 0)
@@ -303,6 +304,11 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
 - (BOOL)play
 {
+    if (self.markedAsStopped)
+    {
+        return NO;
+    }
+
     TMLog(@"Play issued. starting at %d", packetIndex);
     AudioQueueStart(queue, nil);
     /*
