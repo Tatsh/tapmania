@@ -17,23 +17,35 @@
 #import "GameState.h"
 #import "FontString.h"
 #import "DisplayUtil.h"
+#import "TimingUtil.h"
 
 extern TMGameState *g_pGameState;
 
-@interface SongPickerWheel (Private)
-- (void)saveSwipeElement:(float)value withTime:(float)delta;
+enum TMWheelAnimationState
+{
+    IDLE,
+    ANIMATING_UP,
+    ANIMATING_DOWN,
+    ANIMATING_BACK,
+};
 
-- (float)calculateSwipeVelocity;
+@interface SongPickerWheel ()
+- (void)scrollWheelUp:(float)animSpeed;
 
-- (void)clearSwipes;
+- (void)scrollWheelDown:(float)animSpeed;
 
-- (void)rollWheel:(float)pixels;
+- (void)scrollWheelBack:(float)animSpeed;
 
-- (float)findClosest;
 @end
 
-
 @implementation SongPickerWheel
+{
+    float m_lastTouchY;
+    double m_scrollAnimationStartTime;
+    float m_scrollAnimationSpeed;
+    CGFloat m_scrollAnimationStartOffset;
+    TMWheelAnimationState m_state;
+}
 
 @synthesize songChanged;
 
@@ -46,46 +58,27 @@ extern TMGameState *g_pGameState;
         return nil;
     }
 
+    m_state = IDLE;
+
     m_pWheelItems = new TMWheelItems();
     NSArray *songList = [[SongsDirectoryCache sharedInstance] getSongList];
 
-    mt_SelectedWheelItemId = INT_METRIC(@"SongPickerMenu Wheel SelectedWheelItemId");
-    mt_NumWheelItems = INT_METRIC(@"SongPickerMenu Wheel NumberOfWheelItems");
+    mt_SelectedWheelItemId = 7; // INT_METRIC(@"SongPickerMenu Wheel SelectedWheelItemId");
+    mt_NumWheelItems = 14; // INT_METRIC(@"SongPickerMenu Wheel NumberOfWheelItems");
+    mt_SelectedItemCenterY = 480.0f;       // This is the center of the selected Item's graphic in idle position of the wheel
 
     // Lookup the index of the latest song played/selected
     int selectedIndex = [[SongsDirectoryCache sharedInstance] songIndex:
             [[SettingsEngine sharedInstance] getStringValue:@"lastsong"]];
 
-    if ( selectedIndex >= 0 && (selectedIndex -= [songList count]) < 0 )
-    {
-        selectedIndex = [songList count] + selectedIndex;
-    }
-
-    if ( selectedIndex >= 0 )
-    {
-        int shift = mt_SelectedWheelItemId-1;
-        for ( ; shift >= 0; --shift )
-        {
-            if ( --selectedIndex < 0 )
-            {
-                selectedIndex = [songList count] - 1;
-            }
-        }
-
-    }
-    else
-    {
-        selectedIndex = 0;
-    }
-
     // Cache metrics
-    mt_ScissorTop = FLOAT_METRIC(@"SongPickerMenu Wheel ScissorTop");
-    mt_FirstItemOffset = FLOAT_METRIC(@"SongPickerMenu Wheel FirstItemOffset");
+    mt_ScissorTop = 1050.0f; // FLOAT_METRIC(@"SongPickerMenu Wheel ScissorTop");
     mt_DistanceBetweenItems = FLOAT_METRIC(@"SongPickerMenu Wheel DistanceBetweenItems");
     mt_ItemSong = RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
     mt_ItemSongHalfHeight = (int) (mt_DistanceBetweenItems / 2.0f);
 
-    mt_HighlightCenter = RECT_METRIC(@"SongPickerMenu Wheel Highlight");
+    mt_HighlightCenter = CGRectMake(mt_ItemSong.origin.x, mt_SelectedItemCenterY,
+            mt_ItemSong.size.width, mt_ItemSong.size.height); // RECT_METRIC(@"SongPickerMenu Wheel Highlight");
     mt_Highlight.size = mt_HighlightCenter.size;
 
     mt_ScoreDisplay = POINT_METRIC(@"SongPickerMenu Wheel Score");
@@ -102,14 +95,29 @@ extern TMGameState *g_pGameState;
     t_ScoreFrame = TEXTURE(@"SongPickerMenu Wheel ScoreFrame");
     m_pScoreStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelScoreDisplay" andText:@"       0"];
 
-    m_fVelocity = 0.0f;
-    [self clearSwipes];
+    // Find the song index for the first wheel item
+    if ( selectedIndex == -1 )
+    {
+        selectedIndex = 0;
+    }
+    else
+    {
+        for ( int wIdx = mt_SelectedWheelItemId; wIdx > 0; --wIdx )
+        {
+            if ( selectedIndex == 0 )
+            {
+                selectedIndex = [songList count] - 1;
+            }
+            else
+            {
+                --selectedIndex;
+            }
+        }
+    }
 
-    // FirstItemOffset
-    float curYOffset = mt_FirstItemOffset; // mt_ItemSong.size.height * (mt_NumWheelItems- 1);
-    int i = 0,
-            j = selectedIndex;
-    for ( ; i < mt_NumWheelItems; i++ )
+    float curYOffset = mt_SelectedItemCenterY + (mt_SelectedWheelItemId * mt_DistanceBetweenItems);
+
+    for ( int i = 0, j = selectedIndex; i < mt_NumWheelItems; ++i )
     {
         if ( j == [songList count] )
         {
@@ -117,12 +125,10 @@ extern TMGameState *g_pGameState;
         }
 
         TMSong *song = [songList objectAtIndex:j++];
-
         TMWheelItemPtr ptr = TMWheelItemPtr([[SongPickerMenuItem alloc] initWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, curYOffset)]);
         [*ptr updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
 
-        m_pWheelItems->push_front(ptr);
-
+        m_pWheelItems->push_back(ptr);
         curYOffset -= mt_DistanceBetweenItems;
     }
 
@@ -173,6 +179,85 @@ extern TMGameState *g_pGameState;
 {
     [super update:fDelta];
 
+    if ( m_state != IDLE )
+    {
+        float progress = ([TimingUtil getCurrentTime] - m_scrollAnimationStartTime) / m_scrollAnimationSpeed;
+        if ( progress >= 1.0f )
+        {
+            progress = 1.0f;
+        }
+
+        // first calculate the offset at which the Y position should be atm.
+        float offset;
+        if (m_state == ANIMATING_BACK)
+        {
+            offset = (1.0f-progress) * m_scrollAnimationStartOffset;
+        }
+        else
+        {
+            offset = progress * (mt_DistanceBetweenItems - m_scrollAnimationStartOffset) + m_scrollAnimationStartOffset;
+        }
+
+        float firstItemOffset = mt_SelectedItemCenterY + (mt_SelectedWheelItemId * mt_DistanceBetweenItems);
+
+        for ( int i = 0; i < m_pWheelItems->size(); ++i )
+        {
+            SongPickerMenuItem *item = m_pWheelItems->at(i).get();
+            float orig = firstItemOffset - (i * mt_DistanceBetweenItems);
+            [item updateYPosition:orig + (m_state == ANIMATING_UP ? -offset : offset)];
+        }
+
+        if ( progress >= 1.0f )
+        {
+            if ( m_state == ANIMATING_UP )
+            {
+                TMWheelItemPtr frontItem = m_pWheelItems->front();
+                TMWheelItemPtr backItem = m_pWheelItems->back();
+                TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:[frontItem.get() song]];
+
+                // remove bottom item
+                m_pWheelItems->pop_back();
+
+                // reuse the wheel item
+                [backItem.get() updateWithSong:song atPoint:
+                        CGPointMake(mt_ItemSong.origin.x,
+                                mt_SelectedItemCenterY + (mt_SelectedWheelItemId * mt_DistanceBetweenItems))];
+                [backItem.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
+
+                // add one item to the top
+                m_pWheelItems->push_front(backItem);
+
+                self.songChanged = YES;
+            }
+            else if ( m_state == ANIMATING_DOWN )
+            {
+                TMWheelItemPtr frontItem = m_pWheelItems->front();
+                TMWheelItemPtr backItem = m_pWheelItems->back();
+                TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:[backItem.get() song]];
+
+                // remove top item
+                m_pWheelItems->pop_front();
+
+                // reuse the wheel item
+                [frontItem.get() updateWithSong:song atPoint:
+                        CGPointMake(mt_ItemSong.origin.x,
+                                mt_SelectedItemCenterY - ((mt_NumWheelItems - mt_SelectedWheelItemId - 1) * mt_DistanceBetweenItems))];
+                [frontItem.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
+
+                // add one item to the bottom
+                m_pWheelItems->push_back(frontItem);
+
+                self.songChanged = YES;
+            }
+            else if( m_state == ANIMATING_BACK )
+            {
+                // hm
+            }
+
+            m_state = IDLE;
+        }
+    }
+
     if ( self.songChanged )
     {
         self.songChanged = NO;
@@ -180,44 +265,6 @@ extern TMGameState *g_pGameState;
         if ( m_bEnabled && m_idChangedDelegate != nil && [m_idChangedDelegate respondsToSelector:m_oChangedActionHandler] )
         {
             [m_idChangedDelegate performSelector:m_oChangedActionHandler];
-        }
-    }
-
-    // Do all scroll related stuff
-    if ( m_fVelocity != 0.0f )
-    {
-
-        float frictionForce = kWheelStaticFriction * (-kWheelMass * kGravity);
-        float frictionDelta = fDelta * frictionForce;
-
-        if ( fabsf(m_fVelocity) < frictionDelta )
-        {
-            m_fVelocity = 0.0f;
-
-            float closestY = [self findClosest];
-            if ( closestY != 0.0f )
-            {
-                [self rollWheel:-closestY];
-
-                self.songChanged = YES;
-                [self updateScore];
-            }
-
-            return;
-        }
-        else
-        {
-
-            if ( m_fVelocity < 0.0f )
-            {
-                m_fVelocity += frictionDelta;
-            }
-            else
-            {
-                m_fVelocity -= frictionDelta;
-            }
-
-            [self rollWheel:fDelta * m_fVelocity];
         }
     }
 }
@@ -247,22 +294,10 @@ extern TMGameState *g_pGameState;
         return NO;
     }
 
-    switch ( touches.size() )
+    if ( touches.size() == 1 )
     {
-        case 1:
-        {
-            TMTouch touch = touches.at(0);
-
-            // FIXME!
-            if ( touch.y() < mt_wheelTopTouchZone )
-            {
-                m_fLastSwipeY = touch.y();
-                m_fVelocity = 0.0f;    // Stop scrollin if touching the screen
-                m_dLastSwipeTime = touch.timestamp();
-            }
-
-            break;
-        }
+        TMTouch touch = touches.at(0);
+        m_lastTouchY = touch.y();
     }
 
     return YES;
@@ -275,29 +310,45 @@ extern TMGameState *g_pGameState;
         return NO;
     }
 
-    switch ( touches.size() )
+    if ( touches.size() == 1 )
     {
-        case 1:
+        TMTouch touch = touches.at(0);
+
+        if ( m_state == IDLE )
         {
-            TMTouch touch = touches.at(0);
+            float delta = m_lastTouchY - touch.y();
 
-            if ( touch.y() < mt_wheelTopTouchZone )
+            for ( int i = 0; i < m_pWheelItems->size(); ++i )
             {
-                float yDelta = touch.y() - m_fLastSwipeY;
-
-                [self saveSwipeElement:yDelta withTime:touch.timestamp() - m_dLastSwipeTime];
-                m_fLastSwipeY = touch.y();
-                m_dLastSwipeTime = touch.timestamp();
-
-                [self rollWheel:yDelta];    // Roll the wheel
-            }
-            else
-            {
-                [self clearSwipes];
+                SongPickerMenuItem *item = m_pWheelItems->at(i).get();
+                [item updateYPositionWith:-delta];
             }
 
-            break;
+            // check if it's time to animate to the next item
+            float dist = mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y;
+
+            float speed = 0.1f - delta/1000.0f;
+            if (speed < 0.0f)
+            {
+                speed = 0.05f;
+            }
+
+            if ( fabsf(dist) >= mt_DistanceBetweenItems * 0.5f )
+            {
+                if ( dist < 0.0f )
+                {
+                    [self scrollWheelDown:speed];
+                }
+                else
+                {
+                    [self scrollWheelUp:speed];
+                }
+            }
         }
+
+        // update the last touch anyway because when we jump back to IDLE
+        // we want to have a smallest delta possible.
+        m_lastTouchY = touch.y();
     }
 
     return YES;
@@ -315,7 +366,6 @@ extern TMGameState *g_pGameState;
         TMTouch touch = touches.at(0);
         CGPoint point = CGPointMake(touch.x(), touch.y());
 
-
         // Should start song?
         if ( touch.tapCount() > 1 && CGRectContainsPoint(mt_Highlight, point) )
         {
@@ -329,153 +379,47 @@ extern TMGameState *g_pGameState;
             return YES;
         }
 
-        // Now the fun part - swipes
-        if ( point.y < mt_wheelTopTouchZone )
-        {
-            m_fVelocity = [self calculateSwipeVelocity];
-            if ( m_fVelocity == 0.0f )
-            {
-                m_fVelocity = 0.01f;
-            }    // Make it jump to closest anyway
-        }
+        // check if we are mid way scrolling to some new item but less than half way
+        // was scrolled so we should animate back to the currently active item.
+        float dist = mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y;
 
-        [self clearSwipes];
+        if ( fabsf(dist) < mt_DistanceBetweenItems * 0.5f )
+        {
+            [self scrollWheelBack:0.1f];
+        }
     }
 
     return YES;
 }
 
-- (void)clearSwipes
+- (void)scrollWheelUp:(float)animSpeed
 {
-    int i;
-    for ( i = 0; i < kNumSwipePositions; ++i )
-    {
-        m_fSwipeBuffer[i][0] = 0.0f;
-        m_fSwipeBuffer[i][1] = 0.0f;
-    }
+    m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
+    m_scrollAnimationSpeed = animSpeed;
+    m_scrollAnimationStartOffset =
+            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
-    m_nCurrentSwipePosition = 0;
-    m_fLastSwipeY = 0.0f;
+    m_state = ANIMATING_UP;
 }
 
-- (float)calculateSwipeVelocity
+- (void)scrollWheelDown:(float)animSpeed
 {
-    int i;
-    float totalVelocity = 0.0f;
-    float totalTime = 0.0f;
+    m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
+    m_scrollAnimationSpeed = animSpeed;
+    m_scrollAnimationStartOffset =
+            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
-    for ( i = 0; i < kNumSwipePositions; ++i )
-    {
-        totalTime += m_fSwipeBuffer[i][0];
-        totalVelocity += m_fSwipeBuffer[i][1];
-    }
-
-    // Get average
-    totalTime /= kNumSwipePositions;
-    totalVelocity /= kNumSwipePositions;
-
-    // v = d/t
-    if ( totalTime > 0.0f )
-    {
-        totalVelocity /= totalTime;
-    }
-
-    TMLog(@"Got swipe velocity: %f from delta time %f", totalVelocity, totalTime);
-
-    return totalVelocity;
+    m_state = ANIMATING_DOWN;
 }
 
-- (void)saveSwipeElement:(float)value withTime:(float)delta
+- (void)scrollWheelBack:(float)animSpeed
 {
-    if ( m_nCurrentSwipePosition == kNumSwipePositions - 1 )
-    {
-        m_nCurrentSwipePosition = 0;
-    }
+    m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
+    m_scrollAnimationSpeed = animSpeed;
+    m_scrollAnimationStartOffset =
+           -(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
-    m_fSwipeBuffer[m_nCurrentSwipePosition][0] = delta;
-    m_fSwipeBuffer[m_nCurrentSwipePosition][1] = value;
-
-    ++m_nCurrentSwipePosition;
-}
-
-- (void)rollWheel:(float)pixels
-{
-    int i;
-    for ( i = 0; i < m_pWheelItems->size(); ++i )
-    {
-        SongPickerMenuItem *item = (SongPickerMenuItem *) m_pWheelItems->at(i).get();
-        [item updateYPosition:pixels];
-    }
-
-    // Check last object
-    SongPickerMenuItem *item = (SongPickerMenuItem *) m_pWheelItems->at(0).get();
-    float lastWheelItemY = [item getPosition].y;
-
-    do
-    {
-
-        if ( lastWheelItemY <= -mt_ItemSongHalfHeight )
-        {
-            TMWheelItemPtr itemToRemove = m_pWheelItems->at(0);
-            m_pWheelItems->pop_front();
-
-            // Now we must add one on top of the wheel (last element of the array)
-            float firstWheelItemY = lastWheelItemY + mt_DistanceBetweenItems * mt_NumWheelItems;
-
-            // Get current song on top of the wheel
-            SongPickerMenuItem *lastItem = (SongPickerMenuItem *) m_pWheelItems->rbegin()->get();
-            TMSong *searchSong = [lastItem song];
-            TMSong *song = [[SongsDirectoryCache sharedInstance] getSongPrevFrom:searchSong];
-
-            [itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, firstWheelItemY)];
-            [itemToRemove.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
-            m_pWheelItems->push_back(itemToRemove);
-
-        }
-        else if ( lastWheelItemY >= mt_ItemSongHalfHeight )
-        {
-            // Explicitly deallocate the object. autorelease didn't work for some reason.
-            TMWheelItemPtr itemToRemove = *m_pWheelItems->rbegin();
-            m_pWheelItems->pop_back();
-
-            // Now we must add one on the bottom of the wheel (first element of the array)
-            float newLastWheelItemY = lastWheelItemY - mt_DistanceBetweenItems;
-
-            // Get current song on bottom of the wheel
-            SongPickerMenuItem *firstItem = (SongPickerMenuItem *) m_pWheelItems->at(0).get();
-            TMSong *searchSong = [firstItem song];
-            TMSong *song = [[SongsDirectoryCache sharedInstance] getSongNextTo:searchSong];
-
-            [itemToRemove.get() updateWithSong:song atPoint:CGPointMake(mt_ItemSong.origin.x, newLastWheelItemY)];
-            [itemToRemove.get() updateWithDifficulty:g_pGameState->m_nSelectedDifficulty];
-            m_pWheelItems->push_front(itemToRemove);
-        }
-
-        // get possibly new first item
-        SongPickerMenuItem *firstItem = (SongPickerMenuItem *) m_pWheelItems->at(0).get();
-        lastWheelItemY = [firstItem getPosition].y;
-
-    }
-    while ( lastWheelItemY < -mt_ItemSongHalfHeight || lastWheelItemY > mt_ItemSongHalfHeight );
-}
-
-- (float)findClosest
-{
-    float tmp = MAXFLOAT;    // Holds current minimum
-    int i;
-
-    float lookupPosition = mt_FirstItemOffset - mt_DistanceBetweenItems*(mt_NumWheelItems-mt_SelectedWheelItemId);
-
-    for ( i = mt_SelectedWheelItemId - 2; i < mt_SelectedWheelItemId + 2; ++i )
-    {
-        float t = [(SongPickerMenuItem *) (m_pWheelItems->at(i).get()) getPosition].y - lookupPosition;
-        if ( fabsf(t) < fabsf(tmp) )
-        {
-            tmp = t;
-        }
-    }
-
-    return tmp;
+    m_state = ANIMATING_BACK;
 }
 
 - (SongPickerMenuItem *)getSelected
@@ -485,10 +429,9 @@ extern TMGameState *g_pGameState;
 
 - (void)updateAllWithDifficulty:(TMSongDifficulty)diff
 {
-    int i;
-    for ( i = 0; i < m_pWheelItems->size(); i++ )
+    for ( int i = 0; i < m_pWheelItems->size(); i++ )
     {
-        [(SongPickerMenuItem *) (m_pWheelItems->at(i).get()) updateWithDifficulty:diff];
+        [m_pWheelItems->at(i).get() updateWithDifficulty:diff];
     }
 }
 

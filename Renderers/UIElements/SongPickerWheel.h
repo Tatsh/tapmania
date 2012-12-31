@@ -63,6 +63,7 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
     float mt_FirstItemOffset;
     float mt_DistanceBetweenItems;
     float mt_ScissorTop;
+    float mt_SelectedItemCenterY;
 }
 
 @property(assign, nonatomic) BOOL songChanged;

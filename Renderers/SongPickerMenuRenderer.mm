@@ -179,6 +179,7 @@ extern TMGameState *g_pGameState;
     [m_pSongWheel updateAllWithDifficulty:(TMSongDifficulty) closestDiffAvailable];
 
     // Stop current previewMusic if any
+    /*
     if ( m_pPreviewMusic )
     {
         // TODO: we need to remove it from the queue as well.
@@ -193,6 +194,7 @@ extern TMGameState *g_pGameState;
 
     // Potentially dangerous
     [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
+    */
 
     // Save as last played/selected
     [[SettingsEngine sharedInstance] setStringValue:song.m_sHash forKey:@"lastsong"];

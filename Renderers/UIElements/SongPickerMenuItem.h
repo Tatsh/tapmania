@@ -37,10 +37,11 @@
 
 - (id)initWithSong:(TMSong *)song atPoint:(CGPoint)point;
 
-- (void)updateYPosition:(float)pixels;
+- (void)updateYPosition:(float)y;
 
 - (void)updateWithSong:(TMSong *)song atPoint:(CGPoint)point;
 
 - (void)updateWithDifficulty:(TMSongDifficulty)diff;
 
+- (void)updateYPositionWith:(float)pixels;
 @end

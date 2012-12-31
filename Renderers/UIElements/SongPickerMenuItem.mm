@@ -131,7 +131,12 @@
     }
 }
 
-- (void)updateYPosition:(float)pixels
+- (void)updateYPosition:(float)y
+{
+    m_rShape.origin.y = y;
+}
+
+- (void)updateYPositionWith:(float)pixels
 {
     m_rShape.origin.y += pixels;
 }

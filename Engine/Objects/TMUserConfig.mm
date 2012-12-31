@@ -19,8 +19,12 @@
     {
         return [NSNumber numberWithDouble:-0.0800];
     }
+    else if ([d isEqualToString:@"iPadRetina"])
+    {
+        return [NSNumber numberWithDouble:-0.0846];
+    }
     
-    return [NSNumber numberWithDouble:0.0];
+    return [NSNumber numberWithDouble:-0.0846];
 }
 
 - (id)init
