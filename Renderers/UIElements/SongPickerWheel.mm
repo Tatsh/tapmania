@@ -51,6 +51,7 @@ enum TMWheelAnimationState
     Sprite *m_HighlightSprite;
     float currentBeat;
     float currentBps;
+    CGRect mt_Scissor;
 }
 
 @synthesize songChanged;
@@ -71,16 +72,16 @@ enum TMWheelAnimationState
     m_pWheelItems = new TMWheelItems();
     NSArray *songList = [[SongsDirectoryCache sharedInstance] getSongList];
 
-    mt_SelectedWheelItemId = 7; // INT_METRIC(@"SongPickerMenu Wheel SelectedWheelItemId");
-    mt_NumWheelItems = 14; // INT_METRIC(@"SongPickerMenu Wheel NumberOfWheelItems");
-    mt_SelectedItemCenterY = 480.0f;       // This is the center of the selected Item's graphic in idle position of the wheel
+    mt_SelectedWheelItemId = INT_METRIC(@"SongPickerMenu Wheel SelectedWheelItemId");
+    mt_NumWheelItems = INT_METRIC(@"SongPickerMenu Wheel NumberOfWheelItems");
+    mt_SelectedItemCenterY = FLOAT_METRIC(@"SongPickerMenu Wheel SelectedItemCenterY");
 
     // Lookup the index of the latest song played/selected
     int selectedIndex = [[SongsDirectoryCache sharedInstance] songIndex:
             [[SettingsEngine sharedInstance] getStringValue:@"lastsong"]];
 
     // Cache metrics
-    mt_ScissorTop = 1050.0f; // FLOAT_METRIC(@"SongPickerMenu Wheel ScissorTop");
+    mt_Scissor = RECT_METRIC(@"SongPickerMenu Wheel Scissor");
     mt_DistanceBetweenItems = FLOAT_METRIC(@"SongPickerMenu Wheel DistanceBetweenItems");
     mt_ItemSong = RECT_METRIC(@"SongPickerMenu Wheel ItemSong");
     mt_ItemSongHalfHeight = (int) (mt_DistanceBetweenItems / 2.0f);
@@ -164,13 +165,16 @@ enum TMWheelAnimationState
     CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 
     // Setup glScissor
-    glScissor(0, 0, bounds.size.width, mt_ScissorTop);
+    glScissor((GLint) mt_Scissor.origin.x,
+            (GLint) mt_Scissor.origin.y,
+            (GLsizei) mt_Scissor.size.width,
+            (GLsizei) mt_Scissor.size.height);
     glEnable(GL_SCISSOR_TEST);
 
     int i;
     for ( i = 0; i < m_pWheelItems->size(); i++ )
     {
-        [(SongPickerMenuItem *) (m_pWheelItems->at(i).get()) render:fDelta];
+        [m_pWheelItems->at(i).get() render:fDelta];
     }
 
     // Highlight selection and draw top element

@@ -52,7 +52,6 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
     int mt_SelectedWheelItemId;
     int mt_NumWheelItems;
     float mt_DistanceBetweenItems;
-    float mt_ScissorTop;
     float mt_SelectedItemCenterY;
 
     id m_idMusicPlaybackDelegate;

@@ -1053,9 +1053,11 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h" afterPath="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
@@ -1075,97 +1077,139 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_6.0_2" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="SMParser.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Parsers/SMParser.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="0" selection-start="3185" selection-end="3185" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TMSong.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="195" column="60" selection-start="6503" selection-end="6503" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongsCacheLoaderRenderer.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="213" column="22" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Metrics.plist" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="752" column="31" selection-start="30540" selection-end="30540" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReceptorRow.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ReceptorRow.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="187" column="78" selection-start="5194" selection-end="5328" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CDTitleDisplay.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="29" selection-start="978" selection-end="978" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#169#195#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongResultsRenderer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="21" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongPickerMenuRenderer.mm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="164" column="6" selection-start="4929" selection-end="4929" vertical-scroll-proportion="0.55728155">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongPickerWheel.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="22" selection-start="1389" selection-end="1389" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#202#229#0" expanded="true" />
-                <marker date="1357066059000" expanded="true" signature="818:14498" placeholder="..." />
-                <marker date="1357066059000" expanded="true" signature="819:1139" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="TMSong.mm" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="195" column="60" selection-start="6503" selection-end="6503" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SongsCacheLoaderRenderer.mm" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="213" column="22" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="iPadRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="493" column="37" selection-start="17254" selection-end="17848" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SongPickerMenuRenderer.mm" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="324" column="0" selection-start="10327" selection-end="10327" vertical-scroll-proportion="0.7009709">
+                  <folding>
+                    <element signature="e#215#249#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Metrics.plist" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="755" column="26" selection-start="30651" selection-end="30651" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ReceptorRow.mm" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ReceptorRow.mm">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="187" column="78" selection-start="5194" selection-end="5328" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CDTitleDisplay.mm" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.mm">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="52" column="29" selection-start="978" selection-end="978" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#169#195#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SongResultsRenderer.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="53" column="21" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="iPhone5_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="474" column="44" selection-start="16991" selection-end="17010" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SongPickerWheel.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="38" column="5" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="iPad_Metrics.plist" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="473" column="41" selection-start="17061" selection-end="17061" vertical-scroll-proportion="-0.013592233">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="iPhoneRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="469" column="39" selection-start="16803" selection-end="16803" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="iPhone5_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="468" column="36" selection-start="16759" selection-end="16759" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -1175,21 +1219,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/UIElements/BpmDisplay.mm" />
-        <option value="$PROJECT_DIR$/Engine/Protocols/TMSongsLoaderSupport.h" />
-        <option value="$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.h" />
-        <option value="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.h" />
         <option value="$PROJECT_DIR$/GameObjects/TMSong.h" />
         <option value="$PROJECT_DIR$/Parsers/SMParser.mm" />
         <option value="$PROJECT_DIR$/GameObjects/TMSong.mm" />
-        <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
         <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" />
+        <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
+        <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
       </list>
     </option>
@@ -1564,16 +1608,16 @@
     <frame x="4" y="22" width="1432" height="865" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.33333334" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.4032258" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.18817204" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.5483871" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39784947" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25403225" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1638,52 +1682,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="60" selection-start="6503" selection-end="6503" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Parsers/SMParser.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="3185" selection-end="3185" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="752" column="31" selection-start="30540" selection-end="30540" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="213" column="22" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="29" selection-start="978" selection-end="978" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#169#195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="17" selection-start="168" selection-end="168" vertical-scroll-proportion="-0.60808927">
-          <folding>
-            <element signature="e#235#277#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="26" selection-start="1783" selection-end="1783" vertical-scroll-proportion="0.33333334">
@@ -1712,13 +1710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="29" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.71590906">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ReceptorRow.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="187" column="78" selection-start="5194" selection-end="5328" vertical-scroll-proportion="0.0">
@@ -1742,19 +1733,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="22" selection-start="1389" selection-end="1389" vertical-scroll-proportion="0.0">
+        <state line="166" column="15" selection-start="4854" selection-end="4854" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#202#229#0" expanded="true" />
-            <marker date="1357066059000" expanded="true" signature="818:14498" placeholder="..." />
-            <marker date="1357066059000" expanded="true" signature="819:1139" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="5" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="474" column="44" selection-start="16991" selection-end="17010" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="469" column="39" selection-start="16803" selection-end="16803" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="493" column="37" selection-start="17254" selection-end="17848" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="473" column="41" selection-start="17061" selection-end="17061" vertical-scroll-proportion="-0.013592233">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="755" column="26" selection-start="30651" selection-end="30651" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Parsers/SMParser.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="0" selection-start="3185" selection-end="3185" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="6" selection-start="4929" selection-end="4929" vertical-scroll-proportion="0.55728155">
-          <folding />
+        <state line="324" column="0" selection-start="10327" selection-end="10327" vertical-scroll-proportion="0.7009709">
+          <folding>
+            <element signature="e#215#249#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

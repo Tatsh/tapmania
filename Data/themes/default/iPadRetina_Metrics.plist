@@ -477,12 +477,21 @@
                 </dict>
                 <key>Wheel</key>
                 <dict>
-                    <key>ScissorTop</key>
-                    <real>1648</real>
+                    <key>Scissor</key>
+                    <dict>
+                        <key>Height</key>
+                        <integer>1648</integer>
+                        <key>Width</key>
+                        <integer>1536</integer>
+                        <key>X</key>
+                        <integer>0</integer>
+                        <key>Y</key>
+                        <integer>0</integer>
+                    </dict>
                     <key>DistanceBetweenItems</key>
                     <real>180</real>
-                    <key>FirstItemOffset</key>
-                    <real>1738</real>
+                    <key>SelectedItemCenterY</key>
+                    <real>1000</real>
                     <key>NumberOfWheelItems</key>
                     <integer>11</integer>
                     <key>SelectedWheelItemId</key>

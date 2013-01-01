@@ -8,15 +8,9 @@
 //
 
 #import "SongPickerMenuRenderer.h"
-
 #import "TMSong.h"
-
-#import "TapManiaAppDelegate.h"
-#import "SongsDirectoryCache.h"
 #import "TimingUtil.h"
 
-#import "MainMenuRenderer.h"
-#import "PhysicsUtil.h"
 #import "TMSoundEngine.h"
 #import "TMLoopedSound.h"
 
@@ -24,22 +18,14 @@
 #import "TogglerItem.h"
 #import "ImageButton.h"
 
-#import "InputEngine.h"
 #import "TapMania.h"
-#import "EAGLView.h"
 #import "ThemeManager.h"
 #import "SettingsEngine.h"
 
-#import "SongPlayRenderer.h"
-#import "MainMenuRenderer.h"
-
-#import "QuadTransition.h"
 #import "GameState.h"
 
 #import "GLUtil.h"
 #import "SongPickerMenuItem.h"
-#import "BpmDisplay.h"
-#import "TMChangeSegment.h"
 #import "BpmDisplay.h"
 #import "CDTitleDisplay.h"
 
@@ -147,7 +133,7 @@ extern TMGameState *g_pGameState;
         [self.m_previewMusicTimer invalidate];
         self.m_previewMusicTimer = nil;
     }
-    self.m_previewMusicTimer = [NSTimer scheduledTimerWithTimeInterval:0.7
+    self.m_previewMusicTimer = [NSTimer scheduledTimerWithTimeInterval:0.3
                                                                 target:self
                                                               selector:@selector(startPreviewMusic)
                                                               userInfo:nil repeats:NO];
@@ -336,8 +322,6 @@ extern TMGameState *g_pGameState;
 - (void)dealloc
 {
     [m_pPreviewMusic release];
-    [t_NoBanner release];
-
     [_m_previewMusicTimer release];
     [super dealloc];
 }
