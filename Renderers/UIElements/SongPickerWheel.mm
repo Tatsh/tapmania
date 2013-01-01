@@ -48,6 +48,9 @@ enum TMWheelAnimationState
     TMWheelAnimationState m_state;
     BOOL m_allowPreviewMusic;
     BOOL m_shouldPlayMusicOnRequest;
+    Sprite *m_HighlightSprite;
+    float currentBeat;
+    float currentBps;
 }
 
 @synthesize songChanged;
@@ -62,6 +65,8 @@ enum TMWheelAnimationState
     }
 
     m_state = IDLE;
+    currentBeat = 0.0f;
+    currentBps = 1.0f;
 
     m_pWheelItems = new TMWheelItems();
     NSArray *songList = [[SongsDirectoryCache sharedInstance] getSongList];
@@ -94,9 +99,15 @@ enum TMWheelAnimationState
     mt_HighlightHalfHeight = (int) (mt_Highlight.size.height / 2);
 
     // Cache graphics
-    t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
+    t_Highlight = (TMFramedTexture *) TEXTURE(@"SongPickerMenu Wheel Highlight");
     t_ScoreFrame = TEXTURE(@"SongPickerMenu Wheel ScoreFrame");
     m_pScoreStr = [[FontString alloc] initWithFont:@"SongPickerMenu WheelScoreDisplay" andText:@"       0"];
+
+    m_HighlightSprite = [[Sprite alloc] initWithRepeating];
+    [m_HighlightSprite setTexture:t_Highlight];
+    [m_HighlightSprite setX:mt_HighlightCenter.origin.x];
+    [m_HighlightSprite setY:mt_HighlightCenter.origin.y];
+    [m_HighlightSprite setFrameIndex:0];
 
     // Find the song index for the first wheel item
     if ( selectedIndex == -1 )
@@ -143,6 +154,7 @@ enum TMWheelAnimationState
 - (void)dealloc
 {
     delete m_pWheelItems;
+    [m_HighlightSprite release];
     [super dealloc];
 }
 
@@ -163,7 +175,11 @@ enum TMWheelAnimationState
 
     // Highlight selection and draw top element
     glEnable(GL_BLEND);
-    [t_Highlight drawAtPoint:mt_HighlightCenter.origin];
+    float beatFraction = currentBeat - floorf(currentBeat);
+    float brightness = (beatFraction > 0.9 || beatFraction < 0.1) ? 1.0f : 0.5f;
+    
+    [m_HighlightSprite setR:brightness G:brightness B:brightness];
+    [m_HighlightSprite render:fDelta];
 
     // Score frame
     [t_ScoreFrame drawAtPoint:mt_ScoreFrame];
@@ -171,7 +187,6 @@ enum TMWheelAnimationState
     // Draw the score for the selected song
     [m_pScoreStr drawAtPoint:mt_ScoreDisplay];
     glDisable(GL_BLEND);
-
 
     glDisable(GL_SCISSOR_TEST);
     glScissor(0, 0, bounds.size.width, bounds.size.height);
@@ -181,6 +196,7 @@ enum TMWheelAnimationState
 - (void)update:(float)fDelta
 {
     [super update:fDelta];
+    currentBeat += currentBps*fDelta;
 
     if ( m_state != IDLE )
     {
@@ -279,6 +295,12 @@ enum TMWheelAnimationState
             [m_idMusicPlaybackDelegate performSelector:m_oMusicPlaybackHandler];
         }
     }
+}
+
+- (void)setCurrentBps:(float)bps
+{
+    currentBeat = 0.0f;
+    currentBps = bps;
 }
 
 - (void)updateScore

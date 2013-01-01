@@ -90,9 +90,8 @@ extern TMGameState *g_pGameState;
     mt_HighlightHalfHeight = (int) (mt_Highlight.size.height / 2);
 
     // Cache graphics
-    t_Highlight = TEXTURE(@"SongPickerMenu Wheel Highlight");
     t_NoBanner = TEXTURE(@"SongResults NoBanner");
-    
+
     // And sounds
     sr_SelectSong = SOUND(@"SongPickerMenu SelectSong");
 
@@ -128,7 +127,7 @@ extern TMGameState *g_pGameState;
     // Setup bpm display
     m_pBpmDisplay = [[BpmDisplay alloc] initWithMetrics:@"SongPickerMenu BpmDisplay"];
     [self pushBackChild:m_pBpmDisplay];
-    
+
     // Setup the CDTitle spinner
     m_pCDTitleDisplay = [[CDTitleDisplay alloc] initWithMetrics:@"SongPickerMenu CDTitleDisplay"];
     [self pushBackChild:m_pCDTitleDisplay];
@@ -171,6 +170,9 @@ extern TMGameState *g_pGameState;
 
     // Potentially dangerous
     [[TMSoundEngine sharedInstance] addToQueue:m_pPreviewMusic];
+
+    // update highlight flash speed
+    [m_pSongWheel setCurrentBps:song.m_fBpm];
 }
 
 - (void)deinitOnTransition

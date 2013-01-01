@@ -12,9 +12,6 @@
 
 #define kNumSwipePositions 10
 
-#define kWheelStaticFriction    0.25f
-#define kWheelMass                80.0f
-
 @class SongPickerMenuItem, Texture2D, FontString;
 
 #ifdef __cplusplus
@@ -26,20 +23,13 @@ typedef ObjCPtr<SongPickerMenuItem> TMWheelItemPtr;
 typedef deque<TMWheelItemPtr> TMWheelItems;
 #endif
 
+@class TMFramedTexture;
+
 @interface SongPickerWheel : TMControl
 {
 #ifdef __cplusplus
     TMWheelItems *m_pWheelItems;
 #endif
-
-    int m_nCurrentSongId;    // Selected song index
-
-    float m_fVelocity;        // Current speed of the wheel
-
-    int m_nCurrentSwipePosition;
-    float m_fSwipeBuffer[kNumSwipePositions][2]; // 0=delta time, 1=delta y
-    float m_fLastSwipeY;
-    double m_dLastSwipeTime;
 
     int m_nCurrentScoreDisplayed;
 
@@ -55,12 +45,12 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
     int mt_HighlightHalfHeight;
     float mt_wheelTopTouchZone;
 
-    Texture2D *t_Highlight, *t_ScoreFrame;
+    TMFramedTexture *t_Highlight;
+    Texture2D *t_ScoreFrame;
     FontString *m_pScoreStr;
 
     int mt_SelectedWheelItemId;
     int mt_NumWheelItems;
-    float mt_FirstItemOffset;
     float mt_DistanceBetweenItems;
     float mt_ScissorTop;
     float mt_SelectedItemCenterY;
@@ -74,6 +64,8 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
 - (SongPickerMenuItem *)getSelected;
 
 - (void)updateAllWithDifficulty:(TMSongDifficulty)diff;
+
+- (void)setCurrentBps:(float)bps;
 
 - (void)updateScore;
 

@@ -65,8 +65,8 @@ extern TMGameState *g_pGameState;
     [super setupForTransition];
 
     // Textures
-    t_JudgeLabels = TEXTURE(@"SongResults JudgeLabels");
-    t_Grades = TEXTURE(@"SongResults Grades");
+    t_JudgeLabels = (TMFramedTexture *) TEXTURE(@"SongResults JudgeLabels");
+    t_Grades = (TMFramedTexture *) TEXTURE(@"SongResults Grades");
     t_overlay = TEXTURE(@"SongResults Overlay");    
     t_NoBanner = TEXTURE(@"SongResults NoBanner");
 

@@ -28,8 +28,6 @@
     int mt_HighlightHalfHeight;
 
     // Resources
-    Texture2D *t_Highlight;
-
     TMSound *sr_SelectSong;
     Texture2D *t_Banner;
     ImageButton *m_pBanner;
