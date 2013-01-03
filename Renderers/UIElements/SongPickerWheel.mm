@@ -19,6 +19,8 @@
 #import "DisplayUtil.h"
 #import "TimingUtil.h"
 #import "SongPickerMenuRenderer.h"
+#import "iCadeState.h"
+#import "TapMania.h"
 
 extern TMGameState *g_pGameState;
 
@@ -181,7 +183,7 @@ enum TMWheelAnimationState
     glEnable(GL_BLEND);
     float beatFraction = currentBeat - floorf(currentBeat);
     float brightness = (beatFraction > 0.9 || beatFraction < 0.1) ? 1.0f : 0.5f;
-    
+
     [m_HighlightSprite setR:brightness G:brightness B:brightness];
     [m_HighlightSprite render:fDelta];
 
@@ -200,7 +202,7 @@ enum TMWheelAnimationState
 - (void)update:(float)fDelta
 {
     [super update:fDelta];
-    currentBeat += currentBps*fDelta;
+    currentBeat += currentBps * fDelta;
 
     if ( m_state != IDLE )
     {
@@ -294,7 +296,9 @@ enum TMWheelAnimationState
         m_shouldPlayMusicOnRequest = NO;
 
         // send delegate a notification that it can play the preview music
-        if ( m_idMusicPlaybackDelegate != nil && [m_idMusicPlaybackDelegate respondsToSelector:m_oMusicPlaybackHandler] )
+        if ( m_bEnabled &&
+                m_idMusicPlaybackDelegate != nil &&
+                [m_idMusicPlaybackDelegate respondsToSelector:m_oMusicPlaybackHandler] )
         {
             [m_idMusicPlaybackDelegate performSelector:m_oMusicPlaybackHandler];
         }
@@ -409,11 +413,7 @@ enum TMWheelAnimationState
         if ( touch.tapCount() > 1 && CGRectContainsPoint(mt_Highlight, point) )
         {
             TMLog(@"Double tapped the wheel select item!");
-            if ( m_bEnabled && m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler] )
-            {
-                [self disable];    // Disable the song list as we already picked a song to start
-                [m_idActionDelegate performSelector:m_oActionHandler];
-            }
+            [self commitSongSelection];
 
             return YES;
         }
@@ -431,6 +431,80 @@ enum TMWheelAnimationState
     }
 
     return YES;
+}
+
+- (void)commitSongSelection
+{
+    if ( m_bEnabled && m_idActionDelegate != nil && [m_idActionDelegate respondsToSelector:m_oActionHandler] )
+    {
+        [self disable];    // Disable the song list as we already picked a song to start
+        [m_idActionDelegate performSelector:m_oActionHandler];
+    }
+}
+
+// iCade support
+- (void)buttonDown:(iCadeState)button
+{
+    TMLog(@"SongWheel Got button press %d", button);
+
+    switch ( button )
+    {
+        case iCadeButtonG: // select
+            break;
+        case iCadeButtonF:
+        case iCadeJoystickUp:
+            if (m_state == IDLE)
+            {
+                [self commitSongSelection];
+            }
+            break;
+        case iCadeButtonB:
+        case iCadeJoystickLeft:
+            if ( m_state == IDLE )
+            {
+                m_allowPreviewMusic = YES;
+                [self scrollWheelUp:0.1f];
+            }
+            break;
+        case iCadeButtonH:
+        case iCadeJoystickRight:
+            if ( m_state == IDLE )
+            {
+                m_allowPreviewMusic = YES;
+                [self scrollWheelDown:0.1f];
+            }
+            break;
+        case iCadeButtonD:
+        case iCadeJoystickDown:
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)buttonUp:(iCadeState)button
+{
+    TMLog(@"SongWheel Got button release %d", button);
+
+    switch ( button )
+    {
+        case iCadeButtonG: // select
+            break;
+        case iCadeButtonF:
+        case iCadeJoystickUp:
+            break;
+        case iCadeButtonB:
+        case iCadeJoystickLeft:
+            break;
+        case iCadeButtonH:
+        case iCadeJoystickRight:
+            break;
+        case iCadeButtonD:
+        case iCadeJoystickDown:
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)scrollWheelUp:(float)animSpeed

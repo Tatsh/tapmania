@@ -884,6 +884,7 @@
 		F44B20BC526C238EAD69ACAC /* BpmDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BpmDisplay.mm; path = Renderers/UIElements/BpmDisplay.mm; sourceTree = "<group>"; };
 		F44B213EF30E39B8D26F6EDA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICadeResponder.h; sourceTree = "<group>"; };
 		F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingSyncRenderer.mm; path = Renderers/TimingSyncRenderer.mm; sourceTree = "<group>"; };
 		F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CDTitleDisplay.mm; path = Renderers/UIElements/CDTitleDisplay.mm; sourceTree = "<group>"; };
 		F44B2AD46B7C72F408C8DCB8 /* CDTitleDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDTitleDisplay.h; path = Renderers/UIElements/CDTitleDisplay.h; sourceTree = "<group>"; };
@@ -987,6 +988,7 @@
 				248547F20EE6BCD300AD4FAB /* InputEngine.mm */,
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
 				24A586090FBADFD6000954E8 /* SettingsEngine.mm */,
+				F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */,
 			);
 			path = Engine;
 			sourceTree = "<group>";

@@ -50,6 +50,7 @@
 #import "TDBSearch.h"
 
 #import "DisplayUtil.h"
+#import "ICadeResponder.h"
 
 TMGameState *g_pGameState;
 
@@ -61,6 +62,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 @implementation TapMania
 
 @synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop, m_Transform, m_InputTransform;
+@synthesize iCadeResponder = _iCadeResponder;
+
 
 - (id)init
 {
@@ -314,6 +317,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
     // Init global joypad
     m_pJoyPad = [[JoyPad alloc] init];
+    self.iCadeResponder = nil;
 
     // Set up OpenGL projection matrix
     glMatrixMode(GL_PROJECTION);

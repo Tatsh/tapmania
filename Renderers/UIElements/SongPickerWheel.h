@@ -18,6 +18,8 @@
 
 #include <deque>
 #include "ObjCPtr.h"
+#import "iCadeState.h"
+#import "ICadeResponder.h"
 
 typedef ObjCPtr<SongPickerMenuItem> TMWheelItemPtr;
 typedef deque<TMWheelItemPtr> TMWheelItems;
@@ -25,7 +27,7 @@ typedef deque<TMWheelItemPtr> TMWheelItems;
 
 @class TMFramedTexture;
 
-@interface SongPickerWheel : TMControl
+@interface SongPickerWheel : TMControl <ICadeResponder>
 {
 #ifdef __cplusplus
     TMWheelItems *m_pWheelItems;

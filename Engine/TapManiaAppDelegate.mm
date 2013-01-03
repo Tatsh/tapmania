@@ -43,20 +43,20 @@ void uncaughtExceptionHandler(NSException *exception)
 
     // Enable audio
     OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
-    if (result)
+    if ( result )
     {
         TMLog(@"Problems initializing audio session.");
     }
 
     UInt32 sessionCategory = kAudioSessionCategory_SoloAmbientSound;
     result = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof (sessionCategory), &sessionCategory);
-    if (result)
+    if ( result )
     {
         TMLog(@"Problems setting category for audio session.");
     }
 
     result = AudioSessionSetActive(true);
-    if (result)
+    if ( result )
     {
         TMLog(@"Problems activating audio session.");
     }
@@ -104,64 +104,75 @@ void uncaughtExceptionHandler(NSException *exception)
 // iCade support
 - (void)buttonDown:(iCadeState)button
 {
-    TMLog(@"Got button press %d", button);
-
-    switch (button)
+    if ( [TapMania sharedInstance].iCadeResponder )
     {
-        case iCadeButtonG: // select
-            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
-            break;
-        case iCadeButtonF:
-        case iCadeJoystickUp:
-            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonUp];
-            break;
-        case iCadeButtonB:
-        case iCadeJoystickLeft:
-            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonLeft];
-            break;
-        case iCadeButtonH:
-        case iCadeJoystickRight:
-            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonRight];
-            break;
-        case iCadeButtonD:
-        case iCadeJoystickDown:
-            [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonDown];
-            break;
-        default:
-            break;
+        [[TapMania sharedInstance].iCadeResponder buttonDown:button];
+    }
+    else
+    {
+        switch ( button )
+        {
+            case iCadeButtonG: // select
+                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
+                break;
+            case iCadeButtonF:
+            case iCadeJoystickUp:
+                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonUp];
+                break;
+            case iCadeButtonB:
+            case iCadeJoystickLeft:
+                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonLeft];
+                break;
+            case iCadeButtonH:
+            case iCadeJoystickRight:
+                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonRight];
+                break;
+            case iCadeButtonD:
+            case iCadeJoystickDown:
+                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonDown];
+                break;
+            default:
+                break;
+        }
     }
 }
 
 - (void)buttonUp:(iCadeState)button
 {
-    TMLog(@"Got button release %d", button);
-
-    switch (button)
+    if ( [TapMania sharedInstance].iCadeResponder )
     {
-        case iCadeButtonG: // select
-            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
-            break;
-        case iCadeButtonF:
-        case iCadeJoystickUp:
-            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonUp];
-            break;
-        case iCadeButtonB:
-        case iCadeJoystickLeft:
-            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonLeft];
-            break;
-        case iCadeButtonH:
-        case iCadeJoystickRight:
-            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonRight];
-            break;
-        case iCadeButtonD:
-        case iCadeJoystickDown:
-            [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonDown];
-            break;
-        default:
-            break;
+        [[TapMania sharedInstance].iCadeResponder buttonUp:button];
+    }
+    else
+    {
+
+        switch ( button )
+        {
+            case iCadeButtonG: // select
+                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
+                break;
+            case iCadeButtonF:
+            case iCadeJoystickUp:
+                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonUp];
+                break;
+            case iCadeButtonB:
+            case iCadeJoystickLeft:
+                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonLeft];
+                break;
+            case iCadeButtonH:
+            case iCadeJoystickRight:
+                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonRight];
+                break;
+            case iCadeButtonD:
+            case iCadeJoystickDown:
+                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonDown];
+                break;
+            default:
+                break;
+
+        }
 
     }
-
 }
 
 

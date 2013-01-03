@@ -13,6 +13,7 @@
 #import "ARRollerProtocol.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, TMScreen, TMModalView;
+@protocol ICadeResponder;
 
 @interface TapMania : NSObject <TMRunLoopDelegate, ARRollerDelegate>
 {
@@ -42,6 +43,8 @@
 
 @property(nonatomic, readonly) CGAffineTransform m_Transform;
 @property(nonatomic, readonly) CGAffineTransform m_InputTransform;
+
+@property(nonatomic, retain) id<ICadeResponder> iCadeResponder;
 
 - (void)startGame;
 

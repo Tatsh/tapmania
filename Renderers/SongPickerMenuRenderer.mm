@@ -92,6 +92,7 @@ extern TMGameState *g_pGameState;
     [m_pSongWheel setActionHandler:@selector(songShouldStart) receiver:self];
     [m_pSongWheel setChangedActionHandler:@selector(songSelectionChanged) receiver:self];
     [m_pSongWheel setMusicPlaybackHandler:@selector(playPreviewMusic) receiver:self];
+    [TapMania sharedInstance].iCadeResponder = m_pSongWheel;
     [self pushControl:m_pSongWheel];
 
     // Difficulty toggler
@@ -164,6 +165,7 @@ extern TMGameState *g_pGameState;
 - (void)deinitOnTransition
 {
     [super deinitOnTransition];
+    [TapMania sharedInstance].iCadeResponder = nil;
 
     // Remove ads
     [[TapMania sharedInstance] toggleAds:NO];
