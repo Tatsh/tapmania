@@ -25,6 +25,9 @@
 
 
 @implementation SongPickerMenuItem
+{
+    float mt_nameYOffset;
+}
 
 @synthesize song = m_pSong, m_pSavedScore;
 
@@ -39,6 +42,7 @@
 
     // Get metrics
     mt_nameLeftOffset = FLOAT_METRIC(@"SongPickerMenu Wheel NameLeftOffset");
+    mt_nameYOffset = FLOAT_METRIC(@"SongPickerMenu Wheel NameYOffset");
     mt_nameMaxWidth = FLOAT_METRIC(@"SongPickerMenu Wheel NameMaxWidth");
     mt_artistYOffset = FLOAT_METRIC(@"SongPickerMenu Wheel ArtistYOffset");
     mt_gradeXOffset = FLOAT_METRIC(@"SongPickerMenu Wheel GradeXOffset");
@@ -79,7 +83,7 @@
     [t_WheelItem drawAtPoint:m_rShape.origin];
 
     // TODO: wtf /2-8????
-    CGPoint leftCorner = CGPointMake(mt_nameLeftOffset, m_rShape.origin.y + m_pTitleStr.contentSize.height / 2 - 8);
+    CGPoint leftCorner = CGPointMake(mt_nameLeftOffset, m_rShape.origin.y + mt_nameYOffset);
     CGRect rectTitle, rectArtist;
 
     if (mt_nameMaxWidth < m_pTitleStr.contentSize.width)

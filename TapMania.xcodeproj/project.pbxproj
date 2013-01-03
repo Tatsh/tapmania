@@ -2769,7 +2769,6 @@
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
 				OTHER_CFLAGS = (
-					"-DENABLE_ADWHIRL",
 					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
@@ -2830,7 +2829,6 @@
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
 				OTHER_CFLAGS = (
-					"-DENABLE_ADWHIRL",
 					"-DDEBUG",
 				);
 				PRODUCT_NAME = TapMania;
