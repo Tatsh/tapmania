@@ -194,7 +194,7 @@ extern TMGameState *g_pGameState;
 //					g_pGameState->m_pSong.m_sTitle, @"song",
 //					g_pGameState->m_pSong.m_sArtist, @"artist",
 //					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficulty]], @"difficulty",
-//					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficultyLevel]], @"diff_level", 
+//					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficultyLevel]], @"diff_level",
 //					[NSNumber numberWithDouble:g_pGameState->m_dSpeedModValue], @"speedmod",
 //		 nil]];
 
@@ -208,22 +208,22 @@ extern TMGameState *g_pGameState;
     [t_HoldJudgement reset];
 
     m_pSound = [[TMSound alloc] initWithPath:
-            [[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
+    [[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
     [[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pSound];
 
+    _hasCustomBg = NO;
     if (g_pGameState->m_pSong.m_sBackgroundFilePath != nil)
     {
-        t_BG = nil;    // don't use default background
         NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
         NSString *backgroundFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBackgroundFilePath];
+
         // TODO: use ResourceLoader for this?
         UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
-        t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
-        _hasCustomBg = YES;
-    }
-    else
-    {
-        _hasCustomBg = NO;
+        if(img)
+        {
+            t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+            _hasCustomBg = YES;
+        }
     }
 
     // Calculate starting offset for music playback

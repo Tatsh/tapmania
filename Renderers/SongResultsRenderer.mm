@@ -34,11 +34,15 @@ extern TMGameState *g_pGameState;
 @implementation SongResultsRenderer
 {
     Texture2D *t_NoBanner;
+    BOOL _hasCustomBg;
 }
 
 - (void)dealloc
 {
 
+    if(_hasCustomBg)
+        [t_BG release];    
+    
     // Here we MUST release memory used by the steps since after this place we will not need it anymore
     [g_pGameState->m_pSteps release];
     [g_pGameState->m_pSong release];
@@ -70,6 +74,7 @@ extern TMGameState *g_pGameState;
     t_overlay = TEXTURE(@"SongResults Overlay");    
     t_NoBanner = TEXTURE(@"SongResults NoBanner");
 
+    _hasCustomBg = NO;
     if (g_pGameState->m_pSong.m_sBackgroundFilePath != nil)
     {
         NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
@@ -78,8 +83,10 @@ extern TMGameState *g_pGameState;
         if (img)
         {
             t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+            _hasCustomBg = YES;
         }
     }
+
     self.brightness = 0.5f;
 
     if (g_pGameState->m_pSong.bannerTexture != nil)
