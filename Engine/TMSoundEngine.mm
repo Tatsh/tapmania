@@ -196,14 +196,17 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
 
 - (void)worker
 {
-    if(m_bPlayingSomething && m_curPlayer)
+    if ( m_bPlayingSomething && m_curPlayer )
     {
-        if(m_curPlayer.markedAsStopped)
+        if ( m_curPlayer.markedAsStopped && !m_bManualStart )
         {
-            [self playMusic]; // skip to next track
+            if ( !m_pQueue->empty() )
+            {
+                [self playMusic]; // skip to next track
+            }
         }
     }
-    
+
     if ( !m_bPlayingSomething && !m_bManualStart )
     {
         if ( !m_pQueue->empty() )
@@ -469,7 +472,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     AbstractSoundPlayer *pPlayer = m_pQueue->front().second;
     TMLog(@"Got player to stop: %X", pPlayer);
 
-    if(m_curPlayer == pPlayer)
+    if ( m_curPlayer == pPlayer )
     {
         m_curPlayer = nil;
     }

@@ -68,6 +68,12 @@ void uncaughtExceptionHandler(NSException *exception)
     // Start analytics (flurry)
 //	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
 
+    // Add bg
+    // TODO: add window programatically without NIB
+    // TODO: add background to window:
+    //[self.window addSubview:[[[UIImageView alloc] initWithImage:
+    //        [UIImage imageNamed:@"Default-Portrait@2x~ipad.png"]] autorelease]];
+
     // Show window
     [self.window makeKeyAndVisible];
 

@@ -57,6 +57,9 @@ extern TMGameState *g_pGameState;
 @end
 
 @implementation SongPlayRenderer
+{
+    BOOL _hasCustomBg;
+}
 
 - (id)initWithMetrics:(NSString *)inMetrics
 {
@@ -159,7 +162,9 @@ extern TMGameState *g_pGameState;
 
 - (void)dealloc
 {
-    [t_BG release];
+    if(_hasCustomBg)
+        [t_BG release];
+
     UNSUBSCRIBE_ALL();
     [m_pSound release];
 
@@ -214,9 +219,12 @@ extern TMGameState *g_pGameState;
         // TODO: use ResourceLoader for this?
         UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
         t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
+        _hasCustomBg = YES;
     }
-    [t_BG retain];    // we release this in dealloc
-
+    else
+    {
+        _hasCustomBg = NO;
+    }
 
     // Calculate starting offset for music playback
     TMLog(@"Try to get first and last beat");
