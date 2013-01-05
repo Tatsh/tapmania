@@ -16,7 +16,7 @@
     static BOOL is_set = NO;
 
     // not likely to change in runtime :-)
-    if (is_set)
+    if ( is_set )
     {
         return res;
     }
@@ -33,7 +33,7 @@
     static BOOL is_set = NO;
 
     // not likely to change in runtime :-)
-    if (is_set)
+    if ( is_set )
     {
         return res;
     }
@@ -43,7 +43,7 @@
     float h = 480.0f;
 
     float ver = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (ver >= 3.2f)
+    if ( ver >= 3.2f )
     {
         UIScreen *s = [UIScreen mainScreen];
         w = s.currentMode.size.width;
@@ -51,12 +51,12 @@
     }
 
     // swap iPad size if mode is crazy
-    if (h == 768.0f && w == 1024.0f)
+    if ( h == 768.0f && w == 1024.0f )
     {
         h = 1024.0f;
         w = 768.0f;
     }
-    else if (h == 1536.0f && w == 2048.0f)
+    else if ( h == 1536.0f && w == 2048.0f )
     {
         w = 1536.0f;
         h = 2048.0f;
@@ -77,7 +77,7 @@
     static NSString *res = nil;
 
     // not likely to change in runtime :-)
-    if (res != nil)
+    if ( res != nil )
     {
         return res;
     }
@@ -88,25 +88,25 @@
     float h = s.height;
 
     // check retina iPhone
-    if (w == 640.0f && h == 960.0f)
+    if ( w == 640.0f && h == 960.0f )
     {
         res = @"iPhoneRetina";
     }
 
             // check iPhone5
-    else if (w == 640.0f && h == 1136.0f)
+    else if ( w == 640.0f && h == 1136.0f )
     {
         res = @"iPhone5";
     }
 
             // check retina iPad
-    else if (w == 1536.0f && h == 2048.0f)
+    else if ( w == 1536.0f && h == 2048.0f )
     {
         res = @"iPadRetina";
     }
 
             // normal iPad or iPad mini
-    else if (w == 768.0f && h == 1024.0f)
+    else if ( w == 768.0f && h == 1024.0f )
     {
         res = @"iPad";
     }
@@ -125,14 +125,14 @@
     static BOOL res = NO;
     static BOOL is_set = NO;
 
-    if (is_set)
+    if ( is_set )
     {
         return res;
     }
 
-    if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhoneRetina"] ||
+    if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhoneRetina"] ||
             [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPadRetina"] ||
-            [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+            [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
     {
         res = YES;
     }
@@ -140,4 +140,25 @@
     return res;
 }
 
++ (NSString *)getDefaultPngName
+{
+    if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPadRetina"] )
+    {
+        return @"Default-Portrait@2x~ipad.png";
+    }
+    else if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPad"] )
+    {
+        return @"Default-Portrait~ipad.png";
+    }
+    else if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhoneRetina"] )
+    {
+        return @"Default@2x.png";
+    }
+    else if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
+    {
+        return @"Default-568h@2x.png";
+    }
+
+    return @"Default.png";
+}
 @end

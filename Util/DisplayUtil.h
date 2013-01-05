@@ -18,4 +18,5 @@
 
 + (BOOL)isRetina;
 
++ (NSString *)getDefaultPngName;
 @end

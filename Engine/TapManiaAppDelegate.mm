@@ -14,6 +14,7 @@
 #import "TMMessage.h"
 #import "TDBSearch.h"
 #import "JoyPad.h"
+#import "DisplayUtil.h"
 
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
@@ -29,6 +30,8 @@
 @synthesize rootView = m_pRootView;
 @synthesize rootController = m_pRootCtrl;
 @synthesize tapdb;
+@synthesize fakeDefaultPng = _fakeDefaultPng;
+
 
 void uncaughtExceptionHandler(NSException *exception)
 {
@@ -69,10 +72,15 @@ void uncaughtExceptionHandler(NSException *exception)
 //	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
 
     // Add bg
-    // TODO: add window programatically without NIB
-    // TODO: add background to window:
-    //[self.window addSubview:[[[UIImageView alloc] initWithImage:
-    //        [UIImage imageNamed:@"Default-Portrait@2x~ipad.png"]] autorelease]];
+
+    UIImage * img = [UIImage imageNamed:[DisplayUtil getDefaultPngName]];
+    if ( [DisplayUtil isRetina] )
+    {
+        img = [UIImage imageWithCGImage:img.CGImage scale:2 orientation:img.imageOrientation];
+    }
+
+    self.fakeDefaultPng = [[[UIImageView alloc] initWithImage:img] autorelease];
+    [self.rootView addSubview:self.fakeDefaultPng];
 
     // Show window
     [self.window makeKeyAndVisible];

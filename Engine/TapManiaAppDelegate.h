@@ -25,5 +25,10 @@
 
 @property(retain, nonatomic) IBOutlet UIViewController *rootController;
 
+@property(nonatomic, retain) UIImageView * fakeDefaultPng;
+
+- (void)removeFakeDefaultPng;
+
+
 @end
 

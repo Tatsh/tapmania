@@ -362,7 +362,6 @@ static TapMania *sharedTapManiaDelegate = nil;
     // Add the gl view to our main window
     [m_pWindow addSubview:m_pGlView];
 
-
 #ifdef ENABLE_ADWHIRL
     // Create the AdWhirl thing
     m_pAdsView = [[AdWhirlView requestAdWhirlViewWithDelegate:[TapMania sharedInstance]] retain];
