@@ -194,6 +194,7 @@
                                                                           [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
                         // Remove the xml suffix
+                        NSString * ext = [itemName substringFromIndex:[itemName length] - 4];
                         itemName = [itemName substringToIndex:[itemName length] - 4]; // 4 is '.xml' length
 
                         if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
@@ -207,8 +208,8 @@
                             if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
                             {
                                 TMLog(@"iPhone5 resolution-perfect resource is not found. Try iPhoneRetina before going Default.");
-                                dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
-                                                                        [curPath stringByDeletingLastPathComponent], itemName];
+                                dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@%@",
+                                                                        [curPath stringByDeletingLastPathComponent], itemName, ext];
 
                                 if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                                 {
@@ -235,7 +236,7 @@
 
                         // Check if there is a resolution-perfect version first
                         NSString *dpFilePath = [NSString stringWithFormat:@"%@/%@/%@",
-                             [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
+                                                                          [curPath stringByDeletingLastPathComponent], [DisplayUtil getDeviceDisplayString], itemName];
 
                         NSData *contents = nil;
                         if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
@@ -287,7 +288,7 @@
                         }
                         else
                         {
-                            if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+                            if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
                             {
                                 TMLog(@"Found resolution-perfect redirect: %@", dpFilePath);
                                 TMLog(@"CONTENTS = %@", contentsString);
@@ -295,8 +296,29 @@
                             }
                             else
                             {
-                                TMLog(@"Use standard redirect: %@", curPath);
-                                resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+
+                                if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
+                                {
+                                    TMLog(@"iPhone5 resolution-perfect redirect is not found. Try iPhoneRetina before going Default.");
+                                    dpFilePath = [NSString stringWithFormat:@"%@/iPhoneRetina/%@",
+                                                                            [curPath stringByDeletingLastPathComponent], itemName];
+
+                                    if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
+                                    {
+                                        TMLog(@"Ok found iPhoneRetina as a fallback for iPhone5");
+                                        resource = [[TMResource alloc] initWithPath:dpFilePath type:m_nType andItemName:itemName];
+                                    }
+                                    else
+                                    {
+                                        TMLog(@"Use standard redirect: %@", curPath);
+                                        resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+                                    }
+                                }
+                                else
+                                {
+                                    TMLog(@"Use standard redirect: %@", curPath);
+                                    resource = [[TMResource alloc] initWithPath:curPath type:m_nType andItemName:itemName];
+                                }
                             }
                         }
                     }

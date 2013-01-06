@@ -1060,13 +1060,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/32a5/bg-iPadRetina.png" afterPath="$PROJECT_DIR$/Data/Songs/32a5/bg-iPadRetina.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/Asteroid/banner.png" afterPath="$PROJECT_DIR$/Data/Songs/Asteroid/banner.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/Asteroid/bg-iPadRetina.png" afterPath="$PROJECT_DIR$/Data/Songs/Asteroid/bg-iPadRetina.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapMania.mm" afterPath="$PROJECT_DIR$/Engine/TapMania.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" afterPath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" afterPath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainWindow.xib" afterPath="$PROJECT_DIR$/MainWindow.xib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/DisplayUtil.h" afterPath="$PROJECT_DIR$/Util/DisplayUtil.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/DisplayUtil.m" afterPath="$PROJECT_DIR$/Util/DisplayUtil.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" afterPath="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1125,10 +1119,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TapManiaAppDelegate.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ResourcesLoader.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="178" column="55" selection-start="4790" selection-end="4790" vertical-scroll-proportion="0.5056818">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TMResource.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TapManiaAppDelegate.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.33333334">
+            <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#277#308#0" expanded="true" />
                 <element signature="e#664#695#0" expanded="true" />
@@ -1147,7 +1159,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerMenuItem.mm" />
         <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Engine/ICadeResponder.h" />
@@ -1163,6 +1174,7 @@
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
         <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
+        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
       </list>
     </option>
   </component>
@@ -1606,24 +1618,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="23" />
+      <option name="time" value="24" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/Rendering/TMScreen.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="10" selection-start="595" selection-end="595" vertical-scroll-proportion="0.45075756">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/Rendering/TMScreen.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="17" selection-start="334" selection-end="334" vertical-scroll-proportion="0.37121212">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="66" column="4" selection-start="1562" selection-end="1562" vertical-scroll-proportion="0.33262712">
@@ -1721,11 +1719,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.33333334">
+        <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#277#308#0" expanded="true" />
             <element signature="e#664#695#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="55" selection-start="4790" selection-end="4790" vertical-scroll-proportion="0.5056818">
+          <folding />
         </state>
       </provider>
     </entry>
