@@ -2738,7 +2738,6 @@
 				);
 				OTHER_CFLAGS = (
 					"-DENABLE_ADWHIRL",
-					"-ftree-vectorize",
 				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos;
@@ -2778,7 +2777,8 @@
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 				);
-				OTHER_CFLAGS = "-ftree-vectorize";
+				OTHER_CFLAGS = (
+				);
 				PRODUCT_NAME = TapMania;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
