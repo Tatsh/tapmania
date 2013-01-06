@@ -1060,6 +1060,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/32a5/bg-iPadRetina.png" afterPath="$PROJECT_DIR$/Data/Songs/32a5/bg-iPadRetina.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/Asteroid/banner.png" afterPath="$PROJECT_DIR$/Data/Songs/Asteroid/banner.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Songs/Asteroid/bg-iPadRetina.png" afterPath="$PROJECT_DIR$/Data/Songs/Asteroid/bg-iPadRetina.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPickerMenu/Wheel/iPhoneRetina/ScoreFrame.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPickerMenu/Wheel/iPhoneRetina/ScoreFrame.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
@@ -1119,10 +1121,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="iPhone5_Metrics.plist" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data/noteskins/default/iPhone5_Metrics.plist">
+      <file leaf-file-name="iPhoneRetina_Metrics.plist" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="16" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0">
+            <state line="676" column="21" selection-start="24195" selection-end="24195" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1131,7 +1133,7 @@
       <file leaf-file-name="iPhone5_Metrics.plist" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="619" column="31" selection-start="21962" selection-end="21962" vertical-scroll-proportion="0.4715909">
+            <state line="350" column="32" selection-start="12247" selection-end="12247" vertical-scroll-proportion="0.1780303">
               <folding />
             </state>
           </provider>
@@ -1177,7 +1179,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Engine/ICadeResponder.h" />
         <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
         <option value="$PROJECT_DIR$/Engine/TapMania.h" />
@@ -1192,6 +1193,7 @@
         <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
         <option value="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
       </list>
     </option>
@@ -1366,28 +1368,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TapMania" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="noteskins" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1662,22 +1642,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="8" selection-start="6240" selection-end="6240" vertical-scroll-proportion="0.72038835">
-          <folding>
-            <element signature="e#203#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="472" column="20" selection-start="13992" selection-end="13992" vertical-scroll-proportion="0.42424244">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="22" selection-start="1718" selection-end="1718" vertical-scroll-proportion="0.530303">
@@ -1769,14 +1733,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/noteskins/default/iPhone5_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="16" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0">
+        <state line="12" column="16" selection-start="326" selection-end="326" vertical-scroll-proportion="0.3181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="676" column="21" selection-start="24195" selection-end="24195" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="518" column="20" selection-start="18798" selection-end="18798" vertical-scroll-proportion="0.54924244">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="619" column="31" selection-start="21962" selection-end="21962" vertical-scroll-proportion="0.4715909">
+        <state line="350" column="32" selection-start="12247" selection-end="12247" vertical-scroll-proportion="0.1780303">
           <folding />
         </state>
       </provider>

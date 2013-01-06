@@ -334,55 +334,30 @@
             </dict>
             <key>SongPickerMenu</key>
             <dict>
-                <key>TopImgUnderlay</key>
+                <key>BannerImg</key>
                 <dict>
-                    <key>Height</key>
-                    <integer>140</integer>
-                    <key>Width</key>
-                    <integer>640</integer>
                     <key>X</key>
-                    <integer>0</integer>
+                    <integer>297</integer>
                     <key>Y</key>
-                    <integer>0</integer>
+                    <integer>447</integer>
+                    <key>Width</key>
+                    <integer>322</integer>
+                    <key>Height</key>
+                    <integer>101</integer>
                 </dict>
-                <key>BackButton</key>
+                <key>BpmDisplay</key>
                 <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>120</integer>
                     <key>X</key>
-                    <integer>10</integer>
+                    <integer>295</integer>
                     <key>Y</key>
-                    <integer>8</integer>
-                    <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>580</integer>
                 </dict>
-                <key>DifficultyTogglerCustom</key>
+                <key>CDTitleDisplay</key>
                 <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>360</integer>
                     <key>X</key>
-                    <integer>140</integer>
+                    <integer>330</integer>
                     <key>Y</key>
-                    <integer>8</integer>
-                    <key>FixedWidth</key>
-                    <integer>300</integer>
-                </dict>
-                <key>OptionsButton</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>92</integer>
-                    <key>Width</key>
-                    <integer>120</integer>
-                    <key>X</key>
-                    <integer>510</integer>
-                    <key>Y</key>
-                    <integer>8</integer>
-                    <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>520</integer>
                 </dict>
                 <key>Wheel</key>
                 <dict>
@@ -395,12 +370,12 @@
                         <key>X</key>
                         <integer>0</integer>
                         <key>Y</key>
-                        <integer>0</integer>
+                        <integer>86</integer>
                     </dict>
                     <key>DistanceBetweenItems</key>
                     <real>92</real>
                     <key>SelectedItemCenterY</key>
-                    <real>480</real>
+                    <real>420</real>
                     <key>NumberOfWheelItems</key>
                     <integer>14</integer>
                     <key>SelectedWheelItemId</key>
@@ -413,21 +388,21 @@
                     <integer>400</integer>
                     <key>NameLeftOffset</key>
                     <integer>45</integer>
-                    <key>TopTouchZone</key>
-                    <integer>800</integer>
+                    <key>NameYOffset</key>
+                    <integer>16</integer>
                     <key>Score</key>
                     <dict>
                         <key>X</key>
-                        <integer>376</integer>
+                        <integer>295</integer>
                         <key>Y</key>
-                        <integer>532</integer>
+                        <integer>634</integer>
                     </dict>
                     <key>ScoreFrame</key>
                     <dict>
                         <key>X</key>
-                        <integer>502</integer>
+                        <integer>436</integer>
                         <key>Y</key>
-                        <integer>528</integer>
+                        <integer>542</integer>
                     </dict>
                     <key>Highlight</key>
                     <dict>
