@@ -63,11 +63,11 @@
                 <key>PlayButton</key>
                 <dict>
                     <key>X</key>
-                    <integer>284</integer>
+                    <integer>93</integer>
                     <key>Y</key>
-                    <integer>462</integer>
+                    <integer>413</integer>
                     <key>Width</key>
-                    <integer>200</integer>
+                    <integer>230</integer>
                     <key>Height</key>
                     <integer>92</integer>
                 </dict>
@@ -77,11 +77,11 @@
                 <key>PlayButton</key>
                 <dict>
                     <key>X</key>
-                    <integer>284</integer>
+                    <integer>269</integer>
                     <key>Y</key>
-                    <integer>462</integer>
+                    <integer>479</integer>
                     <key>Width</key>
-                    <integer>200</integer>
+                    <integer>230</integer>
                     <key>Height</key>
                     <integer>92</integer>
                 </dict>
@@ -284,131 +284,132 @@
             </dict>
             <key>SongOptions</key>
             <dict>
-                <key>SpeedToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>46</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>100</integer>
-                    <key>FixedWidth</key>
-                    <integer>130</integer>
-                </dict>
-                <key>NoteModToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>46</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>150</integer>
-                    <key>FixedWidth</key>
-                    <integer>130</integer>
-                </dict>
-                <key>ReceptorModToggler</key>
-                <dict>
-                    <key>Height</key>
-                    <integer>46</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>200</integer>
-                    <key>FixedWidth</key>
-                    <integer>130</integer>
-                </dict>
-                <key>NoteSkinLabel</key>
-                <dict>
-                    <key>X</key>
-                    <integer>100</integer>
-                    <key>Y</key>
-                    <integer>372</integer>
-                    <key>FixedWidth</key>
-                    <integer>90</integer>
-                </dict>
                 <key>SpeedLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>100</integer>
+                    <integer>324</integer>
                     <key>Y</key>
-                    <integer>122</integer>
+                    <integer>271</integer>
                     <key>FixedWidth</key>
-                    <integer>90</integer>
-                </dict>
-                <key>FingerTrackingLabel</key>
-                <dict>
-                    <key>X</key>
-                    <integer>100</integer>
-                    <key>Y</key>
-                    <integer>272</integer>
-                    <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>284</integer>
                 </dict>
                 <key>NoteModeLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>100</integer>
+                    <integer>324</integer>
                     <key>Y</key>
-                    <integer>172</integer>
+                    <integer>374</integer>
                     <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>284</integer>
                 </dict>
                 <key>ReceptorModLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>100</integer>
+                    <integer>324</integer>
                     <key>Y</key>
-                    <integer>222</integer>
+                    <integer>478</integer>
                     <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>284</integer>
                 </dict>
+                <key>FingerTrackingLabel</key>
+                <dict>
+                    <key>X</key>
+                    <integer>324</integer>
+                    <key>Y</key>
+                    <integer>581</integer>
+                    <key>FixedWidth</key>
+                    <integer>284</integer>
+                </dict>
+
                 <key>VisiblePadLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>100</integer>
+                    <integer>324</integer>
                     <key>Y</key>
-                    <integer>322</integer>
+                    <integer>685</integer>
                     <key>FixedWidth</key>
-                    <integer>90</integer>
+                    <integer>284</integer>
+                </dict>
+                <key>NoteSkinLabel</key>
+                <dict>
+                    <key>X</key>
+                    <integer>324</integer>
+                    <key>Y</key>
+                    <integer>788</integer>
+                    <key>FixedWidth</key>
+                    <integer>284</integer>
+                </dict>
+                <key>SpeedToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>225</integer>
+                    <key>FixedWidth</key>
+                    <integer>200</integer>
+                </dict>
+                <key>NoteModToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>328</integer>
+                    <key>FixedWidth</key>
+                    <integer>200</integer>
+                </dict>
+                <key>ReceptorModToggler</key>
+                <dict>
+                    <key>Height</key>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>432</integer>
+                    <key>FixedWidth</key>
+                    <integer>200</integer>
                 </dict>
                 <key>NoteSkinTogglerCustom</key>
                 <dict>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>350</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
                     <key>Height</key>
-                    <integer>46</integer>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>742</integer>
                 </dict>
                 <key>FingerTrackingToggler</key>
                 <dict>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>250</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
                     <key>Height</key>
-                    <integer>46</integer>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>535</integer>
                 </dict>
                 <key>VisiblePadToggler</key>
                 <dict>
-                    <key>X</key>
-                    <integer>110</integer>
-                    <key>Y</key>
-                    <integer>300</integer>
-                    <key>Width</key>
-                    <integer>190</integer>
                     <key>Height</key>
-                    <integer>46</integer>
+                    <integer>92</integer>
+                    <key>Width</key>
+                    <integer>270</integer>
+                    <key>X</key>
+                    <integer>373</integer>
+                    <key>Y</key>
+                    <integer>639</integer>
                 </dict>
             </dict>
             <key>SongPickerMenu</key>
@@ -416,7 +417,7 @@
                 <key>TopImgUnderlay</key>
                 <dict>
                     <key>Height</key>
-                    <integer>192</integer>
+                    <integer>200</integer>
                     <key>Width</key>
                     <integer>768</integer>
                     <key>X</key>
@@ -463,50 +464,75 @@
                     <key>FixedWidth</key>
                     <integer>90</integer>
                 </dict>
+                <key>BannerImg</key>
+                <dict>
+                    <key>X</key>
+                    <integer>425</integer>
+                    <key>Y</key>
+                    <integer>341</integer>
+                    <key>Width</key>
+                    <integer>332</integer>
+                    <key>Height</key>
+                    <integer>104</integer>
+                </dict>
+                <key>BpmDisplay</key>
+                <dict>
+                    <key>X</key>
+                    <integer>423</integer>
+                    <key>Y</key>
+                    <integer>469</integer>
+                </dict>
+                <key>CDTitleDisplay</key>
+                <dict>
+                    <key>X</key>
+                    <integer>734</integer>
+                    <key>Y</key>
+                    <integer>426</integer>
+                </dict>
                 <key>Wheel</key>
                 <dict>
                     <key>Scissor</key>
                     <dict>
                         <key>Height</key>
-                        <integer>824</integer>
+                        <integer>964</integer>
                         <key>Width</key>
                         <integer>768</integer>
                         <key>X</key>
                         <integer>0</integer>
                         <key>Y</key>
-                        <integer>0</integer>
+                        <integer>60</integer>
                     </dict>
                     <key>DistanceBetweenItems</key>
-                    <real>90</real>
+                    <real>100</real>
                     <key>SelectedItemCenterY</key>
-                    <real>500</real>
+                    <real>429</real>
                     <key>NumberOfWheelItems</key>
                     <integer>11</integer>
                     <key>SelectedWheelItemId</key>
                     <integer>5</integer>
                     <key>GradeXOffset</key>
-                    <integer>631</integer>
+                    <integer>707</integer>
                     <key>ArtistYOffset</key>
-                    <integer>-28</integer>
+                    <integer>-26</integer>
                     <key>NameMaxWidth</key>
                     <integer>500</integer>
                     <key>NameLeftOffset</key>
-                    <integer>90</integer>
-                    <key>TopTouchZone</key>
-                    <integer>870</integer>
+                    <integer>65</integer>
+                    <key>NameYOffset</key>
+                    <integer>15</integer>
                     <key>Score</key>
                     <dict>
                         <key>X</key>
-                        <integer>513</integer>
+                        <integer>421</integer>
                         <key>Y</key>
-                        <integer>559</integer>
+                        <integer>513</integer>
                     </dict>
                     <key>ScoreFrame</key>
                     <dict>
                         <key>X</key>
-                        <integer>620</integer>
+                        <integer>569</integer>
                         <key>Y</key>
-                        <integer>556</integer>
+                        <integer>434</integer>
                     </dict>
                     <key>Highlight</key>
                     <dict>
@@ -515,9 +541,9 @@
                         <key>Y</key>
                         <integer>500</integer>
                         <key>Height</key>
-                        <integer>105</integer>
+                        <integer>100</integer>
                         <key>Width</key>
-                        <integer>645</integer>
+                        <integer>768</integer>
                     </dict>
                     <key>ItemSong</key>
                     <dict>
@@ -528,7 +554,7 @@
                         <key>Width</key>
                         <integer>0</integer>
                         <key>Height</key>
-                        <integer>82</integer>
+                        <integer>100</integer>
                     </dict>
                 </dict>
             </dict>
@@ -539,7 +565,7 @@
                     <key>X</key>
                     <integer>384</integer>
                     <key>Y</key>
-                    <string>384</string>
+                    <integer>384</integer>
                 </dict>
                 <key>Score</key>
                 <dict>
@@ -548,14 +574,14 @@
                         <key>X</key>
                         <integer>140</integer>
                         <key>Y</key>
-                        <string>40</string>
+                        <integer>40</integer>
                     </dict>
                     <key>Score</key>
                     <dict>
                         <key>X</key>
                         <integer>8</integer>
                         <key>Y</key>
-                        <string>59</string>
+                        <integer>60</integer>
                     </dict>
                 </dict>
                 <key>NotesStartPosition</key>
@@ -683,106 +709,106 @@
                 <key>Banner</key>
                 <dict>
                     <key>X</key>
-                    <integer>32</integer>
+                    <integer>128</integer>
                     <key>Y</key>
-                    <integer>23</integer>
+                    <integer>82</integer>
                     <key>Width</key>
-                    <integer>256</integer>
+                    <integer>512</integer>
                     <key>Height</key>
-                    <integer>80</integer>
+                    <integer>160</integer>
                 </dict>
                 <key>DifficultyLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>32</integer>
+                    <integer>128</integer>
                     <key>Y</key>
-                    <integer>120</integer>
+                    <integer>280</integer>
                 </dict>
                 <key>ModsLabel</key>
                 <dict>
                     <key>X</key>
-                    <integer>288</integer>
+                    <integer>640</integer>
                     <key>Y</key>
-                    <integer>120</integer>
+                    <integer>280</integer>
                 </dict>
                 <key>MaxCombo</key>
                 <dict>
                     <key>X</key>
-                    <integer>230</integer>
+                    <integer>493</integer>
                     <key>Y</key>
-                    <integer>195</integer>
+                    <integer>409</integer>
                 </dict>
                 <key>MaxComboLabelPosition</key>
                 <dict>
                     <key>X</key>
-                    <integer>240</integer>
+                    <integer>485</integer>
                     <key>Y</key>
-                    <integer>164</integer>
+                    <integer>359</integer>
                 </dict>
                 <key>Grade</key>
                 <dict>
                     <key>X</key>
-                    <integer>80</integer>
+                    <integer>177</integer>
                     <key>Y</key>
-                    <integer>180</integer>
+                    <integer>385</integer>
                 </dict>
                 <key>Score</key>
                 <dict>
                     <key>X</key>
-                    <integer>160</integer>
+                    <integer>384</integer>
                     <key>Y</key>
-                    <integer>460</integer>
+                    <integer>962</integer>
                 </dict>
                 <key>JudgeLabelPositions</key>
                 <dict>
                     <key>0</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>276</integer>
                         <key>Y</key>
-                        <integer>240</integer>
+                        <integer>501</integer>
                     </dict>
                     <key>1</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
-                        <key>Y</key>
                         <integer>270</integer>
+                        <key>Y</key>
+                        <integer>558</integer>
                     </dict>
                     <key>2</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>183</integer>
                         <key>Y</key>
-                        <integer>300</integer>
+                        <integer>615</integer>
                     </dict>
                     <key>3</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>160</integer>
                         <key>Y</key>
-                        <integer>329</integer>
+                        <integer>672</integer>
                     </dict>
-                    <key>2</key>
+                    <key>4</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>207</integer>
                         <key>Y</key>
-                        <integer>360</integer>
+                        <integer>729</integer>
                     </dict>
-                    <key>2</key>
+                    <key>5</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>147</integer>
                         <key>Y</key>
-                        <integer>390</integer>
+                        <integer>786</integer>
                     </dict>
-                    <key>3</key>
+                    <key>6</key>
                     <dict>
                         <key>X</key>
-                        <integer>230</integer>
+                        <integer>112</integer>
                         <key>Y</key>
-                        <integer>420</integer>
+                        <integer>843</integer>
                     </dict>
                 </dict>
                 <key>JudgeScorePositions</key>
@@ -790,51 +816,51 @@
                     <key>0</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>242</integer>
+                        <integer>511</integer>
                     </dict>
                     <key>1</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>272</integer>
+                        <integer>568</integer>
                     </dict>
                     <key>2</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>302</integer>
+                        <integer>625</integer>
                     </dict>
                     <key>3</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>332</integer>
+                        <integer>682</integer>
                     </dict>
-                    <key>2</key>
+                    <key>4</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>364</integer>
+                        <integer>739</integer>
                     </dict>
-                    <key>2</key>
+                    <key>5</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>396</integer>
+                        <integer>796</integer>
                     </dict>
-                    <key>3</key>
+                    <key>6</key>
                     <dict>
                         <key>X</key>
-                        <integer>45</integer>
+                        <integer>555</integer>
                         <key>Y</key>
-                        <integer>427</integer>
+                        <integer>853</integer>
                     </dict>
                 </dict>
             </dict>

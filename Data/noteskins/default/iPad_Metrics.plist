@@ -3,28 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>NoteskinSystemVersion</key>
-	<real>0.2</real>
+	<real>0.4</real>
 	<key>Skyscraper</key>
 	<dict>
 		<key>ReceptorRow</key>
 		<dict>
 			<key>Explosion</key>
 			<dict>
-				<key>Rotation</key>
-				<dict>
-					<key>0</key>
-					<real>-90</real>
-					<key>1</key>
-					<real>0</real>
-					<key>2</key>
-					<real>180</real>
-					<key>3</key>
-					<real>90</real>
-				</dict>
+                <key>Rotation</key>
+                <dict>
+                    <key>0</key>
+                	<real>-90</real>
+                	<key>1</key>
+                	<real>0</real>
+                	<key>2</key>
+                	<real>180</real>
+                	<key>3</key>
+                	<real>90</real>
+                </dict>
 				<key>0</key>
 				<dict>
 					<key>X</key>
-					<integer>-18</integer>
+					<integer>-34</integer>
 					<key>Y</key>
 					<integer>8</integer>
 					<key>Width</key>
@@ -37,7 +37,7 @@
 					<key>X</key>
 					<integer>122</integer>
 					<key>Y</key>
-					<integer>8</integer>
+					<integer>6</integer>
 					<key>Width</key>
 					<integer>256</integer>
 					<key>Height</key>
@@ -48,7 +48,7 @@
 					<key>X</key>
 					<integer>262</integer>
 					<key>Y</key>
-					<integer>8</integer>
+					<integer>10</integer>
 					<key>Width</key>
 					<integer>256</integer>
 					<key>Height</key>
@@ -57,7 +57,7 @@
 				<key>3</key>
 				<dict>
 					<key>X</key>
-					<integer>402</integer>
+					<integer>400</integer>
 					<key>Y</key>
 					<integer>8</integer>
 					<key>Width</key>
@@ -68,17 +68,17 @@
 				<key>MaxShowTime</key>
 				<real>0.1</real>
 			</dict>
-			<key>Rotation</key>
-			<dict>
-				<key>0</key>
-				<real>-90</real>
-				<key>1</key>
-				<real>0</real>
-				<key>2</key>
-				<real>180</real>
-				<key>3</key>
-				<real>90</real>
-			</dict>
+            <key>Rotation</key>
+            <dict>
+                <key>0</key>
+            	<real>-90</real>
+            	<key>1</key>
+            	<real>0</real>
+            	<key>2</key>
+            	<real>180</real>
+            	<key>3</key>
+            	<real>90</real>
+            </dict>
 			<key>0</key>
 			<dict>
 				<key>X</key>
@@ -170,17 +170,17 @@
 				<key>Y</key>
 				<integer>0</integer>
 			</dict>
-			<key>Rotation</key>
-			<dict>
-				<key>0</key>
-				<real>-90</real>
-				<key>1</key>
-				<real>0</real>
-				<key>2</key>
-				<real>180</real>
-				<key>3</key>
-				<real>90</real>
-			</dict>
+            <key>Rotation</key>
+            <dict>
+                <key>0</key>
+            	<real>-90</real>
+            	<key>1</key>
+            	<real>0</real>
+            	<key>2</key>
+            	<real>180</real>
+            	<key>3</key>
+            	<real>90</real>
+            </dict>
 		</dict>
 		<key>HoldNote</key>
 		<dict>
