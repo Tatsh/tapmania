@@ -7,18 +7,12 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/examples" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/minitasn1/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/minitasn1" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/tls/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/tls" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/include" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl/.deps" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl/https/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl/https" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf/.deps" />
@@ -1052,14 +1046,9 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameObjects/TMSong.mm" afterPath="$PROJECT_DIR$/GameObjects/TMSong.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Parsers/DWIParser.mm" afterPath="$PROJECT_DIR$/Parsers/DWIParser.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1080,10 +1069,28 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TapMania.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SongResultsRenderer.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="4" selection-start="925" selection-end="1310" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SongPlayRenderer.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="204" column="54" selection-start="5527" selection-end="5527" vertical-scroll-proportion="0.3131488">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TapMania.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="247" column="9" selection-start="7171" selection-end="7171" vertical-scroll-proportion="0.3633218">
+            <state line="241" column="28" selection-start="7085" selection-end="7085" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1119,7 +1126,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
         <option value="$PROJECT_DIR$/Data/noteskins/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
@@ -1135,6 +1141,7 @@
         <option value="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
         <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
+        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
       </list>
     </option>
   </component>
@@ -1318,7 +1325,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.TapMania">
+  <component name="RunManager" selected="Application.AdHoc TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <method />
@@ -1457,7 +1464,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3373656" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16935484" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16935484" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1522,20 +1529,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/TapMania.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="12" selection-start="761" selection-end="761" vertical-scroll-proportion="0.019886363">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TMRunLoop.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="58" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.019525802">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSPathUtilities.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="49" selection-start="585" selection-end="585" vertical-scroll-proportion="0.35227272">
@@ -1581,10 +1574,7 @@
     <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="407" column="31" selection-start="12696" selection-end="12696" vertical-scroll-proportion="0.60553634">
-          <folding>
-            <element signature="e#209#240#0" expanded="true" />
-            <element signature="e#946#971#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1605,9 +1595,7 @@
     <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
       <provider selected="true" editor-type-id="text-editor">
         <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.47923875">
-          <folding>
-            <element signature="e#187#208#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1636,7 +1624,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="247" column="9" selection-start="7171" selection-end="7171" vertical-scroll-proportion="0.3633218">
+        <state line="241" column="28" selection-start="7085" selection-end="7085" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="4" selection-start="925" selection-end="1310" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="204" column="54" selection-start="5527" selection-end="5527" vertical-scroll-proportion="0.3131488">
           <folding />
         </state>
       </provider>

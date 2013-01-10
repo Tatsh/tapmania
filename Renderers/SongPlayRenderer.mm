@@ -46,6 +46,7 @@
 
 #import "GameState.h"
 #import "OptionsMenuRenderer.h"
+#import "SongPickerMenuRenderer.h"
 //#import "FlurryAPI.h"
 
 #import <math.h>
@@ -199,7 +200,7 @@ extern TMGameState *g_pGameState;
 //		 nil]];
 
     g_pGameState->m_bAutoPlay = NO;
-    g_pGameState->m_nFailType = kFailAtEnd;
+    g_pGameState->m_nFailType = kFailOn; // fail directly
     g_pGameState->m_nCombo = 0;
 
     g_pGameState->m_bFailed = g_pGameState->m_bGaveUp = g_pGameState->m_bGivingUp = NO;
@@ -295,6 +296,20 @@ extern TMGameState *g_pGameState;
             if (g_pGameState->m_bIsGlobalSync)
             {
                 [[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu"];
+            }
+            else if ( g_pGameState->m_bGaveUp )
+            {
+                // release stuff and go directly to song selection screen
+                [g_pGameState->m_pSteps release];
+                [g_pGameState->m_pSong release];
+                [g_pGameState->m_sMods release];
+
+                g_pGameState->m_pSong = nil;
+                g_pGameState->m_pSteps = nil;
+
+                g_pGameState->m_nScore = g_pGameState->m_nCombo = 0;
+
+                [[TapMania sharedInstance] switchToScreen:[SongPickerMenuRenderer class] withMetrics:@"SongPickerMenu"];
             }
             else
             {
