@@ -113,10 +113,10 @@
                 TMLog(@"BPM...");
                 char *data = [DWIParser parseSectionWithFD:fd];
                 TMLog(@"is '%s'", data);
-                song.m_fBpm = atof(data);
+                song.m_fBpm = atof(data) / 60.0f; // match sm
 
                 // Add it to the bpm change array
-                [song addBpmSegment:[[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:song.m_fBpm / 60.0f]];
+                [song addBpmSegment:[[TMChangeSegment alloc] initWithNoteRow:0.0f andValue:song.m_fBpm]];
 
                 free(data);
             }

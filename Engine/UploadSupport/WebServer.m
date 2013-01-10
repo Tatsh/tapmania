@@ -13,6 +13,8 @@
 #import "ThemeManager.h"
 #import "TMSong.h"
 #import "TMZipFile.h"
+#import "TMResource.h"
+#import "Texture2D.h"
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
@@ -26,6 +28,11 @@
 
 // This is a singleton class, see below
 static WebServer *sharedWebServerDelegate = nil;
+
+@interface WebServer ()
+- (void)loadBannerForSong:(TMSong *)song;
+
+@end
 
 @implementation WebServer
 
@@ -44,7 +51,7 @@ char *getPage(char *page)
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     TMResource *pageResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithUTF8String:page]];
-    if (!pageResource)
+    if ( !pageResource )
     {
         [pool release];
         return strdup("<b>Page not found in current theme! Report to theme developer please.</b>");
@@ -65,7 +72,7 @@ void *getBytes(char *path, int *size)
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     TMResource *binaryResource = [[ThemeManager sharedInstance].web getResource:[NSString stringWithUTF8String:path]];
-    if (!binaryResource)
+    if ( !binaryResource )
     {
         [pool release];
         return NULL;
@@ -96,18 +103,19 @@ char *getIndexPage(char *message)
     NSArray *songs = [[SongsDirectoryCache sharedInstance] getSongList];
     NSMutableString *catalogue = [[NSMutableString alloc] initWithCapacity:[songs count]];
 
-    for (TMSong *song in songs)
+    for ( TMSong *song in songs )
     {
         NSString *item = [NSString stringWithUTF8String:itemTmpl];
         item = [item stringByReplacingOccurrencesOfString:@"%TITLE%" withString:song.title];
         item = [item stringByReplacingOccurrencesOfString:@"%AUTHOR%" withString:song.m_sArtist];
 
         // Can only delete user songs
-        if (song.m_iSongsPath == kUserSongsPath)
+        if ( song.m_iSongsPath == kUserSongsPath )
         {
             item = [item stringByReplacingOccurrencesOfString:@"%DELETE%" withString:
                     [NSString stringWithFormat:@"<a href=\"/delete?song=%@\">[ delete ]</a>", song.m_sSongDirName]];
-        } else
+        }
+        else
         {
             item = [item stringByReplacingOccurrencesOfString:@"%DELETE%" withString:@"built-in"];
         }
@@ -115,11 +123,11 @@ char *getIndexPage(char *message)
         NSMutableString *diffs = [[NSMutableString alloc] initWithCapacity:3];
 
         // Get song difficulties
-        for (TMSongDifficulty diff = kSongDifficulty_Beginner; diff < kNumSongDifficulties; diff++)
+        for ( TMSongDifficulty diff = kSongDifficulty_Beginner; diff < kNumSongDifficulties; diff++ )
         {
             int level = -1;
 
-            if ((level = [song getDifficultyLevel:diff]) != -1)
+            if ( (level = [song getDifficultyLevel:diff]) != -1 )
             {
                 [diffs appendFormat:@" %@(%d) ", [TMSong difficultyToString:diff], level];
             }
@@ -158,8 +166,10 @@ send_page(struct MHD_Connection *connection, const char *page,
     response =
             MHD_create_response_from_data(strlen(page), (void *) page, MHD_NO,
                     MHD_YES);
-    if (!response)
+    if ( !response )
+    {
         return MHD_NO;
+    }
 
     ret = MHD_queue_response(connection, status_code, response);
     MHD_destroy_response(response);
@@ -177,8 +187,10 @@ send_bytes(struct MHD_Connection *connection, const void *bytes, int size,
     response =
             MHD_create_response_from_data(size, (void *) bytes, MHD_NO,
                     MHD_YES);
-    if (!response)
+    if ( !response )
+    {
         return MHD_NO;
+    }
 
     ret = MHD_queue_response(connection, status_code, response);
     MHD_destroy_response(response);
@@ -203,20 +215,20 @@ iterate_post(void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
     con_info->answercode = MHD_HTTP_INTERNAL_SERVER_ERROR;
     con_info->file_uploaded = false;
 
-    if (0 != strcmp(key, "file"))
+    if ( 0 != strcmp(key, "file") )
     {
         [pool release];
         return MHD_NO;
     }
 
-    if (!con_info->fp)
+    if ( !con_info->fp )
     {
         char buffer[1024] = {0,};
         snprintf(buffer, 1024, [[[[WebServer sharedInstance] getIncomingPath] stringByAppendingString:@"/\%s"] UTF8String], filename);
 
         TMLog(@"Check incoming file: '%s'", buffer);
 
-        if (NULL != (fp = fopen(buffer, "r")))
+        if ( NULL != (fp = fopen(buffer, "r")) )
         {
             free(pageContents);
             pageContents = getIndexPage("The file you are uploading seems to exist already");
@@ -230,7 +242,7 @@ iterate_post(void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
         }
 
         con_info->fp = fopen(buffer, "ab");
-        if (!con_info->fp)
+        if ( !con_info->fp )
         {
             [pool release];
             return MHD_NO;
@@ -242,9 +254,9 @@ iterate_post(void *coninfo_cls, enum MHD_ValueKind kind, const char *key,
         con_info->file_path[strlen(buffer)] = 0;
     }
 
-    if (size > 0)
+    if ( size > 0 )
     {
-        if (!fwrite(data, size, sizeof (char), con_info->fp))
+        if ( !fwrite(data, size, sizeof (char), con_info->fp) )
         {
             [pool release];
             return MHD_NO;
@@ -262,21 +274,25 @@ request_completed(void *cls, struct MHD_Connection *connection,
     struct connection_info_struct *con_info =
             (struct connection_info_struct *) *con_cls;
 
-    if (NULL == con_info)
-        return;
-
-    if (con_info->connectiontype == POST)
+    if ( NULL == con_info )
     {
-        if (NULL != con_info->postprocessor)
+        return;
+    }
+
+    if ( con_info->connectiontype == POST )
+    {
+        if ( NULL != con_info->postprocessor )
         {
             MHD_destroy_post_processor(con_info->postprocessor);
         }
 
-        if (con_info->fp)
+        if ( con_info->fp )
+        {
             fclose(con_info->fp);
+        }
 
         // Now when the file is uploaded completely we can unzip it
-        if (con_info->file_uploaded)
+        if ( con_info->file_uploaded )
         {
             // Finished the upload
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -285,7 +301,7 @@ request_completed(void *cls, struct MHD_Connection *connection,
 
             // If we got here the file should be uploaded now
             TMZipFile *zipHandler = [[TMZipFile alloc] initWithPath:[NSString stringWithUTF8String:con_info->file_path]];
-            if (zipHandler)
+            if ( zipHandler )
             {
                 NSString *extDir = [[[WebServer sharedInstance] getIncomingPath] stringByAppendingString:@"/Staging"];
 
@@ -297,7 +313,7 @@ request_completed(void *cls, struct MHD_Connection *connection,
                 [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithUTF8String:con_info->file_path] error:&err];
 
                 // Move the simfile(s)
-                [[SongsDirectoryCache sharedInstance] delegate:nil];
+                [[SongsDirectoryCache sharedInstance] delegate:[WebServer sharedInstance]];
                 [[SongsDirectoryCache sharedInstance] addSongsFrom:extDir];
                 [[ThemeManager sharedInstance] addSkinsFrom:extDir];
 
@@ -307,7 +323,8 @@ request_completed(void *cls, struct MHD_Connection *connection,
                 // Delete the staging dir
                 [[NSFileManager defaultManager] removeItemAtPath:extDir error:&err];
 
-            } else
+            }
+            else
             {
                 // TODO raise error on gui
                 TMLog(@"Couldn't work with this zip file for some reason...");
@@ -323,8 +340,10 @@ request_completed(void *cls, struct MHD_Connection *connection,
     // This line is required to prevent a memleak. hotfix for os 4.0
     //	if(con_info->file_path) free(con_info->file_path);
 
-    if (con_info)
+    if ( con_info )
+    {
         free(con_info);
+    }
     *con_cls = NULL;
 }
 
@@ -335,23 +354,25 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
         const char *version, const char *upload_data,
         size_t *upload_data_size, void **con_cls)
 {
-    if (NULL == *con_cls)
+    if ( NULL == *con_cls )
     {
         struct connection_info_struct *con_info;
 
         con_info = malloc(sizeof (struct connection_info_struct));
-        if (NULL == con_info)
+        if ( NULL == con_info )
+        {
             return MHD_NO;
+        }
 
         con_info->fp = NULL;
 
-        if (0 == strcmp(method, "POST"))
+        if ( 0 == strcmp(method, "POST") )
         {
             con_info->postprocessor =
                     MHD_create_post_processor(connection, POSTBUFFERSIZE,
                             iterate_post, (void *) con_info);
 
-            if (NULL == con_info->postprocessor)
+            if ( NULL == con_info->postprocessor )
             {
                 free(con_info);
                 return MHD_NO;
@@ -362,14 +383,16 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
             con_info->answerstring = getIndexPage("");
         }
         else
+        {
             con_info->connectiontype = GET;
+        }
 
         *con_cls = (void *) con_info;
 
         return MHD_YES;
     }
 
-    if (0 == strcmp(method, "GET"))
+    if ( 0 == strcmp(method, "GET") )
     {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
@@ -381,7 +404,7 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
                 stringByReplacingOccurrencesOfString:
                         [[WebServer sharedInstance] getAddress] withString:@""];
 
-        if ([objUrl hasSuffix:@".png"] || [objUrl hasSuffix:@".jpg"] || [objUrl hasSuffix:@".gif"])
+        if ( [objUrl hasSuffix:@".png"] || [objUrl hasSuffix:@".jpg"] || [objUrl hasSuffix:@".gif"] )
         {
 
             // Create a resource path from it
@@ -399,12 +422,15 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
             [pool release];
             return code;
 
-        } else if ([objShortUrl hasPrefix:@"/delete"])
+        }
+        else if ( [objShortUrl hasPrefix:@"/delete"] )
         {
             // We requested the delete handler
             char *cParam = MHD_lookup_connection_value(connection, MHD_GET_ARGUMENT_KIND, "song");
-            if (!cParam)
+            if ( !cParam )
+            {
                 return send_page(connection, getPage("Error"), MHD_HTTP_BAD_REQUEST);
+            }
 
             NSString *param = [NSString stringWithUTF8String:cParam];
             TMLog(@"Delete song '%@' using web interface", param);
@@ -419,7 +445,8 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
             [pool release];
             return code;
 
-        } else
+        }
+        else
         {
 
             // Otherwise by default we return the main page
@@ -435,11 +462,11 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
     // End of new connection block
 
     // Returning connection block below
-    if (0 == strcmp(method, "POST"))
+    if ( 0 == strcmp(method, "POST") )
     {
         struct connection_info_struct *con_info = *con_cls;
 
-        if (0 != *upload_data_size)
+        if ( 0 != *upload_data_size )
         {
             MHD_post_process(con_info->postprocessor, upload_data,
                     *upload_data_size);
@@ -467,8 +494,10 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_pDaemon = NULL;
     m_sCurrentServerURL = @"No URL";
@@ -515,7 +544,7 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-    if ([paths count] > 0)
+    if ( [paths count] > 0 )
     {
         NSString *dir = [paths objectAtIndex:0];
 
@@ -523,7 +552,7 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
         dir = [dir stringByAppendingPathComponent:kWebServerIncomingPath];
 
         // Create the incoming dir if missing
-        if (![[NSFileManager defaultManager] isReadableFileAtPath:dir])
+        if ( ![[NSFileManager defaultManager] isReadableFileAtPath:dir] )
         {
             [[NSFileManager defaultManager] createDirectoryAtPath:dir attributes:nil];
         }
@@ -544,16 +573,16 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 
     // retrieve the current interfaces - returns 0 on success
     success = getifaddrs(&interfaces);
-    if (success == 0)
+    if ( success == 0 )
     {
         // Loop through linked list of interfaces
         temp_addr = interfaces;
-        while (temp_addr != NULL)
+        while ( temp_addr != NULL )
         {
-            if (temp_addr->ifa_addr->sa_family == AF_INET)
+            if ( temp_addr->ifa_addr->sa_family == AF_INET )
             {
                 // Check if interface is en0 which is the wifi connection on the iPhone
-                if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"])
+                if ( [[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"] )
                 {
                     // Get NSString from C String
                     address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *) temp_addr->ifa_addr)->sin_addr)];
@@ -573,11 +602,46 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 
 #pragma mark Singleton stuff
 
+- (void)doneLoadingSong:(TMSong *)song withPath:(NSString *)path
+{
+    [self performSelectorOnMainThread:@selector(loadBannerForSong:)
+                           withObject:song waitUntilDone:NO];
+}
+
+- (void)loadBannerForSong:(TMSong *)song
+{
+    NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:song.m_iSongsPath];
+    songPath = [songPath stringByAppendingPathComponent:song.m_sSongDirName];
+
+    NSString *bannerFilePath = [songPath stringByAppendingPathComponent:song.m_sBannerFilePath];
+    TMLog(@"Banner full path: '%@'", bannerFilePath);
+
+    UIImage *img = [UIImage imageWithContentsOfFile:bannerFilePath];
+    if ( img )
+    {
+        TMLog(@"Allocating banner texture on song cache sync...");
+        song.bannerTexture = [[[Texture2D alloc] initWithImage:img columns:1 andRows:1] autorelease];
+    }
+
+    // also load cd title
+    if ( song.m_sCDTitleFilePath != nil )
+    {
+        NSString *cdFilePath = [songPath stringByAppendingPathComponent:song.m_sCDTitleFilePath];
+
+        img = [UIImage imageWithContentsOfFile:cdFilePath];
+        if ( img )
+        {
+            TMLog(@"Allocating CD title texture on song cache sync...");
+            song.cdTitleTexture = [[[Texture2D alloc] initWithImage:img columns:1 andRows:1] autorelease];
+        }
+    }
+}
+
 + (WebServer *)sharedInstance
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedWebServerDelegate == nil)
+        if ( sharedWebServerDelegate == nil )
         {
             [[self alloc] init];
         }
@@ -587,9 +651,9 @@ answer_to_connection(void *cls, struct MHD_Connection *connection,
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedWebServerDelegate == nil)
+        if ( sharedWebServerDelegate == nil )
         {
             sharedWebServerDelegate = [super allocWithZone:zone];
             return sharedWebServerDelegate;

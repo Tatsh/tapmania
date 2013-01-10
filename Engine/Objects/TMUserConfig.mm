@@ -23,7 +23,11 @@
     {
         return [NSNumber numberWithDouble:-0.0846];
     }
-    
+    else if ([d isEqualToString:@"iPad"])
+    {
+        return [NSNumber numberWithDouble:-0.0843];
+    }
+
     return [NSNumber numberWithDouble:-0.0846];
 }
 

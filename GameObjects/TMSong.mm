@@ -36,6 +36,7 @@
 	self.m_iSongsPath = pathId;
     self.cdTitleTexture = nil;
     self.bannerTexture = nil;
+    self.m_sBannerFilePath = nil;
     self.m_sCDTitleFilePath = nil;
 	
 	// Note: only title etc is loaded here. No steps.

@@ -11,6 +11,7 @@
 
 #include "platform.h"
 #include "microhttpd.h"
+#import "TMSongsLoaderSupport.h"
 
 #define kWebServerIncomingPath    @"TapManiaIncoming"
 
@@ -36,7 +37,7 @@ struct connection_info_struct
 @end
 
 
-@interface WebServer : NSObject
+@interface WebServer : NSObject <TMSongsLoaderSupport>
 {
     struct MHD_Daemon *m_pDaemon;
     NSString *m_sCurrentServerURL;    // something like http://192.168.0.101:9002/ or error string

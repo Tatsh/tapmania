@@ -1052,7 +1052,13 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" afterPath="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameObjects/TMSong.mm" afterPath="$PROJECT_DIR$/GameObjects/TMSong.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Parsers/DWIParser.mm" afterPath="$PROJECT_DIR$/Parsers/DWIParser.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1070,68 +1076,46 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_UNIVERSAL" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TMRunLoop.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/TMRunLoop.mm">
+      <file leaf-file-name="WebServer.m" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="58" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0">
+            <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#187#208#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TMSong.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="158" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TapMania.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
+      <file leaf-file-name="TMSong.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="361" column="32" selection-start="10764" selection-end="10764" vertical-scroll-proportion="0.0">
+            <state line="75" column="30" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TapMania.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/TapMania.h">
+      <file leaf-file-name="SongsDirectoryCache.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="12" selection-start="761" selection-end="761" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="iPad_Metrics.plist" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="728" column="30" selection-start="26130" selection-end="26130" vertical-scroll-proportion="0.23295455">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResourcesLoader.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="195" column="114" selection-start="5570" selection-end="5570" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TMResource.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TapManiaAppDelegate.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="389" column="4" selection-start="12053" selection-end="12053" vertical-scroll-proportion="0.28908554">
+              <folding>
+                <element signature="e#209#240#0" expanded="true" />
+                <element signature="e#946#971#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1146,13 +1130,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm" />
-        <option value="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
-        <option value="$PROJECT_DIR$/Engine/TMSoundEngine.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
-        <option value="$PROJECT_DIR$/Util/DisplayUtil.m" />
-        <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
         <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
         <option value="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
@@ -1162,6 +1139,13 @@
         <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
+        <option value="$PROJECT_DIR$/Parsers/DWIParser.mm" />
+        <option value="$PROJECT_DIR$/Engine/TMRunLoop.mm" />
+        <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
+        <option value="$PROJECT_DIR$/GameObjects/TMSong.mm" />
+        <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" />
+        <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
+        <option value="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
       </list>
     </option>
   </component>
@@ -1234,6 +1218,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1352,22 +1337,21 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.h" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Renderers/UIElements/CDTitleDisplay.h" />
     <property name="FullScreen" value="false" />
     <property name="OBJC.PRESERVED_TARGET_SELECTION" value="TapMania" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.AdHoc TapMania">
+  <component name="RunManager" selected="Application.TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <method />
@@ -1499,18 +1483,18 @@
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19730306" sideWeight="0.5188172" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.74596775" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39784947" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.5094086" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3373656" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25403225" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4905914" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1567,119 +1551,124 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="24" />
+      <option name="time" value="37" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Util/DisplayUtil.m">
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="21" selection-start="2424" selection-end="2424" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TMRunLoop.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="58" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="27" selection-start="814" selection-end="814" vertical-scroll-proportion="0.5076709">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="361" column="32" selection-start="10764" selection-end="10764" vertical-scroll-proportion="0.0">
+        <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.019886363">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.0">
+        <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.019525802">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
+    <entry file="file://$PROJECT_DIR$/Parsers/SMParser.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/noteskins/default/iPhone5_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="16" selection-start="326" selection-end="326" vertical-scroll-proportion="0.3181818">
+        <state line="153" column="47" selection-start="4491" selection-end="4494" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapMania.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="12" selection-start="761" selection-end="761" vertical-scroll-proportion="0.0">
+        <state line="24" column="12" selection-start="761" selection-end="761" vertical-scroll-proportion="0.019886363">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/noteskins/default/iPad_Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="29" selection-start="3993" selection-end="3993" vertical-scroll-proportion="0.5625">
+        <state line="361" column="32" selection-start="10764" selection-end="10764" vertical-scroll-proportion="0.019886363">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/noteskins/default/iPadRetina_Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/Engine/TMRunLoop.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="23" selection-start="1516" selection-end="1705" vertical-scroll-proportion="0.875">
+        <state line="66" column="58" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.019525802">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSPathUtilities.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="453" column="44" selection-start="16156" selection-end="16156" vertical-scroll-proportion="0.78977275">
+        <state line="21" column="49" selection-start="585" selection-end="585" vertical-scroll-proportion="0.35227272">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/Engine/Protocols/TMSongsLoaderSupport.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="576" column="44" selection-start="20816" selection-end="20816" vertical-scroll-proportion="0.78977275">
+        <state line="3" column="61" selection-start="111" selection-end="111" vertical-scroll-proportion="0.07954545">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="361" selection-end="361" vertical-scroll-proportion="0.29166666">
+        <state line="223" column="9" selection-start="4486" selection-end="5530" vertical-scroll-proportion="0.8636364">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="583" column="36" selection-start="21217" selection-end="21220" vertical-scroll-proportion="-15.038462">
+        <state line="39" column="69" selection-start="1095" selection-end="1095" vertical-scroll-proportion="0.3655303">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm">
+    <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="114" selection-start="5570" selection-end="5570" vertical-scroll-proportion="0.0">
+        <state line="39" column="17" selection-start="746" selection-end="746" vertical-scroll-proportion="0.41666666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="728" column="30" selection-start="26130" selection-end="26130" vertical-scroll-proportion="0.23295455">
+        <state line="75" column="30" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="158" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="181" selection-end="181" vertical-scroll-proportion="0.24019608">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#187#208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="389" column="4" selection-start="12053" selection-end="12053" vertical-scroll-proportion="0.28908554">
+          <folding>
+            <element signature="e#209#240#0" expanded="true" />
+            <element signature="e#946#971#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

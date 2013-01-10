@@ -320,6 +320,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     NSString *musicFilePath = nil;
     NSString *backgroundFilePath = nil;
 
+    NSString *titleImagePath = nil;
+    NSString *bannerImagePath = nil;
+
     NSString *deviceBgFile = [[NSString stringWithFormat:@"bg-%@.png", [DisplayUtil getDeviceDisplayString]] lowercaseString];
 
     for ( NSString *file in dirContents )
@@ -365,14 +368,44 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
             backgroundFilePath = [curPath stringByAppendingPathComponent:file];
         }
+        else if ( [[file lowercaseString] hasSuffix:@"title.png"] )
+        {
+            // this matches both 'cdtitle.png' and '*Title.png'
+            // This is the CDTitle in DWI-only songs or if not specified with a tag
+            titleImagePath = [curPath stringByAppendingPathComponent:file];
+        }
     }
+
+    // one last thing. take a look if we can locate a banner png image.
+    // its name should be same as the mp3 file but with .png extension
+    // or it can be called 'banner.png'
+    bannerImagePath = [[[musicFilePath copy] autorelease] lastPathComponent];
+    bannerImagePath = [curPath stringByAppendingPathComponent:
+            [[bannerImagePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"png"]];
+    TMLog(@"BANNER PATH to test: '%@'", bannerImagePath);
+
+    if ( ![[NSFileManager defaultManager] fileExistsAtPath:bannerImagePath] )
+    {
+        bannerImagePath = [curPath stringByAppendingPathComponent:@"banner.png"];
+        TMLog(@"BANNER PATH to test: '%@'", bannerImagePath);
+
+        if ( ![[NSFileManager defaultManager] fileExistsAtPath:bannerImagePath] )
+        {
+            bannerImagePath = nil;
+            TMLog(@"Banner is not found at that path. set to nil so that it wont be used.");
+        }
+    }
+
+    // only interested in the image file itself
+    bannerImagePath = bannerImagePath.lastPathComponent;
+    titleImagePath = titleImagePath.lastPathComponent;
 
     // Now try to parse if found everything
     if ( stepsFilePath != nil && musicFilePath != nil )
     {
 
         // Parse very basic info from this file
-        if ( m_idDelegate != nil )
+        if ( m_idDelegate != nil && [m_idDelegate respondsToSelector:@selector(startLoadingSong:)])
         {
             [m_idDelegate startLoadingSong:songDirName];
         }
@@ -404,6 +437,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
                 song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];
                 song.m_sHash = songHash;
                 song.m_iSongsPath = pathId;
+
+                if ( song.m_sCDTitleFilePath == nil && titleImagePath != nil )
+                {
+                    song.m_sCDTitleFilePath = titleImagePath;
+                }
+
+                if ( song.m_sBannerFilePath == nil && bannerImagePath != nil )
+                {
+                    song.m_sBannerFilePath = bannerImagePath;
+                }
             }
 
             // Set as sync song if it is system or add to list otherwise
@@ -422,7 +465,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         }
         else
         {
-           song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];
+            song = [[TMSong alloc] initWithStepsFile:stepsFilePath andMusicFile:musicFilePath andBackgroundFile:backgroundFilePath andDir:songDirName fromSongsPathId:pathId];
 
             // Calculate the hash and store it
             NSString *songHash = [SongsDirectoryCache dirMD5:curPath];
@@ -430,6 +473,16 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
             song.m_sHash = songHash;
             song.m_iSongsPath = pathId;
+
+            if ( song.m_sCDTitleFilePath == nil && titleImagePath != nil )
+            {
+                song.m_sCDTitleFilePath = titleImagePath;
+            }
+
+            if ( song.m_sBannerFilePath == nil && bannerImagePath != nil )
+            {
+                song.m_sBannerFilePath = bannerImagePath;
+            }
 
             // Set as sync song if it is system or add to list otherwise
             if ( pathId == kSystemSongsPath )
@@ -446,9 +499,9 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             [m_pCatalogueCacheNew setObject:song forKey:songDirName];
         }
 
-        if ( m_idDelegate != nil )
+        if ( m_idDelegate != nil && [m_idDelegate respondsToSelector:@selector(doneLoadingSong:withPath:)])
         {
-            [m_idDelegate  doneLoadingSong:song withPath:songDirName];
+            [m_idDelegate doneLoadingSong:song withPath:songDirName];
         }
 
         // Indicate that the catalogue is not empty anymore
@@ -458,7 +511,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     }
     else
     {
-        if ( m_idDelegate != nil )
+        if ( m_idDelegate != nil && [m_idDelegate respondsToSelector:@selector(errorLoadingSong:withReason:)] )
         {
             [m_idDelegate errorLoadingSong:songDirName withReason:@"\nSteps file or Music file not found."];
         }
