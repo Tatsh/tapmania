@@ -46,6 +46,9 @@ extern TMGameState *g_pGameState;
 @interface SongPickerMenuRenderer ()
 - (void)startPreviewMusic;
 
+- (void)changeSong;
+
+
 @end
 
 @implementation SongPickerMenuRenderer
@@ -54,6 +57,7 @@ extern TMGameState *g_pGameState;
     CDTitleDisplay *m_pCDTitleDisplay;
 }
 @synthesize m_previewMusicTimer = _m_previewMusicTimer;
+@synthesize m_selectionTimer = _m_selectionTimer;
 
 
 /* TMTransitionSupport methods */
@@ -180,6 +184,19 @@ extern TMGameState *g_pGameState;
 
 /* Wheel actions */
 - (void)songSelectionChanged
+{
+    if ( self.m_selectionTimer )
+    {
+        [self.m_selectionTimer invalidate];
+        self.m_selectionTimer = nil;
+    }
+    self.m_selectionTimer = [NSTimer scheduledTimerWithTimeInterval:0.2
+                                                             target:self
+                                                           selector:@selector(changeSong)
+                                                           userInfo:nil repeats:NO];
+}
+
+- (void)changeSong
 {
     // Drop the texture bind cache as we are going to switch contexts
     TMBindTexture(0);

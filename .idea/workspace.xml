@@ -1054,11 +1054,12 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" afterPath="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" afterPath="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameObjects/TMSong.mm" afterPath="$PROJECT_DIR$/GameObjects/TMSong.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Parsers/DWIParser.mm" afterPath="$PROJECT_DIR$/Parsers/DWIParser.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1079,43 +1080,31 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WebServer.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
+      <file leaf-file-name="TapMania.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#187#208#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TMSong.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="158" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.0">
+            <state line="247" column="9" selection-start="7171" selection-end="7171" vertical-scroll-proportion="0.3633218">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TMSong.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.h">
+      <file leaf-file-name="SongPickerMenuRenderer.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="30" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="259" column="30" selection-start="8362" selection-end="8362" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#1018#1073#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SongsDirectoryCache.mm" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
+      <file leaf-file-name="SongPickerWheel.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="389" column="4" selection-start="12053" selection-end="12053" vertical-scroll-proportion="0.28908554">
-              <folding>
-                <element signature="e#209#240#0" expanded="true" />
-                <element signature="e#946#971#0" expanded="true" />
-              </folding>
+            <state line="289" column="58" selection-start="9262" selection-end="9262" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1130,8 +1119,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Engine/TapMania.mm" />
-        <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
         <option value="$PROJECT_DIR$/Engine/ThemeSupport/ResourcesLoader.mm" />
         <option value="$PROJECT_DIR$/Data/noteskins/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
@@ -1146,6 +1133,8 @@
         <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.h" />
         <option value="$PROJECT_DIR$/Engine/UploadSupport/WebServer.m" />
         <option value="$PROJECT_DIR$/Engine/SongsDirectoryCache.mm" />
+        <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h" />
+        <option value="$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm" />
       </list>
     </option>
   </component>
@@ -1283,28 +1272,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="UI Elements" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TapMania" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="default" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1486,11 +1453,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19730306" sideWeight="0.5188172" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.5094086" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.83064514" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3373656" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4905914" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16935484" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1555,37 +1522,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMResource.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="36" selection-start="7846" selection-end="7846" vertical-scroll-proportion="0.019886363">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="21" selection-start="1929" selection-end="1929" vertical-scroll-proportion="0.019525802">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Parsers/SMParser.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="47" selection-start="4491" selection-end="4494" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapMania.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="12" selection-start="761" selection-end="761" vertical-scroll-proportion="0.019886363">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="361" column="32" selection-start="10764" selection-end="10764" vertical-scroll-proportion="0.019886363">
           <folding />
         </state>
       </provider>
@@ -1632,20 +1571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="30" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="0" selection-start="181" selection-end="181" vertical-scroll-proportion="0.24019608">
@@ -1653,22 +1578,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="407" column="31" selection-start="12696" selection-end="12696" vertical-scroll-proportion="0.60553634">
+          <folding>
+            <element signature="e#209#240#0" expanded="true" />
+            <element signature="e#946#971#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="30" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.48730963">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMSong.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="158" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.17301038">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/UploadSupport/WebServer.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.0">
+        <state line="612" column="0" selection-start="17093" selection-end="17093" vertical-scroll-proportion="0.47923875">
           <folding>
             <element signature="e#187#208#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerWheel.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="389" column="4" selection-start="12053" selection-end="12053" vertical-scroll-proportion="0.28908554">
+        <state line="289" column="58" selection-start="9262" selection-end="9262" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="27" selection-start="885" selection-end="885" vertical-scroll-proportion="0.81049067">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="259" column="30" selection-start="8362" selection-end="8362" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#209#240#0" expanded="true" />
-            <element signature="e#946#971#0" expanded="true" />
+            <element signature="e#1018#1073#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/TapMania.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="247" column="9" selection-start="7171" selection-end="7171" vertical-scroll-proportion="0.3633218">
+          <folding />
         </state>
       </provider>
     </entry>

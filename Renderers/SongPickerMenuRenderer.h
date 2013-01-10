@@ -35,4 +35,5 @@
 }
 
 @property(nonatomic, retain) NSTimer *m_previewMusicTimer;
+@property(nonatomic, retain) NSTimer *m_selectionTimer;
 @end
