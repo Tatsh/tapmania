@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="bd88f88b-271c-4fb5-8394-f9480f9a4ba6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/chapters" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/examples" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl/.deps" />
@@ -23,7 +22,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/libogg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/stream.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/vorbisword2.png" />
@@ -46,7 +44,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS6" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/Vorbis_I_spec.pdf" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/components.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/eightphase.png" />
@@ -111,7 +108,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010/vorbisdec" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010/vorbisenc" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.h" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.m" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeState.h" />
@@ -1044,17 +1041,12 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" afterPath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/MainMenuRenderer.h" afterPath="$PROJECT_DIR$/Renderers/MainMenuRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/MainMenuRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/MainMenuRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1111,10 +1103,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainMenuRenderer.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SongPlayRenderer.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="216" column="16" selection-start="6018" selection-end="6018" vertical-scroll-proportion="0.65779465">
+              <folding>
+                <element signature="e#203#231#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainMenuRenderer.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="4" selection-start="1930" selection-end="1930" vertical-scroll-proportion="0.52690166">
+            <state line="78" column="45" selection-start="2018" selection-end="2018" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#203#231#0" expanded="true" />
               </folding>
@@ -1137,7 +1140,6 @@
         <option value="$PROJECT_DIR$/Renderers/PadConfigRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongManagerRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongOptionsDialogRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
@@ -1148,6 +1150,7 @@
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/MainMenuRenderer.mm" />
+        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
       </list>
     </option>
   </component>
@@ -1535,13 +1538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="15" selection-start="1033" selection-end="1033" vertical-scroll-proportion="-4.289855">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="192" column="12" selection-start="4326" selection-end="4326" vertical-scroll-proportion="0.31653225">
@@ -1628,7 +1624,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="4" selection-start="1930" selection-end="1930" vertical-scroll-proportion="0.52690166">
+        <state line="78" column="45" selection-start="2018" selection-end="2018" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#203#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="216" column="16" selection-start="6018" selection-end="6018" vertical-scroll-proportion="0.65779465">
           <folding>
             <element signature="e#203#231#0" expanded="true" />
           </folding>

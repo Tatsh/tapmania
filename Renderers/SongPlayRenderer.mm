@@ -203,7 +203,7 @@ extern TMGameState *g_pGameState;
                     [NSNumber numberWithDouble:g_pGameState->m_dSpeedModValue], @"speedmod",
                     nil]];
 
-    g_pGameState->m_bAutoPlay = NO;
+    g_pGameState->m_bAutoPlay = YES;
     g_pGameState->m_nFailType = kFailOn; // fail directly
     g_pGameState->m_nCombo = 0;
 
