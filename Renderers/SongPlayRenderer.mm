@@ -47,7 +47,7 @@
 #import "GameState.h"
 #import "OptionsMenuRenderer.h"
 #import "SongPickerMenuRenderer.h"
-//#import "FlurryAPI.h"
+#import "Flurry.h"
 
 #import <math.h>
 
@@ -65,8 +65,10 @@ extern TMGameState *g_pGameState;
 - (id)initWithMetrics:(NSString *)inMetrics
 {
     self = [super initWithMetrics:inMetrics];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Set brightness
     self.brightness = 0.8f;
@@ -163,8 +165,10 @@ extern TMGameState *g_pGameState;
 
 - (void)dealloc
 {
-    if(_hasCustomBg)
+    if ( _hasCustomBg )
+    {
         [t_BG release];
+    }
 
     UNSUBSCRIBE_ALL();
     [m_pSound release];
@@ -190,14 +194,14 @@ extern TMGameState *g_pGameState;
 #endif
 
     // Report song played to analytics so that we can collect info on most popular songs
-//	[FlurryAPI logEvent:@"play_song" withParameters:
-//		[NSDictionary dictionaryWithObjectsAndKeys:
-//					g_pGameState->m_pSong.m_sTitle, @"song",
-//					g_pGameState->m_pSong.m_sArtist, @"artist",
-//					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficulty]], @"difficulty",
-//					[NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficultyLevel]], @"diff_level",
-//					[NSNumber numberWithDouble:g_pGameState->m_dSpeedModValue], @"speedmod",
-//		 nil]];
+    [Flurry logEvent:@"play_song" withParameters:
+            [NSDictionary dictionaryWithObjectsAndKeys:
+                    g_pGameState->m_pSong.m_sTitle, @"song",
+                    g_pGameState->m_pSong.m_sArtist, @"artist",
+                    [NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficulty]], @"difficulty",
+                    [NSNumber numberWithInt:[g_pGameState->m_pSteps getDifficultyLevel]], @"diff_level",
+                    [NSNumber numberWithDouble:g_pGameState->m_dSpeedModValue], @"speedmod",
+                    nil]];
 
     g_pGameState->m_bAutoPlay = NO;
     g_pGameState->m_nFailType = kFailOn; // fail directly
@@ -209,18 +213,18 @@ extern TMGameState *g_pGameState;
     [t_HoldJudgement reset];
 
     m_pSound = [[TMSound alloc] initWithPath:
-    [[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
+            [[[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath] stringByAppendingPathComponent:g_pGameState->m_pSong.m_sMusicFilePath]];
     [[TMSoundEngine sharedInstance] addToQueueWithManualStart:m_pSound];
 
     _hasCustomBg = NO;
-    if (g_pGameState->m_pSong.m_sBackgroundFilePath != nil)
+    if ( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
     {
         NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
         NSString *backgroundFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBackgroundFilePath];
 
         // TODO: use ResourceLoader for this?
         UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
-        if(img)
+        if ( img )
         {
             t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
             _hasCustomBg = YES;
@@ -238,11 +242,12 @@ extern TMGameState *g_pGameState;
     double now = [TimingUtil getCurrentTime];
     m_dScreenEnterTime = now;
 
-    if (timeOfFirstBeat <= kMinTimeTillStart)
+    if ( timeOfFirstBeat <= kMinTimeTillStart )
     {
         g_pGameState->m_dPlayBackStartTime = now + (kMinTimeTillStart - timeOfFirstBeat);
         m_bMusicPlaybackStarted = NO;
-    } else
+    }
+    else
     {
         g_pGameState->m_dPlayBackStartTime = now;
         [[TMSoundEngine sharedInstance] playMusic];
@@ -274,26 +279,30 @@ extern TMGameState *g_pGameState;
 - (void)update:(float)fDelta
 {
 
-    if (!g_pGameState->m_bPlayingGame)
+    if ( !g_pGameState->m_bPlayingGame )
+    {
         return;
+    }
 
     // Calculate current elapsed time
     double currentTime = [TimingUtil getCurrentTime];
 
     // Double check we have something normal as time. this is a workaround
-    if (currentTime < 0.0)
+    if ( currentTime < 0.0 )
+    {
         currentTime = [TimingUtil getCurrentTime];
+    }
 
     g_pGameState->m_dElapsedTime = currentTime - g_pGameState->m_dPlayBackStartTime;
 
-    if (m_bDrawFailed)
+    if ( m_bDrawFailed )
     {
         double elapsedTime = currentTime - m_dFailedTime;
-        if (elapsedTime >= mt_FailedMaxShowTime)
+        if ( elapsedTime >= mt_FailedMaxShowTime )
         {
 
             // request transition
-            if (g_pGameState->m_bIsGlobalSync)
+            if ( g_pGameState->m_bIsGlobalSync )
             {
                 [[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu"];
             }
@@ -320,14 +329,15 @@ extern TMGameState *g_pGameState;
 
         return;
 
-    } else if (m_bDrawCleared)
+    }
+    else if ( m_bDrawCleared )
     {
         double elapsedTime = currentTime - m_dClearedTime;
-        if (elapsedTime >= mt_ClearedMaxShowTime)
+        if ( elapsedTime >= mt_ClearedMaxShowTime )
         {
 
             // request transition
-            if (g_pGameState->m_bIsGlobalSync)
+            if ( g_pGameState->m_bIsGlobalSync )
             {
                 [[TapMania sharedInstance] switchToScreen:[OptionsMenuRenderer class] withMetrics:@"OptionsMenu"];
             }
@@ -348,25 +358,25 @@ extern TMGameState *g_pGameState;
     BOOL gaveUp = NO;
     g_pGameState->m_bGivingUp = NO;
 
-    if (!g_pGameState->m_bIsGlobalSync)
+    if ( !g_pGameState->m_bIsGlobalSync )
     {
         m_sprWarning.disabled = !m_bWarningMode;
     }
 
-    if ([m_pJoyPad getStateForButton:kJoyButtonExit])
+    if ( [m_pJoyPad getStateForButton:kJoyButtonExit] )
     {
         double exitReleaseTime = [m_pJoyPad getReleaseTimeForButton:kJoyButtonExit];
         double exitTouchTime = [m_pJoyPad getTouchTimeForButton:kJoyButtonExit];
 
         g_pGameState->m_bGivingUp = YES;
 
-        if (!g_pGameState->m_bIsGlobalSync)
+        if ( !g_pGameState->m_bIsGlobalSync )
         {
             m_sprWarning.disabled = NO;
         }
 
-        if (exitTouchTime > exitReleaseTime
-                && currentTime - exitTouchTime >= 2.0f)
+        if ( exitTouchTime > exitReleaseTime
+                && currentTime - exitTouchTime >= 2.0f )
         {
 
             gaveUp = YES;
@@ -375,29 +385,33 @@ extern TMGameState *g_pGameState;
     }
 
     // Start music with delay if required
-    if (!m_bMusicPlaybackStarted)
+    if ( !m_bMusicPlaybackStarted )
     {
-        if (g_pGameState->m_dPlayBackStartTime <= currentTime)
+        if ( g_pGameState->m_dPlayBackStartTime <= currentTime )
         {
             m_bMusicPlaybackStarted = YES;
             [[TMSoundEngine sharedInstance] playMusic];
         }
-    } else if (currentTime >= m_dPlayBackScheduledEndTime || gaveUp
-            || (g_pGameState->m_bFailed && g_pGameState->m_nFailType == kFailOn))
+    }
+    else if ( currentTime >= m_dPlayBackScheduledEndTime || gaveUp
+            || (g_pGameState->m_bFailed && g_pGameState->m_nFailType == kFailOn) )
     {
         // Should stop music and stop gameplay now
         [[TMSoundEngine sharedInstance] stopMusic];
 
-        if (gaveUp)
+        if ( gaveUp )
+        {
             g_pGameState->m_bGaveUp = YES;
+        }
 
-        if (g_pGameState->m_bFailed || g_pGameState->m_bGaveUp)
+        if ( g_pGameState->m_bFailed || g_pGameState->m_bGaveUp )
         {
             [[TMSoundEngine sharedInstance] playEffect:sr_Failed];
             m_bDrawFailed = YES;
             m_dFailedTime = [TimingUtil getCurrentTime];
 
-        } else
+        }
+        else
         {
             [[TMSoundEngine sharedInstance] playEffect:sr_Cleared];
             m_bDrawCleared = YES;
@@ -411,9 +425,10 @@ extern TMGameState *g_pGameState;
         m_bDrawGo = m_bDrawReady = m_bDrawnGo = NO;
         return;
 
-    } else if (currentTime >= m_dPlayBackScheduledFadeOutTime)
+    }
+    else if ( currentTime >= m_dPlayBackScheduledFadeOutTime )
     {
-        if (!m_bIsFading)
+        if ( !m_bIsFading )
         {
             m_bIsFading = YES;
             [[TMSoundEngine sharedInstance] stopMusicFading:kFadeOutTime];
@@ -422,16 +437,17 @@ extern TMGameState *g_pGameState;
 
     // Check ready/go sprites
     double elapsedTimeSinceEntrance = currentTime - m_dScreenEnterTime;
-    if (elapsedTimeSinceEntrance >= mt_ReadyShowTime)
+    if ( elapsedTimeSinceEntrance >= mt_ReadyShowTime )
     {
         m_bDrawReady = NO;
     }
 
-    if (!m_bDrawReady && (!m_bDrawnGo || m_bDrawGo) && elapsedTimeSinceEntrance <= mt_ReadyShowTime + mt_GoShowTime)
+    if ( !m_bDrawReady && (!m_bDrawnGo || m_bDrawGo) && elapsedTimeSinceEntrance <= mt_ReadyShowTime + mt_GoShowTime )
     {
         m_bDrawGo = YES;
         m_bDrawnGo = YES;
-    } else
+    }
+    else
     {
         m_bDrawGo = NO;
     }
@@ -442,25 +458,28 @@ extern TMGameState *g_pGameState;
 {
     CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
 
-    if (!g_pGameState->m_bPlayingGame)
+    if ( !g_pGameState->m_bPlayingGame )
+    {
         return;
+    }
 
     // Draw kids
     [super render:fDelta];
 
     // Draw the pad if requested
-    if (cfg_VisPad || g_pGameState->m_bIsGlobalSync)
+    if ( cfg_VisPad || g_pGameState->m_bIsGlobalSync )
     {
         glEnable(GL_BLEND);
 
-        for (int i = 0; i < kNumOfAvailableTracks; i++)
+        for ( int i = 0; i < kNumOfAvailableTracks; i++ )
         {
             Vector *pVec = [[TapMania sharedInstance].joyPad getJoyPadButton:(JPButton) i];
 
-            if ([m_pJoyPad getStateForButton:(JPButton) i])
+            if ( [m_pJoyPad getStateForButton:(JPButton) i] )
             {
                 [t_FingerTap drawFrame:i atPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];
-            } else
+            }
+            else
             {
                 [t_FingerTap drawFrame:i + kNumOfAvailableTracks atPoint:CGPointMake(pVec.m_fX, pVec.m_fY)];
             }
@@ -470,19 +489,20 @@ extern TMGameState *g_pGameState;
     }
 
     // Draw the ready/go sprites if necesarry
-    if (m_bDrawReady)
+    if ( m_bDrawReady )
     {
         glEnable(GL_BLEND);
         [t_Ready drawAtPoint:mt_Ready];
         glDisable(GL_BLEND);
-    } else if (m_bDrawGo)
+    }
+    else if ( m_bDrawGo )
     {
         glEnable(GL_BLEND);
         [t_Go drawAtPoint:mt_Go];
         glDisable(GL_BLEND);
     }
 
-    if (!g_pGameState->m_bIsGlobalSync)
+    if ( !g_pGameState->m_bIsGlobalSync )
     {
         // Check fail status and draw failed/cleared
         if ( m_bDrawFailed )
@@ -516,11 +536,11 @@ extern TMGameState *g_pGameState;
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
-    switch (message.messageId)
+    switch ( message.messageId )
     {
         case kLifeBarDrainedMessage:
             TMLog(@"Life is drained! Stop gameplay.");
-            if (g_pGameState->m_nFailType == kFailOn || g_pGameState->m_nFailType == kFailAtEnd)
+            if ( g_pGameState->m_nFailType == kFailOn || g_pGameState->m_nFailType == kFailAtEnd )
             {
                 g_pGameState->m_bFailed = YES;
             }

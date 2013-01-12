@@ -131,6 +131,7 @@
 		24219CF611D26244001BCE14 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B31611CBAD670097E5AB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219CF711D26244001BCE14 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2476E62A11CE254E009AA545 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		24219CFA11D26244001BCE14 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2410B30611CBACF60097E5AB /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		24313D2B16A1D1E000B60DBD /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24313D2A16A1D1E000B60DBD /* libFlurry.a */; };
 		243DF6500FB1C1BA004C08EF /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 24964CAF0F79223C00C9D5BC /* vorbisfile.c */; };
 		24563897169620FC00983679 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 24563896169620FC00983679 /* Default-Portrait@2x~ipad.png */; };
 		2456389A1696217700983679 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 245638991696217700983679 /* Default-Portrait~ipad.png */; };
@@ -390,6 +391,7 @@
 		242946380EC474D900B88828 /* SongPickerMenuRenderer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = SongPickerMenuRenderer.mm; path = Renderers/SongPickerMenuRenderer.mm; sourceTree = "<group>"; };
 		2429469E0EC480F200B88828 /* SongsDirectoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongsDirectoryCache.h; path = Engine/SongsDirectoryCache.h; sourceTree = "<group>"; };
 		2429469F0EC480F200B88828 /* SongsDirectoryCache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongsDirectoryCache.mm; path = Engine/SongsDirectoryCache.mm; sourceTree = "<group>"; };
+		24313D2A16A1D1E000B60DBD /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = "ext/Flurry iPhone SDK v4.1.0/Flurry/libFlurry.a"; sourceTree = "<group>"; };
 		243DF64B0FB1C156004C08EF /* libvorbisfile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		244954B40EDD54DA00D462F0 /* TMRenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRenderable.h; sourceTree = "<group>"; };
 		244954B50EDD556400D462F0 /* TMLogicUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLogicUpdater.h; sourceTree = "<group>"; };
@@ -403,9 +405,6 @@
 		244E5AB40F41CB490004C921 /* LoggerUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LoggerUtil.mm; path = Util/LoggerUtil.mm; sourceTree = "<group>"; };
 		24563896169620FC00983679 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		245638991696217700983679 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		245E3BF511D23102002EFA7C /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
-		245E3BF611D23102002EFA7C /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
-		245E3BF711D23102002EFA7C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		24627B9C0FBF6DF9002E245D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Renderers/UIElements/Label.h; sourceTree = "<group>"; };
 		24627B9D0FBF6DF9002E245D /* Label.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Label.mm; path = Renderers/UIElements/Label.mm; sourceTree = "<group>"; };
 		2463D3621673C17F00799F39 /* rapidxml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rapidxml.hpp; path = ext/rapidxml/rapidxml.hpp; sourceTree = "<group>"; };
@@ -890,6 +889,7 @@
 		F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICadeResponder.h; sourceTree = "<group>"; };
 		F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingSyncRenderer.mm; path = Renderers/TimingSyncRenderer.mm; sourceTree = "<group>"; };
+		F44B28C90C6BB0CAA8DD914C /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = "ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h"; sourceTree = "<group>"; };
 		F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CDTitleDisplay.mm; path = Renderers/UIElements/CDTitleDisplay.mm; sourceTree = "<group>"; };
 		F44B2AD46B7C72F408C8DCB8 /* CDTitleDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDTitleDisplay.h; path = Renderers/UIElements/CDTitleDisplay.h; sourceTree = "<group>"; };
 		F44B2C12A76D94B7443A8244 /* TimingSyncRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingSyncRenderer.h; path = Renderers/TimingSyncRenderer.h; sourceTree = "<group>"; };
@@ -902,6 +902,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24313D2B16A1D1E000B60DBD /* libFlurry.a in Frameworks */,
 				24DDE02F16696F1C00E8CD8C /* AdSupport.framework in Frameworks */,
 				24219CF611D26244001BCE14 /* MessageUI.framework in Frameworks */,
 				24DDE02D16696F0800E8CD8C /* StoreKit.framework in Frameworks */,
@@ -1114,17 +1115,6 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
-		245E3BF411D23102002EFA7C /* FlurryLib_4.0 */ = {
-			isa = PBXGroup;
-			children = (
-				245E3BF511D23102002EFA7C /* FlurryAdDelegate.h */,
-				245E3BF611D23102002EFA7C /* FlurryAPI.h */,
-				245E3BF711D23102002EFA7C /* libFlurry.a */,
-			);
-			name = FlurryLib_4.0;
-			path = ext/FlurryLib_4.0;
-			sourceTree = "<group>";
-		};
 		2463CE381673C12B00799F39 /* RapidXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -1326,7 +1316,6 @@
 				24DDE01F16696E5C00E8CD8C /* AdMob */,
 				24DDDFFE16696D1500E8CD8C /* TouchJSON */,
 				249399D216642CFE005A65C8 /* iCade */,
-				245E3BF411D23102002EFA7C /* FlurryLib_4.0 */,
 				2410B28211CBACAF0097E5AB /* AdWhirl */,
 				24234DD3115A12F400E14860 /* SQLitePersistenObjects */,
 				24DC0DC3101E938800F2B046 /* ZLIB */,
@@ -1335,6 +1324,7 @@
 				24964C3F0F7920AA00C9D5BC /* OGG */,
 				2496486C0F7913F200C9D5BC /* libogg-1.1.3 */,
 				249649100F7913F200C9D5BC /* libvorbis-1.2.0 */,
+				F44B2F4BD94F0A0744646979 /* Flurry */,
 			);
 			name = "External libs";
 			sourceTree = "<group>";
@@ -1933,6 +1923,15 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F44B2F4BD94F0A0744646979 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				24313D2A16A1D1E000B60DBD /* libFlurry.a */,
+				F44B28C90C6BB0CAA8DD914C /* Flurry.h */,
+			);
+			name = Flurry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2735,6 +2734,7 @@
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
+					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
 				OTHER_CFLAGS = "-DENABLE_ADWHIRL";
 				PRODUCT_NAME = TapMania;
@@ -2774,6 +2774,7 @@
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
+					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = TapMania;
@@ -2832,6 +2833,7 @@
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
 					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
+					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG";

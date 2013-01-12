@@ -22,7 +22,7 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
-//#import "FlurryAPI.h"
+#import "Flurry.h"
 
 @implementation TapManiaAppDelegate
 
@@ -35,7 +35,7 @@
 
 void uncaughtExceptionHandler(NSException *exception)
 {
-//    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+    [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application
@@ -69,7 +69,7 @@ void uncaughtExceptionHandler(NSException *exception)
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];
 
     // Start analytics (flurry)
-//	[FlurryAPI startSession:@"8BN9QAWK22Q2RA38DTUC"];
+	[Flurry startSession:@"X5MZSGTQ39363RN3798Z"];
 
     // Add bg
 

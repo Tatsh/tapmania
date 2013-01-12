@@ -21,7 +21,6 @@
 #import "Slider.h"
 #import "ImageButton.h"
 #import "DisplayUtil.h"
-//#import "FlurryAPI.h"
 #import "GLUtil.h"
 
 @implementation TMScreen
@@ -136,7 +135,6 @@
 - (void)setupForTransition
 {
     [[InputEngine sharedInstance] subscribe:self];
-//	[FlurryAPI countPageView];
 }
 
 - (void)deinitOnTransition

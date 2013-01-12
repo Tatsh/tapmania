@@ -16,7 +16,7 @@
 #import "TapMania.h"
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
-// #import "FlurryAPI.h"
+#import "Flurry.h"
 
 @implementation CreditsRenderer
 
@@ -24,7 +24,7 @@
 - (void)setupForTransition
 {
     [super setupForTransition];
-//	[FlurryAPI logEvent:@"credits_screen_enter"];
+    [Flurry logEvent:@"credits_screen_enter"];
 
     // We will show the credits until this set to YES
     m_bShouldReturn = NO;

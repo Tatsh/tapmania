@@ -19,7 +19,7 @@
 #import "SongOptionsDialogRenderer.h"
 
 #import "TMSoundEngine.h"
-//#import "FlurryAPI.h"
+#import "Flurry.h"
 
 @interface SongOptionsDialogRenderer (InputHandling)
 - (void)noteSkinTogglerChanged;
@@ -39,7 +39,7 @@
     if (!self)
         return nil;
 
-//	[FlurryAPI logEvent:@"song_options_enter"];
+    [Flurry logEvent:@"song_options_enter"];
 
     // NoteSkin selection
     m_pNoteSkinToggler = [[TogglerItem alloc] initWithMetrics:@"SongOptions NoteSkinTogglerCustom"];

@@ -16,7 +16,7 @@
 #import "TMControl.h"
 #import "Label.h"
 
-//#import "FlurryAPI.h"
+#import "Flurry.h"
 
 @implementation SongManagerRenderer
 
@@ -24,7 +24,7 @@
 - (void)setupForTransition
 {
     [super setupForTransition];
-//	[FlurryAPI logEvent:@"songman_screen_enter"];
+    [Flurry logEvent:@"songman_screen_enter"];
 
     // Start with no action
     m_nAction = kSongManagerAction_None;

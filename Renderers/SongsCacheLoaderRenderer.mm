@@ -19,7 +19,7 @@
 #import "GLUtil.h"
 #import "TMSong.h"
 #import "Texture2D.h"
-//#import "FlurryAPI.h"
+#import "Flurry.h"
 
 @interface SongsCacheLoaderRenderer (Private)
 - (void)worker;
@@ -105,7 +105,7 @@
     // Make sure we have the instance initialized on the main pool
     [SongsDirectoryCache sharedInstance];
 
-//	[FlurryAPI logEvent:@"start_loading_songs" timed:YES];
+	[Flurry logEvent:@"start_loading_songs" timed:YES];
 
     // Start the song cache thread
     [m_pThread start];
@@ -146,7 +146,7 @@
     if ( m_bAllSongsLoaded && m_bTransitionIsDone )
     {
         TMLog(@"Requesting switch to main screen!");
-//		[FlurryAPI endTimedEvent:@"start_loading_songs"];
+        [Flurry endTimedEvent:@"start_loading_songs" withParameters:nil];
 
         [[TapMania sharedInstance] switchToScreen:[MainMenuRenderer class] withMetrics:@"MainMenu"];
         m_bAllSongsLoaded = NO; // Do this only once
@@ -190,7 +190,7 @@
                            withObject:song waitUntilDone:NO];
 
     // Report the songs users play to determine the most uploaded
-//	[FlurryAPI logEvent:@"load_song" withParameters:[NSDictionary dictionaryWithObject:path forKey:@"song"]];
+    [Flurry logEvent:@"load_song" withParameters:[NSDictionary dictionaryWithObject:path forKey:@"song"]];
 
     [m_pLock unlock];
 }
