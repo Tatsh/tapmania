@@ -28,6 +28,7 @@ typedef enum {
 #define kMineHitSearchEpsilon 0.045000f	// Same as W2
 #define kHoldLostEpsilon 0.5f
 
+#define kSyncSamples 12
 @class SongPlayRenderer;
 
 @interface TMSteps : NSObject <TMRenderable, TMLogicUpdater, TMMessageSupport> {

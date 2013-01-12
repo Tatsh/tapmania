@@ -27,8 +27,10 @@ extern TMGameState *g_pGameState;
 - (id)initWithMetrics:(NSString *)metricsKey
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Cache metrics
     mt_ComboMeter = POINT_METRIC(metricsKey);
@@ -54,16 +56,17 @@ extern TMGameState *g_pGameState;
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
-    switch (message.messageId)
+    switch ( message.messageId )
     {
         case kNoteScoreMessage:
 
             TMNote *note = (TMNote *) message.payload;
 
-            if (note.m_nScore > kJudgementW3)
+            if ( note.m_nScore > kJudgementW3 )
             {
                 m_nCombo = 0;
-            } else
+            }
+            else
             {
                 m_nMaxComboSoFar = (++m_nCombo > m_nMaxComboSoFar ? m_nCombo : m_nMaxComboSoFar);
 
@@ -79,12 +82,15 @@ extern TMGameState *g_pGameState;
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
-    if (m_nCombo > 4)
+    if ( !g_pGameState->m_bIsGlobalSync )
     {
-        glEnable(GL_BLEND);
-        [m_pComboTexture drawAtPoint:mt_ComboStr];
-        [m_pComboStr drawAtPoint:mt_ComboMeter];
-        glDisable(GL_BLEND);
+        if ( m_nCombo > 4 )
+        {
+            glEnable(GL_BLEND);
+            [m_pComboTexture drawAtPoint:mt_ComboStr];
+            [m_pComboStr drawAtPoint:mt_ComboMeter];
+            glDisable(GL_BLEND);
+        }
     }
 }
 

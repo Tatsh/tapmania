@@ -7,6 +7,9 @@
 //  Copyright 2008 Godexsoft. All rights reserved.
 //
 
+#import <numeric>
+#import <vector>
+
 #import "TMSteps.h"
 #import "TMNote.h"
 #import "TapNote.h"
@@ -24,6 +27,9 @@
 extern TMGameState *g_pGameState;
 
 @implementation TMSteps
+{
+    std::vector<double> m_syncSamples;
+}
 
 - (id)init
 {
@@ -220,10 +226,18 @@ extern TMGameState *g_pGameState;
 
         if (g_pGameState->m_bIsGlobalSync)
         {
-            TMLog(@"timing of note in Global sync: %f", noteTiming);
-            g_pGameState->m_dGlobalOffset += noteTiming/16.0;
+            if (m_syncSamples.size() >= kSyncSamples)
+            {
+                g_pGameState->m_dGlobalOffset +=
+                        std::accumulate(m_syncSamples.begin(), m_syncSamples.end(),
+                                0.0) / (double)m_syncSamples.size();
+                TMLog(@"Global offset becomes: %f", g_pGameState->m_dGlobalOffset);
 
-            TMLog(@"Global offset becomes: %f", g_pGameState->m_dGlobalOffset);
+                m_syncSamples.clear();
+            }
+
+            m_syncSamples.push_back(noteTiming/16.0); // use smaller steps in samples
+            TMLog(@"timing of note in Global sync: %f", noteTiming);
         }
 
         // And now actually mark them hit

@@ -13,6 +13,9 @@
 #import "TimingUtil.h"
 #import "TMMessage.h"
 #import "MessageManager.h"
+#import "GameState.h"
+
+extern TMGameState *g_pGameState;
 
 @interface Judgement (Private)
 - (void)drawJudgement:(int)frame;
@@ -29,8 +32,10 @@
 - (id)initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_texture = [[TMFramedTexture alloc] initWithImage:uiImage columns:columns andRows:rows];
     self.texture = m_texture;
@@ -59,7 +64,7 @@
 - (void)setCurrentJudgement:(TMJudgement)judgement andTimingFlag:(TMTimingFlag)flag
 {
     frameIndex = judgement * 2 + flag;
-    switch (judgement)
+    switch ( judgement )
     {
         default:
             [self finishKeyFrames];
@@ -99,7 +104,12 @@
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
-    switch (message.messageId)
+    if ( g_pGameState->m_bIsGlobalSync )
+    {
+        return;
+    }
+
+    switch ( message.messageId )
     {
         case kNoteScoreMessage:
 

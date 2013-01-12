@@ -12,6 +12,9 @@
 #import "TMNote.h"
 #import "TMMessage.h"
 #import "MessageManager.h"
+#import "GameState.h"
+
+extern TMGameState *g_pGameState;
 
 @interface HoldJudgement (Private)
 - (void)drawHoldJudgement:(TMHoldJudgement)judgement forTrack:(TMAvailableTracks)track;
@@ -31,7 +34,7 @@
 - (void)reset
 {
     int i;
-    for (i = 0; i < kNumOfAvailableTracks; ++i)
+    for ( i = 0; i < kNumOfAvailableTracks; ++i )
     {
         m_dElapsedTime[i] = 0.0f;
         m_nCurrentJudgement[i] = kHoldJudgementNone;
@@ -41,11 +44,13 @@
 - (id)initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows
 {
     self = [super initWithImage:uiImage columns:columns andRows:rows];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Cache metrics
-    for (int i = 0; i < kNumOfAvailableTracks; ++i)
+    for ( int i = 0; i < kNumOfAvailableTracks; ++i )
     {
         mt_HoldJudgement[i] = POINT_METRIC(([NSString stringWithFormat:@"SongPlay HoldJudgement %d", i]));
     }
@@ -76,11 +81,10 @@
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
-
     int i;
-    for (i = 0; i < kNumOfAvailableTracks; ++i)
+    for ( i = 0; i < kNumOfAvailableTracks; ++i )
     {
-        if (m_nCurrentJudgement[i] != kHoldJudgementNone)
+        if ( m_nCurrentJudgement[i] != kHoldJudgementNone )
         {
             [self drawHoldJudgement:m_nCurrentJudgement[i] forTrack:(TMAvailableTracks) i];
         }
@@ -90,17 +94,16 @@
 /* TMLogicUpdater method */
 - (void)update:(float)fDelta
 {
-
     int i;
-    for (i = 0; i < kNumOfAvailableTracks; ++i)
+    for ( i = 0; i < kNumOfAvailableTracks; ++i )
     {
 
         // If we show some judgement we must fade it out after some period of time
-        if (m_nCurrentJudgement[i] != kHoldJudgementNone)
+        if ( m_nCurrentJudgement[i] != kHoldJudgementNone )
         {
             m_dElapsedTime[i] += fDelta;
 
-            if (m_dElapsedTime[i] >= mt_HoldJudgementMaxShowTime)
+            if ( m_dElapsedTime[i] >= mt_HoldJudgementMaxShowTime )
             {
                 m_dElapsedTime[i] = 0.0f;
                 m_nCurrentJudgement[i] = kHoldJudgementNone;
@@ -112,9 +115,14 @@
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
+    if ( g_pGameState->m_bIsGlobalSync )
+    {
+        return;
+    }
+
     TMNote *note = nil;
 
-    switch (message.messageId)
+    switch ( message.messageId )
     {
         case kHoldLostMessage:
 
