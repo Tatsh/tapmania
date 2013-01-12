@@ -24,6 +24,8 @@
 
 #import "Flurry.h"
 
+#define SavedHTTPCookiesKey @"SavedHTTPCookies"
+
 @implementation TapManiaAppDelegate
 
 @synthesize window = m_pWindow;
@@ -43,6 +45,17 @@ void uncaughtExceptionHandler(NSException *exception)
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+
+    //Restore cookies
+    NSData *cookiesData = [[NSUserDefaults standardUserDefaults] objectForKey:SavedHTTPCookiesKey];
+    if ( cookiesData )
+    {
+        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+        for ( NSHTTPCookie *cookie in cookies )
+        {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        }
+    }
 
     // Enable audio
     OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, NULL);
@@ -69,11 +82,11 @@ void uncaughtExceptionHandler(NSException *exception)
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];
 
     // Start analytics (flurry)
-	[Flurry startSession:@"X5MZSGTQ39363RN3798Z"];
+    [Flurry startSession:@"X5MZSGTQ39363RN3798Z"];
 
     // Add bg
 
-    UIImage * img = [UIImage imageNamed:[DisplayUtil getDefaultPngName]];
+    UIImage *img = [UIImage imageNamed:[DisplayUtil getDefaultPngName]];
     if ( [DisplayUtil isRetina] )
     {
         img = [UIImage imageWithCGImage:img.CGImage scale:2 orientation:img.imageOrientation];
@@ -108,6 +121,11 @@ void uncaughtExceptionHandler(NSException *exception)
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [[TapMania sharedInstance] pause];
+
+    // Save cookies
+    NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+    [[NSUserDefaults standardUserDefaults] setObject:cookiesData
+                                              forKey:SavedHTTPCookiesKey];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

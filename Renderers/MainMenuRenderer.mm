@@ -33,41 +33,64 @@
 
 #import "GameState.h"
 #import "VersionInfo.h"
-
-//@interface MainMenuRenderer (InputHandling)
-//- (void) donateButtonHit;
-//@end
+#import "DisplayUtil.h"
 
 extern TMGameState *g_pGameState;
 
+@interface MainMenuRenderer () <FacebookLikeViewDelegate, FBSessionDelegate>
+@end
+
+
 @implementation MainMenuRenderer
+{
+    CGRect mt_LikeButton;
+}
+
+@synthesize facebookLikeView = _facebookLikeView;
+
+- (id) initWithMetrics:(NSString *)inMetricsKey
+{
+    self = [super initWithMetrics:inMetricsKey];
+    if(self)
+    {
+        _facebook = [[Facebook alloc] initWithAppId:@"101720580006180" andDelegate:self];
+    }
+    return self;
+}
 
 /* TMTransitionSupport methods */
 - (void)setupForTransition
 {
     [super setupForTransition];
 
-    // Preload all required graphics
-    t_Donate = TEXTURE(@"Common Donate");
+    mt_LikeButton = RECT_METRIC(@"MainMenu LikeBtn");
 
-    // And sounds
+    // the Y is screwed up a bit because of the automatic coordinate translation. fix it in code.
+    mt_LikeButton.origin.y = ([DisplayUtil getDeviceDisplaySize].height - mt_LikeButton.origin.y)/([DisplayUtil isRetina]?2:1);
+    mt_LikeButton.origin.x = mt_LikeButton.origin.x/([DisplayUtil isRetina]?2:1);
+
+    self.facebookLikeView = [[[FacebookLikeView alloc] initWithFrame:mt_LikeButton] autorelease];
+    self.facebookLikeView.delegate = self;
+
+    self.facebookLikeView.href = [NSURL URLWithString:@"https://itunes.apple.com/app/tapmania.org/id378830500"];
+    self.facebookLikeView.layout = @"button_count";
+    self.facebookLikeView.ref = @"tapmania_game";
+    self.facebookLikeView.showFaces = NO;
+
+    self.facebookLikeView.alpha = 0;
+
+    // add it to the window
+    [[TapMania sharedInstance].m_pWindow addSubview:self.facebookLikeView];
+
+    [self.facebookLikeView load];
+
+    // sounds
     sr_BG = SOUND(@"MainMenu Music");
 
     // Create version and copyright
     Label *version = [[Label alloc] initWithMetrics:@"MainMenu Version"];
     [version setName:TAPMANIA_VERSION_STRING];
     [self pushBackChild:version];
-
-    // [self pushBackChild:[[Label alloc] initWithTitle:TAPMANIA_COPYRIGHT fontSize:12.0f andShape:CGRectMake(140, 10, 180, 20)]];
-
-    // Create donation button
-    //ImageButton* donateButton =
-    //[[ZoomEffect alloc] initWithRenderable:
-    //	 [[ImageButton alloc] initWithTexture:t_Donate andShape:CGRectMake(3, 3, 62, 31)]];
-    //[self pushBackControl:donateButton];
-
-    // Setup input handlers
-    //[donateButton setActionHandler:@selector(donateButtonHit) receiver:self];
 
     // Play music
     if (!sr_BG.playing)
@@ -95,6 +118,9 @@ extern TMGameState *g_pGameState;
 - (void)beforeTransition
 {
     [[InputEngine sharedInstance] disableDispatcher];
+
+    [self.facebookLikeView removeFromSuperview];
+    self.facebookLikeView = nil;
 }
 
 /* TMRenderable method */
@@ -104,10 +130,60 @@ extern TMGameState *g_pGameState;
     [super render:fDelta];
 }
 
-///* Input handlers */
-//- (void) donateButtonHit {
-//	NSURL* url = [NSURL URLWithString:DONATE_URL];
-//	[[UIApplication sharedApplication] openURL:url];
-//}
+- (void)dealloc
+{
+    [_facebook release];
+    [_facebookLikeView release];
+    [super dealloc];
+}
+
+#pragma mark FBSessionDelegate methods
+
+- (void)fbDidLogin
+{
+	self.facebookLikeView.alpha = 1;
+    [self.facebookLikeView load];
+}
+
+- (void)fbDidLogout
+{
+	self.facebookLikeView.alpha = 1;
+    [self.facebookLikeView load];
+}
+
+#pragma mark FacebookLikeViewDelegate methods
+
+- (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView
+{
+    [_facebook authorize:[NSArray array]];
+}
+
+- (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView
+{
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDelay:0.5];
+    self.facebookLikeView.alpha = 1;
+    [UIView commitAnimations];
+}
+
+- (void)facebookLikeViewDidLike:(FacebookLikeView *)aFacebookLikeView
+{
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Liked"
+                                                     message:@"You liked TapMania. Thanks!"
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil] autorelease];
+    [alert show];
+}
+
+- (void)facebookLikeViewDidUnlike:(FacebookLikeView *)aFacebookLikeView
+{
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unliked"
+                                                     message:@"You unliked TapMania... Really??"
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil] autorelease];
+    [alert show];
+}
 
 @end
