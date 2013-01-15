@@ -1043,9 +1043,11 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" afterPath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" afterPath="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" afterPath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" afterPath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1066,33 +1068,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FacebookLikeView.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="29" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenuRenderer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="35" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FacebookLikeView.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="8" selection-start="1925" selection-end="1925" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="iPhone5_Metrics.plist" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
@@ -1111,10 +1086,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TapManiaAppDelegate.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ThemeManager.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="86" selection-start="3246" selection-end="3246" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThemeManager.mm" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.30023095">
+              <folding>
+                <element signature="e#204#228#0" expanded="true" />
+                <element signature="e#858#945#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TapManiaAppDelegate.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="24" selection-start="507" selection-end="507" vertical-scroll-proportion="0.37526205">
+            <state line="22" column="24" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -1152,14 +1148,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/OptionsMenuRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/PadConfigRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongManagerRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongOptionsDialogRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/MainMenuRenderer.h" />
-        <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
@@ -1168,6 +1159,11 @@
         <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
+        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" />
+        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
+        <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
       </list>
     </option>
   </component>
@@ -1388,6 +1384,68 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TapMania" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebServer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TapMania" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TapMania" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Engine" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
             </PATH_ELEMENT>
@@ -1539,16 +1597,16 @@
     <frame x="6" y="22" width="1432" height="865" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32258064" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19730306" sideWeight="0.5188172" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.67741936" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.6182796" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3373656" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2392473" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38172042" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1609,89 +1667,17 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="46" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm</url>
+          <line>753</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="49" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/InputEngine.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="38" selection-start="2017" selection-end="2017" vertical-scroll-proportion="0.39461884">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="8" selection-start="1925" selection-end="1925" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Resources/FacebookLikeView.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="43" selection-start="1265" selection-end="1265" vertical-scroll-proportion="0.5650485">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="35" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="29" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="17" selection-start="1429" selection-end="1429" vertical-scroll-proportion="0.41520467">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="32" selection-start="1023" selection-end="1023" vertical-scroll-proportion="0.7012987">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="32" selection-start="1026" selection-end="1026" vertical-scroll-proportion="0.8051948">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="34" selection-start="858" selection-end="858" vertical-scroll-proportion="0.6753247">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="136" selection-start="572" selection-end="572" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="45" selection-start="2018" selection-end="2018" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#203#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/ICadeResponder.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="46" selection-start="188" selection-end="188" vertical-scroll-proportion="0.20779221">
@@ -1724,8 +1710,88 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="24" selection-start="507" selection-end="507" vertical-scroll-proportion="0.37526205">
+        <state line="22" column="24" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SettingsEngine.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="4" selection-start="573" selection-end="838" vertical-scroll-proportion="0.4809322">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="86" selection-start="3246" selection-end="3246" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="8" selection-start="1925" selection-end="1925" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSFileManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="239" column="447" selection-start="20792" selection-end="20792" vertical-scroll-proportion="0.37380952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/FacebookLikeView/FacebookLikeView/Classes/FacebookLikeView.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="29" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="22" selection-start="2193" selection-end="2193" vertical-scroll-proportion="0.32828283">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="35" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="50" selection-start="9593" selection-end="9593" vertical-scroll-proportion="0.7921478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/WebServer/index.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="72" selection-start="3402" selection-end="3402" vertical-scroll-proportion="0.37626263">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SoundSupport/AccelSoundPlayer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="339" column="0" selection-start="10560" selection-end="10560" vertical-scroll-proportion="0.33256352">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.30023095">
+          <folding>
+            <element signature="e#204#228#0" expanded="true" />
+            <element signature="e#858#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

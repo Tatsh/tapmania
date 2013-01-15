@@ -55,14 +55,14 @@
     ResourcesLoader *m_pCurrentThemeWebResources;
     ResourcesLoader *m_pCurrentNoteSkinResources;
 
-    NSMutableArray *m_aThemesList;    // A list of existing themes (directories in the 'themes' folder which contains metrics file)
-    NSMutableArray *m_aNoteskinsList;
+    NSMutableDictionary * m_themesList;    // A dict of existing themes. name -> path
+    NSMutableDictionary * m_noteskinsList; // A dict of existing noteskins. name -> path
 }
 
 @property(retain, nonatomic, readonly, getter=themeName) NSString *m_sCurrentThemeName;
-@property(retain, nonatomic, readonly, getter=themeList) NSMutableArray *m_aThemesList;
+@property(retain, nonatomic, readonly, getter=themeList) NSMutableDictionary *m_themesList;
 @property(retain, nonatomic, readonly, getter=noteskinName) NSString *m_sCurrentNoteskinName;
-@property(retain, nonatomic, readonly, getter=noteskinList) NSMutableArray *m_aNoteskinsList;
+@property(retain, nonatomic, readonly, getter=noteskinList) NSMutableDictionary  * m_noteskinsList;
 
 @property(retain, nonatomic, readonly, getter=theme) ResourcesLoader *m_pCurrentThemeResources;
 @property(retain, nonatomic, readonly, getter=sounds) ResourcesLoader *m_pCurrentThemeSoundResources;

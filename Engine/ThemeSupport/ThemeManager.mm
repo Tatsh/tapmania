@@ -29,86 +29,166 @@ extern TMGameState *g_pGameState;
 @end
 
 
+@interface ThemeManager ()
+- (void)addNoteskinFromDir:(NSString *)path;
+
+- (void)addThemeFromDir:(NSString *)path;
+
+@end
+
 @implementation ThemeManager
 
-@synthesize m_aThemesList, m_sCurrentThemeName, m_aNoteskinsList, m_sCurrentNoteskinName;
+@synthesize m_sCurrentThemeName, m_sCurrentNoteskinName, m_noteskinsList, m_themesList;
 @synthesize m_pCurrentThemeResources, m_pCurrentThemeWebResources, m_pCurrentNoteSkinResources, m_pCurrentThemeSoundResources;
 
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     /* We must list all the themes and store them into the mThemesList array */
-    m_aThemesList = [[NSMutableArray alloc] initWithCapacity:1];
-    m_aNoteskinsList = [[NSMutableArray alloc] initWithCapacity:1];
+    m_themesList = [[NSMutableDictionary alloc] initWithCapacity:1];
+    m_noteskinsList = [[NSMutableDictionary alloc] initWithCapacity:1];
 
     int i;
 
     NSString *themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];
+    NSString *userThemesDir = nil;
+    NSString *noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];
+    NSString *userNoteskinsDir = nil;
+
+    TMLog(@"Point noteskins dir to '%@'!", noteskinsDir);
     TMLog(@"Point themes dir to '%@'!", themesDir);
 
-    NSString *noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];
-    TMLog(@"Point noteskins dir to '%@'!", noteskinsDir);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ( [paths count] > 0 )
+    {
+        NSString *dir = [paths objectAtIndex:0];
+        userThemesDir = [dir stringByAppendingPathComponent:@"themes"];
+        userNoteskinsDir = [dir stringByAppendingPathComponent:@"noteskins"];
+    }
 
     NSArray *themesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:themesDir];
     NSArray *noteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:noteskinsDir];
 
     // Raise error if empty themes dir
-    if ([themesDirContents count] == 0 || [noteskinsDirContents count] == 0)
+    if ( [themesDirContents count] == 0 || [noteskinsDirContents count] == 0 )
     {
         TMLog(@"Oops! Themes dir or noteskins dir is empty. This should never happen."); // We should have the default themes always
         return nil;
     }
 
     // Iterate through the themes
-    for (i = 0; i < [themesDirContents count]; i++)
+    for ( i = 0; i < [themesDirContents count]; i++ )
     {
         NSString *themeDirName = [themesDirContents objectAtIndex:i];
         NSString *path = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", themeDirName];
 
         // Check the Metrics.plist file
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:path] )
         {
             // Ok. Looks like a valid tapmania theme.. need to check the SystemVersion number
             NSDictionary *themeMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
             NSNumber *version = [themeMetrics objectForKey:@"ThemeSystemVersion"];
 
-            if (version != nil && [version doubleValue] == TAPMANIA_THEME_VERSION)
+            if ( version != nil && [version doubleValue] == TAPMANIA_THEME_VERSION )
             {
-                [m_aThemesList addObject:themeDirName];
+                [m_themesList setObject:[themesDir stringByAppendingPathComponent:themeDirName]
+                                 forKey:themeDirName];
                 TMLog(@"Added theme '%@' to themes list.", themeDirName);
             }
         }
     }
 
     // Iterate through the noteskins
-    for (i = 0; i < [noteskinsDirContents count]; i++)
+    for ( i = 0; i < [noteskinsDirContents count]; i++ )
     {
         NSString *noteskinDirName = [noteskinsDirContents objectAtIndex:i];
         NSString *path = [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", noteskinDirName];
 
         // Check the Metrics.plist file
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:path] )
         {
             // Ok. Looks like a valid tapmania noteskin.. need to check the SystemVersion number
             NSDictionary *skinMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
             NSNumber *version = [skinMetrics objectForKey:@"NoteskinSystemVersion"];
 
-            if (version != nil && [version doubleValue] == TAPMANIA_NOTESKIN_VERSION)
+            if ( version != nil && [version doubleValue] == TAPMANIA_NOTESKIN_VERSION )
             {
-                [m_aNoteskinsList addObject:noteskinDirName];
+                [m_noteskinsList setObject:[noteskinsDir stringByAppendingPathComponent:noteskinDirName]
+                                    forKey:noteskinDirName];
+
                 TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
             }
         }
     }
 
+
+    // Now add from user themes/skins
+    NSArray *userThemesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:userThemesDir];
+    NSArray *userNoteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:userNoteskinsDir];
+
+    // Iterate through the themes
+    for ( i = 0; i < [userThemesDirContents count]; i++ )
+    {
+        NSString *themeDirName = [userThemesDirContents objectAtIndex:i];
+        NSString *path = [userThemesDir stringByAppendingFormat:@"/%@/Metrics.plist", themeDirName];
+
+        // Check the Metrics.plist file
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:path] )
+        {
+            // Ok. Looks like a valid tapmania theme.. need to check the SystemVersion number
+            NSDictionary *themeMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
+            NSNumber *version = [themeMetrics objectForKey:@"ThemeSystemVersion"];
+
+            if ( version != nil && [version doubleValue] == TAPMANIA_THEME_VERSION )
+            {
+                if ( ![m_themesList objectForKey:themeDirName] )
+                {
+                    [m_themesList setObject:[userThemesDir stringByAppendingPathComponent:themeDirName]
+                                     forKey:themeDirName];
+
+                    TMLog(@"Added theme '%@' to themes list.", themeDirName);
+                }
+            }
+        }
+    }
+
+    // Iterate through the noteskins
+    for ( i = 0; i < [userNoteskinsDirContents count]; i++ )
+    {
+        NSString *noteskinDirName = [userNoteskinsDirContents objectAtIndex:i];
+        NSString *path = [userNoteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", noteskinDirName];
+
+        // Check the Metrics.plist file
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:path] )
+        {
+            // Ok. Looks like a valid tapmania noteskin.. need to check the SystemVersion number
+            NSDictionary *skinMetrics = [NSDictionary dictionaryWithContentsOfFile:path];
+            NSNumber *version = [skinMetrics objectForKey:@"NoteskinSystemVersion"];
+
+            if ( version != nil && [version doubleValue] == TAPMANIA_NOTESKIN_VERSION )
+            {
+                if ( ![m_noteskinsList objectForKey:noteskinDirName] )
+                {
+                    [m_noteskinsList setObject:[userNoteskinsDir stringByAppendingPathComponent:noteskinDirName]
+                                        forKey:noteskinDirName];
+
+                    TMLog(@"Added noteskin '%@' to noteskins list.", noteskinDirName);
+                }
+            }
+        }
+    }
+
     // Set mode
-    if (g_pGameState->m_bLandscape)
+    if ( g_pGameState->m_bLandscape )
     {
         m_sCurrentMode = [@"Landscape" retain];
-    } else
+    }
+    else
     {
         m_sCurrentMode = [kDefaultMode retain];
     }
@@ -118,24 +198,22 @@ extern TMGameState *g_pGameState;
 
 - (void)selectTheme:(NSString *)themeName
 {
+    NSString *themeDir = [m_themesList objectForKey:themeName];
 
-    if ([m_aThemesList containsObject:themeName])
+    if ( themeDir )
     {
         m_sCurrentThemeName = themeName;
 
-        NSString *themesDir = [[NSBundle mainBundle] pathForResource:@"themes" ofType:nil];
+        NSString *themeGraphicsPath = [themeDir stringByAppendingPathComponent:@"Graphics/"];
+        NSString *themeWebPath = [themeDir stringByAppendingPathComponent:@"WebServer/"];
+        NSString *themeFontsPath = [themeDir stringByAppendingPathComponent:@"Fonts"];
+        NSString *themeSoundsPath = [themeDir stringByAppendingPathComponent:@"Sounds/"];
 
-        NSString *themeGraphicsPath = [themesDir stringByAppendingFormat:@"/%@/Graphics/", m_sCurrentThemeName];
-        NSString *themeWebPath = [themesDir stringByAppendingFormat:@"/%@/WebServer/", m_sCurrentThemeName];
-        NSString *themeFontsPath = [themesDir stringByAppendingFormat:@"/%@/Fonts/", m_sCurrentThemeName];
-        NSString *themeSoundsPath = [themesDir stringByAppendingFormat:@"/%@/Sounds/", m_sCurrentThemeName];
+        NSString *filePath = [themeDir stringByAppendingPathComponent:@"Metrics.plist"];
+        NSString *dpFilePath = [themeDir stringByAppendingFormat:@"/%@_Metrics.plist",
+                                                                 [DisplayUtil getDeviceDisplayString]];
 
-        NSString *filePath = [themesDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentThemeName];
-        NSString *dpFilePath = [themesDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
-            m_sCurrentThemeName, [DisplayUtil getDeviceDisplayString]];
-
-
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:filePath] )
         {
             m_pCurrentThemeMetrics = [[Metrics alloc] initWithContentsOfFile:filePath];
             m_pCurrentThemeResources = [[ResourcesLoader alloc] initWithPath:themeGraphicsPath type:kResourceLoaderGraphics andDelegate:self];
@@ -147,29 +225,31 @@ extern TMGameState *g_pGameState;
 
             TMLog(@"Metrics and resources are loaded for theme '%@'.", m_sCurrentThemeName);
 
-            if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+            if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
             {
                 TMLog(@"iPhone5 detected. First override everything with iPhoneRetina version and then apply iPhone5 if found.");
-                NSString *dpRetinaFilePath = [themesDir stringByAppendingFormat:@"/%@/iPhoneRetina_Metrics.plist", m_sCurrentThemeName];
+                NSString *dpRetinaFilePath = [themeDir stringByAppendingPathComponent:@"iPhoneRetina_Metrics.plist"];
 
-                if ([[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath])
+                if ( [[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath] )
                 {
                     TMLog(@"iPhoneRetina version found. Override with it first and then try to apply iPhone5.");
                     [m_pCurrentThemeMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpRetinaFilePath] autorelease]];
                 }
             }
 
-            if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+            if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
             {
                 TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
                 [m_pCurrentThemeMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
             }
-        } else
+        }
+        else
         {
             TMLog(@"Couldn't load Metrics.plist file from the selected theme! This should not happen.");
             exit(127);
         }
-    } else
+    }
+    else
     {
         TMLog(@"Theme '%@' is no longer available. Switch to default.", themeName);
         [self selectTheme:kDefaultThemeName];
@@ -178,43 +258,47 @@ extern TMGameState *g_pGameState;
 
 - (void)selectNoteskin:(NSString *)skinName
 {
-    if ([m_aNoteskinsList containsObject:skinName])
-    {
+    NSString *noteskinDir = [m_noteskinsList objectForKey:skinName];
 
-        if (m_pCurrentNoteSkinMetrics)
+    if ( noteskinDir )
+    {
+        if ( m_pCurrentNoteSkinMetrics )
+        {
             [m_pCurrentNoteSkinMetrics release];
-        if (m_pCurrentNoteSkinResources)
+        }
+        if ( m_pCurrentNoteSkinResources )
+        {
             [m_pCurrentNoteSkinResources release];
+        }
 
         m_sCurrentNoteskinName = skinName;
 
-        NSString *noteskinsDir = [[NSBundle mainBundle] pathForResource:@"noteskins" ofType:nil];
-        NSString *skinPath = [noteskinsDir stringByAppendingPathComponent:skinName];
-        NSString *filePath = [noteskinsDir stringByAppendingFormat:@"/%@/Metrics.plist", m_sCurrentNoteskinName];
-        NSString *dpFilePath = [noteskinsDir stringByAppendingFormat:@"/%@/%@_Metrics.plist",
-            m_sCurrentNoteskinName, [DisplayUtil getDeviceDisplayString]];
+        NSString *filePath = [noteskinDir stringByAppendingPathComponent:@"Metrics.plist"];
+        NSString *dpFilePath = [noteskinDir stringByAppendingFormat:@"/%@_Metrics.plist",
+                                                                    [DisplayUtil getDeviceDisplayString]];
 
         m_pCurrentNoteSkinMetrics = [[Metrics alloc] initWithContentsOfFile:filePath];
-        m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:skinPath type:kResourceLoaderNoteSkin andDelegate:self];
+        m_pCurrentNoteSkinResources = [[ResourcesLoader alloc] initWithPath:noteskinDir type:kResourceLoaderNoteSkin andDelegate:self];
 
-        if ([[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"])
+        if ( [[DisplayUtil getDeviceDisplayString] isEqualToString:@"iPhone5"] )
         {
             TMLog(@"iPhone5 detected. First override everything with iPhoneRetina version and then apply iPhone5 if found.");
-            NSString *dpRetinaFilePath = [noteskinsDir stringByAppendingFormat:@"/%@/iPhoneRetina_Metrics.plist", m_sCurrentNoteskinName];
+            NSString *dpRetinaFilePath = [noteskinDir stringByAppendingPathComponent:@"iPhoneRetina_Metrics.plist"];
 
-            if ([[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath])
+            if ( [[NSFileManager defaultManager] fileExistsAtPath:dpRetinaFilePath] )
             {
                 TMLog(@"iPhoneRetina version found. Override with it first and then try to apply iPhone5.");
                 [m_pCurrentNoteSkinMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpRetinaFilePath] autorelease]];
             }
         }
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:dpFilePath])
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:dpFilePath] )
         {
             TMLog(@"There is a resolution-perfect version with overrides. Override from there...");
             [m_pCurrentNoteSkinMetrics overrideWith:[[[Metrics alloc] initWithContentsOfFile:dpFilePath] autorelease]];
         }
-    } else
+    }
+    else
     {
         TMLog(@"NoteSkin '%@' is no longer available. Switch to default.", skinName);
         [self selectNoteskin:kDefaultNoteSkinName];
@@ -224,8 +308,10 @@ extern TMGameState *g_pGameState;
 - (BOOL)boolMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node)
-        return NO; // Defualt value
+    if ( !node )
+    {
+        return NO;
+    } // Defualt value
 
     return [(NSNumber *) node boolValue];
 }
@@ -233,8 +319,10 @@ extern TMGameState *g_pGameState;
 - (int)intMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node)
-        return 0; // Defualt value
+    if ( !node )
+    {
+        return 0;
+    } // Defualt value
 
     return [(NSNumber *) node intValue];
 }
@@ -242,8 +330,10 @@ extern TMGameState *g_pGameState;
 - (float)floatMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node)
-        return 0.0f; // Defualt value
+    if ( !node )
+    {
+        return 0.0f;
+    } // Defualt value
 
     return [(NSNumber *) node floatValue];
 }
@@ -251,8 +341,10 @@ extern TMGameState *g_pGameState;
 - (NSString *)stringMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node)
+    if ( !node )
+    {
         return nil;
+    }
 
     return [[NSString stringWithString:(NSString *) node] autorelease];
 }
@@ -260,8 +352,10 @@ extern TMGameState *g_pGameState;
 - (CGRect)rectMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGRectMake(0, 0, 0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGRectMake(0, 0, 0, 0);
+    } // Defualt value
 
     int x = [[(NSDictionary *) node objectForKey:@"X"] intValue];
     int y = [[(NSDictionary *) node objectForKey:@"Y"] intValue];
@@ -274,8 +368,10 @@ extern TMGameState *g_pGameState;
 - (CGPoint)pointMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGPointMake(0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGPointMake(0, 0);
+    } // Defualt value
 
     int x = [[(NSDictionary *) node objectForKey:@"X"] intValue];
     int y = [[(NSDictionary *) node objectForKey:@"Y"] intValue];
@@ -286,8 +382,10 @@ extern TMGameState *g_pGameState;
 - (CGSize)sizeMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGSizeMake(0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGSizeMake(0, 0);
+    } // Defualt value
 
     int width = [[(NSDictionary *) node objectForKey:@"Width"] intValue];
     int height = [[(NSDictionary *) node objectForKey:@"Height"] intValue];
@@ -298,8 +396,10 @@ extern TMGameState *g_pGameState;
 - (NSArray *)arrayMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node || ![node isKindOfClass:[NSArray class]])
+    if ( !node || ![node isKindOfClass:[NSArray class]] )
+    {
         return nil;
+    }
 
     return (NSArray *) node;
 }
@@ -307,8 +407,10 @@ extern TMGameState *g_pGameState;
 - (NSDictionary *)dictMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentThemeMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
         return nil;
+    }
 
     return (NSDictionary *) node;
 }
@@ -317,8 +419,10 @@ extern TMGameState *g_pGameState;
 - (int)intSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node)
-        return 0; // Defualt value
+    if ( !node )
+    {
+        return 0;
+    } // Defualt value
 
     return [(NSNumber *) node intValue];
 }
@@ -326,8 +430,10 @@ extern TMGameState *g_pGameState;
 - (float)floatSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node)
-        return 0.0f; // Defualt value
+    if ( !node )
+    {
+        return 0.0f;
+    } // Defualt value
 
     return [(NSNumber *) node floatValue];
 }
@@ -335,8 +441,10 @@ extern TMGameState *g_pGameState;
 - (NSString *)stringSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node)
+    if ( !node )
+    {
         return nil;
+    }
 
     return [[NSString stringWithString:(NSString *) node] autorelease];
 }
@@ -344,8 +452,10 @@ extern TMGameState *g_pGameState;
 - (CGRect)rectSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGRectMake(0, 0, 0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGRectMake(0, 0, 0, 0);
+    } // Defualt value
 
     int x = [[(NSDictionary *) node objectForKey:@"X"] intValue];
     int y = [[(NSDictionary *) node objectForKey:@"Y"] intValue];
@@ -358,8 +468,10 @@ extern TMGameState *g_pGameState;
 - (CGPoint)pointSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGPointMake(0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGPointMake(0, 0);
+    } // Defualt value
 
     int x = [[(NSDictionary *) node objectForKey:@"X"] intValue];
     int y = [[(NSDictionary *) node objectForKey:@"Y"] intValue];
@@ -370,8 +482,10 @@ extern TMGameState *g_pGameState;
 - (CGSize)sizeSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
-        return CGSizeMake(0, 0); // Defualt value
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
+        return CGSizeMake(0, 0);
+    } // Defualt value
 
     int width = [[(NSDictionary *) node objectForKey:@"Width"] intValue];
     int height = [[(NSDictionary *) node objectForKey:@"Height"] intValue];
@@ -382,8 +496,10 @@ extern TMGameState *g_pGameState;
 - (NSArray *)arraySkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node || ![node isKindOfClass:[NSArray class]])
+    if ( !node || ![node isKindOfClass:[NSArray class]] )
+    {
         return nil;
+    }
 
     return (NSArray *) node;
 }
@@ -391,8 +507,10 @@ extern TMGameState *g_pGameState;
 - (NSDictionary *)dictSkinMetric:(NSString *)metricKey
 {
     NSObject *node = [self lookUpNode:metricKey from:m_pCurrentNoteSkinMetrics];
-    if (!node || ![node isKindOfClass:[NSDictionary class]])
+    if ( !node || ![node isKindOfClass:[NSDictionary class]] )
+    {
         return nil;
+    }
 
     return (NSDictionary *) node;
 }
@@ -401,7 +519,7 @@ extern TMGameState *g_pGameState;
 {
     TMResource *resource = [m_pCurrentThemeResources getResource:textureKey];
 
-    if (resource)
+    if ( resource )
     {
         return (Texture2D *) [resource resource];
     }
@@ -415,7 +533,7 @@ extern TMGameState *g_pGameState;
 {
     TMResource *resource = [m_pCurrentThemeSoundResources getResource:soundKey];
 
-    if (resource)
+    if ( resource )
     {
         return (TMSound *) [resource resource];
     }
@@ -428,7 +546,7 @@ extern TMGameState *g_pGameState;
 - (TMFramedTexture *)skinTexture:(NSString *)textureKey
 {
     TMResource *resource = [m_pCurrentNoteSkinResources getResource:textureKey];
-    if (resource)
+    if ( resource )
     {
         return (TMFramedTexture *) [resource resource];
     }
@@ -448,16 +566,16 @@ extern TMGameState *g_pGameState;
     NSObject *tmp = rootObj;
     int i;
 
-    for (i = 0; i < [pathChunks count] - 1; ++i)
+    for ( i = 0; i < [pathChunks count] - 1; ++i )
     {
-        if (tmp != nil && ([tmp isKindOfClass:[NSDictionary class]] || [tmp isKindOfClass:[Metrics class]]))
+        if ( tmp != nil && ([tmp isKindOfClass:[NSDictionary class]] || [tmp isKindOfClass:[Metrics class]]) )
         {
             // Search next component
             tmp = [tmp objectForKey:[pathChunks objectAtIndex:i]];
         }
     }
 
-    if (tmp != nil)
+    if ( tmp != nil )
     {
         tmp = [[tmp objectForKey:[pathChunks lastObject]] retain];
     }
@@ -469,27 +587,27 @@ extern TMGameState *g_pGameState;
 /* ResourcesLoaderSupport delegate work */
 - (BOOL)resourceTypeSupported:(NSString *)itemName
 {
-    if ([[itemName lowercaseString] hasSuffix:@".png"] || [[itemName lowercaseString] hasSuffix:@".jpg"] ||
-            [[itemName lowercaseString] hasSuffix:@".gif"] || [[itemName lowercaseString] hasSuffix:@".bmp"])
+    if ( [[itemName lowercaseString] hasSuffix:@".png"] || [[itemName lowercaseString] hasSuffix:@".jpg"] ||
+            [[itemName lowercaseString] hasSuffix:@".gif"] || [[itemName lowercaseString] hasSuffix:@".bmp"] )
     {
         return YES;
     }
 
     // Another way is redirection. .redir files therefore should also be accepted
-    if ([[itemName lowercaseString] hasSuffix:@".redir"])
+    if ( [[itemName lowercaseString] hasSuffix:@".redir"] )
     {
         return YES;
     }
 
     // We are also going to support htm/html files for our built-in web server
-    if ([[itemName lowercaseString] hasSuffix:@".htm"] || [[itemName lowercaseString] hasSuffix:@".html"])
+    if ( [[itemName lowercaseString] hasSuffix:@".htm"] || [[itemName lowercaseString] hasSuffix:@".html"] )
     {
         return YES;
     }
 
     // Sounds
-    if ([[itemName lowercaseString] hasSuffix:@".mp3"] || [[itemName lowercaseString] hasSuffix:@".ogg"] ||
-            [[itemName lowercaseString] hasSuffix:@".caf"] || [[itemName lowercaseString] hasSuffix:@".wav"])
+    if ( [[itemName lowercaseString] hasSuffix:@".mp3"] || [[itemName lowercaseString] hasSuffix:@".ogg"] ||
+            [[itemName lowercaseString] hasSuffix:@".caf"] || [[itemName lowercaseString] hasSuffix:@".wav"] )
     {
         return YES;
     }
@@ -510,19 +628,19 @@ extern TMGameState *g_pGameState;
     TMLog(@"Going to test dir '%@' for skins...", rootDir);
 
     // Check whether this dir is a simfile dir already
-    if (![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"])
+    if ( ![[rootDir lastPathComponent] hasPrefix:@"__MACOSX"] )
     {
-        if ([self dirIsTheme:rootDir])
+        if ( [self dirIsTheme:rootDir] )
         {
             TMLog(@"Found a potential Theme directory. try to add files from there..");
-//			[self addThemeFromDir:rootDir];
+            [self addThemeFromDir:rootDir];
 
             return;
-
-        } else if ([self dirIsNoteskin:rootDir])
+        }
+        else if ( [self dirIsNoteskin:rootDir] )
         {
             TMLog(@"Found a potential Noteskin directory. try to add files from there..");
-            // [self addNoteskinFromDir:rootDir];
+            [self addNoteskinFromDir:rootDir];
 
             return;
         }
@@ -533,21 +651,23 @@ extern TMGameState *g_pGameState;
     NSArray *rootDirContents = [fMan directoryContentsAtPath:rootDir];
 
     // If the dir is empty, leave
-    if ([rootDirContents count] == 0)
+    if ( [rootDirContents count] == 0 )
     {
         return;
     }
 
     // Iterate over the contents
-    for (NSString *item in rootDirContents)
+    for ( NSString *item in rootDirContents )
     {
-        if ([item hasPrefix:@"__MACOSX"])
+        if ( [item hasPrefix:@"__MACOSX"] )
+        {
             continue;
+        }
 
         BOOL isDir = NO;
         NSString *path = [rootDir stringByAppendingPathComponent:item];
 
-        if ([fMan fileExistsAtPath:path isDirectory:&isDir] && isDir)
+        if ( [fMan fileExistsAtPath:path isDirectory:&isDir] && isDir )
         {
             TMLog(@"Recursively try '%@'...", path);
             [self addSkinsFrom:path];
@@ -561,17 +681,17 @@ extern TMGameState *g_pGameState;
 
     TMLog(@"Test dir '%@' for theme contents...", path);
 
-    for (NSString *file in contents)
+    for ( NSString *file in contents )
     {
         TMLog(@"Examine file/dir: %@", file);
 
         // If found a metrics file it could be a theme/noteskin. match
-        if ([file isEqualToString:@"Metrics.plist"])
+        if ( [file isEqualToString:@"Metrics.plist"] )
         {
             // Read it in
             NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:file]];
             NSNumber *version = [plist objectForKey:@"ThemeSystemVersion"];
-            if (version != nil && TAPMANIA_THEME_VERSION == [version doubleValue])
+            if ( version != nil && TAPMANIA_THEME_VERSION == [version doubleValue] )
             {
                 TMLog(@"Found a theme!");
                 return YES;
@@ -588,17 +708,17 @@ extern TMGameState *g_pGameState;
 
     TMLog(@"Test dir '%@' for noteskin contents...", path);
 
-    for (NSString *file in contents)
+    for ( NSString *file in contents )
     {
         TMLog(@"Examine file/dir: %@", file);
 
         // If found a metrics file it could be a theme/noteskin. match
-        if ([file isEqualToString:@"Metrics.plist"])
+        if ( [file isEqualToString:@"Metrics.plist"] )
         {
             // Read it in
             NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:file]];
             NSNumber *version = [plist objectForKey:@"NoteskinSystemVersion"];
-            if (version != nil && TAPMANIA_NOTESKIN_VERSION == [version doubleValue])
+            if ( version != nil && TAPMANIA_NOTESKIN_VERSION == [version doubleValue] )
             {
                 TMLog(@"Found a noteskin!");
                 return YES;
@@ -611,35 +731,84 @@ extern TMGameState *g_pGameState;
 
 - (void)addNoteskinFromDir:(NSString *)path
 {
-//	NSString* curPath = [[self getSongsPath:kUserSongsPath] stringByAppendingPathComponent:[path lastPathComponent]];
-//	BOOL isDir;
-//	
-//	// Check whether the Song already exists in the catalogue
-//	if( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] ) {
-//		// TODO: handle situation. report to user.
-//		return;
-//	}
-//	
-//	// TODO handle errors
-//	NSError* err;
-//	
-//	if([[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err]) {
-//		if([self addSongToLibrary:curPath fromSongsPathId:kUserSongsPath useCache:NO]) {
-//			// Write cache file
-//			[[SongsDirectoryCache sharedInstance] writeCatalogueCache];
-//		}
-//	}
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dir = [paths objectAtIndex:0];
+    NSString *userNoteskinsDir = [dir stringByAppendingPathComponent:@"noteskins"];
+    NSString *name = [path lastPathComponent];
+
+    NSString *curPath = [userNoteskinsDir stringByAppendingPathComponent:name];
+
+    NSError *err = nil;
+    BOOL isDir;
+
+    // Check whether we need to create the skins dir
+    if ( ![[NSFileManager defaultManager] fileExistsAtPath:userNoteskinsDir isDirectory:&isDir] )
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:userNoteskinsDir attributes:nil];
+    }
+
+    // Check whether the skin already exists in the user noteskins directory
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] )
+    {
+        // Overwrite
+        [[NSFileManager defaultManager] removeItemAtPath:curPath error:&err];
+    }
+
+    if ( [[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err] )
+    {
+        NSString *p = [m_noteskinsList objectForKey:name];
+        if ( p == nil )
+        {
+            // Didn't exist before
+            [m_noteskinsList setObject:curPath forKey:name];
+        }
+    }
 }
 
+- (void)addThemeFromDir:(NSString *)path
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dir = [paths objectAtIndex:0];
+    NSString *userThemesDir = [dir stringByAppendingPathComponent:@"themes"];
+    NSString *name = [path lastPathComponent];
+
+    NSString *curPath = [userThemesDir stringByAppendingPathComponent:name];
+
+    NSError *err = nil;
+    BOOL isDir;
+
+    // Check whether we need to create the themes dir
+    if ( ![[NSFileManager defaultManager] fileExistsAtPath:userThemesDir isDirectory:&isDir] )
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:userThemesDir attributes:nil];
+    }
+
+    // Check whether the theme already exists in the user themes directory
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:curPath isDirectory:&isDir] )
+    {
+        // Overwrite
+        [[NSFileManager defaultManager] removeItemAtPath:curPath error:&err];
+    }
+
+    if ( [[NSFileManager defaultManager] copyItemAtPath:path toPath:curPath error:&err] )
+    {
+        NSString *p = [m_themesList objectForKey:name];
+        if ( p == nil )
+        {
+            // Didn't exist before
+            [m_themesList setObject:curPath forKey:name];
+        }
+    }
+}
 
 #pragma mark -
 #pragma mark Singleton stuff
 
 + (ThemeManager *)sharedInstance
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedThemeManagerDelegate == nil)
+        if ( sharedThemeManagerDelegate == nil )
         {
             [[self alloc] init];
         }
@@ -649,9 +818,9 @@ extern TMGameState *g_pGameState;
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedThemeManagerDelegate == nil)
+        if ( sharedThemeManagerDelegate == nil )
         {
             sharedThemeManagerDelegate = [super allocWithZone:zone];
             return sharedThemeManagerDelegate;
@@ -680,6 +849,13 @@ extern TMGameState *g_pGameState;
 - (id)autorelease
 {
     return self;
+}
+
+- (void)dealloc
+{
+    [m_themesList release];
+    [m_noteskinsList release];
+    [super dealloc];
 }
 
 @end
