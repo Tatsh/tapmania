@@ -27,8 +27,5 @@
 
 @property(nonatomic, retain) UIImageView * fakeDefaultPng;
 
-- (void)removeFakeDefaultPng;
-
-
 @end
 

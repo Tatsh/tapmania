@@ -12,19 +12,17 @@
 #import "TapMania.h"
 #import "MessageManager.h"
 #import "TMMessage.h"
-#import "TDBSearch.h"
 #import "JoyPad.h"
 #import "DisplayUtil.h"
 
-#import <OpenAL/al.h>
-#import <OpenAL/alc.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import <AudioToolbox/AudioFile.h>
-#import <AVFoundation/AVFoundation.h>
 
 #import "Flurry.h"
 
+
+#define kReminderTimeout 60*60*24*3
 #define SavedHTTPCookiesKey @"SavedHTTPCookies"
+
 
 @implementation TapManiaAppDelegate
 
@@ -40,7 +38,7 @@ void uncaughtExceptionHandler(NSException *exception)
     [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application
+- (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 
@@ -116,6 +114,12 @@ void uncaughtExceptionHandler(NSException *exception)
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[TapMania sharedInstance] resume];
+
+    // In case play reminder fired
+    application.applicationIconBadgeNumber = 0;
+
+    // Make sure old one is not active anymore
+    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -126,6 +130,26 @@ void uncaughtExceptionHandler(NSException *exception)
     NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
     [[NSUserDefaults standardUserDefaults] setObject:cookiesData
                                               forKey:SavedHTTPCookiesKey];
+
+    // Reset local-notification reminder
+    UILocalNotification *localNotif = [[[UILocalNotification alloc] init] autorelease];
+    if ( localNotif == nil )
+    {
+        return;
+    }
+
+    NSDate *reminderDate = [NSDate dateWithTimeIntervalSinceNow:kReminderTimeout];
+
+    localNotif.fireDate = reminderDate;
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+
+    localNotif.alertBody = [NSString stringWithFormat:@"Fancy a game? ;-)"];
+    localNotif.alertAction = @"Play now!";
+
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 1;
+
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
