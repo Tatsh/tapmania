@@ -1044,10 +1044,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" afterPath="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" afterPath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" afterPath="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1095,10 +1092,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThemeManager.mm" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ThemeManager.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.30023095">
+            <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#204#228#0" expanded="true" />
                 <element signature="e#858#945#0" expanded="true" />
@@ -1116,10 +1113,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Metrics.plist" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="211" column="40" selection-start="8381" selection-end="8381" vertical-scroll-proportion="0.08083141">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SongPlayRenderer.mm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="500" column="19" selection-start="14655" selection-end="14655" vertical-scroll-proportion="0.0">
+            <state line="205" column="34" selection-start="5545" selection-end="5545" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#203#231#0" expanded="true" />
               </folding>
@@ -1156,13 +1162,13 @@
         <option value="$PROJECT_DIR$/Data/themes/default/iPadRetina_Metrics.plist" />
         <option value="$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist" />
         <option value="$PROJECT_DIR$/Renderers/MainMenuRenderer.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.h" />
         <option value="$PROJECT_DIR$/Engine/TapManiaAppDelegate.mm" />
         <option value="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.h" />
-        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" />
         <option value="$PROJECT_DIR$/Data/themes/default/WebServer/Success.htm" />
         <option value="$PROJECT_DIR$/Data/themes/default/WebServer/index.htm" />
+        <option value="$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm" />
+        <option value="$PROJECT_DIR$/Renderers/SongPlayRenderer.mm" />
         <option value="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
       </list>
     </option>
@@ -1685,15 +1691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="500" column="19" selection-start="14655" selection-end="14655" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#203#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UILocalNotification.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="40" selection-start="1598" selection-end="1598" vertical-scroll-proportion="0.639485">
@@ -1764,13 +1761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="238" column="50" selection-start="9593" selection-end="9593" vertical-scroll-proportion="0.7921478">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/WebServer/index.htm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="137" column="72" selection-start="3402" selection-end="3402" vertical-scroll-proportion="0.37626263">
@@ -1787,11 +1777,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/ThemeSupport/ThemeManager.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.30023095">
+        <state line="764" column="53" selection-start="26068" selection-end="26068" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#204#228#0" expanded="true" />
             <element signature="e#858#945#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="205" column="34" selection-start="5545" selection-end="5545" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#203#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="211" column="40" selection-start="8381" selection-end="8381" vertical-scroll-proportion="0.08083141">
+          <folding />
         </state>
       </provider>
     </entry>
