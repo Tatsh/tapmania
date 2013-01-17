@@ -331,7 +331,9 @@
 		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
 		F44B2687E0FD4390BAB5EA37 /* CDTitleDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */; };
 		F44B293E85809CC89DA1A808 /* SystemSongs in Resources */ = {isa = PBXBuildFile; fileRef = F44B2D70FC6879AAEC0520EE /* SystemSongs */; };
+		F44B2A3431791A9F1D47E07F /* GameCenterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B29E290123BA7E9BC7F14 /* GameCenterManager.mm */; };
 		F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B213EF30E39B8D26F6EDA /* Default@2x.png */; };
+		F44B2B62DDEF5967BEDB6E82 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44B2034AC6F798485D2CA8D /* GameKit.framework */; };
 		F44B2FC47227F6F63FC883B6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */; };
 		F44B2FC68D37FA5009A0868A /* BpmDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B20BC526C238EAD69ACAC /* BpmDisplay.mm */; };
 /* End PBXBuildFile section */
@@ -930,13 +932,16 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4433E8411CAEC9C005AC29A /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		F4433E8511CAEC9C005AC29A /* Sprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sprite.mm; sourceTree = "<group>"; };
+		F44B2034AC6F798485D2CA8D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		F44B20BC526C238EAD69ACAC /* BpmDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BpmDisplay.mm; path = Renderers/UIElements/BpmDisplay.mm; sourceTree = "<group>"; };
 		F44B213EF30E39B8D26F6EDA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICadeResponder.h; sourceTree = "<group>"; };
+		F44B2460C70C1BBACD31D830 /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
 		F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingSyncRenderer.mm; path = Renderers/TimingSyncRenderer.mm; sourceTree = "<group>"; };
 		F44B28C90C6BB0CAA8DD914C /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = "ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h"; sourceTree = "<group>"; };
 		F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CDTitleDisplay.mm; path = Renderers/UIElements/CDTitleDisplay.mm; sourceTree = "<group>"; };
+		F44B29E290123BA7E9BC7F14 /* GameCenterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterManager.mm; sourceTree = "<group>"; };
 		F44B2AD46B7C72F408C8DCB8 /* CDTitleDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDTitleDisplay.h; path = Renderers/UIElements/CDTitleDisplay.h; sourceTree = "<group>"; };
 		F44B2C12A76D94B7443A8244 /* TimingSyncRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimingSyncRenderer.h; path = Renderers/TimingSyncRenderer.h; sourceTree = "<group>"; };
 		F44B2D70FC6879AAEC0520EE /* SystemSongs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = SystemSongs; path = Data/SystemSongs; sourceTree = "<group>"; };
@@ -975,6 +980,7 @@
 				24219CF711D26244001BCE14 /* MediaPlayer.framework in Frameworks */,
 				24219CFA11D26244001BCE14 /* iAd.framework in Frameworks */,
 				24DDE02A16696E7200E8CD8C /* libGoogleAdMobAds.a in Frameworks */,
+				F44B2B62DDEF5967BEDB6E82 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1040,6 +1046,7 @@
 				24A586080FBADFD6000954E8 /* SettingsEngine.h */,
 				24A586090FBADFD6000954E8 /* SettingsEngine.mm */,
 				F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */,
+				F44B232CC17CFC24FAF40CF7 /* NetworkSupport */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -2047,8 +2054,18 @@
 				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				F44B2034AC6F798485D2CA8D /* GameKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F44B232CC17CFC24FAF40CF7 /* NetworkSupport */ = {
+			isa = PBXGroup;
+			children = (
+				F44B29E290123BA7E9BC7F14 /* GameCenterManager.mm */,
+				F44B2460C70C1BBACD31D830 /* GameCenterManager.h */,
+			);
+			path = NetworkSupport;
 			sourceTree = "<group>";
 		};
 		F44B2F4BD94F0A0744646979 /* Flurry */ = {
@@ -2501,6 +2518,7 @@
 				2459893916A1DD2200540C01 /* SBJsonBase.m in Sources */,
 				2459893A16A1DD2200540C01 /* SBJsonParser.m in Sources */,
 				2459893B16A1DD2200540C01 /* SBJsonWriter.m in Sources */,
+				F44B2A3431791A9F1D47E07F /* GameCenterManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

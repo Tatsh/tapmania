@@ -51,6 +51,7 @@
 
 #import "DisplayUtil.h"
 #import "ICadeResponder.h"
+#import "GameCenterManager.h"
 
 TMGameState *g_pGameState;
 
@@ -236,6 +237,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 #else
     [m_pGameRunLoop performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:YES];
 #endif
+
+    // Initialize social features
+    [[GameCenterManager sharedInstance] authenticateUser];
 
     BROADCAST_MESSAGE(kApplicationStartedMessage, nil);
 }

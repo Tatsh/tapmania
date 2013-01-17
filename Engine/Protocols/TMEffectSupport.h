@@ -6,7 +6,7 @@
 //  Copyright 2009 Godexsoft. All rights reserved.
 //
 
-/* 
+/*
  * Effects can be used to do any transformations on the original object.
  * This means that we will need accessor methods to tune the position/shape of the object we apply the effect to.
  */

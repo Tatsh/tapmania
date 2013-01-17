@@ -161,4 +161,16 @@
 
     return @"Default.png";
 }
+
++ (NSString *)getDeviceTypeString
+{
+    if ( [[DisplayUtil getDeviceDisplayString] hasPrefix:@"iPad"] )
+    {
+        return @"ipad";
+    }
+    else
+    {
+        return @"iphone";
+    }
+}
 @end

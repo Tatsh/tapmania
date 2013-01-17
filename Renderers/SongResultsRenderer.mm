@@ -23,6 +23,7 @@
 #import "GLUtil.h"
 
 #import "GameState.h"
+#import "GameCenterManager.h"
 
 extern TMGameState *g_pGameState;
 
@@ -40,9 +41,11 @@ extern TMGameState *g_pGameState;
 - (void)dealloc
 {
 
-    if(_hasCustomBg)
-        [t_BG release];    
-    
+    if ( _hasCustomBg )
+    {
+        [t_BG release];
+    }
+
     // Here we MUST release memory used by the steps since after this place we will not need it anymore
     [g_pGameState->m_pSteps release];
     [g_pGameState->m_pSong release];
@@ -51,7 +54,7 @@ extern TMGameState *g_pGameState;
     g_pGameState->m_pSong = nil;
     g_pGameState->m_pSteps = nil;
 
-    for (int i = 0; i < kNumJudgementValues; ++i)
+    for ( int i = 0; i < kNumJudgementValues; ++i )
     {
         [m_pJudgeScores[i] release];
     }
@@ -71,16 +74,16 @@ extern TMGameState *g_pGameState;
     // Textures
     t_JudgeLabels = (TMFramedTexture *) TEXTURE(@"SongResults JudgeLabels");
     t_Grades = (TMFramedTexture *) TEXTURE(@"SongResults Grades");
-    t_overlay = TEXTURE(@"SongResults Overlay");    
+    t_overlay = TEXTURE(@"SongResults Overlay");
     t_NoBanner = TEXTURE(@"SongResults NoBanner");
 
     _hasCustomBg = NO;
-    if (g_pGameState->m_pSong.m_sBackgroundFilePath != nil)
+    if ( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
     {
         NSString *songPath = [[SongsDirectoryCache sharedInstance] getSongsPath:g_pGameState->m_pSong.m_iSongsPath];
         NSString *backgroundFilePath = [songPath stringByAppendingPathComponent:g_pGameState->m_pSong.m_sBackgroundFilePath];
         UIImage *img = [UIImage imageWithContentsOfFile:backgroundFilePath];
-        if (img)
+        if ( img )
         {
             t_BG = [[Texture2D alloc] initWithImage:img columns:1 andRows:1];
             _hasCustomBg = YES;
@@ -89,7 +92,7 @@ extern TMGameState *g_pGameState;
 
     self.brightness = 0.5f;
 
-    if (g_pGameState->m_pSong.bannerTexture != nil)
+    if ( g_pGameState->m_pSong.bannerTexture != nil )
     {
         t_Banner = g_pGameState->m_pSong.bannerTexture;
     }
@@ -99,13 +102,13 @@ extern TMGameState *g_pGameState;
     }
 
     // Get metrics
-    for (int i = 0; i < kNumJudgementValues; ++i)
+    for ( int i = 0; i < kNumJudgementValues; ++i )
     {
         NSString *k = [NSString stringWithFormat:@"SongResults JudgeLabelPositions %d", i];
         mt_JudgeLabels[i] = POINT_METRIC(k);
     }
 
-    for (int i = 0; i < kNumJudgementValues; ++i)
+    for ( int i = 0; i < kNumJudgementValues; ++i )
     {
         NSString *k = [NSString stringWithFormat:@"SongResults JudgeScorePositions %d", i];
         mt_JudgeScores[i] = POINT_METRIC(k);
@@ -121,27 +124,31 @@ extern TMGameState *g_pGameState;
     int i, track;
 
     // asure we have zeros in all score counters
-    for (i = 0; i < kNumJudgementValues; i++)
+    for ( i = 0; i < kNumJudgementValues; i++ )
+    {
         m_nCounters[i] = 0;
-    for (i = 0; i < kNumHoldScores; i++)
+    }
+    for ( i = 0; i < kNumHoldScores; i++ )
+    {
         m_nOkNgCounters[i] = 0;
+    }
 
     m_bReturnToSongSelection = NO;
 
     // Calculate
-    for (track = 0; track < kNumOfAvailableTracks; track++)
+    for ( track = 0; track < kNumOfAvailableTracks; track++ )
     {
         int notesCount = [g_pGameState->m_pSteps getNotesCountForTrack:track];
 
-        for (i = 0; i < notesCount; i++)
+        for ( i = 0; i < notesCount; i++ )
         {
             TMNote *note = [g_pGameState->m_pSteps getNote:i fromTrack:track];
 
-            if (note.m_nType != kNoteType_Empty)
+            if ( note.m_nType != kNoteType_Empty )
             {
                 m_nCounters[note.m_nScore]++;
 
-                if (note.m_nType == kNoteType_HoldHead)
+                if ( note.m_nType == kNoteType_HoldHead )
                 {
                     m_nOkNgCounters[note.m_nHoldScore]++;
                 }
@@ -150,14 +157,15 @@ extern TMGameState *g_pGameState;
     }
 
     // Create font strings
-    for (int i = 0; i < kNumJudgementValues; ++i)
+    for ( int i = 0; i < kNumJudgementValues; ++i )
     {
-        if (i == 6)
+        if ( i == 6 )
         {
             m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore"
                                                          andText:[NSString stringWithFormat:@"%4d",
                                                                                             m_nOkNgCounters[kHoldScore_OK]]];
-        } else
+        }
+        else
         {
             m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore"
                                                          andText:[NSString stringWithFormat:@"%4d", m_nCounters[i]]];
@@ -173,22 +181,25 @@ extern TMGameState *g_pGameState;
                                            andText:[NSString stringWithFormat:@"%4d",
                                                                               g_pGameState->m_nCombo]];
 
-    if (g_pGameState->m_bFailed || g_pGameState->m_bGaveUp)
+    if ( g_pGameState->m_bFailed || g_pGameState->m_bGaveUp )
     {
         m_Grade = kGradeE;
 
-    } else if (m_nCounters[kJudgementW1] == [g_pGameState->m_pSteps getTotalTapAndHoldNotes])
+    }
+    else if ( m_nCounters[kJudgementW1] == [g_pGameState->m_pSteps getTotalTapAndHoldNotes] )
     {
 
         m_Grade = kGradeAAAA;
 
-    } else if (m_nCounters[kJudgementW3] == 0 && m_nCounters[kJudgementW4] == 0
-            && m_nCounters[kJudgementW5] == 0 && m_nCounters[kJudgementMiss] == 0)
+    }
+    else if ( m_nCounters[kJudgementW3] == 0 && m_nCounters[kJudgementW4] == 0
+            && m_nCounters[kJudgementW5] == 0 && m_nCounters[kJudgementMiss] == 0 )
     {
 
         m_Grade = kGradeAAA;
 
-    } else
+    }
+    else
     {
 
         m_Grade = [self gradeFromScore:g_pGameState->m_nScore
@@ -202,24 +213,24 @@ extern TMGameState *g_pGameState;
 
     [(Label *) [self findControl:@"SongResults ModsLabel"] setName:g_pGameState->m_sMods];
 
-
     // Save this score if it's better than it was
     NSNumber *diff = [NSNumber numberWithInt:g_pGameState->m_nSelectedDifficulty];
     NSString *sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", g_pGameState->m_pSong.m_sHash, diff];
     TMSongSavedScore *savedScore = [TMSongSavedScore findFirstByCriteria:sql];
 
-    if (savedScore != nil)
+    if ( savedScore != nil )
     {
         TMLog(@"Some old score found: %@", savedScore.bestScore);
 
-        if ([savedScore.bestScore intValue] < g_pGameState->m_nScore)
+        if ( [savedScore.bestScore intValue] < g_pGameState->m_nScore )
         {
             TMLog(@"Better score. Update.");
             savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
             savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
             [savedScore save];
         }
-    } else
+    }
+    else
     {
         TMLog(@"Save score first time!");
         savedScore = [[TMSongSavedScore alloc] init];
@@ -230,6 +241,26 @@ extern TMGameState *g_pGameState;
         [savedScore save];
     }
 
+    if ( [[GameCenterManager sharedInstance] supported] )
+    {
+        // GameCenter stuff now
+        NSString *allSql = [NSString stringWithFormat:@"WHERE difficulty = '%@'", diff];
+        NSArray *arr = [TMSongSavedScore findByCriteria:allSql];
+
+        int totalScore = 0;
+        int songCount = 0;
+
+        for ( TMSongSavedScore *score in arr )
+        {
+            ++songCount;
+            totalScore += [score.bestScore intValue];
+        }
+
+        totalScore /= songCount;
+        TMLog(@"Calculated TOTAL SCORE (based on %d songs): %d", songCount, totalScore);
+
+        [[GameCenterManager sharedInstance] reportScore:totalScore forDifficulty:diff basedOnCount:songCount];
+    }
 }
 
 /* TMRenderable method */
@@ -239,7 +270,7 @@ extern TMGameState *g_pGameState;
 
     [super render:fDelta];
 
-    for (int i = 0; i < kNumJudgementValues; ++i)
+    for ( int i = 0; i < kNumJudgementValues; ++i )
     {
         [t_JudgeLabels drawFrame:i atPoint:mt_JudgeLabels[i]];
         [m_pJudgeScores[i] drawAtPoint:mt_JudgeScores[i]];
@@ -259,7 +290,7 @@ extern TMGameState *g_pGameState;
 {
     [super update:fDelta];
 
-    if (m_bReturnToSongSelection)
+    if ( m_bReturnToSongSelection )
     {
         [[TapMania sharedInstance] switchToScreen:[SongPickerMenuRenderer class] withMetrics:@"SongPickerMenu"];
 
@@ -270,7 +301,7 @@ extern TMGameState *g_pGameState;
 /* TMGameUIResponder methods */
 - (BOOL)tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent *)event
 {
-    if (touches.size() == 1)
+    if ( touches.size() == 1 )
     {
         m_bReturnToSongSelection = YES;
     }
@@ -283,24 +314,26 @@ extern TMGameState *g_pGameState;
 {
     float percent = (float) score / (float) maxScore;
 
-    if (percent >= .95f)
+    if ( percent >= .95f )
     {
         return kGradeAA;
     }
-    else if (percent >= .80f)
+    else if ( percent >= .80f )
     {
         return kGradeA;
     }
-    else if (percent >= .70f)
+    else if ( percent >= .70f )
     {
         return kGradeB;
     }
-    else if (percent >= .60f)
+    else if ( percent >= .60f )
     {
         return kGradeC;
     }
     else
+    {
         return kGradeD;
+    }
 }
 
 
