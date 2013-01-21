@@ -122,17 +122,7 @@
 
 - (void)updateWithDifficulty:(TMSongDifficulty)diff
 {
-    NSString *sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", m_pSong.m_sHash, [NSNumber numberWithInt:diff]];
-    TMLog(@"UPDATING with difficulty: %d and hash = %@", diff, m_pSong.m_sHash);
-
-    if (m_pSavedScore)
-        [m_pSavedScore release];
-    m_pSavedScore = [[TMSongSavedScore findFirstByCriteria:sql] retain];
-
-    if (m_pSavedScore)
-    {
-        TMLog(@"FOUND A SCORE!");
-    }
+    m_pSavedScore = [m_pSong getScoreForDifficulty:diff];
 }
 
 - (void)updateYPosition:(float)y

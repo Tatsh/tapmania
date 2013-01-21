@@ -15,6 +15,8 @@
 
 }
 
+@synthesize earnedAchievementCache = _earnedAchievementCache;
+
 + (GameCenterManager *)sharedInstance
 {
     static GameCenterManager *_instance = nil;
@@ -95,6 +97,90 @@
     {
         TMLog(@"Score is reported!");
     }];
+}
+
+- (void)reportOneShotAchievement:(NSString *)identifier percentComplete:(float)percent
+{
+    if ( self.earnedAchievementCache == NULL )
+    {
+        [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *scores, NSError *error)
+        {
+            if ( error == NULL )
+            {
+
+                NSMutableDictionary *tempCache = [NSMutableDictionary dictionaryWithCapacity:[scores count]];
+                for ( GKAchievement *score in scores )
+                {
+                    [tempCache setObject:score forKey:score.identifier];
+                }
+
+                self.earnedAchievementCache = tempCache;
+                [self reportOneShotAchievement:identifier percentComplete:percent];
+            }
+        }];
+    }
+    else
+    {
+        GKAchievement *achievement = [self.earnedAchievementCache objectForKey:identifier];
+        if ( achievement != NULL )
+        {
+            if ( (achievement.percentComplete >= 100.0) || (achievement.percentComplete >= percent) )
+            {
+                achievement = NULL;
+            }
+
+            achievement.percentComplete = percent;
+        }
+        else
+        {
+            achievement = [[[GKAchievement alloc] initWithIdentifier:identifier] autorelease];
+            achievement.percentComplete = percent;
+
+            [self.earnedAchievementCache setObject:achievement forKey:achievement.identifier];
+        }
+        if ( achievement != NULL )
+        {
+            if ( achievement.percentComplete >= 100 )
+            {
+                if ( [achievement respondsToSelector:@selector(setShowsCompletionBanner:)] )
+                {
+                    [achievement setShowsCompletionBanner:YES];
+                }
+            }
+
+            [achievement reportAchievementWithCompletionHandler:^(NSError *error)
+            {
+                if ( error != NULL )
+                {
+                    TMLog(@"Error in reporting achievements: %@", error);
+                }
+            }];
+        }
+    }
+}
+
+- (void)reportRecurringAchievement:(NSString *)identifier percentComplete:(float)percent
+{
+    GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier:identifier] autorelease];
+    achievement.percentComplete = percent;
+    if ( [achievement respondsToSelector:@selector(setShowsCompletionBanner:)] )
+    {
+        [achievement setShowsCompletionBanner:YES];
+    }
+
+    [achievement reportAchievementWithCompletionHandler:^(NSError *error)
+    {
+        if ( error != NULL )
+        {
+            TMLog(@"Error in reporting achievements: %@", error);
+        }
+    }];
+}
+
+- (void)dealloc
+{
+    [_earnedAchievementCache release];
+    [super dealloc];
 }
 
 @end

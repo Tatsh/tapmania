@@ -190,14 +190,14 @@ extern TMGameState *g_pGameState;
     {
 
         m_Grade = kGradeAAAA;
-
+        [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.aaaa" percentComplete:100.0f];
     }
     else if ( m_nCounters[kJudgementW3] == 0 && m_nCounters[kJudgementW4] == 0
             && m_nCounters[kJudgementW5] == 0 && m_nCounters[kJudgementMiss] == 0 )
     {
 
         m_Grade = kGradeAAA;
-
+        [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.aaa" percentComplete:100.0f];
     }
     else
     {
@@ -205,6 +205,11 @@ extern TMGameState *g_pGameState;
         m_Grade = [self gradeFromScore:g_pGameState->m_nScore
                           fromMaxScore://[g_pGameState->m_pSteps getDifficultyLevel]*
                                   10000000];
+
+        if ( m_Grade == kGradeAA )
+        {
+            [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.aa" percentComplete:100.0f];
+        }
     }
 
     // Set difficulty and mods display
@@ -228,6 +233,9 @@ extern TMGameState *g_pGameState;
             savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
             savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
             [savedScore save];
+
+            // Reload caches
+            [g_pGameState->m_pSong reloadScores];
         }
     }
     else
@@ -239,6 +247,9 @@ extern TMGameState *g_pGameState;
         savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
         savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
         [savedScore save];
+
+        // Reload caches
+        [g_pGameState->m_pSong reloadScores];
     }
 
     if ( [[GameCenterManager sharedInstance] supported] )
@@ -260,6 +271,11 @@ extern TMGameState *g_pGameState;
         TMLog(@"Calculated TOTAL SCORE (based on %d songs): %d", songCount, totalScore);
 
         [[GameCenterManager sharedInstance] reportScore:totalScore forDifficulty:diff basedOnCount:songCount];
+    }
+
+    if ( !g_pGameState->m_bFailed && !g_pGameState->m_bGaveUp )
+    {
+        [[GameCenterManager sharedInstance] reportOneShotAchievement:@"org.tapmania.play.first" percentComplete:100.0f];
     }
 }
 

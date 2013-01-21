@@ -105,7 +105,7 @@
     // Make sure we have the instance initialized on the main pool
     [SongsDirectoryCache sharedInstance];
 
-	[Flurry logEvent:@"start_loading_songs" timed:YES];
+    [Flurry logEvent:@"start_loading_songs" timed:YES];
 
     // Start the song cache thread
     [m_pThread start];
@@ -186,6 +186,8 @@
     m_sCurrentMessage = [NSString stringWithFormat:@"Loading song '%@' done", path];
     m_bTextureShouldChange = YES;
 
+    [song performSelectorOnMainThread:@selector(reloadScores)
+                           withObject:nil waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(loadBannerForSong:)
                            withObject:song waitUntilDone:NO];
 
@@ -211,7 +213,7 @@
     }
 
     // also load cd title
-    if (song.m_sCDTitleFilePath != nil)
+    if ( song.m_sCDTitleFilePath != nil )
     {
         NSString *cdFilePath = [songPath stringByAppendingPathComponent:song.m_sCDTitleFilePath];
 

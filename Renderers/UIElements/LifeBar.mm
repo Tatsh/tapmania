@@ -15,6 +15,12 @@
 
 #import "MessageManager.h"
 #import "TMMessage.h"
+#import "DisplayUtil.h"
+#import "GameState.h"
+
+#define TM_LERP(A, B, T)          ((A) + ((T) * ((B) - (A))))
+
+extern TMGameState *g_pGameState;
 
 @interface LifeBar (Private)
 - (void)updateBy:(float)value;
@@ -25,15 +31,22 @@
 - (id)initWithRect:(CGRect)rect
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Register messages broadcasted by the lifebar handler
     REG_MESSAGE(kLifeBarDrainedMessage, @"LifeBarDrained");
     REG_MESSAGE(kLifeBarWarningMessage, @"LifeBarWarning");
     REG_MESSAGE(kLifeBarBackNormalMessage, @"LifeBarRecovered");
 
-    m_fCurrentValue = 0.5f;
+    // Creates a simple animation on start of game
+    m_fCurrentValue = 0.0f;
+    m_fNewValue = 0.5f;
+
+    m_fCurOffset = 0.0f;
+
     m_rShape = rect;
     m_bIsActive = YES;
 
@@ -67,39 +80,50 @@
 
 - (void)updateBy:(float)value
 {
-    m_fCurrentValue += value;
-    if (m_fCurrentValue > 1.0)
+    m_fNewValue += value;
+    if ( m_fNewValue > 1.0 )
     {
-        m_fCurrentValue = 1.0f;
-    } else if (m_fCurrentValue < 0.0)
+        m_fNewValue = 1.0f;
+    }
+    else if ( m_fNewValue < 0.0 )
     {
-        m_fCurrentValue = 0.0f;
+        m_fNewValue = 0.0f;
     }
 }
 
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
+    CGRect bounds = [DisplayUtil getDeviceDisplayBounds];
     CGRect fillRect = CGRectMake(m_rShape.origin.x, m_rShape.origin.y, m_rShape.size.width * m_fCurrentValue, m_rShape.size.height);
 
     // Background first
     [t_LifeBarBG drawInRect:m_rShape];
 
-    // TODO calculate stream from N springs and animate these
+    glScissor((GLint) fillRect.origin.x,
+            (GLint) fillRect.origin.y,
+            (GLsizei) fillRect.size.width,
+            (GLsizei) fillRect.size.height);
+    glEnable(GL_SCISSOR_TEST);
 
-    if (m_fCurrentValue < 0.3)
+    if ( m_fNewValue < 0.3f )
     {
         // Show passing bar
-        [t_LifeBarPassing drawInRect:fillRect];
-    } else if (m_fCurrentValue < 1.0f)
+        [t_LifeBarPassing drawRepeatedInRect:m_rShape withXOffset:m_fCurOffset andYOffset:0.0f];
+    }
+    else if ( m_fNewValue < 1.0f )
     {
         // Show normal bar
-        [t_LifeBarNormal drawInRect:fillRect];
-    } else
+        [t_LifeBarNormal drawRepeatedInRect:m_rShape withXOffset:m_fCurOffset andYOffset:0.0f];
+    }
+    else
     {
         // Show hot only if we are very good and having full lifebar
-        [t_LifeBarHot drawInRect:fillRect];
+        [t_LifeBarHot drawRepeatedInRect:m_rShape withXOffset:m_fCurOffset andYOffset:0.0f];
     }
+
+    glDisable(GL_SCISSOR_TEST);
+    glScissor(0, 0, bounds.size.width, bounds.size.height);
 
     glEnable(GL_BLEND);
     [t_LifeBarFrame drawInRect:m_rShape];
@@ -109,23 +133,45 @@
 /* TMLogicUpdater method */
 - (void)update:(float)fDelta
 {
+    float val = fmaxf(fabsf(m_fNewValue-m_fCurrentValue), 0.05f);
+    m_fCurrentValue = TM_LERP(m_fCurrentValue, m_fNewValue, val);
+
+    float currentBeat, currentBps;
+    BOOL hasFreeze;
+
+    if ( g_pGameState->m_bPlayingGame )
+    {
+        [TimingUtil getBeatAndBPSFromElapsedTime:g_pGameState->m_dElapsedTime beatOut:&currentBeat bpsOut:&currentBps freezeOut:&hasFreeze inSong:g_pGameState->m_pSong];
+    }
+
+    if ( !hasFreeze )
+    {
+        m_fCurOffset += currentBps * (1.0 / m_rShape.size.width * 64) * fDelta;
+
+        if ( m_fCurOffset >= m_rShape.size.width )
+        {
+            m_fCurOffset -= m_rShape.size.width;
+        }
+    }
+
     // Check current value
-    if (!m_bWarningBroadcasted && m_fCurrentValue <= 0.3f)
+    if ( !m_bWarningBroadcasted && m_fNewValue <= 0.3f )
     {
         BROADCAST_MESSAGE(kLifeBarWarningMessage, nil);
         m_bWarningBroadcasted = YES;
     }
-    else if (m_bWarningBroadcasted && m_fCurrentValue > 0.3f)
+    else if ( m_bWarningBroadcasted && m_fNewValue > 0.3f )
     {
         BROADCAST_MESSAGE(kLifeBarBackNormalMessage, nil);
         m_bWarningBroadcasted = NO;
     }
 
-    if (m_fCurrentValue < kMinLifeToKeepAlive && m_bIsActive)
+    if ( m_fNewValue < kMinLifeToKeepAlive && m_bIsActive )
     {
         BROADCAST_MESSAGE(kLifeBarDrainedMessage, nil);
 
-        m_fCurrentValue = 0.0f;    // Drop to zero
+        m_fNewValue = 0.0f;    // Drop to zero
+        m_fCurrentValue = 0.0f;
         m_bIsActive = NO;
     }
 }
@@ -133,10 +179,12 @@
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
-    if (!m_bIsActive)
+    if ( !m_bIsActive )
+    {
         return;
+    }
 
-    switch (message.messageId)
+    switch ( message.messageId )
     {
         case kNoteScoreMessage:
         {

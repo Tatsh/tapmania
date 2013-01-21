@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface GameCenterManager : NSObject
+{
+}
+
+@property(nonatomic, retain) NSMutableDictionary *earnedAchievementCache;
 
 + (GameCenterManager *)sharedInstance;
 
@@ -17,4 +21,10 @@
 - (BOOL)supported;
 
 - (void)reportScore:(int)score forDifficulty:(NSNumber *)difficulty basedOnCount:(int)count;
+
+- (void)reportOneShotAchievement:(NSString *)identifier percentComplete:(float)percent;
+
+- (void)reportRecurringAchievement:(NSString *)identifier percentComplete:(float)percent;
+
+
 @end

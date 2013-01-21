@@ -43,6 +43,7 @@ typedef enum {
 @class TMSteps;
 @class TMChangeSegment;
 @class Texture2D;
+@class TMSongSavedScore;
 
 #ifdef __cplusplus
 typedef ObjCPtr<TMChangeSegment>			TMChangeSegmentPtr;
@@ -111,6 +112,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 - (id) initWithStepsFile:(NSString*)stepsFilePath andMusicFile:(NSString*)musicFilePath 
 	   andBackgroundFile:(NSString*)backgroundFilePath andDir:(NSString*)dir fromSongsPathId:(TMSongsPath)pathId;
 
+- (void)reloadScores;
+
 - (TMSteps*) getStepsForDifficulty:(TMSongDifficulty) difficulty;
 
 - (BOOL) isDifficultyAvailable:(TMSongDifficulty) difficulty;
@@ -128,6 +131,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 - (int) getFreezeCount;
 
 + (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
+
+- (TMSongSavedScore *)getScoreForDifficulty:(TMSongDifficulty)difficulty;
 
 @end
 

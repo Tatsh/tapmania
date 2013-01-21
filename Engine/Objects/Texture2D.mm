@@ -293,8 +293,29 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
     TMBindTexture(m_unName);
     glEnable(GL_BLEND);
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glVertexPointer(3, GL_FLOAT, 0, vertices);
+    glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisable(GL_BLEND);
+}
+
+- (void)drawRepeatedInRect:(CGRect)rect withXOffset:(float)xOff andYOffset:(float)yOff
+{
+    GLfloat coordinates[] = {0+xOff, m_fMaxT+yOff,
+            m_fMaxS+xOff, m_fMaxT+yOff,
+            0+xOff, 0+yOff,
+            m_fMaxS+xOff, 0+yOff};
+    GLfloat vertices[] = {rect.origin.x, rect.origin.y, 0.0,
+            rect.origin.x + rect.size.width, rect.origin.y, 0.0,
+            rect.origin.x, rect.origin.y + rect.size.height, 0.0,
+            rect.origin.x + rect.size.width, rect.origin.y + rect.size.height, 0.0};
+
+    TMBindTexture(m_unName);
+    glEnable(GL_BLEND);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glVertexPointer(3, GL_FLOAT, 0, vertices);
     glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
