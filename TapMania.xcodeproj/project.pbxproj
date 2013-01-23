@@ -331,6 +331,7 @@
 		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
 		F44B2687E0FD4390BAB5EA37 /* CDTitleDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */; };
 		F44B293E85809CC89DA1A808 /* SystemSongs in Resources */ = {isa = PBXBuildFile; fileRef = F44B2D70FC6879AAEC0520EE /* SystemSongs */; };
+		F44B29BBB32BA089C3FEF858 /* AtomicCounters.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B26CA7650881D0CD5A746 /* AtomicCounters.mm */; };
 		F44B2A3431791A9F1D47E07F /* GameCenterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B29E290123BA7E9BC7F14 /* GameCenterManager.mm */; };
 		F44B2A7BB4488EAC835F2EE5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B213EF30E39B8D26F6EDA /* Default@2x.png */; };
 		F44B2B62DDEF5967BEDB6E82 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44B2034AC6F798485D2CA8D /* GameKit.framework */; };
@@ -939,6 +940,7 @@
 		F44B2279901FF8C8F6D42E8E /* ICadeResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICadeResponder.h; sourceTree = "<group>"; };
 		F44B2460C70C1BBACD31D830 /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
 		F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TimingSyncRenderer.mm; path = Renderers/TimingSyncRenderer.mm; sourceTree = "<group>"; };
+		F44B26CA7650881D0CD5A746 /* AtomicCounters.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AtomicCounters.mm; sourceTree = "<group>"; };
 		F44B28C90C6BB0CAA8DD914C /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = "ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h"; sourceTree = "<group>"; };
 		F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CDTitleDisplay.mm; path = Renderers/UIElements/CDTitleDisplay.mm; sourceTree = "<group>"; };
 		F44B29E290123BA7E9BC7F14 /* GameCenterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterManager.mm; sourceTree = "<group>"; };
@@ -1297,6 +1299,7 @@
 				24BC9EE81107EEB100F1ADEC /* GLUtil.mm */,
 				24DE38C516657C72000A438A /* DisplayUtil.h */,
 				24DE38C616657C72000A438A /* DisplayUtil.m */,
+				F44B26CA7650881D0CD5A746 /* AtomicCounters.mm */,
 			);
 			name = Util;
 			path = ..;
@@ -2519,6 +2522,7 @@
 				2459893A16A1DD2200540C01 /* SBJsonParser.m in Sources */,
 				2459893B16A1DD2200540C01 /* SBJsonWriter.m in Sources */,
 				F44B2A3431791A9F1D47E07F /* GameCenterManager.mm in Sources */,
+				F44B29BBB32BA089C3FEF858 /* AtomicCounters.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

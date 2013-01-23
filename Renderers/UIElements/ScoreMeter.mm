@@ -18,11 +18,12 @@
 
 #import "FontString.h"
 #import "GameState.h"
+#import "PhysicsUtil.h"
 
 extern TMGameState *g_pGameState;
 
 @interface ScoreMeter (ScoringSystem)
-+ (int)GetScore:(int)p :(int)B :(int)S :(int)n;
++ (int)GetScore:(int64_t)p :(int64_t)B :(int64_t)S :(int64_t)n;
 
 - (void)AddScore:(TMJudgement)judge;
 
@@ -35,8 +36,10 @@ extern TMGameState *g_pGameState;
 - (id)initWithMetrics:(NSString *)metricsKey forSteps:(TMSteps *)steps
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Cache metrics
     mt_ScoreFramePosition = POINT_METRIC(([NSString stringWithFormat:@"%@ Frame", metricsKey]));
@@ -46,6 +49,8 @@ extern TMGameState *g_pGameState;
     SUBSCRIBE(kHoldHeldMessage);
 
     m_nCurrentScore = 0;
+    m_nNewScore = 0;
+
     m_nTotalSteps = [steps getTotalTapAndHoldNotes] + [steps getTotalHolds];
     m_nDifficulty = [steps getDifficultyLevel];
     m_nMaxPossiblePoints = 10000000; // *m_nDifficulty;
@@ -67,7 +72,7 @@ extern TMGameState *g_pGameState;
 /* TMMessageSupport stuff */
 - (void)handleMessage:(TMMessage *)message
 {
-    switch (message.messageId)
+    switch ( message.messageId )
     {
         case kHoldHeldMessage:    // OK counts as marvelous in score
             [self updateScore:kJudgementW1];
@@ -86,19 +91,17 @@ extern TMGameState *g_pGameState;
 - (void)updateScore:(TMJudgement)judge
 {
     [self AddScore:judge];
-    [m_pScoreStr updateText:[NSString stringWithFormat:@"%8ld", m_nCurrentScore]];
 }
 
 - (long)getScore
 {
-    return m_nCurrentScore;
+    return m_nNewScore;
 }
 
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
     glEnable(GL_BLEND);
-//	[m_pScoreFrame drawAtPoint:mt_ScoreFramePosition];
     [m_pScoreStr drawAtPoint:mt_ScoreTextLeftPosition];
     glDisable(GL_BLEND);
 }
@@ -106,7 +109,16 @@ extern TMGameState *g_pGameState;
 /* TMLogicUpdater method */
 - (void)update:(float)fDelta
 {
+    if ( m_nCurrentScore != m_nNewScore )
+    {
+        float old = m_nCurrentScore;
+        m_nCurrentScore = (int) TM_LERP(old, (float)m_nNewScore, 0.6f);
 
+        if ( m_nCurrentScore != old )
+        {
+            [m_pScoreStr updateText:[NSString stringWithFormat:@"%8d", m_nCurrentScore]];
+        }
+    }
 }
 
 - (void)dealloc
@@ -118,11 +130,9 @@ extern TMGameState *g_pGameState;
 
 
 #pragma mark Stepmania scoring system algo below
-+ (int)GetScore:(int)p :(int)B :(int)S :(int)n
++ (int)GetScore:(int64_t)p :(int64_t)B :(int64_t)S :(int64_t)n
 {
-    return int(int64_t(p) * n * B / S);
-//	return int(p * n * (float(B) / S));
-//	return p * (B / S) * n;
+    return int(p * n * B / S);
 }
 
 - (void)AddScore:(TMJudgement)judge
@@ -130,7 +140,7 @@ extern TMGameState *g_pGameState;
     int p = 0;    // score multiplier
     ++m_nTapNotesHit;
 
-    switch (judge)
+    switch ( judge )
     {
         case kJudgementW1:
             p = 10;
@@ -146,7 +156,7 @@ extern TMGameState *g_pGameState;
             break;
     }
 
-    if (g_pGameState->m_bFailed && p > 0)
+    if ( g_pGameState->m_bFailed && p > 0 )
     {
         p = 1; // No multiplier if failed already
     }
@@ -160,12 +170,12 @@ extern TMGameState *g_pGameState;
 
     // Fixme: this is a dirty hack with the abs here
     int score = [ScoreMeter GetScore:p :B :sum :m_nTapNotesHit];
-    m_nCurrentScore += score;
+    m_nNewScore += score;
 
     // Reround
-    m_nCurrentScore += m_nScoreRemainder;
-    m_nScoreRemainder = (m_nCurrentScore % m_nRoundTo);
-    m_nCurrentScore = m_nCurrentScore - m_nScoreRemainder;
+    m_nNewScore += m_nScoreRemainder;
+    m_nScoreRemainder = (m_nNewScore % m_nRoundTo);
+    m_nNewScore = m_nNewScore - m_nScoreRemainder;
 }
 
 @end

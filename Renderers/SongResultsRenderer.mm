@@ -24,6 +24,7 @@
 
 #import "GameState.h"
 #import "GameCenterManager.h"
+#import "PhysicsUtil.h"
 
 extern TMGameState *g_pGameState;
 
@@ -36,6 +37,15 @@ extern TMGameState *g_pGameState;
 {
     Texture2D *t_NoBanner;
     BOOL _hasCustomBg;
+
+    float m_nCurrentScore;
+    SharedPtr<linear_interpolator> score_interpolator_;
+
+    float m_nCurrentCombo;
+    SharedPtr<linear_interpolator> combo_interpolator_;
+
+    float m_nJudgeScoreDisplayCounters[kNumJudgementValues];
+    SharedPtr<linear_interpolator> judge_display_interpolators_[kNumJudgementValues];
 }
 
 - (void)dealloc
@@ -161,25 +171,39 @@ extern TMGameState *g_pGameState;
     {
         if ( i == 6 )
         {
+            m_nJudgeScoreDisplayCounters[i] = m_nOkNgCounters[kHoldScore_OK];
             m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore"
-                                                         andText:[NSString stringWithFormat:@"%4d",
-                                                                                            m_nOkNgCounters[kHoldScore_OK]]];
+                                                         andText:@"   0"];
         }
         else
         {
+            m_nJudgeScoreDisplayCounters[i] = m_nCounters[i];
             m_pJudgeScores[i] = [[FontString alloc] initWithFont:@"MediumScore"
-                                                         andText:[NSString stringWithFormat:@"%4d", m_nCounters[i]]];
+                                                         andText:@"   0"];
         }
+
+        judge_display_interpolators_[i] = SharedPtr<linear_interpolator>(
+                new linear_interpolator(m_nJudgeScoreDisplayCounters[i],
+                        0, m_nJudgeScoreDisplayCounters[i], 1.0));
     }
 
+    m_nCurrentScore = 0;
+    score_interpolator_ = SharedPtr<linear_interpolator>(
+            new linear_interpolator(m_nCurrentScore,
+                    0, g_pGameState->m_nScore, 1.0f));
+
     m_pScore = [[FontString alloc] initWithFont:@"BigScore"
-                                        andText:[NSString stringWithFormat:@"%8ld",
-                                                                           g_pGameState->m_nScore]];
+                                        andText:@"       0"];
     [m_pScore setAlignment:UITextAlignmentCenter];
 
+
+    m_nCurrentCombo = 0;
+    combo_interpolator_ = SharedPtr<linear_interpolator>(
+            new linear_interpolator(m_nCurrentCombo,
+                    0, g_pGameState->m_nCombo, 1.0f));
+
     m_pMaxCombo = [[FontString alloc] initWithFont:@"MediumScore"
-                                           andText:[NSString stringWithFormat:@"%4d",
-                                                                              g_pGameState->m_nCombo]];
+                                           andText:@"   0"];
 
     if ( g_pGameState->m_bFailed || g_pGameState->m_bGaveUp )
     {
@@ -305,6 +329,30 @@ extern TMGameState *g_pGameState;
 - (void)update:(float)fDelta
 {
     [super update:fDelta];
+
+    // Update the score
+    if ( !score_interpolator_.get()->finished() )
+    {
+        score_interpolator_.get()->update(fDelta);
+        [m_pScore updateText:[NSString stringWithFormat:@"%8d", (int) m_nCurrentScore]];
+    }
+
+    // Update the combo
+    if ( !combo_interpolator_.get()->finished() )
+    {
+        combo_interpolator_.get()->update(fDelta);
+        [m_pMaxCombo updateText:[NSString stringWithFormat:@"%4d", (int) m_nCurrentCombo]];
+    }
+
+    // Update all judgements
+    for ( int i = 0; i < kNumJudgementValues; ++i )
+    {
+        if ( !judge_display_interpolators_[i].get()->finished() )
+        {
+            judge_display_interpolators_[i].get()->update(fDelta);
+            [m_pJudgeScores[i] updateText:[NSString stringWithFormat:@"%4d", (int) m_nJudgeScoreDisplayCounters[i]]];
+        }
+    }
 
     if ( m_bReturnToSongSelection )
     {

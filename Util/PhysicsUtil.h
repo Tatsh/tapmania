@@ -11,6 +11,8 @@
 
 #define kGravity -9.8f
 
+#define TM_LERP(A, B, T)          ((A) + ((T) * ((B) - (A))))
+
 @interface Vector : NSObject
 {
     float m_fX, m_fY;
@@ -87,4 +89,68 @@
 @interface PhysicsUtil : NSObject
 {
 }
+
+
+class time_interpolator
+{
+public:
+    time_interpolator(float t)
+    : total_time_(t)
+    , elapsed_time_(0.0f)
+    {
+    }
+
+    virtual ~time_interpolator()
+    {
+    }
+
+    virtual void update(float dt)
+    {
+        elapsed_time_ += dt;
+        calculate();
+    }
+
+    virtual void reset()
+    {
+        elapsed_time_ = 0.0f;
+    }
+
+    virtual bool finished() const
+    {
+        return elapsed_time_ >= total_time_;
+    }
+
+    virtual void calculate() = 0;
+
+protected:
+    float total_time_;
+    float elapsed_time_;
+};
+
+/**
+ * Linear interpolator
+ */
+class linear_interpolator
+        : public time_interpolator
+{
+public:
+    linear_interpolator(float& v, float min, float max, float t)
+    : time_interpolator(t)
+    , val_(v)
+    , min_(min)
+    , max_(max)
+    {
+    }
+
+    virtual void calculate()
+    {
+        float b = fminf(fmaxf(elapsed_time_ / total_time_, 0.0f), 1.0f);
+        val_ = min_ * (1.0f - b) + max_ * b;
+    }
+
+private:
+    float & val_;
+    float min_, max_;
+};
+
 @end

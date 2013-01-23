@@ -17,8 +17,7 @@
 #import "TMMessage.h"
 #import "DisplayUtil.h"
 #import "GameState.h"
-
-#define TM_LERP(A, B, T)          ((A) + ((T) * ((B) - (A))))
+#import "PhysicsUtil.h"
 
 extern TMGameState *g_pGameState;
 

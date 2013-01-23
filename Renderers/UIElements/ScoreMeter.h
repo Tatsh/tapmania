@@ -17,6 +17,8 @@
 @interface ScoreMeter : NSObject <TMLogicUpdater, TMRenderable, TMMessageSupport>
 {
     int m_nCurrentScore;
+    int m_nNewScore;
+
     int m_nTotalSteps;
     int m_nTapNotesHit;
     int m_nDifficulty;
