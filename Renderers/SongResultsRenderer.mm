@@ -25,6 +25,8 @@
 #import "GameState.h"
 #import "GameCenterManager.h"
 #import "PhysicsUtil.h"
+#import "TMSound.h"
+#import "TMSoundEngine.h"
 
 extern TMGameState *g_pGameState;
 
@@ -46,11 +48,12 @@ extern TMGameState *g_pGameState;
 
     float m_nJudgeScoreDisplayCounters[kNumJudgementValues];
     SharedPtr<linear_interpolator> judge_display_interpolators_[kNumJudgementValues];
+    Sprite *_gradeSprite;
+    TMSound *sr_ScoreCount;
 }
 
 - (void)dealloc
 {
-
     if ( _hasCustomBg )
     {
         [t_BG release];
@@ -73,6 +76,7 @@ extern TMGameState *g_pGameState;
     [m_pMaxCombo release];
     g_pGameState->m_nScore = g_pGameState->m_nCombo = 0;
 
+    [_gradeSprite release];
     [super dealloc];
 }
 
@@ -87,6 +91,9 @@ extern TMGameState *g_pGameState;
     t_overlay = TEXTURE(@"SongResults Overlay");
     t_NoBanner = TEXTURE(@"SongResults NoBanner");
 
+    // Sounds
+    sr_ScoreCount = SOUND(@"SongResults ScoreCount");
+    
     _hasCustomBg = NO;
     if ( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
     {
@@ -143,6 +150,32 @@ extern TMGameState *g_pGameState;
         m_nOkNgCounters[i] = 0;
     }
 
+    // Init grade sprite
+    _gradeSprite = [[Sprite alloc] init];
+    [_gradeSprite setTexture:t_Grades];
+
+    [_gradeSprite setX:mt_Grade.x];
+    [_gradeSprite setY:mt_Grade.y];
+    [_gradeSprite setAlpha:0.0f];
+    [_gradeSprite setScale:0.01f];
+
+    [_gradeSprite pushKeyFrame:1.4f];
+
+    [_gradeSprite setAlpha:0.0f];
+    [_gradeSprite setScale:0.01f];
+    [_gradeSprite setRotationZ:360.0f];
+
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setAlpha:0.8f];
+    [_gradeSprite setScale:1.6f];
+    [_gradeSprite setRotationZ:0.0f];
+
+    [_gradeSprite pushKeyFrame:0.1f];
+
+    [_gradeSprite setAlpha:1.0f];
+    [_gradeSprite setScale:1.0f];
+
     m_bReturnToSongSelection = NO;
 
     // Calculate
@@ -184,13 +217,13 @@ extern TMGameState *g_pGameState;
 
         judge_display_interpolators_[i] = SharedPtr<linear_interpolator>(
                 new linear_interpolator(m_nJudgeScoreDisplayCounters[i],
-                        0, m_nJudgeScoreDisplayCounters[i], 1.0));
+                        0, m_nJudgeScoreDisplayCounters[i], 1.4f));
     }
 
     m_nCurrentScore = 0;
     score_interpolator_ = SharedPtr<linear_interpolator>(
             new linear_interpolator(m_nCurrentScore,
-                    0, g_pGameState->m_nScore, 1.0f));
+                    0, g_pGameState->m_nScore, 1.4f));
 
     m_pScore = [[FontString alloc] initWithFont:@"BigScore"
                                         andText:@"       0"];
@@ -200,7 +233,7 @@ extern TMGameState *g_pGameState;
     m_nCurrentCombo = 0;
     combo_interpolator_ = SharedPtr<linear_interpolator>(
             new linear_interpolator(m_nCurrentCombo,
-                    0, g_pGameState->m_nCombo, 1.0f));
+                    0, g_pGameState->m_nCombo, 1.4f));
 
     m_pMaxCombo = [[FontString alloc] initWithFont:@"MediumScore"
                                            andText:@"   0"];
@@ -235,6 +268,9 @@ extern TMGameState *g_pGameState;
             [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.aa" percentComplete:100.0f];
         }
     }
+
+    // Set grade sprite index
+    [_gradeSprite setFrameIndex:m_Grade];
 
     // Set difficulty and mods display
     [(Label *) [self findControl:@"SongResults DifficultyLabel"] setName:
@@ -301,6 +337,9 @@ extern TMGameState *g_pGameState;
     {
         [[GameCenterManager sharedInstance] reportOneShotAchievement:@"org.tapmania.play.first" percentComplete:100.0f];
     }
+
+    // Score count sound effect
+    [[TMSoundEngine sharedInstance] playEffect:sr_ScoreCount];
 }
 
 /* TMRenderable method */
@@ -319,7 +358,7 @@ extern TMGameState *g_pGameState;
     [t_JudgeLabels drawFrame:kNumJudgementValues atPoint:mt_MaxComboLabel];
     [m_pMaxCombo drawAtPoint:mt_MaxCombo];
     [m_pScore drawAtPoint:mt_Score];
-    [t_Grades drawFrame:(int) m_Grade atPoint:mt_Grade];
+    [_gradeSprite render:fDelta];
 
     [t_Banner drawInRect:mt_Banner];
     [t_overlay drawInRect:bounds];
@@ -329,6 +368,9 @@ extern TMGameState *g_pGameState;
 - (void)update:(float)fDelta
 {
     [super update:fDelta];
+
+    // Update the grade animation
+    [_gradeSprite update:fDelta];
 
     // Update the score
     if ( !score_interpolator_.get()->finished() )

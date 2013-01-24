@@ -128,7 +128,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AtomicCounters.mm" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.h" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.m" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeState.h" />
@@ -1061,14 +1060,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/LifeBar.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/LifeBar.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.h" afterPath="$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.mm" afterPath="$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/ObjCPtr.h" afterPath="$PROJECT_DIR$/Util/ObjCPtr.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/PhysicsUtil.h" afterPath="$PROJECT_DIR$/Util/PhysicsUtil.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1086,81 +1078,14 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_UNIVERSAL" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LifeBar.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/LifeBar.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="134" column="4" selection-start="3192" selection-end="3253" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScoreMeter.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="4" selection-start="404" selection-end="407" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongPlayRenderer.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="92" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AtomicCounters.mm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AtomicCounters.mm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="17" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NSObjCRuntime.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="408" column="0" selection-start="17542" selection-end="17542" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ObjCPtr.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Util/ObjCPtr.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="324" column="14" selection-start="5549" selection-end="5549" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#237#257#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PhysicsUtil.h" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="0" selection-start="2043" selection-end="2043" vertical-scroll-proportion="-0.0524109">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SongResultsRenderer.mm" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SongResultsRenderer.mm" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="61" selection-start="3831" selection-end="3831" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#214#245#0" expanded="true" />
-              </folding>
+            <state line="320" column="35" selection-start="9828" selection-end="9828" vertical-scroll-proportion="0.17283951">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1198,16 +1123,16 @@
         <option value="$PROJECT_DIR$/AtomicCounters.cpp" />
         <option value="$PROJECT_DIR$/Util/ObjCPtr.h" />
         <option value="$PROJECT_DIR$/AtomicCounters.mm" />
-        <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
         <option value="$PROJECT_DIR$/Util/PhysicsUtil.h" />
+        <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="4" />
     <option name="y" value="22" />
-    <option name="width" value="1432" />
-    <option name="height" value="865" />
+    <option name="width" value="1436" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -1272,7 +1197,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1531,19 +1455,20 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h" />
     <property name="FullScreen" value="false" />
     <property name="OBJC.PRESERVED_TARGET_SELECTION" value="TapMania" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Application.TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
@@ -1624,10 +1549,6 @@
           <option name="myVcsRoot" value="$PROJECT_DIR$" />
           <option name="myCopyRoot" value="$PROJECT_DIR$/ext" />
         </SvnCopyRootSimple>
-        <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="$PROJECT_DIR$" />
-          <option name="myCopyRoot" value="$PROJECT_DIR$/ext/SQLitePersistentObjects" />
-        </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
@@ -1635,10 +1556,6 @@
         <SvnCopyRootSimple>
           <option name="myVcsRoot" value="$PROJECT_DIR$" />
           <option name="myCopyRoot" value="$PROJECT_DIR$" />
-        </SvnCopyRootSimple>
-        <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="$PROJECT_DIR$" />
-          <option name="myCopyRoot" value="$PROJECT_DIR$/ext/SQLitePersistentObjects" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -1672,18 +1589,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="22" width="1432" height="865" extended-state="0" />
+    <frame x="4" y="22" width="1436" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.34005377" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19730306" sideWeight="0.32795697" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3373656" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.45046234" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.21796565" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32232496" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1756,25 +1673,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="92" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="26" selection-start="342" selection-end="342" vertical-scroll-proportion="0.41263157">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="648" column="57" selection-start="23353" selection-end="23353" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="648" column="57" selection-start="23353" selection-end="23353" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerMenuItem.mm">
@@ -1812,13 +1713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="163" selection-start="5991" selection-end="5991" vertical-scroll-proportion="0.37068966">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="83" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0985325">
@@ -1828,46 +1722,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../x2d/x2d_git/x2d/src/util/interpolator.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="3" selection-start="301" selection-end="1538" vertical-scroll-proportion="0.37099025">
-          <folding />
-        </state>
+        <state line="19" column="3" selection-start="301" selection-end="1538" vertical-scroll-proportion="0.37099025" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Util/ObjCPtr.h">
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="324" column="14" selection-start="5549" selection-end="5549" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#237#257#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="408" column="0" selection-start="17542" selection-end="17542" vertical-scroll-proportion="0.0">
+        <state line="13" column="92" selection-start="394" selection-end="394" vertical-scroll-proportion="0.028806584">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AtomicCounters.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
+        <state line="18" column="17" selection-start="390" selection-end="390" vertical-scroll-proportion="0.5185185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="408" column="0" selection-start="17542" selection-end="17542" vertical-scroll-proportion="0.029598309">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util/ObjCPtr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="324" column="14" selection-start="5549" selection-end="5549" vertical-scroll-proportion="0.7983539">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="0" selection-start="2043" selection-end="2043" vertical-scroll-proportion="0.028806584">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="8" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.3326316">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="409" column="12" selection-start="12287" selection-end="12354" vertical-scroll-proportion="0.39957717">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="61" selection-start="3831" selection-end="3831" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#214#245#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="0" selection-start="2043" selection-end="2043" vertical-scroll-proportion="-0.0524109">
+        <state line="320" column="35" selection-start="9828" selection-end="9828" vertical-scroll-proportion="0.17283951">
           <folding />
         </state>
       </provider>
