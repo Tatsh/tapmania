@@ -229,14 +229,14 @@ extern TMGameState *g_pGameState;
             if (m_syncSamples.size() >= kSyncSamples)
             {
                 g_pGameState->m_dGlobalOffset +=
-                        std::accumulate(m_syncSamples.begin(), m_syncSamples.end(),
-                                0.0) / (double)m_syncSamples.size();
+                        (std::accumulate(m_syncSamples.begin(), m_syncSamples.end(),
+                                0.0) / (double)m_syncSamples.size()) / 64.0;
                 TMLog(@"Global offset becomes: %f", g_pGameState->m_dGlobalOffset);
 
                 m_syncSamples.clear();
             }
 
-            m_syncSamples.push_back(noteTiming/16.0); // use smaller steps in samples
+            m_syncSamples.push_back(noteTiming);
             TMLog(@"timing of note in Global sync: %f", noteTiming);
         }
 

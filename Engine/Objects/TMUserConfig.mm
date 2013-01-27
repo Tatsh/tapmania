@@ -12,18 +12,22 @@
 
 @implementation TMUserConfig
 
-+ (NSNumber *) getDefaultGlobalSyncOffset
++ (NSNumber *)getDefaultGlobalSyncOffset
 {
     NSString *d = [DisplayUtil getDeviceDisplayString];
-    if ([d isEqualToString:@"iPhoneRetina"])
+    if ( [d isEqualToString:@"iPhoneRetina"] )
     {
         return [NSNumber numberWithDouble:-0.0800];
     }
-    else if ([d isEqualToString:@"iPadRetina"])
+    else if ( [d isEqualToString:@"iPhone5"] )
+    {
+        return [NSNumber numberWithDouble:-0.0695];
+    }
+    else if ( [d isEqualToString:@"iPadRetina"] )
     {
         return [NSNumber numberWithDouble:-0.0846];
     }
-    else if ([d isEqualToString:@"iPad"])
+    else if ( [d isEqualToString:@"iPad"] )
     {
         return [NSNumber numberWithDouble:-0.0843];
     }
@@ -34,8 +38,10 @@
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin",
                                                                         [NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:0.6f], @"effectssound",
@@ -54,8 +60,10 @@
 - (id)initWithContentsOfFile:(NSString *)configPath
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     m_pConfigDict = [[NSMutableDictionary alloc] initWithContentsOfFile:configPath];
 
@@ -66,91 +74,91 @@
 {
     int errCount = 0;
 
-    if (![m_pConfigDict valueForKey:@"theme"])
+    if ( ![m_pConfigDict valueForKey:@"theme"] )
     {
         [m_pConfigDict setObject:@"default" forKey:@"theme"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"noteskin"])
+    if ( ![m_pConfigDict valueForKey:@"noteskin"] )
     {
         [m_pConfigDict setObject:@"default" forKey:@"noteskin"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"sound"])
+    if ( ![m_pConfigDict valueForKey:@"sound"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"effectssound"])
+    if ( ![m_pConfigDict valueForKey:@"effectssound"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithFloat:0.6f] forKey:@"effectssound"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"autotrack"])
+    if ( ![m_pConfigDict valueForKey:@"autotrack"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"autotrack"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"vispad"])
+    if ( ![m_pConfigDict valueForKey:@"vispad"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithBool:YES] forKey:@"vispad"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"lastsong"])
+    if ( ![m_pConfigDict valueForKey:@"lastsong"] )
     {
         [m_pConfigDict setObject:@"NONEXISTINGSONG" forKey:@"lastsong"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"newsversion"])
+    if ( ![m_pConfigDict valueForKey:@"newsversion"] )
     {
         [m_pConfigDict setObject:@"NONEXISTING" forKey:@"newsversion"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"prefdiff"])
+    if ( ![m_pConfigDict valueForKey:@"prefdiff"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithInt:(int) kSongDifficulty_Beginner] forKey:@"prefdiff"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"receptor_mods"])
+    if ( ![m_pConfigDict valueForKey:@"receptor_mods"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"receptor_mods"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"note_mods"])
+    if ( ![m_pConfigDict valueForKey:@"note_mods"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithInt:0] forKey:@"note_mods"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"prefspeed"])
+    if ( ![m_pConfigDict valueForKey:@"prefspeed"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithInt:2] forKey:@"prefspeed"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"speedmod"])
+    if ( ![m_pConfigDict valueForKey:@"speedmod"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithFloat:1.0f] forKey:@"speedmod"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"globalSyncOffset"])
+    if ( ![m_pConfigDict valueForKey:@"globalSyncOffset"] )
     {
         [m_pConfigDict setObject:[TMUserConfig getDefaultGlobalSyncOffset] forKey:@"globalSyncOffset"];
         ++errCount;
     }
 
-    if (![m_pConfigDict valueForKey:@"landscape"])
+    if ( ![m_pConfigDict valueForKey:@"landscape"] )
     {
         [m_pConfigDict setObject:[NSNumber numberWithBool:NO] forKey:@"landscape"];
         ++errCount;
@@ -163,10 +171,11 @@
 {
     SEL aSelector = [invocation selector];
 
-    if ([m_pConfigDict respondsToSelector:aSelector])
+    if ( [m_pConfigDict respondsToSelector:aSelector] )
     {
         [invocation invokeWithTarget:m_pConfigDict];
-    } else
+    }
+    else
     {
         [self doesNotRecognizeSelector:aSelector];
     }
@@ -174,12 +183,12 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-    if ([super respondsToSelector:aSelector])
+    if ( [super respondsToSelector:aSelector] )
     {
         return YES;
     }
 
-    if ([m_pConfigDict respondsToSelector:aSelector])
+    if ( [m_pConfigDict respondsToSelector:aSelector] )
     {
         return YES;
     }
@@ -191,7 +200,7 @@
 {
     NSMethodSignature *sig = [super methodSignatureForSelector:aSelector];
 
-    if (!sig)
+    if ( !sig )
     {
         sig = [m_pConfigDict methodSignatureForSelector:aSelector];
     }

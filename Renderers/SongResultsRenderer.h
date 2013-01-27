@@ -12,6 +12,7 @@
 #import "TMScreen.h"
 
 @class TMSteps, TMSong, FontString, TMFramedTexture;
+@class TMSound;
 
 
 typedef enum
@@ -55,5 +56,7 @@ typedef enum
     TMFramedTexture *t_Grades;
     Texture2D *t_Banner;
 }
+@property(nonatomic, retain) TMSound *sr_BG;
+
 
 @end

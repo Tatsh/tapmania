@@ -2652,7 +2652,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alex Kremer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2665,7 +2664,6 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F43CF82-B5A5-4ED0-9D93-075EA7CB11CD";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -2762,7 +2760,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -2775,7 +2772,6 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = YES;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = "Release local";
@@ -2871,6 +2867,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_CPP_RTTI = YES;
@@ -2902,6 +2899,7 @@
 				);
 				OTHER_CFLAGS = "-DENABLE_ADWHIRL";
 				PRODUCT_NAME = TapMania;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2911,6 +2909,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_CPP_RTTI = YES;
@@ -2942,6 +2941,7 @@
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = TapMania;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2951,7 +2951,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2961,7 +2960,6 @@
 				OTHER_CFLAGS = "-ftree-vectorize";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -2971,6 +2969,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3002,6 +3001,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = TapMania;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

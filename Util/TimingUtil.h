@@ -12,6 +12,7 @@
 #import "Judgement.h" // For TMJudgement
 #import "TMNote.h" // For TMNoteScore etc.
 
+#define kRowsOnScreen 8
 @class TMSong, TMChangeSegment;
 
 @interface TimingUtil : NSObject

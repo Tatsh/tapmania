@@ -28,7 +28,7 @@ extern TMGameState *g_pGameState;
     uint64_t time = mach_absolute_time();
     uint64_t nanos;
 
-    if (sTimebaseInfo.denom == 0)
+    if ( sTimebaseInfo.denom == 0 )
     {
         (void) mach_timebase_info(&sTimebaseInfo);
     }
@@ -53,10 +53,10 @@ extern TMGameState *g_pGameState;
 
     int cnt = [song getBpmChangeCount] - 1;
     int pos = 0;
-    for (; pos < cnt; ++pos)
+    for ( ; pos < cnt; ++pos )
     {
         TMChangeSegment *seg = [song getBpmChangeAt:pos + 1];
-        if (seg && seg.m_fNoteRow > noteRow)
+        if ( seg && seg.m_fNoteRow > noteRow )
         {
             break;
         }
@@ -75,10 +75,10 @@ extern TMGameState *g_pGameState;
 
     int freezeCnt = [song getFreezeCount];
     int i;
-    for (i = 0; i < freezeCnt; ++i)
+    for ( i = 0; i < freezeCnt; ++i )
     {
         TMChangeSegment *seg = [song getFreezeAt:i];
-        if (seg && seg.m_fNoteRow >= noteRow)
+        if ( seg && seg.m_fNoteRow >= noteRow )
         {
             break;
         }
@@ -87,16 +87,17 @@ extern TMGameState *g_pGameState;
     }
 
     int bpmCnt = [song getBpmChangeCount];
-    for (i = 0; i < bpmCnt; ++i)
+    for ( i = 0; i < bpmCnt; ++i )
     {
         const BOOL isLastBpmChange = i == bpmCnt - 1;
         TMChangeSegment *seg = [song getBpmChangeAt:i];
         const float bps = seg.m_fChangeValue;
 
-        if (isLastBpmChange)
+        if ( isLastBpmChange )
         {
             elapsedTime += [TMNote noteRowToBeat:noteRow] / bps;
-        } else
+        }
+        else
         {
             TMChangeSegment *segT = seg;
             TMChangeSegment *segN = [song getBpmChangeAt:i + 1];
@@ -108,8 +109,10 @@ extern TMGameState *g_pGameState;
             noteRow -= rowsInSegment;
         }
 
-        if (noteRow <= 0)
+        if ( noteRow <= 0 )
+        {
             return elapsedTime - g_pGameState->m_dGlobalOffset;
+        }
     }
 
     return elapsedTime - g_pGameState->m_dGlobalOffset;
@@ -122,7 +125,7 @@ extern TMGameState *g_pGameState;
     elapsedTime += g_pGameState->m_dGlobalOffset;
 
     unsigned i;
-    for (i = 0; i < [song getBpmChangeCount]; i++)
+    for ( i = 0; i < [song getBpmChangeCount]; i++ )
     { // Foreach bpm change in the song
 
         TMChangeSegment *segT = [song getBpmChangeAt:i];
@@ -137,26 +140,32 @@ extern TMGameState *g_pGameState;
         const float bps = segT.m_fChangeValue;
 
         unsigned j;
-        for (j = 0; j < [song getFreezeCount]; j++)
+        for ( j = 0; j < [song getFreezeCount]; j++ )
         { // Foreach freeze
             TMChangeSegment *freeze = [song getFreezeAt:j];
             float freezeBeat = [TMNote noteRowToBeat:[freeze m_fNoteRow]];
 
-            if (!isFirstBpmChange && startBeatThisChange >= freezeBeat)
+            if ( !isFirstBpmChange && startBeatThisChange >= freezeBeat )
+            {
                 continue;
-            if (!isLastBpmChange && freezeBeat > startBeatNextChange)
+            }
+            if ( !isLastBpmChange && freezeBeat > startBeatNextChange )
+            {
                 continue;
+            }
 
             const float beatsSinceStartOfChange = freezeBeat - startBeatThisChange;
             const float freezeStartSecond = beatsSinceStartOfChange / bps;
 
-            if (freezeStartSecond >= elapsedTime)
+            if ( freezeStartSecond >= elapsedTime )
+            {
                 break;
+            }
 
             // Apply the freeze
             elapsedTime -= [freeze m_fChangeValue] / 1000.0f;
 
-            if (freezeStartSecond >= elapsedTime)
+            if ( freezeStartSecond >= elapsedTime )
             {
                 // Lies within the stop
                 *beatOut = freezeBeat;
@@ -169,7 +178,7 @@ extern TMGameState *g_pGameState;
         const float beatsInThisChangeSegment = startBeatNextChange - startBeatThisChange;
         const float secondsInThisChangeSegment = beatsInThisChangeSegment / bps;
 
-        if (isLastBpmChange || elapsedTime <= secondsInThisChangeSegment)
+        if ( isLastBpmChange || elapsedTime <= secondsInThisChangeSegment )
         {
             // Is the current change segment
             *beatOut = startBeatThisChange + elapsedTime * bps;
@@ -190,10 +199,10 @@ extern TMGameState *g_pGameState;
     int noteRow = [TMNote beatToNoteRow:beat];
 
     int i, cnt = [song getBpmChangeCount];
-    for (i = 0; i < cnt; ++i)
+    for ( i = 0; i < cnt; ++i )
     {
         TMChangeSegment *seg = [song getBpmChangeAt:i];
-        if (seg && seg.m_fNoteRow > noteRow)
+        if ( seg && seg.m_fNoteRow > noteRow )
         {
             return seg.m_fNoteRow;
         }
@@ -205,10 +214,10 @@ extern TMGameState *g_pGameState;
 + (float)getPixelsPerNoteRowForBPS:(float)bps andSpeedMod:(float)sMod
 {
     static double screenHeight = [DisplayUtil getDeviceDisplaySize].height;
-    double tFullScreenTime = screenHeight / bps / (screenHeight/8);
+    double tFullScreenTime = screenHeight / bps / (screenHeight / kRowsOnScreen);
 
     // Apply speedmod
-    if (sMod > 0.0f)
+    if ( sMod > 0.0f )
     {
         tFullScreenTime /= sMod;
     }
@@ -222,27 +231,27 @@ extern TMGameState *g_pGameState;
 
 + (TMJudgement)getJudgementByDelta:(float)delta
 {
-    if (delta <= 0.022500)
+    if ( delta <= 0.022500 )
     {
         return kJudgementW1;
-
-    } else if (delta <= 0.045000)
+    }
+    else if ( delta <= 0.045000 )
     {
         return kJudgementW2;
-
-    } else if (delta <= 0.090000)
+    }
+    else if ( delta <= 0.090000 )
     {
         return kJudgementW3;
-
-    } else if (delta <= 0.135000)
+    }
+    else if ( delta <= 0.135000 )
     {
         return kJudgementW4;
-
-    } else if (delta <= 0.180000)
+    }
+    else if ( delta <= 0.180000 )
     {
         return kJudgementW5;
-
-    } else
+    }
+    else
     {
         return kJudgementMiss;
     }
@@ -250,25 +259,31 @@ extern TMGameState *g_pGameState;
 
 + (float)getLifebarChangeByNoteScore:(TMJudgement)noteScore
 {
-    if (noteScore == kJudgementW1)
+    if ( noteScore == kJudgementW1 )
     {
         return 0.008f;
-    } else if (noteScore == kJudgementW2)
+    }
+    else if ( noteScore == kJudgementW2 )
     {
         return 0.008f;
-    } else if (noteScore == kJudgementW3)
+    }
+    else if ( noteScore == kJudgementW3 )
     {
         return 0.004f;
-    } else if (noteScore == kJudgementW4)
+    }
+    else if ( noteScore == kJudgementW4 )
     {
         return 0.000f;
-    } else if (noteScore == kJudgementW5)
+    }
+    else if ( noteScore == kJudgementW5 )
     {
         return -0.040f;
-    } else if (noteScore == kJudgementMineHit)
+    }
+    else if ( noteScore == kJudgementMineHit )
     {
         return -0.160f;
-    } else
+    }
+    else
     {
         // Miss
         return -0.080f;

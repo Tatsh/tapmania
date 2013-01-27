@@ -1060,7 +1060,16 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" afterPath="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameObjects/TMSteps.mm" afterPath="$PROJECT_DIR$/GameObjects/TMSteps.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Info.plist" afterPath="$PROJECT_DIR$/Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongResultsRenderer.h" afterPath="$PROJECT_DIR$/Renderers/SongResultsRenderer.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" afterPath="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/TimingUtil.h" afterPath="$PROJECT_DIR$/Util/TimingUtil.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util/TimingUtil.mm" afterPath="$PROJECT_DIR$/Util/TimingUtil.mm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1081,10 +1090,57 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_UNIVERSAL" />
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="PhysicsUtil.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="121" column="72" selection-start="2230" selection-end="2230" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TMSteps.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GameObjects/TMSteps.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="232" column="75" selection-start="5621" selection-end="5621" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimingSyncRenderer.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="68" selection-start="1375" selection-end="1375" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimingUtil.mm" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Util/TimingUtil.mm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="111" column="30" selection-start="2777" selection-end="2777" vertical-scroll-proportion="-10.076923">
+              <folding>
+                <element signature="e#191#213#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sprite.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="100" column="8" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SongResultsRenderer.mm" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="35" selection-start="9828" selection-end="9828" vertical-scroll-proportion="0.17283951">
+            <state line="188" column="39" selection-start="4876" selection-end="4876" vertical-scroll-proportion="0.21200751">
               <folding />
             </state>
           </provider>
@@ -1109,10 +1165,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Renderers/UIElements/LifeBar.h" />
-        <option value="$PROJECT_DIR$/Engine/Objects/Texture2D.mm" />
-        <option value="$PROJECT_DIR$/GameObjects/TMSong.h" />
-        <option value="$PROJECT_DIR$/GameObjects/TMSong.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongsCacheLoaderRenderer.mm" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/SongPickerMenuItem.mm" />
         <option value="$PROJECT_DIR$/Renderers/UIElements/LifeBar.mm" />
@@ -1124,6 +1176,10 @@
         <option value="$PROJECT_DIR$/Util/ObjCPtr.h" />
         <option value="$PROJECT_DIR$/AtomicCounters.mm" />
         <option value="$PROJECT_DIR$/Util/PhysicsUtil.h" />
+        <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.h" />
+        <option value="$PROJECT_DIR$/Util/TimingUtil.mm" />
+        <option value="$PROJECT_DIR$/GameObjects/TMSteps.mm" />
+        <option value="$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm" />
         <option value="$PROJECT_DIR$/Renderers/SongResultsRenderer.mm" />
       </list>
     </option>
@@ -1197,6 +1253,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1455,20 +1512,19 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="OBJC.PRESERVED_TARGET_SELECTION" value="TapMania" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
   </component>
   <component name="RunManager" selected="Application.TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
@@ -1549,6 +1605,10 @@
           <option name="myVcsRoot" value="$PROJECT_DIR$" />
           <option name="myCopyRoot" value="$PROJECT_DIR$/ext" />
         </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$/ext/SQLitePersistentObjects" />
+        </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
@@ -1556,6 +1616,10 @@
         <SvnCopyRootSimple>
           <option name="myVcsRoot" value="$PROJECT_DIR$" />
           <option name="myCopyRoot" value="$PROJECT_DIR$" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$/ext/SQLitePersistentObjects" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -1595,17 +1659,17 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.45046234" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.21796565" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.36988112" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19674452" sideWeight="0.3606341" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32232496" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26023778" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293011" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1673,77 +1737,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="648" column="57" selection-start="23353" selection-end="23353" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerMenuItem.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="6" selection-start="3775" selection-end="3775" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/LifeBar.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="4" selection-start="3192" selection-end="3253" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="4" selection-start="404" selection-end="407" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/ScoreMeter.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="8" selection-start="2746" selection-end="2836" vertical-scroll-proportion="0.5157233">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameObjects/TMNote.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="4" selection-start="774" selection-end="774" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="83" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0985325">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../x2d/x2d_git/x2d/src/util/interpolator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="3" selection-start="301" selection-end="1538" vertical-scroll-proportion="0.37099025" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="92" selection-start="394" selection-end="394" vertical-scroll-proportion="0.028806584">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AtomicCounters.mm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="390" selection-end="390" vertical-scroll-proportion="0.5185185">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="408" column="0" selection-start="17542" selection-end="17542" vertical-scroll-proportion="0.029598309">
-          <folding />
-        </state>
+        <state line="408" column="0" selection-start="17542" selection-end="17542" vertical-scroll-proportion="0.029598309" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Util/ObjCPtr.h">
@@ -1755,28 +1751,104 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Util/PhysicsUtil.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="0" selection-start="2043" selection-end="2043" vertical-scroll-proportion="0.028806584">
+        <state line="121" column="72" selection-start="2230" selection-end="2230" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="35" selection-start="767" selection-end="767" vertical-scroll-proportion="1.0658436">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="39" selection-start="2398" selection-end="2399" vertical-scroll-proportion="0.45494506">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/SongPickerMenuRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="36" selection-start="1294" selection-end="1294" vertical-scroll-proportion="0.39957264">
+          <folding>
+            <element signature="e#215#249#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/UIElements/SongPickerMenuItem.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="6" selection-start="3775" selection-end="3775" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMNote.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="10" selection-start="3049" selection-end="3049" vertical-scroll-proportion="0.63917524">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util/TimingUtil.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="30" selection-start="2777" selection-end="2777" vertical-scroll-proportion="-10.076923">
+          <folding>
+            <element signature="e#191#213#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameObjects/TMSteps.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="232" column="75" selection-start="5621" selection-end="5621" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/TMUserConfig.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="49" selection-start="593" selection-end="593" vertical-scroll-proportion="0.59615386">
+          <folding>
+            <element signature="e#182#206#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Renderers/TimingSyncRenderer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="68" selection-start="1375" selection-end="1375" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="8" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.3326316">
+        <state line="21" column="8" selection-start="370" selection-end="370" vertical-scroll-proportion="0.36585367">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongPlayRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="409" column="12" selection-start="12287" selection-end="12354" vertical-scroll-proportion="0.39957717">
+        <state line="112" column="9" selection-start="2858" selection-end="2858" vertical-scroll-proportion="0.31153846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Objects/Sprite.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="8" selection-start="2105" selection-end="2105" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="35" selection-start="9828" selection-end="9828" vertical-scroll-proportion="0.17283951">
+        <state line="188" column="39" selection-start="4876" selection-end="4876" vertical-scroll-proportion="0.21200751">
           <folding />
         </state>
       </provider>

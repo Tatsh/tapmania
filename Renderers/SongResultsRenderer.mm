@@ -50,7 +50,10 @@ extern TMGameState *g_pGameState;
     SharedPtr<linear_interpolator> judge_display_interpolators_[kNumJudgementValues];
     Sprite *_gradeSprite;
     TMSound *sr_ScoreCount;
+    TMSound *sr_BG;
 }
+@synthesize sr_BG;
+
 
 - (void)dealloc
 {
@@ -77,6 +80,7 @@ extern TMGameState *g_pGameState;
     g_pGameState->m_nScore = g_pGameState->m_nCombo = 0;
 
     [_gradeSprite release];
+    [sr_BG release];
     [super dealloc];
 }
 
@@ -84,6 +88,12 @@ extern TMGameState *g_pGameState;
 - (void)setupForTransition
 {
     [super setupForTransition];
+
+    // sounds
+    sr_BG = SOUND(@"SongResults Music");
+
+    // Play music
+    [[TMSoundEngine sharedInstance] addToQueue:sr_BG];
 
     // Textures
     t_JudgeLabels = (TMFramedTexture *) TEXTURE(@"SongResults JudgeLabels");
@@ -93,7 +103,7 @@ extern TMGameState *g_pGameState;
 
     // Sounds
     sr_ScoreCount = SOUND(@"SongResults ScoreCount");
-    
+
     _hasCustomBg = NO;
     if ( g_pGameState->m_pSong.m_sBackgroundFilePath != nil )
     {
@@ -175,6 +185,34 @@ extern TMGameState *g_pGameState;
 
     [_gradeSprite setAlpha:1.0f];
     [_gradeSprite setScale:1.0f];
+
+    [_gradeSprite startRepeatingBlock];
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setRotationZ:-9.0f];
+    [_gradeSprite setScale:1.2f];
+
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setRotationZ:0.0f];
+    [_gradeSprite setScale:1.0f];
+
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setRotationZ:9.0f];
+    [_gradeSprite setScale:1.2f];
+
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setRotationZ:0.0f];
+    [_gradeSprite setScale:1.0f];
+
+    [_gradeSprite pushKeyFrame:0.3f];
+
+    [_gradeSprite setRotationZ:-9.0f];
+    [_gradeSprite setScale:1.2f];
+
+    [_gradeSprite stopRepeatingBlock];
 
     m_bReturnToSongSelection = NO;
 
