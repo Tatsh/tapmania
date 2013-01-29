@@ -79,22 +79,22 @@
 {
     if (m_idDelegate && [m_idDelegate respondsToSelector:@selector(playBackStartedNotification)])
     {
-        [m_idDelegate performSelectorOnMainThread:@selector(playBackStartedNotification) withObject:nil waitUntilDone:YES];
+        [m_idDelegate performSelectorOnMainThread:@selector(playBackStartedNotification) withObject:nil waitUntilDone:NO];
     }
 
     // Also notify the sound engine
-    [[TMSoundEngine sharedInstance] performSelectorOnMainThread:@selector(playBackStartedNotification) withObject:nil waitUntilDone:YES];
+    [[TMSoundEngine sharedInstance] performSelectorOnMainThread:@selector(playBackStartedNotification) withObject:nil waitUntilDone:NO];
 }
 
 - (void)sendPlayBackFinishedNotification
 {
     if (m_idDelegate && [m_idDelegate respondsToSelector:@selector(playBackFinishedNotification)])
     {
-        [m_idDelegate performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:YES];
+        [m_idDelegate performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:NO];
     }
 
     // Also notify the sound engine
-    [[TMSoundEngine sharedInstance] performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:YES];
+    [[TMSoundEngine sharedInstance] performSelectorOnMainThread:@selector(playBackFinishedNotification) withObject:nil waitUntilDone:NO];
 }
 
 @end
