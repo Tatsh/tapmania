@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="bd88f88b-271c-4fb5-8394-f9480f9a4ba6" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/contrib" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/chapters" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/examples" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/m4" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/minitasn1/.deps" />
@@ -13,6 +17,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/tls" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples" />
@@ -23,6 +28,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/libogg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/stream.png" />
@@ -46,6 +52,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS6" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/Vorbis_I_spec.pdf" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/components.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/eightphase.png" />
@@ -81,6 +88,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/coupled" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/floor" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/uncoupled" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/modes" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/m4" />
@@ -118,6 +126,8 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010/vorbisenc" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.h" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.m" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeState.h" />
@@ -1050,15 +1060,13 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Hot.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Hot.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Normal.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Normal.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Passing.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/Passing.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPad/Hot.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPad/Hot.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPad/Normal.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPad/Normal.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPadRetina/Hot.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPadRetina/Hot.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPadRetina/Normal.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/SongPlay/LifeBar/iPadRetina/Normal.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToExtendedMenu/iPad/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToExtendedMenu/iPad/Background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToExtendedMenu/iPadRetina/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToExtendedMenu/iPadRetina/Background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToMenu/iPad/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToMenu/iPad/Background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToMenu/iPadRetina/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/HowToMenu/iPadRetina/Background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/SoundSupport/AbstractSoundPlayer.mm" afterPath="$PROJECT_DIR$/Engine/SoundSupport/AbstractSoundPlayer.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Info.plist" afterPath="$PROJECT_DIR$/Info.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
@@ -1083,7 +1091,7 @@
       <file leaf-file-name="iPad_Metrics.plist" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="648" column="31" selection-start="23422" selection-end="23422" vertical-scroll-proportion="0.026168223">
+            <state line="673" column="32" selection-start="24269" selection-end="24269" vertical-scroll-proportion="0.36635515">
               <folding />
             </state>
           </provider>
@@ -1205,6 +1213,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1269,7 +1278,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1417,8 +1425,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.40951124" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.32364598" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.4966975" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.2364597" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
@@ -1504,6 +1512,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/SoundSupport/AbstractSoundPlayer.mm">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="17" selection-start="1020" selection-end="1020" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="660" column="56" selection-start="23849" selection-end="23849" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/TMSoundEngine.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="467" column="21" selection-start="11371" selection-end="11399" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SoundSupport/AbstractSoundPlayer.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="17" selection-start="1020" selection-end="1020" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="660" column="56" selection-start="23849" selection-end="23849" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/TMSoundEngine.mm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="467" column="21" selection-start="11371" selection-end="11399" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/SoundSupport/AbstractSoundPlayer.mm">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="83" column="10" selection-start="1321" selection-end="1321" vertical-scroll-proportion="0.0">
           <folding />
         </state>
@@ -1525,7 +1575,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPad_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="648" column="31" selection-start="23422" selection-end="23422" vertical-scroll-proportion="0.026168223">
+        <state line="673" column="32" selection-start="24269" selection-end="24269" vertical-scroll-proportion="0.36635515">
           <folding />
         </state>
       </provider>
