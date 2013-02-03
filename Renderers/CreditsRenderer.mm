@@ -17,6 +17,7 @@
 #import "MainMenuRenderer.h"
 #import "MenuItem.h"
 #import "Flurry.h"
+#import "TMSoundEngine.h"
 
 @implementation CreditsRenderer
 
@@ -28,7 +29,20 @@
 
     // We will show the credits until this set to YES
     m_bShouldReturn = NO;
+
+    [[TMSoundEngine sharedInstance] stopMusic];
+    [[TMSoundEngine sharedInstance] addToQueue:SOUND(@"Credits Music")];
+    [[TapMania sharedInstance] toggleAds:NO];
 }
+
+- (void)deinitOnTransition
+{
+    [super deinitOnTransition];
+
+    [[TMSoundEngine sharedInstance] stopMusic];
+    [[TapMania sharedInstance] toggleAds:YES];
+}
+
 
 /* TMLogicUpdater method */
 - (void)update:(float)fDelta

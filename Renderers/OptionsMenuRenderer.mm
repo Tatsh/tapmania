@@ -19,11 +19,12 @@
 
 #import "TMSoundEngine.h"
 #import "Flurry.h"
+#import "ICadeResponder.h"
 
 @interface OptionsMenuRenderer (InputHandling)
 - (void)themeTogglerChanged;
 
-- (void)noteSkinTogglerChanged;
+- (void)controllerMappingTogglerChanged;
 @end
 
 @implementation OptionsMenuRenderer
@@ -51,32 +52,31 @@
 
     [m_pThemeToggler selectItemAtIndex:iTheme];
 
-    // NoteSkin selection
-    m_pNoteSkinToggler = [[TogglerItem alloc] initWithMetrics:@"OptionsMenu NoteSkinTogglerCustom"];
+    // Controller mapping selection
+    m_pControllerMappingToggler = [[TogglerItem alloc] initWithMetrics:@"OptionsMenu ControllerMappingTogglerCustom"];
 
-    // Add all noteskins to the toggler list
-    for (NSString *skinName in [[ThemeManager sharedInstance] noteskinList])
-    {
-        [m_pNoteSkinToggler addItem:skinName withTitle:skinName];
-    }
+    [m_pControllerMappingToggler addItem:@"dance_mat" withTitle:@"All-Star Mat"];
+    [m_pControllerMappingToggler addItem:@"icade_arcade" withTitle:@"iCade Arcade"];
+    [m_pControllerMappingToggler addItem:@"icade_mobile" withTitle:@"iCade Mobile"];
+    [m_pControllerMappingToggler addItem:@"icp" withTitle:@"iControlPad"];
 
     // Preselect the one from config
-    NSString *noteskin = [[SettingsEngine sharedInstance] getStringValue:@"noteskin"];
-    int iSkin = [m_pNoteSkinToggler findIndexByValue:noteskin];
-    iSkin = iSkin == -1 ? 0 : iSkin;
+    NSString *controller = [[SettingsEngine sharedInstance] getStringValue:@"controller"];
+    int iCntrl = [m_pControllerMappingToggler findIndexByValue:controller];
+    iCntrl = iCntrl == -1 ? 0 : iCntrl;
 
-    [m_pNoteSkinToggler selectItemAtIndex:iSkin];
+    [m_pControllerMappingToggler selectItemAtIndex:iCntrl];
 
     // Setup action handlers
     [m_pThemeToggler setActionHandler:@selector(themeTogglerChanged) receiver:self];
-    [m_pNoteSkinToggler setActionHandler:@selector(noteSkinTogglerChanged) receiver:self];
+    [m_pControllerMappingToggler setActionHandler:@selector(controllerMappingTogglerChanged) receiver:self];
 
     // Add controls
     [self pushBackControl:m_pThemeToggler];
-    [self pushBackControl:m_pNoteSkinToggler];
+    [self pushBackControl:m_pControllerMappingToggler];
 
     // Temporarily remove ads
-//	[[TapMania sharedInstance] toggleAds:NO];
+	[[TapMania sharedInstance] toggleAds:NO];
 }
 
 - (void)deinitOnTransition
@@ -84,7 +84,7 @@
     [super deinitOnTransition];
 
     // Get ads back to place
-//	[[TapMania sharedInstance] toggleAds:YES];
+	// [[TapMania sharedInstance] toggleAds:YES];
 }
 
 /* Input handlers */
@@ -93,14 +93,12 @@
     [[SettingsEngine sharedInstance] setStringValue:(NSString *) [[m_pThemeToggler getCurrent] m_pValue] forKey:@"theme"];
 }
 
-- (void)noteSkinTogglerChanged
+- (void)controllerMappingTogglerChanged
 {
-    NSString *skinName = (NSString *) [[m_pNoteSkinToggler getCurrent] m_pValue];
-    if (![skinName isEqualToString:[ThemeManager sharedInstance].noteskinName])
-    {
-        [[SettingsEngine sharedInstance] setStringValue:skinName forKey:@"noteskin"];
-        [[ThemeManager sharedInstance] selectNoteskin:skinName];
-    }
+    NSString *name = (NSString *) [[m_pControllerMappingToggler getCurrent] m_pValue];
+    [[SettingsEngine sharedInstance] setStringValue:name forKey:@"controller"];
+
+    [[TapMania sharedInstance] setMappingWithName:name];
 }
 
 @end

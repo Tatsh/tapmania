@@ -11,6 +11,7 @@
 
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
 #import "ARRollerProtocol.h"
+#import "iCadeState.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, TMScreen, TMModalView;
 @protocol ICadeResponder;
@@ -90,4 +91,9 @@
 
 + (TapMania *)sharedInstance;
 
+- (void)setMappingWithName:(NSString *)string;
+
+- (void)hardwareControllerButtonDown:(iCadeState)state;
+
+- (void)hardwareControllerButtonUp:(iCadeState)state;
 @end

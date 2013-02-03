@@ -60,7 +60,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 #define DEGTORAD(x) x*(3.14/180)
 
+@interface TapMania ()
+- (void)setupControllerMappings;
+
+@end
+
 @implementation TapMania
+{
+    std::map<iCadeState, JPButton> current_mapping_;
+    std::map<std::string, std::map<iCadeState, JPButton> > mappings_;
+}
 
 @synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop, m_Transform, m_InputTransform;
 @synthesize iCadeResponder = _iCadeResponder;
@@ -69,8 +78,10 @@ static TapMania *sharedTapManiaDelegate = nil;
 - (id)init
 {
     self = [super init];
-    if (!self)
+    if ( !self )
+    {
         return nil;
+    }
 
     // Start the message manager and register some basic messages
     REG_MESSAGE(kApplicationStartedMessage, [@"ApplicationStarted" retain]);
@@ -116,7 +127,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
     CGSize dispSize = [DisplayUtil getDeviceDisplaySize];
 
-    if (g_pGameState->m_bLandscape)
+    if ( g_pGameState->m_bLandscape )
     {
         m_Transform = CGAffineTransformMakeTranslation(0.0f, dispSize.width);    // For landscape
         m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);
@@ -126,7 +137,8 @@ static TapMania *sharedTapManiaDelegate = nil;
         m_InputTransform = CGAffineTransformTranslate(m_InputTransform, -dispSize.width, -dispSize.height);
 
         [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
-    } else
+    }
+    else
     {
         m_Transform = CGAffineTransformMakeTranslation(0.0f, dispSize.height);    // For skyscraper
         m_Transform = CGAffineTransformScale(m_Transform, 1.0f, -1.0f);
@@ -135,7 +147,63 @@ static TapMania *sharedTapManiaDelegate = nil;
         m_InputTransform = CGAffineTransformScale(m_InputTransform, 1.0f, -1.0f);
     }
 
+    [self setupControllerMappings];
+
     return self;
+}
+
+- (void)setupControllerMappings
+{
+    std::map<iCadeState, JPButton> mat_mapping;
+
+    mat_mapping[iCadeButtonG] = kJoyButtonExit;
+    mat_mapping[iCadeJoystickUp] = kJoyButtonUp;
+    mat_mapping[iCadeJoystickDown] = kJoyButtonDown;
+    mat_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+    mat_mapping[iCadeJoystickRight] = kJoyButtonRight;
+    mappings_.insert(std::make_pair("dance_mat", mat_mapping));
+
+    std::map<iCadeState, JPButton> icade_arcade_mapping;
+
+    icade_arcade_mapping[iCadeButtonG] = kJoyButtonExit;
+    icade_arcade_mapping[iCadeButtonF] = kJoyButtonUp;
+    icade_arcade_mapping[iCadeJoystickUp] = kJoyButtonUp;
+    icade_arcade_mapping[iCadeButtonD] = kJoyButtonDown;
+    icade_arcade_mapping[iCadeJoystickDown] = kJoyButtonDown;
+    icade_arcade_mapping[iCadeButtonB] = kJoyButtonLeft;
+    icade_arcade_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+    icade_arcade_mapping[iCadeButtonH] = kJoyButtonRight;
+    icade_arcade_mapping[iCadeJoystickRight] = kJoyButtonRight;
+    mappings_.insert(std::make_pair("icade_arcade", icade_arcade_mapping));
+
+    std::map<iCadeState, JPButton> icade_mobile_mapping;
+
+    icade_mobile_mapping[iCadeButtonG] = kJoyButtonExit;
+    icade_mobile_mapping[iCadeButtonD] = kJoyButtonUp;
+    icade_mobile_mapping[iCadeJoystickUp] = kJoyButtonUp;
+    icade_mobile_mapping[iCadeButtonC] = kJoyButtonDown;
+    icade_mobile_mapping[iCadeJoystickDown] = kJoyButtonDown;
+    icade_mobile_mapping[iCadeButtonA] = kJoyButtonLeft;
+    icade_mobile_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+    icade_mobile_mapping[iCadeButtonB] = kJoyButtonRight;
+    icade_mobile_mapping[iCadeJoystickRight] = kJoyButtonRight;
+    mappings_.insert(std::make_pair("icade_mobile", icade_mobile_mapping));
+
+    std::map<iCadeState, JPButton> icp_mapping;
+
+    icp_mapping[iCadeButtonG] = kJoyButtonExit;
+    icp_mapping[iCadeButtonD] = kJoyButtonUp;
+    icp_mapping[iCadeJoystickUp] = kJoyButtonUp;
+    icp_mapping[iCadeButtonC] = kJoyButtonDown;
+    icp_mapping[iCadeJoystickDown] = kJoyButtonDown;
+    icp_mapping[iCadeButtonA] = kJoyButtonLeft;
+    icp_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+    icp_mapping[iCadeButtonB] = kJoyButtonRight;
+    icp_mapping[iCadeJoystickRight] = kJoyButtonRight;
+    mappings_.insert(std::make_pair("icp", icp_mapping));
+
+    NSString *controller = [[SettingsEngine sharedInstance] getStringValue:@"controller"];
+    [self setMappingWithName:controller];
 }
 
 - (void)switchToTapDB
@@ -219,7 +287,7 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void)releaseCurrentScreen
 {
-    if (m_pCurrentScreen != nil)
+    if ( m_pCurrentScreen != nil )
     {
         [m_pCurrentScreen release];
     }
@@ -242,6 +310,16 @@ static TapMania *sharedTapManiaDelegate = nil;
     [[GameCenterManager sharedInstance] authenticateUser];
 
     BROADCAST_MESSAGE(kApplicationStartedMessage, nil);
+}
+
+- (void)setMappingWithName:(NSString *)name
+{
+    std::map<std::string, std::map<iCadeState, JPButton> >::iterator it = mappings_.find(name.UTF8String);
+    if(it != mappings_.end())
+    {
+        TMLog(@"Setting mapping with name %@", name);
+        current_mapping_ = it->second;
+    }
 }
 
 - (void)toggleAds:(BOOL)onOff
@@ -288,7 +366,7 @@ static TapMania *sharedTapManiaDelegate = nil;
     m_pWindow = ((TapManiaAppDelegate *) [UIApplication sharedApplication].delegate).rootView;
 
     // Init opengl
-    if (g_pGameState->m_bLandscape)
+    if ( g_pGameState->m_bLandscape )
     {
         CGSize s = [DisplayUtil getDeviceDisplaySize];
         m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.height, s.width)];
@@ -296,13 +374,15 @@ static TapMania *sharedTapManiaDelegate = nil;
         m_pGlView.transform = CGAffineTransformIdentity;
         m_pGlView.transform = CGAffineTransformMakeRotation(DEGTORAD(-90.0f));
         m_pGlView.center = CGPointMake(s.width / 2.0f, s.height / 2.0f);
-    } else
+    }
+    else
     {
         CGSize s = [DisplayUtil getDeviceDisplaySize];
-        if ([DisplayUtil isRetina])
+        if ( [DisplayUtil isRetina] )
         {
             m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.width / 2, s.height / 2)];
-        } else
+        }
+        else
         {
             m_pGlView = [[EAGLView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, s.width, s.height)];
         }
@@ -328,16 +408,17 @@ static TapMania *sharedTapManiaDelegate = nil;
 
     {
         int width = rect.size.width, height = rect.size.height;
-        if (g_pGameState->m_bLandscape)
+        if ( g_pGameState->m_bLandscape )
         {
             int temp = width;
             width = height;
             height = temp;
         }
-        if ([DisplayUtil isRetina])
+        if ( [DisplayUtil isRetina] )
         {
             glOrthof(0, width * 2, 0, height * 2, -1000, 1000);    // large depth so that rotated objects aren't clipped
-        } else
+        }
+        else
         {
             glOrthof(0, width, 0, height, -1000, 1000);    // large depth so that rotated objects aren't clipped
         }
@@ -444,9 +525,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 #pragma mark Singleton stuff
 + (TapMania *)sharedInstance
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedTapManiaDelegate == nil)
+        if ( sharedTapManiaDelegate == nil )
         {
             [[self alloc] init];
         }
@@ -456,9 +537,9 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 + (id)allocWithZone:(NSZone *)zone
 {
-    @synchronized (self)
+    @synchronized ( self )
     {
-        if (sharedTapManiaDelegate == nil)
+        if ( sharedTapManiaDelegate == nil )
         {
             sharedTapManiaDelegate = [super allocWithZone:zone];
             return sharedTapManiaDelegate;
@@ -489,4 +570,35 @@ static TapMania *sharedTapManiaDelegate = nil;
     return self;
 }
 
+- (void)hardwareControllerButtonDown:(iCadeState)button
+{
+    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
+    if ( it != current_mapping_.end() )
+    {
+        if ( self.iCadeResponder )
+        {
+            [self.iCadeResponder buttonDown:it->second];
+        }
+        else
+        {
+            [[TapMania sharedInstance].joyPad setState:YES forButton:it->second];
+        }
+    }
+}
+
+- (void)hardwareControllerButtonUp:(iCadeState)button
+{
+    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
+    if ( it != current_mapping_.end() )
+    {
+        if ( self.iCadeResponder )
+        {
+            [self.iCadeResponder buttonUp:it->second];
+        }
+        else
+        {
+            [[TapMania sharedInstance].joyPad setState:NO forButton:it->second];
+        }
+    }
+}
 @end

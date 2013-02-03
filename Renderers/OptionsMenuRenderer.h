@@ -13,7 +13,7 @@
 
 @interface OptionsMenuRenderer : TMScreen
 {
-    TogglerItem *m_pThemeToggler, *m_pNoteSkinToggler;
+    TogglerItem *m_pThemeToggler, *m_pControllerMappingToggler;
 }
 
 @end

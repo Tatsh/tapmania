@@ -44,7 +44,8 @@
     }
 
     m_pConfigDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"default", @"theme", @"default", @"noteskin",
-                                                                        [NSNumber numberWithFloat:0.8f], @"sound", [NSNumber numberWithFloat:0.6f], @"effectssound",
+                                                                        @"dance_mat", @"controller",
+                                                                        [NSNumber numberWithFloat:0.7f], @"sound", [NSNumber numberWithFloat:0.9f], @"effectssound",
                                                                         [NSNumber numberWithBool:NO], @"autotrack",
                                                                         [NSNumber numberWithBool:YES], @"vispad", @"NONEXISTING", @"newsversion",
                                                                         @"NONEXISTINGSONG", @"lastsong", [NSNumber numberWithInt:2], @"prefspeed",
@@ -86,15 +87,21 @@
         ++errCount;
     }
 
+    if ( ![m_pConfigDict valueForKey:@"controller"] )
+    {
+        [m_pConfigDict setObject:@"dance_mat" forKey:@"controller"];
+        ++errCount;
+    }
+
     if ( ![m_pConfigDict valueForKey:@"sound"] )
     {
-        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.8f] forKey:@"sound"];
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.7f] forKey:@"sound"];
         ++errCount;
     }
 
     if ( ![m_pConfigDict valueForKey:@"effectssound"] )
     {
-        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.6f] forKey:@"effectssound"];
+        [m_pConfigDict setObject:[NSNumber numberWithFloat:0.9f] forKey:@"effectssound"];
         ++errCount;
     }
 

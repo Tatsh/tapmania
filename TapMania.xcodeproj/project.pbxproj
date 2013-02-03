@@ -2999,7 +2999,10 @@
 					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-DDEBUG";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DENABLE_ADWHIRL",
+				);
 				PRODUCT_NAME = TapMania;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

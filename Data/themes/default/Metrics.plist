@@ -268,6 +268,34 @@
                     <key>Height</key>
                     <integer>46</integer>
                 </dict>
+                <key>ControllerMappingLabel</key>
+                <dict>
+                    <key>OnCommand</key>
+                    <string>name,Controller:;alignment,right</string>
+                    <key>X</key>
+                    <integer>100</integer>
+                    <key>Y</key>
+                    <integer>411</integer>
+                    <key>FixedWidth</key>
+                    <integer>90</integer>
+                </dict>
+                <key>ControllerMappingTogglerCustom</key>
+                <dict>
+                    <key>HitCommand</key>
+                    <string>playsoundeffect,Common TogglerChange</string>
+                    <key>OnCommand</key>
+                    <string>zoom,1.1,0.5</string>
+                    <key>OffCommand</key>
+                    <string>zoom,1.0,0.3</string>
+                    <key>X</key>
+                    <integer>110</integer>
+                    <key>Y</key>
+                    <integer>389</integer>
+                    <key>Width</key>
+                    <integer>190</integer>
+                    <key>Height</key>
+                    <integer>46</integer>
+                </dict>
                 <key>MusicLevelLabel</key>
                 <dict>
                     <key>OnCommand</key>

@@ -443,68 +443,40 @@ enum TMWheelAnimationState
 }
 
 // iCade support
-- (void)buttonDown:(iCadeState)button
+- (void)buttonDown:(JPButton)button
 {
     TMLog(@"SongWheel Got button press %d", button);
 
     switch ( button )
     {
-        case iCadeButtonG: // select
-            break;
-        case iCadeButtonF:
-        case iCadeJoystickUp:
+        case kJoyButtonUp:
             if (m_state == IDLE)
             {
                 [self commitSongSelection];
             }
             break;
-        case iCadeButtonB:
-        case iCadeJoystickLeft:
+        case kJoyButtonLeft:
             if ( m_state == IDLE )
             {
                 m_allowPreviewMusic = YES;
                 [self scrollWheelUp:0.1f];
             }
             break;
-        case iCadeButtonH:
-        case iCadeJoystickRight:
+        case kJoyButtonRight:
             if ( m_state == IDLE )
             {
                 m_allowPreviewMusic = YES;
                 [self scrollWheelDown:0.1f];
             }
             break;
-        case iCadeButtonD:
-        case iCadeJoystickDown:
-            break;
         default:
             break;
     }
 }
 
-- (void)buttonUp:(iCadeState)button
+- (void)buttonUp:(JPButton)button
 {
     TMLog(@"SongWheel Got button release %d", button);
-
-    switch ( button )
-    {
-        case iCadeButtonG: // select
-            break;
-        case iCadeButtonF:
-        case iCadeJoystickUp:
-            break;
-        case iCadeButtonB:
-        case iCadeJoystickLeft:
-            break;
-        case iCadeButtonH:
-        case iCadeJoystickRight:
-            break;
-        case iCadeButtonD:
-        case iCadeJoystickDown:
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)scrollWheelUp:(float)animSpeed

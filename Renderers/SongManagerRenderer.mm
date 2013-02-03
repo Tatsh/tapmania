@@ -36,6 +36,9 @@
 
     // Set the label
     [(Label*)[self findControl:@"SongManager UrlLabel"] setName:[WebServer sharedInstance].m_sCurrentServerURL];
+
+    // Show ads
+    [[TapMania sharedInstance] toggleAds:YES];
 }
 
 - (void)deinitOnTransition
@@ -44,6 +47,9 @@
 
     // Stop web server
     [[WebServer sharedInstance] stop];
+
+    // Remove ads
+    [[TapMania sharedInstance] toggleAds:NO];
 }
 
 /* TMLogicUpdater method */

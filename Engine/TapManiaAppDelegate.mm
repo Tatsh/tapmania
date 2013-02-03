@@ -160,75 +160,12 @@ void uncaughtExceptionHandler(NSException *exception)
 // iCade support
 - (void)buttonDown:(iCadeState)button
 {
-    if ( [TapMania sharedInstance].iCadeResponder )
-    {
-        [[TapMania sharedInstance].iCadeResponder buttonDown:button];
-    }
-    else
-    {
-        switch ( button )
-        {
-            case iCadeButtonG: // select
-                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonExit];
-                break;
-            case iCadeButtonF:
-            case iCadeJoystickUp:
-                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonUp];
-                break;
-            case iCadeButtonB:
-            case iCadeJoystickLeft:
-                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonLeft];
-                break;
-            case iCadeButtonH:
-            case iCadeJoystickRight:
-                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonRight];
-                break;
-            case iCadeButtonD:
-            case iCadeJoystickDown:
-                [[TapMania sharedInstance].joyPad setState:YES forButton:kJoyButtonDown];
-                break;
-            default:
-                break;
-        }
-    }
+    [[TapMania sharedInstance] hardwareControllerButtonDown:button];
 }
 
 - (void)buttonUp:(iCadeState)button
 {
-    if ( [TapMania sharedInstance].iCadeResponder )
-    {
-        [[TapMania sharedInstance].iCadeResponder buttonUp:button];
-    }
-    else
-    {
-
-        switch ( button )
-        {
-            case iCadeButtonG: // select
-                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonExit];
-                break;
-            case iCadeButtonF:
-            case iCadeJoystickUp:
-                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonUp];
-                break;
-            case iCadeButtonB:
-            case iCadeJoystickLeft:
-                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonLeft];
-                break;
-            case iCadeButtonH:
-            case iCadeJoystickRight:
-                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonRight];
-                break;
-            case iCadeButtonD:
-            case iCadeJoystickDown:
-                [[TapMania sharedInstance].joyPad setState:NO forButton:kJoyButtonDown];
-                break;
-            default:
-                break;
-
-        }
-
-    }
+    [[TapMania sharedInstance] hardwareControllerButtonUp:button];
 }
 
 
