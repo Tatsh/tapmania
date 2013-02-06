@@ -307,6 +307,17 @@ extern TMGameState *g_pGameState;
         }
     }
 
+
+    // SDG
+    if(m_nCounters[kJudgementW3] < 10
+            && m_nCounters[kJudgementW4] == 0
+            && m_nCounters[kJudgementW5] == 0
+            && m_nCounters[kJudgementMineHit] == 0
+            && m_nCounters[kJudgementMiss] == 0)
+    {
+        [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.sdg" percentComplete:100.0f];
+    }
+
     // Set grade sprite index
     [_gradeSprite setFrameIndex:m_Grade];
 
@@ -321,13 +332,18 @@ extern TMGameState *g_pGameState;
     NSString *sql = [NSString stringWithFormat:@"WHERE hash = '%@' AND difficulty = '%@'", g_pGameState->m_pSong.m_sHash, diff];
     TMSongSavedScore *savedScore = [TMSongSavedScore findFirstByCriteria:sql];
 
-    if ( savedScore != nil )
+    bool has_old_score = (savedScore != nil);
+    bool should_report = false;
+
+    if ( has_old_score )
     {
         TMLog(@"Some old score found: %@", savedScore.bestScore);
 
         if ( [savedScore.bestScore intValue] < g_pGameState->m_nScore )
         {
             TMLog(@"Better score. Update.");
+            should_report = true;
+
             savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
             savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
             [savedScore save];
@@ -339,6 +355,8 @@ extern TMGameState *g_pGameState;
     else
     {
         TMLog(@"Save score first time!");
+        should_report = true;
+
         savedScore = [[TMSongSavedScore alloc] init];
         savedScore.hash = g_pGameState->m_pSong.m_sHash;
         savedScore.difficulty = diff;
@@ -369,6 +387,13 @@ extern TMGameState *g_pGameState;
         TMLog(@"Calculated TOTAL SCORE (based on %d songs): %d", songCount, totalScore);
 
         [[GameCenterManager sharedInstance] reportScore:totalScore forDifficulty:diff basedOnCount:songCount];
+
+        if ( should_report )
+        {
+            [[GameCenterManager sharedInstance] reportScore:g_pGameState->m_nScore
+                                                    forSong:g_pGameState->m_pSong
+                                               onDifficulty:diff];
+        }
     }
 
     if ( !g_pGameState->m_bFailed && !g_pGameState->m_bGaveUp )

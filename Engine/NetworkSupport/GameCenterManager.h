@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class TMSong;
 @interface GameCenterManager : NSObject
 {
 }
@@ -26,5 +27,5 @@
 
 - (void)reportRecurringAchievement:(NSString *)identifier percentComplete:(float)percent;
 
-
+- (void)reportScore:(long)i forSong:(TMSong *)song onDifficulty:(NSNumber *)difficulty;
 @end
