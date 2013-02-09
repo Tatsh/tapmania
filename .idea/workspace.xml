@@ -1060,6 +1060,14 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/BigScore.png" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/BigScore.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/MediumScore.png" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/MediumScore.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/MenuElements.png" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/MenuElements.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/BigScore.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/BigScore.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/MediumScore.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/MediumScore.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/MenuElements.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/MenuElements.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Fonts/WheelScore.xml" afterPath="$PROJECT_DIR$/Data/themes/default/Fonts/WheelScore.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" afterPath="$PROJECT_DIR$/Data/themes/default/Metrics.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
@@ -1138,7 +1146,7 @@
       <file leaf-file-name="Metrics.plist" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="699" column="25" selection-start="28480" selection-end="28480" vertical-scroll-proportion="-3.8798647">
+            <state line="48" column="100" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.45663717">
               <folding />
             </state>
           </provider>
@@ -1330,6 +1338,62 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Fonts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TapMania" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Fonts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iPhoneRetina" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TapMania" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -1338,15 +1402,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h" />
+    <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ext/Flurry iPhone SDK v4.1.0/Flurry/Flurry.h" />
     <property name="FullScreen" value="false" />
     <property name="OBJC.PRESERVED_TARGET_SELECTION" value="TapMania" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Application.TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
@@ -1481,8 +1545,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.40951124" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.3976222" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.48745045" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.31968296" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
@@ -1583,9 +1647,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/MainMenuRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="32" selection-start="2483" selection-end="2483" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="95" column="32" selection-start="2483" selection-end="2483" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.h">
@@ -1668,7 +1730,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="699" column="25" selection-start="28480" selection-end="28480" vertical-scroll-proportion="-3.8798647">
+        <state line="48" column="100" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.45663717">
           <folding />
         </state>
       </provider>
