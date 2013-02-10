@@ -666,7 +666,14 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     // Accumulate md5s of all files in the dir
     for ( i = 0; i < [dirContents count]; i++ )
     {
-        NSString *md5 = [SongsDirectoryCache fileMD5:[path stringByAppendingPathComponent:[dirContents objectAtIndex:i]]];
+        NSString* filePath = [path stringByAppendingPathComponent:[dirContents objectAtIndex:i]];
+        if( [filePath hasSuffix:@".DS_Store"] || [filePath hasSuffix:@".svn"] )
+        {
+            // Skip this crap
+            continue;
+        }
+
+        NSString *md5 = [SongsDirectoryCache fileMD5:filePath];
         result = [result stringByAppendingString:md5];
     }
 

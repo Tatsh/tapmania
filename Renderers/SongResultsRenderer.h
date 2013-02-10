@@ -11,6 +11,7 @@
 
 #import "TMScreen.h"
 
+#define kMaximumScore 10000000l
 @class TMSteps, TMSong, FontString, TMFramedTexture;
 @class TMSound;
 

@@ -2939,7 +2939,8 @@
 					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
 					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
-				OTHER_CFLAGS = "-DENABLE_ADWHIRL";
+				OTHER_CFLAGS = (
+				);
 				PRODUCT_NAME = TapMania;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

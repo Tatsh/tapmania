@@ -41,20 +41,16 @@
     self = [super init];
     if (self)
     {
-        supported_songs_.push_back("68ec8dfa9191256e1844ffc9c723ffe3");
+        supported_songs_.push_back("1b5e63ec2b9ec4bd8df96264b5916ad3");
         supported_songs_.push_back("1ee8020e445d37190f76ee7fb17a1864");
-        supported_songs_.push_back("930f97a61afede4c9b086cfa6d3f5846");
-        supported_songs_.push_back("715c8571f1f0486c9a3d88f2c79ac008");
-        supported_songs_.push_back("6956493180f68f37be41d8f5ad242512");
+        supported_songs_.push_back("85ecd7805035b28812df715425afd5ef");
+        supported_songs_.push_back("1ab5c56eb03d559e8a1c008e3cd3a278");
         supported_songs_.push_back("d537889e79199f2e587ca50f062fdc7d");
-        supported_songs_.push_back("26335b59fcdd1088ad2f5683943e1ff1");
-        supported_songs_.push_back("a1285c1e35eca3f4088264e7a8ecc68d");
-        supported_songs_.push_back("ff685065ee04535722a74272ec93f93a");
-        supported_songs_.push_back("9449cddbc73816a9b73cffa0c4a0016f");
+        supported_songs_.push_back("2587ac8fc078b98f8f0a7d5cb31f7587");
+        supported_songs_.push_back("4e744f293a382c0be5dd5de341284435");
+        supported_songs_.push_back("c4b6d67f85d34ab6283169796b5e5985");
         supported_songs_.push_back("2652cd4526ce5f1fc688562c5e8e6e31");
-        supported_songs_.push_back("36ca49d6f9deb1373143deebe38b957c");
-        supported_songs_.push_back("34d47e40b9e92000950e7f2396150ccd");
-        supported_songs_.push_back("07a3bf327735ea58e90c77ae1de26ebb");
+        supported_songs_.push_back("d4f5e903af41eb860f1652bbf32acf00");
     }
     return self;
 }
@@ -105,28 +101,7 @@
     return YES; // May be overwritten later
 }
 
-- (void)reportScore:(int)score forDifficulty:(NSNumber *)difficulty basedOnCount:(int)count
-{
-    if ( ![self supported] )
-    {
-        TMLog(@"Not reporting score as GameKit is not supported.");
-        return;
-    }
-
-    TMLog(@"Want to report %d score for diff %d based on count %d", score, [difficulty intValue], count);
-
-    NSString *category = [NSString stringWithFormat:@"org.tapmania.leaderboard.%@.%d", [DisplayUtil getDeviceTypeString], [difficulty intValue]];
-    GKScore *s = [[[GKScore alloc] initWithCategory:category] autorelease];
-
-    s.value = score;
-
-    [s reportScoreWithCompletionHandler:^(NSError *error)
-    {
-        TMLog(@"Score is reported!");
-    }];
-}
-
-- (void)reportScore:(long)score forSong:(TMSong *)song onDifficulty:(NSNumber *)difficulty
+- (void)reportScore:(long)score forSong:(TMSong *)song
 {
     if ( ![self supported] )
     {
@@ -139,8 +114,8 @@
             supported_songs_.end(),
             song.m_sHash.UTF8String) != supported_songs_.end() )
     {
-        NSString *category = [NSString stringWithFormat:@"org.tapmania.leaderboard.%@.song.%@.%d",
-                        [DisplayUtil getDeviceTypeString], song.m_sHash, [difficulty intValue]];
+        NSString *category = [NSString stringWithFormat:@"org.tapmania.leaderboard.%@.song.%@",
+                        [DisplayUtil getDeviceTypeString], song.m_sHash];
 
 
         TMLog(@"\n\n\n\nREPORT FOR '%@'\n\n\n\n", category);

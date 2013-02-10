@@ -299,7 +299,7 @@ extern TMGameState *g_pGameState;
 
         m_Grade = [self gradeFromScore:g_pGameState->m_nScore
                           fromMaxScore://[g_pGameState->m_pSteps getDifficultyLevel]*
-                                  10000000];
+                                  kMaximumScore];
 
         if ( m_Grade == kGradeAA )
         {
@@ -309,11 +309,12 @@ extern TMGameState *g_pGameState;
 
 
     // SDG
-    if(m_nCounters[kJudgementW3] < 10
+    if ( m_nCounters[kJudgementW3] < 10
+            && m_nCounters[kJudgementW3] > 0
             && m_nCounters[kJudgementW4] == 0
             && m_nCounters[kJudgementW5] == 0
             && m_nCounters[kJudgementMineHit] == 0
-            && m_nCounters[kJudgementMiss] == 0)
+            && m_nCounters[kJudgementMiss] == 0 )
     {
         [[GameCenterManager sharedInstance] reportRecurringAchievement:@"org.tapmania.grade.sdg" percentComplete:100.0f];
     }
@@ -370,29 +371,42 @@ extern TMGameState *g_pGameState;
 
     if ( [[GameCenterManager sharedInstance] supported] )
     {
-        // GameCenter stuff now
-        NSString *allSql = [NSString stringWithFormat:@"WHERE difficulty = '%@'", diff];
+        // GameCenter stuff now. Find all scores for this song
+        NSString *allSql = [NSString stringWithFormat:@"WHERE hash = '%@'", g_pGameState->m_pSong.m_sHash];
         NSArray *arr = [TMSongSavedScore findByCriteria:allSql];
 
-        int totalScore = 0;
-        int songCount = 0;
+        // For all difficulties
+        long totalScore = 0;
+        long totalPossible = 0;
 
-        for ( TMSongSavedScore *score in arr )
+        for ( TMSongDifficulty diff = kSongDifficulty_Beginner; diff < kNumSongDifficulties; ++diff )
         {
-            ++songCount;
-            totalScore += [score.bestScore intValue];
+            if ( [g_pGameState->m_pSong isDifficultyAvailable:diff] )
+            {
+                totalPossible += diff * kMaximumScore;
+
+                // Try to find the score for this difficulty
+                for ( TMSongSavedScore *score in arr )
+                {
+                    if ( [score.difficulty intValue] == diff )
+                    {
+                        totalScore += diff * [score.bestScore intValue];
+                        break;
+                    }
+                }
+            }
         }
 
-        totalScore /= songCount;
-        TMLog(@"Calculated TOTAL SCORE (based on %d songs): %d", songCount, totalScore);
+        double percentage = (double)totalScore / (double)totalPossible;
+        TMLog(@"Percentage: %f", percentage);
 
-        [[GameCenterManager sharedInstance] reportScore:totalScore forDifficulty:diff basedOnCount:songCount];
+        totalScore = (long) ((double)kMaximumScore * percentage);
+        TMLog(@"Calculated TOTAL SCORE: %d", totalScore);
 
         if ( should_report )
         {
-            [[GameCenterManager sharedInstance] reportScore:g_pGameState->m_nScore
-                                                    forSong:g_pGameState->m_pSong
-                                               onDifficulty:diff];
+            [[GameCenterManager sharedInstance] reportScore:totalScore
+                                                    forSong:g_pGameState->m_pSong];
         }
     }
 
