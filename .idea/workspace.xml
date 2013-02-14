@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="bd88f88b-271c-4fb5-8394-f9480f9a4ba6" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/contrib" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/chapters" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc/examples" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/doc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/m4" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/lgl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/minitasn1/.deps" />
@@ -13,6 +17,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/tls" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https/x509" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon/https" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/daemon" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/examples" />
@@ -23,6 +28,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testcurl" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf/.deps" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src/testzzuf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2/src" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libmicrohttpd-0.4.2" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/libogg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/doc/stream.png" />
@@ -46,6 +52,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS6" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/Vorbis_I_spec.pdf" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/components.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/eightphase.png" />
@@ -81,6 +88,7 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/coupled" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/floor" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books/uncoupled" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/books" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib/modes" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/lib" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/m4" />
@@ -118,6 +126,8 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010/vorbisenc" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.h" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.m" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeState.h" />
@@ -1050,7 +1060,9 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.xcworkspace/xcuserdata/godexsoft.xcuserdatad/UserInterfaceState.xcuserstate" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Info.plist" afterPath="$PROJECT_DIR$/Info.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
@@ -1069,7 +1081,7 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_UNIVERSAL" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="TMSong.h" pinned="false" current="false" current-in-tab="false">
@@ -1084,7 +1096,7 @@
       <file leaf-file-name="SongResultsRenderer.mm" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="312" column="14" selection-start="8785" selection-end="8785" vertical-scroll-proportion="0.5248869">
+            <state line="321" column="17" selection-start="9161" selection-end="9161" vertical-scroll-proportion="0.03167421">
               <folding />
             </state>
           </provider>
@@ -1197,7 +1209,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1212,6 +1223,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1359,8 +1371,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.15587847" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.45442536" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.44253632" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.16776751" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
@@ -1456,16 +1468,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="11" selection-start="629" selection-end="629" vertical-scroll-proportion="0.15616438">
-          <folding />
-        </state>
+        <state line="25" column="11" selection-start="629" selection-end="629" vertical-scroll-proportion="0.15616438" />
       </provider>
     </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/include/c++/4.2.1/ext/new_allocator.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="19" selection-start="3543" selection-end="3543" vertical-scroll-proportion="0.5205479">
-          <folding />
-        </state>
+        <state line="106" column="19" selection-start="3543" selection-end="3543" vertical-scroll-proportion="0.5205479" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongManagerRenderer.mm">
@@ -1485,16 +1493,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="49" selection-start="1797" selection-end="1797" vertical-scroll-proportion="0.019178081">
-          <folding />
-        </state>
+        <state line="49" column="49" selection-start="1797" selection-end="1797" vertical-scroll-proportion="0.019178081" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhoneRetina_Metrics.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="583" column="23" selection-start="15634" selection-end="21134" vertical-scroll-proportion="0.019178081">
-          <folding />
-        </state>
+        <state line="583" column="23" selection-start="15634" selection-end="21134" vertical-scroll-proportion="0.019178081" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/themes/default/iPhone5_Metrics.plist">
@@ -1513,9 +1517,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/NetworkSupport/GameCenterManager.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="21" selection-start="411" selection-end="411" vertical-scroll-proportion="0.57092196">
-          <folding />
-        </state>
+        <state line="23" column="21" selection-start="411" selection-end="411" vertical-scroll-proportion="0.57092196" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.h">
@@ -1527,21 +1529,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/SongsDirectoryCache.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="649" column="37" selection-start="20885" selection-end="20885" vertical-scroll-proportion="0.6162988">
-          <folding />
-        </state>
+        <state line="649" column="37" selection-start="20885" selection-end="20885" vertical-scroll-proportion="0.6162988" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/NetworkSupport/GameCenterManager.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="32" selection-start="3108" selection-end="3108" vertical-scroll-proportion="0.4950166">
-          <folding />
-        </state>
+        <state line="110" column="32" selection-start="3108" selection-end="3108" vertical-scroll-proportion="0.4950166" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="312" column="14" selection-start="8785" selection-end="8785" vertical-scroll-proportion="0.5248869">
+        <state line="321" column="17" selection-start="9161" selection-end="9161" vertical-scroll-proportion="0.03167421">
           <folding />
         </state>
       </provider>
