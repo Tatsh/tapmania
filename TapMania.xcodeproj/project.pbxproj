@@ -2940,6 +2940,7 @@
 					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
 				);
 				OTHER_CFLAGS = (
+					"-DENABLE_ADWHIRL",
 				);
 				PRODUCT_NAME = TapMania;
 				PROVISIONING_PROFILE = "";

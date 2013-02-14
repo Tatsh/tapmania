@@ -46,7 +46,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32/VS6" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3/win32" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libogg-1.1.3" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/Vorbis_I_spec.pdf" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/components.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/doc/eightphase.png" />
@@ -119,7 +118,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010/vorbisenc" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/VS2010" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.h" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeReaderView.m" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/iCade/iCadeState.h" />
@@ -1052,9 +1050,8 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbis.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisenc.def" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ext/libvorbis-1.2.0/win32/vorbisfile.def" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/Background.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhone5/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhone5/Background.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhoneRetina/Background.png" afterPath="$PROJECT_DIR$/Data/themes/default/Graphics/Credits/iPhoneRetina/Background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/TapMania.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" afterPath="$PROJECT_DIR$/ext/SQLitePersistentObjects/src/SQLitePersistentObject.m" />
     </list>
     <ignored path="TapMania.iws" />
@@ -1072,7 +1069,7 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_IPHONE_F2VJR6V0DTWD" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_UNIVERSAL" />
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="TMSong.h" pinned="false" current="false" current-in-tab="false">
@@ -1088,9 +1085,7 @@
         <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
           <provider selected="true" editor-type-id="text-editor">
             <state line="312" column="14" selection-start="8785" selection-end="8785" vertical-scroll-proportion="0.5248869">
-              <folding>
-                <element signature="e#214#245#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1215,20 +1210,6 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TapMania" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TapMania" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -1245,7 +1226,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.TapMania">
+  <component name="RunManager" selected="Application.AdHoc TapMania">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="TapMania" TARGET_NAME="TapMania" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="TapMania" RUN_TARGET_NAME="TapMania" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <method />
@@ -1373,17 +1354,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="22" width="1436" height="878" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232496" sideWeight="0.49751598" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32795697" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.15587847" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.45442536" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.45442536" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336856" sideWeight="0.49751598" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.49751598" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38044915" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38044915" sideWeight="0.49751598" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1561,9 +1542,7 @@
     <entry file="file://$PROJECT_DIR$/Renderers/SongResultsRenderer.mm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="312" column="14" selection-start="8785" selection-end="8785" vertical-scroll-proportion="0.5248869">
-          <folding>
-            <element signature="e#214#245#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
