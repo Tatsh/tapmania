@@ -51,6 +51,8 @@
         supported_songs_.push_back("c4b6d67f85d34ab6283169796b5e5985");
         supported_songs_.push_back("2652cd4526ce5f1fc688562c5e8e6e31");
         supported_songs_.push_back("d4f5e903af41eb860f1652bbf32acf00");
+        supported_songs_.push_back("68ec8dfa9191256e1844ffc9c723ffe3");
+        supported_songs_.push_back("2e7ec12f09eadfd61ba5a86e65843f5a");
     }
     return self;
 }
