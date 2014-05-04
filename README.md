@@ -27,6 +27,8 @@ After cloning, add the following to `.git/config`:
         authorsfile = .svn-authors
 ```
 
+To merge, use `git merge remotes/git-svn`.
+
 # How to build
 
 To be written (for modern Xcode 5.1 and such).
