@@ -17,6 +17,7 @@
 - (void)awakeFromNib
 {
     currentSearchResults = [[NSMutableArray alloc] initWithCapacity:10];
+    [super awakeFromNib];
 }
 
 - (void)dealloc

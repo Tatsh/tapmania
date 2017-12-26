@@ -484,7 +484,7 @@ enum TMWheelAnimationState
     m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
     m_scrollAnimationSpeed = animSpeed;
     m_scrollAnimationStartOffset =
-            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
+    std::abs(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
     m_state = ANIMATING_UP;
 }
@@ -494,7 +494,7 @@ enum TMWheelAnimationState
     m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
     m_scrollAnimationSpeed = animSpeed;
     m_scrollAnimationStartOffset =
-            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
+    std::abs(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
     m_state = ANIMATING_DOWN;
 }

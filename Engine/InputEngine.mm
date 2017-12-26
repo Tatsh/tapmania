@@ -83,7 +83,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
         pos = CGPointApplyAffineTransform(pos, [TapMania sharedInstance].m_InputTransform);
         opos = CGPointApplyAffineTransform(opos, [TapMania sharedInstance].m_InputTransform);
 
-        tmTouches.push_back(TMTouch(pos.x, pos.y, opos.x, opos.y, touch.tapCount, touch.timestamp));
+        tmTouches.push_back(TMTouch(pos.x, pos.y, opos.x, opos.y, (unsigned int)touch.tapCount, touch.timestamp));
     }
 
     return tmTouches;
@@ -96,7 +96,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
         int i;
-        for (i = [m_aSubscribers count] - 1; i >= 0; --i)
+        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
         {
             id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
 
@@ -115,7 +115,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
         int i;
-        for (i = [m_aSubscribers count] - 1; i >= 0; --i)
+        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
         {
             id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
 
@@ -133,7 +133,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
-        int i;
+        unsigned long i;
         for (i = [m_aSubscribers count] - 1; i >= 0; --i)
         {
             id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
@@ -180,7 +180,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
     return self;
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
     return UINT_MAX;  // denotes an object that cannot be released
 }

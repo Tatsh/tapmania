@@ -134,6 +134,7 @@
 		268057931FF2421E003709CD /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2486F1C50EC08CFD00E5F9EE /* OpenAL.framework */; };
 		268057951FF24248003709CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057941FF24248003709CD /* GameKit.framework */; };
 		268057981FF2431C003709CD /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057971FF2431C003709CD /* CloudKit.framework */; };
+		2680579A1FF249FB003709CD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057991FF249FB003709CD /* UserNotifications.framework */; };
 		4B7400C4F3D14D1993423B73 /* libPods-TapMania.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD75A903F173390DAF2051 /* libPods-TapMania.a */; };
 		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
 		F44B2687E0FD4390BAB5EA37 /* CDTitleDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */; };
@@ -390,6 +391,7 @@
 		268057941FF24248003709CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		268057961FF2431A003709CD /* TapMania.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TapMania.entitlements; sourceTree = "<group>"; };
 		268057971FF2431C003709CD /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		268057991FF249FB003709CD /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -421,6 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2680579A1FF249FB003709CD /* UserNotifications.framework in Frameworks */,
 				268057931FF2421E003709CD /* OpenAL.framework in Frameworks */,
 				24219CE211D26244001BCE14 /* Foundation.framework in Frameworks */,
 				24219CE311D26244001BCE14 /* UIKit.framework in Frameworks */,
@@ -948,6 +951,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				268057991FF249FB003709CD /* UserNotifications.framework */,
 				268057971FF2431C003709CD /* CloudKit.framework */,
 				268057941FF24248003709CD /* GameKit.framework */,
 				24AA17A311053DC800436F5A /* AVFoundation.framework */,

@@ -16,7 +16,7 @@
 #import "DisplayUtil.h"
 
 #import <AudioToolbox/AudioToolbox.h>
-
+#import <UserNotifications/UserNotifications.h>
 
 #define kReminderTimeout 60*60*24*3
 #define SavedHTTPCookiesKey @"SavedHTTPCookies"
@@ -114,7 +114,7 @@
     [[TapMania sharedInstance] resume];
 
     application.applicationIconBadgeNumber = 0;
-    [application cancelAllLocalNotifications];
+    [UNUserNotificationCenter.currentNotificationCenter removeAllPendingNotificationRequests];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
