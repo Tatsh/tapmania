@@ -17,8 +17,6 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
-#import "Flurry.h"
-
 
 #define kReminderTimeout 60*60*24*3
 #define SavedHTTPCookiesKey @"SavedHTTPCookies"
@@ -33,14 +31,14 @@
 @synthesize fakeDefaultPng = _fakeDefaultPng;
 
 
-void uncaughtExceptionHandler(NSException *exception)
-{
-    [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
-}
+//void uncaughtExceptionHandler(NSException *exception)
+//{
+//    NSLog(@"%@", exception);
+//}
 
 - (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    //NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 
@@ -79,9 +77,6 @@ void uncaughtExceptionHandler(NSException *exception)
     [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];
 
-    // Start analytics (flurry)
-    [Flurry startSession:@"X5MZSGTQ39363RN3798Z"];
-
     // Add bg
 
     UIImage *img = [UIImage imageNamed:[DisplayUtil getDefaultPngName]];
@@ -94,14 +89,15 @@ void uncaughtExceptionHandler(NSException *exception)
     [self.rootView addSubview:self.fakeDefaultPng];
 
     // Show window
+    [self.window setRootViewController:self.rootController];
     [self.window makeKeyAndVisible];
 
     // Configure iCade support
-    iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
-    [self.window addSubview:control];
-    control.active = YES;
-    control.delegate = self;
-    [control release];
+//    iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
+//    [self.window addSubview:control];
+//    control.active = YES;
+//    control.delegate = self;
+//    [control release];
 
     // Start the game.
     [[TapMania sharedInstance] performSelector:@selector(startGame)
@@ -109,16 +105,15 @@ void uncaughtExceptionHandler(NSException *exception)
 
     // Return as soon as possible
     TMLog(@"Returning from app delegate");
+
+    return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[TapMania sharedInstance] resume];
 
-    // In case play reminder fired
     application.applicationIconBadgeNumber = 0;
-
-    // Make sure old one is not active anymore
     [application cancelAllLocalNotifications];
 }
 
@@ -130,26 +125,6 @@ void uncaughtExceptionHandler(NSException *exception)
     NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
     [[NSUserDefaults standardUserDefaults] setObject:cookiesData
                                               forKey:SavedHTTPCookiesKey];
-
-    // Reset local-notification reminder
-    UILocalNotification *localNotif = [[[UILocalNotification alloc] init] autorelease];
-    if ( localNotif == nil )
-    {
-        return;
-    }
-
-    NSDate *reminderDate = [NSDate dateWithTimeIntervalSinceNow:kReminderTimeout];
-
-    localNotif.fireDate = reminderDate;
-    localNotif.timeZone = [NSTimeZone defaultTimeZone];
-
-    localNotif.alertBody = [NSString stringWithFormat:@"Fancy a game? ;-)"];
-    localNotif.alertAction = @"Play now!";
-
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-    localNotif.applicationIconBadgeNumber = 1;
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -158,15 +133,15 @@ void uncaughtExceptionHandler(NSException *exception)
 }
 
 // iCade support
-- (void)buttonDown:(iCadeState)button
-{
-    [[TapMania sharedInstance] hardwareControllerButtonDown:button];
-}
-
-- (void)buttonUp:(iCadeState)button
-{
-    [[TapMania sharedInstance] hardwareControllerButtonUp:button];
-}
+//- (void)buttonDown:(iCadeState)button
+//{
+//    [[TapMania sharedInstance] hardwareControllerButtonDown:button];
+//}
+//
+//- (void)buttonUp:(iCadeState)button
+//{
+//    [[TapMania sharedInstance] hardwareControllerButtonUp:button];
+//}
 
 
 @end

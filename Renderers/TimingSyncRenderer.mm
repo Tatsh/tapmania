@@ -18,7 +18,6 @@
 #import "MenuItem.h"
 #import "FontString.h"
 #import "TMUserConfig.h"
-#import "Flurry.h"
 
 extern TMGameState *g_pGameState;
 
@@ -62,8 +61,6 @@ extern TMGameState *g_pGameState;
 
 - (void)setupForTransition
 {
-    [Flurry logEvent:@"audio_sync_screen_enter"];
-
     g_pGameState->m_bIsGlobalSync = YES;
 
     // Stop options menu music

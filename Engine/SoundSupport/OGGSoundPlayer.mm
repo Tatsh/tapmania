@@ -11,7 +11,7 @@
  * This code is pretty much based on the great OGG streaming article by Jesse Maurais (http://www.devmaster.net/articles/openal-tutorials/lesson8.php )
  */
 
-#import "OGGSoundPlayer.h"
+//#import "OGGSoundPlayer.h"
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 

@@ -10,13 +10,12 @@
 #import <UIKit/UIKit.h>
 
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
-#import "ARRollerProtocol.h"
-#import "iCadeState.h"
+//#import "iCadeState.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, TMScreen, TMModalView;
 @protocol ICadeResponder;
 
-@interface TapMania : NSObject <TMRunLoopDelegate, ARRollerDelegate>
+@interface TapMania : NSObject <TMRunLoopDelegate>
 {
     TMSong *m_pCurrentSong;    // Points to currently selected song which can be played
     TMSongOptions *m_pCurrentSongOptions;    // Holds current song options which are applied to the currentSong
@@ -93,7 +92,7 @@
 
 - (void)setMappingWithName:(NSString *)string;
 
-- (void)hardwareControllerButtonDown:(iCadeState)state;
+//- (void)hardwareControllerButtonDown:(iCadeState)state;
 
-- (void)hardwareControllerButtonUp:(iCadeState)state;
+//- (void)hardwareControllerButtonUp:(iCadeState)state;
 @end

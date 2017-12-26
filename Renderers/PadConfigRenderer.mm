@@ -26,7 +26,6 @@
 #import "LifeBar.h"
 #import "JoyPad.h"
 
-#import "Flurry.h"
 #import "PhysicsUtil.h"
 
 @interface PadConfigRenderer (InputHandling)
@@ -39,7 +38,6 @@
 - (void)setupForTransition
 {
     [super setupForTransition];
-    [Flurry logEvent:@"padconfig_screen_enter"];
 
     // Cache graphics
     t_FingerTap = (TMFramedTexture *) TEXTURE(@"Common FingerTapG");
@@ -93,8 +91,6 @@
 /* TMRenderable methods */
 - (void)render:(float)fDelta
 {
-    CGRect bounds = [TapMania sharedInstance].glView.bounds;
-
     // Draw children
     [super render:fDelta];
 

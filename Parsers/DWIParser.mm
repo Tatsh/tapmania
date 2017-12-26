@@ -273,7 +273,6 @@
                 TMLog(@"Got SINGLE input...");
 
                 char *diffStr = [DWIParser parseSectionPartWithFD:fd];
-                char *levelStr = [DWIParser parseSectionPartWithFD:fd];
 
                 TMLog(@"Diff=%s level=%s", diffStr, levelStr);
 

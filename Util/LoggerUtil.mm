@@ -21,7 +21,7 @@ void tapMania_debug(NSString *format, ...)
 
     // Do both NSLog and syslog
 #if defined(DEBUG_SIMULATOR) || SYSLOG_USED == 0
-    NSLog(st);
+    NSLog(@"%@", st);
 #endif
 #if defined(DEBUG_IPHONE) && SYSLOG_USED == 1
 	syslog(LOG_DEBUG, [st UTF8String]);

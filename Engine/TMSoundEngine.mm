@@ -13,7 +13,7 @@
 #import "TMLoopedSound.h"
 
 #import "AbstractSoundPlayer.h"
-#import "OGGSoundPlayer.h"
+//#import "OGGSoundPlayer.h"
 #import "AccelSoundPlayer.h"
 
 #import "TimingUtil.h"
@@ -24,7 +24,7 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import <vorbis/vorbisfile.h>
+//#import <vorbis/vorbisfile.h>
 
 @interface TMSoundEngine (Private)
 - (BOOL)initOpenAL;
@@ -265,14 +265,14 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
         isLooping = YES;
     }
 
-    if ( [[inObj.path lowercaseString] hasSuffix:@".ogg"] )
-    {
-        pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-    }
-    else
-    {
+//    if ( [[inObj.path lowercaseString] hasSuffix:@".ogg"] )
+//    {
+//        pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
+//    }
+//    else
+//    {
         pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-    }
+//    }
 
     if ( !pSoundPlayer )
     {

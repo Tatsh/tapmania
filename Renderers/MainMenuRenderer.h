@@ -8,8 +8,6 @@
 //
 
 #import "TMScreen.h"
-#import "FBConnect.h"
-#import "FacebookLikeView.h"
 
 @class MenuItem, TMSound, Texture2D, Quad;
 
@@ -17,10 +15,6 @@
 {
     /* Metrics and such */
     TMSound *sr_BG;
-    
-    Facebook *_facebook;
 }
-
-@property (nonatomic, retain) FacebookLikeView *facebookLikeView;
 
 @end

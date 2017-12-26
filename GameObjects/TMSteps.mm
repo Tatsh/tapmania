@@ -286,7 +286,7 @@ extern TMGameState *g_pGameState;
     {
         int j;
 
-        int total = [m_pTracks[i] getNotesCount];
+        unsigned long total = [m_pTracks[i] getNotesCount];
         for (j = 0; [m_pTracks[i] getNote:j].m_nType == kNoteType_Empty && j < total; j++);
 
         // Get the smallest
@@ -426,7 +426,7 @@ extern TMGameState *g_pGameState;
             // A mine will explode if we are touching the corresponding pad button at the time it passes
             if (!g_pGameState->m_bAutoPlay && note.m_nType == kNoteType_Mine && !note.m_bIsMineHit)
             {
-                if (fabsf(noteTime - g_pGameState->m_dElapsedTime) <= kMineHitSearchEpsilon)
+                if (std::abs(noteTime - g_pGameState->m_dElapsedTime) <= kMineHitSearchEpsilon)
                 {
                     // Ok. this mine seems to be close enough to the receptors
                     double lastReleaseTime = [[TapMania sharedInstance].joyPad getReleaseTimeForButton:(JPButton) i] - g_pGameState->m_dPlayBackStartTime;
@@ -443,7 +443,7 @@ extern TMGameState *g_pGameState;
 
             if (g_pGameState->m_bAutoPlay)
             {
-                if (fabsf(noteTime - g_pGameState->m_dElapsedTime) <= 0.02f)
+                if (std::abs(noteTime - g_pGameState->m_dElapsedTime) <= 0.02f)
                 {
                     if (note.m_nType != kNoteType_Mine && !note.m_bIsHit)
                     {
@@ -454,7 +454,7 @@ extern TMGameState *g_pGameState;
             }
             else
             {
-                if (note.m_nType != kNoteType_Mine && !note.m_bIsHit && fabsf(noteTime - lastHitTime) <= kHitSearchEpsilon)
+                if (note.m_nType != kNoteType_Mine && !note.m_bIsHit && std::abs(noteTime - lastHitTime) <= kHitSearchEpsilon)
                 {
                     testHit = (m_dLastHitTimes[i] == lastHitTime) ? NO : YES;
                 }
@@ -563,7 +563,7 @@ extern TMGameState *g_pGameState;
                 if (note.m_bIsHit && !note.m_bIsHoldLost && !note.m_bIsHolding)
                 {
                     // This means we released the hold but we still can catch it again
-                    if (fabsf(g_pGameState->m_dElapsedTime - note.m_dLastHoldReleaseTime) >= kHoldLostEpsilon)
+                    if (std::abs(g_pGameState->m_dElapsedTime - note.m_dLastHoldReleaseTime) >= kHoldLostEpsilon)
                     {
                         [note markHoldLost];
                     }

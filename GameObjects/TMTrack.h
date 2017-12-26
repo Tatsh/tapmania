@@ -40,7 +40,7 @@ typedef vector<TMNotePtr> TMNoteList;
 
 - (BOOL) hasNoteAtRow:(int)noteRow;
 
-- (int) getNotesCount;
+- (unsigned long) getNotesCount;
 - (int) getHoldsCount;
 - (int) getTapAndHoldNotesCount;
 

@@ -18,7 +18,7 @@
 
 #include <deque>
 #include "ObjCPtr.h"
-#import "iCadeState.h"
+//#import "iCadeState.h"
 #import "JoyPad.h"
 #import "ICadeResponder.h"
 

@@ -111,7 +111,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ = %08X | Name = %i | Dimensions = %ix%i | Coordinates = (%.2f, %.2f)>", [self class], self, m_unName, m_unWidth, m_unHeight, m_fMaxS, m_fMaxT];
+    return [NSString stringWithFormat:@"<%@ = %8@ | Name = %i | Dimensions = %lux%lu | Coordinates = (%.2f, %.2f)>", [self class], self, m_unName, (unsigned long)m_unWidth, (unsigned long)m_unHeight, m_fMaxS, m_fMaxT];
 }
 
 @end

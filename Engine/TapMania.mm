@@ -16,7 +16,6 @@
 #import "SettingsEngine.h"
 #import "ThemeManager.h"
 #import "EAGLView.h"
-#import "ARRollerView.h"
 #import "MessageManager.h"
 #import "TMMessage.h"
 #import "TMScreen.h"
@@ -67,8 +66,8 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 @implementation TapMania
 {
-    std::map<iCadeState, JPButton> current_mapping_;
-    std::map<std::string, std::map<iCadeState, JPButton> > mappings_;
+//    std::map<iCadeState, JPButton> current_mapping_;
+//    std::map<std::string, std::map<iCadeState, JPButton> > mappings_;
 }
 
 @synthesize m_pGlView, m_pWindow, m_pJoyPad, m_pGameRunLoop, m_Transform, m_InputTransform;
@@ -154,53 +153,53 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void)setupControllerMappings
 {
-    std::map<iCadeState, JPButton> mat_mapping;
-
-    mat_mapping[iCadeButtonG] = kJoyButtonExit;
-    mat_mapping[iCadeJoystickUp] = kJoyButtonUp;
-    mat_mapping[iCadeJoystickDown] = kJoyButtonDown;
-    mat_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
-    mat_mapping[iCadeJoystickRight] = kJoyButtonRight;
-    mappings_.insert(std::make_pair("dance_mat", mat_mapping));
-
-    std::map<iCadeState, JPButton> icade_arcade_mapping;
-
-    icade_arcade_mapping[iCadeButtonG] = kJoyButtonExit;
-    icade_arcade_mapping[iCadeButtonF] = kJoyButtonUp;
-    icade_arcade_mapping[iCadeJoystickUp] = kJoyButtonUp;
-    icade_arcade_mapping[iCadeButtonD] = kJoyButtonDown;
-    icade_arcade_mapping[iCadeJoystickDown] = kJoyButtonDown;
-    icade_arcade_mapping[iCadeButtonB] = kJoyButtonLeft;
-    icade_arcade_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
-    icade_arcade_mapping[iCadeButtonH] = kJoyButtonRight;
-    icade_arcade_mapping[iCadeJoystickRight] = kJoyButtonRight;
-    mappings_.insert(std::make_pair("icade_arcade", icade_arcade_mapping));
-
-    std::map<iCadeState, JPButton> icade_mobile_mapping;
-
-    icade_mobile_mapping[iCadeButtonG] = kJoyButtonExit;
-    icade_mobile_mapping[iCadeButtonD] = kJoyButtonUp;
-    icade_mobile_mapping[iCadeJoystickUp] = kJoyButtonUp;
-    icade_mobile_mapping[iCadeButtonC] = kJoyButtonDown;
-    icade_mobile_mapping[iCadeJoystickDown] = kJoyButtonDown;
-    icade_mobile_mapping[iCadeButtonA] = kJoyButtonLeft;
-    icade_mobile_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
-    icade_mobile_mapping[iCadeButtonB] = kJoyButtonRight;
-    icade_mobile_mapping[iCadeJoystickRight] = kJoyButtonRight;
-    mappings_.insert(std::make_pair("icade_mobile", icade_mobile_mapping));
-
-    std::map<iCadeState, JPButton> icp_mapping;
-
-    icp_mapping[iCadeButtonG] = kJoyButtonExit;
-    icp_mapping[iCadeButtonD] = kJoyButtonUp;
-    icp_mapping[iCadeJoystickUp] = kJoyButtonUp;
-    icp_mapping[iCadeButtonC] = kJoyButtonDown;
-    icp_mapping[iCadeJoystickDown] = kJoyButtonDown;
-    icp_mapping[iCadeButtonA] = kJoyButtonLeft;
-    icp_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
-    icp_mapping[iCadeButtonB] = kJoyButtonRight;
-    icp_mapping[iCadeJoystickRight] = kJoyButtonRight;
-    mappings_.insert(std::make_pair("icp", icp_mapping));
+//    std::map<iCadeState, JPButton> mat_mapping;
+//
+//    mat_mapping[iCadeButtonG] = kJoyButtonExit;
+//    mat_mapping[iCadeJoystickUp] = kJoyButtonUp;
+//    mat_mapping[iCadeJoystickDown] = kJoyButtonDown;
+//    mat_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+//    mat_mapping[iCadeJoystickRight] = kJoyButtonRight;
+//    mappings_.insert(std::make_pair("dance_mat", mat_mapping));
+//
+//    std::map<iCadeState, JPButton> icade_arcade_mapping;
+//
+//    icade_arcade_mapping[iCadeButtonG] = kJoyButtonExit;
+//    icade_arcade_mapping[iCadeButtonF] = kJoyButtonUp;
+//    icade_arcade_mapping[iCadeJoystickUp] = kJoyButtonUp;
+//    icade_arcade_mapping[iCadeButtonD] = kJoyButtonDown;
+//    icade_arcade_mapping[iCadeJoystickDown] = kJoyButtonDown;
+//    icade_arcade_mapping[iCadeButtonB] = kJoyButtonLeft;
+//    icade_arcade_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+//    icade_arcade_mapping[iCadeButtonH] = kJoyButtonRight;
+//    icade_arcade_mapping[iCadeJoystickRight] = kJoyButtonRight;
+//    mappings_.insert(std::make_pair("icade_arcade", icade_arcade_mapping));
+//
+//    std::map<iCadeState, JPButton> icade_mobile_mapping;
+//
+//    icade_mobile_mapping[iCadeButtonG] = kJoyButtonExit;
+//    icade_mobile_mapping[iCadeButtonD] = kJoyButtonUp;
+//    icade_mobile_mapping[iCadeJoystickUp] = kJoyButtonUp;
+//    icade_mobile_mapping[iCadeButtonC] = kJoyButtonDown;
+//    icade_mobile_mapping[iCadeJoystickDown] = kJoyButtonDown;
+//    icade_mobile_mapping[iCadeButtonA] = kJoyButtonLeft;
+//    icade_mobile_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+//    icade_mobile_mapping[iCadeButtonB] = kJoyButtonRight;
+//    icade_mobile_mapping[iCadeJoystickRight] = kJoyButtonRight;
+//    mappings_.insert(std::make_pair("icade_mobile", icade_mobile_mapping));
+//
+//    std::map<iCadeState, JPButton> icp_mapping;
+//
+//    icp_mapping[iCadeButtonG] = kJoyButtonExit;
+//    icp_mapping[iCadeButtonD] = kJoyButtonUp;
+//    icp_mapping[iCadeJoystickUp] = kJoyButtonUp;
+//    icp_mapping[iCadeButtonC] = kJoyButtonDown;
+//    icp_mapping[iCadeJoystickDown] = kJoyButtonDown;
+//    icp_mapping[iCadeButtonA] = kJoyButtonLeft;
+//    icp_mapping[iCadeJoystickLeft] = kJoyButtonLeft;
+//    icp_mapping[iCadeButtonB] = kJoyButtonRight;
+//    icp_mapping[iCadeJoystickRight] = kJoyButtonRight;
+//    mappings_.insert(std::make_pair("icp", icp_mapping));
 
     NSString *controller = [[SettingsEngine sharedInstance] getStringValue:@"controller"];
     [self setMappingWithName:controller];
@@ -314,32 +313,16 @@ static TapMania *sharedTapManiaDelegate = nil;
 
 - (void)setMappingWithName:(NSString *)name
 {
-    std::map<std::string, std::map<iCadeState, JPButton> >::iterator it = mappings_.find(name.UTF8String);
-    if(it != mappings_.end())
-    {
-        TMLog(@"Setting mapping with name %@", name);
-        current_mapping_ = it->second;
-    }
+//    std::map<std::string, std::map<iCadeState, JPButton> >::iterator it = mappings_.find(name.UTF8String);
+//    if(it != mappings_.end())
+//    {
+//        TMLog(@"Setting mapping with name %@", name);
+//        current_mapping_ = it->second;
+//    }
 }
 
 - (void)toggleAds:(BOOL)onOff
 {
-#ifdef ENABLE_ADWHIRL
-    if (!onOff)
-    {
-        [m_pAdsView removeFromSuperview];
-        [m_pAdsView ignoreNewAdRequests];
-        [m_pAdsView ignoreAutoRefreshTimer];
-
-    } else
-    {
-        [m_pAdsView doNotIgnoreAutoRefreshTimer];
-        [m_pAdsView doNotIgnoreNewAdRequests];
-
-        [m_pGlView addSubview:m_pAdsView];
-        [m_pAdsView requestFreshAd];
-    }
-#endif
 }
 
 - (JoyPad *)enableJoyPad
@@ -570,35 +553,35 @@ static TapMania *sharedTapManiaDelegate = nil;
     return self;
 }
 
-- (void)hardwareControllerButtonDown:(iCadeState)button
-{
-    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
-    if ( it != current_mapping_.end() )
-    {
-        if ( self.iCadeResponder )
-        {
-            [self.iCadeResponder buttonDown:it->second];
-        }
-        else
-        {
-            [[TapMania sharedInstance].joyPad setState:YES forButton:it->second];
-        }
-    }
-}
-
-- (void)hardwareControllerButtonUp:(iCadeState)button
-{
-    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
-    if ( it != current_mapping_.end() )
-    {
-        if ( self.iCadeResponder )
-        {
-            [self.iCadeResponder buttonUp:it->second];
-        }
-        else
-        {
-            [[TapMania sharedInstance].joyPad setState:NO forButton:it->second];
-        }
-    }
-}
+//- (void)hardwareControllerButtonDown:(iCadeState)button
+//{
+//    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
+//    if ( it != current_mapping_.end() )
+//    {
+//        if ( self.iCadeResponder )
+//        {
+//            [self.iCadeResponder buttonDown:it->second];
+//        }
+//        else
+//        {
+//            [[TapMania sharedInstance].joyPad setState:YES forButton:it->second];
+//        }
+//    }
+//}
+//
+//- (void)hardwareControllerButtonUp:(iCadeState)button
+//{
+//    std::map<iCadeState, JPButton>::iterator it = current_mapping_.find(button);
+//    if ( it != current_mapping_.end() )
+//    {
+//        if ( self.iCadeResponder )
+//        {
+//            [self.iCadeResponder buttonUp:it->second];
+//        }
+//        else
+//        {
+//            [[TapMania sharedInstance].joyPad setState:NO forButton:it->second];
+//        }
+//    }
+//}
 @end

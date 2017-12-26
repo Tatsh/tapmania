@@ -19,7 +19,7 @@
 #import "DisplayUtil.h"
 #import "TimingUtil.h"
 #import "SongPickerMenuRenderer.h"
-#import "iCadeState.h"
+//#import "iCadeState.h"
 #import "TapMania.h"
 
 extern TMGameState *g_pGameState;

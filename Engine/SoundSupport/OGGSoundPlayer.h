@@ -8,7 +8,6 @@
 //
 
 #import "AbstractSoundPlayer.h"
-#import <vorbis/vorbisfile.h>
 
 @interface OGGSoundPlayer : AbstractSoundPlayer
 {

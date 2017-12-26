@@ -63,7 +63,6 @@
 		24219C8511D26244001BCE14 /* SMParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A4257A0F713529001B0CDE /* SMParser.mm */; };
 		24219C8611D26244001BCE14 /* Slider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248F78140F77F99700AE2130 /* Slider.mm */; };
 		24219C8711D26244001BCE14 /* AbstractSoundPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.mm */; };
-		24219C8811D26244001BCE14 /* OGGSoundPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 249648510F79134D00C9D5BC /* OGGSoundPlayer.mm */; };
 		24219C8911D26244001BCE14 /* FontCharmaps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709AD0F7A93B40080121C /* FontCharmaps.mm */; };
 		24219C8A11D26244001BCE14 /* FontManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A709C50F7AA2760080121C /* FontManager.mm */; };
 		24219C8B11D26244001BCE14 /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A70B3E0F7AB3C00080121C /* Font.mm */; };
@@ -73,7 +72,6 @@
 		24219C8F11D26244001BCE14 /* Label.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24627B9D0FBF6DF9002E245D /* Label.mm */; };
 		24219C9011D26244001BCE14 /* ImageButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 249D80590FCC9AF700630646 /* ImageButton.mm */; };
 		24219C9111D26244001BCE14 /* PadConfigRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2479A3800FE6EDFF00688640 /* PadConfigRenderer.mm */; };
-		24219C9211D26244001BCE14 /* WebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E92EB1017982400DB27D9 /* WebServer.m */; };
 		24219C9311D26244001BCE14 /* TMZipFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DC0E33101E969200F2B046 /* TMZipFile.mm */; };
 		24219C9411D26244001BCE14 /* SongManagerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241955EA102B08F800FC6E0F /* SongManagerRenderer.mm */; };
 		24219C9711D26244001BCE14 /* AccelSoundPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */; };
@@ -130,7 +128,6 @@
 		246B981112CB8D0500A33B7E /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 246B97C312CB8D0500A33B7E /* themes */; };
 		246B985112CB8D0E00A33B7E /* noteskins in Resources */ = {isa = PBXBuildFile; fileRef = 246B981212CB8D0E00A33B7E /* noteskins */; };
 		2473A318123C192C00BF35C7 /* SongOptionsDialogRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2473A316123C192C00BF35C7 /* SongOptionsDialogRenderer.mm */; };
-		249399D616642D11005A65C8 /* iCadeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249399D416642D11005A65C8 /* iCadeReaderView.m */; };
 		249AA941121C41DB0075D50F /* TDBSimFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249AA940121C41DB0075D50F /* TDBSimFile.xib */; };
 		249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 249AA944121C420D0075D50F /* TDBSimFileCell.m */; };
 		24AD2C4C1673E03800D18029 /* TMSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24AD2C4B1673E03800D18029 /* TMSprite.mm */; };
@@ -139,18 +136,9 @@
 		24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA2364121B307D0023C8C2 /* TapDBCommand.mm */; };
 		24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DA244B121B56B50023C8C2 /* TapDBService.mm */; };
 		24DDDF8C16694FFD00E8CD8C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F15E470EC2114F00755788 /* Default.png */; };
-		24DDE01516696D1500E8CD8C /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00016696D1500E8CD8C /* CDataScanner.m */; };
-		24DDE01616696D1500E8CD8C /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00316696D1500E8CD8C /* CDataScanner_Extensions.m */; };
-		24DDE01716696D1500E8CD8C /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00516696D1500E8CD8C /* NSCharacterSet_Extensions.m */; };
-		24DDE01816696D1500E8CD8C /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00716696D1500E8CD8C /* NSDictionary_JSONExtensions.m */; };
-		24DDE01916696D1500E8CD8C /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00916696D1500E8CD8C /* NSScanner_Extensions.m */; };
-		24DDE01A16696D1500E8CD8C /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00C16696D1500E8CD8C /* CJSONDataSerializer.m */; };
-		24DDE01B16696D1500E8CD8C /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE00E16696D1500E8CD8C /* CJSONDeserializer.m */; };
-		24DDE01C16696D1500E8CD8C /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE01016696D1500E8CD8C /* CJSONScanner.m */; };
-		24DDE01D16696D1500E8CD8C /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE01216696D1500E8CD8C /* CJSONSerializer.m */; };
-		24DDE01E16696D1500E8CD8C /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DDE01416696D1500E8CD8C /* CSerializedJSONData.m */; };
 		24DE38C716657C72000A438A /* DisplayUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE38C616657C72000A438A /* DisplayUtil.m */; };
 		24F265D31230589C0024857A /* DialogCommand.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F265D21230589C0024857A /* DialogCommand.mm */; };
+		4B7400C4F3D14D1993423B73 /* libPods-TapMania.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD75A903F173390DAF2051 /* libPods-TapMania.a */; };
 		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
 		F44B2687E0FD4390BAB5EA37 /* CDTitleDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */; };
 		F44B293E85809CC89DA1A808 /* SystemSongs in Resources */ = {isa = PBXBuildFile; fileRef = F44B2D70FC6879AAEC0520EE /* SystemSongs */; };
@@ -457,7 +445,10 @@
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* TapMania_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapMania_Prefix.pch; sourceTree = "<group>"; };
+		43BD75A903F173390DAF2051 /* libPods-TapMania.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TapMania.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68AD78601E711C18ADD73B59 /* Pods-TapMania.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TapMania.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TapMania/Pods-TapMania.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2E21F90F0DBEAE9AF07864E /* Pods-TapMania.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TapMania.release.xcconfig"; path = "Pods/Target Support Files/Pods-TapMania/Pods-TapMania.release.xcconfig"; sourceTree = "<group>"; };
 		F4433E8411CAEC9C005AC29A /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		F4433E8511CAEC9C005AC29A /* Sprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Sprite.mm; sourceTree = "<group>"; };
 		F44B2034AC6F798485D2CA8D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -496,6 +487,7 @@
 				24219CF311D26244001BCE14 /* libsqlite3.dylib in Frameworks */,
 				24219CF411D26244001BCE14 /* AVFoundation.framework in Frameworks */,
 				F44B2B62DDEF5967BEDB6E82 /* GameKit.framework in Frameworks */,
+				4B7400C4F3D14D1993423B73 /* libPods-TapMania.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1047,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				34307D13D15ADF21D49AD0A0 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1108,8 +1101,18 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				F44B2034AC6F798485D2CA8D /* GameKit.framework */,
+				43BD75A903F173390DAF2051 /* libPods-TapMania.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34307D13D15ADF21D49AD0A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F2E21F90F0DBEAE9AF07864E /* Pods-TapMania.release.xcconfig */,
+				68AD78601E711C18ADD73B59 /* Pods-TapMania.debug.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F44B232CC17CFC24FAF40CF7 /* NetworkSupport */ = {
@@ -1128,9 +1131,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24219CFB11D26244001BCE14 /* Build configuration list for PBXNativeTarget "TapMania" */;
 			buildPhases = (
+				7DA999C22A5AC7C2F702B1E4 /* [CP] Check Pods Manifest.lock */,
 				24219C4911D26244001BCE14 /* Resources */,
 				24219C5211D26244001BCE14 /* Sources */,
 				24219CE111D26244001BCE14 /* Frameworks */,
+				F118780BE7AE6D60AF3C4BA6 /* [CP] Embed Pods Frameworks */,
+				D37A97E6EF4B5FECF82915CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1161,6 +1167,7 @@
 				German,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1194,6 +1201,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7DA999C22A5AC7C2F702B1E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TapMania-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D37A97E6EF4B5FECF82915CA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapMania/Pods-TapMania-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F118780BE7AE6D60AF3C4BA6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapMania/Pods-TapMania-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		24219C5211D26244001BCE14 /* Sources */ = {
@@ -1253,7 +1311,6 @@
 				24219C8511D26244001BCE14 /* SMParser.mm in Sources */,
 				24219C8611D26244001BCE14 /* Slider.mm in Sources */,
 				24219C8711D26244001BCE14 /* AbstractSoundPlayer.mm in Sources */,
-				24219C8811D26244001BCE14 /* OGGSoundPlayer.mm in Sources */,
 				24219C8911D26244001BCE14 /* FontCharmaps.mm in Sources */,
 				24219C8A11D26244001BCE14 /* FontManager.mm in Sources */,
 				24219C8B11D26244001BCE14 /* Font.mm in Sources */,
@@ -1263,7 +1320,6 @@
 				24219C8F11D26244001BCE14 /* Label.mm in Sources */,
 				24219C9011D26244001BCE14 /* ImageButton.mm in Sources */,
 				24219C9111D26244001BCE14 /* PadConfigRenderer.mm in Sources */,
-				24219C9211D26244001BCE14 /* WebServer.m in Sources */,
 				24219C9311D26244001BCE14 /* TMZipFile.mm in Sources */,
 				24219C9411D26244001BCE14 /* SongManagerRenderer.mm in Sources */,
 				24219C9711D26244001BCE14 /* AccelSoundPlayer.mm in Sources */,
@@ -1304,18 +1360,7 @@
 				249AA945121C420D0075D50F /* TDBSimFileCell.m in Sources */,
 				24F265D31230589C0024857A /* DialogCommand.mm in Sources */,
 				2473A318123C192C00BF35C7 /* SongOptionsDialogRenderer.mm in Sources */,
-				249399D616642D11005A65C8 /* iCadeReaderView.m in Sources */,
 				24DE38C716657C72000A438A /* DisplayUtil.m in Sources */,
-				24DDE01516696D1500E8CD8C /* CDataScanner.m in Sources */,
-				24DDE01616696D1500E8CD8C /* CDataScanner_Extensions.m in Sources */,
-				24DDE01716696D1500E8CD8C /* NSCharacterSet_Extensions.m in Sources */,
-				24DDE01816696D1500E8CD8C /* NSDictionary_JSONExtensions.m in Sources */,
-				24DDE01916696D1500E8CD8C /* NSScanner_Extensions.m in Sources */,
-				24DDE01A16696D1500E8CD8C /* CJSONDataSerializer.m in Sources */,
-				24DDE01B16696D1500E8CD8C /* CJSONDeserializer.m in Sources */,
-				24DDE01C16696D1500E8CD8C /* CJSONScanner.m in Sources */,
-				24DDE01D16696D1500E8CD8C /* CJSONSerializer.m in Sources */,
-				24DDE01E16696D1500E8CD8C /* CSerializedJSONData.m in Sources */,
 				24AD2C4C1673E03800D18029 /* TMSprite.mm in Sources */,
 				F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */,
 				F44B2FC68D37FA5009A0868A /* BpmDisplay.mm in Sources */,
@@ -1372,6 +1417,7 @@
 		};
 		24219CFD11D26244001BCE14 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2E21F90F0DBEAE9AF07864E /* Pods-TapMania.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1383,29 +1429,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/ext/zlib-1.2.3/contrib/",
-					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
-					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
-					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
-					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
-					"$(PROJECT_DIR)/ext/SQLitePersistentObjects",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Minizip\"",
+					"\"${PODS_ROOT}/../rapidxml-1.13\"",
+					"\"${PODS_ROOT}/Headers/Public/SQLitePersistentObject\"",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
-					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
-					"\\\"$(SRCROOT)/FlurryLib\\\"",
-					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
-					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
-					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
-					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
-					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
-					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
-					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
-				);
-				OTHER_CFLAGS = "-DENABLE_ADWHIRL";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = sh.tat.tapmania;
 				PRODUCT_NAME = TapMania;
 				PROVISIONING_PROFILE = "";
@@ -1458,6 +1490,7 @@
 		};
 		24219D2511D26839001BCE14 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68AD78601E711C18ADD73B59 /* Pods-TapMania.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1468,33 +1501,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TapMania_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/ext/zlib-1.2.3/contrib/",
-					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2",
-					"$(PROJECT_DIR)/ext/libmicrohttpd-0.4.2/src/include",
-					"$(PROJECT_DIR)/ext/libogg-1.1.3/include/**",
-					"$(PROJECT_DIR)/ext/libvorbis-1.2.0/include/**",
-					"$(PROJECT_DIR)/ext/SQLitePersistentObjects",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Minizip\"",
+					"\"${PODS_ROOT}/../rapidxml-1.13\"",
+					"\"${PODS_ROOT}/Headers/Public/SQLitePersistentObject\"",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\\\"",
-					"\\\"$(SRCROOT)/ext/admob_iphone_sdk/extras\\\"",
-					"\\\"$(SRCROOT)/FlurryLib\\\"",
-					"\\\"$(SRCROOT)/ext/FlurryLib_4.0\\\"",
-					"\"$(SRCROOT)/ext/admob_iphone_sdk/AdMob\"",
-					"\"$(SRCROOT)/ext/FlurryLib_4.0\"",
-					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1\"",
-					"\"$(SRCROOT)/ext/GoogleAdMobAdsSdkiOS-6.2.1/Add-ons/GoogleAnalyticsiOS_2.0beta3/Library\"",
-					"\"$(SRCROOT)/ext/SQLitePersistentObjects/Tests/google-toolbox-for-mac-1-5-1/TigerGcov\"",
-					"\"$(SRCROOT)/ext/Flurry iPhone SDK v4.1.0/Flurry\"",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"-DDEBUG",
-					"-DENABLE_ADWHIRL",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = sh.tat.tapmania;
 				PRODUCT_NAME = TapMania;
 				PROVISIONING_PROFILE = "";

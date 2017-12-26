@@ -8,7 +8,6 @@
 //
 
 #import "TapDBService.h"
-#import "CJSONDeserializer.h" 
 
 static TapDBService *sharedTapDBServiceDelegate = nil;
 static NSString *tapDBHost = @"http://127.0.0.1/tapdb";
@@ -48,7 +47,7 @@ static NSString *tapDBHost = @"http://127.0.0.1/tapdb";
     TMLog(@"Data: %d bytes", [receivedData length]);
 
     NSError *err = nil;
-    NSArray *output = [[CJSONDeserializer deserializer] deserializeAsArray:receivedData error:&err];
+    NSArray *output = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:&err];
 
     [curDelegate performSelectorOnMainThread:curCallback withObject:[output retain] waitUntilDone:YES];
     [receivedData release];

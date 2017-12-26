@@ -9,14 +9,12 @@
 #import "SongManagerRenderer.h"
 
 #import "TapMania.h"
-#import "WebServer.h"
+//#import "WebServer.h"
 
 #import "QuadTransition.h"
 #import "OptionsMenuRenderer.h"
 #import "TMControl.h"
 #import "Label.h"
-
-#import "Flurry.h"
 
 @implementation SongManagerRenderer
 
@@ -24,21 +22,17 @@
 - (void)setupForTransition
 {
     [super setupForTransition];
-    [Flurry logEvent:@"songman_screen_enter"];
 
     // Start with no action
     m_nAction = kSongManagerAction_None;
 
     // Now start the web server
-    [[WebServer sharedInstance] start];
+    //[[WebServer sharedInstance] start];
 
     m_nAction = kSongManagerAction_Running;
 
     // Set the label
-    [(Label*)[self findControl:@"SongManager UrlLabel"] setName:[WebServer sharedInstance].m_sCurrentServerURL];
-
-    // Show ads
-    [[TapMania sharedInstance] toggleAds:YES];
+    //[(Label*)[self findControl:@"SongManager UrlLabel"] setName:[WebServer sharedInstance].m_sCurrentServerURL];
 }
 
 - (void)deinitOnTransition
@@ -46,10 +40,7 @@
     [super deinitOnTransition];
 
     // Stop web server
-    [[WebServer sharedInstance] stop];
-
-    // Remove ads
-    [[TapMania sharedInstance] toggleAds:NO];
+    //[[WebServer sharedInstance] stop];
 }
 
 /* TMLogicUpdater method */
