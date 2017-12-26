@@ -62,6 +62,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 @synthesize contentSize = m_oSize, pixelFormat = m_nFormat, pixelsWide = m_unWidth, pixelsHigh = m_unHeight, name = m_unName, maxS = m_fMaxS, maxT = m_fMaxT;
 
+- (instancetype)initWithWidth:(NSUInteger)inWidth andHeight:(NSUInteger)inHeight contentSize:(CGSize)inSize {
+    [[NSException exceptionWithName:NSGenericException reason:@"Not implemented" userInfo:nil] raise];
+    return nil;
+}
+
 - (id)initWithData:(const void *)data pixelFormat:(Texture2DPixelFormat)pixelFormat pixelsWide:(NSUInteger)width pixelsHigh:(NSUInteger)height contentSize:(CGSize)size
 {
     GLint saveName;
@@ -111,7 +116,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ = %08X | Name = %i | Dimensions = %ix%i | Coordinates = (%.2f, %.2f)>", [self class], self, m_unName, m_unWidth, m_unHeight, m_fMaxS, m_fMaxT];
+    return [NSString stringWithFormat:@"<%@ = %8@ | Name = %i | Dimensions = %lux%lu | Coordinates = (%.2f, %.2f)>", [self class], self, m_unName, (unsigned long)m_unWidth, (unsigned long)m_unHeight, m_fMaxS, m_fMaxT];
 }
 
 @end

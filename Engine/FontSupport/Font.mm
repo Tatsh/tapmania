@@ -179,9 +179,6 @@ T get_attribute(xml_node *node, const std::string& attr_name)
             if (node->name() == std::string("info"))
             {
                 size_ = get_attribute<int>(node, "size");
-                int stretchH = get_attribute<int>(node, "stretchH");
-
-                TMLog(@"Found stretchH %d", stretchH);
             }
             else if (node->name() == std::string("common"))
             {

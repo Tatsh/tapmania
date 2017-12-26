@@ -379,9 +379,9 @@ extern TMGameState *g_pGameState;
         long totalScore = 0;
         long totalPossible = 0;
 
-        for ( TMSongDifficulty diff = kSongDifficulty_Beginner; diff < kNumSongDifficulties; ++diff )
+        for ( int diff = kSongDifficulty_Beginner; diff < kNumSongDifficulties; ++diff )
         {
-            if ( [g_pGameState->m_pSong isDifficultyAvailable:diff] )
+            if ( [g_pGameState->m_pSong isDifficultyAvailable:(TMSongDifficulty)diff] )
             {
                 totalPossible += diff * kMaximumScore;
 

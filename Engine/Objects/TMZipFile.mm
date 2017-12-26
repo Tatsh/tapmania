@@ -40,8 +40,7 @@
         unz_global_info globalInfo = {0};
         if (unzGetGlobalInfo(m_oUnzipFile, &globalInfo) == UNZ_OK)
         {
-            NSLog([NSString stringWithFormat:
-                    @"There are %d entries in the smzip file", globalInfo.number_entry]);
+            NSLog(@"There are %lu entries in the smzip file", globalInfo.number_entry);
         }
 
         return self;

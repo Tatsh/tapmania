@@ -90,7 +90,7 @@
 	return ([self getNoteFromRow:noteRow] != nil);
 }
 
-- (int) getNotesCount {
+- (unsigned long) getNotesCount {
 	return m_aNotesArray->size();
 }
 

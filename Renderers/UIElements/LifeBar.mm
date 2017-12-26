@@ -136,7 +136,7 @@ extern TMGameState *g_pGameState;
     m_fCurrentValue = TM_LERP(m_fCurrentValue, m_fNewValue, val);
 
     float currentBeat, currentBps;
-    BOOL hasFreeze;
+    BOOL hasFreeze = false;
 
     if ( g_pGameState->m_bPlayingGame )
     {

@@ -1,4 +1,4 @@
-/*  
+/*
  *  $Id$
  *  VersionInfo.h
  *  TapMania
@@ -8,12 +8,12 @@
  *
  */
 
-#define TAPMANIA_VERSION                0.4
-#define TAPMANIA_VERSION_STRING         @"v0.4"
-#define TAPMANIA_VERSION_STRING_LONG    @"version 0.4"
+#define TAPMANIA_VERSION                0.5
+#define TAPMANIA_VERSION_STRING         @"v0.5"
+#define TAPMANIA_VERSION_STRING_LONG    @"version 0.5"
 
 #define TAPMANIA_THEME_VERSION           0.8
 #define TAPMANIA_NOTESKIN_VERSION        0.4
 #define TAPMANIA_CACHE_VERSION            "0.6"
 
-#define TAPMANIA_COPYRIGHT                @"Copyright © 2008-2012 Godexsoft"
+#define TAPMANIA_COPYRIGHT                @"Copyright © 2008-2012 Godexsoft, 2017- Tatsh"

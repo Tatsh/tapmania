@@ -133,6 +133,11 @@
     m_rShape.size = shape.size;
 }
 
+- (CGRect)getOriginalShape {
+    return CGRectNull;
+}
+
+
 /* TMGameUIResponder stuff */
 - (BOOL)tmTouchesBegan:(const TMTouchesVec&)touches withEvent:(UIEvent *)event
 {

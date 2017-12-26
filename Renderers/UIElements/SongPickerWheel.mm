@@ -19,7 +19,7 @@
 #import "DisplayUtil.h"
 #import "TimingUtil.h"
 #import "SongPickerMenuRenderer.h"
-#import "iCadeState.h"
+//#import "iCadeState.h"
 #import "TapMania.h"
 
 extern TMGameState *g_pGameState;
@@ -484,7 +484,7 @@ enum TMWheelAnimationState
     m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
     m_scrollAnimationSpeed = animSpeed;
     m_scrollAnimationStartOffset =
-            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
+    std::abs(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
     m_state = ANIMATING_UP;
 }
@@ -494,7 +494,7 @@ enum TMWheelAnimationState
     m_scrollAnimationStartTime = [TimingUtil getCurrentTime];
     m_scrollAnimationSpeed = animSpeed;
     m_scrollAnimationStartOffset =
-            fabsf(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
+    std::abs(mt_SelectedItemCenterY - [m_pWheelItems->at(mt_SelectedWheelItemId).get() getPosition].y);
 
     m_state = ANIMATING_DOWN;
 }

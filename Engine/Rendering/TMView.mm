@@ -109,7 +109,7 @@
     if (m_pControls->empty())
         return nil;
 
-    int curSize = m_pControls->size();
+    unsigned long curSize = m_pControls->size();
 
     for (int i = 0; i < curSize; ++i)
     {
@@ -235,14 +235,13 @@
 - (BOOL)tmTouchesEnded:(const TMTouchesVec&)touches withEvent:(UIEvent *)event
 {
     TMTouch touch = touches.at(0);
-    CGPoint point = CGPointMake(touch.x(), touch.y());
 
     if ([self isTouchInside:touch])
     {
         // Forward to children
         if (!m_pControls->empty())
         {
-            int curSize = m_pControls->size();
+            unsigned long curSize = m_pControls->size();
 
             for (int i = 0; i < curSize; ++i)
             {

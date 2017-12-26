@@ -86,10 +86,6 @@
 
 @end
 
-@interface PhysicsUtil : NSObject
-{
-}
-
 
 class time_interpolator
 {
@@ -153,4 +149,5 @@ private:
     float min_, max_;
 };
 
+@interface PhysicsUtil : NSObject
 @end

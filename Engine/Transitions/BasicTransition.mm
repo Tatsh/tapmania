@@ -195,6 +195,11 @@
                 m_nState = kTransitionStateFinished;
             }
             break;
+
+        default:
+            // kTransitionStateFinished
+            // kNumTransitionStates
+            break;
     }
 }
 

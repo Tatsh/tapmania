@@ -46,7 +46,6 @@
 
 - (void)stats
 {
-    float delta = m_fFinishTime == 0.0f ? [TimingUtil getCurrentTime] : m_fFinishTime - m_fStartTime;
     TMLog(@"Benchmark [%s] elapsed time: %lf", [m_sName UTF8String], delta);
 }
 

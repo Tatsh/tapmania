@@ -13,7 +13,6 @@
 #import "TMLoopedSound.h"
 
 #import "AbstractSoundPlayer.h"
-#import "OGGSoundPlayer.h"
 #import "AccelSoundPlayer.h"
 
 #import "TimingUtil.h"
@@ -24,7 +23,7 @@
 #import <AudioToolbox/AudioFile.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import <vorbis/vorbisfile.h>
+//#import <vorbis/vorbisfile.h>
 
 @interface TMSoundEngine (Private)
 - (BOOL)initOpenAL;
@@ -74,7 +73,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     err = AudioFileOpenURL(inFileURL, kAudioFileReadPermission, 0, &aFID);
     if ( err )
     {
-        printf("getOpenALAudioData: AudioFileOpenURL FAILED, Error = %ld\n", err);
+        printf("getOpenALAudioData: AudioFileOpenURL FAILED, Error = %d\n", (int)err);
         goto Exit;
     }
 
@@ -82,7 +81,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     err = AudioFileGetProperty(aFID, kAudioFilePropertyDataFormat, &thePropertySize, &theFileFormat);
     if ( err )
     {
-        printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyDataFormat) FAILED, Error = %ld\n", err);
+        printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyDataFormat) FAILED, Error = %d\n", (int)err);
         goto Exit;
     }
     if ( theFileFormat.mChannelsPerFrame > 2 )
@@ -108,7 +107,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     err = AudioFileGetProperty(aFID, kAudioFilePropertyAudioDataByteCount, &thePropertySize, &theFileLengthInBytes);
     if ( err )
     {
-        printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyAudioDataByteCount) FAILED, Error = %ld\n", err);
+        printf("getOpenALAudioData: AudioFileGetProperty(kAudioFilePropertyAudioDataByteCount) FAILED, Error = %d\n", (int)err);
         goto Exit;
     }
 
@@ -138,7 +137,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
             // failure
             free(theData);
             theData = NULL; // make sure to return NULL
-            printf("getOpenALAudioData: AudioFileRead FAILED, Error = %ld\n", err);
+            printf("getOpenALAudioData: AudioFileRead FAILED, Error = %d\n", (int)err);
             goto Exit;
         }
     }
@@ -265,15 +264,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
         isLooping = YES;
     }
 
-    if ( [[inObj.path lowercaseString] hasSuffix:@".ogg"] )
-    {
-        pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-    }
-    else
-    {
-        pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-    }
-
+    pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
     if ( !pSoundPlayer )
     {
         return NO;

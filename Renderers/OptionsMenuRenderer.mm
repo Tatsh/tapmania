@@ -18,7 +18,6 @@
 #import "OptionsMenuRenderer.h"
 
 #import "TMSoundEngine.h"
-#import "Flurry.h"
 #import "ICadeResponder.h"
 
 @interface OptionsMenuRenderer (InputHandling)
@@ -33,7 +32,6 @@
 - (void)setupForTransition
 {
     [super setupForTransition];
-	[Flurry logEvent:@"options_screen_enter"];
 
     // Register menu items
     // Theme selection

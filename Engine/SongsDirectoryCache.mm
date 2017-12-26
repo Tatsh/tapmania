@@ -65,7 +65,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         // Create the songs dir if missing
         if ( ![[NSFileManager defaultManager] isReadableFileAtPath:userSongsDir] )
         {
-            [[NSFileManager defaultManager] createDirectoryAtPath:userSongsDir attributes:nil];
+            [NSFileManager.defaultManager createDirectoryAtPath:userSongsDir withIntermediateDirectories:YES attributes:nil error:nil];
         }
 
         TMLog(@"User Songs dir at: %@", userSongsDir);
@@ -180,7 +180,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (TMSong *)getSongNextTo:(TMSong *)song
 {
-    int i = [m_aAvailableSongs indexOfObject:song];
+    NSUInteger i = [m_aAvailableSongs indexOfObject:song];
     if ( i == [m_aAvailableSongs count] - 1 )
     {
         i = 0;
@@ -196,7 +196,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 - (TMSong *)getSongPrevFrom:(TMSong *)song
 {
 
-    int i = [m_aAvailableSongs indexOfObject:song];
+    NSUInteger i = [m_aAvailableSongs indexOfObject:song];
     if ( i == 0 )
     {
         i = [m_aAvailableSongs count] - 1;
@@ -274,9 +274,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             stepsFound = YES;
         }
         else if ( [[file lowercaseString] hasSuffix:@".mp3"]
-#ifdef TM_OGG_ENABLE
-				  || [[file lowercaseString] hasSuffix:@".ogg"]
-#endif // TM_OGG_ENABLE
                 )
         {
             musicFound = YES;
@@ -355,14 +352,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             TMLog(@"Found music file (MP3): %@", file);
             musicFilePath = [curPath stringByAppendingPathComponent:file];
         }
-#ifdef TM_OGG_ENABLE
-		else if([[file lowercaseString] hasSuffix:@".ogg"]) {
-			
-			// and ogg too (in future :P)
-			TMLog(@"Found music file (OGG): %@", file);
-			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} 
-#endif // TM_OGG_ENABLE
         else if ( [[file lowercaseString] isEqualToString:deviceBgFile] )
         {
             TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
@@ -626,7 +615,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     CC_MD5_CTX md5;
     CC_MD5_Init(&md5);
 
-    if ( fileSize = [fileAttributes objectForKey:NSFileSize] )
+    if ( (fileSize = [fileAttributes objectForKey:NSFileSize]) )
     {
         result = [result stringByAppendingString:[fileSize stringValue]];
     }
@@ -634,7 +623,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     NSString *name = [path lastPathComponent];
     result = [result stringByAppendingString:name];
 
-    CC_MD5_Update(&md5, [result UTF8String], [result length]);
+    CC_MD5_Update(&md5, [result UTF8String], (CC_LONG)[result length]);
 
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5_Final(digest, &md5);
@@ -680,7 +669,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     // Create one md5 from the ruslt string
     CC_MD5_CTX md5;
     CC_MD5_Init(&md5);
-    CC_MD5_Update(&md5, [result UTF8String], [result length]);
+    CC_MD5_Update(&md5, [result UTF8String], (CC_LONG)[result length]);
 
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5_Final(digest, &md5);
@@ -740,12 +729,12 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
     return self;
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
     return UINT_MAX;  // denotes an object that cannot be released
 }
 
-- (void)release
+- (oneway void)release
 {
     // NOTHING
 }

@@ -606,7 +606,7 @@ extern TMGameState *g_pGameState;
     }
 
     // Sounds
-    if ( [[itemName lowercaseString] hasSuffix:@".mp3"] || [[itemName lowercaseString] hasSuffix:@".ogg"] ||
+    if ( [[itemName lowercaseString] hasSuffix:@".mp3"] ||
             [[itemName lowercaseString] hasSuffix:@".caf"] || [[itemName lowercaseString] hasSuffix:@".wav"] )
     {
         return YES;
@@ -836,12 +836,12 @@ extern TMGameState *g_pGameState;
     return self;
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
     return UINT_MAX;  // denotes an object that cannot be released
 }
 
-- (void)release
+- (oneway void)release
 {
     // NOTHING
 }
