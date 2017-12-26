@@ -274,9 +274,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             stepsFound = YES;
         }
         else if ( [[file lowercaseString] hasSuffix:@".mp3"]
-#ifdef TM_OGG_ENABLE
-				  || [[file lowercaseString] hasSuffix:@".ogg"]
-#endif // TM_OGG_ENABLE
                 )
         {
             musicFound = YES;
@@ -355,14 +352,6 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
             TMLog(@"Found music file (MP3): %@", file);
             musicFilePath = [curPath stringByAppendingPathComponent:file];
         }
-#ifdef TM_OGG_ENABLE
-		else if([[file lowercaseString] hasSuffix:@".ogg"]) {
-			
-			// and ogg too (in future :P)
-			TMLog(@"Found music file (OGG): %@", file);
-			musicFilePath = [curPath stringByAppendingPathComponent:file];
-		} 
-#endif // TM_OGG_ENABLE
         else if ( [[file lowercaseString] isEqualToString:deviceBgFile] )
         {
             TMLog(@"Found resolution-perfect graphic file (PNG): %@", file);
