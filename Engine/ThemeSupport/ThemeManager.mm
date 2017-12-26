@@ -606,7 +606,7 @@ extern TMGameState *g_pGameState;
     }
 
     // Sounds
-    if ( [[itemName lowercaseString] hasSuffix:@".mp3"] || [[itemName lowercaseString] hasSuffix:@".ogg"] ||
+    if ( [[itemName lowercaseString] hasSuffix:@".mp3"] ||
             [[itemName lowercaseString] hasSuffix:@".caf"] || [[itemName lowercaseString] hasSuffix:@".wav"] )
     {
         return YES;

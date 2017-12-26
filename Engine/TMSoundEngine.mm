@@ -13,7 +13,6 @@
 #import "TMLoopedSound.h"
 
 #import "AbstractSoundPlayer.h"
-//#import "OGGSoundPlayer.h"
 #import "AccelSoundPlayer.h"
 
 #import "TimingUtil.h"
@@ -265,15 +264,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
         isLooping = YES;
     }
 
-//    if ( [[inObj.path lowercaseString] hasSuffix:@".ogg"] )
-//    {
-//        pSoundPlayer = [[OGGSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-//    }
-//    else
-//    {
-        pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
-//    }
-
+    pSoundPlayer = [[AccelSoundPlayer alloc] initWithFile:inObj.path atPosition:inObj.position withDuration:inObj.duration looping:isLooping];
     if ( !pSoundPlayer )
     {
         return NO;
