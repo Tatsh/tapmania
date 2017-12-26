@@ -149,7 +149,7 @@
     m_aFreezeArray.push_back(TMChangeSegmentPtr(segment));
 }
 
-- (TMChangeSegment *)getBpmChangeAt:(int)inIndex
+- (TMChangeSegment *)getBpmChangeAt:(unsigned long)inIndex
 {
     if ( inIndex >= m_aBpmChangeArray.size() )
     {
@@ -158,12 +158,12 @@
     return m_aBpmChangeArray.at(inIndex).get();
 }
 
-- (int)getBpmChangeCount
+- (unsigned long)getBpmChangeCount
 {
     return m_aBpmChangeArray.size();
 }
 
-- (TMChangeSegment *)getFreezeAt:(int)inIndex
+- (TMChangeSegment *)getFreezeAt:(unsigned long)inIndex
 {
     if ( inIndex >= m_aFreezeArray.size() )
     {
@@ -172,7 +172,7 @@
     return m_aFreezeArray.at(inIndex).get();
 }
 
-- (int)getFreezeCount
+- (unsigned long)getFreezeCount
 {
     return m_aFreezeArray.size();
 }
@@ -192,8 +192,10 @@
         case kSongDifficulty_Challenge:
             return @"Challenge";
         default:
-            return @"UNKNOWN";
+            break;
     }
+
+    return @"UNKNOWN";
 }
 
 // Serialization

@@ -44,7 +44,7 @@
     // Get glyph by glyph
     float curPoint = 0.0f;
 
-    int len = [str length];
+    NSUInteger len = [str length];
 
     for (int curCharacter = 0; curCharacter < len; ++curCharacter)
     {
@@ -93,10 +93,10 @@
     if (m_Glyphs->empty())
         return;
 
-    if (m_Align == UITextAlignmentCenter)
+    if (m_Align == NSTextAlignmentCenter)
     {
         point.x -= m_oSize.width / 2;
-    } else if (m_Align == UITextAlignmentRight)
+    } else if (m_Align == NSTextAlignmentRight)
     {
         point.x -= m_oSize.width;
     }

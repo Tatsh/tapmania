@@ -45,7 +45,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
 }
 
 
-- (int)broadcastMessage:(TMMessage *)message
+- (unsigned long)broadcastMessage:(TMMessage *)message
 {
 
 //	@synchronized(self) {
@@ -53,7 +53,7 @@ static MessageManager *sharedMessageManagerDelegate = nil;
     if (m_pSubscribers->empty())
         return 0;
 
-    int subscribersCount = m_pSubscribers->count(message.messageId);
+    unsigned long subscribersCount = m_pSubscribers->count(message.messageId);
 
     if (subscribersCount > 0)
     {

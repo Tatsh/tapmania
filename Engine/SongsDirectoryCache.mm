@@ -112,7 +112,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
         NSString *baseDir = [self getSongsPath:(TMSongsPath) [pId intValue]];
         TMLog(@"Checking songs dir at: '%@'", baseDir);
 
-        NSArray *relativeSongDirs = [[NSFileManager defaultManager] directoryContentsAtPath:baseDir];
+        NSArray *relativeSongDirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:baseDir error:nil];
         for ( int j = 0; j < [relativeSongDirs count]; j++ )
         {
             NSString *relativeSongDir = [relativeSongDirs objectAtIndex:j];
@@ -228,7 +228,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
     // Otherwise we will need to iterate over the contents to see if we can
     // find directories with simfiles
-    NSArray *rootDirContents = [fMan directoryContentsAtPath:rootDir];
+    NSArray *rootDirContents = [fMan contentsOfDirectoryAtPath:rootDir error:nil];
 
     // If the dir is empty, leave
     if ( [rootDirContents count] == 0 )
@@ -257,7 +257,7 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 - (BOOL)dirIsSimfile:(NSString *)path
 {
-    NSArray *contents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
 
     TMLog(@"Test dir '%@' for simfile contents...", path);
 
@@ -602,10 +602,10 @@ static SongsDirectoryCache *sharedSongsDirCacheDelegate = nil;
 
 + (NSString *)fileMD5:(NSString *)path
 {
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:YES];
+    NSError *error;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[path stringByResolvingSymlinksInPath] error:&error];
 
-    if ( fileAttributes == nil )
-    {
+    if (error || !fileAttributes) {
         return @"Can't get file md5";
     }
 

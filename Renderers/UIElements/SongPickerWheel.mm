@@ -19,7 +19,7 @@
 #import "DisplayUtil.h"
 #import "TimingUtil.h"
 #import "SongPickerMenuRenderer.h"
-//#import "iCadeState.h"
+#import "iCadeState.h"
 #import "TapMania.h"
 
 extern TMGameState *g_pGameState;
@@ -79,7 +79,7 @@ enum TMWheelAnimationState
     mt_SelectedItemCenterY = FLOAT_METRIC(@"SongPickerMenu Wheel SelectedItemCenterY");
 
     // Lookup the index of the latest song played/selected
-    int selectedIndex = [[SongsDirectoryCache sharedInstance] songIndex:
+    unsigned long selectedIndex = [[SongsDirectoryCache sharedInstance] songIndex:
             [[SettingsEngine sharedInstance] getStringValue:@"lastsong"]];
 
     // Cache metrics
@@ -134,7 +134,7 @@ enum TMWheelAnimationState
 
     float curYOffset = mt_SelectedItemCenterY + (mt_SelectedWheelItemId * mt_DistanceBetweenItems);
 
-    for ( int i = 0, j = selectedIndex; i < mt_NumWheelItems; ++i )
+    for ( unsigned long i = 0, j = selectedIndex; i < mt_NumWheelItems; ++i )
     {
         if ( j == [songList count] )
         {

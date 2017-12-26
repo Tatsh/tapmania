@@ -11,7 +11,7 @@
 #import "TMNote.h"
 
 @interface TMTrack (Private)
-- (int) getNoteIndexFromRow:(int)noteRow;
+- (unsigned long) getNoteIndexFromRow:(long)noteRow;
 @end
 
 @implementation TMTrack
@@ -33,8 +33,8 @@
 	[super dealloc];
 }
 
-- (void) setNote:(TMNote*) note onNoteRow:(int)noteRow {	
-	int index = [self getNoteIndexFromRow:noteRow];
+- (void) setNote:(TMNote*) note onNoteRow:(long)noteRow {
+	unsigned long index = [self getNoteIndexFromRow:noteRow];
 	TMLog(@"NoteRow to index %d == %d", noteRow, index);
 	
 	note.m_nStartNoteRow = noteRow;
@@ -49,10 +49,10 @@
 	}
 }
 
-- (int) getNoteIndexFromRow:(int)noteRow {	
-	int low = 0;
-	int high = m_aNotesArray->size();
-	int mid;
+- (unsigned long) getNoteIndexFromRow:(long)noteRow {
+	unsigned long low = 0;
+	unsigned long high = m_aNotesArray->size();
+	unsigned long mid;
 	
 	while(low < high) {
 		mid = low + ((high-low)/2);
@@ -69,8 +69,8 @@
 	return -1;	
 }
 
-- (TMNote*) getNoteFromRow:(int)noteRow {	
-	int index = [self getNoteIndexFromRow:noteRow];
+- (TMNote*) getNoteFromRow:(long)noteRow {
+	unsigned long index = [self getNoteIndexFromRow:noteRow];
 	
 	if(index != -1)
 		return [self getNote:index];
@@ -78,7 +78,7 @@
 	return nil;
 }
 
-- (TMNote*) getNote:(int)index {
+- (TMNote*) getNote:(unsigned long)index {
 	if(index >= m_aNotesArray->size())
 		return nil;
 
@@ -86,7 +86,7 @@
 	return note;
 }
 
-- (BOOL) hasNoteAtRow:(int)noteRow {
+- (BOOL) hasNoteAtRow:(long)noteRow {
 	return ([self getNoteFromRow:noteRow] != nil);
 }
 

@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "TMRunLoop.h"	// For TMRunLoopPriority etc.
-//#import "iCadeState.h"
+#import "iCadeState.h"
 
 @class TMSong, TMSongOptions, EAGLView, JoyPad, TMScreen, TMModalView;
 @protocol ICadeResponder;
@@ -24,9 +24,6 @@
 
     UIView *m_pWindow;
     EAGLView *m_pGlView;
-#ifdef ENABLE_ADWHIRL
-    AdWhirlView *m_pAdsView;
-#endif
 
     TMRunLoop *m_pGameRunLoop;
     JoyPad *m_pJoyPad;            // The joypad
@@ -92,7 +89,7 @@
 
 - (void)setMappingWithName:(NSString *)string;
 
-//- (void)hardwareControllerButtonDown:(iCadeState)state;
+- (void)hardwareControllerButtonDown:(iCadeState)state;
 
-//- (void)hardwareControllerButtonUp:(iCadeState)state;
+- (void)hardwareControllerButtonUp:(iCadeState)state;
 @end

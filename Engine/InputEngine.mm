@@ -133,8 +133,8 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
-        unsigned long i;
-        for (i = [m_aSubscribers count] - 1; i >= 0; --i)
+        int i;
+        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
         {
             id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
 

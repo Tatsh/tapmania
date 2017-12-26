@@ -62,7 +62,7 @@ extern TMGameState *g_pGameState;
     TMLog(@"TotalSteps: %d\tDiff: %d\tMaxPossiblePoints: %d", m_nTotalSteps, m_nDifficulty, m_nMaxPossiblePoints);
 
     m_pScoreStr = [[FontString alloc] initWithFont:@"SongPlay ScoreNormalNumbers" andText:@"       0"];
-    [m_pScoreStr setAlignment:UITextAlignmentLeft];
+    [m_pScoreStr setAlignment:NSTextAlignmentLeft];
     m_pScoreFrame = TEXTURE(([NSString stringWithFormat:@"%@Frame", metricsKey]));
 
     return self;

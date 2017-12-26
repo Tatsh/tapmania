@@ -37,5 +37,6 @@
 
 - (void)loadResource;        // Will actually load the resource into memory (GPU)
 - (void)unLoadResource;    // Will release m_pResource
+- (NSObject *)resource;
 
 @end

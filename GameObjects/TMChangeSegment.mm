@@ -14,7 +14,7 @@
 
 @synthesize m_fNoteRow, m_fChangeValue; 
 
-- (id) initWithNoteRow:(int) noteRow andValue:(float) value {
+- (id) initWithNoteRow:(long) noteRow andValue:(float) value {
 	self = [super init];
 	if(!self)
 		return nil;

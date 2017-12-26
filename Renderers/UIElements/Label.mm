@@ -73,7 +73,7 @@
 
     // Handle Font, FontSize, Align defaults
     m_fFontSize = 21.0f;    // TODO: change and use
-    m_Align = UITextAlignmentCenter;
+    m_Align = NSTextAlignmentCenter;
 
     // Get font
     m_pFont = (Font *) [[FontManager sharedInstance] getFont:inMetricsKey];
@@ -142,13 +142,13 @@
     {
         if ([[inAlign lowercaseString] isEqualToString:@"center"])
         {
-            m_Align = UITextAlignmentCenter;
+            m_Align = NSTextAlignmentCenter;
         } else if ([[inAlign lowercaseString] isEqualToString:@"left"])
         {
-            m_Align = UITextAlignmentLeft;
+            m_Align = NSTextAlignmentLeft;
         } else if ([[inAlign lowercaseString] isEqualToString:@"right"])
         {
-            m_Align = UITextAlignmentRight;
+            m_Align = NSTextAlignmentRight;
         }
     }
 }
@@ -163,13 +163,13 @@
 
     switch (m_Align)
     {
-        case UITextAlignmentLeft:
+        case NSTextAlignmentLeft:
             point = CGPointMake(m_rShape.origin.x, m_rShape.origin.y - m_rShape.size.height / 2);
             break;
-        case UITextAlignmentRight:
+        case NSTextAlignmentRight:
             point = CGPointMake(m_rShape.origin.x - m_rShape.size.width, m_rShape.origin.y - m_rShape.size.height / 2);
             break;
-        case UITextAlignmentCenter:
+        case NSTextAlignmentCenter:
         default:
             point = CGPointMake(m_rShape.origin.x - m_rShape.size.width / 2, m_rShape.origin.y - m_rShape.size.height / 2);
             break;

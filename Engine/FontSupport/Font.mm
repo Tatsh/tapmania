@@ -385,7 +385,7 @@ T get_attribute(xml_node *node, const std::string& attr_name)
 
     int i;
     unichar c;    // Last char
-    int len = [str length];
+    NSUInteger len = [str length];
 
     for (i = 0; i < len; ++i)
     {
@@ -420,7 +420,7 @@ T get_attribute(xml_node *node, const std::string& attr_name)
     CGSize strSize = [self getStringWidthAndHeight:str];
 
     Quad *result = [[Quad alloc] initWithWidth:strSize.width andHeight:strSize.height];
-    int len = [str length];
+    NSUInteger len = [str length];
 
     for (int curCharacter = 0; curCharacter < len; ++curCharacter)
     {

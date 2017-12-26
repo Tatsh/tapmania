@@ -47,7 +47,7 @@
 
     m_oSize = size;
     m_fFontSize = fontSize;
-    m_Align = UITextAlignmentCenter;
+    m_Align = NSTextAlignmentCenter;
     m_pFont = (Font *) [[FontManager sharedInstance] getFont:@"Common Toggler"];
     if (!m_pFont)
     {
@@ -110,13 +110,13 @@
     {
         if ([[inAlign lowercaseString] isEqualToString:@"center"])
         {
-            m_Align = UITextAlignmentCenter;
+            m_Align = NSTextAlignmentCenter;
         } else if ([[inAlign lowercaseString] isEqualToString:@"left"])
         {
-            m_Align = UITextAlignmentLeft;
+            m_Align = NSTextAlignmentLeft;
         } else if ([[inAlign lowercaseString] isEqualToString:@"right"])
         {
-            m_Align = UITextAlignmentRight;
+            m_Align = NSTextAlignmentRight;
         }
     }
 }
@@ -343,16 +343,15 @@
     for (TogglerItemObject *obj in m_aElements)
     {
         BOOL found = NO;
-        if ([obj.m_pValue isKindOfClass:[NSString class]])
-        {
-            if ([obj.m_pValue isEqualToString:value])
+        if ([obj.m_pValue isKindOfClass:[NSString class]]) {
+            if ([(NSString *)(obj.m_pValue) isEqualToString:(NSString *)value]) {
                 found = YES;
-        } else if ([obj.m_pValue isKindOfClass:[NSNumber class]])
-        {
-            if ([obj.m_pValue isEqualToNumber:value])
+            }
+        } else if ([obj.m_pValue isKindOfClass:[NSNumber class]]) {
+            if ([(NSNumber *)(obj.m_pValue) isEqualToNumber:(NSNumber *)value]) {
                 found = YES;
-        } else
-        {
+            }
+        } else {
             TMLog(@"Class not supported by TogglerItem: %@", [obj.m_pValue name]);
         }
 

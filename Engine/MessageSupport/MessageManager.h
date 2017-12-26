@@ -37,7 +37,7 @@ typedef multimap<int, NSObject *> TMMessageSubscribers;
 }
 
 // Returns count of recepients
-- (int)broadcastMessage:(TMMessage *)message;
+- (unsigned long)broadcastMessage:(TMMessage *)message;
 
 // Subscribe/unsubscribe 
 - (BOOL)subscribe:(NSObject *)inClass forMessagesWithId:(int)inMessageId;

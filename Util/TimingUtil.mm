@@ -49,9 +49,9 @@ extern TMGameState *g_pGameState;
 
 + (float)getBpsAtBeat:(float)beat inSong:(TMSong *)song
 {
-    int noteRow = [TMNote beatToNoteRow:beat];
+    long noteRow = [TMNote beatToNoteRow:beat];
 
-    int cnt = [song getBpmChangeCount] - 1;
+    unsigned long cnt = [song getBpmChangeCount] - 1;
     int pos = 0;
     for ( ; pos < cnt; ++pos )
     {
@@ -71,9 +71,9 @@ extern TMGameState *g_pGameState;
     float elapsedTime = 0.0f;
     elapsedTime += song.m_dGap;
 
-    int noteRow = [TMNote beatToNoteRow:beat];
+    long noteRow = [TMNote beatToNoteRow:beat];
 
-    int freezeCnt = [song getFreezeCount];
+    unsigned long freezeCnt = [song getFreezeCount];
     int i;
     for ( i = 0; i < freezeCnt; ++i )
     {
@@ -86,7 +86,7 @@ extern TMGameState *g_pGameState;
         elapsedTime += seg.m_fChangeValue / 1000.0f;
     }
 
-    int bpmCnt = [song getBpmChangeCount];
+    unsigned long bpmCnt = [song getBpmChangeCount];
     for ( i = 0; i < bpmCnt; ++i )
     {
         const BOOL isLastBpmChange = i == bpmCnt - 1;
@@ -196,12 +196,12 @@ extern TMGameState *g_pGameState;
 
 + (int)getNextBpmChangeFromBeat:(float)beat inSong:(TMSong *)song
 {
-    int noteRow = [TMNote beatToNoteRow:beat];
+    long noteRow = [TMNote beatToNoteRow:beat];
 
-    int i, cnt = [song getBpmChangeCount];
+    unsigned long i, cnt = [song getBpmChangeCount];
     for ( i = 0; i < cnt; ++i )
     {
-        TMChangeSegment *seg = [song getBpmChangeAt:i];
+        TMChangeSegment *seg = [song getBpmChangeAt:(int)i];
         if ( seg && seg.m_fNoteRow > noteRow )
         {
             return seg.m_fNoteRow;

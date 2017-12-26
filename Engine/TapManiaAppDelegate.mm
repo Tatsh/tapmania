@@ -16,6 +16,7 @@
 #import "DisplayUtil.h"
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <CoreMotion/CoreMotion.h>
 #import <UserNotifications/UserNotifications.h>
 
 #define kReminderTimeout 60*60*24*3
@@ -74,14 +75,14 @@
     }
 
     // Get rid of the accelerometer
-    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
-    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1000.0f];
+    CMMotionManager *motionManager = [[CMMotionManager alloc] init];
+    motionManager.accelerometerUpdateInterval = 1000.0f;
+    [motionManager stopDeviceMotionUpdates];
 
     // Add bg
 
     UIImage *img = [UIImage imageNamed:[DisplayUtil getDefaultPngName]];
-    if ( [DisplayUtil isRetina] )
-    {
+    if ( [DisplayUtil isRetina] ) {
         img = [UIImage imageWithCGImage:img.CGImage scale:2 orientation:img.imageOrientation];
     }
 
@@ -93,11 +94,11 @@
     [self.window makeKeyAndVisible];
 
     // Configure iCade support
-//    iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
-//    [self.window addSubview:control];
-//    control.active = YES;
-//    control.delegate = self;
-//    [control release];
+    iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
+    [self.window addSubview:control];
+    control.active = YES;
+    control.delegate = self;
+    [control release];
 
     // Start the game.
     [[TapMania sharedInstance] performSelector:@selector(startGame)
@@ -132,16 +133,15 @@
     BROADCAST_MESSAGE(kApplicationShouldTerminateMessage, nil);
 }
 
-// iCade support
-//- (void)buttonDown:(iCadeState)button
-//{
-//    [[TapMania sharedInstance] hardwareControllerButtonDown:button];
-//}
-//
-//- (void)buttonUp:(iCadeState)button
-//{
-//    [[TapMania sharedInstance] hardwareControllerButtonUp:button];
-//}
+#pragma mark - iCade support
+- (void)buttonDown:(iCadeState)button
+{
+    [[TapMania sharedInstance] hardwareControllerButtonDown:button];
+}
 
-
+- (void)buttonUp:(iCadeState)button
+{
+    [[TapMania sharedInstance] hardwareControllerButtonUp:button];
+}
 @end
+

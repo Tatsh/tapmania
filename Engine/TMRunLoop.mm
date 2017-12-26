@@ -190,7 +190,7 @@
     /* First update all objects */
     if (!m_aObjects->empty())
     {
-        int curSize = m_aObjects->size();
+        unsigned long curSize = m_aObjects->size();
 
         for (int i = 0; i < curSize; ++i)
         {

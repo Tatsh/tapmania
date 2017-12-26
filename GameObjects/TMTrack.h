@@ -33,12 +33,12 @@ typedef vector<TMNotePtr> TMNoteList;
 
 }
 
-- (void) setNote:(TMNote*) note onNoteRow:(int)noteRow;
+- (void) setNote:(TMNote*) note onNoteRow:(long)noteRow;
 
-- (TMNote*) getNoteFromRow:(int)noteRow;
-- (TMNote*) getNote:(int)index;
+- (TMNote*) getNoteFromRow:(long)noteRow;
+- (TMNote*) getNote:(unsigned long)index;
 
-- (BOOL) hasNoteAtRow:(int)noteRow;
+- (BOOL) hasNoteAtRow:(long)noteRow;
 
 - (unsigned long) getNotesCount;
 - (int) getHoldsCount;

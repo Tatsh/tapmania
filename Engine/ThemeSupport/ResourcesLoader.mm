@@ -137,7 +137,11 @@
 /* Private methods */
 - (void)loadResourceFromPath:(NSString *)path intoNode:(NSDictionary *)node
 {
-    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+    NSError *error = nil;
+    NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+    if (error) {
+        [NSException raise:NSFileHandleOperationException format:@"%@", error.localizedDescription];
+    }
 
     // List all files and dirs there
     int i;

@@ -235,6 +235,8 @@ extern TMGameState *g_pGameState;
                 [[TMSoundEngine sharedInstance] playEffect:sr_ExplosionMine];
             } else
             {
+                bool bright;
+
                 // TODO: apply color to the exlosion depending on the score?
                 switch (note.m_nScore)
                 {
@@ -246,8 +248,10 @@ extern TMGameState *g_pGameState;
                         // flash bright if combo over certain threshold
                         // TODO: move threshold to some configurable place
                         TMLog(@"Current combo: %d", g_pGameState->m_nCombo);
-                        bool bright = g_pGameState->m_nCombo >= 100;
+                        bright = g_pGameState->m_nCombo >= 100;
                         [self tapNoteExplodeTrack:note.m_nTrack bright:bright judgement:note.m_nScore];
+                        break;
+                    default:
                         break;
                 }
             }

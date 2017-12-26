@@ -97,7 +97,7 @@
 
     // Create a dynamic font string
     m_pCurrentStr = [[FontString alloc] initWithFont:@"SongsCacheLoader" andText:m_sCurrentMessage];
-    m_pCurrentStr.alignment = UITextAlignmentCenter;
+    m_pCurrentStr.alignment = NSTextAlignmentCenter;
 
     m_bTextureShouldChange = YES;
 

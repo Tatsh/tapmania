@@ -83,6 +83,8 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 	int					m_nAvailableDifficultyLevels[kNumSongDifficulties];
 }
 
+NS_ASSUME_NONNULL_BEGIN
+
 @property (retain, nonatomic) NSString* m_sFilePath;
 @property (assign) TMSongFileType m_nFileType;
 @property (retain, nonatomic) NSString* m_sSongDirName;
@@ -124,15 +126,17 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 - (void) addBpmSegment:(TMChangeSegment*)segment;
 - (void) addFreezeSegment:(TMChangeSegment*)segment;
 
-- (TMChangeSegment*) getBpmChangeAt:(int)inIndex;
-- (int) getBpmChangeCount;
+- (TMChangeSegment*) getBpmChangeAt:(unsigned long)inIndex;
+- (unsigned long)getBpmChangeCount;
 
-- (TMChangeSegment*) getFreezeAt:(int)inIndex;
-- (int) getFreezeCount;
+- (TMChangeSegment * _Nullable) getFreezeAt:(unsigned long)inIndex;
+- (unsigned long) getFreezeCount;
 
-+ (NSString*) difficultyToString:(TMSongDifficulty)difficulty;
++ (NSString * _Nonnull) difficultyToString:(TMSongDifficulty)difficulty;
 
-- (TMSongSavedScore *)getScoreForDifficulty:(TMSongDifficulty)difficulty;
+- (TMSongSavedScore * _Nullable)getScoreForDifficulty:(TMSongDifficulty)difficulty;
+
+NS_ASSUME_NONNULL_END
 
 @end
 
@@ -148,9 +152,9 @@ typedef std::vector<TMChangeSegmentPtr>		TMChangeSegmentVec;
 	NSNumber*		bestGrade;
 }
 
-@property (retain, nonatomic) NSString* hash;
-@property (retain, nonatomic) NSNumber* difficulty;
-@property (retain, nonatomic) NSNumber* bestScore;
-@property (retain, nonatomic) NSNumber* bestGrade;
+@property (retain, nonatomic) NSString* _Nonnull hash;
+@property (retain, nonatomic) NSNumber* _Nonnull difficulty;
+@property (retain, nonatomic) NSNumber* _Nonnull bestScore;
+@property (retain, nonatomic) NSNumber* _Nonnull bestGrade;
 
 @end

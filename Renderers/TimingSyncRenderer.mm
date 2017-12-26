@@ -43,7 +43,7 @@ extern TMGameState *g_pGameState;
     m_pOffsetLabel = [[FontString alloc] initWithFont:@"TimingSync CurrentOffset" andText:@"Current offset:"];
     mt_OffsetLabelLocation = POINT_METRIC(@"TimingSync CurrentOffset");
 
-    [m_pOffsetLabel setAlignment:UITextAlignmentCenter];
+    [m_pOffsetLabel setAlignment:NSTextAlignmentCenter];
     
     return self;
 }

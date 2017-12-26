@@ -22,6 +22,8 @@
 - (id)initWithImage:(UIImage *)uiImage columns:(int)columns andRows:(int)rows;
 
 // Drawing routines
+- (void)drawFrame:(int)frameId;
+
 - (void)drawFrame:(int)frameId withExtraLeft:(float)pixelsLeft extraRight:(float)pixelsRight inRect:(CGRect)rect;
 
 - (void)drawFrame:(int)frameId inRect:(CGRect)rect;

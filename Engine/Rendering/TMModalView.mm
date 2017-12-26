@@ -134,7 +134,7 @@
         // Forward to children
         if (!m_pControls->empty())
         {
-            int curSize = m_pControls->size();
+            unsigned long curSize = m_pControls->size();
 
             for (int i = 0; i < curSize; ++i)
             {

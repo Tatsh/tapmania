@@ -105,7 +105,7 @@ extern TMGameState *g_pGameState;
     return m_nDifficulty;
 }
 
-- (void)setNote:(TMNote *)note toTrack:(int)trackIndex onNoteRow:(int)noteRow
+- (void)setNote:(TMNote *)note toTrack:(long)trackIndex onNoteRow:(long)noteRow
 {
     [m_pTracks[trackIndex] setNote:note onNoteRow:noteRow];
 }
@@ -115,7 +115,7 @@ extern TMGameState *g_pGameState;
     return [m_pTracks[trackIndex] getNote:index];
 }
 
-- (TMNote *)getNoteFromRow:(int)noteRow forTrack:(int)trackIndex
+- (TMNote *)getNoteFromRow:(long)noteRow forTrack:(int)trackIndex
 {
     return [m_pTracks[trackIndex] getNoteFromRow:noteRow];
 }
@@ -125,7 +125,7 @@ extern TMGameState *g_pGameState;
     return [m_pTracks[trackIndex] hasNoteAtRow:noteRow];
 }
 
-- (int)getNotesCountForTrack:(int)trackIndex
+- (unsigned long)getNotesCountForTrack:(unsigned long)trackIndex
 {
     return [m_pTracks[trackIndex] getNotesCount];
 }
@@ -171,7 +171,7 @@ extern TMGameState *g_pGameState;
     return total;
 }
 
-- (BOOL)checkAllNotesHitFromRow:(int)noteRow withNoteTime:(double)inNoteTime
+- (BOOL)checkAllNotesHitFromRow:(long)noteRow withNoteTime:(double)inNoteTime
 {
     // Check whether other tracks has any notes which are not hit yet and are on the same noterow
     BOOL allNotesHit = YES;
@@ -253,7 +253,7 @@ extern TMGameState *g_pGameState;
     return allNotesHit;
 }
 
-- (void)markAllNotesLostFromRow:(int)noteRow
+- (void)markAllNotesLostFromRow:(long)noteRow
 {
     int tr = 0;
     for (; tr < kNumOfAvailableTracks; ++tr)
@@ -417,7 +417,7 @@ extern TMGameState *g_pGameState;
             float noteYPosition = lastNoteYPosition;
             float holdBottomCapYPosition = mt_NotesStartPos.y;
 
-            int lastNoteRow = prevNote ? prevNote.m_nStartNoteRow : [TMNote beatToNoteRow:currentBeat];
+            long lastNoteRow = prevNote ? prevNote.m_nStartNoteRow : [TMNote beatToNoteRow:currentBeat];
             int nextBpmChangeNoteRow = [TimingUtil getNextBpmChangeFromBeat:[TMNote noteRowToBeat:lastNoteRow] inSong:g_pGameState->m_pSong];
 
             double noteTime = [TimingUtil getElapsedTimeFromBeat:beat inSong:g_pGameState->m_pSong];

@@ -17,6 +17,6 @@
 @property (assign, readonly) float m_fNoteRow;
 @property (assign) float m_fChangeValue;
 
-- (id) initWithNoteRow:(int) noteRow andValue:(float) value;
+- (id) initWithNoteRow:(long) noteRow andValue:(float) value;
 
 @end
