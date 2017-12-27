@@ -133,10 +133,10 @@ void PlayBackCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID
 
             while (doSeek)
             {
-                AudioFileReadPackets(audioFile, NO, &numBytes, packetDescs, packetIndex, &numPackets, dummyData);
+                AudioFileReadPackets(audioFile, NO, &numBytes, packetDescs, static_cast<SInt64>(packetIndex), &numPackets, dummyData);
                 if (numPackets > 0)
                 {
-                    for (int i = 0; i < numPackets; ++i)
+                    for (unsigned int i = 0; i < numPackets; ++i)
                     {
                         // Check this packet
 
