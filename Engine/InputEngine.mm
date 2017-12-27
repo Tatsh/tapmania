@@ -35,12 +35,6 @@ static InputEngine *sharedInputEngineDelegate = nil;
     return self;
 }
 
-- (void)dealloc
-{
-    [m_aSubscribers release];
-    [super dealloc];
-}
-
 - (void)disableDispatcher
 {
     m_bDispatcherEnabled = NO;
@@ -95,10 +89,10 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
-        int i;
-        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
+        NSInteger i;
+        for (i = static_cast<NSInteger>([m_aSubscribers count]) - 1; i >= 0; --i)
         {
-            id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
+            id <TMGameUIResponder> handler = m_aSubscribers[static_cast<NSUInteger>(i)];
 
             if ([handler tmTouchesBegan:tmTouches withEvent:event])
             {
@@ -114,10 +108,10 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
-        int i;
-        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
+        NSInteger i;
+        for (i = static_cast<NSInteger>([m_aSubscribers count]) - 1; i >= 0; --i)
         {
-            id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
+            id <TMGameUIResponder> handler = m_aSubscribers[static_cast<NSUInteger>(i)];
 
             if ([handler tmTouchesMoved:tmTouches withEvent:event])
             {
@@ -133,10 +127,10 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         TMTouchesVec tmTouches = [self applyTransform:touches];
 
-        int i;
-        for (i = (int)[m_aSubscribers count] - 1; i >= 0; --i)
+        NSInteger i;
+        for (i = static_cast<NSInteger>([m_aSubscribers count]) - 1; i >= 0; --i)
         {
-            id <TMGameUIResponder> handler = [m_aSubscribers objectAtIndex:i];
+            id <TMGameUIResponder> handler = m_aSubscribers[static_cast<NSUInteger>(i)];
 
             if ([handler tmTouchesEnded:tmTouches withEvent:event])
             {
@@ -154,7 +148,7 @@ static InputEngine *sharedInputEngineDelegate = nil;
     {
         if (sharedInputEngineDelegate == nil)
         {
-            [[self alloc] init];
+            (void)[[self alloc] init];
         }
     }
     return sharedInputEngineDelegate;
@@ -172,27 +166,6 @@ static InputEngine *sharedInputEngineDelegate = nil;
     }
 
     return nil;
-}
-
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return UINT_MAX;  // denotes an object that cannot be released
-}
-
-- (oneway void)release
-{
-    // NOTHING
-}
-
-- (id)autorelease
-{
-    return self;
 }
 
 
