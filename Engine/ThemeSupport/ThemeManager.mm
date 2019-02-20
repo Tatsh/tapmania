@@ -71,8 +71,15 @@ extern TMGameState *g_pGameState;
         userNoteskinsDir = [dir stringByAppendingPathComponent:@"noteskins"];
     }
 
-    NSArray *themesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:themesDir];
-    NSArray *noteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:noteskinsDir];
+    NSError *error;
+    NSArray *themesDirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:themesDir error:&error];
+    if (error) {
+        return nil;
+    }
+    NSArray *noteskinsDirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:noteskinsDir error:&error];
+    if (error) {
+        return nil;
+    }
 
     // Raise error if empty themes dir
     if ( [themesDirContents count] == 0 || [noteskinsDirContents count] == 0 )
@@ -128,8 +135,8 @@ extern TMGameState *g_pGameState;
 
 
     // Now add from user themes/skins
-    NSArray *userThemesDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:userThemesDir];
-    NSArray *userNoteskinsDirContents = [[NSFileManager defaultManager] directoryContentsAtPath:userNoteskinsDir];
+    NSArray *userThemesDirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:userThemesDir error:nil];
+    NSArray *userNoteskinsDirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:userNoteskinsDir error:nil];
 
     // Iterate through the themes
     for ( i = 0; i < [userThemesDirContents count]; i++ )
@@ -575,8 +582,7 @@ extern TMGameState *g_pGameState;
         }
     }
 
-    if ( tmp != nil )
-    {
+    if ( tmp != nil ) {
         tmp = [[tmp objectForKey:[pathChunks lastObject]] retain];
     }
 
@@ -744,7 +750,7 @@ extern TMGameState *g_pGameState;
     // Check whether we need to create the skins dir
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:userNoteskinsDir isDirectory:&isDir] )
     {
-        [[NSFileManager defaultManager] createDirectoryAtPath:userNoteskinsDir attributes:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:userNoteskinsDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
 
     // Check whether the skin already exists in the user noteskins directory
@@ -780,7 +786,7 @@ extern TMGameState *g_pGameState;
     // Check whether we need to create the themes dir
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:userThemesDir isDirectory:&isDir] )
     {
-        [[NSFileManager defaultManager] createDirectoryAtPath:userThemesDir attributes:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:userThemesDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
 
     // Check whether the theme already exists in the user themes directory

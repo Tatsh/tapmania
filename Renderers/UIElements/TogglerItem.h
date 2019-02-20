@@ -36,16 +36,12 @@
 - (id)initWithTitle:(NSString *)lTitle value:(NSObject *)lValue size:(CGSize)size andFontSize:(float)fontSize;
 
 - (void)setName:(NSString *)inName;    // For name command (sets value automatically if none set)
-- (void)setValue:(NSObject *)inVal;    // For value command
 - (void)setFont:(NSString *)inName;    // For font command
 - (void)setFontSize:(NSNumber *)inSize;    // For fontsize command
 - (void)setAlignment:(NSString *)inAlign;    // For alignment command
 - (void)setCmdList:(TMCommand *)inCmdList;
 
 - (void)onSelect;
-
-// Used by the value,VAL command to set current value
-- (void)setValue:(NSObject *)value;
 
 @end
 

@@ -376,7 +376,7 @@
     char measureData[4096];        // May be way too much but it's just to prevent problems which i don't like to search for later on
     int measureDataIndex = 0;
 
-    int currentNoteRow = 0;    // Start with 0..
+    long currentNoteRow = 0;    // Start with 0..
 
     // Go through all the stepchart
     for ( ; curPos < totalElements; ++curPos )
@@ -649,7 +649,7 @@
         }
 
         // Got '$token=$value'
-        int noteRow = [TMNote beatToNoteRow:atof(token)];
+        long noteRow = [TMNote beatToNoteRow:atof(token)];
 
         changer = [[TMChangeSegment alloc] initWithNoteRow:noteRow andValue:atof(value)];
         [resArr addObject:changer];

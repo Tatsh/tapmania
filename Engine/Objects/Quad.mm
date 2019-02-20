@@ -53,7 +53,7 @@
         // empty data
         void *data = (void *) calloc(m_unWidth * m_unHeight * 4, sizeof(GLubyte));
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_unWidth, m_unHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, (void *) data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)m_unWidth, (GLsizei)m_unHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, (void *) data);
         TMBindTexture(saveName);
 
         m_fMaxS = m_oSize.width / (float) m_unWidth;
@@ -99,7 +99,7 @@
 
     int viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
-    glViewport(0, 0, m_unWidth, m_unHeight);
+    glViewport(0, 0, (GLsizei)m_unWidth, (GLsizei)m_unHeight);
 
     glTranslatef(point.x, point.y, 0.0);
 
@@ -159,7 +159,7 @@
 
     int viewport[4];
     glGetIntegerv(GL_VIEWPORT, viewport);
-    glViewport(0, 0, m_unWidth, m_unHeight);
+    glViewport(0, 0, (GLsizei)m_unWidth, (GLsizei)m_unHeight);
 
     // Copy texels to framebuffer and then to our quad
     glEnable(GL_BLEND);

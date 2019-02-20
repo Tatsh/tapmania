@@ -57,8 +57,8 @@ typedef enum {
 	TMBeatType			m_nBeatType;	// Type of the beat (1/4, 1/8...etc)
 	TMNoteType			m_nType;		// Type of the note
 	
-	int					m_nStartNoteRow;	// Start note row in the track
-	int					m_nStopNoteRow;		// For hold notes
+	long					m_nStartNoteRow;	// Start note row in the track
+	long					m_nStopNoteRow;		// For hold notes
 	TMAvailableTracks	m_nTrack;
 	
 	BOOL		m_bIsHit;			// True if the note was hit during gameplay
@@ -86,8 +86,8 @@ typedef enum {
 }
 
 @property (assign, readonly) TMAvailableTracks m_nTrack;
-@property (assign) int m_nStartNoteRow;
-@property (assign) int m_nStopNoteRow;
+@property (assign) long m_nStartNoteRow;
+@property (assign) long m_nStopNoteRow;
 @property (assign, readonly) TMBeatType m_nBeatType;
 @property (assign) TMNoteType m_nType;
 
@@ -114,7 +114,7 @@ typedef enum {
 @property (assign, readonly) TMTimingFlag m_nTimingFlag;
 @property (assign, readonly) TMHoldScore m_nHoldScore;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack;
+- (id) initWithNoteRow:(long) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack;
 
 - (void) hit:(double)hitTime;
 
@@ -130,8 +130,8 @@ typedef enum {
 - (void) markHoldLost;
 - (void) markHoldHeld;
 
-+ (TMBeatType) getBeatType:(int) row;
-+ (int) beatToNoteRow:(float) beat;
-+ (float) noteRowToBeat:(int) noteRow;
++ (TMBeatType) getBeatType:(long) row;
++ (long) beatToNoteRow:(float) beat;
++ (float) noteRowToBeat:(long) noteRow;
 
 @end

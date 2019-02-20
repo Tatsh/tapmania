@@ -107,6 +107,13 @@ static SettingsEngine *sharedSettingsEngineDelegate = nil;
     return 0;
 }
 
+- (NSUInteger)getUnsignedIntegerValue:(NSString *)key {
+    if ([m_pUserConfig valueForKey:key] != nil) {
+        return [(NSNumber *)[m_pUserConfig valueForKey:key] unsignedIntegerValue];
+    }
+    return 0;
+}
+
 - (float)getFloatValue:(NSString *)key
 {
     if ([m_pUserConfig valueForKey:key] != nil)

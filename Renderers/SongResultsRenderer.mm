@@ -219,7 +219,7 @@ extern TMGameState *g_pGameState;
     // Calculate
     for ( track = 0; track < kNumOfAvailableTracks; track++ )
     {
-        int notesCount = [g_pGameState->m_pSteps getNotesCountForTrack:track];
+        unsigned long notesCount = [g_pGameState->m_pSteps getNotesCountForTrack:track];
 
         for ( i = 0; i < notesCount; i++ )
         {
@@ -265,7 +265,7 @@ extern TMGameState *g_pGameState;
 
     m_pScore = [[FontString alloc] initWithFont:@"BigScore"
                                         andText:@"       0"];
-    [m_pScore setAlignment:UITextAlignmentCenter];
+    [m_pScore setAlignment:NSTextAlignmentCenter];
 
 
     m_nCurrentCombo = 0;
@@ -345,7 +345,7 @@ extern TMGameState *g_pGameState;
             TMLog(@"Better score. Update.");
             should_report = true;
 
-            savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
+            savedScore.bestScore = [NSNumber numberWithLong:g_pGameState->m_nScore];
             savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
             [savedScore save];
 
@@ -361,7 +361,7 @@ extern TMGameState *g_pGameState;
         savedScore = [[TMSongSavedScore alloc] init];
         savedScore.hash = g_pGameState->m_pSong.m_sHash;
         savedScore.difficulty = diff;
-        savedScore.bestScore = [NSNumber numberWithInt:g_pGameState->m_nScore];
+        savedScore.bestScore = [NSNumber numberWithLong:g_pGameState->m_nScore];
         savedScore.bestGrade = [NSNumber numberWithInt:m_Grade];
         [savedScore save];
 

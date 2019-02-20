@@ -112,7 +112,7 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     }
 
     // Read all the data into memory
-    dataSize = theFileLengthInBytes;
+    dataSize = (UInt32)theFileLengthInBytes;
     theData = malloc(dataSize);
     if ( theData )
     {
@@ -191,6 +191,13 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     m_bStopRequested = YES;
     [m_engineTimer invalidate];
     m_engineTimer = nil;
+}
+
+- (void)shutdownOpenAL {
+}
+
+- (NSThread *)getThread {
+    return nil;
 }
 
 - (void)worker
@@ -530,12 +537,12 @@ void *getOpenALAudioData(CFURLRef inFileURL, ALsizei *outDataSize, ALenum *outDa
     return self;
 }
 
-- (unsigned)retainCount
+- (NSUInteger)retainCount
 {
     return UINT_MAX;  // denotes an object that cannot be released
 }
 
-- (void)release
+- (oneway void)release
 {
     // NOTHING
 }

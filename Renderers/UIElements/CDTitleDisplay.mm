@@ -81,4 +81,7 @@
     [super dealloc];
 }
 
+- (void)handleMessage:(TMMessage *)message {
+}
+
 @end

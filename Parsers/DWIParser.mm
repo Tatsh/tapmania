@@ -551,7 +551,7 @@
                     currentNote++;
                 }
 
-                const int iIndex = [TMNote beatToNoteRow:currentBeat];
+                const long iIndex = [TMNote beatToNoteRow:currentBeat];
                 TMLog(@"CALCULATED DWI noterow is %d for beat %f", iIndex, currentBeat);
 
                 currentNote--;
@@ -718,7 +718,7 @@
         }
 
         // Got '$token=$value'
-        int beatIndex = [TMNote beatToNoteRow:atof([token UTF8String]) / 4.0f];
+        long beatIndex = [TMNote beatToNoteRow:atof([token UTF8String]) / 4.0f];
         changer = [[TMChangeSegment alloc] initWithNoteRow:beatIndex andValue:atof([value UTF8String])];
         [resArr addObject:changer];
     }

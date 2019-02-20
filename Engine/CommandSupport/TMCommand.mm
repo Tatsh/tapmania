@@ -53,7 +53,7 @@
     return YES;
 }
 
-- (NSObject *)getValueFromString:(NSString *)str withObject:(NSObject *)inObj
+- (NSObject * _Nullable)getValueFromString:(NSString * _Nonnull)str withObject:(NSObject * _Nonnull)inObj
 {
 
     if ([str hasPrefix:@"{setting:"])

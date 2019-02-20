@@ -23,7 +23,7 @@
     m_dTimeCounter = 0.0;
 
     m_pFpsStr = [[FontString alloc] initWithFont:@"Common FPS" andText:@"FPS: 0"];
-    [m_pFpsStr setAlignment:UITextAlignmentLeft];
+    [m_pFpsStr setAlignment:NSTextAlignmentLeft];
 
     return self;
 }

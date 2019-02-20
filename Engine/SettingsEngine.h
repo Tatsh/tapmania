@@ -55,6 +55,8 @@
 
 - (void)setValueFromObject:(NSObject *)value forKey:(NSString *)key;
 
+- (NSUInteger)getUnsignedIntegerValue:(NSString *)key;
+
 + (SettingsEngine *)sharedInstance;
 
 @end

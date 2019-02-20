@@ -135,6 +135,8 @@
 		268057951FF24248003709CD /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057941FF24248003709CD /* GameKit.framework */; };
 		268057981FF2431C003709CD /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057971FF2431C003709CD /* CloudKit.framework */; };
 		2680579A1FF249FB003709CD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268057991FF249FB003709CD /* UserNotifications.framework */; };
+		26BEA0F91FF2BBA7008CF557 /* iCadeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BEA0F61FF2BBA7008CF557 /* iCadeReaderView.m */; };
+		26BEA0FB1FF2D4DA008CF557 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BEA0FA1FF2D4D9008CF557 /* CoreMotion.framework */; };
 		4B7400C4F3D14D1993423B73 /* libPods-TapMania.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD75A903F173390DAF2051 /* libPods-TapMania.a */; };
 		F44B2365C7C2F9ECE3045536 /* TimingSyncRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B262AAACC61BE4928351C /* TimingSyncRenderer.mm */; };
 		F44B2687E0FD4390BAB5EA37 /* CDTitleDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = F44B290E30ADF176CA61024C /* CDTitleDisplay.mm */; };
@@ -249,9 +251,6 @@
 		248EE4570EE4002000FF1D43 /* TapMania.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TapMania.mm; path = Engine/TapMania.mm; sourceTree = "<group>"; };
 		248F78130F77F99700AE2130 /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = Renderers/UIElements/Slider.h; sourceTree = "<group>"; };
 		248F78140F77F99700AE2130 /* Slider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Slider.mm; path = Renderers/UIElements/Slider.mm; sourceTree = "<group>"; };
-		249399D316642D11005A65C8 /* iCadeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCadeReaderView.h; path = ext/iCade/iCadeReaderView.h; sourceTree = "<group>"; };
-		249399D416642D11005A65C8 /* iCadeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCadeReaderView.m; path = ext/iCade/iCadeReaderView.m; sourceTree = "<group>"; };
-		249399D516642D11005A65C8 /* iCadeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCadeState.h; path = ext/iCade/iCadeState.h; sourceTree = "<group>"; };
 		2496484E0F79134D00C9D5BC /* AbstractSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractSoundPlayer.h; sourceTree = "<group>"; };
 		2496484F0F79134D00C9D5BC /* AbstractSoundPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractSoundPlayer.mm; sourceTree = "<group>"; };
 		24966C7D0ECB3B6100D367E3 /* TogglerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TogglerItem.h; path = Renderers/UIElements/TogglerItem.h; sourceTree = "<group>"; };
@@ -392,6 +391,10 @@
 		268057961FF2431A003709CD /* TapMania.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TapMania.entitlements; sourceTree = "<group>"; };
 		268057971FF2431C003709CD /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		268057991FF249FB003709CD /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		26BEA0F61FF2BBA7008CF557 /* iCadeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCadeReaderView.m; path = "iCade-iOS/iCadeTest/iCade/iCadeReaderView.m"; sourceTree = "<group>"; };
+		26BEA0F71FF2BBA7008CF557 /* iCadeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCadeState.h; path = "iCade-iOS/iCadeTest/iCade/iCadeState.h"; sourceTree = "<group>"; };
+		26BEA0F81FF2BBA7008CF557 /* iCadeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCadeReaderView.h; path = "iCade-iOS/iCadeTest/iCade/iCadeReaderView.h"; sourceTree = "<group>"; };
+		26BEA0FA1FF2D4D9008CF557 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		28FD14FC0DC6FC130079059D /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		28FD14FD0DC6FC130079059D /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -423,6 +426,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26BEA0FB1FF2D4DA008CF557 /* CoreMotion.framework in Frameworks */,
 				2680579A1FF249FB003709CD /* UserNotifications.framework in Frameworks */,
 				268057931FF2421E003709CD /* OpenAL.framework in Frameworks */,
 				24219CE211D26244001BCE14 /* Foundation.framework in Frameworks */,
@@ -671,9 +675,9 @@
 		249399D216642CFE005A65C8 /* iCade */ = {
 			isa = PBXGroup;
 			children = (
-				249399D316642D11005A65C8 /* iCadeReaderView.h */,
-				249399D416642D11005A65C8 /* iCadeReaderView.m */,
-				249399D516642D11005A65C8 /* iCadeState.h */,
+				26BEA0F81FF2BBA7008CF557 /* iCadeReaderView.h */,
+				26BEA0F61FF2BBA7008CF557 /* iCadeReaderView.m */,
+				26BEA0F71FF2BBA7008CF557 /* iCadeState.h */,
 			);
 			name = iCade;
 			sourceTree = "<group>";
@@ -689,14 +693,6 @@
 				24D52AA71035A1970030A6CA /* AccelSoundPlayer.mm */,
 			);
 			path = SoundSupport;
-			sourceTree = "<group>";
-		};
-		2496486B0F7913DC00C9D5BC /* External libs */ = {
-			isa = PBXGroup;
-			children = (
-				249399D216642CFE005A65C8 /* iCade */,
-			);
-			name = "External libs";
 			sourceTree = "<group>";
 		};
 		24A709AB0F7A936C0080121C /* FontSupport */ = {
@@ -905,14 +901,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2447376516CCFF2A00C94062 /* Icon-Portrait@2x~ipad.png */,
-				2447376316CCFF2100C94062 /* Icon-Portrait~ipad.png */,
-				2447376116CCFF0D00C94062 /* Icon@2x.png */,
-				245638991696217700983679 /* Default-Portrait~ipad.png */,
-				24563896169620FC00983679 /* Default-Portrait@2x~ipad.png */,
 				080E96DDFE201D6D7F000001 /* Engine */,
 				24F15DF1105A9CE100221550 /* TapMania */,
-				2496486B0F7913DC00C9D5BC /* External libs */,
+				249399D216642CFE005A65C8 /* iCade */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -939,6 +930,11 @@
 				246B97C312CB8D0500A33B7E /* themes */,
 				247081F111CD705A0045988B /* Songs */,
 				24A425440F7119FC001B0CDE /* Icon.png */,
+				2447376516CCFF2A00C94062 /* Icon-Portrait@2x~ipad.png */,
+				2447376316CCFF2100C94062 /* Icon-Portrait~ipad.png */,
+				2447376116CCFF0D00C94062 /* Icon@2x.png */,
+				245638991696217700983679 /* Default-Portrait~ipad.png */,
+				24563896169620FC00983679 /* Default-Portrait@2x~ipad.png */,
 				24F15E470EC2114F00755788 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				F44B21C7BA7A835FC4E0F1A9 /* Default-568h@2x.png */,
@@ -951,6 +947,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				26BEA0FA1FF2D4D9008CF557 /* CoreMotion.framework */,
 				268057991FF249FB003709CD /* UserNotifications.framework */,
 				268057971FF2431C003709CD /* CloudKit.framework */,
 				268057941FF24248003709CD /* GameKit.framework */,
@@ -1026,7 +1023,7 @@
 								enabled = 0;
 							};
 							com.apple.Siri = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
@@ -1233,6 +1230,7 @@
 				24219CB411D26244001BCE14 /* ComboMeter.mm in Sources */,
 				24219CB511D26244001BCE14 /* ScoreMeter.mm in Sources */,
 				24219CC611D26244001BCE14 /* Sprite.mm in Sources */,
+				26BEA0F91FF2BBA7008CF557 /* iCadeReaderView.m in Sources */,
 				24DA235D121B2E5C0023C8C2 /* TDBSearch.mm in Sources */,
 				24DA2365121B307D0023C8C2 /* TapDBCommand.mm in Sources */,
 				24DA244C121B56B50023C8C2 /* TapDBService.mm in Sources */,
@@ -1285,7 +1283,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				OTHER_CFLAGS = "-ftree-vectorize";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = YES;
@@ -1316,7 +1314,7 @@
 					"\"${PODS_ROOT}/Headers/Public/SQLitePersistentObject\"",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = sh.tat.tapmania;
 				PRODUCT_NAME = TapMania;
@@ -1358,7 +1356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-ftree-vectorize";
 				OTHER_LDFLAGS = "-ObjC";
@@ -1389,7 +1387,7 @@
 					"\"${PODS_ROOT}/Headers/Public/SQLitePersistentObject\"",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = sh.tat.tapmania;

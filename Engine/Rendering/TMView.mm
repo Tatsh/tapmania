@@ -11,6 +11,7 @@
 #import "TapMania.h"
 #import "EAGLView.h"
 #import "InputEngine.h"
+#import "TMControl.h"
 
 @implementation TMView
 
@@ -140,7 +141,7 @@
 /* TMRenderable method */
 - (void)render:(float)fDelta
 {
-    int curSize = m_pChildren->size();
+    unsigned long curSize = m_pChildren->size();
 
     /* Now draw all children */
     for (int i = 0; i < curSize; ++i)
@@ -157,7 +158,7 @@
 /* TMLogicUpdater stuff */
 - (void)update:(float)fDelta
 {
-    int curSize = m_pChildren->size();
+    unsigned long curSize = m_pChildren->size();
 
     /* Now update all children */
     for (int i = 0; i < curSize; ++i)
@@ -185,7 +186,7 @@
             // Forward to children
             if (!m_pControls->empty())
             {
-                int curSize = m_pControls->size();
+                unsigned long curSize = m_pControls->size();
 
                 for (int i = 0; i < curSize; ++i)
                 {
@@ -215,7 +216,7 @@
             // Forward to children
             if (!m_pControls->empty())
             {
-                int curSize = m_pControls->size();
+                unsigned long curSize = m_pControls->size();
 
                 for (int i = 0; i < curSize; ++i)
                 {

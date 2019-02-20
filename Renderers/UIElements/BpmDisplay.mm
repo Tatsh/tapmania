@@ -43,8 +43,8 @@
     m_max = 0;
     m_min = INT_MAX;
 
-    int cnt = [m_pCurSong getBpmChangeCount];
-    for (int i=0; i<cnt; ++i)
+    unsigned long cnt = [m_pCurSong getBpmChangeCount];
+    for (unsigned long i=0; i<cnt; ++i)
     {
         TMChangeSegment *change = [m_pCurSong getBpmChangeAt:i];
         float bpm = change.m_fChangeValue*60.0f;

@@ -17,7 +17,7 @@
 @synthesize m_dHitTime, m_dTimeTillHit, m_bIsHolding, m_bIsHoldLost, m_nScore, m_nTimingFlag, m_nHoldScore;
 @synthesize m_dLastHoldTouchTime, m_dLastHoldReleaseTime, m_nStartNoteRow, m_nStopNoteRow, m_fStartYPosition, m_fStopYPosition;
 
-- (id) initWithNoteRow:(int) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack {
+- (id) initWithNoteRow:(long) noteRow andType:(TMNoteType)type onTrack:(TMAvailableTracks)inTrack {
 	self = [super init];
 	if(!self)
 		return nil;
@@ -115,7 +115,7 @@
 	BROADCAST_MESSAGE(kHoldLostMessage, self);
 }
 
-+ (TMBeatType) getBeatType:(int) row {
++ (TMBeatType) getBeatType:(long) row {
 	if(row % (kRowsPerMeasure/4) == 0)	return kBeatType_4th;
 	if(row % (kRowsPerMeasure/8) == 0)	return kBeatType_8th;
 	if(row % (kRowsPerMeasure/12) == 0)	return kBeatType_12th;
@@ -127,11 +127,11 @@
 	return kBeatType_192nd;
 }
 
-+ (float) noteRowToBeat:(int) noteRow {
++ (float) noteRowToBeat:(long) noteRow {
 	return noteRow / (float)kRowsPerBeat;
 }
 
-+ (int) beatToNoteRow:(float) beat {
++ (long) beatToNoteRow:(float) beat {
 	return lrintf( beat * kRowsPerBeat );	
 }
 
