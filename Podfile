@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.1'
+platform :ios, '9.3'
 
 target 'TapMania' do
   pod 'SQLitePersistentObject', '~> 0.3'

@@ -387,6 +387,10 @@
 		24F1AA1C106A44DC00A63B96 /* SongPickerWheel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SongPickerWheel.mm; path = Renderers/UIElements/SongPickerWheel.mm; sourceTree = "<group>"; };
 		24F265D11230589C0024857A /* DialogCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogCommand.h; sourceTree = "<group>"; };
 		24F265D21230589C0024857A /* DialogCommand.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DialogCommand.mm; sourceTree = "<group>"; };
+		2648ACF2221FBE5E00A38665 /* rapidxml_iterators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_iterators.hpp; sourceTree = "<group>"; };
+		2648ACF3221FBE5E00A38665 /* rapidxml_print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_print.hpp; sourceTree = "<group>"; };
+		2648ACF4221FBE5E00A38665 /* rapidxml_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_utils.hpp; sourceTree = "<group>"; };
+		2648ACF5221FBE5E00A38665 /* rapidxml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml.hpp; sourceTree = "<group>"; };
 		268057941FF24248003709CD /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		268057961FF2431A003709CD /* TapMania.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TapMania.entitlements; sourceTree = "<group>"; };
 		268057971FF2431C003709CD /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -558,6 +562,7 @@
 		2486F18C0EC077BA00E5F9EE /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				2648ACF1221FBE5E00A38665 /* RapidXML */,
 				24B3F866107AA1FB001E7DBB /* ObjCPtr.h */,
 				24D4C0ED0F1B2D8700643CC2 /* PhysicsUtil.h */,
 				24D4C0EE0F1B2D8700643CC2 /* PhysicsUtil.mm */,
@@ -898,7 +903,18 @@
 			path = MessageSupport;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		2648ACF1221FBE5E00A38665 /* RapidXML */ = {
+			isa = PBXGroup;
+			children = (
+				2648ACF2221FBE5E00A38665 /* rapidxml_iterators.hpp */,
+				2648ACF3221FBE5E00A38665 /* rapidxml_print.hpp */,
+				2648ACF4221FBE5E00A38665 /* rapidxml_utils.hpp */,
+				2648ACF5221FBE5E00A38665 /* rapidxml.hpp */,
+			);
+			path = RapidXML;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Engine */,
@@ -1040,7 +1056,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
